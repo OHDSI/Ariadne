@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#welcome-to-mkdocs" class="md-skip">
+        <a href="#ariadne" class="md-skip">
           Skip to content
         </a>
       
@@ -256,10 +256,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#commands" class="md-nav__link">
+  <a href="#features" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Commands
+        Features
       
     </span>
   </a>
@@ -267,10 +267,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-layout" class="md-nav__link">
+  <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Project layout
+        Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install from Source
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License
       
     </span>
   </a>
@@ -727,10 +777,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#commands" class="md-nav__link">
+  <a href="#features" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Commands
+        Features
       
     </span>
   </a>
@@ -738,10 +788,60 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#project-layout" class="md-nav__link">
+  <a href="#installation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Project layout
+        Installation
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-from-source" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install from Source
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Configuration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        License
       
     </span>
   </a>
@@ -765,21 +865,42 @@
 
 
 
-<h1 id="welcome-to-mkdocs">Welcome to MkDocs</h1>
-<p>For full documentation visit <a href="https://www.mkdocs.org">mkdocs.org</a>.</p>
-<h2 id="commands">Commands</h2>
+<h1 id="ariadne">Ariadne <a href="https://github.com/OHDSI/ariadne"><img src="assets/logo.png" align="right" height="138" alt="Ariadne website" /></a></h1>
+<p><a href="https://opensource.org/licenses/Apache-2.0"><img alt="License" src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" /></a>
+<a href="https://www.python.org/downloads/"><img alt="Python" src="https://img.shields.io/badge/python-3.12+-blue.svg" /></a></p>
+<p><strong>Ariadne</strong> is a Python toolkit for mapping source terminologies to standard concepts in the OHDSI Vocabulary. </p>
+<h2 id="features">Features</h2>
 <ul>
-<li><code>mkdocs new [dir-name]</code> - Create a new project.</li>
-<li><code>mkdocs serve</code> - Start the live-reloading docs server.</li>
-<li><code>mkdocs build</code> - Build the documentation site.</li>
-<li><code>mkdocs -h</code> - Print help message and exit.</li>
+<li><strong>Verbatim term mapping:</strong> maps terms that (almost) exactly match standard concepts. Using term normalization techniques like lowercasing, punctuation removal, and word stemming.</li>
+<li><strong>Embedding vector search:</strong> leverages embedding language models to find semantically similar standard concepts for source terms.</li>
+<li><strong>Exact term mapping:</strong> using reasoning LLMs to find exact matches in the vocabulary.</li>
+<li><strong>Evaluation:</strong> uses golden standard mappings to evaluate mapping performance.</li>
 </ul>
-<h2 id="project-layout">Project layout</h2>
-<pre><code>mkdocs.yml    # The configuration file.
-docs/
-    index.md  # The documentation homepage.
-    ...       # Other markdown pages, images and other files.
+<h2 id="installation">Installation</h2>
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+<li>Python <strong>3.12</strong> or higher.</li>
+</ul>
+<h3 id="install-from-source">Install from Source</h3>
+<pre><code class="language-bash">git clone [https://github.com/OHDSI/ariadne.git](https://github.com/OHDSI/ariadne.git)
+cd ariadne
+
+pip install -e .
 </code></pre>
+<h2 id="configuration">Configuration</h2>
+<p>Ariadne uses environment variables for database connections and API keys.</p>
+<ol>
+<li>
+<p>Copy the example configuration:
+    <code>bash
+    cp .env.example .env</code> </p>
+</li>
+<li>
+<p>Edit the <code>.env</code> file to set your database connection details and API keys. <strong>Do not commit this file to version control.</strong></p>
+</li>
+</ol>
+<h2 id="license">License</h2>
+<p>This project is licensed under the Apache 2.0 License. See the <a href="LICENSE">LICENSE</a> file for details.</p>
 
 
 

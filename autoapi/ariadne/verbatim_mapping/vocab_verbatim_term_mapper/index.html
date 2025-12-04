@@ -660,6 +660,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ariadne.verbatim_mapping.vocab_verbatim_term_mapper.Concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ariadne.verbatim_mapping.vocab_verbatim_term_mapper.VocabVerbatimTermMapper" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -755,6 +766,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#ariadne.verbatim_mapping.vocab_verbatim_term_mapper.Concept" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concept
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#ariadne.verbatim_mapping.vocab_verbatim_term_mapper.VocabVerbatimTermMapper" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -831,6 +853,73 @@
 
 
 
+<h2 id="ariadne.verbatim_mapping.vocab_verbatim_term_mapper.Concept" class="doc doc-heading">
+            <code>Concept</code>
+
+
+  <span class="doc doc-labels">
+      <small class="doc doc-label doc-label-dataclass"><code>dataclass</code></small>
+  </span>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+
+
+        <p>A data class representing a vocabulary concept with its ID and name.</p>
+
+
+
+
+
+
+
+
+              <details class="mkdocstrings-source">
+                <summary>Source code in <code>src/ariadne/verbatim_mapping/vocab_verbatim_term_mapper.py</code></summary>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@dataclass</span><span class="p">(</span><span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Concept</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A data class representing a vocabulary concept with its ID and name.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">concept_id</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">concept_name</span><span class="p">:</span> <span class="nb">str</span>
+</code></pre></div></td></tr></table></div>
+              </details>
+
+
+
+<div class="doc doc-children">
+
+
+
+
+
+
+
+
+
+
+
+
+  </div>
+
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-class">
+
+
+
 <h2 id="ariadne.verbatim_mapping.vocab_verbatim_term_mapper.VocabVerbatimTermMapper" class="doc doc-heading">
             <code>VocabVerbatimTermMapper</code>
 
@@ -857,10 +946,7 @@ module.
 
               <details class="mkdocstrings-source">
                 <summary>Source code in <code>src/ariadne/verbatim_mapping/vocab_verbatim_term_mapper.py</code></summary>
-                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 36</span>
-<span class="normal"> 37</span>
-<span class="normal"> 38</span>
-<span class="normal"> 39</span>
+                <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 39</span>
 <span class="normal"> 40</span>
 <span class="normal"> 41</span>
 <span class="normal"> 42</span>
@@ -932,7 +1018,14 @@ module.
 <span class="normal">108</span>
 <span class="normal">109</span>
 <span class="normal">110</span>
-<span class="normal">111</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">VocabVerbatimTermMapper</span><span class="p">:</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">VocabVerbatimTermMapper</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Maps source terms to concept IDs using a pre-built index of normalized terms.</span>
 <span class="sd">    The index is created from vocabulary term files stored in Parquet format, downloaded using the download_terms</span>
@@ -997,8 +1090,12 @@ module.
     <span class="k">def</span><span class="w"> </span><span class="nf">map_term</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_term</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Concept</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Maps a source term to concept IDs using the pre-built index.</span>
-<span class="sd">        :param source_term: the source clinical term to map</span>
-<span class="sd">        :return: a list of matching concepts, possibly empty if no match is found.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            source_term: the source clinical term to map</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of matching concepts, possibly empty if no match is found.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">normalized_source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">term_normalizer</span><span class="o">.</span><span class="n">normalize_term</span><span class="p">(</span><span class="n">source_term</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">normalized_source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>
@@ -1035,17 +1132,71 @@ module.
 
     <div class="doc doc-contents ">
 
-        <p>Maps a source term to concept IDs using the pre-built index.
-:param source_term: the source clinical term to map
-:return: a list of matching concepts, possibly empty if no match is found.</p>
+        <p>Maps a source term to concept IDs using the pre-built index.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>source_term</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>the source clinical term to map</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.List">List</span>[<a class="autorefs autorefs-internal" title="Concept
+
+
+  
+      dataclass
+   (ariadne.verbatim_mapping.vocab_verbatim_term_mapper.Concept)" href="#ariadne.verbatim_mapping.vocab_verbatim_term_mapper.Concept">Concept</a>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A list of matching concepts, possibly empty if no match is found.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/ariadne/verbatim_mapping/vocab_verbatim_term_mapper.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 98</span>
-<span class="normal"> 99</span>
-<span class="normal">100</span>
-<span class="normal">101</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">101</span>
 <span class="normal">102</span>
 <span class="normal">103</span>
 <span class="normal">104</span>
@@ -1055,11 +1206,22 @@ module.
 <span class="normal">108</span>
 <span class="normal">109</span>
 <span class="normal">110</span>
-<span class="normal">111</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">map_term</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_term</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Concept</span><span class="p">]:</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">map_term</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">source_term</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Concept</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Maps a source term to concept IDs using the pre-built index.</span>
-<span class="sd">    :param source_term: the source clinical term to map</span>
-<span class="sd">    :return: a list of matching concepts, possibly empty if no match is found.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        source_term: the source clinical term to map</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A list of matching concepts, possibly empty if no match is found.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">normalized_source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">term_normalizer</span><span class="o">.</span><span class="n">normalize_term</span><span class="p">(</span><span class="n">source_term</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">normalized_source</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">:</span>

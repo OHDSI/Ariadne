@@ -808,7 +808,7 @@
     <div class="doc doc-contents ">
 
         <p>Sets up the root logger where it writes all logging events to file, and writing events at or above 'info' to
-console. Events are appended to the log file.</p>
+console. Events are appended to the log file. The logger will also capture uncaught exceptions.</p>
 
 
 <p><span class="doc-section-title">Parameters:</span></p>
@@ -858,6 +858,29 @@ console. Events are appended to the log file.</p>
     </table>
 
 
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>None</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
             <details class="mkdocstrings-source">
               <summary>Source code in <code>src/ariadne/utils/logging.py</code></summary>
               <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">39</span>
@@ -877,15 +900,23 @@ console. Events are appended to the log file.</p>
 <span class="normal">53</span>
 <span class="normal">54</span>
 <span class="normal">55</span>
-<span class="normal">56</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">open_log</span><span class="p">(</span><span class="n">log_file_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clear_log_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">open_log</span><span class="p">(</span><span class="n">log_file_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clear_log_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Sets up the root logger where it writes all logging events to file, and writing events at or above &#39;info&#39; to</span>
-<span class="sd">    console. Events are appended to the log file.</span>
+<span class="sd">    console. Events are appended to the log file. The logger will also capture uncaught exceptions.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        log_file_name: The name of the file where the log will be written to.</span>
 <span class="sd">        clear_log_file: If true, the log file will be cleared before writing to it.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">if</span> <span class="n">clear_log_file</span><span class="p">:</span>
         <span class="nb">open</span><span class="p">(</span><span class="n">log_file_name</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
     <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
@@ -894,7 +925,7 @@ console. Events are appended to the log file.</p>
         <span class="n">_add_file_handler</span><span class="p">(</span><span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">,</span> <span class="n">log_file_name</span><span class="o">=</span><span class="n">log_file_name</span><span class="p">)</span>
         <span class="n">_add_stream_handler</span><span class="p">(</span><span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
 
-    <span class="n">sys</span><span class="o">.</span><span class="n">excepthook</span> <span class="o">=</span> <span class="n">handle_exception</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">excepthook</span> <span class="o">=</span> <span class="n">_handle_exception</span>
 </code></pre></div></td></tr></table></div>
             </details>
     </div>

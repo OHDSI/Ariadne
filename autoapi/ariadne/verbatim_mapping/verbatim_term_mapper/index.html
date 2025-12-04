@@ -891,7 +891,11 @@
 <span class="normal">58</span>
 <span class="normal">59</span>
 <span class="normal">60</span>
-<span class="normal">61</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">VerbatimTermMapper</span><span class="p">:</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">VerbatimTermMapper</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Maps a source term to a provided subset of target concepts based on exact matches of normalized terms.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -908,12 +912,16 @@
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Maps a source term to the best matching target concept ID based on normalized terms.</span>
-<span class="sd">        :param source_term: the source clinical term to map</span>
-<span class="sd">        :param target_concept_ids: a list of target concept IDs</span>
-<span class="sd">        :param target_terms: a list of target clinical terms</span>
-<span class="sd">        :param target_synonyms: a list of target synonyms. Each string is semicolon separated synonyms for the</span>
-<span class="sd">               corresponding target term.</span>
-<span class="sd">        :return: a tuple of (mapped_concept_id, mapped_term) if a match is found, otherwise (None, None)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            source_term: the source clinical term to map</span>
+<span class="sd">            target_concept_ids: a list of target concept IDs</span>
+<span class="sd">            target_terms: a list of target clinical terms</span>
+<span class="sd">            target_synonyms: a list of target synonyms. Each string is semicolon separated synonyms for the</span>
+<span class="sd">            corresponding target term.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A tuple of (mapped_concept_id, mapped_term) if a match is found, otherwise (None, None)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">normalized_source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">term_normalizer</span><span class="o">.</span><span class="n">normalize_term</span><span class="p">(</span><span class="n">source_term</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">concept_id</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">synonyms</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
@@ -955,13 +963,109 @@
 
     <div class="doc doc-contents ">
 
-        <p>Maps a source term to the best matching target concept ID based on normalized terms.
-:param source_term: the source clinical term to map
-:param target_concept_ids: a list of target concept IDs
-:param target_terms: a list of target clinical terms
-:param target_synonyms: a list of target synonyms. Each string is semicolon separated synonyms for the
-       corresponding target term.
-:return: a tuple of (mapped_concept_id, mapped_term) if a match is found, otherwise (None, None)</p>
+        <p>Maps a source term to the best matching target concept ID based on normalized terms.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>source_term</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>the source clinical term to map</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>target_concept_ids</code>
+            </td>
+            <td>
+                  <code><span title="typing.List">List</span>[<span title="int">int</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>a list of target concept IDs</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>target_terms</code>
+            </td>
+            <td>
+                  <code><span title="typing.List">List</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>a list of target clinical terms</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>target_synonyms</code>
+            </td>
+            <td>
+                  <code><span title="typing.List">List</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>a list of target synonyms. Each string is semicolon separated synonyms for the</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>(<span title="typing.Union">Union</span>[<span title="int">int</span>, None], <span title="typing.Union">Union</span>[<span title="str">str</span>, None])</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A tuple of (mapped_concept_id, mapped_term) if a match is found, otherwise (None, None)</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
 
 
             <details class="mkdocstrings-source">
@@ -994,7 +1098,11 @@
 <span class="normal">58</span>
 <span class="normal">59</span>
 <span class="normal">60</span>
-<span class="normal">61</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">map_term</span><span class="p">(</span>
+<span class="normal">61</span>
+<span class="normal">62</span>
+<span class="normal">63</span>
+<span class="normal">64</span>
+<span class="normal">65</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">map_term</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">source_term</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">target_concept_ids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
@@ -1003,12 +1111,16 @@
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="kc">None</span><span class="p">]):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Maps a source term to the best matching target concept ID based on normalized terms.</span>
-<span class="sd">    :param source_term: the source clinical term to map</span>
-<span class="sd">    :param target_concept_ids: a list of target concept IDs</span>
-<span class="sd">    :param target_terms: a list of target clinical terms</span>
-<span class="sd">    :param target_synonyms: a list of target synonyms. Each string is semicolon separated synonyms for the</span>
-<span class="sd">           corresponding target term.</span>
-<span class="sd">    :return: a tuple of (mapped_concept_id, mapped_term) if a match is found, otherwise (None, None)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        source_term: the source clinical term to map</span>
+<span class="sd">        target_concept_ids: a list of target concept IDs</span>
+<span class="sd">        target_terms: a list of target clinical terms</span>
+<span class="sd">        target_synonyms: a list of target synonyms. Each string is semicolon separated synonyms for the</span>
+<span class="sd">        corresponding target term.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A tuple of (mapped_concept_id, mapped_term) if a match is found, otherwise (None, None)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">normalized_source</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">term_normalizer</span><span class="o">.</span><span class="n">normalize_term</span><span class="p">(</span><span class="n">source_term</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">concept_id</span><span class="p">,</span> <span class="n">term</span><span class="p">,</span> <span class="n">synonyms</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
