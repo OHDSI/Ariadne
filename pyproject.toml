@@ -28,6 +28,7 @@ dependencies = [
     "psycopg>=3.2.6",
     "python-dotenv",
     "PyYAML",
+    "spacy>=3.5.0",
 ]
 
 [project.optional-dependencies]

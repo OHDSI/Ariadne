@@ -20,14 +20,7 @@ from typing import Optional, Dict, Any, List
 
 import yaml
 
-
-def get_project_root() -> Path:
-    """Returns the path to the project root directory.
-
-    Assumes this file is at src/ariadne/utils/config.py,
-    so the root is 3 levels up.
-    """
-    return Path(__file__).resolve().parent.parent.parent.parent
+from ariadne.utils.utils import get_project_root, resolve_path
 
 
 def load_config(filename) -> Dict[str, Any]:
@@ -68,10 +61,15 @@ class Config:
         system = config["system"]
         for key, value in system.items():
             setattr(self, key, value)
-        vector_store = config["terms_download"]
+        vector_store = config["verbatim_mapping"]
         for key, value in vector_store.items():
             setattr(self, key, value)
+
+        self.log_folder = resolve_path(self.log_folder)
+        self.terms_folder = resolve_path(self.terms_folder)
+        self.verbatim_mapping_index_file = resolve_path(self.verbatim_mapping_index_file)
 
     def __post_init__(self):
         if self.download_batch_size <= 0:
             raise ValueError(f"download_batch_size must be a positive integer")
+

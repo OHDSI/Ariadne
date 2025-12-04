@@ -4,7 +4,7 @@ system:
   verbatim_mapping_index_file: data/verbatim_mapping_index.pkl
   download_batch_size: 100000
   max_cores: 10
-terms_download:
+verbatim_mapping:
   vocabularies:
   domain_ids:
     - Condition
