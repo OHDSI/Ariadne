@@ -12,6 +12,11 @@
 * **Exact term mapping:** using reasoning LLMs to find exact matches in the vocabulary.
 * **Evaluation:** uses golden standard mappings to evaluate mapping performance.
 
+# Documentation
+
+Comprehensive documentation is available on the [Ariadne Documentation Site](https://ohdsi.github.io/Ariadne/).
+
+
 ##  Installation
 
 ### Prerequisites
@@ -36,9 +41,6 @@ Ariadne uses environment variables for database connections and API keys.
 
 2. Edit the `.env` file to set your database connection details and API keys. **Do not commit this file to version control.**
 
-# Documentation
-
-Comprehensive documentation is available on the [Ariadne Documentation Site](https://ohdsi.github.io/ariadne/).
 
 ## License
 
