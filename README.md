@@ -1,4 +1,4 @@
-# Ariadne <a href="https://github.com/OHDSI/ariadne"><img src="assets/logo.png" align="right" height="138" alt="Ariadne website" /></a>
+# Ariadne <a href="https://github.com/OHDSI/ariadne"><img src="docs/assets/logo.png" align="right" height="138" alt="Ariadne website" /></a>
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
@@ -35,6 +35,10 @@ Ariadne uses environment variables for database connections and API keys.
     ``` 
 
 2. Edit the `.env` file to set your database connection details and API keys. **Do not commit this file to version control.**
+
+# Documentation
+
+Comprehensive documentation is available on the [Ariadne Documentation Site](https://ohdsi.github.io/ariadne/).
 
 ## License
 

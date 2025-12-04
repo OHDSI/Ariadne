@@ -14,7 +14,3 @@ plugins:
 
 nav:
   - Home: index.md
-
-markdown_extensions:
-  - pymdownx.snippets:
-      base_path: !relative $config_dir
