@@ -12,7 +12,7 @@
 * **Exact term mapping:** using reasoning LLMs to find exact matches in the vocabulary.
 * **Evaluation:** uses golden standard mappings to evaluate mapping performance.
 
-# Documentation
+## Documentation
 
 Comprehensive documentation is available on the [Ariadne Documentation Site](https://ohdsi.github.io/Ariadne/).
 
