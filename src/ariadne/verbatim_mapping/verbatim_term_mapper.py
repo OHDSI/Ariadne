@@ -39,12 +39,16 @@ class VerbatimTermMapper:
     ) -> (Union[int, None], Union[str, None]):
         """
         Maps a source term to the best matching target concept ID based on normalized terms.
-        :param source_term: the source clinical term to map
-        :param target_concept_ids: a list of target concept IDs
-        :param target_terms: a list of target clinical terms
-        :param target_synonyms: a list of target synonyms. Each string is semicolon separated synonyms for the
-               corresponding target term.
-        :return: a tuple of (mapped_concept_id, mapped_term) if a match is found, otherwise (None, None)
+
+        Args:
+            source_term: the source clinical term to map
+            target_concept_ids: a list of target concept IDs
+            target_terms: a list of target clinical terms
+            target_synonyms: a list of target synonyms. Each string is semicolon separated synonyms for the
+            corresponding target term.
+
+        Returns:
+            A tuple of (mapped_concept_id, mapped_term) if a match is found, otherwise (None, None)
         """
         normalized_source = self.term_normalizer.normalize_term(source_term)
         for concept_id, term, synonyms in zip(

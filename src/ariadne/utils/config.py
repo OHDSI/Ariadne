@@ -43,6 +43,11 @@ def load_config(filename) -> Dict[str, Any]:
 
 @dataclass
 class Config:
+    """
+    Configuration settings for Ariadne components. By default, loads from 'config.yaml' in the project root or current
+    working directory.
+    """
+
     log_folder: str
     terms_folder: str
     download_batch_size: int
@@ -67,9 +72,10 @@ class Config:
 
         self.log_folder = resolve_path(self.log_folder)
         self.terms_folder = resolve_path(self.terms_folder)
-        self.verbatim_mapping_index_file = resolve_path(self.verbatim_mapping_index_file)
+        self.verbatim_mapping_index_file = resolve_path(
+            self.verbatim_mapping_index_file
+        )
 
     def __post_init__(self):
         if self.download_batch_size <= 0:
             raise ValueError(f"download_batch_size must be a positive integer")
-

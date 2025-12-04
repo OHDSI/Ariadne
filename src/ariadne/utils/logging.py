@@ -36,15 +36,19 @@ def _add_file_handler(logger: logging.Logger, log_file_name: str):
     return logger
 
 
-def open_log(log_file_name: str, clear_log_file: bool = False):
+def open_log(log_file_name: str, clear_log_file: bool = False) -> None:
     """
     Sets up the root logger where it writes all logging events to file, and writing events at or above 'info' to
-    console. Events are appended to the log file.
+    console. Events are appended to the log file. The logger will also capture uncaught exceptions.
 
     Args:
         log_file_name: The name of the file where the log will be written to.
         clear_log_file: If true, the log file will be cleared before writing to it.
+
+    Returns:
+        None
     """
+
     if clear_log_file:
         open(log_file_name, "w").close()
     logger = logging.getLogger()
@@ -53,10 +57,10 @@ def open_log(log_file_name: str, clear_log_file: bool = False):
         _add_file_handler(logger=logger, log_file_name=log_file_name)
         _add_stream_handler(logger=logger)
 
-    sys.excepthook = handle_exception
+    sys.excepthook = _handle_exception
 
 
-def handle_exception(exc_type, exc_value, exc_traceback):
+def _handle_exception(exc_type, exc_value, exc_traceback):
     if not issubclass(exc_type, KeyboardInterrupt):
         logger = logging.getLogger()
         logger.critical(

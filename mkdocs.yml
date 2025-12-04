@@ -6,7 +6,15 @@ plugins:
   - search
   - mkdocstrings:
       default_handler: python
+  - mkdocs-autoapi:
+      autoapi_dir: src
+      output_dir: api
+      watch:
+        - src
 
 nav:
   - Home: index.md
-  - API Reference: reference.md
+
+markdown_extensions:
+  - pymdownx.snippets:
+      base_path: !relative $config_dir

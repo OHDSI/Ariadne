@@ -29,6 +29,9 @@ from ariadne.verbatim_mapping.term_normalizer import TermNormalizer
 
 @dataclass(slots=True)
 class Concept:
+    """
+    A data class representing a vocabulary concept with its ID and name.
+    """
     concept_id: int
     concept_name: str
 
@@ -98,8 +101,12 @@ class VocabVerbatimTermMapper:
     def map_term(self, source_term: str) -> List[Concept]:
         """
         Maps a source term to concept IDs using the pre-built index.
-        :param source_term: the source clinical term to map
-        :return: a list of matching concepts, possibly empty if no match is found.
+
+        Args:
+            source_term: the source clinical term to map
+
+        Returns:
+            A list of matching concepts, possibly empty if no match is found.
         """
         normalized_source = self.term_normalizer.normalize_term(source_term)
         if normalized_source in self.index:
