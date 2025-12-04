@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ariadne"
+version = "0.0.1"
+description = "Augmented Reasoning Intelligence for Aligning Diverse Nomenclature Entities."
+readme = "README.md"
+requires-python = ">=3.12"
+license = {file = "LICENSE"}
+authors = [
+  {name = "Anna Ostropolets", email = "ostropolets@ohdsi.org"},
+  {name = "Martijn Schuemie", email = "schuemie@ohdsi.org"},
+]
+keywords = ["ohdsi", "omop", "vocabulary", "mapping"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "pandas>=2.1.0",
+    "pyarrow>=14.0.0",
+    "sqlalchemy>=2.0.0",
+    "psycopg>=3.2.6",
+    "python-dotenv",
+    "PyYAML",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-cov",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/OHDSI/ariadne"
+"Bug Tracker" = "https://github.com/OHDSI/ariadne/issues"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+addopts = "-ra -q"
+
+[tool.black]
+line-length = 88
+target-version = ['py312']
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+select = ["E", "F", "I"]
+
+[tool.ruff.isort]
+known-first-party = ["ariadne"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["ariadne*"]

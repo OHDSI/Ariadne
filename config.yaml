@@ -1,0 +1,15 @@
+system:
+  log_folder: logs
+  terms_folder: data/terms
+  verbatim_mapping_index_file: data/verbatim_mapping_index.pkl
+  download_batch_size: 100000
+  max_cores: 10
+terms_download:
+  vocabularies:
+  domain_ids:
+    - Condition
+    - Observation
+    - Measurement
+    - Procedure
+  include_classification_concepts: false
+  include_synonyms: true
