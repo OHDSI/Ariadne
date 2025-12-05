@@ -18,19 +18,12 @@
 import multiprocessing
 import os
 import pickle
-from dataclasses import dataclass
 
 import pandas as pd
 from typing import Set, List, Optional
 
 from ariadne.utils.config import Config
 from ariadne.verbatim_mapping.term_normalizer import TermNormalizer
-
-
-@dataclass(slots=True)
-class Concept:
-    concept_id: int
-    concept_name: str
 
 
 class VocabVerbatimTermMapper:
@@ -73,11 +66,11 @@ class VocabVerbatimTermMapper:
             for norm_term, concept_id, concept_name in zip(
                 normalized_terms, df["concept_id"].tolist(), df["concept_name"].tolist()
             ):
-                concept = Concept(concept_id, concept_name)
+                concept = (concept_id, concept_name)
                 if norm_term in index_data:
                     existing = index_data[norm_term]
                     if isinstance(existing, list):
-                        if concept_id not in existing:
+                        if concept_id not in [c[0] for c in existing]:
                             existing.append(concept)
                     else:
                         if concept_id != existing:
@@ -95,36 +88,46 @@ class VocabVerbatimTermMapper:
         except OSError as e:
             print(f"Error saving index: {e}")
 
-    def map_term(self, source_term: str) -> List[Concept]:
+    def map_term(self, source_term: str) -> List[tuple[int, str]]:
         """
         Maps a source term to concept IDs using the pre-built index.
         :param source_term: the source clinical term to map
-        :return: a list of matching concepts, possibly empty if no match is found.
+        :return: a list of concept ID - concept name tuples, possibly empty if no match is found.
         """
         normalized_source = self.term_normalizer.normalize_term(source_term)
         if normalized_source in self.index:
-            concept_ids = self.index[normalized_source]
-            if isinstance(concept_ids, list):
-                return concept_ids
+            concepts = self.index[normalized_source]
+            if isinstance(concepts, list):
+                return concepts
             else:
-                return [concept_ids]
+                return [concepts]
         return []
 
 
 if __name__ == "__main__":
     mapper = VocabVerbatimTermMapper()
 
-    concept = mapper.map_term("Hepatic disorder")
-    for c in concept:
-        print(f"Mapped to concept: {c.concept_name} ({c.concept_id})")
+    concepts = mapper.map_term("Acute myocardial infarction")
+    for concept in concepts:
+        print(f"Mapped to concept: {concept[1]} ({concept[0]})")
 
-    # terms = pd.read_csv("E:/temp/mapping_quality/ICD10CMterms.csv")
-    # mapped_count = 0
-    # unmapped_count = 0
-    # for term in terms["concept_name"].tolist():
-    #     mapped_ids = mapper.map_term_using_index(term)
-    #     if mapped_ids:
-    #         mapped_count += 1
+    # new_index = {}
+    # for term, concepts in mapper.index.items():
+    #     if isinstance(concepts, list):
+    #         # Remove duplicates:
+    #         new_concepts = []
+    #         seen_ids = set()
+    #         for concept in concepts:
+    #             if concept[0] not in seen_ids:
+    #                 new_concepts.append(concept)
+    #                 seen_ids.add(concept[0])
+    #         concepts = new_concepts
+    #         if len(concepts) == 1:
+    #             new_index[term] = concepts[0]
+    #         else:
+    #             new_index[term] = concepts
     #     else:
-    #         unmapped_count += 1
-    # print(f"Mapped terms: {mapped_count}, Unmapped terms: {unmapped_count}")
+    #         new_index[term] = concepts
+    # with open("E:/temp/mapping_quality/vocab_verbatim_index.pkl", "wb") as f:
+    #     pickle.dump(new_index, f)
+
