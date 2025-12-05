@@ -1,0 +1,16 @@
+site_name: Ariadne Documentation
+theme:
+  name: material
+
+plugins:
+  - search
+  - mkdocstrings:
+      default_handler: python
+  - mkdocs-autoapi:
+      autoapi_dir: src
+      output_dir: api
+      watch:
+        - src
+
+nav:
+  - Home: index.md

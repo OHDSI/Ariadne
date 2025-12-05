@@ -147,7 +147,7 @@ def download_terms(config: Config = Config()) -> None:
     Download terms from vocabulary database and store them in parquet files for use in verbatim mapping.
     Args:
         config: A Config object containing configuration parameters. This function uses the verbatim_mapping section of
-        the config.
+        the config, which specifies the vocabularies, domains, etc. to filter the terms to be downloaded.
 
     Returns:
         None

@@ -38,6 +38,7 @@ class TermNormalizer:
         Normalizes a clinical term string for high-precision matching.
 
         The pipeline is:
+
         1. Convert to lowercase.
         2. Remove possessive "'s" at the end of words.
         3. Remove specific non-informative substrings (e.g., '(disorder)').
@@ -47,6 +48,11 @@ class TermNormalizer:
 
         This makes "liver disorders" and "Liver-Disorders (disorder)"
         both normalize to "liver disorder".
+
+        Args:
+            term: The clinical term string to normalize.
+        Returns:
+            The normalized term string.
         """
         # 1. Convert to lowercase
         term = term.lower()

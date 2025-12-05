@@ -6,6 +6,7 @@ mapper = VocabVerbatimTermMapper()
 terms = pd.read_csv("E:/temp/mapping_quality/ICD10CMterms.csv")
 mapped_count = 0
 unmapped_count = 0
+count = 0
 concept_ids = []
 concept_names = []
 for term in terms["concept_name"].tolist():
@@ -18,6 +19,9 @@ for term in terms["concept_name"].tolist():
         unmapped_count += 1
         concept_ids.append("")
         concept_names.append("")
+    count += 1
+    if count % 1000 == 0:
+        print(f"Processed {count} terms...")
 terms["mapped_concept_ids"] = concept_ids
 terms["mapped_concept_names"] = concept_names
 terms.to_csv("E:/temp/mapping_quality/ICD10CMterms_mapped.csv", index=False)

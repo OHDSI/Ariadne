@@ -24,10 +24,22 @@ def get_project_root() -> Path:
     Assumes this file is at src/ariadne/utils/config.py,
     so the root is 3 levels up.
     """
+
     return Path(__file__).resolve().parent.parent.parent.parent
 
 
 def get_environment_variable(name: str) -> str:
+    """Retrieves the value of the specified environment variable.
+
+    Args:
+        name: The name of the environment variable.
+
+    Returns:
+        The value of the environment variable.
+    Raises:
+        EnvironmentError: If the environment variable is not set.
+    """
+
     value = os.getenv(name)
     if value is None:
         raise EnvironmentError(f"Environment variable '{name}' is not set.")
@@ -35,7 +47,14 @@ def get_environment_variable(name: str) -> str:
 
 
 def resolve_path(path: str) -> str:
-    """If the path is relative, makes it absolute by prepending the project root."""
+    """If the path is relative, makes it absolute by prepending the project root.
+
+    Args:
+        path: The file path to resolve.
+    Returns:
+        The absolute file path as a string.
+    """
+    
     p = Path(path)
     if not p.is_absolute():
         p = get_project_root() / p

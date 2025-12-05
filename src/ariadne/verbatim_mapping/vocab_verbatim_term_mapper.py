@@ -91,8 +91,12 @@ class VocabVerbatimTermMapper:
     def map_term(self, source_term: str) -> List[tuple[int, str]]:
         """
         Maps a source term to concept IDs using the pre-built index.
-        :param source_term: the source clinical term to map
-        :return: a list of concept ID - concept name tuples, possibly empty if no match is found.
+
+        Args:
+            source_term: the source clinical term to map
+
+        Returns:
+            A list of concept ID - concept name tuples, possibly empty if no match is found.
         """
         normalized_source = self.term_normalizer.normalize_term(source_term)
         if normalized_source in self.index:
