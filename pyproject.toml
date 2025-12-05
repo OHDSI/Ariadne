@@ -29,6 +29,7 @@ dependencies = [
     "python-dotenv",
     "PyYAML",
     "spacy>=3.5.0",
+    "openai>=2.9.0",
 ]
 
 [project.optional-dependencies]

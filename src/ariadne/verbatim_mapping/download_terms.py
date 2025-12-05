@@ -39,7 +39,7 @@ from sqlalchemy.orm import aliased
 import pyarrow as pa
 import pyarrow.parquet as pq
 
-from ariadne.utils.logging import open_log
+from ariadne.utils.logger import open_log
 from ariadne.utils.config import Config
 from ariadne.utils.utils import get_environment_variable
 
@@ -49,7 +49,7 @@ load_dotenv()
 def _create_query(engine: Engine, config: Config) -> Select:
     metadata = MetaData()
 
-    vocabulary_schema = get_environment_variable("vocabulary_schema")
+    vocabulary_schema = get_environment_variable("VOCAB_SCHEMA")
 
     concept = Table("concept", metadata, schema=vocabulary_schema, autoload_with=engine)
 
@@ -158,7 +158,7 @@ def download_terms(config: Config = Config()) -> None:
 
     logging.info("Starting downloading terms")
 
-    source_engine = create_engine(get_environment_variable("vocab_connection_string"))
+    source_engine = create_engine(get_environment_variable("VOCAB_CONNECTION_STRING"))
     query = _create_query(engine=source_engine, config=config)
 
     with source_engine.connect() as source_connection:

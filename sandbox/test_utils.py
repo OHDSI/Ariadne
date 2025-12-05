@@ -1,6 +1,6 @@
 import logging
 
-from ariadne.utils.logging import open_log, _handle_exception
+from ariadne.utils.logger import open_log, _handle_exception
 from ariadne.utils.config import Config
 
 

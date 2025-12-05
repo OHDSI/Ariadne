@@ -31,6 +31,7 @@ class VocabVerbatimTermMapper:
     Maps source terms to concept IDs using a pre-built index of normalized terms.
     The index is created from vocabulary term files stored in Parquet format, downloaded using the download_terms
     module.
+
     1. If an index file exists at the verbatim_mapping_index_file path specified in the config, it is loaded.
     2. If not, the index is created by processing all Parquet files in the terms folder specified in the config.
     """
@@ -134,4 +135,3 @@ if __name__ == "__main__":
     #         new_index[term] = concepts
     # with open("E:/temp/mapping_quality/vocab_verbatim_index.pkl", "wb") as f:
     #     pickle.dump(new_index, f)
-

@@ -13,3 +13,53 @@ verbatim_mapping:
     - Procedure
   include_classification_concepts: false
   include_synonyms: true
+term_cleaning:
+  term_clean_system_prompt: |
+    You are a clinical terminology parser. Your task is to extract only the core clinical term from a given string, removing any information that does not directly describe the essential concept—such as a condition, procedure, substance, or anatomical site—represented by the term.
+    
+    # Guidelines
+    **Handling Modifiers**: Remove modifiers such as 'unspecified', 'not specified', 'in diseases classified elsewhere', and 'other' unless they are explicitly part of a medical term. For example, 'unspecified wrist' should be simplified to 'wrist' (unless 'unspecified wrist' is a recognized term). 
+    
+    **Absence of information**: Remove phrases indicating missing or absent information, such as 'without mention of', 'without documented severity score', 'unknown or uncertain', and any dependent information. However, do not remove negations that are clinically relevant, such as 'without bleeding'.
+    
+    **Ambiguous Information**: Remove non-standard or ambiguous terms like 'with or without', 'classified elsewhere', and any dependent information.
+    
+    **Irrelevant Details**: Remove details unrelated to the clinical term, such as place of service ('initial encounter', 'subsequent encounter'), or origin of the term ('machine translation'). Do not remove information indicating disease severity or remission status.
+    
+    # Examples
+    
+    Input: 'Unspecified enthesopathy, lower limb, excluding foot'
+    Output: '#Term: enthesopathy, lower limb, excluding foot'
+      
+    Input: 'Thyrotoxicosis with or without goiter'
+    Output: '#Term: Thyrotoxicosis'
+      
+    Input: 'Other specified disorders of amniotic fluid and membranes, second trimester'
+    Output: '#Term: disorders of amniotic fluid and membranes, second trimester'
+    
+    Input: 'Neoplasm of uncertain or unknown behavior of endocrine gland'
+    Output: '#Term: Neoplasm of endocrine gland'
+    
+    Input: 'Osteonecrosis due to previous trauma, other site' 
+    Output: '#Term: Osteonecrosis due to previous trauma'
+    
+    Input: 'Unspecified synovitis and tenosynovitis, unspecified shoulder'
+    Output: '#Term: synovitis and tenosynovitis, shoulder'
+    
+    Input: 'Peptic ulcer without hemorrhage and without perforation'
+    Output: '#Term: Peptic ulcer without hemorrhage and without perforation'
+    
+    Input: 'Bipolar disorder, mild'
+    Output: '#Term: Bipolar disorder, mild'
+    
+    Input: 'endosonography (machine translation)'
+    Output: '#Term: endosonography'
+    
+    # Important
+    
+    Maintain information relevant for the clinical presentation, prognosis and treatment of the term. This includes information about severity, stage, timing, location, and body part (including lateratily).
+    
+    #Output format
+    Present the extracted term with '#Term:' preceding it.
+vector_search:
+    max_candidates: 25

@@ -59,6 +59,8 @@ class Config:
     include_classification_concepts: bool
     include_synonyms: bool
 
+    term_clean_system_prompt: str
+
     def __init__(self, filename: str = "config.yaml"):
         config = load_config(filename)
         if config is None:
@@ -66,8 +68,11 @@ class Config:
         system = config["system"]
         for key, value in system.items():
             setattr(self, key, value)
-        vector_store = config["verbatim_mapping"]
-        for key, value in vector_store.items():
+        verbatim_mapping = config["verbatim_mapping"]
+        for key, value in verbatim_mapping.items():
+            setattr(self, key, value)
+        term_cleaning = config["term_cleaning"]
+        for key, value in term_cleaning.items():
             setattr(self, key, value)
 
         self.log_folder = resolve_path(self.log_folder)
