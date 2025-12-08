@@ -47,14 +47,14 @@ load_dotenv()
 
 
 def _create_query(engine: Engine, config: Config) -> Select:
-    metadata = MetaData()
-
     vocabulary_schema = get_environment_variable("VOCAB_SCHEMA")
+    filter_config = config.verbatim_mapping.standard_concept_filter
 
+    metadata = MetaData()
     concept = Table("concept", metadata, schema=vocabulary_schema, autoload_with=engine)
 
     standard_concepts = ["S"]
-    if config.include_classification_concepts:
+    if filter_config.include_classification_concepts:
         standard_concepts.append("C")
 
     # Get concept names
@@ -67,12 +67,12 @@ def _create_query(engine: Engine, config: Config) -> Select:
         # concept.c.standard_concept,
         # cast("name", String).label("source"),
     ).where(concept.c.standard_concept.in_(standard_concepts))
-    if config.domain_ids:
-        query1 = query1.where(concept.c.domain_id.in_(config.domain_ids))
-    if config.vocabularies:
-        query1 = query1.where(concept.c.vocabulary_id.in_(config.vocabularies))
+    if filter_config.domain_ids:
+        query1 = query1.where(concept.c.domain_id.in_(filter_config.domain_ids))
+    if filter_config.vocabularies:
+        query1 = query1.where(concept.c.vocabulary_id.in_(filter_config.vocabularies))
 
-    if config.include_synonyms:
+    if filter_config.include_synonyms:
         # Get concept synonyms.
         concept_synonym = Table(
             "concept_synonym",
@@ -152,22 +152,22 @@ def download_terms(config: Config = Config()) -> None:
     Returns:
         None
     """
-    os.makedirs(config.log_folder, exist_ok=True)
-    os.makedirs(config.terms_folder, exist_ok=True)
-    open_log(os.path.join(config.log_folder, "logDownloadTerms.txt"))
+    os.makedirs(config.system.log_folder, exist_ok=True)
+    os.makedirs(config.system.terms_folder, exist_ok=True)
+    open_log(os.path.join(config.system.log_folder, "logDownloadTerms.txt"))
 
     logging.info("Starting downloading terms")
 
-    source_engine = create_engine(get_environment_variable("VOCAB_CONNECTION_STRING"))
-    query = _create_query(engine=source_engine, config=config)
+    engine = create_engine(get_environment_variable("VOCAB_CONNECTION_STRING"))
+    query = _create_query(engine=engine, config=config)
 
-    with source_engine.connect() as source_connection:
-        terms_result_set = source_connection.execution_options(
+    with engine.connect() as connection:
+        terms_result_set = connection.execution_options(
             stream_results=True
         ).execute(query)
         total_inserted = 0
         while True:
-            chunk = terms_result_set.fetchmany(config.download_batch_size)
+            chunk = terms_result_set.fetchmany(config.system.download_batch_size)
             if not chunk:
                 break
             _store_in_parquet(
@@ -179,7 +179,7 @@ def download_terms(config: Config = Config()) -> None:
                 # standard_concepts=[row.standard_concept for row in chunk],
                 # sources=[row.source for row in chunk],
                 file_name=os.path.join(
-                    config.terms_folder,
+                    config.system.terms_folder,
                     f"Terms_{total_inserted + 1}_{total_inserted + len(chunk)}.parquet",
                 ),
             )

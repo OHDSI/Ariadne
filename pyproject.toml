@@ -30,6 +30,7 @@ dependencies = [
     "PyYAML",
     "spacy>=3.5.0",
     "openai>=2.9.0",
+    "pgvector>=0.4.2"
 ]
 
 [project.optional-dependencies]
@@ -48,11 +49,11 @@ python_files = "test_*.py"
 addopts = "-ra -q"
 
 [tool.black]
-line-length = 88
+line-length = 120
 target-version = ['py312']
 
 [tool.ruff]
-line-length = 88
+line-length = 120
 target-version = "py312"
 select = ["E", "F", "I"]
 

@@ -19,6 +19,7 @@ import pandas as pd
 
 from typing import List, Union
 
+from ariadne.utils.config import Config
 from ariadne.verbatim_mapping.term_normalizer import TermNormalizer
 
 
@@ -27,8 +28,8 @@ class VerbatimTermMapper:
     Maps a source term to a provided subset of target concepts based on exact matches of normalized terms.
     """
 
-    def __init__(self):
-        self.term_normalizer = TermNormalizer()
+    def __init__(self, config: Config = Config()):
+        self.term_normalizer = TermNormalizer(config)
 
     def map_term(
         self,

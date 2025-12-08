@@ -5,14 +5,28 @@ system:
   download_batch_size: 100000
   max_cores: 10
 verbatim_mapping:
-  vocabularies:
-  domain_ids:
-    - Condition
-    - Observation
-    - Measurement
-    - Procedure
-  include_classification_concepts: false
-  include_synonyms: true
+  substrings_to_remove:
+    - "(machine translation)"
+    - "(disorder)"
+    - "(event)"
+    - "(finding)"
+    - "(procedure)"
+    - "unspecified"
+    - "not otherwise specified"
+    - "initial encounter for"
+    - "initial encounter"
+    - "subsequent encounter for"
+    - "subsequent encounter"
+  standard_concept_filter:
+    vocabularies:
+    domain_ids:
+      - Condition
+      - Observation
+      - Measurement
+      - Procedure
+    include_classification_concepts: false
+    include_synonyms: true
+
 term_cleaning:
   term_clean_system_prompt: |
     You are a clinical terminology parser. Your task is to extract only the core clinical term from a given string, removing any information that does not directly describe the essential concept—such as a condition, procedure, substance, or anatomical site—represented by the term.

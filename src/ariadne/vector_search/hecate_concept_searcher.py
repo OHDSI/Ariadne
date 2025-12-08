@@ -26,6 +26,10 @@ _HECATE_URL = "https://hecate.pantheon-hds.com/api/search_standard"
 
 class HecateConceptSearcher(AbstractConceptSearcher):
 
+    """
+    A concept searcher that uses the OHDSI Hecate API to find concepts based on query strings.
+    """
+
     def __init__(self, for_evaluation: bool = False):
         """
         Initializes the HecateConceptSearcher.
@@ -51,7 +55,7 @@ class HecateConceptSearcher(AbstractConceptSearcher):
 
     def search(self, query_string: str, limit: int = 25) -> DataFrame:
         """
-        Searches the Hecate API for concepts matching the given query string.
+        Searches for concepts matching the given query string.
 
         Args:
             query_string: The term to search for.
@@ -131,23 +135,31 @@ class HecateConceptSearcher(AbstractConceptSearcher):
             print(f"Processing term '{term}'")
             results = self.search(term, limit=limit)
             if results is not None:
+                rows = []
                 for rank, (_, concept) in enumerate(results.iterrows(), start=1):
-                    all_results.append(
+                    rows.append(
                         {
-                            term_column: term,
                             matched_concept_id_column: concept["concept_id"],
                             matched_concept_name_column: concept["concept_name"],
                             matched_domain_id_column: concept["domain_id"],
-                            matched_concept_class_id_column: concept[
-                                "concept_class_id"
-                            ],
+                            matched_concept_class_id_column: concept["concept_class_id"],
                             matched_vocabulary_id_column: concept["vocabulary_id"],
                             match_score_column: concept["score"],
                             match_rank_column: rank,
                         }
                     )
-        results_df = pd.DataFrame(all_results)
-        return results_df
+                results = pd.DataFrame(rows)
+                results[match_rank_column] = range(1, len(results) + 1)
+                orig_cols = list(df.columns)
+                new_columns = list(results.columns)
+                results[term_column] = term
+                for col in df.columns:
+                    results[col] = row[col]
+                results = results[orig_cols + new_columns]
+                all_results.append(results)
+
+        all_results = pd.concat(all_results)
+        return all_results
 
 
 if __name__ == "__main__":
@@ -164,10 +176,9 @@ if __name__ == "__main__":
             ],
         }
     )
-    results_df = concept_searcher.search_in_df(
-        df, term_column="stripped_concept_name_1", limit=10
-    )
+    results_df = concept_searcher.search_in_df(df, term_column="stripped_concept_name_1", limit=10)
     print(results_df)
+    print(results_df.columns)
 
     # concept_searcher.process_file(
     #     source_file="./files/source_terms_not_unspecified.csv",

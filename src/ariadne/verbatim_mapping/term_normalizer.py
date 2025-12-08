@@ -18,13 +18,16 @@ import re
 
 import spacy
 
+from ariadne.utils.config import Config
+
 
 class TermNormalizer:
     """
     Normalizes clinical term strings for high-precision matching.
     """
 
-    def __init__(self):
+    def __init__(self, config: Config = Config()):
+        self.config = config
         try:
             self.nlp = spacy.load("en_core_web_sm")
             print("spaCy model 'en_core_web_sm' loaded successfully.")
@@ -41,7 +44,8 @@ class TermNormalizer:
 
         1. Convert to lowercase.
         2. Remove possessive "'s" at the end of words.
-        3. Remove specific non-informative substrings (e.g., '(disorder)').
+        3. Remove specific non-informative substrings (e.g., '(disorder)'). The strings are taken from the
+           substrings_to_remove list in the config yaml file
         4. Remove all punctuation.
         5. Tokenize and lemmatize (e.g., "disorders" -> "disorder").
         6. Join tokens into a single string, preserving order.
@@ -64,8 +68,7 @@ class TermNormalizer:
         term = re.sub(r"(\w)'s\b", r"\1", term)
 
         # 3. Remove specific non-informative substrings
-        substrings_to_remove = ['(disorder)', '(event)', '(finding)', '(procedure)']
-        for sub in substrings_to_remove:
+        for sub in self.config.verbatim_mapping.substrings_to_remove:
             term = term.replace(sub, ' ')
 
         # 4. Remove all punctuation (replace with a space)

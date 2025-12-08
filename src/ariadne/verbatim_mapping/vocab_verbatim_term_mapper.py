@@ -37,26 +37,26 @@ class VocabVerbatimTermMapper:
     """
 
     def __init__(self, config: Config = Config()):
-        self.term_normalizer = TermNormalizer()
-        if os.path.exists(config.verbatim_mapping_index_file):
-            with open(config.verbatim_mapping_index_file, "rb") as handle:
+        self.term_normalizer = TermNormalizer(config)
+        if os.path.exists(config.system.verbatim_mapping_index_file):
+            with open(config.system.verbatim_mapping_index_file, "rb") as handle:
                 self.index = pickle.load(handle)
-            print(f"Index loaded from {config.verbatim_mapping_index_file}")
+            print(f"Index loaded from {config.system.verbatim_mapping_index_file}")
         else:
             self._create_index(config)
 
     def _create_index(self, config: Config):
         print("Creating index")
-        if not os.path.exists(config.terms_folder):
+        if not os.path.exists(config.system.terms_folder):
             raise FileNotFoundError(
-                f"Terms folder {config.terms_folder} does not exist. Make sure to run the download_terms module first."
+                f"Terms folder {config.system.terms_folder} does not exist. Make sure to run the download_terms module first."
             )
         all_files = [
-            os.path.join(config.terms_folder, f)
-            for f in os.listdir(config.terms_folder)
+            os.path.join(config.system.terms_folder, f)
+            for f in os.listdir(config.system.terms_folder)
             if f.endswith(".parquet")
         ]
-        pool = multiprocessing.get_context("spawn").Pool(processes=config.max_cores)
+        pool = multiprocessing.get_context("spawn").Pool(processes=config.system.max_cores)
         index_data = {}
         for file in all_files:
             print(f"Processing file: {file}")
@@ -74,7 +74,7 @@ class VocabVerbatimTermMapper:
                         if concept_id not in [c[0] for c in existing]:
                             existing.append(concept)
                     else:
-                        if concept_id != existing:
+                        if concept_id != existing[0]:
                             index_data[norm_term] = [existing, concept]
                 else:
                     index_data[norm_term] = concept
@@ -83,9 +83,9 @@ class VocabVerbatimTermMapper:
         self.index = index_data
 
         try:
-            with open(config.verbatim_mapping_index_file, "wb") as f:
+            with open(config.system.verbatim_mapping_index_file, "wb") as f:
                 pickle.dump(index_data, f)
-            print(f"Index saved to {config.verbatim_mapping_index_file}")
+            print(f"Index saved to {config.system.verbatim_mapping_index_file}")
         except OSError as e:
             print(f"Error saving index: {e}")
 
