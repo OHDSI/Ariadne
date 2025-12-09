@@ -30,7 +30,8 @@ dependencies = [
     "PyYAML",
     "spacy>=3.5.0",
     "openai>=2.9.0",
-    "pgvector>=0.4.2"
+    "pgvector>=0.4.2",
+    "notebook>=7.5.0",
 ]
 
 [project.optional-dependencies]

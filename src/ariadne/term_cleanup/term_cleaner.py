@@ -34,7 +34,7 @@ class TermCleaner:
     """
 
     def __init__(self, config: Config = Config()):
-        self.system_prompt = config.term_clean_system_prompt
+        self.system_prompt = config.term_cleaning.system_prompt
         self.cost = 0.0
 
     def clean_term(self, term: str) -> str:
@@ -61,8 +61,8 @@ class TermCleaner:
             warnings.warn(f"Term {term} not found in response {response}")
             return term
 
-    def clean_terms_in_df(
-        self, df: pd.DataFrame, term_column: str, output_column: str
+    def clean_terms(
+        self, df: pd.DataFrame, term_column: str, output_column: str = "cleaned_term"
     ) -> pd.DataFrame:
         """
         Cleans clinical terms in a DataFrame column using the LLM.
@@ -100,6 +100,6 @@ if __name__ == "__main__":
         ]
     }
     df = pd.DataFrame(data)
-    cleaned_df = term_cleaner.clean_terms_in_df(df, "term", "cleaned_term")
+    cleaned_df = term_cleaner.clean_terms(df, "term", "cleaned_term")
     print(cleaned_df)
     print(f"Total LLM cost: ${term_cleaner.get_total_cost():.6f}")

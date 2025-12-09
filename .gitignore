@@ -4,7 +4,13 @@ __pycache__/
 .env
 .vscode/
 .idea/
-data/
 logs/
 *.egg-info/
 site/
+!data/
+data/*
+!data/gold_standards/
+!data/gold_standards/**
+!data/notebook_results/
+!data/notebook_results/**
+

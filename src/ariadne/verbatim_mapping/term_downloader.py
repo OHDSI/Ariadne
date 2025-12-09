@@ -152,6 +152,11 @@ def download_terms(config: Config = Config()) -> None:
     Returns:
         None
     """
+    # Check if Parquet files already exist. Skip download if they do.
+    if os.path.exists(config.system.terms_folder) and os.listdir(config.system.terms_folder):
+        print(f"Parquet files already exist in folder {config.system.terms_folder}. Skipping download.")
+        return
+
     os.makedirs(config.system.log_folder, exist_ok=True)
     os.makedirs(config.system.terms_folder, exist_ok=True)
     open_log(os.path.join(config.system.log_folder, "logDownloadTerms.txt"))
@@ -162,9 +167,7 @@ def download_terms(config: Config = Config()) -> None:
     query = _create_query(engine=engine, config=config)
 
     with engine.connect() as connection:
-        terms_result_set = connection.execution_options(
-            stream_results=True
-        ).execute(query)
+        terms_result_set = connection.execution_options(stream_results=True).execute(query)
         total_inserted = 0
         while True:
             chunk = terms_result_set.fetchmany(config.system.download_batch_size)
@@ -184,9 +187,7 @@ def download_terms(config: Config = Config()) -> None:
                 ),
             )
             total_inserted += len(chunk)
-            logging.info(
-                f"Downloaded {len(chunk)} rows, total downloaded: {total_inserted}"
-            )
+            logging.info(f"Downloaded {len(chunk)} rows, total downloaded: {total_inserted}")
     logging.info("Finished downloading terms")
 
 

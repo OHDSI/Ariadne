@@ -2,8 +2,10 @@ system:
   log_folder: logs
   terms_folder: data/terms
   verbatim_mapping_index_file: data/verbatim_mapping_index.pkl
+  llm_mapper_responses_folder: data/llm_mapper_responses
   download_batch_size: 100000
   max_cores: 10
+
 verbatim_mapping:
   substrings_to_remove:
     - "(machine translation)"
@@ -28,7 +30,7 @@ verbatim_mapping:
     include_synonyms: true
 
 term_cleaning:
-  term_clean_system_prompt: |
+  system_prompt: |
     You are a clinical terminology parser. Your task is to extract only the core clinical term from a given string, removing any information that does not directly describe the essential concept—such as a condition, procedure, substance, or anatomical site—represented by the term.
     
     # Guidelines
@@ -75,5 +77,77 @@ term_cleaning:
     
     #Output format
     Present the extracted term with '#Term:' preceding it.
+
 vector_search:
-    max_candidates: 25
+  max_candidates: 25
+
+llm_mapping:
+  context:
+    include_target_parents: True
+    include_target_children: True
+    include_target_synonyms: True
+    include_target_domain: True
+    include_target_class: True
+    include_target_vocabulary: True
+    re_insert_target_details: True
+  system_prompts:
+    - |
+      You are a medical terminology expert. Your task is to retrieve and analyze medical terms.
+      You will be provided with one Source Term and a list of Target Concepts.
+      Your sole responsibility is to generate a concise clinical definition for each term (both the source and all targets).
+      The definition should be at most 1 paragraph.
+      For the Target Concepts, make sure your definitions align with their vocabulary context (concept_synonyms, concept_class_id, concept_domain_id, concept_parentsl, concept_children).
+      Ignore parts not relevant to clinical presentation, prognosis and treatment (e.g., 'not otherwise specified', 'other specific').
+      You must not perform any comparison, check for added/lost information, or determine a match. Your job is only to provide the definitions.
+      Output Format:
+      Provide your response in a single JSON object. Do not include any text outside of the JSON.
+      JSON
+      {
+        "source_term": {
+          "name": "<Source Term Name>",
+          "definition": "<Definition of source term>"
+        },
+        "target_concepts": [
+          {
+            "id": "<Concept ID 1>",
+            "name": "<Concept Name 1>",
+            "definition": "<Definition of concept 1>"
+          },
+          {
+            "id": "<Concept ID 2>",
+            "name": "<Concept Name 2>",
+            "definition": "<Definition of concept 2>"
+          },
+          ...
+        ]
+      }
+    - |
+      You are a meticulous medical terminology expert.
+      Your task is to find the single standard concept that is equivalent to a source term based on their clinical presentation, prognosis and treatment, or indicate when such a match does not exist.
+      You will be provided with a JSON object containing a source term and a list of target concepts, each with its definition and vocabulary context.
+      
+      Your primary goal is to find an exact clinical equivalent. Evaluate each target concept against the source term using the following rules:
+      
+      1. Maintain Specificity (Do not broaden): The target must not be more general than the source. It must preserve all key clinical details present in the source term, including severity, stage, timing, location, and body part. For example, 'Depression' is a bad match for 'Mild depression',  'Fracture of lower limb' is a bad match for 'Fracture of femur', 'Depression' is a bad match for 'Depression in remission', 'Arthritis' is a bad match for 'Arthritis of hand', 'Arthropathy, monoarticular' is a bad match for 'Arthropathy, wrist'.
+      
+      2. Maintain Generality (Do not over-specify): The target must not be more specific than the source term (e.g., a subtype or a term with added details not present in the source). For example, 'Fracture of left leg' is a bad match for 'Fracture of leg', 'Migraine without aura' is a bad match for 'Migraine', 'Open fracture with bleeding' is a bad match for 'Open fracture', 'Blood pressure below reference range' is a bad match for 'Hypotension level'.
+      
+      3. Validate Context: Review the target concept's vocabulary context (its synonyms, class, domain, parents, and children). It must be clinically and semantically appropriate for the source term.
+      
+      4. Ignore non-essential phrases such as 'unspecified', 'not otherwise specified', or 'in diseases classified elsewhere'.
+      
+      5. If the best match is not an exact match, declare it to be no match.
+      
+      Output format:
+      
+      # Source term: <source term>
+      
+      If a concept is a potential match, provide:
+      
+      # Match: <concept ID> (<concept name>)
+      
+      # Justification: <Provide a detailed justification for why this concept is an exact clinical equivalent to the source term, referencing the rules above and using the provided definitions and context.>
+      
+      or, if no concept is a good match:
+      
+      # Match: no_match

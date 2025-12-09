@@ -61,13 +61,11 @@ class VocabVerbatimTermMapper:
         for file in all_files:
             print(f"Processing file: {file}")
             df = pd.read_parquet(file)
-            normalized_terms = pool.map(
-                self.term_normalizer.normalize_term, df["term"].tolist()
-            )
+            normalized_terms = pool.map(self.term_normalizer.normalize_term, df["term"].tolist())
             for norm_term, concept_id, concept_name in zip(
                 normalized_terms, df["concept_id"].tolist(), df["concept_name"].tolist()
             ):
-                concept = (concept_id, concept_name)
+                concept = (int(concept_id), concept_name)
                 if norm_term in index_data:
                     existing = index_data[norm_term]
                     if isinstance(existing, list):
@@ -108,6 +106,48 @@ class VocabVerbatimTermMapper:
                 return [concepts]
         return []
 
+    def map_terms(
+        self,
+        source_terms: pd.DataFrame,
+        term_column: str,
+        matched_concept_id_column: str = "matched_concept_id",
+        matched_concept_name_column: str = "matched_concept_name",
+    ) -> pd.DataFrame:
+        """
+        Maps source terms in a DataFrame column to concept IDs using the pre-built index.
+
+        Args:
+            source_terms: DataFrame containing the source clinical terms to map
+            term_column: Name of the column with terms to map
+            matched_concept_id_column: Name of the column to store matched concept IDs.
+            matched_concept_name_column: Name of the column to store matched concept names.
+
+        Returns:
+            A DataFrame with the original columns and their mapped concept IDs and names.
+        """
+        source_terms[[matched_concept_id_column, matched_concept_name_column]] = source_terms[term_column].apply(
+            lambda term: pd.Series(self.map_term(term)[0] if self.map_term(term) else (-1, ""))
+        )
+        return source_terms
+
+        # mapped_data = []
+        # for term in source_terms[term_column]:
+        #     concepts = self.map_term(term)
+        #     if concepts:
+        #         for concept in concepts:
+        #             mapped_data.append({
+        #                 term_column: term,
+        #                 matched_concept_id_column: concept[0],
+        #                 matched_concept_name_column: concept[1]
+        #             })
+        #     else:
+        #         mapped_data.append({
+        #             term_column: term,
+        #             matched_concept_id_column: -1,
+        #             matched_concept_name_column: ""
+        #         })
+        # return pd.DataFrame(mapped_data)
+
 
 if __name__ == "__main__":
     mapper = VocabVerbatimTermMapper()
@@ -116,22 +156,32 @@ if __name__ == "__main__":
     for concept in concepts:
         print(f"Mapped to concept: {concept[1]} ({concept[0]})")
 
+    source_terms_df = pd.DataFrame({"source_term": ["Acute myocardial infarction", "Liver disorder", "Unknown term"]})
+    mapped_df = mapper.map_terms(source_terms_df, term_column="source_term")
+    print(mapped_df)
+
     # new_index = {}
     # for term, concepts in mapper.index.items():
     #     if isinstance(concepts, list):
-    #         # Remove duplicates:
+    #         # # Remove duplicates:
+    #         # new_concepts = []
+    #         # seen_ids = set()
+    #         # for concept in concepts:
+    #         #     if concept[0] not in seen_ids:
+    #         #         new_concepts.append(concept)
+    #         #         seen_ids.add(concept[0])
+    #         # concepts = new_concepts
+    #         # if len(concepts) == 1:
+    #         #     new_index[term] = concepts[0]
+    #         # else:
+    #         #     new_index[term] = concepts
     #         new_concepts = []
-    #         seen_ids = set()
     #         for concept in concepts:
-    #             if concept[0] not in seen_ids:
-    #                 new_concepts.append(concept)
-    #                 seen_ids.add(concept[0])
-    #         concepts = new_concepts
-    #         if len(concepts) == 1:
-    #             new_index[term] = concepts[0]
-    #         else:
-    #             new_index[term] = concepts
+    #             concept[0] = int(concept[0])
+    #             new_concepts.add(concept)
+    #         new_index[term] = new_concepts
     #     else:
+    #         concepts[0] = int(concepts[0])
     #         new_index[term] = concepts
     # with open("E:/temp/mapping_quality/vocab_verbatim_index.pkl", "wb") as f:
     #     pickle.dump(new_index, f)

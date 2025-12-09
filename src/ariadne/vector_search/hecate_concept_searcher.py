@@ -53,7 +53,7 @@ class HecateConceptSearcher(AbstractConceptSearcher):
                 "standard_concept": "S",
             }
 
-    def search(self, query_string: str, limit: int = 25) -> DataFrame:
+    def search_term(self, query_string: str, limit: int = 25) -> DataFrame:
         """
         Searches for concepts matching the given query string.
 
@@ -95,7 +95,7 @@ class HecateConceptSearcher(AbstractConceptSearcher):
 
         return None
 
-    def search_in_df(
+    def search_terms(
         self,
         df: pd.DataFrame,
         term_column: str,
@@ -133,7 +133,7 @@ class HecateConceptSearcher(AbstractConceptSearcher):
         for index, row in df.iterrows():
             term = row[term_column]
             print(f"Processing term '{term}'")
-            results = self.search(term, limit=limit)
+            results = self.search_term(term, limit=limit)
             if results is not None:
                 rows = []
                 for rank, (_, concept) in enumerate(results.iterrows(), start=1):
@@ -164,7 +164,7 @@ class HecateConceptSearcher(AbstractConceptSearcher):
 
 if __name__ == "__main__":
     concept_searcher = HecateConceptSearcher()
-    search_results = concept_searcher.search("Acute myocardial infarction")
+    search_results = concept_searcher.search_term("Acute myocardial infarction")
     print(search_results)
 
     df = pd.DataFrame(
@@ -176,7 +176,7 @@ if __name__ == "__main__":
             ],
         }
     )
-    results_df = concept_searcher.search_in_df(df, term_column="stripped_concept_name_1", limit=10)
+    results_df = concept_searcher.search_terms(df, term_column="stripped_concept_name_1", limit=10)
     print(results_df)
     print(results_df.columns)
 

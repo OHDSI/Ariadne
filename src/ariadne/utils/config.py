@@ -25,24 +25,24 @@ from spacy.util import from_dict
 
 @dataclass
 class SystemConfig:
-    log_folder: Path = Path("logs")
-    terms_folder: Path = Path("data/terms")
-    verbatim_mapping_index_file: Path = Path("data/verbatim_mapping_index.pkl")
-    download_batch_size: int = 100000
-    max_cores: int = 10
+    log_folder: Path
+    terms_folder: Path
+    verbatim_mapping_index_file: Path
+    llm_mapper_responses_folder: Path
+    download_batch_size: int
+    max_cores: int
 
     def __post_init__(self):
         self.log_folder = resolve_path(self.log_folder)
         self.terms_folder = resolve_path(self.terms_folder)
-        self.verbatim_mapping_index_file = resolve_path(
-            self.verbatim_mapping_index_file
-        )
+        self.verbatim_mapping_index_file = resolve_path(self.verbatim_mapping_index_file)
+        self.llm_mapper_responses_folder = resolve_path(self.llm_mapper_responses_folder)
 
 
 @dataclass
 class StandardConceptFilter:
     vocabularies: Optional[List[str]]
-    domain_ids: List[str]
+    domain_ids: Optional[List[str]]
     include_classification_concepts: bool
     include_synonyms: bool
 
@@ -55,7 +55,7 @@ class VerbatimMapping:
 
 @dataclass
 class TermCleaning:
-    term_clean_system_prompt: str
+    system_prompt: str
 
 
 @dataclass
@@ -63,20 +63,41 @@ class VectorSearch:
     max_candidates: int
 
 
+@dataclass
+class Context:
+    include_target_parents: bool
+    include_target_children: bool
+    include_target_synonyms: bool
+    include_target_domain: bool
+    include_target_class: bool
+    include_target_vocabulary: bool
+    re_insert_target_details: bool
+
+
+@dataclass
+class Llm_mapping:
+    context: Context
+    system_prompts: List[str]
+
+
 class Config:
+    """
+    Configuration class for the Ariadne toolkit. Loads settings from a YAML file and provides structured access to
+    configuration parameters.
+    """
+
     system: SystemConfig = field(default_factory=SystemConfig)
     verbatim_mapping: VerbatimMapping = field(default_factory=VerbatimMapping)
     term_cleaning: TermCleaning = field(default_factory=TermCleaning)
     vector_search: VectorSearch = field(default_factory=VectorSearch)
+    llm_mapping: Llm_mapping = field(default_factory=Llm_mapping)
 
     def __init__(self, filename: str = "config.yaml"):
         path = Path.cwd() / filename
         if not path.exists():
             path = get_project_root() / filename
             if not path.exists():
-                raise FileNotFoundError(
-                    f"Could not find {filename} in {Path.cwd()} or project root."
-                )
+                raise FileNotFoundError(f"Could not find {filename} in {Path.cwd()} or project root.")
         with path.open("r", encoding="utf-8") as fh:
             raw = yaml.safe_load(fh) or {}
 
@@ -84,6 +105,7 @@ class Config:
         self.verbatim_mapping = self.from_dict(VerbatimMapping, raw["verbatim_mapping"])
         self.term_cleaning = self.from_dict(TermCleaning, raw["term_cleaning"])
         self.vector_search = self.from_dict(VectorSearch, raw["vector_search"])
+        self.llm_mapping = self.from_dict(Llm_mapping, raw["llm_mapping"])
 
     def from_dict(self, cls: Type["Config"], data: Dict[str, Any]) -> "Config":
         def build(dc_type: Type[Any], subdata: Dict[str, Any]) -> Any:
@@ -120,6 +142,7 @@ class Config:
             "verbatim_mapping": serialize(self.verbatim_mapping),
             "term_cleaning": serialize(self.term_cleaning),
             "vector_search": serialize(self.vector_search),
+            "llm_mapping": serialize(self.llm_mapping),
         }
 
 

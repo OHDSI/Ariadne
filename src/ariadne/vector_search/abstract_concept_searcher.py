@@ -23,7 +23,7 @@ class AbstractConceptSearcher(ABS):
     """Abstract base class for concept searchers."""
 
     @abstractmethod
-    def search(self, term: str, limit: int = 25) -> Optional[pd.DataFrame]:
+    def search_term(self, term: str, limit: int = 25) -> Optional[pd.DataFrame]:
         """
         Searches for concepts matching the given term.
 
@@ -37,7 +37,7 @@ class AbstractConceptSearcher(ABS):
         pass
 
     @abstractmethod
-    def search_in_df(
+    def search_terms(
         self,
         df: pd.DataFrame,
         term_column: str,

@@ -214,7 +214,7 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
 
         return results
 
-    def search(self, term: str, limit: int = 25) -> Optional[pd.DataFrame]:
+    def search_term(self, term: str, limit: int = 25) -> Optional[pd.DataFrame]:
         """
         Searches for concepts matching the given term.
 
@@ -244,7 +244,7 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
         )
         return df
 
-    def search_in_df(
+    def search_terms(
         self,
         df: pd.DataFrame,
         term_column: str,
@@ -282,10 +282,11 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
         self.cost = self.cost + vectors_with_usage["usage"]["total_cost_usd"]
         vectors = vectors_with_usage["embeddings"]
 
+        df = df.reset_index(drop=True)
         all_results = []
         for index, row in df.iterrows():
             term = row[term_column]
-            print(f"Processing term '{term}'")
+            # print(f"Processing term '{term}'")
             vector = vectors[index]
             results = self._search_pgvector(vector, limit=limit)
             results = pd.DataFrame(
@@ -324,7 +325,7 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
 
 if __name__ == "__main__":
     concept_searcher = PgvectorConceptSearcher()
-    search_results = concept_searcher.search("Acute myocardial infarction")
+    search_results = concept_searcher.search_term("Acute myocardial infarction")
     print(search_results)
 
     df = pd.DataFrame(
@@ -336,7 +337,7 @@ if __name__ == "__main__":
             ],
         }
     )
-    results_df = concept_searcher.search_in_df(df, term_column="stripped_concept_name_1", limit=10)
+    results_df = concept_searcher.search_terms(df, term_column="stripped_concept_name_1", limit=10)
     print(results_df)
     print(results_df.columns)
 
