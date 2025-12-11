@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../term_cleanup/term_cleaner.html">
+        <link rel="prev" href="gen_ai_api.html">
       
       
-        <link rel="next" href="config.html">
+        <link rel="next" href="utils.html">
       
       
         
@@ -23,7 +23,7 @@
     
     
       
-        <title>utils - Ariadne Documentation</title>
+        <title>logger - Ariadne Documentation</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ariadne.utils" class="md-skip">
+        <a href="#ariadne.utils.logger" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              utils
+              logger
             
           </span>
         </div>
@@ -814,10 +814,35 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="logger.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    logger
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="logger.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -833,6 +858,46 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ariadne.utils.logger" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        logger
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ariadne.utils.logger.open_log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        open_log
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1220,10 +1285,21 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#ariadne.utils" class="md-nav__link">
+  <a href="#ariadne.utils.logger" class="md-nav__link">
     <span class="md-ellipsis">
       
-        utils
+        logger
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ariadne.utils.logger.open_log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        open_log
       
     </span>
   </a>
@@ -1247,13 +1323,13 @@
 
 
 
-  <h1>utils</h1>
+  <h1>logger</h1>
 
 <div class="doc doc-object doc-module">
 
 
 
-<a id="ariadne.utils"></a>
+<a id="ariadne.utils.logger"></a>
     <div class="doc doc-contents first">
 
 
@@ -1275,6 +1351,142 @@
 
 
 
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="ariadne.utils.logger.open_log" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">open_log</span><span class="p">(</span><span class="n">log_file_name</span><span class="p">,</span> <span class="n">clear_log_file</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Sets up the root logger where it writes all logging events to file, and writing events at or above 'info' to
+console. Events are appended to the log file. The logger will also capture uncaught exceptions.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>log_file_name</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The name of the file where the log will be written to.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>clear_log_file</code>
+            </td>
+            <td>
+                  <code><span title="bool">bool</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>If true, the log file will be cleared before writing to it.</p>
+              </div>
+            </td>
+            <td>
+                  <code>False</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code>None</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>None</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/ariadne/utils/logger.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">open_log</span><span class="p">(</span><span class="n">log_file_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">clear_log_file</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sets up the root logger where it writes all logging events to file, and writing events at or above &#39;info&#39; to</span>
+<span class="sd">    console. Events are appended to the log file. The logger will also capture uncaught exceptions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        log_file_name: The name of the file where the log will be written to.</span>
+<span class="sd">        clear_log_file: If true, the log file will be cleared before writing to it.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">clear_log_file</span><span class="p">:</span>
+        <span class="nb">open</span><span class="p">(</span><span class="n">log_file_name</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">logger</span><span class="o">.</span><span class="n">handlers</span><span class="p">):</span>
+        <span class="n">_add_file_handler</span><span class="p">(</span><span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">,</span> <span class="n">log_file_name</span><span class="o">=</span><span class="n">log_file_name</span><span class="p">)</span>
+        <span class="n">_add_stream_handler</span><span class="p">(</span><span class="n">logger</span><span class="o">=</span><span class="n">logger</span><span class="p">)</span>
+
+    <span class="n">sys</span><span class="o">.</span><span class="n">excepthook</span> <span class="o">=</span> <span class="n">_handle_exception</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
 
 
 

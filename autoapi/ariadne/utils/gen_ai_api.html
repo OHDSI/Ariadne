@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../term_cleanup/term_cleaner.html">
+        <link rel="prev" href="config.html">
       
       
-        <link rel="next" href="config.html">
+        <link rel="next" href="logger.html">
       
       
         
@@ -23,7 +23,7 @@
     
     
       
-        <title>utils - Ariadne Documentation</title>
+        <title>gen_ai_api - Ariadne Documentation</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#ariadne.utils" class="md-skip">
+        <a href="#ariadne.utils.gen_ai_api" class="md-skip">
           Skip to content
         </a>
       
@@ -104,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              utils
+              gen_ai_api
             
           </span>
         </div>
@@ -786,10 +786,35 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="gen_ai_api.html" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    gen_ai_api
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="gen_ai_api.html" class="md-nav__link md-nav__link--active">
         
   
   
@@ -805,6 +830,57 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#ariadne.utils.gen_ai_api" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        gen_ai_api
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ariadne.utils.gen_ai_api.get_embedding_vectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_embedding_vectors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ariadne.utils.gen_ai_api.get_llm_response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_llm_response
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1220,10 +1296,32 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#ariadne.utils" class="md-nav__link">
+  <a href="#ariadne.utils.gen_ai_api" class="md-nav__link">
     <span class="md-ellipsis">
       
-        utils
+        gen_ai_api
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ariadne.utils.gen_ai_api.get_embedding_vectors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_embedding_vectors
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ariadne.utils.gen_ai_api.get_llm_response" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        get_llm_response
       
     </span>
   </a>
@@ -1247,13 +1345,13 @@
 
 
 
-  <h1>utils</h1>
+  <h1>gen_ai_api</h1>
 
 <div class="doc doc-object doc-module">
 
 
 
-<a id="ariadne.utils"></a>
+<a id="ariadne.utils.gen_ai_api"></a>
     <div class="doc doc-contents first">
 
 
@@ -1275,6 +1373,325 @@
 
 
 
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="ariadne.utils.gen_ai_api.get_embedding_vectors" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_embedding_vectors</span><span class="p">(</span><span class="n">texts</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Generates embedding vectors for a list of texts using the embedding-specific config.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>texts</code>
+            </td>
+            <td>
+                  <code><span title="typing.List">List</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>List of texts to generate embeddings for.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+    <p><span class="doc-section-title">Returns:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Type</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                  <code><span title="typing.Dict">Dict</span>[<span title="str">str</span>, <span title="typing.Any">Any</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>A dictionary containing:
+- "embeddings": A numpy array of embedding vectors.
+- "usage": A dictionary with token usage and cost details.</p>
+              </div>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/ariadne/utils/gen_ai_api.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 92</span>
+<span class="normal"> 93</span>
+<span class="normal"> 94</span>
+<span class="normal"> 95</span>
+<span class="normal"> 96</span>
+<span class="normal"> 97</span>
+<span class="normal"> 98</span>
+<span class="normal"> 99</span>
+<span class="normal">100</span>
+<span class="normal">101</span>
+<span class="normal">102</span>
+<span class="normal">103</span>
+<span class="normal">104</span>
+<span class="normal">105</span>
+<span class="normal">106</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span>
+<span class="normal">113</span>
+<span class="normal">114</span>
+<span class="normal">115</span>
+<span class="normal">116</span>
+<span class="normal">117</span>
+<span class="normal">118</span>
+<span class="normal">119</span>
+<span class="normal">120</span>
+<span class="normal">121</span>
+<span class="normal">122</span>
+<span class="normal">123</span>
+<span class="normal">124</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_embedding_vectors</span><span class="p">(</span><span class="n">texts</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates embedding vectors for a list of texts using the embedding-specific config.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        texts: List of texts to generate embeddings for.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A dictionary containing:</span>
+<span class="sd">            - &quot;embeddings&quot;: A numpy array of embedding vectors.</span>
+<span class="sd">            - &quot;usage&quot;: A dictionary with token usage and cost details.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">client</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">provider</span> <span class="o">=</span> <span class="n">_AIClientFactory</span><span class="o">.</span><span class="n">get_client</span><span class="p">(</span><span class="n">task_type</span><span class="o">=</span><span class="s2">&quot;embedding&quot;</span><span class="p">)</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">embeddings</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">texts</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">np_vectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">item</span><span class="o">.</span><span class="n">embedding</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">data</span><span class="p">])</span>
+
+    <span class="n">usage</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">usage</span>
+    <span class="n">total_cost</span> <span class="o">=</span> <span class="n">_calculate_cost</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">usage</span><span class="o">.</span><span class="n">prompt_tokens</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">provider</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;embeddings&quot;</span><span class="p">:</span> <span class="n">np_vectors</span><span class="p">,</span>
+        <span class="s2">&quot;usage&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;input_tokens&quot;</span><span class="p">:</span> <span class="n">usage</span><span class="o">.</span><span class="n">prompt_tokens</span><span class="p">,</span>
+            <span class="s2">&quot;output_tokens&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;reasoning_tokens&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">&quot;total_cost_usd&quot;</span><span class="p">:</span> <span class="n">total_cost</span><span class="p">,</span>
+            <span class="s2">&quot;model_used&quot;</span><span class="p">:</span> <span class="n">model</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
+
+<div class="doc doc-object doc-function">
+
+
+<h2 id="ariadne.utils.gen_ai_api.get_llm_response" class="doc doc-heading">
+            <code class="highlight language-python"><span class="n">get_llm_response</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">system_prompt</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+
+</h2>
+
+
+    <div class="doc doc-contents ">
+
+        <p>Generates text response using the LLM-specific config.</p>
+
+
+<p><span class="doc-section-title">Parameters:</span></p>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Description</th>
+          <th>Default</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr class="doc-section-item">
+            <td>
+                <code>prompt</code>
+            </td>
+            <td>
+                  <code><span title="str">str</span></code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>The user prompt to send to the LLM.</p>
+              </div>
+            </td>
+            <td>
+                <em>required</em>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
+                <code>system_prompt</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional system prompt to guide the LLM's behavior.</p>
+              </div>
+            </td>
+            <td>
+                  <code>None</code>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+        <p>Returns:
+    A dictionary containing:
+        - "content": The generated text response from the LLM.
+        - "usage": A dictionary with token usage and cost details.</p>
+
+
+            <details class="mkdocstrings-source">
+              <summary>Source code in <code>src/ariadne/utils/gen_ai_api.py</code></summary>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">127</span>
+<span class="normal">128</span>
+<span class="normal">129</span>
+<span class="normal">130</span>
+<span class="normal">131</span>
+<span class="normal">132</span>
+<span class="normal">133</span>
+<span class="normal">134</span>
+<span class="normal">135</span>
+<span class="normal">136</span>
+<span class="normal">137</span>
+<span class="normal">138</span>
+<span class="normal">139</span>
+<span class="normal">140</span>
+<span class="normal">141</span>
+<span class="normal">142</span>
+<span class="normal">143</span>
+<span class="normal">144</span>
+<span class="normal">145</span>
+<span class="normal">146</span>
+<span class="normal">147</span>
+<span class="normal">148</span>
+<span class="normal">149</span>
+<span class="normal">150</span>
+<span class="normal">151</span>
+<span class="normal">152</span>
+<span class="normal">153</span>
+<span class="normal">154</span>
+<span class="normal">155</span>
+<span class="normal">156</span>
+<span class="normal">157</span>
+<span class="normal">158</span>
+<span class="normal">159</span>
+<span class="normal">160</span>
+<span class="normal">161</span>
+<span class="normal">162</span>
+<span class="normal">163</span>
+<span class="normal">164</span>
+<span class="normal">165</span>
+<span class="normal">166</span>
+<span class="normal">167</span>
+<span class="normal">168</span>
+<span class="normal">169</span>
+<span class="normal">170</span>
+<span class="normal">171</span>
+<span class="normal">172</span>
+<span class="normal">173</span>
+<span class="normal">174</span>
+<span class="normal">175</span>
+<span class="normal">176</span>
+<span class="normal">177</span>
+<span class="normal">178</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">get_llm_response</span><span class="p">(</span>
+    <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">system_prompt</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates text response using the LLM-specific config.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        prompt: The user prompt to send to the LLM.</span>
+<span class="sd">        system_prompt: Optional system prompt to guide the LLM&#39;s behavior.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        A dictionary containing:</span>
+<span class="sd">            - &quot;content&quot;: The generated text response from the LLM.</span>
+<span class="sd">            - &quot;usage&quot;: A dictionary with token usage and cost details.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">client</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">provider</span> <span class="o">=</span> <span class="n">_AIClientFactory</span><span class="o">.</span><span class="n">get_client</span><span class="p">(</span><span class="n">task_type</span><span class="o">=</span><span class="s2">&quot;llm&quot;</span><span class="p">)</span>
+
+    <span class="n">messages</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">system_prompt</span><span class="p">:</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">system_prompt</span><span class="p">})</span>
+    <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">prompt</span><span class="p">})</span>
+
+    <span class="k">if</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">_TEMPERATURE_OK_MODELS</span><span class="p">:</span>
+        <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">temperature</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span> <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="n">temperature</span>
+    <span class="p">)</span>
+
+    <span class="n">usage</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">usage</span>
+    <span class="n">reasoning_tokens</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">usage</span><span class="p">,</span> <span class="s2">&quot;completion_tokens_details&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">usage</span><span class="o">.</span><span class="n">completion_tokens_details</span><span class="p">:</span>
+        <span class="n">reasoning_tokens</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+            <span class="n">usage</span><span class="o">.</span><span class="n">completion_tokens_details</span><span class="p">,</span> <span class="s2">&quot;reasoning_tokens&quot;</span><span class="p">,</span> <span class="mi">0</span>
+        <span class="p">)</span>
+
+    <span class="n">total_cost</span> <span class="o">=</span> <span class="n">_calculate_cost</span><span class="p">(</span>
+        <span class="n">model</span><span class="p">,</span> <span class="n">usage</span><span class="o">.</span><span class="n">prompt_tokens</span><span class="p">,</span> <span class="n">usage</span><span class="o">.</span><span class="n">completion_tokens</span><span class="p">,</span> <span class="n">provider</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+        <span class="s2">&quot;usage&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;input_tokens&quot;</span><span class="p">:</span> <span class="n">usage</span><span class="o">.</span><span class="n">prompt_tokens</span><span class="p">,</span>
+            <span class="s2">&quot;output_tokens&quot;</span><span class="p">:</span> <span class="n">usage</span><span class="o">.</span><span class="n">completion_tokens</span><span class="p">,</span>
+            <span class="s2">&quot;reasoning_tokens&quot;</span><span class="p">:</span> <span class="n">reasoning_tokens</span><span class="p">,</span>
+            <span class="s2">&quot;total_cost_usd&quot;</span><span class="p">:</span> <span class="n">total_cost</span><span class="p">,</span>
+            <span class="s2">&quot;model_used&quot;</span><span class="p">:</span> <span class="n">model</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">}</span>
+</code></pre></div></td></tr></table></div>
+            </details>
+    </div>
+
+</div>
 
 
 

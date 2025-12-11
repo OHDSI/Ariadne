@@ -1,0 +1,30 @@
+/* docs/stylesheets/extra.css */
+
+/* Make the content area wider */
+.md-grid {
+  max-width: 1400px; /* Increase this value (default is ~1220px on large screens) */
+}
+
+/* OPTIONAL: Be even more aggressive for just notebooks */
+/* This removes the max-width entirely on very large screens */
+@media screen and (min-width: 1600px) {
+  .md-grid {
+    max-width: 90%;
+  }
+}
+
+
+/* Hide the input/output prompts (In [x]: / Out [x]:) */
+.jp-InputPrompt, .jp-OutputPrompt {
+    display: none !important;
+}
+
+/* Optional: Hide the brackets [] entirely if the class names differ */
+.hll {
+    background-color: transparent !important;
+}
+
+/* Reclaim the space on the left */
+.jp-Cell {
+    padding-left: 0 !important;
+}
