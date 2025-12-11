@@ -109,9 +109,9 @@ class VocabVerbatimTermMapper:
     def map_terms(
         self,
         source_terms: pd.DataFrame,
-        term_column: str,
-        matched_concept_id_column: str = "matched_concept_id",
-        matched_concept_name_column: str = "matched_concept_name",
+        term_column: str = "cleaned_term",
+        mapped_concept_id_column: str = "mapped_concept_id",
+        mapped_concept_name_column: str = "mapped_concept_name",
     ) -> pd.DataFrame:
         """
         Maps source terms in a DataFrame column to concept IDs using the pre-built index.
@@ -119,13 +119,13 @@ class VocabVerbatimTermMapper:
         Args:
             source_terms: DataFrame containing the source clinical terms to map
             term_column: Name of the column with terms to map
-            matched_concept_id_column: Name of the column to store matched concept IDs.
-            matched_concept_name_column: Name of the column to store matched concept names.
+            mapped_concept_id_column: Name of the column to store matched concept IDs.
+            mapped_concept_name_column: Name of the column to store matched concept names.
 
         Returns:
             A DataFrame with the original columns and their mapped concept IDs and names.
         """
-        source_terms[[matched_concept_id_column, matched_concept_name_column]] = source_terms[term_column].apply(
+        source_terms[[mapped_concept_id_column, mapped_concept_name_column]] = source_terms[term_column].apply(
             lambda term: pd.Series(self.map_term(term)[0] if self.map_term(term) else (-1, ""))
         )
         return source_terms

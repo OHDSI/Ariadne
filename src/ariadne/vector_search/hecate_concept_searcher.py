@@ -101,9 +101,6 @@ class HecateConceptSearcher(AbstractConceptSearcher):
         term_column: str,
         matched_concept_id_column: str = "matched_concept_id",
         matched_concept_name_column: str = "matched_concept_name",
-        matched_domain_id_column: str = "matched_domain_id",
-        matched_concept_class_id_column: str = "matched_concept_class_id",
-        matched_vocabulary_id_column: str = "matched_vocabulary_id",
         match_score_column: str = "match_score",
         match_rank_column: str = "match_rank",
         limit: int = 25,
@@ -116,9 +113,6 @@ class HecateConceptSearcher(AbstractConceptSearcher):
             term_column: Name of the column with terms to search.
             matched_concept_id_column: Name of the column to store matched concept IDs.
             matched_concept_name_column: Name of the column to store matched concept names.
-            matched_domain_id_column: Name of the column to store matched domain IDs.
-            matched_concept_class_id_column: Name of the column to store matched concept class IDs.
-            matched_vocabulary_id_column: Name of the column to store matched vocabulary IDs.
             match_score_column: Name of the column to store match scores.
             match_rank_column: Name of the column to store match ranks.
             limit: The maximum number of results to return for each term.
@@ -141,9 +135,6 @@ class HecateConceptSearcher(AbstractConceptSearcher):
                         {
                             matched_concept_id_column: concept["concept_id"],
                             matched_concept_name_column: concept["concept_name"],
-                            matched_domain_id_column: concept["domain_id"],
-                            matched_concept_class_id_column: concept["concept_class_id"],
-                            matched_vocabulary_id_column: concept["vocabulary_id"],
                             match_score_column: concept["score"],
                             match_rank_column: rank,
                         }
@@ -170,13 +161,13 @@ if __name__ == "__main__":
     df = pd.DataFrame(
         {
             "concept_id_1": [1326717, 201820],
-            "stripped_concept_name_1": [
+            "cleaned_term": [
                 "Acute myocardial infarction",
                 "Chronic kidney disease",
             ],
         }
     )
-    results_df = concept_searcher.search_terms(df, term_column="stripped_concept_name_1", limit=10)
+    results_df = concept_searcher.search_terms(df, term_column="cleaned_term", limit=10)
     print(results_df)
     print(results_df.columns)
 

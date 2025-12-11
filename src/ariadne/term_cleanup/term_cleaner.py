@@ -23,9 +23,7 @@ from ariadne.utils.config import Config
 import warnings
 
 
-_TRIGGER_PATTERN = (
-    r"not|unspecified|unidentified|without|other| nos|,nos| nec|,nec|encounter"
-)
+_TRIGGER_PATTERN = r"not|unspecified|unidentified|without|other| nos|,nos| nec|,nec|encounter"
 
 
 class TermCleaner:
@@ -62,7 +60,7 @@ class TermCleaner:
             return term
 
     def clean_terms(
-        self, df: pd.DataFrame, term_column: str, output_column: str = "cleaned_term"
+        self, df: pd.DataFrame, term_column: str = "source_term", output_column: str = "cleaned_term"
     ) -> pd.DataFrame:
         """
         Cleans clinical terms in a DataFrame column using the LLM.

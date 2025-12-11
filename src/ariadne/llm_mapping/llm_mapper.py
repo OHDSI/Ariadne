@@ -34,7 +34,7 @@ class LlmMapper:
         parents_column: Optional[str] = "matched_parents",
         children_column: Optional[str] = "matched_children",
         synonyms_column: Optional[str] = "matched_synonyms",
-    ) -> Tuple[int, str]:
+    ) -> Tuple[int, str, str]:
         """
         Maps a source term to the matching target concept using LLM prompts. The LLM can be prompted in multiple
         steps. The first step provides the source term and candidate target concepts as prompt, with information
@@ -59,7 +59,8 @@ class LlmMapper:
             synonyms_column: The name of the column containing target concept synonyms.
 
         Returns:
-            A tuple of (matched_concept_id, matched_concept_name). If no match is found, returns (-1, "no_match").
+            A tuple of (matched_concept_id, matched_concept_name, match_rationale). If no match is found, returns
+            (-1, "no_match", "").
         """
 
         num_prompts = len(self.system_prompts)
@@ -140,31 +141,42 @@ class LlmMapper:
         match = re.findall(r"^#+ ?Match ?:.*", response, flags=re.MULTILINE | re.IGNORECASE)
         if match:
             if re.search("no[ _]match|-1", match[-1], re.IGNORECASE):
-                return -1, "no_match"
-            number_match = re.findall(r"\d+", match[-1])
-            if not number_match:
-                raise ValueError(f"No numeric match found in response: {response}")
-            number_match_value = number_match[0]
-            try:
-                match_value_int = int(number_match_value)
-            except ValueError:
-                raise ValueError(f"Match value '{number_match_value}' is not a valid integer.")
-            matched_row = target_concepts[target_concepts[concept_id_column] == match_value_int]
-            if not matched_row.empty:
-                concept_name = str(matched_row.iloc[0][concept_name_column])
-                return match_value_int, concept_name
+                match_value_int = -1
+                concept_name = "no_match"
             else:
-                raise ValueError(f"Match '{number_match_value}' not found in search results.")
+                number_match = re.findall(r"\d+", match[-1])
+                if not number_match:
+                    raise ValueError(f"No numeric match found in response: {response}")
+                number_match_value = number_match[0]
+                try:
+                    match_value_int = int(number_match_value)
+                except ValueError:
+                    raise ValueError(f"Match value '{number_match_value}' is not a valid integer.")
+                matched_row = target_concepts[target_concepts[concept_id_column] == match_value_int]
+                if matched_row.empty:
+                    raise ValueError(f"Match '{number_match_value}' not found in search results.")
+                concept_name = str(matched_row.iloc[0][concept_name_column])
         elif re.search(r":\s?(no[ _]match|-1)", match[-1], re.IGNORECASE):
-            return -1, "no_match"
+            match_value_int = -1
+            concept_name = "no_match"
         else:
             raise ValueError("Response does not contain a match or no_match.")
+
+        # Extract the rationale if provided.
+        rationale_match = re.search(r"Justification[:\-]?(.*)", response, flags=re.DOTALL | re.IGNORECASE)
+        rationale = ""
+        if rationale_match:
+            rationale = rationale_match.group(1).strip()
+            rationale = rationale.replace("\n", " ").replace("\\n", "\n")
+
+        return match_value_int, concept_name, rationale
 
     def map_terms(
         self,
         source_target_concepts: pd.DataFrame,
-        term_column: str,
-        source_id_column: Optional[str],
+        term_column: str = "cleaned_term",
+        source_id_column: Optional[str] = "source_concept_id",
+        source_term_column: Optional[str] = "source_term",
         concept_id_column: str = "matched_concept_id",
         concept_name_column: str = "matched_concept_name",
         domain_id_column: Optional[str] = "matched_domain_id",
@@ -177,21 +189,28 @@ class LlmMapper:
         mapped_concept_name_column: str = "mapped_concept_name",
     ) -> pd.DataFrame:
         """
-        Maps source terms in a DataFrame column to target concepts using LLM prompts.
+        Maps source terms in a DataFrame column to target concepts using LLM prompts. The system prompts are taken
+        from the configuration file. Multiple steps are supported as per the map_term method.
+
+        The input DataFrame should contain multiple rows per source term, one for each candidate target concept.
+
+        Be aware that LLM responses are cached based on source term and source ID, so if the same term appears
+        multiple times with the same source ID, the cached response will be used. The cache is stored in the
+        llm_mapper_responses_folder specified in the config.
 
         Args:
-            source_target_concepts: DataFrame containing the source clinical terms to map, and candidate target
-                concepts. Multiple rows per source term are allowed, one for each candidate target concept.
-            term_column: The name of the column containing source terms.
-            source_id_column: The name of the column containing unique source term IDs.
-            concept_id_column: The name of the column containing target concept IDs.
-            concept_name_column: The name of the column containing target concept names.
-            domain_id_column: The name of the column containing target domain IDs.
-            concept_class_id_column: The name of the column containing target concept class IDs.
-            vocabulary_id_column: The name of the column containing target vocabulary IDs.
-            parents_column: The name of the column containing target concept parents.
-            children_column: The name of the column containing target concept children.
-            synonyms_column: The name of the column containing target concept synonyms.
+            source_target_concepts: DataFrame containing the source clinical terms and candidate target concepts.
+            term_column: The name of the column containing source terms fed to the LLM.
+            source_id_column: The name of the column containing the unique source term IDs.
+            source_term_column: The name of the column containing the original source terms.
+            concept_id_column: The name of the column containing the target concept IDs.
+            concept_name_column: The name of the column containing the target concept names.
+            domain_id_column: The name of the column containing the target domain IDs.
+            concept_class_id_column: The name of the column containing the target concept class IDs.
+            vocabulary_id_column: The name of the column containing the target vocabulary IDs.
+            parents_column: The name of the column containing the target concept parents.
+            children_column: The name of the column containing the target concept children.
+            synonyms_column: The name of the column containing the target concept synonyms.
             mapped_concept_id_column: The name of the output column for mapped concept IDs.
             mapped_concept_name_column: The name of the output column for mapped concept names.
         Returns:
@@ -204,7 +223,7 @@ class LlmMapper:
             source_id = None
             if source_id_column and source_id_column in group.columns:
                 source_id = str(group.iloc[0][source_id_column])
-            matched_concept_id, matched_concept_name = self.map_term(
+            matched_concept_id, matched_concept_name, match_rationale = self.map_term(
                 term,
                 source_id,
                 group,
@@ -221,6 +240,7 @@ class LlmMapper:
                 {
                     term_column: term,
                     source_id_column: source_id,
+                    source_term_column: group.iloc[0][source_term_column],
                     mapped_concept_id_column: matched_concept_id,
                     mapped_concept_name_column: matched_concept_name,
                 }
@@ -254,10 +274,10 @@ if __name__ == "__main__":
             "matched_synonyms": ["AMI; Heart attack", "MI; Myocardial infarction", "Liver disorder"],
         }
     )
-    mapped_id, mapped_name = mapper.map_term(
+    mapped_id, mapped_name, rationale = mapper.map_term(
         source_term,
         source_id="test1",
         target_concepts=target_concepts,
     )
-    print(f"Source term '{source_term}' mapped to concept: {mapped_name} ({mapped_id})")
+    print(f"Source term '{source_term}' mapped to concept: {mapped_name} ({mapped_id}) with rationale: {rationale}")
     print(f"Total LLM cost: ${mapper.get_total_cost():.4f}")

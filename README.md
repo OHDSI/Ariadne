@@ -39,7 +39,7 @@ Ariadne uses environment variables for database connections and API keys.
     cp .env.example .env
     ``` 
 
-2. Edit the `.env` file to set your database connection details and API keys. **Do not commit this file to version control.**
+2. Edit the `.env` file to set your database connection details and API keys. **Do not commit this file to version control.** We recommend moving it to a secure location outside the project directory.
 
 
 ## License

@@ -43,9 +43,6 @@ class AbstractConceptSearcher(ABS):
         term_column: str,
         matched_concept_id_column: str = "matched_concept_id",
         matched_concept_name_column: str = "matched_concept_name",
-        matched_domain_id_column: str = "matched_domain_id",
-        matched_concept_class_id_column: str = "matched_concept_class_id",
-        matched_vocabulary_id_column: str = "matched_vocabulary_id",
         match_score_column: str = "match_score",
         match_rank_column: str = "match_rank",
         limit: int = 25,
@@ -58,9 +55,6 @@ class AbstractConceptSearcher(ABS):
             term_column: Name of the column with terms to search.
             matched_concept_id_column: Name of the column to store matched concept IDs.
             matched_concept_name_column: Name of the column to store matched concept names.
-            matched_domain_id_column: Name of the column to store matched domain IDs.
-            matched_concept_class_id_column: Name of the column to store matched concept class IDs.
-            matched_vocabulary_id_column: Name of the column to store matched vocabulary IDs.
             match_score_column: Name of the column to store match scores.
             match_rank_column: Name of the column to store match ranks.
             limit: The maximum number of results to return for each term.

@@ -14,3 +14,5 @@ plugins:
 
 nav:
   - Home: index.md
+  - Notebooks:
+      - Exact mapping: notebooks/01_evaluation_exact_mapping.ipynb
