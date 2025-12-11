@@ -46,7 +46,7 @@ class VerbatimTermMapper:
             target_concept_ids: a list of target concept IDs
             target_terms: a list of target clinical terms
             target_synonyms: a list of target synonyms. Each string is semicolon separated synonyms for the
-            corresponding target term.
+                corresponding target term.
 
         Returns:
             A tuple of (mapped_concept_id, mapped_term) if a match is found, otherwise (None, None)

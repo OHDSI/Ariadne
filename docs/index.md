@@ -6,11 +6,12 @@
 **Ariadne** is a Python toolkit for mapping source terminologies to standard concepts in the OHDSI Vocabulary.
 
 It includes the following modules:
-- **term_cleanup:** for cleaning source terms, removing uninformative parts such as "not otherwise specified".
-- **verbatim_mapping:** for mapping source terms that (almost) exactly match standard concepts, using term normalization techniques like lowercasing, punctuation removal, and word stemming.
-- **vector_search:** for leveraging embedding language models to find semantically similar standard concepts for source terms.
-- **llm_mapping:** for using reasoning LLMs to find exact matches in the vocabulary.
+
 - **evaluation:** for evaluating mapping performance using golden standard mappings.
+- **llm_mapping:** for using reasoning LLMs to find exact matches in the vocabulary.
+- **term_cleanup:** for cleaning source terms, removing uninformative parts such as "not otherwise specified".
 - **utils:** for common utility functions, including managing the configuration file.
+- **vector_search:** for leveraging embedding language models to find semantically similar standard concepts for source terms.
+- **verbatim_mapping:** for mapping source terms that (almost) exactly match standard concepts, using term normalization techniques like lowercasing, punctuation removal, and word stemming.
 
 

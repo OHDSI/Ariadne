@@ -93,6 +93,14 @@ class Config:
     llm_mapping: Llm_mapping = field(default_factory=Llm_mapping)
 
     def __init__(self, filename: str = "config.yaml"):
+        """
+        Initializes the Config object by loading settings from the specified YAML file.
+
+        Args:
+            filename: The path to the YAML configuration file. Defaults to 'config.yaml' in the current working
+                        directory or project root.
+        """
+
         path = Path.cwd() / filename
         if not path.exists():
             path = get_project_root() / filename

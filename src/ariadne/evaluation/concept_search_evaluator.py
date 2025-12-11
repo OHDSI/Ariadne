@@ -65,9 +65,10 @@ def evaluate_concept_search(
     matched_concept_id_column: str = "matched_concept_id",
     matched_concept_name_column: str = "matched_concept_name",
     match_rank_column: str = "match_rank",
-):
+) -> None:
     """
     Evaluate the concept search results against the gold standard.
+
     Args:
         search_results: Pandas DataFrame containing the results of the concept search.
         output_file: Path to save the evaluation results.

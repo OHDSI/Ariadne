@@ -1,4 +1,5 @@
 site_name: Ariadne Documentation
+use_directory_urls: false
 theme:
   name: material
 
@@ -8,11 +9,12 @@ plugins:
       default_handler: python
   - mkdocs-autoapi:
       autoapi_dir: src
-      output_dir: api
-      watch:
-        - src
+  - mkdocs-jupyter
 
 nav:
   - Home: index.md
   - Notebooks:
-      - Exact mapping: notebooks/01_evaluation_exact_mapping.ipynb
+      - Exact mapping: notebooks/01_evaluate_exact_mapping.ipynb
+
+extra_css:
+  - stylesheets/extra.css

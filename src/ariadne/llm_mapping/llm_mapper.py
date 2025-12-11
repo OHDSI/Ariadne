@@ -15,7 +15,7 @@ class LlmMapper:
         self.context_settings = config.llm_mapping.context
         self.responses_folder = config.system.llm_mapper_responses_folder
         os.makedirs(self.responses_folder, exist_ok=True)
-        self.cost = 0.0
+        self._cost = 0.0
         """
         Initializes the LlmMapper with configuration settings, specific system prompts, and context settings for 
         LLM-based term mapping. Also sets up a folder to store LLM responses.
@@ -107,7 +107,7 @@ class LlmMapper:
 
                 response_with_usage = get_llm_response(prompt, system_prompt)
                 response = response_with_usage["content"]
-                self.cost = self.cost + response_with_usage["usage"]["total_cost_usd"]
+                self._cost = self._cost + response_with_usage["usage"]["total_cost_usd"]
 
                 if step == 0 and self.context_settings.re_insert_target_details:
                     # Re-insert target details into the response JSON for the next step:
@@ -255,7 +255,7 @@ class LlmMapper:
             Total cost in USD.
         """
 
-        return self.cost
+        return self._cost
 
 
 if __name__ == "__main__":
