@@ -19,10 +19,7 @@ _PRICING_TABLE = {
     "local": {"input": 0.00, "output": 0.00},
 }
 
-_TEMPERATURE_OK_MODELS = {
-    "gpt-4o", "gpt-4", "gpt-35-turbo",
-    "gpt-4o-mini", "gpt-4-turbo", "gpt-3.5-turbo"
-}
+_TEMPERATURE_OK_MODELS = {"gpt-4o", "gpt-4", "gpt-35-turbo", "gpt-4o-mini", "gpt-4-turbo", "gpt-3.5-turbo"}
 
 
 class _AIClientFactory:
@@ -57,9 +54,7 @@ class _AIClientFactory:
             client = OpenAI(
                 api_key=api_key,
                 base_url=endpoint,
-                default_query={
-                    "api-version": get_environment_variable("AZURE_OPENAI_API_VERSION")
-                },
+                default_query={"api-version": get_environment_variable("AZURE_OPENAI_API_VERSION")},
                 default_headers={"api-key": api_key},
             )
             return client, model_name, "azure"
@@ -74,9 +69,7 @@ class _AIClientFactory:
             return client, model_name, "openai"
 
 
-def _calculate_cost(
-    model_name: str, input_tok: int, output_tok: int, provider_type: str
-) -> float:
+def _calculate_cost(model_name: str, input_tok: int, output_tok: int, provider_type: str) -> float:
     if provider_type == "local":
         return 0.0
     price_key = next((k for k in _PRICING_TABLE if k in model_name), None)
@@ -124,9 +117,7 @@ def get_embedding_vectors(texts: List[str]) -> Dict[str, Any]:
     }
 
 
-def get_llm_response(
-    prompt: str, system_prompt: Optional[str] = None
-) -> Dict[str, Any]:
+def get_llm_response(prompt: str, system_prompt: Optional[str] = None) -> Dict[str, Any]:
     """
     Generates text response using the LLM-specific config.
 
@@ -151,20 +142,32 @@ def get_llm_response(
     else:
         temperature = None
 
-    response = client.chat.completions.create(
-        model=model, messages=messages, temperature = temperature
-    )
+    try:
+        response = client.chat.completions.create(model=model, messages=messages, temperature=temperature)
+    except Exception as e:
+        msg = str(e).lower()
+        if any(k in msg for k in ("content filter", "content_filter", "filtered", "policy", "moderation")):
+            import warnings
+
+            warnings.warn(f"Content filter triggered for obscene prompt '{prompt}'; returning None as response.")
+            return {
+                "content": None,
+                "usage": {
+                    "input_tokens": 0,
+                    "output_tokens": 0,
+                    "reasoning_tokens": 0,
+                    "total_cost_usd": 0.0,
+                    "model_used": model,
+                },
+            }
+        raise
 
     usage = response.usage
     reasoning_tokens = 0
     if hasattr(usage, "completion_tokens_details") and usage.completion_tokens_details:
-        reasoning_tokens = getattr(
-            usage.completion_tokens_details, "reasoning_tokens", 0
-        )
+        reasoning_tokens = getattr(usage.completion_tokens_details, "reasoning_tokens", 0)
 
-    total_cost = _calculate_cost(
-        model, usage.prompt_tokens, usage.completion_tokens, provider
-    )
+    total_cost = _calculate_cost(model, usage.prompt_tokens, usage.completion_tokens, provider)
 
     return {
         "content": response.choices[0].message.content,
@@ -183,7 +186,5 @@ if __name__ == "__main__":
     embeddings_result = get_embedding_vectors(texts)
     print("Embeddings Result:", embeddings_result)
 
-    llm_result = get_llm_response(
-        "What is the capital of the Netherlands?", "You are a helpful assistant."
-    )
+    llm_result = get_llm_response("What is the capital of the Netherlands?", "You are a helpful assistant.")
     print("LLM Response:", llm_result)

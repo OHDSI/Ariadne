@@ -24,6 +24,7 @@ def evaluate(
     term_column: str = "cleaned_term",
     mapped_concept_id_column: str = "mapped_concept_id",
     mapped_concept_name_column: str = "mapped_concept_name",
+    mapped_rationale_column: Optional[str] = "mapped_rationale",
     mapped_method_column: Optional[str] = "map_method",
     source_ids: Optional[List[int]] = None,
 ) -> pd.DataFrame:
@@ -38,6 +39,7 @@ def evaluate(
         mapped_concept_id_column: Name of the column with mapped concept IDs.
         mapped_concept_name_column: Name of the column with mapped concept names.
         mapped_method_column: Optional: Name of the column with mapping methods, e.g. "verbatim" or "llm".
+        mapped_rationale_column: Optional: Name of the column with mapping rationales.
         source_ids: Optional list of source concept IDs to evaluate. If None, evaluate all.
 
     Returns:
@@ -97,6 +99,9 @@ def evaluate(
                 "is_correct": is_correct,
             }
         )
+        if mapped_rationale_column and mapped_rationale_column in row:
+            result_row[mapped_rationale_column] = row[mapped_rationale_column]
+
         evaluation_results.append(result_row)
     evaluation_df = pd.DataFrame(evaluation_results)
 

@@ -34,7 +34,7 @@ class LlmMapper:
         parents_column: Optional[str] = "matched_parents",
         children_column: Optional[str] = "matched_children",
         synonyms_column: Optional[str] = "matched_synonyms",
-    ) -> Tuple[int, str, str]:
+    ) -> Tuple[int | None, str | None, str | None]:
         """
         Maps a source term to the matching target concept using LLM prompts. The LLM can be prompted in multiple
         steps. The first step provides the source term and candidate target concepts as prompt, with information
@@ -60,7 +60,7 @@ class LlmMapper:
 
         Returns:
             A tuple of (matched_concept_id, matched_concept_name, match_rationale). If no match is found, returns
-            (-1, "no_match", "").
+            (-1, "no_match", ""). If the content filter is hit, returns (None, None, None).
         """
 
         num_prompts = len(self.system_prompts)
@@ -98,6 +98,8 @@ class LlmMapper:
             if os.path.exists(response_file):
                 with open(response_file, "r", encoding="utf-8") as f:
                     response = f.read()
+                if response == "*Content filter triggered*":
+                    return None, None, None
             else:
                 # Else generate a new response from the LLM:
                 system_prompt = self.system_prompts[step]
@@ -107,6 +109,11 @@ class LlmMapper:
 
                 response_with_usage = get_llm_response(prompt, system_prompt)
                 response = response_with_usage["content"]
+                if not response:
+                    # We hit the content filter:
+                    with open(response_file, "w", encoding="utf-8") as f:
+                        f.write("*Content filter triggered*")
+                    return None, None, None
                 self._cost = self._cost + response_with_usage["usage"]["total_cost_usd"]
 
                 if step == 0 and self.context_settings.re_insert_target_details:
@@ -187,6 +194,7 @@ class LlmMapper:
         synonyms_column: Optional[str] = "matched_synonyms",
         mapped_concept_id_column: str = "mapped_concept_id",
         mapped_concept_name_column: str = "mapped_concept_name",
+        mapped_rationale_column: str = "mapped_rationale",
     ) -> pd.DataFrame:
         """
         Maps source terms in a DataFrame column to target concepts using LLM prompts. The system prompts are taken
@@ -213,6 +221,7 @@ class LlmMapper:
             synonyms_column: The name of the column containing the target concept synonyms.
             mapped_concept_id_column: The name of the output column for mapped concept IDs.
             mapped_concept_name_column: The name of the output column for mapped concept names.
+            mapped_rationale_column: The name of the output column for mapping rationale.
         Returns:
             A DataFrame with the original terms and their mapped concept IDs and names.
         """
@@ -236,6 +245,9 @@ class LlmMapper:
                 children_column,
                 synonyms_column,
             )
+            if matched_concept_id is None:
+                # Content filter was hit:
+                continue
             mapped_data.append(
                 {
                     term_column: term,
@@ -243,6 +255,7 @@ class LlmMapper:
                     source_term_column: group.iloc[0][source_term_column],
                     mapped_concept_id_column: matched_concept_id,
                     mapped_concept_name_column: matched_concept_name,
+                    mapped_rationale_column: match_rationale,
                 }
             )
         return pd.DataFrame(mapped_data)
