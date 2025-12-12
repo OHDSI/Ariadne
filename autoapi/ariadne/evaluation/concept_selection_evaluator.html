@@ -1356,7 +1356,7 @@
 
 
 <h2 id="ariadne.evaluation.concept_selection_evaluator.evaluate" class="doc doc-heading">
-            <code class="highlight language-python"><span class="n">evaluate</span><span class="p">(</span><span class="n">selection_results</span><span class="p">,</span> <span class="n">gold_standard_file</span><span class="o">=</span><span class="s1">&#39;data/gold_standards/exact_matching_gs.csv&#39;</span><span class="p">,</span> <span class="n">source_id_column</span><span class="o">=</span><span class="s1">&#39;source_concept_id&#39;</span><span class="p">,</span> <span class="n">term_column</span><span class="o">=</span><span class="s1">&#39;cleaned_term&#39;</span><span class="p">,</span> <span class="n">mapped_concept_id_column</span><span class="o">=</span><span class="s1">&#39;mapped_concept_id&#39;</span><span class="p">,</span> <span class="n">mapped_concept_name_column</span><span class="o">=</span><span class="s1">&#39;mapped_concept_name&#39;</span><span class="p">,</span> <span class="n">mapped_method_column</span><span class="o">=</span><span class="s1">&#39;map_method&#39;</span><span class="p">,</span> <span class="n">source_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
+            <code class="highlight language-python"><span class="n">evaluate</span><span class="p">(</span><span class="n">selection_results</span><span class="p">,</span> <span class="n">gold_standard_file</span><span class="o">=</span><span class="s1">&#39;data/gold_standards/exact_matching_gs.csv&#39;</span><span class="p">,</span> <span class="n">source_id_column</span><span class="o">=</span><span class="s1">&#39;source_concept_id&#39;</span><span class="p">,</span> <span class="n">term_column</span><span class="o">=</span><span class="s1">&#39;cleaned_term&#39;</span><span class="p">,</span> <span class="n">mapped_concept_id_column</span><span class="o">=</span><span class="s1">&#39;mapped_concept_id&#39;</span><span class="p">,</span> <span class="n">mapped_concept_name_column</span><span class="o">=</span><span class="s1">&#39;mapped_concept_name&#39;</span><span class="p">,</span> <span class="n">mapped_rationale_column</span><span class="o">=</span><span class="s1">&#39;mapped_rationale&#39;</span><span class="p">,</span> <span class="n">mapped_method_column</span><span class="o">=</span><span class="s1">&#39;map_method&#39;</span><span class="p">,</span> <span class="n">source_ids</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code>
 
 </h2>
 
@@ -1491,6 +1491,22 @@
           </tr>
           <tr class="doc-section-item">
             <td>
+                <code>mapped_rationale_column</code>
+            </td>
+            <td>
+                  <code><span title="typing.Optional">Optional</span>[<span title="str">str</span>]</code>
+            </td>
+            <td>
+              <div class="doc-md-description">
+                <p>Optional: Name of the column with mapping rationales.</p>
+              </div>
+            </td>
+            <td>
+                  <code>&#39;mapped_rationale&#39;</code>
+            </td>
+          </tr>
+          <tr class="doc-section-item">
+            <td>
                 <code>source_ids</code>
             </td>
             <td>
@@ -1621,13 +1637,19 @@
 <span class="normal">104</span>
 <span class="normal">105</span>
 <span class="normal">106</span>
-<span class="normal">107</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span>
+<span class="normal">107</span>
+<span class="normal">108</span>
+<span class="normal">109</span>
+<span class="normal">110</span>
+<span class="normal">111</span>
+<span class="normal">112</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">evaluate</span><span class="p">(</span>
     <span class="n">selection_results</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
     <span class="n">gold_standard_file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;data/gold_standards/exact_matching_gs.csv&quot;</span><span class="p">,</span>
     <span class="n">source_id_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;source_concept_id&quot;</span><span class="p">,</span>
     <span class="n">term_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;cleaned_term&quot;</span><span class="p">,</span>
     <span class="n">mapped_concept_id_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mapped_concept_id&quot;</span><span class="p">,</span>
     <span class="n">mapped_concept_name_column</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mapped_concept_name&quot;</span><span class="p">,</span>
+    <span class="n">mapped_rationale_column</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;mapped_rationale&quot;</span><span class="p">,</span>
     <span class="n">mapped_method_column</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;map_method&quot;</span><span class="p">,</span>
     <span class="n">source_ids</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
@@ -1642,6 +1664,7 @@
 <span class="sd">        mapped_concept_id_column: Name of the column with mapped concept IDs.</span>
 <span class="sd">        mapped_concept_name_column: Name of the column with mapped concept names.</span>
 <span class="sd">        mapped_method_column: Optional: Name of the column with mapping methods, e.g. &quot;verbatim&quot; or &quot;llm&quot;.</span>
+<span class="sd">        mapped_rationale_column: Optional: Name of the column with mapping rationales.</span>
 <span class="sd">        source_ids: Optional list of source concept IDs to evaluate. If None, evaluate all.</span>
 
 <span class="sd">    Returns:</span>
@@ -1701,6 +1724,9 @@
                 <span class="s2">&quot;is_correct&quot;</span><span class="p">:</span> <span class="n">is_correct</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>
+        <span class="k">if</span> <span class="n">mapped_rationale_column</span> <span class="ow">and</span> <span class="n">mapped_rationale_column</span> <span class="ow">in</span> <span class="n">row</span><span class="p">:</span>
+            <span class="n">result_row</span><span class="p">[</span><span class="n">mapped_rationale_column</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">mapped_rationale_column</span><span class="p">]</span>
+
         <span class="n">evaluation_results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result_row</span><span class="p">)</span>
     <span class="n">evaluation_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">evaluation_results</span><span class="p">)</span>
 

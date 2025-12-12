@@ -2002,12 +2002,12 @@ Delete those files to rerun the corresponding steps.</p>
 <div class="highlight-ipynb hl-python"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
-<span class="n">project_root</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span>
+<span class="n">project_root</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">cwd</span><span class="p">()</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span>
 </pre></div>
 <div class="clipboard-copy-txt" id="cell-1">from pathlib import Path
 import pandas as pd
 
-project_root = Path.cwd().parent</div>
+project_root = Path.cwd().parent.parent</div>
 </div>
 </div>
 </div>
@@ -2867,6 +2867,13 @@ vector_search_results[["source_term", "matched_concept_id", "matched_concept_nam
 <div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
 </div>
 <div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Loaded vector search context from file.
+</pre>
+</div>
+</div>
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[7]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
@@ -2949,7 +2956,7 @@ vector_search_results[["source_term", "matched_concept_id", "matched_concept_nam
 <td>Enthesopathy of lower leg and ankle region</td>
 <td>Enthesopathy of lower leg and ankle region (di...</td>
 <td>Disorder</td>
-<td>None</td>
+<td>NaN</td>
 </tr>
 <tr>
 <th>6</th>
@@ -2967,7 +2974,7 @@ vector_search_results[["source_term", "matched_concept_id", "matched_concept_nam
 <td>Bilateral enthesopathy of feet</td>
 <td>Enthesopathy of bilateral feet (disorder);Enth...</td>
 <td>Disorder</td>
-<td>None</td>
+<td>NaN</td>
 </tr>
 <tr>
 <th>8</th>
@@ -3008,13 +3015,13 @@ LLM responses are cached to avoid duplicate costs when rerunning.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=47ad6e1de3eb1896">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=47ad6e1de3eb1896">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [8]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
 <clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-8">
@@ -3050,6 +3057,122 @@ mapped_terms[["source_term", "cleaned_term", "mapped_concept_id", "mapped_concep
 </div>
 </div>
 </div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Total LLM cost: $0.000000
+</pre>
+</div>
+</div>
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[8]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>source_term</th>
+<th>cleaned_term</th>
+<th>mapped_concept_id</th>
+<th>mapped_concept_name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>AV block first degree</td>
+<td>AV block first degree</td>
+<td>314379</td>
+<td>First degree atrioventricular block</td>
+</tr>
+<tr>
+<th>1</th>
+<td>Abnormal findings in cerebrospinal fluid</td>
+<td>Abnormal findings in cerebrospinal fluid</td>
+<td>4065770</td>
+<td>Cerebrospinal fluid examination abnormal</td>
+</tr>
+<tr>
+<th>2</th>
+<td>Abnormal findings in cerebrospinal fluid, Abno...</td>
+<td>Abnormal findings in cerebrospinal fluid, Abno...</td>
+<td>4172064</td>
+<td>Abnormal histological findings in CSF</td>
+</tr>
+<tr>
+<th>3</th>
+<td>Abnormal microbiological findings in specimens...</td>
+<td>Abnormal microbiological findings in specimens...</td>
+<td>4171911</td>
+<td>Abnormal microbiological finding in specimen f...</td>
+</tr>
+<tr>
+<th>4</th>
+<td>Surgical operation with formation of external ...</td>
+<td>Abnormal reaction or later complication due to...</td>
+<td>4123283</td>
+<td>Disorder of stoma</td>
+</tr>
+<tr>
+<th>5</th>
+<td>Abnormalities of heart beat</td>
+<td>Abnormalities of heart beat</td>
+<td>4262562</td>
+<td>Abnormal heart beat</td>
+</tr>
+<tr>
+<th>6</th>
+<td>Abscess of breast associated with pregnancy, u...</td>
+<td>Abscess of breast associated with pregnancy</td>
+<td>78218</td>
+<td>Obstetric breast abscess with antenatal compli...</td>
+</tr>
+<tr>
+<th>7</th>
+<td>Abscess of bursa, right ankle and foot</td>
+<td>Abscess of bursa, right ankle and foot</td>
+<td>-1</td>
+<td>no_match</td>
+</tr>
+<tr>
+<th>8</th>
+<td>Accidents caused by transmission machinery</td>
+<td>Accidents caused by transmission machinery</td>
+<td>439456</td>
+<td>Accident caused by power transmission machinery</td>
+</tr>
+<tr>
+<th>9</th>
+<td>Acn� excori�e</td>
+<td>Acn� excori�e</td>
+<td>4004094</td>
+<td>Excoriated acne</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=bb0c6bff2bc41c49">
@@ -3062,13 +3185,13 @@ mapped_terms[["source_term", "cleaned_term", "mapped_concept_id", "mapped_concep
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=17369c6a7cc27aae">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=17369c6a7cc27aae">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [9]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="CodeMirror cm-s-jupyter">
 <div class="zeroclipboard-container">
 <clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-9">
@@ -3092,7 +3215,7 @@ mapped_terms[["source_term", "cleaned_term", "mapped_concept_id", "mapped_concep
 
 <span class="c1"># Then add the LLM matches (for the terms that were not verbatim matched)</span>
 <span class="n">llm_mapped_terms_filtered</span> <span class="o">=</span> <span class="n">mapped_terms</span><span class="p">[</span>
-    <span class="p">[</span><span class="s2">"source_concept_id"</span><span class="p">,</span> <span class="s2">"source_term"</span><span class="p">,</span> <span class="s2">"cleaned_term"</span><span class="p">,</span> <span class="s2">"mapped_concept_id"</span><span class="p">,</span> <span class="s2">"mapped_concept_name"</span><span class="p">]</span>
+    <span class="p">[</span><span class="s2">"source_concept_id"</span><span class="p">,</span> <span class="s2">"source_term"</span><span class="p">,</span> <span class="s2">"cleaned_term"</span><span class="p">,</span> <span class="s2">"mapped_concept_id"</span><span class="p">,</span> <span class="s2">"mapped_concept_name"</span><span class="p">,</span> <span class="s2">"mapped_rationale"</span><span class="p">]</span>
 <span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 <span class="n">llm_mapped_terms_filtered</span><span class="p">[</span><span class="s2">"map_method"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"llm"</span>
 <span class="n">final_mapped_terms</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">final_mapped_terms</span><span class="p">,</span> <span class="n">llm_mapped_terms_filtered</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -3114,7 +3237,7 @@ final_mapped_terms["map_method"] = "verbatim"
 
 # Then add the LLM matches (for the terms that were not verbatim matched)
 llm_mapped_terms_filtered = mapped_terms[
-    ["source_concept_id", "source_term", "cleaned_term", "mapped_concept_id", "mapped_concept_name"]
+    ["source_concept_id", "source_term", "cleaned_term", "mapped_concept_id", "mapped_concept_name", "mapped_rationale"]
 ].copy()
 llm_mapped_terms_filtered["map_method"] = "llm"
 final_mapped_terms = pd.concat([final_mapped_terms, llm_mapped_terms_filtered], ignore_index=True)
@@ -3125,6 +3248,183 @@ final_evaluation_results.to_csv(project_root / "data" / "notebook_results" / "ex
 
 final_evaluation_results[["source_term", "target_concept_name", "map_method", "mapped_concept_name", "is_correct"]].head()
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child jp-OutputArea-executeResult">
+<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[9]:</div>
+<div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+<thead>
+<tr style="text-align: right;">
+<th></th>
+<th>source_term</th>
+<th>target_concept_name</th>
+<th>map_method</th>
+<th>mapped_concept_name</th>
+<th>is_correct</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th>0</th>
+<td>Unspecified fracture of skull</td>
+<td>Fracture of skull</td>
+<td>verbatim</td>
+<td>Fracture of skull</td>
+<td>True</td>
+</tr>
+<tr>
+<th>1</th>
+<td>Penetrating wound of orbit with or without for...</td>
+<td>Penetrating wound of orbit</td>
+<td>verbatim</td>
+<td>Penetrating wound of orbit</td>
+<td>True</td>
+</tr>
+<tr>
+<th>2</th>
+<td>Other retinal disorders in diseases classified...</td>
+<td>Retinal disorder</td>
+<td>verbatim</td>
+<td>Retinal disorder</td>
+<td>True</td>
+</tr>
+<tr>
+<th>3</th>
+<td>Other forms of angina pectoris</td>
+<td>Angina pectoris</td>
+<td>verbatim</td>
+<td>Angina pectoris</td>
+<td>False</td>
+</tr>
+<tr>
+<th>4</th>
+<td>Other forms of acute ischemic heart disease</td>
+<td>Acute ischemic heart disease</td>
+<td>verbatim</td>
+<td>Acute ischemic heart disease</td>
+<td>True</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=fb5bade86d6f5218">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [10]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-10">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="n">overall_accuracy</span> <span class="o">=</span> <span class="n">final_evaluation_results</span><span class="p">[</span><span class="s2">"is_correct"</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Overall accuracy: </span><span class="si">{</span><span class="n">overall_accuracy</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-10">overall_accuracy = final_evaluation_results["is_correct"].mean()
+print(f"Overall accuracy: {overall_accuracy:.4f}")
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Overall accuracy: 0.8836
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+<div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=2478e4beb18a2ca8">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div><div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="CodeMirror cm-s-jupyter">
+<div class="zeroclipboard-container">
+<clipboard-copy ,="" aria-label="Copy to Clipboard" for="cell-11">
+<div>
+<span class="notice" hidden="">Copied!</span>
+<svg aria-hidden="true" class="clipboard-copy-icon" data-view-component="true" height="20" version="1.1" viewbox="0 0 16 16" width="20">
+<path d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+<path d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+</clipboard-copy>
+</div>
+<div class="highlight-ipynb hl-python"><pre><span></span><span class="c1"># Zip data/llm_responses folder to data/notebook_results/llm_responses.zip</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="n">shutil</span><span class="o">.</span><span class="n">make_archive</span><span class="p">(</span>
+    <span class="n">project_root</span> <span class="o">/</span> <span class="s2">"data"</span> <span class="o">/</span> <span class="s2">"notebook_results"</span> <span class="o">/</span> <span class="s2">"llm_responses"</span><span class="p">,</span>
+    <span class="s1">'zip'</span><span class="p">,</span>
+    <span class="n">project_root</span> <span class="o">/</span> <span class="s2">"data"</span> <span class="o">/</span> <span class="s2">"llm_mapper_responses"</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Zipped LLM responses."</span><span class="p">)</span>
+</pre></div>
+<div class="clipboard-copy-txt" id="cell-11"># Zip data/llm_responses folder to data/notebook_results/llm_responses.zip
+import shutil
+shutil.make_archive(
+    project_root / "data" / "notebook_results" / "llm_responses",
+    'zip',
+    project_root / "data" / "llm_mapper_responses"
+)
+print("Zipped LLM responses.")</div>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell-outputWrapper">
+<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
+</div>
+<div class="jp-OutputArea jp-Cell-outputArea">
+<div class="jp-OutputArea-child">
+<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
+<pre>Zipped LLM responses.
+</pre>
 </div>
 </div>
 </div>
