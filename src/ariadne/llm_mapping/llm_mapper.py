@@ -1,6 +1,6 @@
 import os
 import re
-from typing import Optional, Tuple
+from typing import Optional, Tuple, List
 import json
 
 import pandas as pd
@@ -145,6 +145,7 @@ class LlmMapper:
                 prompt = response
 
         # Process the final response to extract the match:
+        response = response.replace("**", "")
         match = re.findall(r"^#+ ?Match ?:.*", response, flags=re.MULTILINE | re.IGNORECASE)
         if match:
             if re.search("no[ _]match|-1", match[-1], re.IGNORECASE):
@@ -195,6 +196,7 @@ class LlmMapper:
         mapped_concept_id_column: str = "mapped_concept_id",
         mapped_concept_name_column: str = "mapped_concept_name",
         mapped_rationale_column: str = "mapped_rationale",
+        source_ids: List[str] | None = None,
     ) -> pd.DataFrame:
         """
         Maps source terms in a DataFrame column to target concepts using LLM prompts. The system prompts are taken
@@ -222,6 +224,7 @@ class LlmMapper:
             mapped_concept_id_column: The name of the output column for mapped concept IDs.
             mapped_concept_name_column: The name of the output column for mapped concept names.
             mapped_rationale_column: The name of the output column for mapping rationale.
+            source_ids: (Optional): A list of source IDs to restrict to.
         Returns:
             A DataFrame with the original terms and their mapped concept IDs and names.
         """
@@ -232,6 +235,8 @@ class LlmMapper:
             source_id = None
             if source_id_column and source_id_column in group.columns:
                 source_id = str(group.iloc[0][source_id_column])
+                if source_id not in source_ids:
+                    continue
             matched_concept_id, matched_concept_name, match_rationale = self.map_term(
                 term,
                 source_id,

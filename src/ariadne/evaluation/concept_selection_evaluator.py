@@ -26,7 +26,7 @@ def evaluate(
     mapped_concept_name_column: str = "mapped_concept_name",
     mapped_rationale_column: Optional[str] = "mapped_rationale",
     mapped_method_column: Optional[str] = "map_method",
-    source_ids: Optional[List[int]] = None,
+    source_ids: Optional[List[str]] = None,
 ) -> pd.DataFrame:
     """
     Evaluate the concept selection results against the gold standard.
@@ -45,7 +45,8 @@ def evaluate(
     Returns:
         A Pandas DataFrame with the evaluation results.
     """
-    gold_standard = pd.read_csv(resolve_path(gold_standard_file))
+    gold_standard = pd.read_csv(resolve_path(gold_standard_file),
+                                dtype={SOURCE_CONCEPT_ID: str})
 
     if mapped_method_column:
         output_mapped_method_column = mapped_method_column
@@ -55,7 +56,7 @@ def evaluate(
     selection_results.reset_index(drop=True, inplace=True)
     evaluation_results = []
     for index, row in selection_results.iterrows():
-        source_id = int(row[source_id_column])
+        source_id = str(row[source_id_column])
         if source_ids is not None and source_id not in source_ids:
             continue
 

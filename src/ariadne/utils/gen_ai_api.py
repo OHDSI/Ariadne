@@ -39,10 +39,12 @@ class _AIClientFactory:
 
         if task_type == "embedding":
             model_name = get_environment_variable("EMBEDDING_MODEL")
-            api_key = get_environment_variable("EMBEDDING_API_KEY")
+            if provider != "lm-studio":
+                api_key = get_environment_variable("EMBEDDING_API_KEY")
         else:
             model_name = get_environment_variable("LLM_MODEL")
-            api_key = get_environment_variable("LLM_API_KEY")
+            if provider != "lm-studio":
+                api_key = get_environment_variable("LLM_API_KEY")
 
         if provider == "azure":
             if task_type == "embedding":
@@ -117,7 +119,7 @@ def get_embedding_vectors(texts: List[str]) -> Dict[str, Any]:
     }
 
 
-def get_llm_response(prompt: str, system_prompt: Optional[str] = None) -> Dict[str, Any]:
+def get_llm_response(prompt: str, system_prompt: Optional[str] = None, show_reasoning: bool = False) -> Dict[str, Any]:
     """
     Generates text response using the LLM-specific config.
 
@@ -169,8 +171,12 @@ def get_llm_response(prompt: str, system_prompt: Optional[str] = None) -> Dict[s
 
     total_cost = _calculate_cost(model, usage.prompt_tokens, usage.completion_tokens, provider)
 
+    content = response.choices[0].message.content
+    if not show_reasoning:
+        content = content.split("</think>", 1)[-1]
+
     return {
-        "content": response.choices[0].message.content,
+        "content": content,
         "usage": {
             "input_tokens": usage.prompt_tokens,
             "output_tokens": usage.completion_tokens,
