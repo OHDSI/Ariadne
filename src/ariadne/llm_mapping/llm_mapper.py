@@ -146,7 +146,7 @@ class LlmMapper:
 
         # Process the final response to extract the match:
         response = response.replace("**", "")
-        match = re.findall(r"^#+ ?Match ?:.*", response, flags=re.MULTILINE | re.IGNORECASE)
+        match = re.findall(r"^#* ?Match ?:.*", response, flags=re.MULTILINE | re.IGNORECASE)
         if match:
             if re.search("no[ _]match|-1", match[-1], re.IGNORECASE):
                 match_value_int = -1
@@ -235,7 +235,7 @@ class LlmMapper:
             source_id = None
             if source_id_column and source_id_column in group.columns:
                 source_id = str(group.iloc[0][source_id_column])
-                if source_id not in source_ids:
+                if source_ids is not None and source_id not in source_ids:
                     continue
             matched_concept_id, matched_concept_name, match_rationale = self.map_term(
                 term,

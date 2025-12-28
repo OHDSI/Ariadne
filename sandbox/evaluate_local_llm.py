@@ -1,3 +1,9 @@
+"""
+This code build on the evaluation in the notebook, but uses a local LLM instead of GPT o3.
+
+It is currently configured to access the LLM via a locally running instance of LM Studio.
+"""
+
 from pathlib import Path
 import pandas as pd
 import os
@@ -47,8 +53,10 @@ hard_cases = [
     "4160345",
     "1413053",
 ]
-mapped_terms = llm_mapper.map_terms(vector_search_results_context,
-                                    source_ids=hard_cases)
+mapped_terms = llm_mapper.map_terms(
+    vector_search_results_context,
+    # source_ids=hard_cases
+)
 
 
 # Combine verbatim matches and LLM matches
@@ -65,7 +73,13 @@ llm_mapped_terms_filtered["map_method"] = "llm"
 final_mapped_terms = pd.concat([final_mapped_terms, llm_mapped_terms_filtered], ignore_index=True)
 
 # Evaluate
-final_evaluation_results = evaluate(final_mapped_terms, source_ids=hard_cases)
-final_evaluation_results.to_csv(project_root / "data" / "notebook_results" / "nemotron_3_final_evaluation.csv", index=False)
+final_evaluation_results = evaluate(
+    selection_results=final_mapped_terms,
+    # source_ids=hard_cases
+)
+final_evaluation_results.to_csv(
+    project_root / "data" / "notebook_results" / "nemotron_3_final_evaluation.csv", index=False
+)
 overall_accuracy = final_evaluation_results["is_correct"].mean()
 print(f"Overall accuracy: {overall_accuracy:.4f}")
+# Overall accuracy: 0.8608
