@@ -148,6 +148,7 @@ class LlmMapper:
         response = response.replace("**", "")
         match = re.findall(r"^#* ?Match ?:.*", response, flags=re.MULTILINE | re.IGNORECASE)
         if match:
+            # Parse legacy format:
             if re.search("no[ _]match|-1", match[-1], re.IGNORECASE):
                 match_value_int = -1
                 concept_name = "no_match"
@@ -164,20 +165,33 @@ class LlmMapper:
                 if matched_row.empty:
                     raise ValueError(f"Match '{number_match_value}' not found in search results.")
                 concept_name = str(matched_row.iloc[0][concept_name_column])
-        elif re.search(r":\s?(no[ _]match|-1)", match[-1], re.IGNORECASE):
-            match_value_int = -1
-            concept_name = "no_match"
+            # Extract the rationale if provided.
+            rationale_match = re.search(r"Justification[:\-]?(.*)", response, flags=re.DOTALL | re.IGNORECASE)
+            rationale = ""
+            if rationale_match:
+                rationale = rationale_match.group(1).strip()
+                rationale = rationale.replace("\n", " ").replace("\\n", "\n")
+
+            return match_value_int, concept_name, rationale
         else:
-            raise ValueError("Response does not contain a match or no_match.")
-
-        # Extract the rationale if provided.
-        rationale_match = re.search(r"Justification[:\-]?(.*)", response, flags=re.DOTALL | re.IGNORECASE)
-        rationale = ""
-        if rationale_match:
-            rationale = rationale_match.group(1).strip()
-            rationale = rationale.replace("\n", " ").replace("\\n", "\n")
-
-        return match_value_int, concept_name, rationale
+            # Parse JSON format:
+            response_json_match = re.search(r"{.*}", response, flags=re.DOTALL)
+            if response_json_match:
+                response_json_str = response_json_match.group(0)
+                data = json.loads(response_json_str)
+                justification = data["justification"]
+                if not data["match_found"]:
+                    return -1, "no_match", justification
+                else:
+                    try:
+                        match_value_int = int(data["concept_id"])
+                    except ValueError:
+                        raise ValueError(f"Match value '{data["concept_id"]}' is not a valid integer.")
+                    matched_row = target_concepts[target_concepts[concept_id_column] == match_value_int]
+                    if matched_row.empty:
+                        raise ValueError(f"Match '{match_value_int}' not found in search results.")
+                    concept_name = str(matched_row.iloc[0][concept_name_column])
+                    return match_value_int, concept_name, justification
 
     def map_terms(
         self,

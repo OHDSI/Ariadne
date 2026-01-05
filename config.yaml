@@ -138,16 +138,13 @@ llm_mapping:
       
       5. If the best match is not an exact match, declare it to be no match.
       
-      Output format:
-      
-      # Source term: <source term>
-      
-      If a concept is a potential match, provide:
-      
-      # Match: <concept ID> (<concept name>)
-      
-      # Justification: <Provide a detailed justification for why this concept is an exact clinical equivalent to the source term, referencing the rules above and using the provided definitions and context.>
-      
-      or, if no concept is a good match:
-      
-      # Match: no_match
+      Output Format:
+      Provide your response in a single JSON object. Do not include any text outside of the JSON.
+      JSON
+      {
+        "source_term": "string",
+        "match_found": boolean,
+        "concept_id": "string or null",
+        "concept_name": "string or null",
+        "justification": "string"
+      }

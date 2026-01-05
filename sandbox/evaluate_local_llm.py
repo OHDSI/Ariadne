@@ -58,7 +58,6 @@ mapped_terms = llm_mapper.map_terms(
     # source_ids=hard_cases
 )
 
-
 # Combine verbatim matches and LLM matches
 verbatim_match_file = project_root / "data" / "notebook_results" / "exact_matching_verbatim_maps.csv"
 verbatim_matches = pd.read_csv(verbatim_match_file)
