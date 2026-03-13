@@ -99,18 +99,28 @@ def get_embedding_vectors(texts: List[str]) -> Dict[str, Any]:
 
     client, model, provider = _AIClientFactory.get_client(task_type="embedding")
 
-    response = client.embeddings.create(input=texts, model=model)
-
-    data = sorted(response.data, key=lambda x: x.index)
-    np_vectors = np.array([item.embedding for item in data])
-
-    usage = response.usage
-    total_cost = _calculate_cost(model, usage.prompt_tokens, 0, provider)
+    batch_size = 100
+    verbose = len(texts) > batch_size
+    batch_results = []
+    total_tokens = 0
+    for i in range(0, len(texts), batch_size):
+        # if i != 9400:
+        #     continue
+        batch = texts[i : i + batch_size]
+        if verbose:
+            print(f"Getting embedding vectors for batch {i + 1} - {i + len(batch)} ({len(texts)} total)")
+        response = client.embeddings.create(input=batch, model=model)
+        data = sorted(response.data, key=lambda x: x.index)
+        np_vectors = np.array([item.embedding for item in data])
+        batch_results.append(np_vectors)
+        usage = response.usage
+        total_tokens = total_tokens + usage.prompt_tokens
+    total_cost = _calculate_cost(model, total_tokens, 0, provider)
 
     return {
-        "embeddings": np_vectors,
+        "embeddings": np.concatenate(batch_results, axis=0),
         "usage": {
-            "input_tokens": usage.prompt_tokens,
+            "input_tokens": total_cost,
             "output_tokens": 0,
             "reasoning_tokens": 0,
             "total_cost_usd": total_cost,
