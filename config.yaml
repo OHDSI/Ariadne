@@ -44,39 +44,50 @@ term_cleaning:
     
     # Examples
     
-    Input: 'Unspecified enthesopathy, lower limb, excluding foot'
-    Output: '#Term: enthesopathy, lower limb, excluding foot'
+    Input: {"row_number": 0, "source_term": "Unspecified enthesopathy, lower limb, excluding foot"}
+    Output: {"row_number": 0, "cleaned_term": "enthesopathy, lower limb, excluding foot"}
       
-    Input: 'Thyrotoxicosis with or without goiter'
-    Output: '#Term: Thyrotoxicosis'
+    Input: {"row_number": 1, "source_term": "Thyrotoxicosis with or without goiter"}
+    Output: {"row_number": 1, "cleaned_term": "Thyrotoxicosis"}
       
-    Input: 'Other specified disorders of amniotic fluid and membranes, second trimester'
-    Output: '#Term: disorders of amniotic fluid and membranes, second trimester'
+    Input: {"row_number": 2, "source_term": "Other specified disorders of amniotic fluid and membranes, second trimester"}
+    Output: {"row_number": 2, "cleaned_term": "disorders of amniotic fluid and membranes, second trimester"}
     
-    Input: 'Neoplasm of uncertain or unknown behavior of endocrine gland'
-    Output: '#Term: Neoplasm of endocrine gland'
+    Input: {"row_number": 3, "source_term": "Neoplasm of uncertain or unknown behavior of endocrine gland"}
+    Output: {"row_number": 3, "cleaned_term": "Neoplasm of endocrine gland"}
     
-    Input: 'Osteonecrosis due to previous trauma, other site' 
-    Output: '#Term: Osteonecrosis due to previous trauma'
+    Input: {"row_number": 4, "source_term": "Osteonecrosis due to previous trauma, other site"}
+    Output: {"row_number": 4, "cleaned_term": "Osteonecrosis due to previous trauma"}
     
-    Input: 'Unspecified synovitis and tenosynovitis, unspecified shoulder'
-    Output: '#Term: synovitis and tenosynovitis, shoulder'
+    Input: {"row_number": 5, "source_term": "Unspecified synovitis and tenosynovitis, unspecified shoulder"}
+    Output: {"row_number": 5, "cleaned_term": "synovitis and tenosynovitis, shoulder"}
     
-    Input: 'Peptic ulcer without hemorrhage and without perforation'
-    Output: '#Term: Peptic ulcer without hemorrhage and without perforation'
+    Input: {"row_number": 6, "source_term": "Peptic ulcer without hemorrhage and without perforation"}
+    Output: {"row_number": 6, "cleaned_term": "Peptic ulcer without hemorrhage and without perforation"}
     
-    Input: 'Bipolar disorder, mild'
-    Output: '#Term: Bipolar disorder, mild'
+    Input: {"row_number": 7, "source_term": "Bipolar disorder, mild"}
+    Output: {"row_number": 7, "cleaned_term": "Bipolar disorder, mild"}
     
-    Input: 'endosonography (machine translation)'
-    Output: '#Term: endosonography'
+    Input: {"row_number": 8, "source_term": "endosonography (machine translation)"}
+    Output: {"row_number": 8, "cleaned_term": "endosonography"}
     
     # Important
     
     Maintain information relevant for the clinical presentation, prognosis and treatment of the term. This includes information about severity, stage, timing, location, and body part (including lateratily).
     
     #Output format
-    Present the extracted term with '#Term:' preceding it.
+    You will receive up to 25 source terms in one request, each with a row_number.
+    Return exactly one JSON object with this structure and no additional keys:
+    {
+      "results": [
+        {
+          "row_number": integer,
+          "cleaned_term": "string"
+        }
+      ]
+    }
+    Include one result for each input row_number.
+    Do not include any text outside of the JSON object.
 
 vector_search:
   max_candidates: 25
@@ -144,7 +155,34 @@ llm_mapping:
       {
         "source_term": "string",
         "match_found": boolean,
-        "concept_id": "string or null",
-        "concept_name": "string or null",
+        "concept_id": "integer or null",
         "justification": "string"
       }
+      Return only these four keys and no additional keys.
+
+drug_mapping:
+  brand_name_system_prompt: |
+    You are a senior pharmaceutical data analyst and medical terminology expert with deep expertise in drug nomenclature, including brand names, generic names (INN/USAN), dosage forms, strengths, routes of administration, and manufacturer identifiers. You have extensive experience working with drug code mapping systems such as NDC, RxNorm, ATC, and proprietary formulary databases.
+
+    Objective
+    Given a set of 25 source drug term strings, your task is to extract the brand (proprietary/trade) name from each string. These strings may contain a mixture of brand names, generic names, dosage forms, strengths, units, route of administration, manufacturer info, and other metadata — often in inconsistent or abbreviated formats.
+
+    Extraction Rules
+    Brand Name Identification: Identify and extract only the brand (trade/proprietary) name from each string. Brand names are typically capitalized and refer to a manufacturer's marketed product name (e.g., 'Lipitor', 'Advil', 'Humira').
+    Generic-Only Strings: If the string contains only a generic (non-proprietary) name and no brand name, return null for that entry.
+    Combination Products: If a string references a combination product with a brand name (e.g., 'Tylenol with Codeine'), extract the full brand name including any modifiers (e.g., 'Tylenol with Codeine').
+    Brand Extensions: Capture brand name extensions and suffixes where applicable (e.g., 'Advil PM', 'Claritin-D 24HR').
+    Ignore Non-Brand Components: Do not extract generic drug names, dosage forms (tablet, capsule, injection), strengths (10mg, 500mg), routes (oral, IV), or manufacturer names as brand names.
+
+    Output JSON:
+    Provide your response in a single JSON object with the following structure. Do not include any text outside of the JSON.
+
+    {
+      "results": [
+        {
+          "row_number": integer,
+          "brand_name": "string or null"
+        },
+        ...
+      ]
+    }

@@ -5,9 +5,9 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 9946,"Pathological fracture, left ankle",760649,Pathological fracture of left ankle,exactMatch,,,,"Pathological fracture, left ankle"
 10389,Unspecified fracture of skull,4324690,Fracture of skull,exactMatch,,,,fracture of skull
 10443,"Ocular laceration without prolapse or loss of intraocular tissue, unspecified eye",372479,Laceration of eye,exactMatch,,,,"Ocular laceration without prolapse or loss of intraocular tissue, eye"
-10446,"Penetrating wound of orbit with or without foreign body, unspecified eye",4334734,Penetrating wound of orbit,exactMatch,,,,Penetrating wound of orbit
-12399,"Fracture of unspecified shoulder girdle, part unspecified",37168846,Fracture of bone of shoulder girdle,exactMatch,,,,Fracture of shoulder girdle
-20735,Drowning and submersion due to falling or jumping from unspecified burning watercraft,4068331,Submersion and drowning due to falling from burning ship,broadMatch,4068331.0,Submersion and drowning due to falling from burning ship,exactMatch,Drowning and submersion
+10446,"Penetrating wound of orbit with or without foreign body, unspecified eye",4334734,Penetrating wound of orbit,exactMatch,,,,"Penetrating wound of orbit, eye"
+12399,"Fracture of unspecified shoulder girdle, part unspecified",37168846,Fracture of bone of shoulder girdle,exactMatch,,,,fracture of shoulder girdle
+20735,Drowning and submersion due to falling or jumping from unspecified burning watercraft,4068331,Submersion and drowning due to falling from burning ship,broadMatch,4068331.0,Submersion and drowning due to falling from burning ship,exactMatch,Drowning and submersion due to falling or jumping from burning watercraft
 725278,"Alcohol use, unspecified with withdrawal delirium",377830,Alcohol withdrawal delirium,exactMatch,,,,Alcohol use with withdrawal delirium
 725283,"Sedative, hypnotic or anxiolytic abuse with withdrawal",4184438,"Sedative, hypnotic AND/OR anxiolytic intoxication delirium",broadMatch,,,,"Sedative, hypnotic or anxiolytic abuse with withdrawal"
 725289,"Cocaine use, unspecified with withdrawal",4216493,Cocaine withdrawal,exactMatch,,,,Cocaine use with withdrawal
@@ -55,18 +55,18 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 1102837,Hormone receptor positive,4167363,Hormone receptor positive tumor,exactMatch,,,,Hormone receptor positive
 1102840,Hormone receptor negative,4230400,Hormone receptor negative neoplasm,exactMatch,,,,Hormone receptor negative
 1102880,"Sezary disease, in remission",4041799,Sezary's disease,broadMatch,,,,"Sezary disease, in remission"
-1102895,Enteropathy-type (intestinal) T-cell lymphoma not having achieved remission,4082627,Enteropathy-associated T-cell lymphoma,exactMatch,,,,Enteropathy-type intestinal T-cell lymphoma not having achieved remission
+1102895,Enteropathy-type (intestinal) T-cell lymphoma not having achieved remission,4082627,Enteropathy-associated T-cell lymphoma,exactMatch,,,,Enteropathy-type (intestinal) T-cell lymphoma not having achieved remission
 1102901,Angioimmunoblastic T-cell lymphoma not having achieved remission,4184976,Angioimmunoblastic T-cell lymphoma,exactMatch,4184976.0,Angioimmunoblastic T-cell lymphoma,broadMatch,Angioimmunoblastic T-cell lymphoma not having achieved remission
 1102902,"Angioimmunoblastic T-cell lymphoma, in remission",4144302,Hodgkin's disease in remission,broadMatch,,,,"Angioimmunoblastic T-cell lymphoma, in remission"
-1102905,Waldenstrom macroglobulinemia not having achieved remission,4098597,Waldenstrom macroglobulinemia,exactMatch,,,,"Waldenstrom macroglobulinemia, not having achieved remission"
+1102905,Waldenstrom macroglobulinemia not having achieved remission,4098597,Waldenstrom macroglobulinemia,exactMatch,,,,Waldenstrom macroglobulinemia not having achieved remission
 1102907,Heavy chain disease not having achieved remission,4288751,Heavy chain disease,exactMatch,4288751.0,Heavy chain disease,broadMatch,Heavy chain disease not having achieved remission
 1102908,"Heavy chain disease, in remission",4288751,Heavy chain disease,broadMatch,,,,"Heavy chain disease, in remission"
 1102913,Other malignant immunoproliferative diseases not having achieved remission,4003834,Malignant immunoproliferative disease (clinical),exactMatch,,,,malignant immunoproliferative diseases not having achieved remission
-1102915,"Malignant immunoproliferative disease, unspecified not having achieved remission",4003834,Malignant immunoproliferative disease (clinical),exactMatch,4003834.0,Malignant immunoproliferative disease (clinical),broadMatch,Malignant immunoproliferative disease not having achieved remission
+1102915,"Malignant immunoproliferative disease, unspecified not having achieved remission",4003834,Malignant immunoproliferative disease (clinical),exactMatch,4003834.0,Malignant immunoproliferative disease (clinical),broadMatch,malignant immunoproliferative disease not having achieved remission
 1326522,"Degenerative myopia with retinal detachment, left eye",381281,Degenerative progressive high myopia,broadMatch,,,,"Degenerative myopia with retinal detachment, left eye"
 1326600,Right heart failure,4273632,Right ventricular failure,exactMatch,,,,Right heart failure
 1326602,Acute right heart failure,4233424,Acute right-sided heart failure,exactMatch,,,,Acute right heart failure
-1326717,"Unspecified lump in the left breast, unspecified quadrant",760895,Mass of left breast,exactMatch,,,,lump in left breast
+1326717,"Unspecified lump in the left breast, unspecified quadrant",760895,Mass of left breast,exactMatch,,,,lump in the left breast
 1326728,Right tubal pregnancy without intrauterine pregnancy,37209658,Pregnancy of right fallopian tube,exactMatch,,,,Right tubal pregnancy without intrauterine pregnancy
 1335082,Grey matter heterotopia,4099082,Neuronal heterotopia,exactMatch,4145642.0,Ectopic gray matter,exactMatch,Grey matter heterotopia
 1335147,Shprintzen-Goldberg syndrome,36717691,Shprintzen Goldberg craniosynostosis syndrome,exactMatch,,,,Shprintzen-Goldberg syndrome
@@ -77,7 +77,7 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 1403401,Tuberculous hydronephrosis (machine translation),73686,Tuberculosis of genitourinary system,broadMatch,,,,Tuberculous hydronephrosis (machine translation)
 1403691,Diphtheria laryngotracheitis (machine translation),438680,Laryngeal diphtheria,exactMatch,,,,Diphtheria laryngotracheitis (machine translation)
 1403958,Other and unspecified syphilis,436033,Syphilis,exactMatch,,,,syphilis
-1405016,Plasmodium malariae malaria with other complications,438353,Quartan malaria,broadMatch,,,,Plasmodium malariae malaria
+1405016,Plasmodium malariae malaria with other complications,438353,Quartan malaria,broadMatch,,,,Plasmodium malariae malaria with complications
 1405272,Unspecified intestinal parasitism,196347,Intestinal parasitism,exactMatch,,,,intestinal parasitism
 1405305,Mixed pediculosis and phthiriasis,4148108,Pediculosis and phthirus infections,exactMatch,,,,Mixed pediculosis and phthiriasis
 1407242,Benign neoplasm: Other and unspecified parts of mouth,137813,Benign neoplasm of mouth region,exactMatch,,,,Benign neoplasm of mouth
@@ -86,7 +86,7 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 1409378,Pituitary abscess (machine translation),4265209,Abscess of pituitary,exactMatch,,,,Pituitary abscess (machine translation)
 1410337,"Mental and behavioural disorders due to use of opioids, harmful use",35610540,Harmful use of opioid,exactMatch,,,,"Mental and behavioural disorders due to use of opioids, harmful use"
 1410448,"Mental and behavioural disorders due to use of hallucinogens, acute intoxication",4173746,Hallucinogen intoxication,exactMatch,,,,"Mental and behavioural disorders due to use of hallucinogens, acute intoxication"
-1410524,"Mental and behavioural disorders due to multiple drug use and use of other psychoactive substances, amnesic syndrome",37312034,Amnestic disorder caused by psychoactive substance,exactMatch,,,,amnesic syndrome due to multiple drug use and use of other psychoactive substances
+1410524,"Mental and behavioural disorders due to multiple drug use and use of other psychoactive substances, amnesic syndrome",37312034,Amnestic disorder caused by psychoactive substance,exactMatch,,,,"Mental and behavioural disorders due to multiple drug use and use of psychoactive substances, amnesic syndrome"
 1411019,Sexual relationship disorder,35623653,Sexual relationship problem,exactMatch,,,,Sexual relationship disorder
 1411039,"Mild mental retardation, Without mention of impairment of behaviour",432612,Mild intellectual disability,exactMatch,,,,Mild mental retardation
 1411230,"Bacterial meningitis, unspecified",436091,Bacterial meningitis,exactMatch,,,,Bacterial meningitis
@@ -115,14 +115,14 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 1426278,"Congenital malformation of female genitalia, unspecified",4243365,Congenital anomaly of female genital system,exactMatch,,,,Congenital malformation of female genitalia
 1426609,Congenital dislocation of the elbow (machine translation),4161208,Congenital dislocation of elbow,exactMatch,,,,Congenital dislocation of the elbow (machine translation)
 1427062,"Other congenital malformations, not elsewhere classified",4079975,Congenital malformation,exactMatch,,,,congenital malformations
-1427259,Cardiac murmurs and other cardiac sounds,4114164,Finding of heart sounds,broadMatch,,,,Cardiac murmurs and other cardiac sounds
+1427259,Cardiac murmurs and other cardiac sounds,4114164,Finding of heart sounds,broadMatch,,,,Cardiac murmurs and cardiac sounds
 1427845,Abnormal plasma viscosity,4168839,Plasma viscosity outside reference range,exactMatch,,,,Abnormal plasma viscosity
 1429181,Injury of other pelvic organs,201436,Injury of pelvic organ,exactMatch,,,,Injury of pelvic organs
 1433619,Adverse effects in the therapeutic use of mineralocorticoids,4303811,Mineralocorticoid adverse reaction,exactMatch,,,,Adverse effects in the therapeutic use of mineralocorticoids
 1434052,Blood alcohol level of less than 20 mg/100 ml,40484946,High alcohol level in blood,broadMatch,,,,Blood alcohol level of less than 20 mg/100 ml
 1434357,Carrier of other specified bacterial diseases,4280828,Carrier of infectious organism,broadMatch,,,,Carrier of bacterial diseases
 1434620,"Twins, both stillborn",4015162,Twins - both stillborn,exactMatch,,,,"Twins, both stillborn"
-1529217,"Chronic viral hepatitis B without delta-agent, other and unspecified phase",439674,Chronic viral hepatitis B without delta-agent,exactMatch,,,,Chronic viral hepatitis B without delta-agent
+1529217,"Chronic viral hepatitis B without delta-agent, other and unspecified phase",439674,Chronic viral hepatitis B without delta-agent,exactMatch,,,,Chronic hepatitis B without delta-agent
 1567318,Trichomoniasis,434872,Infection by Trichomonas,exactMatch,,,,Trichomoniasis
 1567339,Mosquito-borne viral encephalitis,372547,Viral encephalitis,broadMatch,,,,Mosquito-borne viral encephalitis
 1567609,Malignant carcinoid tumors,1244536,Well-differentiated neuroendocrine tumor,broadMatch,,,,Malignant carcinoid tumors
@@ -155,7 +155,7 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 1572120,Congenital deformities of hip,77373,Congenital deformity of hip joint,exactMatch,,,,Congenital deformities of hip
 1572186,Abnormalities of heart beat,4262562,Abnormal heart beat,exactMatch,44784217.0,Cardiac arrhythmia,exactMatch,Abnormalities of heart beat
 1572249,Dysphasia and aphasia,4024716,"Aphasia, agnosia, dyslexia AND/OR apraxia",broadMatch,,,,Dysphasia and aphasia
-1572254,Fever of other and unknown origin,437663,Fever,exactMatch,4328373.0,Pyrexia of unknown origin,exactMatch,Fever
+1572254,Fever of other and unknown origin,437663,Fever,exactMatch,4328373.0,Pyrexia of unknown origin,exactMatch,Fever of unknown origin
 1572266,Systemic inflammatory response syndrome (SIRS) of non-infectious origin,44784134,Non-infectious systemic inflammatory response syndrome,exactMatch,,,,Systemic inflammatory response syndrome (SIRS) of non-infectious origin
 1572283,Proteinuria,75650,Proteinuria,exactMatch,,,,Proteinuria
 1572403,Contusion of eyeball and orbital tissues,433911,Contusion of eye AND ocular adnexa,exactMatch,,,,Contusion of eyeball and orbital tissues
@@ -172,7 +172,7 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 1574545,Corrosion of cornea and conjunctival sac,4335977,Injury of cornea,broadMatch,,,,Corrosion of cornea and conjunctival sac
 1575178,Infection due to central venous catheter,42537043,CLABSI - central line associated bloodstream infection,broadMatch,,,,Infection due to central venous catheter
 1575278,Infection and inflammatory reaction due to internal joint prosthesis,4308690,Prosthetic joint infection,broadMatch,,,,Infection and inflammatory reaction due to internal joint prosthesis
-1575861,Military operations involving other firearms discharge,439446,Assault by military firearm,broadMatch,,,,firearms discharge
+1575861,Military operations involving other firearms discharge,439446,Assault by military firearm,broadMatch,,,,Military operations involving firearms discharge
 1575911,Obstetric and gynecological devices associated with adverse incidents,43021248,Complication associated with genitourinary device,broadMatch,,,,Obstetric and gynecological devices associated with adverse incidents
 1575914,Orthopedic devices associated with adverse incidents,43021250,Complication associated with orthopedic device,exactMatch,,,,Orthopedic devices associated with adverse incidents
 1576184,Contact with and (suspected) exposure to hazards in the physical environment,37016166,Exposure to potentially hazardous substance,broadMatch,,,,Contact with and (suspected) exposure to hazards in the physical environment
@@ -246,25 +246,25 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 37081600,Neoplasm of uncertain or unknown behaviour: Ovary,200675,Neoplasm of uncertain behavior of ovary,exactMatch,,,,Neoplasm of uncertain or unknown behaviour: Ovary
 37081789,Other specified salmonella infections,133685,Salmonella infection,exactMatch,,,,salmonella infections
 37082072,"Malnutrition-related diabetes mellitus, with coma",4221933,Coma due to malnutrition-related diabetes mellitus,exactMatch,,,,"Malnutrition-related diabetes mellitus, with coma"
-37082094,Diabetes mellitus in connection with deficient nutrition or malnutritionwith multiple complications: Not described as derailed,37160913,Disorder due to malnutrition related diabetes mellitus,broadMatch,,,,"Diabetes mellitus due to malnutrition, with multiple complications"
-37082127,Other specified diabetes mellitus: With peripheral vascular complications: Not reported as derailed,321822,Peripheral vascular disorder due to diabetes mellitus,exactMatch,,,,diabetes mellitus with peripheral vascular complications
+37082094,Diabetes mellitus in connection with deficient nutrition or malnutritionwith multiple complications: Not described as derailed,37160913,Disorder due to malnutrition related diabetes mellitus,broadMatch,,,,Diabetes mellitus in connection with deficient nutrition or malnutrition with multiple complications
+37082127,Other specified diabetes mellitus: With peripheral vascular complications: Not reported as derailed,321822,Peripheral vascular disorder due to diabetes mellitus,exactMatch,,,,Diabetes mellitus with peripheral vascular complications
 37082661,"Mental and behavioural disorders due to use of cannabinoids, withdrawal state with delirium",4220197,Cannabis intoxication delirium,exactMatch,4220197.0,Cannabis intoxication delirium,broadMatch,"Mental and behavioural disorders due to use of cannabinoids, withdrawal state with delirium"
 37082830,Specific (isolated) phobias,4182847,Simple phobia,exactMatch,,,,Specific (isolated) phobias
 37083265,Parkinson disease,381270,Parkinson's disease,exactMatch,,,,Parkinson disease
 37083340,Subacute combined degeneration of spinal cord in diseases classified elsewhere,140099,Subacute combined degeneration of spinal cord,exactMatch,,,,Subacute combined degeneration of spinal cord in diseases classified elsewhere
-37083523,Nerve root and plexus compressions in other dorsopathies,43531045,Lesion of nerve root and/or plexus,broadMatch,,,,Nerve root and plexus compression
+37083523,Nerve root and plexus compressions in other dorsopathies,43531045,Lesion of nerve root and/or plexus,broadMatch,,,,Nerve root and plexus compressions in dorsopathies
 37084048,Glaucoma secondary to eye trauma,440396,Glaucoma due to ocular trauma,exactMatch,,,,Glaucoma secondary to eye trauma
 37084578,Nonrheumatic tricuspid (valve) insufficiency,4111412,"Tricuspid incompetence, non-rheumatic",exactMatch,,,,Nonrheumatic tricuspid (valve) insufficiency
 37084659,Atrial fibrillation: paroxysmal,4154290,Paroxysmal atrial fibrillation,exactMatch,,,,Atrial fibrillation: paroxysmal
 37084767,"Cerebral aneurysm, nonruptured",4029497,Aneurysm of cerebral artery,exactMatch,,,,"Cerebral aneurysm, nonruptured"
 37084958,"Lymphoedema, not elsewhere classified",435839,Lymphedema,exactMatch,,,,Lymphoedema
 37085667,West Nile virus infection,438970,Disease caused by West Nile virus,exactMatch,,,,West Nile virus infection
-37085900,Rubella without complication,4273323,Rubella,exactMatch,,,,Rubella
+37085900,Rubella without complication,4273323,Rubella,exactMatch,,,,Rubella without complication
 37086807,"Chronic viral hepatitis, unspecified",4012113,Chronic viral hepatitis,exactMatch,,,,Chronic viral hepatitis
 37087035,"Rheumatoid bursitis, other",134453,Bursitis,broadMatch,,,,Rheumatoid bursitis
 37087206,"Juvenile ankylosing spondylitis, other",4083681,Juvenile ankylosing spondylitis,exactMatch,,,,Juvenile ankylosing spondylitis
 37087421,"Familial chondrocalcinosis, forearm",4035750,Familial chondrocalcinosis,broadMatch,,,,"Familial chondrocalcinosis, forearm"
-37087581,"Gout arthropathy due to enzyme defects and other congenital diseases: hand [fingers, wrist, metacarpal, joints between these bones]",4035752,Gout secondary to enzyme defect,broadMatch,,,,"Gout arthropathy due to enzyme defects and congenital diseases, hand"
+37087581,"Gout arthropathy due to enzyme defects and other congenital diseases: hand [fingers, wrist, metacarpal, joints between these bones]",4035752,Gout secondary to enzyme defect,broadMatch,,,,"Gout arthropathy due to enzyme defects and congenital diseases, hand (fingers, wrist, metacarpal, joints between these bones)"
 37087754,Hallux valgus (acquired),75911,Acquired hallux valgus,exactMatch,,,,Hallux valgus (acquired)
 37088295,"Other idiopathic scoliosis, sacral and sacrococcygeal region",138841,Disorder of sacrum,broadMatch,,,,"idiopathic scoliosis, sacral and sacrococcygeal region"
 37088465,"Other specified deforming dorsopathies, thoracic region",4183247,Deformity of thoracic spine,exactMatch,,,,"deforming dorsopathies, thoracic region"
@@ -284,7 +284,7 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 37091346,Disorders of prostate in diseases classified elsewhere,196734,Disorder of prostate,exactMatch,,,,Disorders of prostate in diseases classified elsewhere
 37091592,Classical hydatidiform mole,4129710,Complete hydatidiform mole,exactMatch,,,,Classical hydatidiform mole
 37091614,"Medical abortion, incomplete, complicated by embolism",37163809,Incomplete induced termination of pregnancy complicated by embolism,exactMatch,,,,"Medical abortion, incomplete, complicated by embolism"
-37091617,"Medical abortion, complete or unspecified, complicated by genital tract and pelvic infection",43530910,Induced termination of pregnancy complicated by genital-pelvic infection,exactMatch,,,,Medical abortion complicated by genital tract and pelvic infection
+37091617,"Medical abortion, complete or unspecified, complicated by genital tract and pelvic infection",43530910,Induced termination of pregnancy complicated by genital-pelvic infection,exactMatch,,,,"Medical abortion, complete, complicated by genital tract and pelvic infection"
 37091889,Other premature separation of placenta,198488,Placental abruption,exactMatch,,,,premature separation of placenta
 37092117,Cerebral venous thrombosis in the puerperium,4066234,Cerebral venous thrombosis in puerperium,exactMatch,,,,Cerebral venous thrombosis in the puerperium
 37092153,Malignant neoplasm: Overlapping lesion of floor of mouth,140955,Overlapping malignant neoplasm of floor of mouth,exactMatch,,,,Malignant neoplasm: Overlapping lesion of floor of mouth
@@ -304,12 +304,12 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 37200223,"Type 2 diabetes mellitus with proliferative diabetic retinopathy with macular edema, left eye",43530685,Proliferative retinopathy due to type 2 diabetes mellitus,broadMatch,,,,"Type 2 diabetes mellitus with proliferative diabetic retinopathy with macular edema, left eye"
 37200332,"Carpal tunnel syndrome, bilateral upper limbs",760925,Bilateral carpal tunnel syndrome,exactMatch,,,,"Carpal tunnel syndrome, bilateral upper limbs"
 37200967,"Mild to moderate pre-eclampsia, complicating childbirth",439393,Pre-eclampsia,broadMatch,,,,"Mild to moderate pre-eclampsia, complicating childbirth"
-37201112,"Other coma, without documented Glasgow coma scale score, or with partial score reported, 24 hours or more after hospital admission",380834,Coma,broadMatch,380834.0,Coma,exactMatch,coma
+37201112,"Other coma, without documented Glasgow coma scale score, or with partial score reported, 24 hours or more after hospital admission",380834,Coma,broadMatch,380834.0,Coma,exactMatch,"coma, 24 hours or more after hospital admission"
 37201411,"Fracture of other specified skull and facial bones, right side",4302223,Fracture of bone of head,broadMatch,,,,"Fracture of skull and facial bones, right side"
 37202299,Other specified procedure converted to open procedure,46272989,Failed procedure using minimal access approach converted to open procedure,exactMatch,,,,procedure converted to open procedure
 37219908,Cough decreased,4199298,Decreased coughing,exactMatch,,,,Cough decreased
 37223342,Other specified limb deformities - Multiple sites (machine translation),133857,Acquired deformity of limb,broadMatch,,,,"limb deformities, multiple sites"
-37223503,"Other specific joint derangements, not elsewhere classified, forearm",78228,Joint derangement,broadMatch,,,,"joint derangement, forearm"
+37223503,"Other specific joint derangements, not elsewhere classified, forearm",78228,Joint derangement,broadMatch,,,,"joint derangements, forearm"
 37223508,"Other specific joint derangements, not elsewhere classified, other",78228,Joint derangement,exactMatch,,,,joint derangements
 37223683,"Juvenile idiopathic scoliosis, lumbosacral region",4067872,Adolescent idiopathic scoliosis,broadMatch,,,,"Juvenile idiopathic scoliosis, lumbosacral region"
 37223852,"Osteomyelitis of vertebra, lumbosacral region",195906,Disorder of lumbar spine,broadMatch,,,,"Osteomyelitis of vertebra, lumbosacral region"
@@ -340,7 +340,7 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 37604162,Abnormal results of liver function studies,438878,Liver function tests outside reference range,exactMatch,,,,Abnormal results of liver function studies
 37604386,Adverse effects in the therapeutic use of antiparkinsonism drugs,443602,Adverse reaction to antiparkinsonism drug,exactMatch,,,,Adverse effects in the therapeutic use of antiparkinsonism drugs
 37604557,Attention to artificial openings,1242753,Attention to stoma,exactMatch,,,,Attention to artificial openings
-37604869,"Acute onset vascular dementia with other, mainly hallucinatory symptoms, severe",4046089,Vascular dementia of acute onset,broadMatch,,,,"Acute onset vascular dementia with hallucinatory symptoms, severe"
+37604869,"Acute onset vascular dementia with other, mainly hallucinatory symptoms, severe",4046089,Vascular dementia of acute onset,broadMatch,,,,"Acute onset vascular dementia with mainly hallucinatory symptoms, severe"
 37605180,"Dementia in Creutzfeldt-Jakob disease, with other symptoms, predominantly hallucinatory, mild",4180284,Dementia due to Creutzfeldt Jakob disease,broadMatch,,,,"Dementia in Creutzfeldt-Jakob disease, predominantly hallucinatory, mild"
 37605737,Ventricular premature depolarization,4089462,Ventricular premature complex,exactMatch,,,,Ventricular premature depolarization
 37605894,Hereditary factor VIII deficiency,434007,Hereditary factor VIII deficiency disease,exactMatch,,,,Hereditary factor VIII deficiency
@@ -423,37 +423,37 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 42489446,Other specified disorders of teeth and supporting structures,201603,Disorder of teeth AND/OR supporting structures,exactMatch,,,,disorders of teeth and supporting structures
 42489473,Disturbances of salivary secretion,27587,Disturbance of salivary secretion,exactMatch,,,,Disturbances of salivary secretion
 42489523,Acute erosion of stomach with haemorrhage,4143871,Erosion of stomach with hemorrhage,exactMatch,4143871.0,Acute erosion of stomach with haemorrhage,broadMatch,Acute erosion of stomach with haemorrhage
-42489570,Chronic or unspecified gastrojejunal ulcer with hemorrhage,433515,Chronic gastrojejunal ulcer with hemorrhage,exactMatch,,,,Chronic gastrojejunal ulcer with hemorrhage
-42489572,Chronic or unspecified gastrojejunal ulcer with both hemorrhage and perforation,4164920,Chronic gastrojejunal ulcer with hemorrhage and perforation,exactMatch,,,,Chronic gastrojejunal ulcer with hemorrhage and perforation
+42489570,Chronic or unspecified gastrojejunal ulcer with hemorrhage,433515,Chronic gastrojejunal ulcer with hemorrhage,exactMatch,,,,Gastrojejunal ulcer with hemorrhage
+42489572,Chronic or unspecified gastrojejunal ulcer with both hemorrhage and perforation,4164920,Chronic gastrojejunal ulcer with hemorrhage and perforation,exactMatch,,,,Gastrojejunal ulcer with hemorrhage and perforation
 42489645,Incisionall hernia with gangrene,199868,Incisional hernia with gangrene,exactMatch,,,,Incisionall hernia with gangrene
-42489776,Other specified functional intestinal disorders,196151,Functional disorder of intestine,exactMatch,,,,functional intestinal disorders
+42489776,Other specified functional intestinal disorders,196151,Functional disorder of intestine,exactMatch,,,,Functional intestinal disorders
 42489837,Disorders of peritoneum in infectious diseases classified elsewhere,443796,Infectious peritonitis,exactMatch,,,,Disorders of peritoneum in infectious diseases classified elsewhere
 42489855,"Alcoholic liver disease, unspecified",201612,Alcoholic liver damage,exactMatch,,,,Alcoholic liver disease
 42489917,"Biliary cirrhosis, unspecified, unspecified",192675,Biliary cirrhosis,exactMatch,,,,Biliary cirrhosis
-42489995,Other diseases of pancreas,192963,Disorder of pancreas,exactMatch,,,,diseases of pancreas
-42490022,Other diseases of digestive system,4201745,Disorder of digestive system,exactMatch,,,,diseases of digestive system
+42489995,Other diseases of pancreas,192963,Disorder of pancreas,exactMatch,,,,Diseases of pancreas
+42490022,Other diseases of digestive system,4201745,Disorder of digestive system,exactMatch,,,,Diseases of digestive system
 42490152,Allergic contact dermatitis due to dyes,4064029,Allergic contact dermatitis caused by dye,exactMatch,,,,Allergic contact dermatitis due to dyes
-42490238,Other specified papulosquamous disorders,4330878,Papulosquamous dermatosis,exactMatch,,,,papulosquamous disorders
+42490238,Other specified papulosquamous disorders,4330878,Papulosquamous dermatosis,exactMatch,,,,Papulosquamous disorders
 42490240,Papulosquamous disorders in diseases classified elsewhere,4330878,Papulosquamous dermatosis,exactMatch,,,,Papulosquamous disorders in diseases classified elsewhere
-42490480,Other disorders of skin and subcutaneous tissue in diseases classified elsewhere,200174,Disorder of skin and/or subcutaneous tissue,exactMatch,,,,disorders of skin and subcutaneous tissue
-42490575,"Arthritis in other bacterial diseases classified elsewhere, forearm",136779,Disorder of forearm,broadMatch,,,,"Arthritis, forearm"
-42490600,"Arthritis in other viral diseases classified elsewhere, lower leg",4094283,Lower limb joint arthritis,broadMatch,,,,"Arthritis, lower leg"
-42490762,Rheumatoid arthritis with involvement of other organs and systems,80809,Rheumatoid arthritis,broadMatch,,,,Rheumatoid arthritis with involvement of other organs and systems
+42490480,Other disorders of skin and subcutaneous tissue in diseases classified elsewhere,200174,Disorder of skin and/or subcutaneous tissue,exactMatch,,,,Disorders of skin and subcutaneous tissue
+42490575,"Arthritis in other bacterial diseases classified elsewhere, forearm",136779,Disorder of forearm,broadMatch,,,,"Arthritis in bacterial diseases, forearm"
+42490600,"Arthritis in other viral diseases classified elsewhere, lower leg",4094283,Lower limb joint arthritis,broadMatch,,,,"Arthritis in viral diseases, lower leg"
+42490762,Rheumatoid arthritis with involvement of other organs and systems,80809,Rheumatoid arthritis,broadMatch,,,,Rheumatoid arthritis with involvement of organs and systems
 42490880,"Seronegative rheumatoid arthritis, shoulder region",1244750,Seronegative rheumatoid arthritis of joint of shoulder region,exactMatch,,,,"Seronegative rheumatoid arthritis, shoulder region"
-42491304,"Other chondrocalcinosis, lower leg",437064,Chondrocalcinosis,broadMatch,,,,"chondrocalcinosis, lower leg"
+42491304,"Other chondrocalcinosis, lower leg",437064,Chondrocalcinosis,broadMatch,,,,"Chondrocalcinosis, lower leg"
 42491445,Lipoid dermatoarthritis(E78.8�),4224167,Lipoid dermatoarthritis,exactMatch,,,,Lipoid dermatoarthritis(E78.8�)
 42491566,"Varus deformity, NEC, multiple sites",37110367,Acquired varus deformity of limb,broadMatch,,,,"Varus deformity, multiple sites"
 42491704,"Loose body in joint, site unspecified",79104,Loose body in joint,exactMatch,,,,Loose body in joint
-42491927,Other forms of systemic lupus erythematosus,257628,Systemic lupus erythematosus,exactMatch,,,,systemic lupus erythematosus
-42492095,"Other secondary scoliosis, site unspecified",4006163,Acquired scoliosis,exactMatch,,,,secondary scoliosis
-42492193,"Other recurrent vertebral subluxation, occipito-atlanto-axial region",4134176,Subluxation of joint of cervical spine,broadMatch,,,,"recurrent vertebral subluxation, occipito-atlanto-axial region"
+42491927,Other forms of systemic lupus erythematosus,257628,Systemic lupus erythematosus,exactMatch,,,,Systemic lupus erythematosus
+42492095,"Other secondary scoliosis, site unspecified",4006163,Acquired scoliosis,exactMatch,,,,Secondary scoliosis
+42492193,"Other recurrent vertebral subluxation, occipito-atlanto-axial region",4134176,Subluxation of joint of cervical spine,broadMatch,,,,"Recurrent vertebral subluxation, occipito-atlanto-axial region"
 42492510,"Spondylopathy in other infectious and parasitic diseases classified elsewhere, lumbosacral region",37207722,Disorder of joint of lumbosacral vertebra,broadMatch,,,,"Spondylopathy in infectious and parasitic diseases, lumbosacral region"
-42492784,Other calcification of muscle,40490403,Calcification of muscle,exactMatch,,,,calcification of muscle
-42492923,Other disorders of muscle in diseases classified elsewhere,137275,Disorder of muscle,exactMatch,,,,disorders of muscle
-42492978,"Other synovitis and tenosynovitis, other",74728,Synovitis and tenosynovitis,exactMatch,,,,synovitis and tenosynovitis
+42492784,Other calcification of muscle,40490403,Calcification of muscle,exactMatch,,,,Calcification of muscle
+42492923,Other disorders of muscle in diseases classified elsewhere,137275,Disorder of muscle,exactMatch,,,,Disorders of muscle
+42492978,"Other synovitis and tenosynovitis, other",74728,Synovitis and tenosynovitis,exactMatch,,,,Synovitis and tenosynovitis
 42493024,"Spontaneous rupture of flexor tendons, other",4188441,Spontaneous rupture of flexor tendons,exactMatch,,,,Spontaneous rupture of flexor tendons
 42493253,"Necrotising fasciitis, hand",133566,Necrotizing fasciitis,broadMatch,,,,"Necrotising fasciitis, hand"
-42493483,Other specified soft tissue disorders,376208,Disorder of soft tissue,exactMatch,,,,soft tissue disorders
+42493483,Other specified soft tissue disorders,376208,Disorder of soft tissue,exactMatch,,,,Soft tissue disorders
 42493875,Fibrous dysplasia (monostotic),4233830,Monostotic fibrous dysplasia,exactMatch,,,,Fibrous dysplasia (monostotic)
 42494070,"Idiopathic aseptic necrosis of bone, forearm",4326828,Osteonecrosis of bone of upper limb,broadMatch,,,,"Idiopathic aseptic necrosis of bone, forearm"
 42494188,"Other disorders of bone development and growth, ankle and foot",44782620,Disorder of free lower limb,broadMatch,,,,"disorders of bone development and growth, ankle and foot"
@@ -474,22 +474,22 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 42498186,Open wound of other and unspecified external genital organs,4239520,Open wound of external genital organs,exactMatch,,,,Open wound of external genital organs
 42500798,Toxic effects of phenol and phenol homologues,4187822,Poisoning by phenol,exactMatch,40483089.0,Poisoning by phenolic,exactMatch,Toxic effects of phenol and phenol homologues
 42500894,Other specified effects of reduced temperature,4086745,General effects of low temperature,exactMatch,37111520.0,Cold injury,exactMatch,effects of reduced temperature
-42501284,Resistance to other single specified antibiotic,37017452,Drug resistance to antibacterial agent,exactMatch,,,,Resistance to antibiotic
+42501284,Resistance to other single specified antibiotic,37017452,Drug resistance to antibacterial agent,exactMatch,,,,Resistance to single specified antibiotic
 42502994,Inhalation of gastric contents,254163,Pulmonary aspiration of gastric contents,exactMatch,,,,Inhalation of gastric contents
 42503460,"Contact with venomous marine animals and plants, unspecified place",4155221,Exposure to poison of venomous animals and plants,broadMatch,,,,Contact with venomous marine animals and plants
-42505118,"Surgical operation with formation of external stoma as the cause of abnormal reaction of the patient, or of later complication, without mention of misadventure at the time of the procedure",4123283,Disorder of stoma,broadMatch,,,,Abnormal reaction or later complication due to surgical operation with formation of external stoma
+42505118,"Surgical operation with formation of external stoma as the cause of abnormal reaction of the patient, or of later complication, without mention of misadventure at the time of the procedure",4123283,Disorder of stoma,broadMatch,,,,Surgical operation with formation of external stoma as cause of abnormal reaction or later complication without misadventure at time of procedure
 42505140,Sequelae of assault,4054807,Late effects of assault,exactMatch,,,,Sequelae of assault
 42505276,Contact with and exposure to intestinal infectious diseases,37116462,Exposure to intestinal infectious disease,exactMatch,,,,Contact with and exposure to intestinal infectious diseases
 42505348,Menstrual extraction,2004528,Menstrual extraction or regulation,exactMatch,,,,Menstrual extraction
 42505756,Family history of malignant neoplasm of breast,4179963,Family history of breast cancer,exactMatch,,,,Family history of malignant neoplasm of breast
 42505891,Heart and lungs transplant status,42538118,Transplanted heart-lung present,exactMatch,42538118.0,Transplanted heart-lung present,broadMatch,Heart and lungs transplant status
 42505980,"Hereditary disturbances in tooth structure, unspecified",606884,Hereditary disorder of tooth,exactMatch,,,,Hereditary disturbances in tooth structure
-42616346,"Pyogenic arthritis, unspecified, Upper arm",76191,Disorder of upper arm,broadMatch,,,,"Pyogenic arthritis, upper arm"
+42616346,"Pyogenic arthritis, unspecified, Upper arm",76191,Disorder of upper arm,broadMatch,,,,"Pyogenic arthritis, Upper arm"
 42617391,"Thoracogenic scoliosis, site unspecified",253009,Thoracogenic scoliosis,exactMatch,,,,Thoracogenic scoliosis
 42617412,"Other forms of scoliosis, occipito-atlanto-axial region",4179319,Scoliosis of cervical spine,broadMatch,,,,"scoliosis, occipito-atlanto-axial region"
 42617680,"Spinal stenosis, lumbosacral region",4152592,Spinal stenosis of lumbosacral region,exactMatch,,,,"Spinal stenosis, lumbosacral region"
 42617855,"Sacrococcygeal disorders, not elsewhere classified, sacral and sacrococcygeal region",138841,Disorder of sacrum,broadMatch,,,,"Sacrococcygeal disorders, sacral and sacrococcygeal region"
-42617884,"Panniculitis affecting regions of neck and back, sacral and sacrococcygeal region",4273693,Panniculitis affecting sacrum,broadMatch,,,,"Panniculitis of neck, back, sacral and sacrococcygeal regions"
+42617884,"Panniculitis affecting regions of neck and back, sacral and sacrococcygeal region",4273693,Panniculitis affecting sacrum,broadMatch,,,,"Panniculitis affecting regions of neck and back, sacral and sacrococcygeal region"
 42617901,"Other dorsalgia, thoracolumbar region",42596408,Thoracolumbar back pain,exactMatch,,,,"dorsalgia, thoracolumbar region"
 42618386,"Syphilitic bursitis, pelvic region and thigh",4001478,Syphilitic bursitis,broadMatch,,,,"Syphilitic bursitis, pelvic region and thigh"
 42618665,"Localized osteoporosis [Lequesne], other",4004623,Localized osteoporosis - Lequesne,exactMatch,,,,Localized osteoporosis [Lequesne]
@@ -501,18 +501,18 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 43054093,Undifferentiated nasopharyngeal carcinoma,4306501,Undifferentiated carcinoma of nasopharynx,exactMatch,,,,Undifferentiated nasopharyngeal carcinoma
 43054172,Myxofibrosarcoma,36716855,Primary myxofibrosarcoma,exactMatch,,,,Myxofibrosarcoma
 44503431,"Neoplasm, benign of cerebral meninges",376063,Benign neoplasm of cerebral meninges,exactMatch,,,,"Neoplasm, benign of cerebral meninges"
-44503495,"Astrocytoma, NOS, of brain stem",37016118,Astrocytoma of brain stem,exactMatch,,,,"Astrocytoma, brain stem"
+44503495,"Astrocytoma, NOS, of brain stem",37016118,Astrocytoma of brain stem,exactMatch,,,,Astrocytoma of brain stem
 44504255,"Neoplasm, benign of vulva, NOS",438390,Benign neoplasm of vulva,exactMatch,,,,Benign neoplasm of vulva
 44505202,"Neoplasm, benign of placenta",4242817,Benign neoplasm of placenta,exactMatch,,,,"Neoplasm, benign of placenta"
 44819370,Human herpesvirus 6 encephalitis,40479557,Encephalitis caused by human herpesvirus 6 infection,exactMatch,,,,Human herpesvirus 6 encephalitis
 44819551,"Other and unspecified alcohol dependence, episodic",435243,Alcohol dependence,exactMatch,435532.0,Episodic chronic alcoholism,exactMatch,"alcohol dependence, episodic"
 44819592,"Migraine, unspecified",318736,Migraine,exactMatch,,,,Migraine
-44819790,"Duodenitis, without mention of hemorrhage",433516,Duodenitis,exactMatch,,,,Duodenitis without hemorrhage
+44819790,"Duodenitis, without mention of hemorrhage",433516,Duodenitis,exactMatch,,,,Duodenitis
 44820068,Other abnormality of urination,45757776,Abnormal urination,exactMatch,,,,abnormality of urination
 44821095,Exfoliation due to erythematous condition involving 10-19 percent of body surface,40481101,Erythema of skin,broadMatch,,,,Exfoliation due to erythematous condition involving 10-19 percent of body surface
 44821154,"Enthesopathy of elbow, unspecified",73842,Enthesopathy of elbow region,exactMatch,,,,Enthesopathy of elbow
 44821454,Accidents caused by transmission machinery,439456,Accident caused by power transmission machinery,exactMatch,,,,Accidents caused by transmission machinery
-44821843,Other choreas,440990,Chorea,exactMatch,,,,chorea
+44821843,Other choreas,440990,Chorea,exactMatch,,,,choreas
 44821875,Other macular scars,372907,Scarred macula,exactMatch,,,,macular scars
 44822511,Poisoning by antiasthmatics,316577,Poisoning by antiasthmatic,exactMatch,,,,Poisoning by antiasthmatics
 44824112,"Other specified types of schizophrenia, subchronic",440373,Subchronic schizophrenia,exactMatch,,,,"schizophrenia, subchronic"
@@ -520,7 +520,7 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 44825829,Psychomotor deficit,4220292,Impaired psychomotor performance,exactMatch,42535018.0,Cognitive deficit in psychomotor function,exactMatch,Psychomotor deficit
 44826331,Madura foot,196329,Mycetoma of foot,exactMatch,,,,Madura foot
 44826498,Episodic mood disorders,44784632,Episodic mood disorder,exactMatch,,,,Episodic mood disorders
-44826645,Cerebral embolism without mention of cerebral infarction,375557,Cerebral embolism,exactMatch,,,,Cerebral embolism
+44826645,Cerebral embolism without mention of cerebral infarction,375557,Cerebral embolism,exactMatch,,,,Cerebral embolism without cerebral infarction
 44827043,"Open dislocation of hip, unspecified site",75669,Open dislocation of hip,exactMatch,,,,Open dislocation of hip
 44827270,Late effects of self-inflicted injury,435446,Late effect of self inflicted injury,exactMatch,,,,Late effects of self-inflicted injury
 44827457,"Tuberculosis of bronchus, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically",256896,Tuberculosis of bronchus,exactMatch,,,,Tuberculosis of bronchus
@@ -532,7 +532,7 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 44828833,Dissociative identity disorder,435230,Multiple personality disorder,exactMatch,,,,Dissociative identity disorder
 44828968,Mitral valve stenosis and aortic valve insufficiency,321041,Mitral stenosis and aortic insufficiency,exactMatch,,,,Mitral valve stenosis and aortic valve insufficiency
 44829488,Anaphylactic reaction due to vaccination,37163629,Anaphylaxis caused by component of vaccine product,exactMatch,,,,Anaphylactic reaction due to vaccination
-44829563,"Poisoning by other gases, undetermined whether accidentally or purposely inflicted",40493247,Poisoning by fumes,exactMatch,608027.0,Poisoning caused by gaseous substance,exactMatch,Poisoning by other gases
+44829563,"Poisoning by other gases, undetermined whether accidentally or purposely inflicted",40493247,Poisoning by fumes,exactMatch,608027.0,Poisoning caused by gaseous substance,exactMatch,"Poisoning by gases, undetermined intent"
 44829711,"Tuberculoma of brain, tubercle bacilli not found by bacteriological examination, but tuberculosis confirmed histologically",375732,Tuberculoma of brain,exactMatch,,,,Tuberculoma of brain
 44829752,Hepatitis E with hepatic coma,377604,Hepatic coma,broadMatch,,,,Hepatitis E with hepatic coma
 44829905,Graft-versus-host disease,443216,Graft versus host disease,exactMatch,,,,Graft-versus-host disease
@@ -540,7 +540,7 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 44830295,Unspecified disorder of lactation,80471,Disorder of lactation,exactMatch,,,,disorder of lactation
 44830450,Other symptoms involving urinary system,4024000,Urinary system finding,exactMatch,74174.0,Urinary symptoms,exactMatch,symptoms involving urinary system
 44830528,Intracranial injury of other and unspecified nature with open intracranial wound,438590,Brain injury with open intracranial wound,exactMatch,,,,Intracranial injury with open intracranial wound
-44830588,Full-thickness skin loss due to burn [third degree NOS] of trunk,198911,Full thickness burn of trunk,exactMatch,,,,third degree burn of trunk
+44830588,Full-thickness skin loss due to burn [third degree NOS] of trunk,198911,Full thickness burn of trunk,exactMatch,,,,"Full-thickness skin loss due to burn of trunk, third degree"
 44830712,Assault by submersion [drowning],439448,Assault by drowning,exactMatch,,,,Assault by submersion [drowning]
 44830718,Terrorism involving other means,439237,Assault,broadMatch,,,,Terrorism
 44830798,Other urinary problems,4024000,Urinary system finding,exactMatch,75865.0,Disorder of the urinary system,exactMatch,urinary problems
@@ -553,9 +553,9 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 44833605,"Upper respiratory tract hypersensitivity reaction, site unspecified",254387,Upper respiratory tract hypersensitivity reaction,exactMatch,,,,Upper respiratory tract hypersensitivity reaction
 44833743,"Other congenital or acquired abnormality of cervix, delivered, with or without mention of antepartum condition",442781,Disorder of uterine cervix,broadMatch,,,,"congenital or acquired abnormality of cervix, delivered"
 44834882,"Peripheral neuritis in pregnancy, postpartum condition or complication",4062566,Peripheral neuritis in pregnancy with postnatal complication,exactMatch,,,,"Peripheral neuritis in pregnancy, postpartum condition or complication"
-44834899,"Other multiple pregnancy with fetal loss and retention of one or more fetus(es), delivered, with or without mention of antepartum condition",4069761,Retained fetal tissue,broadMatch,,,,"multiple pregnancy with fetal loss and retention of one or more fetuses, delivered"
+44834899,"Other multiple pregnancy with fetal loss and retention of one or more fetus(es), delivered, with or without mention of antepartum condition",4069761,Retained fetal tissue,broadMatch,,,,"multiple pregnancy with fetal loss and retention of one or more fetus(es), delivered"
 44834936,"Superficial thrombophlebitis complicating pregnancy and the puerperium, delivered, with or without mention of antepartum condition",4041280,Postpartum finding,broadMatch,,,,"Superficial thrombophlebitis complicating pregnancy and the puerperium, delivered"
-44835126,"Open fractures involving skull or face with other bones, without mention of intracranial injury, with brief [less than one hour] loss of consciousness",4264281,Open fracture,broadMatch,,,,"Open fractures involving skull or face with other bones, with brief loss of consciousness"
+44835126,"Open fractures involving skull or face with other bones, without mention of intracranial injury, with brief [less than one hour] loss of consciousness",4264281,Open fracture,broadMatch,,,,"Open fractures involving skull or face with other bones, without mention of intracranial injury, with brief loss of consciousness"
 44835800,"Opioid type dependence, unspecified",438120,Opioid dependence,exactMatch,,,,Opioid type dependence
 44836554,Accident caused by unspecified electric current,435146,Accident caused by electric current,exactMatch,,,,Accident caused by electric current
 44837245,"Diabetes mellitus of mother, complicating pregnancy, childbirth, or the puerperium, unspecified as to episode of care or not applicable",194700,"Diabetes mellitus in mother complicating pregnancy, childbirth AND/OR puerperium",exactMatch,,,,"Diabetes mellitus of mother, complicating pregnancy, childbirth, or the puerperium"
@@ -606,8 +606,8 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 45532957,Other heavy chain disease,4288751,Heavy chain disease,exactMatch,,,,heavy chain disease
 45533656,"Pressure ulcer of unspecified hip, stage 1",37170748,Pressure injury of hip stage I,exactMatch,,,,"Pressure ulcer of hip, stage 1"
 45534326,"Diseases of the respiratory system complicating pregnancy, second trimester",4060429,"Disease of the respiratory system complicating pregnancy, childbirth and/or the puerperium",broadMatch,,,,"Diseases of the respiratory system complicating pregnancy, second trimester"
-45537491,"Assault by other bodily force, subsequent encounter",4054796,Assault with body part,exactMatch,,,,Assault by other bodily force
-45537526,"War operations involving rubber bullets, military personnel, initial encounter",434834,War injury due to rubber bullets,exactMatch,,,,War operations involving rubber bullets
+45537491,"Assault by other bodily force, subsequent encounter",4054796,Assault with body part,exactMatch,,,,Assault by bodily force
+45537526,"War operations involving rubber bullets, military personnel, initial encounter",434834,War injury due to rubber bullets,exactMatch,,,,"War operations involving rubber bullets, military personnel"
 45537844,Malignant poorly differentiated neuroendocrine tumors,761025,Poorly differentiated malignant carcinoid tumor,exactMatch,,,,Malignant poorly differentiated neuroendocrine tumors
 45537885,"Carcinoma in situ of breast, unspecified",81250,Carcinoma in situ of breast,exactMatch,,,,Carcinoma in situ of breast
 45537984,Fabry (-Anderson) disease,4042934,Fabry's disease,exactMatch,,,,Fabry (-Anderson) disease
@@ -625,7 +625,7 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 45547895,"Glaucoma secondary to other eye disorders, left eye",436398,Glaucoma associated with ocular disorder,broadMatch,,,,"Glaucoma secondary to eye disorders, left eye"
 45548255,Rheumatoid heart disease with rheumatoid arthritis of unspecified hip,4116150,Rheumatoid arthritis of hip,broadMatch,,,,Rheumatoid heart disease with rheumatoid arthritis of hip
 45548294,"Drug-induced gout, unspecified ankle and foot",46270453,Gout of ankle and/or foot caused by drug,exactMatch,,,,"Drug-induced gout, ankle and foot"
-45548832,Labor and delivery complicated by other evidence of fetal stress,4063307,Labor and delivery complicated by biochemical evidence of fetal stress,exactMatch,,,,Labor and delivery complicated by fetal stress
+45548832,Labor and delivery complicated by other evidence of fetal stress,4063307,Labor and delivery complicated by biochemical evidence of fetal stress,exactMatch,,,,Labor and delivery complicated by evidence of fetal stress
 45548837,Other embolism in childbirth,4185607,Embolism,broadMatch,,,,embolism in childbirth
 45552225,Cutaneous chromomycosis,4080755,Cutaneous chromoblastomycosis,exactMatch,,,,Cutaneous chromomycosis
 45552460,"Other psychoactive substance abuse with intoxication, unspecified",607217,Psychoactive substance-induced intoxication,exactMatch,,,,psychoactive substance abuse with intoxication
@@ -659,7 +659,7 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 45567300,"Acute appendicitis, other and unspecified",4310400,Acute appendicitis,exactMatch,,,,Acute appendicitis
 45567408,Rheumatoid vasculitis with rheumatoid arthritis of left knee,4271003,Rheumatoid vasculitis,broadMatch,,,,Rheumatoid vasculitis with rheumatoid arthritis of left knee
 45567509,Other articular cartilage disorders,439103,Articular cartilage disorder,exactMatch,,,,articular cartilage disorders
-45567717,"Pathological fracture in neoplastic disease, right radius, subsequent encounter for fracture with delayed healing",760661,Pathological fracture of right radius due to neoplasm,exactMatch,,,,"Pathological fracture in neoplastic disease, right radius with delayed healing"
+45567717,"Pathological fracture in neoplastic disease, right radius, subsequent encounter for fracture with delayed healing",760661,Pathological fracture of right radius due to neoplasm,exactMatch,,,,"Pathological fracture in neoplastic disease, right radius"
 45568000,"Abscess of breast associated with pregnancy, unspecified trimester",443263,Obstetric breast abscess,exactMatch,80796.0,"Abscess of breast, associated with childbirth",exactMatch,Abscess of breast associated with pregnancy
 45568118,Right lower quadrant abdominal rigidity,197107,Abdominal rigidity of right lower quadrant,exactMatch,,,,Right lower quadrant abdominal rigidity
 45571402,Acquired absence of bilateral breasts and nipples,36716836,Bilateral acquired absence of breast,exactMatch,,,,Acquired absence of bilateral breasts and nipples
@@ -670,19 +670,19 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 45576607,Myotonic chondrodystrophy,441280,Schwartz-Jampel syndrome,exactMatch,,,,Myotonic chondrodystrophy
 45576682,"Keratomalacia, unspecified eye",373476,Keratomalacia,exactMatch,,,,"Keratomalacia, eye"
 45577143,"Other chondrocalcinosis, unspecified knee",40479260,Chondrocalcinosis of knee joint,exactMatch,,,,"chondrocalcinosis, knee"
-45577400,"Pathological fracture, right femur, subsequent encounter for fracture with delayed healing",40305987,Delayed union of fracture,broadMatch,,,,"Pathological fracture, right femur, delayed healing"
+45577400,"Pathological fracture, right femur, subsequent encounter for fracture with delayed healing",40305987,Delayed union of fracture,broadMatch,,,,"Pathological fracture, right femur"
 45577547,Malfunction of incontinent external stoma of urinary tract,4309167,Malfunction of external stoma of urinary tract,exactMatch,,,,Malfunction of incontinent external stoma of urinary tract
-45577672,"Other diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism complicating pregnancy, second trimester",43530950,Complication occurring during pregnancy,broadMatch,,,,"diseases of the blood and blood-forming organs and disorders involving the immune mechanism complicating pregnancy, second trimester"
+45577672,"Other diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism complicating pregnancy, second trimester",43530950,Complication occurring during pregnancy,broadMatch,,,,"diseases of the blood and blood-forming organs and certain disorders involving the immune mechanism complicating pregnancy, second trimester"
 45581363,Asymptomatic premature menopause,198715,Premature menopause,exactMatch,198715.0,Premature menopause,broadMatch,Asymptomatic premature menopause
-45582087,"Acquired clubhand, unspecified hand",440198,Acquired clubhand,exactMatch,,,,Acquired clubhand
-45582279,"Pathological fracture, left shoulder, subsequent encounter for fracture with nonunion",73574,Nonunion of fracture,broadMatch,,,,"Pathological fracture with nonunion, left shoulder"
+45582087,"Acquired clubhand, unspecified hand",440198,Acquired clubhand,exactMatch,,,,"Acquired clubhand, hand"
+45582279,"Pathological fracture, left shoulder, subsequent encounter for fracture with nonunion",73574,Nonunion of fracture,broadMatch,,,,"Pathological fracture, left shoulder"
 45582380,Subluxation complex (vertebral) of abdomen and other regions,4068848,Subluxation complex (vertebral),broadMatch,4068848.0,Subluxation complex (vertebral),exactMatch,Subluxation complex (vertebral) of abdomen
 45582408,"Priapism, drug-induced",36713172,Priapism caused by drug,exactMatch,,,,"Priapism, drug-induced"
 45586121,Eosinophilia,4304002,Eosinophil count above reference range,exactMatch,,,,Eosinophilia
 45586237,Other bipolar affective disorders,436665,Bipolar disorder,exactMatch,,,,bipolar affective disorders
-45586422,"Anterior subcapsular polar infantile and juvenile cataract, unspecified eye",372315,Anterior subcapsular polar cataract,exactMatch,,,,Anterior subcapsular polar infantile and juvenile cataract
+45586422,"Anterior subcapsular polar infantile and juvenile cataract, unspecified eye",372315,Anterior subcapsular polar cataract,exactMatch,,,,"Anterior subcapsular polar infantile and juvenile cataract, eye"
 45587159,"Osteitis condensans, unspecified hand",75920,Osteitis condensans,broadMatch,,,,"Osteitis condensans, hand"
-45587269,(Induced) termination of pregnancy with other complications,37162983,Disorder following induced termination of pregnancy,exactMatch,,,,Induced termination of pregnancy with other complications
+45587269,(Induced) termination of pregnancy with other complications,37162983,Disorder following induced termination of pregnancy,exactMatch,,,,Induced termination of pregnancy with complications
 45587461,Developmental ovarian cyst,4108900,Embryonic cyst of ovary,exactMatch,,,,Developmental ovarian cyst
 45590756,Malingerer [conscious simulation],4051630,Malingering,exactMatch,,,,Malingerer [conscious simulation]
 45590807,Diphtheria,4265179,Diphtheria caused by Corynebacterium diphtheriae,exactMatch,,,,Diphtheria
@@ -730,12 +730,12 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 45605613,"Pinguecula, unspecified eye",376124,Pinguecula,exactMatch,,,,"Pinguecula, eye"
 45605636,"Disorder of cornea, unspecified",377280,Disorder of cornea,exactMatch,,,,Disorder of cornea
 45605780,"Acute myocardial infarction, unspecified",312327,Acute myocardial infarction,exactMatch,,,,Acute myocardial infarction
-45606032,"Arthritis due to other bacteria, unspecified joint",4167984,Bacterial arthritis,exactMatch,,,,"Arthritis due to other bacteria, joint"
+45606032,"Arthritis due to other bacteria, unspecified joint",4167984,Bacterial arthritis,exactMatch,,,,"Arthritis due to bacteria, joint"
 45606040,Rheumatoid lung disease with rheumatoid arthritis of unspecified ankle and foot,256197,Rheumatoid lung disease,broadMatch,,,,Rheumatoid lung disease with rheumatoid arthritis of ankle and foot
 45606086,"Drug-induced gout, unspecified site",4035751,Gout secondary to drug,exactMatch,,,,Drug-induced gout
-45606197,"Other instability, unspecified hip",4172835,Hip unstable,exactMatch,,,,hip instability
+45606197,"Other instability, unspecified hip",4172835,Hip unstable,exactMatch,,,,"instability, hip"
 45606350,"Stress fracture, unspecified shoulder, subsequent encounter for fracture with delayed healing",46270317,Fracture of shoulder,broadMatch,,,,"Stress fracture, shoulder with delayed healing"
-45606390,"Pathological fracture in other disease, right ulna, subsequent encounter for fracture with delayed healing",45766902,Pathological fracture of ulna,broadMatch,,,,"Pathological fracture in other disease, right ulna, with delayed healing"
+45606390,"Pathological fracture in other disease, right ulna, subsequent encounter for fracture with delayed healing",45766902,Pathological fracture of ulna,broadMatch,,,,"Pathological fracture in disease, right ulna with delayed healing"
 45606653,Infection of kidney following delivery,192964,Infectious disorder of kidney,broadMatch,,,,Infection of kidney following delivery
 45606661,Postpartum mood disturbance,1244154,Postpartum mood disorder,exactMatch,,,,Postpartum mood disturbance
 45609808,"Assault by strike by baseball bat, sequela",4054807,Late effects of assault,broadMatch,,,,"Assault by strike by baseball bat, sequela"
@@ -743,7 +743,7 @@ source_concept_id,source_term,target_concept_id,target_concept_name,predicate,ta
 45609993,Acquired absence of left breast and nipple,36717483,Acquired total absence of breast,broadMatch,,,,Acquired absence of left breast and nipple
 45755391,Hordeolum and chalazion,376125,Disorder of eyelid,broadMatch,,,,Hordeolum and chalazion
 45755405,Other degenerative disorders of nervous system in diseases classified elsewhere,4213310,Degenerative disease of the central nervous system,exactMatch,,,,degenerative disorders of nervous system
-45755524,"Other meniscus derangements, Medial collateral ligament or Other and unspecified medial meniscus",77066,Derangement of medial meniscus,broadMatch,,,,medial meniscus derangement
+45755524,"Other meniscus derangements, Medial collateral ligament or Other and unspecified medial meniscus",77066,Derangement of medial meniscus,broadMatch,,,,"meniscus derangements, medial collateral ligament or medial meniscus"
 45885744,Haemorrhagic fever with renal syndrome,37399017,Hemorrhagic fever with renal syndrome,exactMatch,,,,Haemorrhagic fever with renal syndrome
 45886125,Medical device site inflammation,43021990,Inflammation associated with device,exactMatch,,,,Medical device site inflammation
 45887097,Topical adhesive allergy,4303675,Allergic reaction to adhesive,exactMatch,,,,Topical adhesive allergy

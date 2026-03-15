@@ -9,6 +9,19 @@ from ariadne.utils.config import Config
 from ariadne.utils.gen_ai_api import get_llm_response
 
 
+_FINAL_MAPPING_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "source_term": {"type": "string"},
+        "match_found": {"type": "boolean"},
+        "concept_id": {"type": ["integer", "null"]},
+        "justification": {"type": "string"},
+    },
+    "required": ["source_term", "match_found", "concept_id", "justification"],
+    "additionalProperties": False,
+}
+
+
 class LlmMapper:
     def __init__(self, config: Config = Config()):
         self.system_prompts = config.llm_mapping.system_prompts
@@ -20,6 +33,17 @@ class LlmMapper:
         Initializes the LlmMapper with configuration settings, specific system prompts, and context settings for 
         LLM-based term mapping. Also sets up a folder to store LLM responses.
         """
+
+    @staticmethod
+    def _extract_json_dict(response_text: str) -> dict | None:
+        """Extracts and parses a JSON object from a response string."""
+        response_json_match = re.search(r"{.*}", response_text, flags=re.DOTALL)
+        if not response_json_match:
+            return None
+        try:
+            return json.loads(response_json_match.group(0))
+        except json.JSONDecodeError:
+            return None
 
     def map_term(
         self,
@@ -107,7 +131,12 @@ class LlmMapper:
                     context_json = context.to_json(orient="records", lines=True)
                     prompt = f"Source term: {source_term}\n\nCandidate target concepts:\n{context_json}"
 
-                response_with_usage = get_llm_response(prompt, system_prompt)
+                use_final_structured_output = step == num_prompts - 1
+                response_with_usage = get_llm_response(
+                    prompt,
+                    system_prompt,
+                    json_schema=_FINAL_MAPPING_SCHEMA if use_final_structured_output else None,
+                )
                 response = response_with_usage["content"]
                 if not response:
                     # We hit the content filter:
@@ -118,11 +147,9 @@ class LlmMapper:
 
                 if step == 0 and self.context_settings.re_insert_target_details:
                     # Re-insert target details into the response JSON for the next step:
-                    response_json_match = re.search(r"{.*}", response, flags=re.DOTALL)
-                    if response_json_match:
-                        response_json_str = response_json_match.group(0)
-                        try:
-                            data = json.loads(response_json_str)
+                    try:
+                        data = self._extract_json_dict(response)
+                        if data:
                             target_definitions = data["target_concepts"]
                             target_definitions = pd.DataFrame(target_definitions)
                             target_definitions["id"] = pd.to_numeric(target_definitions["id"], errors="coerce")
@@ -135,8 +162,8 @@ class LlmMapper:
                                 "target_concepts": merged.to_dict(orient="records"),
                             }
                             response = json.dumps(new_data, indent=2)
-                        except Exception as e:
-                            print(f"Warning: Could not re-insert target details: {e}")
+                    except Exception as e:
+                        print(f"Warning: Could not re-insert target details: {e}")
 
                 with open(response_file, "w", encoding="utf-8") as f:
                     f.write(response)
@@ -146,6 +173,23 @@ class LlmMapper:
 
         # Process the final response to extract the match:
         response = response.replace("**", "")
+        parsed = self._extract_json_dict(response)
+        if parsed and all(key in parsed for key in ("match_found", "concept_id", "justification")):
+            justification = str(parsed["justification"])
+            if not parsed["match_found"]:
+                return -1, "no_match", justification
+
+            try:
+                match_value_int = int(parsed["concept_id"])
+            except (TypeError, ValueError):
+                raise ValueError(f"Match value '{parsed['concept_id']}' is not a valid integer.")
+
+            matched_row = target_concepts[target_concepts[concept_id_column] == match_value_int]
+            if matched_row.empty:
+                raise ValueError(f"Match '{match_value_int}' not found in search results.")
+            concept_name = str(matched_row.iloc[0][concept_name_column])
+            return match_value_int, concept_name, justification
+
         match = re.findall(r"^#* ?Match ?:.*", response, flags=re.MULTILINE | re.IGNORECASE)
         if match:
             # Parse legacy format:
@@ -173,25 +217,7 @@ class LlmMapper:
                 rationale = rationale.replace("\n", " ").replace("\\n", "\n")
 
             return match_value_int, concept_name, rationale
-        else:
-            # Parse JSON format:
-            response_json_match = re.search(r"{.*}", response, flags=re.DOTALL)
-            if response_json_match:
-                response_json_str = response_json_match.group(0)
-                data = json.loads(response_json_str)
-                justification = data["justification"]
-                if not data["match_found"]:
-                    return -1, "no_match", justification
-                else:
-                    try:
-                        match_value_int = int(data["concept_id"])
-                    except ValueError:
-                        raise ValueError(f"Match value '{data["concept_id"]}' is not a valid integer.")
-                    matched_row = target_concepts[target_concepts[concept_id_column] == match_value_int]
-                    if matched_row.empty:
-                        raise ValueError(f"Match '{match_value_int}' not found in search results.")
-                    concept_name = str(matched_row.iloc[0][concept_name_column])
-                    return match_value_int, concept_name, justification
+        raise ValueError("Could not parse match from LLM response.")
 
     def map_terms(
         self,
