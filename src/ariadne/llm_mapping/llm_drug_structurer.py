@@ -66,8 +66,11 @@ _BRAND_SCHEMA = {
                 "properties": {
                     "row_number": {"type": "integer"},
                     "brand_name": {"type": ["string", "null"]},
+                    "brand_code": {"type": ["string", "null"]},
+                    "supplier_name": {"type": ["string", "null"]},
+                    "supplier_code": {"type": ["string", "null"]},
                 },
-                "required": ["row_number", "brand_name"],
+                "required": ["row_number", "brand_name", "brand_code", "supplier_name", "supplier_code"],
                 "additionalProperties": False,
             },
         }
@@ -129,6 +132,15 @@ class LlmDrugStructurer:
         if "device" in text:
             return "device"
         return "other"
+
+    @staticmethod
+    def _normalize_optional_code(value: Any) -> str | None:
+        if value is None:
+            return None
+        normalized = str(value).strip()
+        if not normalized:
+            return None
+        return normalized
 
     def _cache_key(self, stage: str, records: list[dict[str, Any]]) -> str:
         payload = json.dumps({"stage": stage, "rows": records}, ensure_ascii=False, sort_keys=True)
@@ -261,7 +273,7 @@ class LlmDrugStructurer:
                         {
                             "drug_concept_code": batch_df.iloc[row_number][drug_code_column],
                             "concept_name": ingredient_name.strip(),
-                            "concept_code": str(ingredient_code).strip() if ingredient_code is not None else None,
+                            "concept_code": self._normalize_optional_code(ingredient_code),
                             "concept_class_id": "Ingredient",
                             "domain": "Drug",
                         }
@@ -279,20 +291,35 @@ class LlmDrugStructurer:
                         continue
                     row_number = item.get("row_number")
                     brand_name = item.get("brand_name")
+                    brand_code = item.get("brand_code")
+                    supplier_name = item.get("supplier_name")
+                    supplier_code = item.get("supplier_code")
                     if not isinstance(row_number, int) or not (0 <= row_number < len(batch_df)):
                         continue
-                    if not isinstance(brand_name, str) or not brand_name.strip():
-                        continue
 
-                    output_rows.append(
-                        {
-                            "drug_concept_code": batch_df.iloc[row_number][drug_code_column],
-                            "concept_name": brand_name.strip(),
-                            "concept_code": None,
-                            "concept_class_id": "Brand name",
-                            "domain": "Drug",
-                        }
-                    )
+                    drug_concept_code = batch_df.iloc[row_number][drug_code_column]
+
+                    if isinstance(brand_name, str) and brand_name.strip():
+                        output_rows.append(
+                            {
+                                "drug_concept_code": drug_concept_code,
+                                "concept_name": brand_name.strip(),
+                                "concept_code": self._normalize_optional_code(brand_code),
+                                "concept_class_id": "Brand name",
+                                "domain": "Drug",
+                            }
+                        )
+
+                    if isinstance(supplier_name, str) and supplier_name.strip():
+                        output_rows.append(
+                            {
+                                "drug_concept_code": drug_concept_code,
+                                "concept_name": supplier_name.strip(),
+                                "concept_code": self._normalize_optional_code(supplier_code),
+                                "concept_class_id": "Supplier",
+                                "domain": "Drug",
+                            }
+                        )
 
         result = pd.DataFrame(
             output_rows,
