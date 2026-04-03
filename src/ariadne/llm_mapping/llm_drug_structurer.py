@@ -46,8 +46,24 @@ _INGREDIENT_SCHEMA = {
                     "row_number": {"type": "integer"},
                     "ingredient_name": {"type": ["string", "null"]},
                     "ingredient_code": {"type": ["string", "null"]},
+                    "amount_value": {"type": ["number", "null"]},
+                    "amount_unit": {"type": ["string", "null"]},
+                    "numerator_value": {"type": ["number", "null"]},
+                    "numerator_unit": {"type": ["string", "null"]},
+                    "denominator_value": {"type": ["number", "null"]},
+                    "denominator_unit": {"type": ["string", "null"]},
                 },
-                "required": ["row_number", "ingredient_name", "ingredient_code"],
+                "required": [
+                    "row_number",
+                    "ingredient_name",
+                    "ingredient_code",
+                    "amount_value",
+                    "amount_unit",
+                    "numerator_value",
+                    "numerator_unit",
+                    "denominator_value",
+                    "denominator_unit",
+                ],
                 "additionalProperties": False,
             },
         }
@@ -56,7 +72,7 @@ _INGREDIENT_SCHEMA = {
     "additionalProperties": False,
 }
 
-_BRAND_SCHEMA = {
+_DRUG_SCHEMA = {
     "type": "object",
     "properties": {
         "results": {
@@ -65,12 +81,24 @@ _BRAND_SCHEMA = {
                 "type": "object",
                 "properties": {
                     "row_number": {"type": "integer"},
+                    "full_product_name": {"type": ["string", "null"]},
                     "brand_name": {"type": ["string", "null"]},
                     "brand_code": {"type": ["string", "null"]},
                     "supplier_name": {"type": ["string", "null"]},
                     "supplier_code": {"type": ["string", "null"]},
+                    "dose_form": {"type": ["string", "null"]},
+                    "box_size": {"type": ["integer", "null"]},
                 },
-                "required": ["row_number", "brand_name", "brand_code", "supplier_name", "supplier_code"],
+                "required": [
+                    "row_number",
+                    "full_product_name",
+                    "brand_name",
+                    "brand_code",
+                    "supplier_name",
+                    "supplier_code",
+                    "dose_form",
+                    "box_size",
+                ],
                 "additionalProperties": False,
             },
         }
@@ -99,7 +127,7 @@ class LlmDrugStructurer:
             raw = yaml.safe_load(fh) or {}
 
         drug_mapping = raw.get("drug_mapping", {})
-        required_keys = ["drug_device_system_prompt", "ingredient_system_prompt", "brand_name_system_prompt"]
+        required_keys = ["drug_device_system_prompt", "ingredient_system_prompt", "drug_system_prompt"]
         missing_keys = [key for key in required_keys if key not in drug_mapping]
         if missing_keys:
             raise ValueError(f"Missing drug_mapping prompt keys in {config_filename}: {missing_keys}")
@@ -141,6 +169,23 @@ class LlmDrugStructurer:
         if not normalized:
             return None
         return normalized
+
+    @staticmethod
+    def _format_strength(value: Any, unit: Any) -> str | None:
+        normalized_unit = ""
+        if isinstance(unit, str):
+            normalized_unit = unit.strip()
+
+        if isinstance(value, (int, float)) and not isinstance(value, bool):
+            value_text = f"{value:g}"
+            return f"{value_text} {normalized_unit}".strip()
+
+        if isinstance(value, str):
+            value_text = value.strip()
+            if value_text:
+                return f"{value_text} {normalized_unit}".strip()
+
+        return None
 
     def _cache_key(self, stage: str, records: list[dict[str, Any]]) -> str:
         payload = json.dumps({"stage": stage, "rows": records}, ensure_ascii=False, sort_keys=True)
@@ -263,15 +308,23 @@ class LlmDrugStructurer:
                     row_number = item.get("row_number")
                     ingredient_name = item.get("ingredient_name")
                     ingredient_code = item.get("ingredient_code")
+                    amount_value = item.get("amount_value")
+                    amount_unit = item.get("amount_unit")
+                    numerator_value = item.get("numerator_value")
+                    numerator_unit = item.get("numerator_unit")
+                    denominator_value = item.get("denominator_value")
+                    denominator_unit = item.get("denominator_unit")
                     if not isinstance(row_number, int) or not (0 <= row_number < len(batch_df)):
                         continue
                     if not isinstance(ingredient_name, str) or not ingredient_name.strip():
                         # Requested behavior: skip rows with missing ingredient output.
                         continue
 
+                    drug_concept_code = batch_df.iloc[row_number][drug_code_column]
+
                     output_rows.append(
                         {
-                            "drug_concept_code": batch_df.iloc[row_number][drug_code_column],
+                            "drug_concept_code": drug_concept_code,
                             "concept_name": ingredient_name.strip(),
                             "concept_code": self._normalize_optional_code(ingredient_code),
                             "concept_class_id": "Ingredient",
@@ -279,25 +332,75 @@ class LlmDrugStructurer:
                         }
                     )
 
-            brands = self._call_llm_batch(
-                stage="brand",
+                    amount_text = self._format_strength(amount_value, amount_unit)
+                    if amount_text is not None:
+                        output_rows.append(
+                            {
+                                "drug_concept_code": drug_concept_code,
+                                "concept_name": amount_text,
+                                "concept_code": None,
+                                "concept_class_id": "Amount",
+                                "domain": "Drug",
+                            }
+                        )
+
+                    numerator_text = self._format_strength(numerator_value, numerator_unit)
+                    if numerator_text is not None:
+                        output_rows.append(
+                            {
+                                "drug_concept_code": drug_concept_code,
+                                "concept_name": numerator_text,
+                                "concept_code": None,
+                                "concept_class_id": "Numerator",
+                                "domain": "Drug",
+                            }
+                        )
+
+                    denominator_text = self._format_strength(denominator_value, denominator_unit)
+                    if denominator_text is not None:
+                        output_rows.append(
+                            {
+                                "drug_concept_code": drug_concept_code,
+                                "concept_name": denominator_text,
+                                "concept_code": None,
+                                "concept_class_id": "Denominator",
+                                "domain": "Drug",
+                            }
+                        )
+
+            drugs = self._call_llm_batch(
+                stage="drug",
                 records=drug_records,
-                system_prompt=self.prompts["brand_name_system_prompt"],
-                schema=_BRAND_SCHEMA,
+                system_prompt=self.prompts["drug_system_prompt"],
+                schema=_DRUG_SCHEMA,
             )
-            if brands is not None:
-                for item in brands.get("results", []):
+            if drugs is not None:
+                for item in drugs.get("results", []):
                     if not isinstance(item, dict):
                         continue
                     row_number = item.get("row_number")
+                    full_product_name = item.get("full_product_name")
                     brand_name = item.get("brand_name")
                     brand_code = item.get("brand_code")
                     supplier_name = item.get("supplier_name")
                     supplier_code = item.get("supplier_code")
+                    dose_form = item.get("dose_form")
+                    box_size = item.get("box_size")
                     if not isinstance(row_number, int) or not (0 <= row_number < len(batch_df)):
                         continue
 
                     drug_concept_code = batch_df.iloc[row_number][drug_code_column]
+
+                    if isinstance(full_product_name, str) and full_product_name.strip():
+                        output_rows.append(
+                            {
+                                "drug_concept_code": drug_concept_code,
+                                "concept_name": full_product_name.strip(),
+                                "concept_code": None,
+                                "concept_class_id": "Full Product Name",
+                                "domain": "Drug",
+                            }
+                        )
 
                     if isinstance(brand_name, str) and brand_name.strip():
                         output_rows.append(
@@ -317,6 +420,28 @@ class LlmDrugStructurer:
                                 "concept_name": supplier_name.strip(),
                                 "concept_code": self._normalize_optional_code(supplier_code),
                                 "concept_class_id": "Supplier",
+                                "domain": "Drug",
+                            }
+                        )
+
+                    if isinstance(dose_form, str) and dose_form.strip():
+                        output_rows.append(
+                            {
+                                "drug_concept_code": drug_concept_code,
+                                "concept_name": dose_form.strip(),
+                                "concept_code": None,
+                                "concept_class_id": "Dose Form",
+                                "domain": "Drug",
+                            }
+                        )
+
+                    if isinstance(box_size, int):
+                        output_rows.append(
+                            {
+                                "drug_concept_code": drug_concept_code,
+                                "concept_name": str(box_size),
+                                "concept_code": None,
+                                "concept_class_id": "Box Size",
                                 "domain": "Drug",
                             }
                         )
