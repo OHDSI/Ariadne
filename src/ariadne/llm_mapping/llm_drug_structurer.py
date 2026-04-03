@@ -170,6 +170,25 @@ def normalize_structured_drugs(structured: DrugStructureResult) -> NormalizedDru
     ingredient_codes_by_drug: dict[str, list[str]] = {}
     device_codes_by_drug: dict[str, list[str]] = {}
 
+    unit_values: set[str] = set()
+    for unit_column in ["amount_unit", "numerator_unit", "denominator_unit"]:
+        if unit_column not in ingredient_df.columns:
+            continue
+        for unit_value in ingredient_df[unit_column].dropna().tolist():
+            normalized_unit = _normalize_optional_text(unit_value)
+            if normalized_unit:
+                unit_values.add(normalized_unit)
+
+    for unit_value in sorted(unit_values):
+        concept_rows.append(
+            {
+                "concept_name": unit_value,
+                "domain_id": "Unit",
+                "concept_class_id": "Unit",
+                "concept_code": unit_value,
+            }
+        )
+
     for _, row in drug_df.iterrows():
         drug_code = _normalize_optional_text(row.get("drug_code"))
         if not drug_code:

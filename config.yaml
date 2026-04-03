@@ -26,6 +26,7 @@ verbatim_mapping:
       - Observation
       - Measurement
       - Procedure
+    concept_class_ids:
     include_classification_concepts: false
     include_synonyms: true
 

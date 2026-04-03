@@ -62,13 +62,11 @@ def _create_query(engine: Engine, config: Config) -> Select:
         concept.c.concept_id,
         concept.c.concept_name.label("term"),
         concept.c.concept_name,
-        # concept.c.vocabulary_id,
-        # concept.c.domain_id,
-        # concept.c.standard_concept,
-        # cast("name", String).label("source"),
     ).where(concept.c.standard_concept.in_(standard_concepts))
     if filter_config.domain_ids:
         query1 = query1.where(concept.c.domain_id.in_(filter_config.domain_ids))
+    if filter_config.concept_class_ids:
+        query1 = query1.where(concept.c.concept_class_id.in_(filter_config.concept_class_ids))
     if filter_config.vocabularies:
         query1 = query1.where(concept.c.vocabulary_id.in_(filter_config.vocabularies))
 
@@ -88,10 +86,6 @@ def _create_query(engine: Engine, config: Config) -> Select:
             cs_alias.c.concept_id,
             cs_alias.c.concept_synonym_name.label("term"),
             concept_names.c.concept_name,
-            # concept_names.c.vocabulary_id,
-            # concept_names.c.domain_id,
-            # concept_names.c.standard_concept,
-            # cast("synonym", String).label("source"),
         ).join(concept_names, cs_alias.c.concept_id == concept_names.c.concept_id)
 
         # Combine queries
@@ -106,10 +100,6 @@ def _store_in_parquet(
     concept_ids: List[int],
     terms: List[str],
     concept_names: List[str],
-    # vocabulary_ids: List[str],
-    # domain_ids: List[str],
-    # standard_concepts: List[str],
-    # sources: List[str],
     file_name: str,
 ) -> None:
     concept_id_array = pa.array(concept_ids)
@@ -124,19 +114,11 @@ def _store_in_parquet(
             concept_id_array,
             term_array,
             concept_name_array,
-            # vocabulary_id_array,
-            # domain_id_array,
-            # standard_concept_array,
-            # source_array,
         ],
         names=[
             "concept_id",
             "term",
             "concept_name",
-            # "vocabulary_id",
-            # "domain_id",
-            # "standard_concept",
-            # "source",
         ],
     )
     pq.write_table(table, file_name)

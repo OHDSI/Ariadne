@@ -43,6 +43,7 @@ class SystemConfig:
 class StandardConceptFilter:
     vocabularies: Optional[List[str]]
     domain_ids: Optional[List[str]]
+    concept_class_ids: Optional[List[str]]
     include_classification_concepts: bool
     include_synonyms: bool
 

@@ -297,6 +297,12 @@ def test_normalize_structured_drugs_builds_all_stages_with_fallback_codes():
         "concept_code": "Paracetamol",
     } in concept_records
     assert {
+        "concept_name": "mg",
+        "domain_id": "Unit",
+        "concept_class_id": "Unit",
+        "concept_code": "mg",
+    } in concept_records
+    assert {
         "concept_name": "Blood glucose strip",
         "domain_id": "Device",
         "concept_class_id": "Device",

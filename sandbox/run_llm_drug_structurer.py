@@ -7,6 +7,8 @@ from ariadne.llm_mapping.llm_drug_structurer import (
     normalize_structured_drugs,
 )
 from ariadne.utils.config import Config
+from ariadne.verbatim_mapping.term_downloader import download_terms
+from ariadne.verbatim_mapping.vocab_verbatim_term_mapper import VocabVerbatimTermMapper
 
 
 INPUT_CSV = Path(r"E:\git\Ariadne\data\sample_data\drug_codes_sample.csv")
@@ -31,6 +33,7 @@ def main() -> None:
 
     config = Config()
     config.system.llm_mapper_responses_folder = CACHE_FOLDER
+ 
     structurer = LlmDrugStructurer(config=config)
     result = structurer.structure_drugs(source_df, drug_code_column=DRUG_CODE_COLUMN)
 
@@ -54,20 +57,22 @@ def main() -> None:
     normalized_result.internal_relationship_stage.to_csv(internal_relationship_stage_path, index=False)
     normalized_result.ds_stage.to_csv(ds_stage_path, index=False)
 
-    print(f"Input rows: {len(source_df)}")
-    print(f"Classification rows: {len(result.classification_df)}")
-    print(f"Ingredient rows: {len(result.ingredient_df)}")
-    print(f"Drug rows: {len(result.drug_df)}")
-    print(f"Device rows: {len(result.device_df)}")
-    print(f"Total LLM cost (USD): {structurer.get_total_cost():.6f}")
-    print(f"Wrote: {classify_path}")
-    print(f"Wrote: {ingredient_path}")
-    print(f"Wrote: {drug_path}")
-    print(f"Wrote: {device_path}")
-    print(f"Wrote: {drug_concept_stage_path}")
-    print(f"Wrote: {internal_relationship_stage_path}")
-    print(f"Wrote: {ds_stage_path}")
+    config.verbatim_mapping.standard_concept_filter.domain_ids = ["Drug", "Device"]
+    config.verbatim_mapping.standard_concept_filter.concept_class_ids = ["Ingredient", "Device"]
+    config.system.terms_folder = "data/terms_drug_device"
+    config.system.verbatim_mapping_index_file = "data/verbatim_drug_devices_mapping_index.pkl"
+    download_terms(config=config)
 
+    ingredients_and_devices = (
+        normalized_result.drug_concept_stage
+        .loc[normalized_result.drug_concept_stage["concept_class_id"].isin(["Ingredient", "Device"])]
+        .copy(deep=True)
+        .reset_index(drop=True)
+    )
+
+    verbatim_mapper = VocabVerbatimTermMapper(config) # Will construct the vocabulary index if needed
+    verbatim_matches = verbatim_mapper.map_terms(ingredients_and_devices, term_column="concept_name")
+    verbatim_matches.to_csv(DRUG_RESULTS_FOLDER / "drug_concept_stage_mapped.csv", index=False)
 
 if __name__ == "__main__":
     main()
