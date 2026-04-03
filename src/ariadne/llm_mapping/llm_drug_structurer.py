@@ -137,6 +137,219 @@ class DrugStructureResult:
     device_df: pd.DataFrame
 
 
+@dataclass(frozen=True)
+class NormalizedDrugStructureResult:
+    drug_concept_stage: pd.DataFrame
+    internal_relationship_stage: pd.DataFrame
+    ds_stage: pd.DataFrame
+
+
+def _normalize_optional_text(value: Any) -> str | None:
+    if value is None:
+        return None
+    normalized = str(value).strip()
+    if not normalized:
+        return None
+    return normalized
+
+
+def _resolved_code(preferred_code: Any, fallback_name: Any) -> str | None:
+    return _normalize_optional_text(preferred_code) or _normalize_optional_text(fallback_name)
+
+
+def normalize_structured_drugs(structured: DrugStructureResult) -> NormalizedDrugStructureResult:
+    concept_rows: list[dict[str, Any]] = []
+    relationship_rows: list[dict[str, Any]] = []
+    ds_rows: list[dict[str, Any]] = []
+
+    drug_df = structured.drug_df.copy()
+    ingredient_df = structured.ingredient_df.copy()
+    device_df = structured.device_df.copy()
+
+    drug_attribute_codes: dict[str, dict[str, str]] = {}
+    ingredient_codes_by_drug: dict[str, list[str]] = {}
+    device_codes_by_drug: dict[str, list[str]] = {}
+
+    for _, row in drug_df.iterrows():
+        drug_code = _normalize_optional_text(row.get("drug_code"))
+        if not drug_code:
+            continue
+
+        brand_name = _normalize_optional_text(row.get("brand_name"))
+        concept_rows.append(
+            {
+                "concept_name": row.get("full_product_name"),
+                "domain_id": "Drug",
+                "concept_class_id": "Branded Drug" if brand_name else "Clinical Drug",
+                "concept_code": drug_code,
+            }
+        )
+
+        attribute_codes: dict[str, str] = {}
+
+        dose_form = _normalize_optional_text(row.get("dose_form"))
+        if dose_form:
+            concept_rows.append(
+                {
+                    "concept_name": dose_form,
+                    "domain_id": "Drug",
+                    "concept_class_id": "Dose Form",
+                    "concept_code": dose_form,
+                }
+            )
+            attribute_codes["dose_form"] = dose_form
+
+        brand_code = _resolved_code(row.get("brand_code"), brand_name)
+        if brand_name and brand_code:
+            concept_rows.append(
+                {
+                    "concept_name": brand_name,
+                    "domain_id": "Drug",
+                    "concept_class_id": "Brand Name",
+                    "concept_code": brand_code,
+                }
+            )
+            attribute_codes["brand"] = brand_code
+
+        supplier_name = _normalize_optional_text(row.get("supplier_name"))
+        supplier_code = _resolved_code(row.get("supplier_code"), supplier_name)
+        if supplier_name and supplier_code:
+            concept_rows.append(
+                {
+                    "concept_name": supplier_name,
+                    "domain_id": "Drug",
+                    "concept_class_id": "Supplier",
+                    "concept_code": supplier_code,
+                }
+            )
+            attribute_codes["supplier"] = supplier_code
+
+        drug_attribute_codes[drug_code] = attribute_codes
+
+    for _, row in ingredient_df.iterrows():
+        drug_code = _normalize_optional_text(row.get("drug_code"))
+        ingredient_name = _normalize_optional_text(row.get("ingredient_name"))
+        ingredient_code = _resolved_code(row.get("ingredient_code"), ingredient_name)
+        if not drug_code or not ingredient_name or not ingredient_code:
+            continue
+
+        concept_rows.append(
+            {
+                "concept_name": ingredient_name,
+                "domain_id": "Drug",
+                "concept_class_id": "Ingredient",
+                "concept_code": ingredient_code,
+            }
+        )
+        ingredient_codes_by_drug.setdefault(drug_code, []).append(ingredient_code)
+
+        ds_rows.append(
+            {
+                "drug_concept_code": drug_code,
+                "ingredient_concept_code": ingredient_code,
+                "amount_value": row.get("amount_value"),
+                "amount_unit": row.get("amount_unit"),
+                "numerator_value": row.get("numerator_value"),
+                "numerator_unit": row.get("numerator_unit"),
+                "denominator_value": row.get("denominator_value"),
+                "denominator_unit": row.get("denominator_unit"),
+                "box_size": None,
+            }
+        )
+
+    for _, row in device_df.iterrows():
+        drug_code = _normalize_optional_text(row.get("drug_code"))
+        full_device_name = _normalize_optional_text(row.get("full_device_name"))
+        if not drug_code or not full_device_name:
+            continue
+
+        concept_rows.append(
+            {
+                "concept_name": full_device_name,
+                "domain_id": "Device",
+                "concept_class_id": "Device",
+                "concept_code": drug_code,
+            }
+        )
+        device_codes_by_drug.setdefault(drug_code, []).append(drug_code)
+
+    for _, row in drug_df.iterrows():
+        drug_code = _normalize_optional_text(row.get("drug_code"))
+        if not drug_code:
+            continue
+
+        attribute_codes = drug_attribute_codes.get(drug_code, {})
+        for code in attribute_codes.values():
+            relationship_rows.append(
+                {
+                    "concept_code_1": drug_code,
+                    "concept_code_2": code,
+                }
+            )
+
+        for ingredient_code in ingredient_codes_by_drug.get(drug_code, []):
+            relationship_rows.append(
+                {
+                    "concept_code_1": drug_code,
+                    "concept_code_2": ingredient_code,
+                }
+            )
+
+        for device_code in device_codes_by_drug.get(drug_code, []):
+            relationship_rows.append(
+                {
+                    "concept_code_1": drug_code,
+                    "concept_code_2": device_code,
+                }
+            )
+
+    drug_concept_stage = pd.DataFrame(
+        concept_rows,
+        columns=["concept_name", "domain_id", "concept_class_id", "concept_code"],
+    )
+    if not drug_concept_stage.empty:
+        drug_concept_stage = drug_concept_stage.drop_duplicates().reset_index(drop=True)
+
+    internal_relationship_stage = pd.DataFrame(
+        relationship_rows,
+        columns=["concept_code_1", "concept_code_2"],
+    )
+    if not internal_relationship_stage.empty:
+        internal_relationship_stage = internal_relationship_stage.drop_duplicates().reset_index(drop=True)
+
+    ds_stage = pd.DataFrame(
+        ds_rows,
+        columns=[
+            "drug_concept_code",
+            "ingredient_concept_code",
+            "amount_value",
+            "amount_unit",
+            "numerator_value",
+            "numerator_unit",
+            "denominator_value",
+            "denominator_unit",
+            "box_size",
+        ],
+    )
+    if not ds_stage.empty:
+        box_size_by_drug = {}
+        for _, row in drug_df.iterrows():
+            drug_code = _normalize_optional_text(row.get("drug_code"))
+            if not drug_code:
+                continue
+            if drug_code not in box_size_by_drug and row.get("box_size") is not None:
+                box_size_by_drug[drug_code] = row.get("box_size")
+
+        ds_stage["box_size"] = ds_stage["drug_concept_code"].map(box_size_by_drug)
+        ds_stage = ds_stage.drop_duplicates().reset_index(drop=True)
+
+    return NormalizedDrugStructureResult(
+        drug_concept_stage=drug_concept_stage,
+        internal_relationship_stage=internal_relationship_stage,
+        ds_stage=ds_stage,
+    )
+
+
 class LlmDrugStructurer:
     def __init__(self, config: Config = Config(), config_filename: str = "config.yaml"):
         self.responses_folder = config.system.llm_mapper_responses_folder

@@ -2,7 +2,11 @@ import types
 
 import pandas as pd
 
-from ariadne.llm_mapping.llm_drug_structurer import LlmDrugStructurer
+from ariadne.llm_mapping.llm_drug_structurer import (
+    DrugStructureResult,
+    LlmDrugStructurer,
+    normalize_structured_drugs,
+)
 
 
 def _make_config(responses_folder):
@@ -188,3 +192,146 @@ def test_structure_drugs_extracts_full_product_name_dose_form_and_box_size(tmp_p
     assert device_call["system_prompt"] == structurer.prompts["device_system_prompt"]
     device_required_keys = device_call["schema"]["properties"]["results"]["items"]["required"]
     assert "full_device_name" in device_required_keys
+
+
+def test_normalize_structured_drugs_builds_all_stages_with_fallback_codes():
+    structured = DrugStructureResult(
+        classification_df=pd.DataFrame(columns=["drug_code", "category"]),
+        ingredient_df=pd.DataFrame(
+            [
+                {
+                    "drug_code": "D1",
+                    "ingredient_name": "Ibuprofen",
+                    "ingredient_code": "ING-123",
+                    "amount_value": 200,
+                    "amount_unit": "mg",
+                    "numerator_value": None,
+                    "numerator_unit": None,
+                    "denominator_value": None,
+                    "denominator_unit": None,
+                },
+                {
+                    "drug_code": "D2",
+                    "ingredient_name": "Paracetamol",
+                    "ingredient_code": None,
+                    "amount_value": 500,
+                    "amount_unit": "mg",
+                    "numerator_value": None,
+                    "numerator_unit": None,
+                    "denominator_value": None,
+                    "denominator_unit": None,
+                },
+            ]
+        ),
+        drug_df=pd.DataFrame(
+            [
+                {
+                    "drug_code": "D1",
+                    "full_product_name": "Advil 200 mg oral tablet",
+                    "brand_name": "Advil",
+                    "brand_code": "BR-55",
+                    "supplier_name": "Pfizer",
+                    "supplier_code": "SUP-9",
+                    "dose_form": "oral tablet",
+                    "box_size": 30,
+                },
+                {
+                    "drug_code": "D2",
+                    "full_product_name": "Paracetamol 500 mg capsule",
+                    "brand_name": None,
+                    "brand_code": None,
+                    "supplier_name": "Acme Pharma",
+                    "supplier_code": None,
+                    "dose_form": "capsule",
+                    "box_size": 20,
+                },
+            ]
+        ),
+        device_df=pd.DataFrame(
+            [
+                {
+                    "drug_code": "DEV-1",
+                    "full_device_name": "Blood glucose strip",
+                }
+            ]
+        ),
+    )
+
+    normalized = normalize_structured_drugs(structured)
+
+    concept_records = normalized.drug_concept_stage.to_dict("records")
+    assert {
+        "concept_name": "Advil 200 mg oral tablet",
+        "domain_id": "Drug",
+        "concept_class_id": "Branded Drug",
+        "concept_code": "D1",
+    } in concept_records
+    assert {
+        "concept_name": "Paracetamol 500 mg capsule",
+        "domain_id": "Drug",
+        "concept_class_id": "Clinical Drug",
+        "concept_code": "D2",
+    } in concept_records
+    assert {
+        "concept_name": "oral tablet",
+        "domain_id": "Drug",
+        "concept_class_id": "Dose Form",
+        "concept_code": "oral tablet",
+    } in concept_records
+    assert {
+        "concept_name": "Advil",
+        "domain_id": "Drug",
+        "concept_class_id": "Brand Name",
+        "concept_code": "BR-55",
+    } in concept_records
+    assert {
+        "concept_name": "Acme Pharma",
+        "domain_id": "Drug",
+        "concept_class_id": "Supplier",
+        "concept_code": "Acme Pharma",
+    } in concept_records
+    assert {
+        "concept_name": "Paracetamol",
+        "domain_id": "Drug",
+        "concept_class_id": "Ingredient",
+        "concept_code": "Paracetamol",
+    } in concept_records
+    assert {
+        "concept_name": "Blood glucose strip",
+        "domain_id": "Device",
+        "concept_class_id": "Device",
+        "concept_code": "DEV-1",
+    } in concept_records
+
+    relationship_records = normalized.internal_relationship_stage.to_dict("records")
+    assert {"concept_code_1": "D1", "concept_code_2": "oral tablet"} in relationship_records
+    assert {"concept_code_1": "D1", "concept_code_2": "BR-55"} in relationship_records
+    assert {"concept_code_1": "D1", "concept_code_2": "SUP-9"} in relationship_records
+    assert {"concept_code_1": "D1", "concept_code_2": "ING-123"} in relationship_records
+    assert {"concept_code_1": "D2", "concept_code_2": "capsule"} in relationship_records
+    assert {"concept_code_1": "D2", "concept_code_2": "Acme Pharma"} in relationship_records
+    assert {"concept_code_1": "D2", "concept_code_2": "Paracetamol"} in relationship_records
+
+    ds_records = normalized.ds_stage.to_dict("records")
+    assert {
+        "drug_concept_code": "D1",
+        "ingredient_concept_code": "ING-123",
+        "amount_value": 200,
+        "amount_unit": "mg",
+        "numerator_value": None,
+        "numerator_unit": None,
+        "denominator_value": None,
+        "denominator_unit": None,
+        "box_size": 30,
+    } in ds_records
+    assert {
+        "drug_concept_code": "D2",
+        "ingredient_concept_code": "Paracetamol",
+        "amount_value": 500,
+        "amount_unit": "mg",
+        "numerator_value": None,
+        "numerator_unit": None,
+        "denominator_value": None,
+        "denominator_unit": None,
+        "box_size": 20,
+    } in ds_records
