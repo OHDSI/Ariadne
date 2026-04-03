@@ -28,15 +28,30 @@ def main() -> None:
     config = Config()
     config.system.llm_mapper_responses_folder = CACHE_FOLDER
     structurer = LlmDrugStructurer(config=config)
-    result_df = structurer.structure_drugs(source_df, drug_code_column=DRUG_CODE_COLUMN)
+    result = structurer.structure_drugs(source_df, drug_code_column=DRUG_CODE_COLUMN)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    result_df.to_csv(output_path, index=False)
+    output_stem = output_path.with_suffix("")
+    classify_path = output_stem.with_name(f"{output_stem.name}_classification.csv")
+    ingredient_path = output_stem.with_name(f"{output_stem.name}_ingredients.csv")
+    drug_path = output_stem.with_name(f"{output_stem.name}_drugs.csv")
+    device_path = output_stem.with_name(f"{output_stem.name}_devices.csv")
+
+    result.classification_df.to_csv(classify_path, index=False)
+    result.ingredient_df.to_csv(ingredient_path, index=False)
+    result.drug_df.to_csv(drug_path, index=False)
+    result.device_df.to_csv(device_path, index=False)
 
     print(f"Input rows: {len(source_df)}")
-    print(f"Output rows: {len(result_df)}")
+    print(f"Classification rows: {len(result.classification_df)}")
+    print(f"Ingredient rows: {len(result.ingredient_df)}")
+    print(f"Drug rows: {len(result.drug_df)}")
+    print(f"Device rows: {len(result.device_df)}")
     print(f"Total LLM cost (USD): {structurer.get_total_cost():.6f}")
-    print(f"Wrote: {output_path}")
+    print(f"Wrote: {classify_path}")
+    print(f"Wrote: {ingredient_path}")
+    print(f"Wrote: {drug_path}")
+    print(f"Wrote: {device_path}")
 
 
 if __name__ == "__main__":

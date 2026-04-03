@@ -13,26 +13,26 @@ def _make_config(responses_folder):
 
 def _write_minimal_drug_config(path):
     path.write_text(
-        """
-drug_mapping:
-  drug_device_system_prompt: classify prompt
-  ingredient_system_prompt: ingredient prompt
-  drug_system_prompt: drug prompt
-""".strip()
-        + "\n",
+        (
+            "drug_mapping:\n"
+            "  drug_device_system_prompt: classify prompt\n"
+            "  ingredient_system_prompt: ingredient prompt\n"
+            "  drug_system_prompt: drug prompt\n"
+            "  device_system_prompt: device prompt\n"
+        ),
         encoding="utf-8",
     )
 
 
-def test_load_drug_prompts_requires_drug_system_prompt(tmp_path):
+def test_load_drug_prompts_requires_device_system_prompt(tmp_path):
     config_file = tmp_path / "test_config.yaml"
     config_file.write_text(
-        """
-drug_mapping:
-  drug_device_system_prompt: classify prompt
-  ingredient_system_prompt: ingredient prompt
-""".strip()
-        + "\n",
+        (
+            "drug_mapping:\n"
+            "  drug_device_system_prompt: classify prompt\n"
+            "  ingredient_system_prompt: ingredient prompt\n"
+            "  drug_system_prompt: drug prompt\n"
+        ),
         encoding="utf-8",
     )
 
@@ -40,7 +40,7 @@ drug_mapping:
         LlmDrugStructurer(config=_make_config(str(tmp_path)), config_filename=str(config_file))
         raise AssertionError("Expected ValueError for missing prompt key")
     except ValueError as err:
-        assert "drug_system_prompt" in str(err)
+        assert "device_system_prompt" in str(err)
 
 
 def test_structure_drugs_extracts_full_product_name_dose_form_and_box_size(tmp_path, monkeypatch):
@@ -101,6 +101,15 @@ def test_structure_drugs_extracts_full_product_name_dose_form_and_box_size(tmp_p
                     }
                 ]
             }
+        if stage == "device":
+            return {
+                "results": [
+                    {
+                        "row_number": 1,
+                        "full_device_name": "Blood glucose strip",
+                    }
+                ]
+            }
         raise AssertionError(f"Unexpected stage {stage}")
 
     monkeypatch.setattr(structurer, "_call_llm_batch", fake_call_llm_batch)
@@ -114,56 +123,49 @@ def test_structure_drugs_extracts_full_product_name_dose_form_and_box_size(tmp_p
 
     result = structurer.structure_drugs(source_df, "drug_code")
 
-    assert result.to_dict("records") == [
+    assert result.classification_df.to_dict("records") == [
         {
-            "drug_concept_code": "D1",
-            "concept_name": "Ibuprofen",
-            "concept_code": "ING-123",
-            "concept_class_id": "Ingredient",
-            "domain": "Drug",
+            "drug_code": "D1",
+            "category": "drug",
         },
         {
-            "drug_concept_code": "D1",
-            "concept_name": "200 mg",
-            "concept_code": None,
-            "concept_class_id": "Amount",
-            "domain": "Drug",
+            "drug_code": "D2",
+            "category": "device",
         },
+    ]
+
+    assert result.ingredient_df.to_dict("records") == [
         {
-            "drug_concept_code": "D1",
-            "concept_name": "Advil 200 mg oral tablet",
-            "concept_code": None,
-            "concept_class_id": "Full Product Name",
-            "domain": "Drug",
+            "drug_code": "D1",
+            "ingredient_name": "Ibuprofen",
+            "ingredient_code": "ING-123",
+            "amount_value": 200,
+            "amount_unit": "mg",
+            "numerator_value": None,
+            "numerator_unit": None,
+            "denominator_value": None,
+            "denominator_unit": None,
         },
+    ]
+
+    assert result.drug_df.to_dict("records") == [
         {
-            "drug_concept_code": "D1",
-            "concept_name": "Advil",
-            "concept_code": "BR-55",
-            "concept_class_id": "Brand name",
-            "domain": "Drug",
-        },
+            "drug_code": "D1",
+            "full_product_name": "Advil 200 mg oral tablet",
+            "brand_name": "Advil",
+            "brand_code": "BR-55",
+            "supplier_name": "Pfizer",
+            "supplier_code": "SUP-9",
+            "dose_form": "oral tablet",
+            "box_size": 30,
+        }
+    ]
+
+    assert result.device_df.to_dict("records") == [
         {
-            "drug_concept_code": "D1",
-            "concept_name": "Pfizer",
-            "concept_code": "SUP-9",
-            "concept_class_id": "Supplier",
-            "domain": "Drug",
-        },
-        {
-            "drug_concept_code": "D1",
-            "concept_name": "oral tablet",
-            "concept_code": None,
-            "concept_class_id": "Dose Form",
-            "domain": "Drug",
-        },
-        {
-            "drug_concept_code": "D1",
-            "concept_name": "30",
-            "concept_code": None,
-            "concept_class_id": "Box Size",
-            "domain": "Drug",
-        },
+            "drug_code": "D2",
+            "full_device_name": "Blood glucose strip",
+        }
     ]
 
     ingredient_call = next(call for call in call_args if call["stage"] == "ingredient")
@@ -181,3 +183,8 @@ def test_structure_drugs_extracts_full_product_name_dose_form_and_box_size(tmp_p
     assert "full_product_name" in drug_required_keys
     assert "dose_form" in drug_required_keys
     assert "box_size" in drug_required_keys
+
+    device_call = next(call for call in call_args if call["stage"] == "device")
+    assert device_call["system_prompt"] == structurer.prompts["device_system_prompt"]
+    device_required_keys = device_call["schema"]["properties"]["results"]["items"]["required"]
+    assert "full_device_name" in device_required_keys

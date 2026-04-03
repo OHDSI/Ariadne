@@ -2,6 +2,7 @@ import hashlib
 import json
 import os
 import re
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
@@ -107,6 +108,34 @@ _DRUG_SCHEMA = {
     "additionalProperties": False,
 }
 
+_DEVICE_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "row_number": {"type": "integer"},
+                    "full_device_name": {"type": ["string", "null"]},
+                },
+                "required": ["row_number", "full_device_name"],
+                "additionalProperties": False,
+            },
+        }
+    },
+    "required": ["results"],
+    "additionalProperties": False,
+}
+
+
+@dataclass(frozen=True)
+class DrugStructureResult:
+    classification_df: pd.DataFrame
+    ingredient_df: pd.DataFrame
+    drug_df: pd.DataFrame
+    device_df: pd.DataFrame
+
 
 class LlmDrugStructurer:
     def __init__(self, config: Config = Config(), config_filename: str = "config.yaml"):
@@ -127,7 +156,12 @@ class LlmDrugStructurer:
             raw = yaml.safe_load(fh) or {}
 
         drug_mapping = raw.get("drug_mapping", {})
-        required_keys = ["drug_device_system_prompt", "ingredient_system_prompt", "drug_system_prompt"]
+        required_keys = [
+            "drug_device_system_prompt",
+            "ingredient_system_prompt",
+            "drug_system_prompt",
+            "device_system_prompt",
+        ]
         missing_keys = [key for key in required_keys if key not in drug_mapping]
         if missing_keys:
             raise ValueError(f"Missing drug_mapping prompt keys in {config_filename}: {missing_keys}")
@@ -253,7 +287,9 @@ class LlmDrugStructurer:
             records.append(record)
         return records
 
-    def structure_drugs(self, df: pd.DataFrame, drug_code_column: str) -> pd.DataFrame:
+    def structure_drugs(
+        self, df: pd.DataFrame, drug_code_column: str
+    ) -> DrugStructureResult:
         if drug_code_column not in df.columns:
             raise ValueError(f"drug_code_column '{drug_code_column}' not found in dataframe.")
 
@@ -263,7 +299,10 @@ class LlmDrugStructurer:
             sorted_df = sorted_df.sort_values(by=sort_column, kind="mergesort")
         sorted_df = sorted_df.reset_index(drop=True)
 
-        output_rows: list[dict[str, Any]] = []
+        classification_rows: list[dict[str, Any]] = []
+        ingredient_rows: list[dict[str, Any]] = []
+        drug_rows: list[dict[str, Any]] = []
+        device_rows: list[dict[str, Any]] = []
 
         for start in range(0, len(sorted_df), _BATCH_SIZE):
             batch_df = sorted_df.iloc[start : start + _BATCH_SIZE].copy().reset_index(drop=True)
@@ -287,172 +326,141 @@ class LlmDrugStructurer:
                     continue
                 row_number = item.get("row_number")
                 if isinstance(row_number, int):
-                    category_by_row[row_number] = self._normalize_category(item.get("category"))
+                    category = self._normalize_category(item.get("category"))
+                    category_by_row[row_number] = category
+                    if 0 <= row_number < len(batch_df):
+                        classification_rows.append(
+                            {
+                                "drug_code": batch_df.iloc[row_number][drug_code_column],
+                                "category": category,
+                            }
+                        )
 
             drug_row_numbers = [idx for idx in range(len(batch_df)) if category_by_row.get(idx) == "drug"]
-            if not drug_row_numbers:
-                continue
+            if drug_row_numbers:
+                drug_records = [batch_records[idx] for idx in drug_row_numbers]
 
-            drug_records = [batch_records[idx] for idx in drug_row_numbers]
-
-            ingredients = self._call_llm_batch(
-                stage="ingredient",
-                records=drug_records,
-                system_prompt=self.prompts["ingredient_system_prompt"],
-                schema=_INGREDIENT_SCHEMA,
-            )
-            if ingredients is not None:
-                for item in ingredients.get("results", []):
-                    if not isinstance(item, dict):
-                        continue
-                    row_number = item.get("row_number")
-                    ingredient_name = item.get("ingredient_name")
-                    ingredient_code = item.get("ingredient_code")
-                    amount_value = item.get("amount_value")
-                    amount_unit = item.get("amount_unit")
-                    numerator_value = item.get("numerator_value")
-                    numerator_unit = item.get("numerator_unit")
-                    denominator_value = item.get("denominator_value")
-                    denominator_unit = item.get("denominator_unit")
-                    if not isinstance(row_number, int) or not (0 <= row_number < len(batch_df)):
-                        continue
-                    if not isinstance(ingredient_name, str) or not ingredient_name.strip():
-                        # Requested behavior: skip rows with missing ingredient output.
-                        continue
-
-                    drug_concept_code = batch_df.iloc[row_number][drug_code_column]
-
-                    output_rows.append(
-                        {
-                            "drug_concept_code": drug_concept_code,
-                            "concept_name": ingredient_name.strip(),
-                            "concept_code": self._normalize_optional_code(ingredient_code),
-                            "concept_class_id": "Ingredient",
-                            "domain": "Drug",
-                        }
-                    )
-
-                    amount_text = self._format_strength(amount_value, amount_unit)
-                    if amount_text is not None:
-                        output_rows.append(
+                ingredients = self._call_llm_batch(
+                    stage="ingredient",
+                    records=drug_records,
+                    system_prompt=self.prompts["ingredient_system_prompt"],
+                    schema=_INGREDIENT_SCHEMA,
+                )
+                if ingredients is not None:
+                    for item in ingredients.get("results", []):
+                        if not isinstance(item, dict):
+                            continue
+                        row_number = item.get("row_number")
+                        if not isinstance(row_number, int) or not (0 <= row_number < len(batch_df)):
+                            continue
+                        ingredient_rows.append(
                             {
-                                "drug_concept_code": drug_concept_code,
-                                "concept_name": amount_text,
-                                "concept_code": None,
-                                "concept_class_id": "Amount",
-                                "domain": "Drug",
+                                "drug_code": batch_df.iloc[row_number][drug_code_column],
+                                "ingredient_name": item.get("ingredient_name"),
+                                "ingredient_code": self._normalize_optional_code(item.get("ingredient_code")),
+                                "amount_value": item.get("amount_value"),
+                                "amount_unit": item.get("amount_unit"),
+                                "numerator_value": item.get("numerator_value"),
+                                "numerator_unit": item.get("numerator_unit"),
+                                "denominator_value": item.get("denominator_value"),
+                                "denominator_unit": item.get("denominator_unit"),
                             }
                         )
 
-                    numerator_text = self._format_strength(numerator_value, numerator_unit)
-                    if numerator_text is not None:
-                        output_rows.append(
+                drugs = self._call_llm_batch(
+                    stage="drug",
+                    records=drug_records,
+                    system_prompt=self.prompts["drug_system_prompt"],
+                    schema=_DRUG_SCHEMA,
+                )
+                if drugs is not None:
+                    for item in drugs.get("results", []):
+                        if not isinstance(item, dict):
+                            continue
+                        row_number = item.get("row_number")
+                        if not isinstance(row_number, int) or not (0 <= row_number < len(batch_df)):
+                            continue
+                        drug_rows.append(
                             {
-                                "drug_concept_code": drug_concept_code,
-                                "concept_name": numerator_text,
-                                "concept_code": None,
-                                "concept_class_id": "Numerator",
-                                "domain": "Drug",
+                                "drug_code": batch_df.iloc[row_number][drug_code_column],
+                                "full_product_name": item.get("full_product_name"),
+                                "brand_name": item.get("brand_name"),
+                                "brand_code": self._normalize_optional_code(item.get("brand_code")),
+                                "supplier_name": item.get("supplier_name"),
+                                "supplier_code": self._normalize_optional_code(item.get("supplier_code")),
+                                "dose_form": item.get("dose_form"),
+                                "box_size": item.get("box_size"),
                             }
                         )
 
-                    denominator_text = self._format_strength(denominator_value, denominator_unit)
-                    if denominator_text is not None:
-                        output_rows.append(
+            device_row_numbers = [idx for idx in range(len(batch_df)) if category_by_row.get(idx) == "device"]
+            if device_row_numbers:
+                device_records = [batch_records[idx] for idx in device_row_numbers]
+                devices = self._call_llm_batch(
+                    stage="device",
+                    records=device_records,
+                    system_prompt=self.prompts["device_system_prompt"],
+                    schema=_DEVICE_SCHEMA,
+                )
+                if devices is not None:
+                    for item in devices.get("results", []):
+                        if not isinstance(item, dict):
+                            continue
+                        row_number = item.get("row_number")
+                        if not isinstance(row_number, int) or not (0 <= row_number < len(batch_df)):
+                            continue
+                        device_rows.append(
                             {
-                                "drug_concept_code": drug_concept_code,
-                                "concept_name": denominator_text,
-                                "concept_code": None,
-                                "concept_class_id": "Denominator",
-                                "domain": "Drug",
+                                "drug_code": batch_df.iloc[row_number][drug_code_column],
+                                "full_device_name": item.get("full_device_name"),
                             }
                         )
 
-            drugs = self._call_llm_batch(
-                stage="drug",
-                records=drug_records,
-                system_prompt=self.prompts["drug_system_prompt"],
-                schema=_DRUG_SCHEMA,
-            )
-            if drugs is not None:
-                for item in drugs.get("results", []):
-                    if not isinstance(item, dict):
-                        continue
-                    row_number = item.get("row_number")
-                    full_product_name = item.get("full_product_name")
-                    brand_name = item.get("brand_name")
-                    brand_code = item.get("brand_code")
-                    supplier_name = item.get("supplier_name")
-                    supplier_code = item.get("supplier_code")
-                    dose_form = item.get("dose_form")
-                    box_size = item.get("box_size")
-                    if not isinstance(row_number, int) or not (0 <= row_number < len(batch_df)):
-                        continue
-
-                    drug_concept_code = batch_df.iloc[row_number][drug_code_column]
-
-                    if isinstance(full_product_name, str) and full_product_name.strip():
-                        output_rows.append(
-                            {
-                                "drug_concept_code": drug_concept_code,
-                                "concept_name": full_product_name.strip(),
-                                "concept_code": None,
-                                "concept_class_id": "Full Product Name",
-                                "domain": "Drug",
-                            }
-                        )
-
-                    if isinstance(brand_name, str) and brand_name.strip():
-                        output_rows.append(
-                            {
-                                "drug_concept_code": drug_concept_code,
-                                "concept_name": brand_name.strip(),
-                                "concept_code": self._normalize_optional_code(brand_code),
-                                "concept_class_id": "Brand name",
-                                "domain": "Drug",
-                            }
-                        )
-
-                    if isinstance(supplier_name, str) and supplier_name.strip():
-                        output_rows.append(
-                            {
-                                "drug_concept_code": drug_concept_code,
-                                "concept_name": supplier_name.strip(),
-                                "concept_code": self._normalize_optional_code(supplier_code),
-                                "concept_class_id": "Supplier",
-                                "domain": "Drug",
-                            }
-                        )
-
-                    if isinstance(dose_form, str) and dose_form.strip():
-                        output_rows.append(
-                            {
-                                "drug_concept_code": drug_concept_code,
-                                "concept_name": dose_form.strip(),
-                                "concept_code": None,
-                                "concept_class_id": "Dose Form",
-                                "domain": "Drug",
-                            }
-                        )
-
-                    if isinstance(box_size, int):
-                        output_rows.append(
-                            {
-                                "drug_concept_code": drug_concept_code,
-                                "concept_name": str(box_size),
-                                "concept_code": None,
-                                "concept_class_id": "Box Size",
-                                "domain": "Drug",
-                            }
-                        )
-
-        result = pd.DataFrame(
-            output_rows,
-            columns=["drug_concept_code", "concept_name", "concept_code", "concept_class_id", "domain"],
+        classification_df = pd.DataFrame(classification_rows, columns=["drug_code", "category"])
+        ingredient_df = pd.DataFrame(
+            ingredient_rows,
+            columns=[
+                "drug_code",
+                "ingredient_name",
+                "ingredient_code",
+                "amount_value",
+                "amount_unit",
+                "numerator_value",
+                "numerator_unit",
+                "denominator_value",
+                "denominator_unit",
+            ],
         )
-        if not result.empty:
-            result = result.drop_duplicates().reset_index(drop=True)
-        return result
+        drug_df = pd.DataFrame(
+            drug_rows,
+            columns=[
+                "drug_code",
+                "full_product_name",
+                "brand_name",
+                "brand_code",
+                "supplier_name",
+                "supplier_code",
+                "dose_form",
+                "box_size",
+            ],
+        )
+        device_df = pd.DataFrame(device_rows, columns=["drug_code", "full_device_name"])
+
+        if not classification_df.empty:
+            classification_df = classification_df.drop_duplicates().reset_index(drop=True)
+        if not ingredient_df.empty:
+            ingredient_df = ingredient_df.drop_duplicates().reset_index(drop=True)
+        if not drug_df.empty:
+            drug_df = drug_df.drop_duplicates().reset_index(drop=True)
+        if not device_df.empty:
+            device_df = device_df.drop_duplicates().reset_index(drop=True)
+
+        return DrugStructureResult(
+            classification_df=classification_df,
+            ingredient_df=ingredient_df,
+            drug_df=drug_df,
+            device_df=device_df,
+        )
 
     def get_total_cost(self) -> float:
         return self._cost
