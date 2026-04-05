@@ -1,0 +1,328 @@
+concept_id_1,concept_name_1,concept_id_2,concept_name_2,attribute_category
+381576,Extrinsic cartilagenous obstruction of eustachian tube,4219064,Extrinsic obstruction,Has asso morph
+381576,Extrinsic cartilagenous obstruction of eustachian tube,1073113,Structure of lumen of cartilaginous portion of pharyngotympanic tube,Has finding site
+440532,Heavy-for-dates at birth regardless of gestation period,4155142,Abnormally high,Has interpretation
+440532,Heavy-for-dates at birth regardless of gestation period,4264825,Birth weight,Has interprets
+440532,Heavy-for-dates at birth regardless of gestation period,4155796,Perinatal period,Has occurrence
+440532,Heavy-for-dates at birth regardless of gestation period,4123429,Early neonatal period,Has occurrence
+442050,Obstetric air pulmonary embolism with postnatal complication,4263500,Air embolus,Has asso morph
+442050,Obstetric air pulmonary embolism with postnatal complication,37218997,Structure of artery of pulmonary circulation,Has finding site
+442050,Obstetric air pulmonary embolism with postnatal complication,4112266,Maternal postpartum,Has occurrence
+444294,Syphilis of lung,4248851,Treponema pallidum,Has causative agent
+444294,Syphilis of lung,4213162,Lung structure,Has finding site
+444294,Syphilis of lung,40480911,Infectious process,Has pathology
+603297,Bilateral iritis of eyes caused by Human alphaherpesvirus,4253008,Inflammatory morphology,Has asso morph
+603297,Bilateral iritis of eyes caused by Human alphaherpesvirus,4064704,Human herpes simplex virus,Has causative agent
+603297,Bilateral iritis of eyes caused by Human alphaherpesvirus,4102287,Structure of iris of left eye,Has finding site
+603297,Bilateral iritis of eyes caused by Human alphaherpesvirus,4039413,Structure of iris of right eye,Has finding site
+603297,Bilateral iritis of eyes caused by Human alphaherpesvirus,40480911,Infectious process,Has pathology
+604659,Focal cortical dysplasia type Ia,4093447,Dysplasia,Has asso morph
+604659,Focal cortical dysplasia type Ia,4222448,Structure of cerebral cortex,Has finding site
+604659,Focal cortical dysplasia type Ia,4116830,Congenital,Has occurrence
+604659,Focal cortical dysplasia type Ia,4204670,Pathological developmental process,Has pathology
+605227,Single umbilical cord artery type II,4302931,Absence,Has asso morph
+605227,Single umbilical cord artery type II,4196669,Structure of umbilical artery,Has finding site
+605227,Single umbilical cord artery type II,37160324,Fetal and/or neonatal period,Has occurrence
+605227,Single umbilical cord artery type II,4204670,Pathological developmental process,Has pathology
+605650,Infection caused by Citrobacter,4295448,Citrobacter,Has causative agent
+605650,Infection caused by Citrobacter,40480911,Infectious process,Has pathology
+606973,Idiopathic nodular glomerulosclerosis,4243326,Nodular glomerulosclerosis,Has asso morph
+606973,Idiopathic nodular glomerulosclerosis,4195524,Glomerulus structure,Has finding site
+761273,Congenital dislocation of left patella,4227147,Dislocation,Has asso morph
+761273,Congenital dislocation of left patella,4029778,Congenital dislocation,Has asso morph
+761273,Congenital dislocation of left patella,36714319,Structure of left patellofemoral joint,Has finding site
+761273,Congenital dislocation of left patella,4116830,Congenital,Has occurrence
+761273,Congenital dislocation of left patella,4204670,Pathological developmental process,Has pathology
+761356,Capsulitis of left ankle,4053015,Inflammation,Has asso morph
+761356,Capsulitis of left ankle,4253008,Inflammatory morphology,Has asso morph
+761356,Capsulitis of left ankle,35632323,Structure of capsule of left ankle joint,Has finding site
+762802,Malignant mesothelioma of tunica vaginalis,4268158,"Mesothelioma, malignant",Has asso morph
+762802,Malignant mesothelioma of tunica vaginalis,4134453,Tunica vaginalis structure,Has finding site
+1075590,Primary inflammatory carcinoma of breast,4139947,Inflammatory carcinoma,Has asso morph
+1075590,Primary inflammatory carcinoma of breast,4298444,Breast structure,Has finding site
+1075590,Primary inflammatory carcinoma of breast,37157802,Primary malignant neoplastic proliferation,Has pathology
+1076573,Flail joint of bilateral elbows,36717400,Structure of joint of left elbow,Has finding site
+1076573,Flail joint of bilateral elbows,36715106,Structure of joint of right elbow,Has finding site
+1077038,Primary atrophy of right lacrimal gland,4285457,Primary atrophy,Has asso morph
+1077038,Primary atrophy of right lacrimal gland,4077889,Right lacrimal gland structure,Has finding site
+1245624,Dislocation of joint of right knee due to congenital dysplasia of joint of right knee,4227147,Dislocation,Has asso morph
+1245624,Dislocation of joint of right knee due to congenital dysplasia of joint of right knee,36714281,Structure of right knee joint,Has finding site
+1246310,Left total internal ophthalmoplegia,4052619,Structure of pupil of left eye,Has finding site
+1246310,Left total internal ophthalmoplegia,37219156,Structure of ciliary muscle of left eye,Has finding site
+1246310,Left total internal ophthalmoplegia,42539564,Structure of left oculomotor nerve,Has finding site
+3654437,Subluxation of wrist,4096936,Subluxation,Has asso morph
+3654437,Subluxation of wrist,44782995,Joint structure of wrist region,Has finding site
+3655655,Myelitis caused by Roseolovirus,4253008,Inflammatory morphology,Has asso morph
+3655655,Myelitis caused by Roseolovirus,4234498,Roseolovirus,Has causative agent
+3655655,Myelitis caused by Roseolovirus,4090916,Spinal cord tissue structure,Has finding site
+3655655,Myelitis caused by Roseolovirus,40480911,Infectious process,Has pathology
+4006317,Chédiak-Higashi syndrome,4308115,Congenital hypopigmentation,Has asso morph
+4006317,Chédiak-Higashi syndrome,4291162,Decreased melanin pigmentation,Has asso morph
+4006317,Chédiak-Higashi syndrome,4021240,Structure of immune system,Has finding site
+4006317,Chédiak-Higashi syndrome,4135493,Abnormal,Has interpretation
+4006317,Chédiak-Higashi syndrome,4254680,Hemostatic function,Has interprets
+4006317,Chédiak-Higashi syndrome,4116830,Congenital,Has occurrence
+4006317,Chédiak-Higashi syndrome,4204670,Pathological developmental process,Has pathology
+4006317,Chédiak-Higashi syndrome,35626089,Abnormal immune process,Has pathology
+4006590,"Monosomy 21, mosaicism",4029545,Cellular AND/OR subcellular abnormality,Has asso morph
+4006590,"Monosomy 21, mosaicism",4239232,Chromosome,Has finding site
+4006590,"Monosomy 21, mosaicism",4116830,Congenital,Has occurrence
+4015866,"Closed traumatic subluxation patellofemoral joint, lateral",37311206,Closed lateral subluxation,Has asso morph
+4015866,"Closed traumatic subluxation patellofemoral joint, lateral",4044014,Structure of patellofemoral joint,Has finding site
+4046092,Carbon monoxide-induced parkinsonism,4198996,Carbon monoxide,Has causative agent
+4046092,Carbon monoxide-induced parkinsonism,4137619,Basal ganglion structure,Has finding site
+4046092,Carbon monoxide-induced parkinsonism,4116820,Slow,Has interpretation
+4046092,Carbon monoxide-induced parkinsonism,4113276,Movement,Has interprets
+4052065,Deep partial thickness burn of breast,4094819,Deep partial thickness burn,Has asso morph
+4052065,Deep partial thickness burn of breast,4220068,Skin structure of breast,Has finding site
+4067991,Iniencephaly - closed,4154268,Developmental failure of fusion,Has asso morph
+4067991,Iniencephaly - closed,4170745,Posterior displacement,Has asso morph
+4067991,Iniencephaly - closed,4244567,Congenital malposition,Has asso morph
+4067991,Iniencephaly - closed,4163407,Congenital failure of fusion,Has asso morph
+4067991,Iniencephaly - closed,4254066,Malposition,Has asso morph
+4067991,Iniencephaly - closed,4246520,Neural tube structure,Has finding site
+4067991,Iniencephaly - closed,4287390,Head structure,Has finding site
+4067991,Iniencephaly - closed,4223068,Bone structure of cervical vertebra,Has finding site
+4067991,Iniencephaly - closed,4116830,Congenital,Has occurrence
+4067991,Iniencephaly - closed,4204670,Pathological developmental process,Has pathology
+4081471,Lid adhesions,4175338,Adhesion,Has asso morph
+4081471,Lid adhesions,4196657,Eyelid structure,Has finding site
+4084328,Amanita muscaria poisoning,4262940,Mycotoxin,Has causative agent
+4084328,Amanita muscaria poisoning,4207077,Amanita muscaria,Has causative agent
+4100154,Adverse reaction to mumps vaccine,3654586,Mumps orthorubulavirus antigen-containing vaccine product,Has causative agent
+4100154,Adverse reaction to mumps vaccine,4218056,Mumps vaccine,Has causative agent
+4104536,Acquired deformity of elbow,4263843,Deformity,Has asso morph
+4104536,Acquired deformity of elbow,4027910,Elbow region structure,Has finding site
+4104536,Acquired deformity of elbow,35624340,Period of life between birth and death,Has occurrence
+4106698,Aneurysm of conjunctiva,4311963,Aneurysm,Has asso morph
+4106698,Aneurysm of conjunctiva,4105319,Conjunctival structure,Has finding site
+4108881,Cyst of tongue,4279699,Cyst,Has asso morph
+4108881,Cyst of tongue,4071678,Tongue structure,Has finding site
+4108887,"Megacystis, microcolon, hypoperistalsis syndrome",4029540,Congenital anomaly,Has asso morph
+4108887,"Megacystis, microcolon, hypoperistalsis syndrome",4102695,Dilatation,Has asso morph
+4108887,"Megacystis, microcolon, hypoperistalsis syndrome",1073338,Abnormal smallness,Has asso morph
+4108887,"Megacystis, microcolon, hypoperistalsis syndrome",4164929,Congenital smallness,Has asso morph
+4108887,"Megacystis, microcolon, hypoperistalsis syndrome",4232481,Urinary bladder structure,Has finding site
+4108887,"Megacystis, microcolon, hypoperistalsis syndrome",4215634,Colon structure,Has finding site
+4108887,"Megacystis, microcolon, hypoperistalsis syndrome",4116830,Congenital,Has occurrence
+4108887,"Megacystis, microcolon, hypoperistalsis syndrome",4204670,Pathological developmental process,Has pathology
+4114200,Meningioma of optic nerve sheath,4133829,Meningeal neoplasm (morphology),Has asso morph
+4114200,Meningioma of optic nerve sheath,4280081,Optic nerve sheath structure,Has finding site
+4122610,Dentinogenesis imperfecta - Shield's type III,4175951,Morphologically abnormal structure,Has asso morph
+4122610,Dentinogenesis imperfecta - Shield's type III,4224331,Dentin structure,Has finding site
+4122610,Dentinogenesis imperfecta - Shield's type III,4116830,Congenital,Has occurrence
+4122610,Dentinogenesis imperfecta - Shield's type III,4204670,Pathological developmental process,Has pathology
+4128904,Traumatic rupture of aorta,4053605,Rupture,Has asso morph
+4128904,Traumatic rupture of aorta,4049896,Aortic structure,Has finding site
+4142931,Endarteritis,4053015,Inflammation,Has asso morph
+4142931,Endarteritis,4253008,Inflammatory morphology,Has asso morph
+4142931,Endarteritis,4221805,Tunica intima of artery,Has finding site
+4145475,Rash of secondary syphilis,4010894,Cutaneous eruption,Has asso morph
+4145475,Rash of secondary syphilis,4109438,Eruption,Has asso morph
+4145475,Rash of secondary syphilis,4248851,Treponema pallidum,Has causative agent
+4145475,Rash of secondary syphilis,4219601,Skin structure,Has finding site
+4145475,Rash of secondary syphilis,40480911,Infectious process,Has pathology
+4146311,Leriche's syndrome,4178903,Complete obstruction,Has asso morph
+4146311,Leriche's syndrome,4250332,Structure of aortic bifurcation,Has finding site
+4147645,"Spinal stenosis, excluding cervical region",4217691,Stenosis,Has asso morph
+4147645,"Spinal stenosis, excluding cervical region",4268012,Spinal canal structure,Has finding site
+4150476,"Traumatic blister of buttock, infected",4290980,Traumatic blister,Has asso morph
+4150476,"Traumatic blister of buttock, infected",4144955,Blister,Has asso morph
+4150476,"Traumatic blister of buttock, infected",4318817,Skin structure of buttock,Has finding site
+4150476,"Traumatic blister of buttock, infected",40480911,Infectious process,Has pathology
+4151687,Puncture wound of calf,4022585,Puncture,Has asso morph
+4151687,Puncture wound of calf,4201893,Structure of calf of leg,Has finding site
+4153410,Nail wound of palm of hand,4243486,Open wound,Has asso morph
+4153410,Nail wound of palm of hand,4233569,Nail device,Has causative agent
+4153410,Nail wound of palm of hand,4177743,Surface region of palm of hand,Has finding site
+4153548,Dog bite of sole of foot,4141909,Bite wound,Has asso morph
+4153548,Dog bite of sole of foot,4053045,Dog bite,Has asso morph
+4153548,Dog bite of sole of foot,4238317,Structure of sole of foot,Has finding site
+4162993,Malignant neoplasm of skin of lower limb,37153816,Malignant neoplasm,Has asso morph
+4162993,Malignant neoplasm of skin of lower limb,4282379,Malignant Neoplasm (Morphology),Has asso morph
+4162993,Malignant neoplasm of skin of lower limb,4159862,Skin structure of lower limb,Has finding site
+4167918,Umbilical hemorrhage,4179955,Hemorrhage,Has asso morph
+4167918,Umbilical hemorrhage,4237192,Structure of umbilical blood vessel,Has finding site
+4167918,Umbilical hemorrhage,37160324,Fetal and/or neonatal period,Has occurrence
+4170452,Postoperative renal failure,4271678,Kidney structure,Has finding site
+4170452,Postoperative renal failure,4125554,Impaired,Has interpretation
+4170452,Postoperative renal failure,40282772,Renal function,Has interprets
+4174385,Acquired short Achilles tendon,4260677,Abnormal shortening,Has asso morph
+4174385,Acquired short Achilles tendon,4266246,Structure of Achilles tendon,Has finding site
+4174385,Acquired short Achilles tendon,35624340,Period of life between birth and death,Has occurrence
+4193597,Bowen's disease of vulva,4224505,Bowen's disease,Has asso morph
+4193597,Bowen's disease of vulva,4064156,Skin structure of female genitalia,Has finding site
+4195698,Tenosynovitis,4053015,Inflammation,Has asso morph
+4195698,Tenosynovitis,4253008,Inflammatory morphology,Has asso morph
+4195698,Tenosynovitis,4036124,Tendon sheath structure,Has finding site
+4210432,Immature cortical cataract,4134147,Opacity,Has asso morph
+4210432,Immature cortical cataract,4142639,Structure of cortex of lens,Has finding site
+4210432,Immature cortical cataract,4181412,Present,Has interpretation
+4210432,Immature cortical cataract,37204883,Red reflex,Has interprets
+4222896,Chronic duodenal ulcer without hemorrhage AND without perforation,4233476,Chronic ulcer,Has asso morph
+4222896,Chronic duodenal ulcer without hemorrhage AND without perforation,4236661,Chronic,Has clinical course
+4222896,Chronic duodenal ulcer without hemorrhage AND without perforation,4302112,Duodenal structure,Has finding site
+4241790,Carcinoma in situ of labia minora,37156895,Carcinoma in situ,Has asso morph
+4241790,Carcinoma in situ of labia minora,4266173,Carcinoma in situ - category,Has asso morph
+4241790,Carcinoma in situ of labia minora,4137758,Labium minus structure,Has finding site
+4241909,Carcinoma in situ of soft palate,37156895,Carcinoma in situ,Has asso morph
+4241909,Carcinoma in situ of soft palate,4266173,Carcinoma in situ - category,Has asso morph
+4241909,Carcinoma in situ of soft palate,4177005,Soft palate structure,Has finding site
+4244561,Temporal odontoma,4195284,Odontoma,Has asso morph
+4244561,Temporal odontoma,608016,Benign odontoma,Has asso morph
+4244561,Temporal odontoma,4246191,Temporal bone structure,Has finding site
+4247520,Focal epithelial hyperplasia of mouth,4289100,Focal epithelial hyperplasia,Has asso morph
+4247520,Focal epithelial hyperplasia of mouth,4251164,Oral soft tissues structure,Has finding site
+4313581,Hapten type high affinity hemolytic anemia,4288455,Antibody,Has causative agent
+4313581,Hapten type high affinity hemolytic anemia,4254051,Drug or medicament,Has causative agent
+4313581,Hapten type high affinity hemolytic anemia,4181412,Present,Has interpretation
+4313581,Hapten type high affinity hemolytic anemia,4083207,Below reference range,Has interpretation
+4313581,Hapten type high affinity hemolytic anemia,4224294,Hemolysis,Has interprets
+4313581,Hapten type high affinity hemolytic anemia,4030871,Red blood cell count,Has interprets
+4313581,Hapten type high affinity hemolytic anemia,35624340,Period of life between birth and death,Has occurrence
+4313581,Hapten type high affinity hemolytic anemia,4139804,Autoimmune process,Has pathology
+4314957,Neoplasm of uncertain behavior of hard palate,4313421,Neoplasm of uncertain behavior,Has asso morph
+4314957,Neoplasm of uncertain behavior of hard palate,4234542,Hard palate structure,Has finding site
+4317688,Neoplasm of uncertain behavior of middle lobe of right lung,4313421,Neoplasm of uncertain behavior,Has asso morph
+4317688,Neoplasm of uncertain behavior of middle lobe of right lung,4247919,Structure of middle lobe of right lung,Has finding site
+4322637,Caruncle of labium,4299376,Abnormal caruncle,Has asso morph
+4322637,Caruncle of labium,4307301,Genital labium structure,Has finding site
+4338947,Nodular renal blastema,4136522,Persistent embryonic structure,Has asso morph
+4338947,Nodular renal blastema,4271678,Kidney structure,Has finding site
+4338947,Nodular renal blastema,4116830,Congenital,Has occurrence
+4338947,Nodular renal blastema,4204670,Pathological developmental process,Has pathology
+35609906,Late onset cannabinoid-induced psychosis,4162983,Cannabis,Has causative agent
+35609906,Late onset cannabinoid-induced psychosis,4133034,Brain structure,Has finding site
+35622945,Fibrothecoma of ovary,35622944,Fibrothecoma,Has asso morph
+35622945,Fibrothecoma of ovary,4049448,Ovarian structure,Has finding site
+36674490,"Intellectual disability, obesity, prognathism, eye and skin anomalies syndrome",4175951,Morphologically abnormal structure,Has asso morph
+36674490,"Intellectual disability, obesity, prognathism, eye and skin anomalies syndrome",4219601,Skin structure,Has finding site
+36674490,"Intellectual disability, obesity, prognathism, eye and skin anomalies syndrome",4232301,Face structure,Has finding site
+36674490,"Intellectual disability, obesity, prognathism, eye and skin anomalies syndrome",4159886,Eye region structure,Has finding site
+36674490,"Intellectual disability, obesity, prognathism, eye and skin anomalies syndrome",4084765,Above reference range,Has interpretation
+36674490,"Intellectual disability, obesity, prognathism, eye and skin anomalies syndrome",4125554,Impaired,Has interpretation
+36674490,"Intellectual disability, obesity, prognathism, eye and skin anomalies syndrome",4230174,Adaptation behavior,Has interprets
+36674490,"Intellectual disability, obesity, prognathism, eye and skin anomalies syndrome",4085372,Intellectual ability,Has interprets
+36674490,"Intellectual disability, obesity, prognathism, eye and skin anomalies syndrome",4178502,Body weight measure,Has interprets
+36674490,"Intellectual disability, obesity, prognathism, eye and skin anomalies syndrome",4116830,Congenital,Has occurrence
+36674490,"Intellectual disability, obesity, prognathism, eye and skin anomalies syndrome",4204670,Pathological developmental process,Has pathology
+36674652,Vitreous hemorrhage of left eye due to diabetes mellitus,4179955,Hemorrhage,Has asso morph
+36674652,Vitreous hemorrhage of left eye due to diabetes mellitus,36716102,Vitreous body structure of left eye,Has finding site
+36676418,Paronychia of toe of left foot due to ingrown toenail,4164958,Suppurative inflammation,Has asso morph
+36676418,Paronychia of toe of left foot due to ingrown toenail,42538431,Periungual skin of toe of left foot,Has finding site
+36676418,Paronychia of toe of left foot due to ingrown toenail,40480911,Infectious process,Has pathology
+36685146,Chronic otitis media of left ear following insertion of tympanic ventilation tube,4224657,Chronic inflammation,Has asso morph
+36685146,Chronic otitis media of left ear following insertion of tympanic ventilation tube,4253009,Chronic inflammatory morphology,Has asso morph
+36685146,Chronic otitis media of left ear following insertion of tympanic ventilation tube,4236661,Chronic,Has clinical course
+36685146,Chronic otitis media of left ear following insertion of tympanic ventilation tube,4175305,Left middle ear structure,Has finding site
+36686212,Open wound of right elbow due to dog bite,4180472,Open bite wound,Has asso morph
+36686212,Open wound of right elbow due to dog bite,4274729,Right elbow region structure,Has finding site
+36686287,Open wound of left upper arm due to bite,4180472,Open bite wound,Has asso morph
+36686287,Open wound of left upper arm due to bite,4283159,Left upper arm structure,Has finding site
+36714338,Benign paroxysmal torticollis of infancy,4237281,Contracture,Has asso morph
+36714338,Benign paroxysmal torticollis of infancy,4132300,Paroxysmal,Has clinical course
+36714338,Benign paroxysmal torticollis of infancy,4305326,Skeletal muscle structure of neck,Has finding site
+36714338,Benign paroxysmal torticollis of infancy,4295125,Extrapyramidal system structure,Has finding site
+36714338,Benign paroxysmal torticollis of infancy,4113276,Movement,Has interprets
+36714338,Benign paroxysmal torticollis of infancy,4275212,Infancy,Has occurrence
+36717163,Complete lesion of cervical spinal cord at C5 level,44784070,Complete transverse disruption,Has asso morph
+36717163,Complete lesion of cervical spinal cord at C5 level,44784068,Complete traumatic transverse disruption,Has asso morph
+36717163,Complete lesion of cervical spinal cord at C5 level,4133473,Fifth cervical spinal cord segment,Has finding site
+37017295,Infection caused by Nocardia co-occurrent with human immunodeficiency virus infection,4078242,Human immunodeficiency virus,Has causative agent
+37017295,Infection caused by Nocardia co-occurrent with human immunodeficiency virus infection,4245771,Nocardia,Has causative agent
+37017295,Infection caused by Nocardia co-occurrent with human immunodeficiency virus infection,40480911,Infectious process,Has pathology
+37108644,Ganglion cyst of tendon sheath of right hand,4324949,Ganglion cyst,Has asso morph
+37108644,Ganglion cyst of tendon sheath of right hand,37109526,Structure of tendon sheath within right hand,Has finding site
+37111446,Deletion of part of chromosome 15,4153381,Partial monosomy,Has asso morph
+37111446,Deletion of part of chromosome 15,4325610,Chromosome pair 15,Has finding site
+37111446,Deletion of part of chromosome 15,4116830,Congenital,Has occurrence
+37116450,Gastrointestinal infection caused by non-tuberculous Mycobacterium,4005145,"Mycobacterium, non-TB",Has causative agent
+37116450,Gastrointestinal infection caused by non-tuberculous Mycobacterium,4046957,Gastrointestinal tract structure,Has finding site
+37116450,Gastrointestinal infection caused by non-tuberculous Mycobacterium,40480911,Infectious process,Has pathology
+37116566,Infection of anterior chamber of eye caused by parasite,4135229,Anterior chamber of eye structure,Has finding site
+37116566,Infection of anterior chamber of eye caused by parasite,40484098,Parasitic process,Has pathology
+37151509,Laceration of ligament,4148390,Laceration,Has asso morph
+37151509,Laceration of ligament,4178597,Structure of ligament,Has finding site
+37160489,Fracture of teeth,4217808,Fracture,Has asso morph
+37160489,Fracture of teeth,4075101,Dentition,Has finding site
+37161019,"Palatal anomalies, widely spaced teeth, facial dysmorphism, developmental delay syndrome",4175951,Morphologically abnormal structure,Has asso morph
+37161019,"Palatal anomalies, widely spaced teeth, facial dysmorphism, developmental delay syndrome",4075101,Dentition,Has finding site
+37161019,"Palatal anomalies, widely spaced teeth, facial dysmorphism, developmental delay syndrome",4249459,Palatal structure,Has finding site
+37161019,"Palatal anomalies, widely spaced teeth, facial dysmorphism, developmental delay syndrome",4232301,Face structure,Has finding site
+37161019,"Palatal anomalies, widely spaced teeth, facial dysmorphism, developmental delay syndrome",4125554,Impaired,Has interpretation
+37161019,"Palatal anomalies, widely spaced teeth, facial dysmorphism, developmental delay syndrome",4146067,Increased,Has interpretation
+37161019,"Palatal anomalies, widely spaced teeth, facial dysmorphism, developmental delay syndrome",4230174,Adaptation behavior,Has interprets
+37161019,"Palatal anomalies, widely spaced teeth, facial dysmorphism, developmental delay syndrome",4085372,Intellectual ability,Has interprets
+37161019,"Palatal anomalies, widely spaced teeth, facial dysmorphism, developmental delay syndrome",42535742,Spacing of teeth,Has interprets
+37161019,"Palatal anomalies, widely spaced teeth, facial dysmorphism, developmental delay syndrome",4116830,Congenital,Has occurrence
+37161019,"Palatal anomalies, widely spaced teeth, facial dysmorphism, developmental delay syndrome",4204670,Pathological developmental process,Has pathology
+37161324,Right ring finger blister with infection,4144955,Blister,Has asso morph
+37161324,Right ring finger blister with infection,37304032,Structure of skin of right ring finger,Has finding site
+37161324,Right ring finger blister with infection,40480911,Infectious process,Has pathology
+37161648,Traumatic amputation of left thumb,3661611,Open amputated structure,Has asso morph
+37161648,Traumatic amputation of left thumb,37118773,Structure of left thumb,Has finding site
+37162833,Dysmotility of small intestine caused by drug,4254051,Drug or medicament,Has causative agent
+37162833,Dysmotility of small intestine caused by drug,4146765,Structure of small intestine,Has finding site
+37162833,Dysmotility of small intestine caused by drug,4135493,Abnormal,Has interpretation
+37162833,Dysmotility of small intestine caused by drug,4171345,Small bowel motility,Has interprets
+37164444,Infection caused by ESBL Klebsiella oxytoca,37017621,Extended spectrum beta-lactamase producing Klebsiella oxytoca,Has causative agent
+37164444,Infection caused by ESBL Klebsiella oxytoca,40480911,Infectious process,Has pathology
+37166465,Primary Moll gland adenocarcinoma,4211683,Apocrine adenocarcinoma,Has asso morph
+37166465,Primary Moll gland adenocarcinoma,4154908,Structure of sweat gland of eyelid,Has finding site
+37166465,Primary Moll gland adenocarcinoma,37157802,Primary malignant neoplastic proliferation,Has pathology
+37166885,Familial hemiplegic migraine type 2,4157335,Cerebral hemisphere structure,Has finding site
+37166885,Familial hemiplegic migraine type 2,4090120,Vascular structure of head,Has finding site
+37167519,Primary carcinoma of vagina,37156933,Carcinoma,Has asso morph
+37167519,Primary carcinoma of vagina,4296022,Vaginal structure,Has finding site
+37167519,Primary carcinoma of vagina,37157802,Primary malignant neoplastic proliferation,Has pathology
+37167615,Infected dog bite wound,4141909,Bite wound,Has asso morph
+37167615,Infected dog bite wound,40480911,Infectious process,Has pathology
+37169202,Myositis of left upper arm,4253008,Inflammatory morphology,Has asso morph
+37169202,Myositis of left upper arm,36695698,Skeletal muscle structure of left upper arm,Has finding site
+37169511,Hypertrophy of right scapula,4210465,Hypertrophy,Has asso morph
+37169511,Hypertrophy of right scapula,36714414,Bone structure of right scapula,Has finding site
+37204002,Bilateral stenosis of carotid arteries,4217691,Stenosis,Has asso morph
+37204002,Bilateral stenosis of carotid arteries,36715378,Structure of left carotid artery,Has finding site
+37204002,Bilateral stenosis of carotid arteries,36715382,Structure of right carotid artery,Has finding site
+37204024,"Developmental delay, facial dysmorphism syndrome due to MED13L deficiency",4175951,Morphologically abnormal structure,Has asso morph
+37204024,"Developmental delay, facial dysmorphism syndrome due to MED13L deficiency",4232301,Face structure,Has finding site
+37204024,"Developmental delay, facial dysmorphism syndrome due to MED13L deficiency",4125554,Impaired,Has interpretation
+37204024,"Developmental delay, facial dysmorphism syndrome due to MED13L deficiency",4230174,Adaptation behavior,Has interprets
+37204024,"Developmental delay, facial dysmorphism syndrome due to MED13L deficiency",4085372,Intellectual ability,Has interprets
+37204024,"Developmental delay, facial dysmorphism syndrome due to MED13L deficiency",4116830,Congenital,Has occurrence
+37204024,"Developmental delay, facial dysmorphism syndrome due to MED13L deficiency",4204670,Pathological developmental process,Has pathology
+37312009,Chronic axillary lymphadenitis,4253009,Chronic inflammatory morphology,Has asso morph
+37312009,Chronic axillary lymphadenitis,4236661,Chronic,Has clinical course
+37312009,Chronic axillary lymphadenitis,4239187,Axillary lymph node structure,Has finding site
+37396423,Spondylocamptodactyly syndrome,4093447,Dysplasia,Has asso morph
+37396423,Spondylocamptodactyly syndrome,4099541,Congenital dysplasia,Has asso morph
+37396423,Spondylocamptodactyly syndrome,4154333,Bone structure,Has finding site
+37396423,Spondylocamptodactyly syndrome,4116830,Congenital,Has occurrence
+37396423,Spondylocamptodactyly syndrome,4204670,Pathological developmental process,Has pathology
+40479974,Myoclonus associated with fever,4096246,Structure of nervous system,Has finding site
+40479974,Myoclonus associated with fever,4084765,Above reference range,Has interpretation
+40479974,Myoclonus associated with fever,4302666,Body temperature,Has interprets
+40479974,Myoclonus associated with fever,4113276,Movement,Has interprets
+40486040,Discontinuous pulmonary arteries,4175951,Morphologically abnormal structure,Has asso morph
+40486040,Discontinuous pulmonary arteries,4215757,Pulmonary artery structure,Has finding site
+40486040,Discontinuous pulmonary arteries,4116830,Congenital,Has occurrence
+40486040,Discontinuous pulmonary arteries,4204670,Pathological developmental process,Has pathology
+42535112,Cerebrovascular accident due to occlusion of left middle cerebral artery,4295343,Damage,Has asso morph
+42535112,Cerebrovascular accident due to occlusion of left middle cerebral artery,4133034,Brain structure,Has finding site
+42535112,Cerebrovascular accident due to occlusion of left middle cerebral artery,4102601,Cerebrovascular system structure,Has finding site
+42536338,Occlusion of left pontine artery,4178903,Complete obstruction,Has asso morph
+42536338,Occlusion of left pontine artery,42535941,Structure of left pontine artery,Has finding site
+42689730,Injury whilst engaged in gymnastics,4295343,Damage,Has asso morph
+42689730,Injury whilst engaged in gymnastics,4078068,Traumatic abnormality,Has asso morph
+45757102,Acquired immune deficiency syndrome complicating childbirth,4078242,Human immunodeficiency virus,Has causative agent
+45757102,Acquired immune deficiency syndrome complicating childbirth,4021240,Structure of immune system,Has finding site
+45757102,Acquired immune deficiency syndrome complicating childbirth,37160330,Maternal intrapartum period,Has occurrence
+45757102,Acquired immune deficiency syndrome complicating childbirth,35626089,Abnormal immune process,Has pathology
+45757102,Acquired immune deficiency syndrome complicating childbirth,40480911,Infectious process,Has pathology
+45757500,Familial hyperalphalipoproteinemia,4084765,Above reference range,Has interpretation
+45757500,Familial hyperalphalipoproteinemia,4260765,Serum total cholesterol measurement,Has interprets
+45765492,Auriculo-condylar syndrome,4175951,Morphologically abnormal structure,Has asso morph
+45765492,Auriculo-condylar syndrome,4240393,Bone structure of mandible,Has finding site
+45765492,Auriculo-condylar syndrome,4037611,Ear structure,Has finding site
+45765492,Auriculo-condylar syndrome,4116830,Congenital,Has occurrence
+45765492,Auriculo-condylar syndrome,4204670,Pathological developmental process,Has pathology

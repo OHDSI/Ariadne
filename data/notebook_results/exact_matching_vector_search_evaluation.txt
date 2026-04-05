@@ -1,9 +1,9 @@
-Evaluated gold standard concepts: 333
-Mean Average Precision: 0.8651153955075523
-Recall@1: 0.7957957957957958
-Recall@3: 0.924924924924925
-Recall@10: 0.978978978978979
-Recall@25: 0.993993993993994
+Evaluated gold standard concepts: 334
+Mean Average Precision: 0.8724197263735833
+Recall@1: 0.8053892215568862
+Recall@3: 0.9311377245508982
+Recall@10: 0.9790419161676647
+Recall@25: 0.9970059880239521
 
 Source term: Unspecified enthesopathy, lower limb, excluding foot (8690)
 Searched term: enthesopathy, lower limb, excluding foot
@@ -92,8 +92,8 @@ Gold standard concept rank: 1
          18                    36686157                                                                           Laceration of left cornea
          19                    36686158                                                                    Laceration of globe of right eye
          20                     4338836                               Repair of perforating laceration of sclera not involving uveal tissue
-         21                     2110926                  Repair of laceration; cornea, nonperforating, with or without removal foreign body
-         22                     2110923 Repair of laceration; conjunctiva, with or without nonperforating laceration sclera, direct closure
+         21                     2110923 Repair of laceration; conjunctiva, with or without nonperforating laceration sclera, direct closure
+         22                     2110926                  Repair of laceration; cornea, nonperforating, with or without removal foreign body
          23                      442509                               Full thickness eyelid laceration without lacrimal passage involvement
          24                     4166564                                                                             Conjunctival laceration
          25                     4010276                               Repair of perforating laceration of cornea not involving uveal tissue
@@ -130,36 +130,35 @@ Gold standard concept rank: 1
          25                     4136688                  Fracture subluxation of shoulder joint
 
 Source term: Drowning and submersion due to falling or jumping from unspecified burning watercraft (20735)
-Searched term: Drowning and submersion
-Gold standard concept not found
-Correct target was: Submersion and drowning due to falling from burning ship (None)
+Searched term: Drowning and submersion due to falling or jumping from burning watercraft
+Gold standard concept rank: 2
 
- match_rank Correct  matched_concept_id                                                                                        matched_concept_name
-          1                      443081                                                                            Drowning and non-fatal immersion
-          2                      436593                                                                          Accidental drowning and submersion
-          3                      439441                                                                     Drowning or immersion of unknown intent
-          4                      439973                                                                                         Nonfatal submersion
-          5                     4167235                                                                                     Submersion - accidental
-          6                      439448                                                                                         Assault by drowning
-          7                     4318639                                                         Accidental drowning and submersion in swimming pool
-          8                     4025652                                                                                                   Immersion
-          9                     4156363                                                                                                       Event
-         10                      437476                                                                    Accident to watercraft causing immersion
-         11                     4303690                                                                                  Intentionally harming self
-         12                      442329                                                                                                    Drowning
-         13                     4070280                                                                Submersion or drowning due to fall overboard
-         14                     4064410                                                              Submersion and drowning due to boat submerging
-         15                     4065600                                              Submersion and drowning due to falling from crushed watercraft
-         16                      444348                                              Submersion or drowning due to boat submerging, swimmer injured
-         17                     4054241                                                             Accidental drowning or immersion while swimming
-         18                     4155106                                                             Submersion and drowning due to boat overturning
-         19                      444333                              Submersion or drowning due to falling from crushed watercraft, swimmer injured
-         20                      442214                                             Submersion or drowning due to boat overturning, swimmer injured
-         21                     4072785                                                 Immersion or drowning due to falling from vessel into water
-         22                      444343                                    Submersion or drowning due to falling from burning ship, swimmer injured
-         23                     4148569                                                                 Immersion or drowning due to vessel sinking
-         24                     4314102 Accidental drowning and submersion while engaged in sport or recreational activity without diving equipment
-         25                     4317536                                                      Accidental drowning or immersion while wading in water
+ match_rank Correct  matched_concept_id                                                                                    matched_concept_name
+          1                      437476                                                                Accident to watercraft causing immersion
+          2     Yes             4068331                                                Submersion and drowning due to falling from burning ship
+          3                      438301                                                                                Water transport accident
+          4                     4072785                                             Immersion or drowning due to falling from vessel into water
+          5                      439620                                                                        Late effect of accidental injury
+          6                     4154778                                                     Immersion or drowning due to being washed overboard
+          7                     4065600                                          Submersion and drowning due to falling from crushed watercraft
+          8                     4064415                                                Submersion and drowning due to jumping from burning ship
+          9                     4070162                                          Submersion and drowning due to jumping from crushed watercraft
+         10                     4148569                                                             Immersion or drowning due to vessel sinking
+         11                     4155106                                                         Submersion and drowning due to boat overturning
+         12                     4155214                                                Immersion or drowning due to falling from vessel on fire
+         13                     4063404                                                    Submersion or drowning due to being thrown overboard
+         14                      444330         Submersion or drowning due to jumping from burning ship, occupant of small powered boat injured
+         15                      444328                          Submersion or drowning due to jumping from crushed watercraft, swimmer injured
+         16                      444333                          Submersion or drowning due to falling from crushed watercraft, swimmer injured
+         17                      444321 Submersion or drowning due to jumping from crushed watercraft, occupant of small unpowered boat injured
+         18                      444320   Submersion or drowning due to jumping from crushed watercraft, occupant of small powered boat injured
+         19                      444345         Submersion or drowning due to falling from burning ship, occupant of small powered boat injured
+         20                      444343                                Submersion or drowning due to falling from burning ship, swimmer injured
+         21                      444331       Submersion or drowning due to jumping from burning ship, occupant of small unpowered boat injured
+         22                      444338                                Submersion or drowning due to jumping from burning ship, swimmer injured
+         23                      444335   Submersion or drowning due to falling from crushed watercraft, occupant of small powered boat injured
+         24                      444346       Submersion or drowning due to falling from burning ship, occupant of small unpowered boat injured
+         25                      444336 Submersion or drowning due to falling from crushed watercraft, occupant of small unpowered boat injured
 
 Source term: Alcohol use, unspecified with withdrawal delirium (725278)
 Searched term: Alcohol use with withdrawal delirium
@@ -613,8 +612,8 @@ Gold standard concept rank: 1
          11                       74135                        Disorder of synovial membrane
          12                    40483628                  Inflammation of rotator cuff tendon
          13                     4168183                                            Synovitis
-         14                    37165893        Synovitis and tenosynovitis of joint of wrist
-         15                    37166956         Synovitis and tenosynovitis of joint of hand
+         14                    37166956         Synovitis and tenosynovitis of joint of hand
+         15                    37165893        Synovitis and tenosynovitis of joint of wrist
          16                     4244662                   Disorder of musculoskeletal system
          17                    37166958       Synovitis and tenosynovitis of multiple joints
          18                    37166830          Synovitis and tenosynovitis of joint of hip
@@ -751,35 +750,35 @@ Gold standard concept rank: 1
          25                    40481987                                      Presence of progesterone receptor in neoplasm
 
 Source term: Enteropathy-type (intestinal) T-cell lymphoma not having achieved remission (1102895)
-Searched term: Enteropathy-type intestinal T-cell lymphoma not having achieved remission
+Searched term: Enteropathy-type T-cell lymphoma not having achieved remission
 Gold standard concept rank: 1
 
  match_rank Correct  matched_concept_id                                                                          matched_concept_name
           1     Yes             4082627                                                        Enteropathy-associated T-cell lymphoma
           2                    40483374                                                                 Hepatosplenic T-cell lymphoma
-          3                      603291                                                           Non-Hodgkin's lymphoma in remission
-          4                     4304049                                                                    Intestinal T-cell lymphoma
+          3                     4301666                                                Subcutaneous panniculitis-like T-cell lymphoma
+          4                      603291                                                           Non-Hodgkin's lymphoma in remission
           5                     4184976                                                            Angioimmunoblastic T-cell lymphoma
-          6                     4301666                                                Subcutaneous panniculitis-like T-cell lymphoma
+          6                     4304049                                                                    Intestinal T-cell lymphoma
           7                     4079683                                                                T-cell prolymphocytic leukemia
           8                     4212994                                                     Extranodal NK/T-cell lymphoma, nasal type
-          9                    37153581                                                        Enteropathy-associated T-cell lymphoma
-         10                     4003188                                                                Adult T-cell leukemia/lymphoma
-         11                     4003836                                       Immunoproliferative small intestinal disease (clinical)
-         12                    40482893 Extranodal marginal zone B-cell lymphoma of mucosa-associated lymphoid tissue (MALT-lymphoma)
-         13                    42513939                                Neoplasm defined only by histology: Intestinal T-cell lymphoma
-         14                     4003834                                              Malignant immunoproliferative disease (clinical)
-         15                    40482072                                                  Blastic plasmacytoid dendritic cell neoplasm
-         16                    36402723                                            Intestinal T-cell lymphoma of unknown primary site
-         17                      132853                                                                             Lymphoid leukemia
-         18                    36520802                                           Intestinal T-cell lymphoma of intestinal tract, NOS
-         19                    44501925                                            Intestinal T-cell lymphoma of small intestine, NOS
-         20                    36534743                                     Intestinal T-cell lymphoma of gastrointestinal tract, NOS
-         21                    36561855                                                     Intestinal T-cell lymphoma of rectum, NOS
-         22                    36526925                                 Intestinal T-cell lymphoma of reticuloendothelial system, NOS
-         23                    36561365                                                           Intestinal T-cell lymphoma of ileum
-         24                    36531025                                     Intestinal T-cell lymphoma of intra-abdominal lymph nodes
-         25                    36554848                                                          Intestinal T-cell lymphoma of spleen
+          9                     4003188                                                                Adult T-cell leukemia/lymphoma
+         10                    37153581                                                        Enteropathy-associated T-cell lymphoma
+         11                    40482893 Extranodal marginal zone B-cell lymphoma of mucosa-associated lymphoid tissue (MALT-lymphoma)
+         12                      132853                                                                             Lymphoid leukemia
+         13                     4003834                                              Malignant immunoproliferative disease (clinical)
+         14                    40482072                                                  Blastic plasmacytoid dendritic cell neoplasm
+         15                     4003836                                       Immunoproliferative small intestinal disease (clinical)
+         16                     4173824                                                   B-cell chronic lymphocytic leukemia variant
+         17                     4173974                                                                B-cell prolymphocytic leukemia
+         18                      134305                                                                       Acute lymphoid leukemia
+         19                     4029188                                                 Primary cutaneous CD30+ large T-cell lymphoma
+         20                     4173963                                                           B-cell acute lymphoblastic leukemia
+         21                     4225982                                                         Mature T-cell AND/OR NK cell neoplasm
+         22                     4038838                                                             Non-Hodgkin's lymphoma (clinical)
+         23                     4094548                                                                   Extramedullary plasmacytoma
+         24                      321526                                                                            Monocytic leukemia
+         25                    44501925                                            Intestinal T-cell lymphoma of small intestine, NOS
 
 Source term: Angioimmunoblastic T-cell lymphoma not having achieved remission (1102901)
 Searched term: Angioimmunoblastic T-cell lymphoma not having achieved remission
@@ -808,12 +807,12 @@ Gold standard concept rank: 1
          20                    36531889                                                   Angioimmunoblastic T-cell lymphoma of heart
          21                    36549284                             Angioimmunoblastic T-cell lymphoma of intra-abdominal lymph nodes
          22                    36545397                         Angioimmunoblastic T-cell lymphoma of lymph nodes of multiple regions
-         23                     4173963                                                           B-cell acute lymphoblastic leukemia
-         24                     4178598                                                            Angioimmunoblastic lymphadenopathy
+         23                     4178598                                                            Angioimmunoblastic lymphadenopathy
+         24                     4173963                                                           B-cell acute lymphoblastic leukemia
          25                    36524484                                                   Angioimmunoblastic T-cell lymphoma of liver
 
 Source term: Waldenstrom macroglobulinemia not having achieved remission (1102905)
-Searched term: Waldenstrom macroglobulinemia, not having achieved remission
+Searched term: Waldenstrom macroglobulinemia not having achieved remission
 Gold standard concept rank: 1
 
  match_rank Correct  matched_concept_id                                                                          matched_concept_name
@@ -822,26 +821,26 @@ Gold standard concept rank: 1
           3                      437233                                                                              Multiple myeloma
           4                     4149011                                                               Waldenstrom's macroglobulinemia
           5                    42513967                             Neoplasm defined only by histology: Waldenstrom macroglobulinemia
-          6                      435502                                                                             Macroglobulinemia
-          7                     4038845                                                                Hairy cell leukemia (clinical)
+          6                     4038845                                                                Hairy cell leukemia (clinical)
+          7                      435502                                                                             Macroglobulinemia
           8                     4216139                                                                                  Plasmacytoma
-          9                     4003834                                              Malignant immunoproliferative disease (clinical)
-         10                      133154                                                                          Plasma cell leukemia
+          9                      133154                                                                          Plasma cell leukemia
+         10                     4003834                                              Malignant immunoproliferative disease (clinical)
          11                     4094548                                                                   Extramedullary plasmacytoma
-         12                    44499706                                                  Waldenstrom macroglobulinemia of bone marrow
-         13                     4288751                                                                           Heavy chain disease
+         12                     4288751                                                                           Heavy chain disease
+         13                    44499706                                                  Waldenstrom macroglobulinemia of bone marrow
          14                    36402787                                                        Waldenstrom macroglobulinemia of blood
-         15                     4173824                                                   B-cell chronic lymphocytic leukemia variant
-         16                    36563621                                                       Waldenstrom macroglobulinemia of spleen
-         17                     4133599                                                               Chronic myelomonocytic leukemia
-         18                     4173974                                                                B-cell prolymphocytic leukemia
-         19                      132853                                                                             Lymphoid leukemia
+         15                     4133599                                                               Chronic myelomonocytic leukemia
+         16                     4173974                                                                B-cell prolymphocytic leukemia
+         17                     4173824                                                   B-cell chronic lymphocytic leukemia variant
+         18                      132853                                                                             Lymphoid leukemia
+         19                    36563621                                                       Waldenstrom macroglobulinemia of spleen
          20                    40482893 Extranodal marginal zone B-cell lymphoma of mucosa-associated lymphoid tissue (MALT-lymphoma)
-         21                      140967                                                                               Myeloid sarcoma
+         21                     4003184                                                          Acute panmyelosis with myelofibrosis
          22                     4173963                                                           B-cell acute lymphoblastic leukemia
-         23                      321526                                                                            Monocytic leukemia
-         24                     4003184                                                          Acute panmyelosis with myelofibrosis
-         25                    40482072                                                  Blastic plasmacytoid dendritic cell neoplasm
+         23                    40482072                                                  Blastic plasmacytoid dendritic cell neoplasm
+         24                     4184976                                                            Angioimmunoblastic T-cell lymphoma
+         25                    40483374                                                                 Hepatosplenic T-cell lymphoma
 
 Source term: Heavy chain disease not having achieved remission (1102907)
 Searched term: Heavy chain disease not having achieved remission
@@ -906,7 +905,7 @@ Gold standard concept rank: 1
          25                     4133599                                                               Chronic myelomonocytic leukemia
 
 Source term: Malignant immunoproliferative disease, unspecified not having achieved remission (1102915)
-Searched term: Malignant immunoproliferative disease not having achieved remission
+Searched term: Malignant immunoproliferative disease, not having achieved remission
 Gold standard concept rank: 1
 
  match_rank Correct  matched_concept_id                                                                          matched_concept_name
@@ -916,25 +915,25 @@ Gold standard concept rank: 1
           4                     4173974                                                                B-cell prolymphocytic leukemia
           5                     4003836                                       Immunoproliferative small intestinal disease (clinical)
           6                    40482893 Extranodal marginal zone B-cell lymphoma of mucosa-associated lymphoid tissue (MALT-lymphoma)
-          7                     4186244                                                        Malignant immunoproliferative neoplasm
-          8                     4216139                                                                                  Plasmacytoma
+          7                     4216139                                                                                  Plasmacytoma
+          8                     4186244                                                        Malignant immunoproliferative neoplasm
           9                     4079683                                                                T-cell prolymphocytic leukemia
          10                     4094548                                                                   Extramedullary plasmacytoma
-         11                     4173824                                                   B-cell chronic lymphocytic leukemia variant
-         12                     4098597                                                                 Waldenström macroglobulinemia
+         11                     4098597                                                                 Waldenström macroglobulinemia
+         12                     4173824                                                   B-cell chronic lymphocytic leukemia variant
          13                      437233                                                                              Multiple myeloma
-         14                      132853                                                                             Lymphoid leukemia
-         15                    40483374                                                                 Hepatosplenic T-cell lymphoma
+         14                      321526                                                                            Monocytic leukemia
+         15                      132853                                                                             Lymphoid leukemia
          16                     4173963                                                           B-cell acute lymphoblastic leukemia
-         17                     4184976                                                            Angioimmunoblastic T-cell lymphoma
-         18                      321526                                                                            Monocytic leukemia
+         17                    40483374                                                                 Hepatosplenic T-cell lymphoma
+         18                     4184976                                                            Angioimmunoblastic T-cell lymphoma
          19                      133154                                                                          Plasma cell leukemia
-         20                    40482072                                                  Blastic plasmacytoid dendritic cell neoplasm
-         21                     4301666                                                Subcutaneous panniculitis-like T-cell lymphoma
-         22                     4003184                                                          Acute panmyelosis with myelofibrosis
-         23                      140666                                                                              Myeloid leukemia
-         24                     4082627                                                        Enteropathy-associated T-cell lymphoma
-         25                     4038845                                                                Hairy cell leukemia (clinical)
+         20                      140967                                                                               Myeloid sarcoma
+         21                    40482072                                                  Blastic plasmacytoid dendritic cell neoplasm
+         22                     4301666                                                Subcutaneous panniculitis-like T-cell lymphoma
+         23                     4003184                                                          Acute panmyelosis with myelofibrosis
+         24                      135768                                                                      Acute monocytic leukemia
+         25                      138379                                                            Chronic lymphoid leukemia, disease
 
 Source term: Acute right heart failure (1326602)
 Searched term: Acute right heart failure
@@ -1275,35 +1274,35 @@ Gold standard concept rank: 1
          25                    42538597 Mood disorder with mixed depressive and manic symptoms caused by hallucinogen
 
 Source term: Mental and behavioural disorders due to multiple drug use and use of other psychoactive substances, amnesic syndrome (1410524)
-Searched term: amnesic syndrome due to multiple drug use and use of other psychoactive substances
+Searched term: Amnesic syndrome due to multiple drug and other psychoactive substance use
 Gold standard concept rank: 1
 
- match_rank Correct  matched_concept_id                                        matched_concept_name
-          1     Yes            37312034          Amnestic disorder caused by psychoactive substance
-          2                      372608                                           Amnestic disorder
-          3                     4264766                   Organic mental disorder caused by cocaine
-          4                      374623                                   Alcohol amnestic disorder
-          5                     4203152              Organic mental disorder caused by hallucinogen
-          6                    37110434                        Amnestic disorder caused by sedative
-          7                     4300092                    Cannabis-induced organic mental disorder
-          8                    46284260                    Psychoactive substance-induced psychosis
-          9                      434900                                      Drug-induced psychosis
-         10                    46287148                                Acute stimulant intoxication
-         11                     4032799                      Opioid-induced organic mental disorder
-         12                     4146763                    Nicotine-induced organic mental disorder
-         13                      373172                            Amnestic disorder caused by drug
-         14                     4288013                                       Korsakoff's psychosis
-         15                     4080762                           Psychoactive substance dependence
-         16                    37162280                   Disorder caused by psychoactive substance
-         17                    37110487       Amnestic disorder due to multiple etiological factors
-         18                     4264889                    Inhalant-induced organic mental disorder
-         19                      375504    Organic mental disorder caused by psychoactive substance
-         20                     4239381                                Psychoactive substance abuse
-         21                    36712678 Amnestic disorder associated with general medical condition
-         22                     4066023                         Non-alcoholic Korsakoff's psychosis
-         23                     4009647             Psychoactive substance-induced organic dementia
-         24                    37117213                      Amnestic disorder caused by anxiolytic
-         25                     4191592             Psychoactive substance-induced organic delirium
+ match_rank Correct  matched_concept_id                                          matched_concept_name
+          1     Yes            37312034            Amnestic disorder caused by psychoactive substance
+          2                      372608                                             Amnestic disorder
+          3                     4264766                     Organic mental disorder caused by cocaine
+          4                      374623                                     Alcohol amnestic disorder
+          5                    37110434                          Amnestic disorder caused by sedative
+          6                     4203152                Organic mental disorder caused by hallucinogen
+          7                      434900                                        Drug-induced psychosis
+          8                    46284260                      Psychoactive substance-induced psychosis
+          9                     4300092                      Cannabis-induced organic mental disorder
+         10                      373172                              Amnestic disorder caused by drug
+         11                     4032799                        Opioid-induced organic mental disorder
+         12                     4288013                                         Korsakoff's psychosis
+         13                    46287148                                  Acute stimulant intoxication
+         14                     4146763                      Nicotine-induced organic mental disorder
+         15                     4239381                                  Psychoactive substance abuse
+         16                    37162280                     Disorder caused by psychoactive substance
+         17                     4080762                             Psychoactive substance dependence
+         18                      375504      Organic mental disorder caused by psychoactive substance
+         19                    37110487         Amnestic disorder due to multiple etiological factors
+         20                    36712678   Amnestic disorder associated with general medical condition
+         21                     4264889                      Inhalant-induced organic mental disorder
+         22                     4009647               Psychoactive substance-induced organic dementia
+         23                     4066023                           Non-alcoholic Korsakoff's psychosis
+         24                     4191592               Psychoactive substance-induced organic delirium
+         25                     4263309 Organic personality disorder caused by psychoactive substance
 
 Source term: Sexual relationship disorder (1411019)
 Searched term: Sexual relationship disorder
@@ -2232,6 +2231,37 @@ Gold standard concept rank: 1
          24                      762070                                          Lesion of left common peroneal nerve
          25                     4057027                                           Closed injury common peroneal nerve
 
+Source term: Fracture of unspecified tarsal bone(s) (1574091)
+Searched term: Fracture of tarsal bone(s)
+Gold standard concept rank: 1
+
+ match_rank Correct  matched_concept_id                                                                       matched_concept_name
+          1     Yes             4134336                                                                    Fracture of tarsal bone
+          2                    37165641                                                          Fracture of multiple tarsal bones
+          3                    40491339                                                             Closed fracture of tarsal bone
+          4                    42597239                                                                         Fracture of tarsus
+          5                      435644                                                                   Metatarsal bone fracture
+          6                     4048393                                                                           Fracture of foot
+          7                     4016126                                                   Closed fracture of multiple tarsal bones
+          8                    42573215                                                           Fracture of tarsometatarsal bone
+          9                    44804708                                 Closed fracture of one or more tarsal and metatarsal bones
+         10                    40479561                                                             Stress fracture of tarsal bone
+         11                     4180748                                                               Open fracture of tarsal bone
+         12                    37165612                                                     Open fracture of multiple tarsal bones
+         13                     2105717 Treatment of tarsal bone fracture (except talus and calcaneus); without manipulation, each
+         14                      760398                                                Closed fracture of tarsal bone of left foot
+         15                       75382                                            Closed fractures of tarsal AND metatarsal bones
+         16                      760397                                               Closed fracture of tarsal bone of right foot
+         17                     4138416                                                                             March fracture
+         18                     4134338                                                               Fracture of bone of forefoot
+         19                      441980                                                                    Closed fracture of foot
+         20                    37209169                                                            Stress fracture of right tarsus
+         21                       74778                                               Open fracture of tarsal AND metatarsal bones
+         22                      760627                                                             Stress fracture of left tarsus
+         23                    37209149                                                  Open fracture of tarsal bone of left foot
+         24                    37165642                                                      Fracture of multiple metatarsal bones
+         25                    37209134                                                 Open fracture of tarsal bone of right foot
+
 Source term: Orthopedic devices associated with adverse incidents (1575914)
 Searched term: Orthopedic devices associated with adverse incidents
 Gold standard concept rank: 1
@@ -2243,8 +2273,8 @@ Gold standard concept rank: 1
           4                     4320824                                                                                                                                  Adverse effect of prosthetic device
           5                    44808344                                                                                                                                               Adverse incident items
           6                    42536720                                                                                                                   Injury due to and following implantation of device
-          7                     4121915                                                                                                                                        Orthopedic device application
-          8                    43021408                                                                                                                                    Displacement of orthopedic device
+          7                    43021408                                                                                                                                    Displacement of orthopedic device
+          8                     4121915                                                                                                                                        Orthopedic device application
           9                    43021240                                                                                                                 Complication associated with musculoskeletal implant
          10                     4345340                                                                                                                                         Bone fixation device failure
          11                    43021249                                                                                                                     Complication associated with neurological device
@@ -2295,35 +2325,35 @@ Gold standard concept rank: 5
          25                     3044752                              Wound infection [Minimum Data Set]
 
 Source term: Encephalopathy in endocrine and metabolic disorders classified elsewhere (machine translation) (21013352)
-Searched term: Encephalopathy in endocrine and metabolic disorders classified elsewhere (machine translation)
+Searched term: Encephalopathy in endocrine and metabolic disorders
 Gold standard concept rank: 1
 
- match_rank Correct  matched_concept_id                            matched_concept_name
-          1     Yes              372892                        Metabolic encephalopathy
-          2                      372887                               Disorder of brain
-          3                     4080146                            Autonomic neuropathy
-          4                    43021132                  Toxic metabolic encephalopathy
-          5                      436670                               Metabolic disease
-          6                       31821                    Disorder of endocrine system
-          7                       24609                                    Hypoglycemia
-          8                     4274025                                         Disease
-          9                      442019                       Complication of procedure
-         10                      442342                              Endocrine myopathy
-         11                      437515             Disorder of carbohydrate metabolism
-         12                     4048027   Neuropathy associated with endocrine disorder
-         13                      373764                            Toxic encephalopathy
-         14                      434633            Disorder of autonomic nervous system
-         15                      195847                          Gastroparesis syndrome
-         16                       72618                     Disorder of skeletal muscle
-         17                      376686 Polyneuropathy associated with another disorder
-         18                      198185                           Chronic renal failure
-         19                     4095278                              Metabolic myopathy
-         20                     4245975                                 Hepatic failure
-         21                      373995                                        Delirium
-         22                     4176948            Metabolic complication of procedures
-         23                      374009                         Organic mental disorder
-         24                     4048923     Perinatal endocrine and metabolic disorders
-         25                      375801 Demyelinating disease of central nervous system
+ match_rank Correct  matched_concept_id                                 matched_concept_name
+          1     Yes              372892                             Metabolic encephalopathy
+          2                      436670                                    Metabolic disease
+          3                     4048923          Perinatal endocrine and metabolic disorders
+          4                    43021132                       Toxic metabolic encephalopathy
+          5                      376686      Polyneuropathy associated with another disorder
+          6                      372887                                    Disorder of brain
+          7                    42537310                          Neonatal metabolic disorder
+          8                     4037691                Disorder of neurometabolic regulation
+          9                    37110340         Encephalopathy due to nutritional deficiency
+         10                     4274156                          Hypoglycemic encephalopathy
+         11                    36716801                 Myelopathy due to metabolic disorder
+         12                     4029488                               Hepatic encephalopathy
+         13                      442342                                   Endocrine myopathy
+         14                    42710030                       Portal systemic encephalopathy
+         15                       31821                         Disorder of endocrine system
+         16                    37162121 Encephalopathy due to multiple nutrient deficiencies
+         17                      442019                            Complication of procedure
+         18                     4095278                                   Metabolic myopathy
+         19                     4048027        Neuropathy associated with endocrine disorder
+         20                    37162138             Hypopituitarism due to metabolic disease
+         21                     4154695                   Seizures due to metabolic disorder
+         22                     4044069             Encephalopathy due to vitamin deficiency
+         23                     4047764                 Encephalopathy caused by heavy metal
+         24                    36716796                Dementia due to metabolic abnormality
+         25                    37166065         Autonomic disorder due to metabolic disorder
 
 Source term: Subacute combined cord degeneration (35104073)
 Searched term: Subacute combined cord degeneration
@@ -2556,8 +2586,8 @@ Gold standard concept rank: 1
           7                     4149010                                 Duodenal ulcer with hemorrhage but without obstruction
           8                     4195231                         Acute gastric ulcer without hemorrhage AND without perforation
           9                     4163865                          Acute peptic ulcer without hemorrhage AND without perforation
-         10                      435305         Duodenal ulcer without hemorrhage AND without perforation but with obstruction
-         11                     4248429                               Gastric ulcer without hemorrhage AND without perforation
+         10                     4248429                               Gastric ulcer without hemorrhage AND without perforation
+         11                      435305         Duodenal ulcer without hemorrhage AND without perforation but with obstruction
          12                     4035167            Duodenal ulcer with hemorrhage AND with perforation but without obstruction
          13                      434402                           Acute duodenal ulcer with hemorrhage but without obstruction
          14                      436148                         Chronic duodenal ulcer with hemorrhage but without obstruction
@@ -3344,37 +3374,6 @@ Gold standard concept rank: 1
          24                      312358                                                 Chronic glomerulonephritis
          25                      196464                                     Rapidly progressive glomerulonephritis
 
-Source term: Neoplasm of uncertain or unknown behaviour: Ovary (37081600)
-Searched term: Neoplasm of uncertain or unknown behaviour: Ovary
-Gold standard concept rank: 1
-
- match_rank Correct  matched_concept_id                                       matched_concept_name
-          1     Yes              200675                    Neoplasm of uncertain behavior of ovary
-          2                      195793                   Neoplasm of uncertain behavior of uterus
-          3                    37208032               Neoplasm of uncertain behavior of left ovary
-          4                    37208033              Neoplasm of uncertain behavior of right ovary
-          5                      193437     Neoplasm of uncertain behavior of female genital organ
-          6                     4099495               Neoplasm of uncertain behavior of peritoneum
-          7                      608865        Bilateral neoplasm of uncertain behavior of ovaries
-          8                       72578                   Neoplasm of uncertain behavior of breast
-          9                     4316053           Neoplasm of uncertain behavior of uterine adnexa
-         10                      440971                   Neoplasm of uncertain behavior of testis
-         11                      201529                  Neoplasm of uncertain behavior of stomach
-         12                      196365            Neoplasm of uncertain behavior of adrenal gland
-         13                     4317826            Neoplasm of uncertain behavior of thyroid gland
-         14                     4315953          Neoplasm of uncertain behavior of retroperitoneum
-         15                     4313421                             Neoplasm of uncertain behavior
-         16                     4314212           Neoplasm of uncertain behavior of body of uterus
-         17                     4317824                  Neoplasm of uncertain behavior of omentum
-         18                      432582                   Neoplastic disease of uncertain behavior
-         19                     4313495              Neoplasm of uncertain behavior of endometrium
-         20                     4313511   Neoplasm of uncertain behavior of intra-abdominal organs
-         21                     4316615                   Neoplasm of uncertain behavior of pelvis
-         22                     4316890        Neoplasm of uncertain behavior of pelvic peritoneum
-         23                     4314638           Neoplasm of uncertain behavior of uterine cervix
-         24                     4313514        Neoplasm of uncertain behavior of isthmus of uterus
-         25                     4314631 Neoplasm of uncertain behavior of broad ligament of uterus
-
 Source term: Malnutrition-related diabetes mellitus, with coma (37082072)
 Searched term: Malnutrition-related diabetes mellitus, with coma
 Gold standard concept rank: 1
@@ -3499,37 +3498,6 @@ Gold standard concept rank: 1
          24                     4189466                                                                                               Autistic spectrum disorder with isolated skills
          25                     4196550                                                                                                                             Phobia counseling
 
-Source term: Subacute combined degeneration of spinal cord in diseases classified elsewhere (37083340)
-Searched term: Subacute combined degeneration of spinal cord in diseases classified elsewhere
-Gold standard concept rank: 1
-
- match_rank Correct  matched_concept_id                                                      matched_concept_name
-          1     Yes              140099                             Subacute combined degeneration of spinal cord
-          2                      140708                                        Myelopathy due to another disorder
-          3                      376686                           Polyneuropathy associated with another disorder
-          4                     4104700                    Cerebral degeneration associated with another disorder
-          5                      138965                                                                  Myelitis
-          6                     4213310                        Degenerative disease of the central nervous system
-          7                      435242                                                         Cerebellar ataxia
-          8                     4105349                        Cerebellar ataxia associated with another disorder
-          9                      379006                                        Cerebral degeneration in childhood
-         10                      376337                                                Disorder of nervous system
-         11                      139803                                                 Acute transverse myelitis
-         12                     4134455                                                            Mononeuropathy
-         13                     4263710                                                        Secondary myopathy
-         14                      372887                                                         Disorder of brain
-         15                    44782549                                              Disorder of vertebral column
-         16                     4080146                                                      Autonomic neuropathy
-         17                      379818                                                      Retrobulbar neuritis
-         18                    37208415 Subacute combined degeneration of spinal cord due to use of nitrous oxide
-         19                     3655828                                  Myelopathy due to vitamin B12 deficiency
-         20                    44507960                          Other specified other destruction of spinal cord
-         21                    38000966                              Other disorders of nervous system w/o CC/MCC
-         22                    37110341                                  Myelopathy due to nutritional deficiency
-         23                    38000965                                    Other disorders of nervous system w CC
-         24                    38000933                         Multiple sclerosis & cerebellar ataxia w/o CC/MCC
-         25                    38000930                             Degenerative nervous system disorders w/o MCC
-
 Source term: Glaucoma secondary to eye trauma (37084048)
 Searched term: Glaucoma secondary to eye trauma
 Gold standard concept rank: 1
@@ -3653,6 +3621,37 @@ Gold standard concept rank: 1
          23                     4079430          Ruptured aneurysm of anterior cerebral artery
          24                     1244908                        Aneurysm of intracranial artery
          25                     4079432         Ruptured aneurysm of posterior cerebral artery
+
+Source term: Rubella without complication (37085900)
+Searched term: Rubella without complication
+Gold standard concept rank: 1
+
+ match_rank Correct  matched_concept_id                                                   matched_concept_name
+          1     Yes             4273323                                                                Rubella
+          2                     4197271                                            Disease caused by Rubivirus
+          3                     4030555                                                                Measles
+          4                     4080774                                                      Macular syphilide
+          5                      433131                                             Mumps without complication
+          6                      434272                                                              Varicella
+          7                     4121311                                                     Rubella non-immune
+          8                     4149956                                                         Rubella status
+          9                      380639                                 Rubella with neurological complication
+         10                     4164218                                                   Rubella in pregnancy
+         11                     4133620                                                         Rubella immune
+         12                    45757150                              Rubella in mother complicating childbirth
+         13                     4014317                                               Rubella status not known
+         14                    46272191                                                      Rubella virus IgG
+         15                     4152043                                               Rubella status education
+         16                    36204465                    Rubella-like illness during the pregnancy in Mother
+         17                    40758407                                                   Rubella virus status
+         18                     4025991                                                 Rubella virus antibody
+         19                    36675708                                                      Rubella suspected
+         20                      444251 Rubella in mother complicating pregnancy, childbirth AND/OR puerperium
+         21                     4204645                                            Rubella immunization status
+         22                     4178600                                                          Rubella virus
+         23                    37175130                                              Rubella antibody detected
+         24                     4086932                                               Rubella screening status
+         25                      440019                                              Measles with complication
 
 Source term: Hallux valgus (acquired) (37087754)
 Searched term: Hallux valgus (acquired)
@@ -3806,37 +3805,6 @@ Gold standard concept rank: 1
          23                      763534           Secondary chondrocalcinosis of multiple sites
          24                     4042912                           Periostitis of multiple sites
          25                     1076608      Osteonecrosis of metatarsal bone of bilateral feet
-
-Source term: Disorders of prostate in diseases classified elsewhere (37091346)
-Searched term: Disorders of prostate in diseases classified elsewhere
-Gold standard concept rank: 1
-
- match_rank Correct  matched_concept_id                                             matched_concept_name
-          1     Yes              196734                                             Disorder of prostate
-          2                      200450                                              Disorder of urethra
-          3                      194410     Male genital organ disorder associated with another disorder
-          4                      200446                     Prostatitis associated with another disorder
-          5                      201337                                      Disorder of urinary bladder
-          6                     4032587                                Disorder of testis and epididymis
-          7                       31821                                     Disorder of endocrine system
-          8                      141253                                        Disorder of thyroid gland
-          9                      443951                                                 Disorder of anus
-         10                     2003962 Other diagnostic procedures on prostate and periprostatic tissue
-         11                     4129902                                             Neoplasm of prostate
-         12                    44512429                     Other specified other operations on prostate
-         13                     4115735                                               Lesion of prostate
-         14                    45772671                     Nodular prostate without urinary obstruction
-         15                    35917007                                            Prostate@Surgery, NOS
-         16                      197237                                      Benign neoplasm of prostate
-         17                     4116087                                            Carcinoma of prostate
-         18                     2004010                                     Other operations on prostate
-         19                    40482030                                            Dysplasia of prostate
-         20                    37166255                                    Primary carcinoma of prostate
-         21                     4053595                                               Injury of prostate
-         22                     4181194                             Disorder of male reproductive system
-         23                    38001459              Other male reproductive system diagnoses w/o CC/MCC
-         24                      196738                                   Disorder of male genital organ
-         25                     2003983                                              Other prostatectomy
 
 Source term: Classical hydatidiform mole (37091592)
 Searched term: Classical hydatidiform mole
@@ -4240,6 +4208,37 @@ Gold standard concept rank: 1
          23                     4128691            Able to cough
          24                     4323688            Cough at rest
          25                     4087178          Unable to cough
+
+Source term: Other specific joint derangements, not elsewhere classified, other (37223508)
+Searched term: specific joint derangements
+Gold standard concept rank: 1
+
+ match_rank Correct  matched_concept_id                             matched_concept_name
+          1     Yes               78228                                Joint derangement
+          2                       73553                                      Arthropathy
+          3                     4079722                        Mechanical joint disorder
+          4                     4327964           Derangement of temporomandibular joint
+          5                       75346                          Derangement of meniscus
+          6                       76786                              Derangement of knee
+          7                       72986                            Disorder of lower leg
+          8                      761096                     Derangement of joint of hand
+          9                     3168756                             Shoulder derangement
+         10                    37206233                         Disorder of joint region
+         11                    42539263                 Derangement of right ankle joint
+         12                    42535178                  Derangement of left ankle joint
+         13                      437954                  Derangement of lateral meniscus
+         14                     1077496                 Derangement of radiocarpal joint
+         15                      761018                      Derangement of joint of hip
+         16                     4216200                          Joint function disorder
+         17                    37108882       Derangement of meniscus of left knee joint
+         18                    37117647      Derangement of meniscus of right knee joint
+         19                     1076691            Derangement of bilateral ankle joints
+         20                     1076213             Derangement of joint of wrist region
+         21                    37108753                        Derangement of right knee
+         22                    37109000 Bilateral derangement of meniscus of knee joints
+         23                    37108752                         Derangement of left knee
+         24                     4183129                         Multiple joint deformity
+         25                     1076210            Derangement of left radiocarpal joint
 
 Source term: Enthesopathy, unspecified, upper arm (37224781)
 Searched term: Enthesopathy, upper arm
@@ -4798,6 +4797,36 @@ Gold standard concept rank: 1
          23                    36567254                     Myxofibrosarcoma of overlapping lesion of corpus uteri
          24                       79740                                    Overlapping malignant neoplasm of colon
          25                      198092           Overlapping malignant neoplasm of retroperitoneum and peritoneum
+
+Source term: Toxic epidermal necrolysis [Lyell] (37610161)
+Searched term: Toxic epidermal necrolysis [Lyell]
+Gold standard concept rank: 1
+
+ match_rank Correct  matched_concept_id                                                           matched_concept_name
+          1     Yes            35625873                                                                 Lyell syndrome
+          2                    35625857                  Stevens-Johnson syndrome, toxic epidermal necrolysis spectrum
+          3                      141651                                                       Stevens-Johnson syndrome
+          4                      132702                                                            Erythema multiforme
+          5                     4298728                                      Toxic epidermal necrolysis caused by drug
+          6                    46273453                Stevens Johnson syndrome AND toxic epidermal necrolysis overlap
+          7                    35625872                                    Toxic epidermal necrolysis due to infection
+          8                     4292357                    Toxic epidermal necrolysis due to graft-versus-host disease
+          9                    37119160 Stevens-Johnson and toxic epidermal necrolysis overlap syndrome caused by drug
+         10                     4316085                                                                    Toxicoderma
+         11                     4177481                                                  Toxic erythema caused by drug
+         12                     1244387                                         Photo-induced Stevens-Johnson syndrome
+         13                     4319302                                                               Toxicodermatitis
+         14                     4301158                                          Drug-induced Stevens-Johnson syndrome
+         15                     4033053                                                    Erythroderma caused by drug
+         16                     4245496                                    Subacute generalized exfoliative dermatitis
+         17                    37155404                                                        Neonatal toxic erythema
+         18                     4033946                                                Drug-induced toxic pustuloderma
+         19                     4032898                                                       Toxic urticated erythema
+         20                     4317266                                                                  Skin necrosis
+         21                     4301166                                   Drug-induced epidermolysis bullosa acquisita
+         22                     4270887                                                                   Erythroderma
+         23                      132392                                           Staphylococcal scalded skin syndrome
+         24                     4270753                                              Drug-induced desquamation of skin
 
 Source term: Extra marker chromosomes (37611262)
 Searched term: Extra marker chromosomes
@@ -5739,37 +5768,6 @@ Gold standard concept rank: 1
          24                      443221               Congenital functional disorders of the colon
          25                     4197094                   Disorder of lower gastrointestinal tract
 
-Source term: Disorders of peritoneum in infectious diseases classified elsewhere (42489837)
-Searched term: Disorders of peritoneum in infectious diseases classified elsewhere
-Gold standard concept rank: 1
-
- match_rank Correct  matched_concept_id                                                matched_concept_name
-          1     Yes              443796                                              Infectious peritonitis
-          2                      197324                                              Disorder of peritoneum
-          3                      199067                                  Female pelvic inflammatory disease
-          4                      440822                                                         Periostitis
-          5                     4217075                                             Infectious pericarditis
-          6                      201618                                               Disorder of intestine
-          7                     4059452                                                  Glomerular disease
-          8                    40483287                                    Disorder of kidney and/or ureter
-          9                     4341650                                     Liver disorder due to infection
-         10                     4201745                                        Disorder of digestive system
-         11                       76508                                                  Infective myositis
-         12                      194087                                          Hepatitis due to infection
-         13                      192353                                             Disorder of gallbladder
-         14                    38001183 Major gastrointestinal disorders & peritoneal infections w/o CC/MCC
-         15                     4028062                                       Infectious disease of abdomen
-         16                    38001182       Major gastrointestinal disorders & peritoneal infections w CC
-         17                    38001181      Major gastrointestinal disorders & peritoneal infections w MCC
-         18                    37206200                                          Peritonitis due to abscess
-         19                    42596923                                       Disorder of peritoneal cavity
-         20                     4042838                                       Disorder of pelvic peritoneum
-         21                    37160683                            Acute infectious generalized peritonitis
-         22                    37160682                                        Acute infectious peritonitis
-         23                      200757                                               Abscess of peritoneum
-         24                    40489336             Infection of peritoneum caused by Chlamydia trachomatis
-         25                    38001658    Infectious and Parasitic Diseases, Systemic or Unspecified Sites
-
 Source term: Other diseases of pancreas (42489995)
 Searched term: diseases of pancreas
 Gold standard concept rank: 1
@@ -5895,35 +5893,35 @@ Gold standard concept rank: 1
          25                     3168739                                    Diffuse papular eruption
 
 Source term: Papulosquamous disorders in diseases classified elsewhere (42490240)
-Searched term: Papulosquamous disorders in diseases classified elsewhere
+Searched term: Papulosquamous disorders
 Gold standard concept rank: 1
 
- match_rank Correct  matched_concept_id                                                                         matched_concept_name
-          1     Yes             4330878                                                                    Papulosquamous dermatosis
-          2                      137944                                                                           Bullous dermatosis
-          3                      137951                                                                         Acquired keratoderma
-          4                      200174                                                  Disorder of skin and/or subcutaneous tissue
-          5                      132706                                                                             Disorder of nail
-          6                    40481101                                                                             Erythema of skin
-          7                      253549                                                                Disorder of connective tissue
-          8                     4295180                                  Subacute cutaneous lupus erythematosus, papulosquamous type
-          9                     4152341                                                                             Papular eruption
-         10                      140172                                                                Erythematosquamous dermatosis
-         11                     4297503                                             Desquamation secondary to acute systemic illness
-         12                     4058375 Disease of skin and subcutaneous tissue complicating pregnancy, childbirth and/or puerperium
-         13                     4133000                                                                Papulonodular disease of skin
-         14                     4081258                                                              Systemic disease affecting skin
-         15                    37204307                                         Seborrhea-like dermatitis with psoriasiform elements
-         16                     4033943                                                                   Psoriasiform drug eruption
-         17                     4179347                                                                      Psoriasiform dermatitis
-         18                    38001369                                                                 Minor skin disorders w/o MCC
-         19                    37165457                                                               Plaque psoriasis with pustules
-         20                     4067059                                                                       Parapsoriasis papulata
-         21                     4033330                                                                          Papular sarcoidosis
-         22                    37399362                                                        Discrete papular lichen myxedematosus
-         23                    38001358                                                                 Major skin disorders w/o MCC
-         24                     4297493                                                                  Papuloerythroderma of Ofuji
-         25                     4270748                                                              Non-pustular psoriasis of hands
+ match_rank Correct  matched_concept_id                                        matched_concept_name
+          1     Yes             4330878                                   Papulosquamous dermatosis
+          2                      140172                               Erythematosquamous dermatosis
+          3                     4295180 Subacute cutaneous lupus erythematosus, papulosquamous type
+          4                      320798                                               Parapsoriasis
+          5                     4152341                                            Papular eruption
+          6                     4297493                                 Papuloerythroderma of Ofuji
+          7                     4278464                                           Psoriasiform rash
+          8                     4105835                                                      Papule
+          9                     4179347                                     Psoriasiform dermatitis
+         10                     4033943                                  Psoriasiform drug eruption
+         11                      954394                           Psoriasiform-lichenoid dermatosis
+         12                     4033330                                         Papular sarcoidosis
+         13                      200174                 Disorder of skin and/or subcutaneous tissue
+         14                     4317258                                            Disorder of skin
+         15                     4063316                                          Erythema papulatum
+         16                     4321863                                                Papular rash
+         17                      140168                                                   Psoriasis
+         18                     4093619                                        Seborrheic psoriasis
+         19                     3168739                                    Diffuse papular eruption
+         20                     4301052                  Rosaceous type discoid lupus erythematosus
+         21                     4080933                                         Psoriasiform eczema
+         22                    37165457                              Plaque psoriasis with pustules
+         23                     4066832                                          Psoriasis punctata
+         24                    37204307        Seborrhea-like dermatitis with psoriasiform elements
+         25                     4067059                                      Parapsoriasis papulata
 
 Source term: Seronegative rheumatoid arthritis, shoulder region (42490880)
 Searched term: Seronegative rheumatoid arthritis, shoulder region
@@ -6050,35 +6048,35 @@ Gold standard concept rank: 1
          25                    44783194           Fibrous dysplasia of bone with intramuscular myxoma
 
 Source term: Incomplete other abortion, with other and unspecified complications (conditions in O08.3-O08.) (42495121)
-Searched term: Incomplete abortion
-Gold standard concept rank: 6
+Searched term: Incomplete abortion with complications
+Gold standard concept rank: 2
 
- match_rank Correct  matched_concept_id                                                                matched_concept_name
-          1                    40318617                                                              Incomplete miscarriage
-          2                     4067106                                                                         Miscarriage
-          3                    45768717                                         Incomplete induced termination of pregnancy
-          4                    44805020                                                 Incomplete termination of pregnancy
-          5                    40318618                                                                Complete miscarriage
-          6     Yes              434413                                            Incomplete miscarriage with complication
-          7                       76482                                                                  Missed miscarriage
-          8                     4261479                                                                       Carneous mole
-          9                     4146773                                                   Inevitable miscarriage incomplete
-         10                    40539858                                                     Pregnancy with abortive outcome
-         11                    42535215                                   Incomplete spontaneous abortion due to hemorrhage
-         12                     4170121                                                 Retained products after miscarriage
-         13                      437045                                              Embolism due to incomplete miscarriage
-         14                      441631                                                 Shock due to incomplete miscarriage
-         15                      436748                           Incomplete inevitable miscarriage complicated by embolism
-         16                      441629                             Complete inevitable miscarriage complicated by embolism
-         17                     4171359                                           Failed attempted termination of pregnancy
-         18                     4146772                                                     Inevitable miscarriage complete
-         19                      192380                      Failed attempted termination of pregnancy without complication
-         20                    37167973                     Infection of female genital tract due to incomplete miscarriage
-         21                      434094                                                       Miscarriage with complication
-         22                      438211    Incomplete inevitable miscarriage complicated by delayed or excessive hemorrhage
-         23                      439085      Complete inevitable miscarriage complicated by delayed or excessive hemorrhage
-         24                      194694                         Failed attempted termination of pregnancy with complication
-         25                      437618 Incomplete inevitable miscarriage complicated by genital tract and pelvic infection
+ match_rank Correct  matched_concept_id                                                                       matched_concept_name
+          1                    45768717                                                Incomplete induced termination of pregnancy
+          2     Yes              434413                                                   Incomplete miscarriage with complication
+          3                     4240605                                                                   Termination of pregnancy
+          4                      434094                                                              Miscarriage with complication
+          5                     4146773                                                          Inevitable miscarriage incomplete
+          6                     4067106                                                                                Miscarriage
+          7                    40318617                                                                     Incomplete miscarriage
+          8                     4146772                                                            Inevitable miscarriage complete
+          9                      194694                                Failed attempted termination of pregnancy with complication
+         10                    37018340                                                           Induced termination of pregnancy
+         11                    40539858                                                            Pregnancy with abortive outcome
+         12                      436748                                  Incomplete inevitable miscarriage complicated by embolism
+         13                      438211           Incomplete inevitable miscarriage complicated by delayed or excessive hemorrhage
+         14                      441629                                    Complete inevitable miscarriage complicated by embolism
+         15                    37162983                                        Disorder following induced termination of pregnancy
+         16                      439085             Complete inevitable miscarriage complicated by delayed or excessive hemorrhage
+         17                      437618        Incomplete inevitable miscarriage complicated by genital tract and pelvic infection
+         18                    37163809                        Incomplete induced termination of pregnancy complicated by embolism
+         19                      441921          Complete inevitable miscarriage complicated by genital tract and pelvic infection
+         20                    37163817                                Complete induced termination of pregnancy with complication
+         21                    37163810 Incomplete induced termination of pregnancy complicated by delayed or excessive hemorrhage
+         22                     4113508    Failed medical termination of pregnancy, complicated by delayed or excessive hemorrhage
+         23                      441631                                                        Shock due to incomplete miscarriage
+         24                      437045                                                     Embolism due to incomplete miscarriage
+         25                    42535215                                          Incomplete spontaneous abortion due to hemorrhage
 
 Source term: Gestational [pregnancy-induced] hypertension (42495174)
 Searched term: Gestational [pregnancy-induced] hypertension
@@ -6329,35 +6327,35 @@ Gold standard concept rank: 1
          25                     4086433                                Active cooling of patient
 
 Source term: Resistance to other single specified antibiotic (42501284)
-Searched term: Resistance to antibiotic
+Searched term: Resistance to single antibiotic
 Gold standard concept rank: 1
 
  match_rank Correct  matched_concept_id                                                        matched_concept_name
           1     Yes            37017452                                      Drug resistance to antibacterial agent
           2                    44806682                                 Infection resistant to multiple antibiotics
           3                     4150981                                                             Drug resistance
-          4                     4249827                        Infection caused by antimicrobial resistant bacteria
-          5                    37394537                         Infection resistant to multiple antimicrobial drugs
-          6                     4323559                                                        Bacterial resistance
-          7                    37398744                                   Infection resistant to antimicrobial drug
-          8                    37016308                           Infection caused by multi drug resistant bacteria
-          9                     4249826                                                          Resistant bacteria
-         10                     3006581                                           Other Antibiotic [Susceptibility]
-         11                    40762894     Other Antibiotic [Susceptibility] by Minimum lethal concentration (MLC)
-         12                     3015974 Other Antibiotic [Susceptibility] by Minimum inhibitory concentration (MIC)
-         13                    40758746                         Other Antibiotic [Susceptibility] by Gradient strip
-         14                     3018569               Other Antibiotic [Susceptibility] by Serum bactericidal titer
-         15                     3045802                    Other Antibiotic [Susceptibility] by Disk diffusion (KB)
-         16                     4141201                                   Beta lactam resistant bacterial infection
-         17                     3048536                              Antibiotic tested [Identifier] against isolate
-         18                     4187771                                           Antibiotic resistant tuberculosis
-         19                     4320040                                                   Increased drug resistance
+          4                    37394537                         Infection resistant to multiple antimicrobial drugs
+          5                     4249827                        Infection caused by antimicrobial resistant bacteria
+          6                    37016308                           Infection caused by multi drug resistant bacteria
+          7                     3006581                                           Other Antibiotic [Susceptibility]
+          8                    40762894     Other Antibiotic [Susceptibility] by Minimum lethal concentration (MLC)
+          9                     3015974 Other Antibiotic [Susceptibility] by Minimum inhibitory concentration (MIC)
+         10                     3018569               Other Antibiotic [Susceptibility] by Serum bactericidal titer
+         11                    40758746                         Other Antibiotic [Susceptibility] by Gradient strip
+         12                     3045802                    Other Antibiotic [Susceptibility] by Disk diffusion (KB)
+         13                     4323559                                                        Bacterial resistance
+         14                    37398744                                   Infection resistant to antimicrobial drug
+         15                     4032801                                           Antimicrobial susceptibility test
+         16                     4320040                                                   Increased drug resistance
+         17                     4249826                                                          Resistant bacteria
+         18                     3004987      Other Antibiotic [Susceptibility] by Serum bactericidal titer --trough
+         19                     3048536                              Antibiotic tested [Identifier] against isolate
          20                    37017134                                                Multidrug-resistant bacteria
-         21                     4243011                                                     Resistance to infection
-         22                    37118023                                               Ampicillin resistant bacteria
-         23                    37020700   Microorganism resistance mutation detected [Presence] by Molecular method
-         24                    37154632                                    Type of antimicrobial resistant organism
-         25                     4154703                                Therapy failure due to antibiotic resistance
+         21                    37020269            Microorganism resistance mutation tested for by Molecular method
+         22                     4187771                                           Antibiotic resistant tuberculosis
+         23                     1092060                                                  Bacterial resistance panel
+         24                     4154703                                Therapy failure due to antibiotic resistance
+         25                     3014493        Other Antibiotic [Susceptibility] by Serum bactericidal titer --peak
 
 Source term: Sequelae of assault (42505140)
 Searched term: Sequelae of assault
@@ -6638,37 +6636,6 @@ Gold standard concept rank: 1
          24                     4239871                               Benign neoplasm of central nervous system
          25                    36567917                                      Fibroma, NOS, of cerebral meninges
 
-Source term: Astrocytoma, NOS, of brain stem (44503495)
-Searched term: Astrocytoma, brain stem
-Gold standard concept rank: 1
-
- match_rank Correct  matched_concept_id                           matched_concept_name
-          1     Yes            37016118                      Astrocytoma of brain stem
-          2                    37166590              Primary astrocytoma of brain stem
-          3                    44502740    Astrocytoma, anaplastic, NOS, of brain stem
-          4                    36547956         Protoplasmic astrocytoma of brain stem
-          5                    36403133 Pilocytic astrocytoma, malignant of brain stem
-          6                     4308934                  Malignant glioma of brainstem
-          7                    40479836                            Glioma of brainstem
-          8                     4131104                         Neoplasm of brain stem
-          9                    36542296                    Astroblastoma of brain stem
-         10                    44498985            Pilocytic astrocytoma of brain stem
-         11                    44501674           Fibrillary astrocytoma of brain stem
-         12                     4110884                           Astrocytoma of brain
-         13                    36537387   Gemistocytic astrocytoma, NOS, of brain stem
-         14                    44502842           Ependymoma, anaplastic of brain stem
-         15                      759902                Oligodendroglioma of brain stem
-         16                    36534589           Oligoastrocytoma, NOS, of brain stem
-         17                     4178488                  Low grade glioma of brainstem
-         18                    36568329           Tumor cells, malignant of brain stem
-         19                    37018667                        Astrocytoma of cerebrum
-         20                      759900                       Ependymoma of brain stem
-         21                    36541894                      Gliosarcoma of brain stem
-         22                    44502360               Glioblastoma, NOS, of brain stem
-         23                      608225                                    Astrocytoma
-         24                      609186   Primary glioblastoma multiforme of brainstem
-         25                    37166616          Primary malignant glioma of brainstem
-
 Source term: Neoplasm, benign of placenta (44505202)
 Searched term: Neoplasm, benign of placenta
 Gold standard concept rank: 1
@@ -6761,37 +6728,6 @@ Gold standard concept rank: 4
          23                      440694                   Nondependent mixed drug abuse, episodic
          24                      434328                     Nondependent cannabis abuse, episodic
          25                      435534                    Nondependent alcohol abuse, continuous
-
-Source term: Duodenitis, without mention of hemorrhage (44819790)
-Searched term: Duodenitis without hemorrhage
-Gold standard concept rank: 1
-
- match_rank Correct  matched_concept_id                                                                   matched_concept_name
-          1     Yes              433516                                                                             Duodenitis
-          2                      437027                                                                 Hemorrhagic duodenitis
-          3                     4209746                              Duodenal ulcer without hemorrhage AND without perforation
-          4                     4138962                        Acute duodenal ulcer without hemorrhage AND without perforation
-          5                     4222896                      Chronic duodenal ulcer without hemorrhage AND without perforation
-          6                      440755   Acute duodenal ulcer without hemorrhage, without perforation AND without obstruction
-          7                      199866                                                                        Acute gastritis
-          8                     4149010                                 Duodenal ulcer with hemorrhage but without obstruction
-          9                     4340231                                                                     Chronic duodenitis
-         10                      436148                         Chronic duodenal ulcer with hemorrhage but without obstruction
-         11                      195306                                                                       Gastroduodenitis
-         12                      438469         Duodenal ulcer without hemorrhage, without perforation AND without obstruction
-         13                    37396135                                                                       Acute duodenitis
-         14                      434402                           Acute duodenal ulcer with hemorrhage but without obstruction
-         15                     4099014                                                         Duodenal ulcer with hemorrhage
-         16                      201340                                                                              Gastritis
-         17                     4291028                                Peptic ulcer without hemorrhage AND without perforation
-         18                     4318535                                                                    Duodenal hemorrhage
-         19                     4232181                                                 Chronic duodenal ulcer with hemorrhage
-         20                     4220081                                      Diverticulosis of duodenum without diverticulitis
-         21                      435305         Duodenal ulcer without hemorrhage AND without perforation but with obstruction
-         22                     4043371                                               Inflammatory disorder of digestive tract
-         23                     4198381                                                                      Ulcer of duodenum
-         24                      433246 Chronic duodenal ulcer without hemorrhage, without perforation AND without obstruction
-         25                     4163865                          Acute peptic ulcer without hemorrhage AND without perforation
 
 Source term: Other abnormality of urination (44820068)
 Searched term: abnormality of urination
@@ -7011,35 +6947,35 @@ Gold standard concept rank: 2
          25                      601825                                                           Anaphylaxis caused by vaccine product containing human alphaherpesvirus 3 recombinant surface glycoprotein E antigen
 
 Source term: Poisoning by other gases, undetermined whether accidentally or purposely inflicted (44829563)
-Searched term: Poisoning by other gases
-Gold standard concept rank: 2
+Searched term: Poisoning by gases
+Gold standard concept rank: 1
 
- match_rank Correct  matched_concept_id                                matched_concept_name
-          1                      438041           Inhalational anesthetics adverse reaction
-          2     Yes              608027               Poisoning caused by gaseous substance
-          3                    40484966           Accidental poisoning by gaseous substance
-          4                      436581                                Accidental poisoning
-          5                    40493247                                  Poisoning by fumes
-          6                      440282                               Self poisoning by gas
-          7                      439217 Accidental poisoning by gas distributed by pipeline
-          8                      440279                                            Accident
-          9                     4055246                       Poisoning due to irritant gas
-         10                      432536                Assault by poisoning by gas or vapor
-         11                     4151050                          Poisoning by nitrous oxide
-         12                      438028        Poisoning by drug AND/OR medicinal substance
-         13                     4169301                       Exposure to gaseous substance
-         14                      432796                       Poisoning by anesthetic agent
-         15                     4152376                          Intentional self poisoning
-         16                     4073370                          Self poisoning by coal gas
-         17                     4174505             Asphyxiation by environmental toxic gas
-         18                    37159922                           Poisoning caused by smoke
-         19                     4055247                       Poisoning due to vesicant gas
-         20                     4310367        Accidental poisoning by hydrocyanic acid gas
-         21                     4317245         Self poisoning by motor vehicle exhaust gas
-         22                      435433                   Self poisoning by carbon monoxide
-         23                     4168383                Poisoning by exhaust gas in aircraft
-         24                      439647                   Accidental poisoning by water gas
-         25                      442041   Accidental poisoning by motor vehicle exhaust gas
+ match_rank Correct  matched_concept_id                                                                                matched_concept_name
+          1     Yes              608027                                                               Poisoning caused by gaseous substance
+          2                    40493247                                                                                  Poisoning by fumes
+          3                      440282                                                                               Self poisoning by gas
+          4                    40484966                                                           Accidental poisoning by gaseous substance
+          5                      438041                                                           Inhalational anesthetics adverse reaction
+          6                     4055246                                                                       Poisoning due to irritant gas
+          7                     4055247                                                                       Poisoning due to vesicant gas
+          8                     4073370                                                                          Self poisoning by coal gas
+          9                     4152376                                                                          Intentional self poisoning
+         10                     4317245                                                         Self poisoning by motor vehicle exhaust gas
+         11                     4092411                                                                             Self-injurious behavior
+         12                     4151050                                                                          Poisoning by nitrous oxide
+         13                     4174505                                                             Asphyxiation by environmental toxic gas
+         14                    37159922                                                                           Poisoning caused by smoke
+         15                      438028                                                        Poisoning by drug AND/OR medicinal substance
+         16                     4175404                                                                    Inhalational anesthetic overdose
+         17                     4314381                                                                    Accidental poisoning by gasoline
+         18                     4168383                                                                Poisoning by exhaust gas in aircraft
+         19                      433103 Injury undetermined whether accidentally or purposely inflicted, poisoning by gases in domestic use
+         20                      436581                                                                                Accidental poisoning
+         21                     4073621                                                                  Poisoning due to crowd control gas
+         22                      440599                                                                                Assault by poisoning
+         23                     4310367                                                        Accidental poisoning by hydrocyanic acid gas
+         24                      440268                                                                     Toxic effect of carbon monoxide
+         25                      442562                                                                                           Poisoning
 
 Source term: Other symptoms involving urinary system (44830450)
 Searched term: symptoms involving urinary system
@@ -7102,6 +7038,37 @@ Gold standard concept rank: 1
          23                      434506                                               Cerebellar contusion with open intracranial wound
          24                     4201028                                      Traumatic extradural hematoma with open intracranial wound
          25                      433624 Intracranial hemorrhage following injury with open intracranial wound AND loss of consciousness
+
+Source term: Full-thickness skin loss due to burn [third degree NOS] of trunk (44830588)
+Searched term: Full-thickness skin loss due to burn of trunk
+Gold standard concept rank: 1
+
+ match_rank Correct  matched_concept_id                               matched_concept_name
+          1     Yes              198911                       Full thickness burn of trunk
+          2                    42538704               Deep partial thickness burn of trunk
+          3                      195995                    Deep third degree burn of trunk
+          4                      193371     Full thickness burn of multiple sites of trunk
+          5                      136853                    Partial thickness burn of trunk
+          6                    42539562        Superficial partial thickness burn of trunk
+          7                    36674646 Deep third degree burns of multiple sites of trunk
+          8                      198623                            Epidermal burn of trunk
+          9                      197163                                      Burn of trunk
+         10                     4225821                           Full thickness skin loss
+         11                      140609  Partial thickness burn of multiple sites of trunk
+         12                    42538213            Full thickness burn of head and/or neck
+         13                    36674272                     Full thickness burn of abdomen
+         14                      138932                        Full thickness burn of back
+         15                       74522                  Full thickness burn of chest wall
+         16                    37162921            Full thickness burn of posterior thorax
+         17                     4213471                           Third degree burn injury
+         18                     4299128                                Full thickness burn
+         19                       75709                  Full thickness burn of upper limb
+         20                      434544                       Full thickness burn of thigh
+         21                     1075023                  Full thickness burn of lower back
+         22                     4057639          Epidermal burn of multiple sites of trunk
+         23                       77437                   Full thickness burn of upper arm
+         24                     4228435   Full thickness skin and subcutaneous tissue loss
+         25                    37309897                 Full thickness burn of right thigh
 
 Source term: Assault by submersion [drowning] (44830712)
 Searched term: Assault by submersion [drowning]
@@ -7282,7 +7249,7 @@ Gold standard concept rank: 1
          25                     4319165                          Therapeutic drug dependence
 
 Source term: Diabetes mellitus of mother, complicating pregnancy, childbirth, or the puerperium, unspecified as to episode of care or not applicable (44837245)
-Searched term: Diabetes mellitus of mother, complicating pregnancy, childbirth, or the puerperium
+Searched term: Diabetes mellitus of mother, complicating pregnancy, childbirth, or puerperium
 Gold standard concept rank: 1
 
  match_rank Correct  matched_concept_id                                                                           matched_concept_name
@@ -7683,6 +7650,37 @@ Gold standard concept rank: 1
          23                     4096902                 Prednisolone adverse reaction
          24                     4162157          Somatrophic hormone adverse reaction
          25                     4164108               Corticotropins adverse reaction
+
+Source term: Synovial fluid exam. NOS (45488815)
+Searched term: Synovial fluid exam
+Gold standard concept rank: 1
+
+ match_rank Correct  matched_concept_id                                                                            matched_concept_name
+          1     Yes             4057464                                                                      Synovial fluid examination
+          2                     1340204                                                                                History of event
+          3                     4310943                                                                         Synovial fluid analysis
+          4                     4094577                                                                          Synovial fluid finding
+          5                     4043748                                                             Synovial fluid examination - normal
+          6                     4043430                                                           Synovial fluid examination - abnormal
+          7                     4056982                                                                       Synovial fluid appearance
+          8                     4267652                                                             Synovial fluid appearance - finding
+          9                     4246175                                                                                  Synovial fluid
+         10                     3002389                            Microscopic observation [Identifier] in Synovial fluid by Gram stain
+         11                    36304253                         Microscopic observation [Presence] in Synovial fluid by Acid fast stain
+         12                     3038886 Microscopic observation [Identifier] in Synovial fluid by Rhodamine-auramine fluorochrome stain
+         13                    40766164         Microscopic observation [Identifier] in Synovial fluid by Acid fast stain.Ziehl-Neelsen
+         14                    40758732                            Microscopic observation [Identifier] in Synovial fluid by Cyto stain
+         15                    36303831                          Microscopic observation [Identifier] in Synovial fluid by Giemsa stain
+         16                     3030856                                                 Unidentified cells [#/volume] in Synovial fluid
+         17                    21492677                                                  Synovial fluid analysis panel - Synovial fluid
+         18                    43531137                                                 Microscopic examination of joint fluid specimen
+         19                     3024263                                                                    Appearance of Synovial fluid
+         20                     4263865                                                                    Cell count of synovial fluid
+         21                     4269727                                                             Synovial fluid cell count - finding
+         22                    37117023                                                                       Knee joint synovial fluid
+         23                     4043754                                                                            Synovial fluid clear
+         24                     3021788                                                             Differential panel - Synovial fluid
+         25                     4094578                                                                      Synovial fluid composition
 
 Source term: Culture - bacteriology (45488830)
 Searched term: Culture - bacteriology
@@ -8423,35 +8421,35 @@ Gold standard concept rank: 2
          25                     4156143                                            Intentional aspirin poisoning
 
 Source term: Other varicella complications (45556926)
-Searched term: varicella complications
+Searched term: Varicella complications
 Gold standard concept rank: 1
 
  match_rank Correct  matched_concept_id                                                     matched_concept_name
           1     Yes              437791                                             Chickenpox with complication
           2                      434272                                                                Varicella
           3                      440019                                                Measles with complication
-          4                      444429                                                           Herpes simplex
-          5                     4273323                                                                  Rubella
+          4                     4273323                                                                  Rubella
+          5                      444429                                                           Herpes simplex
           6                     4110510                                                     Chickenpox pneumonia
           7                      380322                                               Postvaricella encephalitis
           8                      440323                                                 Herpes zoster meningitis
-          9                      443943                                                            Herpes zoster
-         10                      372828                                               Herpes zoster ophthalmicus
-         11                     4045976                                               Herpes zoster encephalitis
+          9                     4045976                                               Herpes zoster encephalitis
+         10                      256036                                          Hemorrhagic varicella pneumonia
+         11                      443943                                                            Herpes zoster
          12                     4345461                                                   Neurological varicella
-         13                     4253627                                             Herpes zoster conjunctivitis
-         14                     4345797                                                      Perinatal varicella
-         15                      256036                                          Hemorrhagic varicella pneumonia
-         16                      436336                           Herpes zoster with nervous system complication
-         17                     4206579                                         Varicella-zoster virus infection
+         13                     4345797                                                      Perinatal varicella
+         14                      372828                                               Herpes zoster ophthalmicus
+         15                     4253627                                             Herpes zoster conjunctivitis
+         16                      606063                                         Disseminated perinatal varicella
+         17                      762845                                             Maternal varicella infection
          18                     4173980                                            Congenital varicella syndrome
-         19                      606063                                         Disseminated perinatal varicella
-         20                      762845                                             Maternal varicella infection
-         21                     4154711                                                     Varicella non-immune
-         22                     3037341 Varicella zoster virus DNA [Presence] in Eye by NAA with probe detection
-         23                      762534                                 Maternal varicella infection - untreated
-         24                     4100039                         Varicella-zoster immunoglobulin adverse reaction
-         25                     3183469                                      History of Varicella encephalopathy
+         19                     4206579                                         Varicella-zoster virus infection
+         20                      436336                           Herpes zoster with nervous system complication
+         21                      762534                                 Maternal varicella infection - untreated
+         22                     3655840          Perinatal mucocutaneous infection caused by Human herpesvirus 3
+         23                     3037341 Varicella zoster virus DNA [Presence] in Eye by NAA with probe detection
+         24                    40479428                                                    Exposure to varicella
+         25                     4154711                                                     Varicella non-immune
 
 Source term: Waldenstr�m macroglobulinaemia (45557037)
 Searched term: Waldenstr�m macroglobulinaemia
@@ -8888,35 +8886,35 @@ Gold standard concept rank: 1
          25                     4116786                                        Pleura finding
 
 Source term: Pathological fracture in neoplastic disease, right radius, subsequent encounter for fracture with delayed healing (45567717)
-Searched term: Pathological fracture in neoplastic disease, right radius with delayed healing
-Gold standard concept rank: 10
+Searched term: Pathological fracture in neoplastic disease, right radius, with delayed healing
+Gold standard concept rank: 14
 
- match_rank Correct  matched_concept_id                                                    matched_concept_name
-          1                    45766969                       Pathologic fracture of radius at site of neoplasm
-          2                    40305987                                               Delayed union of fracture
-          3                      438021                    Disorder due to and following fracture of upper limb
-          4                     4067766                         Pathologic fracture of bone at site of neoplasm
-          5                    45766966                         Pathologic fracture of ulna at site of neoplasm
-          6                    45766970                      Pathologic fracture of humerus at site of neoplasm
-          7                    45766905                                         Pathological fracture of radius
-          8                    37209173          Pathological fracture of left radius due to neoplastic disease
-          9                    45766971                 Pathologic fracture of bone of hand at site of neoplasm
-         10     Yes              760661                   Pathological fracture of right radius due to neoplasm
-         11                       73574                                                    Nonunion of fracture
-         12                       75634                                                       Fracture malunion
-         13                    45766974                        Pathologic fracture of femur at site of neoplasm
-         14                    45766967                        Pathologic fracture of tibia at site of neoplasm
-         15                    37209172           Pathological fracture of right ulna due to neoplastic disease
-         16                      440511                                         Pathological fracture - forearm
-         17                      760664                                   Pathological fracture of right radius
-         18                    45766973                       Pathologic fracture of fibula at site of neoplasm
-         19                      760665                                    Pathological fracture of left radius
-         20                    37209171   Pathological fracture of bone of right hand due to neoplastic disease
-         21                      760653            Pathological fracture of left hand due to neoplastic disease
-         22                      760638          Pathological fracture of right femur due to neoplastic disease
-         23                      760693 Pathological fracture of proximal right femur due to neoplastic disease
-         24                      765182                  Pathological fracture of right humerus due to neoplasm
-         25                    37209163       Pathological fracture of right clavicle due to neoplastic disease
+ match_rank Correct  matched_concept_id                                                  matched_concept_name
+          1                    40305987                                             Delayed union of fracture
+          2                    45766969                     Pathologic fracture of radius at site of neoplasm
+          3                      438021                  Disorder due to and following fracture of upper limb
+          4                     4067766                       Pathologic fracture of bone at site of neoplasm
+          5                    45766966                       Pathologic fracture of ulna at site of neoplasm
+          6                    45766970                    Pathologic fracture of humerus at site of neoplasm
+          7                       73574                                                  Nonunion of fracture
+          8                    45766971               Pathologic fracture of bone of hand at site of neoplasm
+          9                       75634                                                     Fracture malunion
+         10                    45766905                                       Pathological fracture of radius
+         11                    45766967                      Pathologic fracture of tibia at site of neoplasm
+         12                    45766974                      Pathologic fracture of femur at site of neoplasm
+         13                    37209173        Pathological fracture of left radius due to neoplastic disease
+         14     Yes              760661                 Pathological fracture of right radius due to neoplasm
+         15                    45766973                     Pathologic fracture of fibula at site of neoplasm
+         16                    37209172         Pathological fracture of right ulna due to neoplastic disease
+         17                    45766972               Pathologic fracture of bone of foot at site of neoplasm
+         18                    35626772                                     Delayed union of fracture of foot
+         19                    45766976                      Pathologic fracture of ankle at site of neoplasm
+         20                      436206                                     Pathological fracture - upper arm
+         21                    45766902                                         Pathological fracture of ulna
+         22                    37209171 Pathological fracture of bone of right hand due to neoplastic disease
+         23                      760664                                 Pathological fracture of right radius
+         24                      760638        Pathological fracture of right femur due to neoplastic disease
+         25                      760653          Pathological fracture of left hand due to neoplastic disease
 
 Source term: Abscess of breast associated with pregnancy, unspecified trimester (45568000)
 Searched term: Abscess of breast associated with pregnancy
@@ -9197,6 +9195,37 @@ Gold standard concept rank: 1
          24                     4185404                              Early menarche
          25                     4135533                          Menopausal profile
 
+Source term: Acquired clubhand, unspecified hand (45582087)
+Searched term: Acquired clubhand, hand
+Gold standard concept rank: 1
+
+ match_rank Correct  matched_concept_id                   matched_concept_name
+          1     Yes              440198                      Acquired clubhand
+          2                      762232                Acquired right clubhand
+          3                      762231                 Acquired left clubhand
+          4                      133857             Acquired deformity of limb
+          5                      140823     Acquired musculoskeletal deformity
+          6                       74456                     Acquired claw hand
+          7                     4279461             Acquired deformity of hand
+          8                     4042914                            Talipomanus
+          9                      762230               Acquired right claw hand
+         10                    36676832       Acquired deformity of right hand
+         11                    36676833        Acquired deformity of left hand
+         12                     4071029                            Manus valga
+         13                      437361        Acquired equinovarus - clubfoot
+         14                    42537748              Acquired absence of organ
+         15                     4092563                        Absence of hand
+         16                    37170175          Bilateral acquired claw hands
+         17                     4345593            Acquired skeletal deformity
+         18                     4169917                             Manus vara
+         19                    36687063  Bilateral acquired deformity of hands
+         20                     4182793                         Amputated hand
+         21                     4347310 Acquired deformity of the wrist / hand
+         22                      765115   Acquired right equinovarus deformity
+         23                      134732             Acquired forearm deformity
+         24                      762229                Acquired left claw hand
+         25                      765114    Acquired left equinovarus deformity
+
 Source term: Subluxation complex (vertebral) of abdomen and other regions (45582380)
 Searched term: Subluxation complex (vertebral) of abdomen
 Gold standard concept rank: 1
@@ -9291,35 +9320,35 @@ Gold standard concept rank: 1
          25                     4102696                                Congenital posterior polar cataract
 
 Source term: (Induced) termination of pregnancy with other complications (45587269)
-Searched term: Induced termination of pregnancy with other complications
-Gold standard concept rank: 2
+Searched term: Induced termination of pregnancy with complications
+Gold standard concept rank: 1
 
- match_rank Correct  matched_concept_id                                                                   matched_concept_name
-          1                      442019                                                              Complication of procedure
-          2     Yes            37162983                                    Disorder following induced termination of pregnancy
-          3                    45768717                                            Incomplete induced termination of pregnancy
-          4                    37163817                            Complete induced termination of pregnancy with complication
-          5                    43530946                                          Termination of pregnancy without complication
-          6                    37206226             Excessive hemorrhage due to and following induced termination of pregnancy
-          7                    43531710                               Induced termination of pregnancy complicated by embolism
-          8                    43531711                                  Induced termination of pregnancy complicated by shock
-          9                    43530964                     Induced termination of pregnancy complicated by infectious disease
-         10                     4240605                                                               Termination of pregnancy
-         11                    37018340                                                       Induced termination of pregnancy
-         12                    43530948                        Induced termination of pregnancy complicated by pelvic disorder
-         13                    37206227             Secondary hemorrhage due to and following induced termination of pregnancy
-         14                    43530934                     Induced termination of pregnancy complicated by pulmonary embolism
-         15                    37162984                                      Sepsis following induced termination of pregnancy
-         16                    43530917                    Induced termination of pregnancy complicated by blood-clot embolism
-         17                    43531716                    Induced termination of pregnancy complicated by postoperative shock
-         18                    43530961                        Induced termination of pregnancy complicated by cardiac failure
-         19                    43530940                        Induced termination of pregnancy complicated by septic embolism
-         20                    43530936                            Induced termination of pregnancy complicated by salpingitis
-         21                    43530960                         Induced termination of pregnancy complicated by cardiac arrest
-         22                    43530931                  Induced termination of pregnancy complicated by perforation of cervix
-         23                    43530916                           Induced termination of pregnancy complicated by air embolism
-         24                    43530908 Induced termination of pregnancy complicated by damage to pelvic organs and/or tissues
-         25                    43531714                   Induced termination of pregnancy complicated by laceration of cervix
+ match_rank Correct  matched_concept_id                                                       matched_concept_name
+          1     Yes            37162983                        Disorder following induced termination of pregnancy
+          2                      442019                                                  Complication of procedure
+          3                    37163817                Complete induced termination of pregnancy with complication
+          4                    45768717                                Incomplete induced termination of pregnancy
+          5                    43530946                              Termination of pregnancy without complication
+          6                    37206226 Excessive hemorrhage due to and following induced termination of pregnancy
+          7                     4240605                                                   Termination of pregnancy
+          8                    37018340                                           Induced termination of pregnancy
+          9                    43531710                   Induced termination of pregnancy complicated by embolism
+         10                    43531711                      Induced termination of pregnancy complicated by shock
+         11                    37206227 Secondary hemorrhage due to and following induced termination of pregnancy
+         12                    43530934         Induced termination of pregnancy complicated by pulmonary embolism
+         13                    37162984                          Sepsis following induced termination of pregnancy
+         14                    43530964         Induced termination of pregnancy complicated by infectious disease
+         15                    43530948            Induced termination of pregnancy complicated by pelvic disorder
+         16                    43530961            Induced termination of pregnancy complicated by cardiac failure
+         17                    43530917        Induced termination of pregnancy complicated by blood-clot embolism
+         18                    43531716        Induced termination of pregnancy complicated by postoperative shock
+         19                    43530960             Induced termination of pregnancy complicated by cardiac arrest
+         20                    43530940            Induced termination of pregnancy complicated by septic embolism
+         21                    43530931      Induced termination of pregnancy complicated by perforation of cervix
+         22                    43530967              Induced termination of pregnancy complicated by uterus damage
+         23                    43530936                Induced termination of pregnancy complicated by salpingitis
+         24                    43530932      Induced termination of pregnancy complicated by perforation of uterus
+         25                    43530916               Induced termination of pregnancy complicated by air embolism
 
 Source term: Developmental ovarian cyst (45587461)
 Searched term: Developmental ovarian cyst
@@ -10066,66 +10095,66 @@ Gold standard concept rank: 1
          25                      443360                   Mass of eye structure
 
 Source term: Arthritis due to other bacteria, unspecified joint (45606032)
-Searched term: Arthritis due to other bacteria, joint
-Gold standard concept rank: 2
+Searched term: Arthritis due to bacteria, joint
+Gold standard concept rank: 1
 
  match_rank Correct  matched_concept_id                                      matched_concept_name
-          1                     4094283                                Lower limb joint arthritis
-          2     Yes             4167984                                       Bacterial arthritis
+          1     Yes             4167984                                       Bacterial arthritis
+          2                     4094283                                Lower limb joint arthritis
           3                     4177365                      Infective arthritis of joint of hand
           4                     4197765                                Bacterial arthritis of hip
           5                     4153359                                        Arthritis of spine
-          6                    37117135                         Infective arthritis of right knee
-          7                    40483847                              Infective arthritis of wrist
+          6                    40483847                              Infective arthritis of wrist
+          7                     4262590                                       Infective arthritis
           8                     4180873                    Infective arthritis of shoulder region
-          9                    37108588                 Arthritis of left knee caused by bacteria
-         10                     4196020                              Bacterial arthritis of elbow
-         11                    40481620                  Infective arthritis of ankle and/or foot
-         12                     4159739                                         Arthritis of knee
-         13                     4262590                                       Infective arthritis
-         14                    37209325     Arthritis of bilateral knee joints caused by bacteria
+          9                     4196020                              Bacterial arthritis of elbow
+         10                    37117135                         Infective arthritis of right knee
+         11                    37108588                 Arthritis of left knee caused by bacteria
+         12                    37209325     Arthritis of bilateral knee joints caused by bacteria
+         13                    40481620                  Infective arthritis of ankle and/or foot
+         14                     1245539 Arthritis of joint of bilateral ankles caused by bacteria
          15                    37108587                Arthritis of right knee caused by bacteria
-         16                    42534954                Infective polyarthritis caused by bacteria
-         17                    42539287                Arthritis of right hand caused by bacteria
-         18                     1245539 Arthritis of joint of bilateral ankles caused by bacteria
-         19                       76777                     Arthropathy associated with infection
-         20                    42534824                 Arthritis of left hand caused by bacteria
-         21                    36685015                Arthritis of right foot caused by bacteria
-         22                       76498             Arthropathy associated with bacterial disease
-         23                    36685016                 Arthritis of left foot caused by bacteria
-         24                     4188412                  Suppurative arthritis caused by bacteria
-         25                    42534821                Arthritis of left elbow caused by bacteria
+         16                    42539287                Arthritis of right hand caused by bacteria
+         17                       76777                     Arthropathy associated with infection
+         18                    42534824                 Arthritis of left hand caused by bacteria
+         19                    36685015                Arthritis of right foot caused by bacteria
+         20                    36685016                 Arthritis of left foot caused by bacteria
+         21                     4159739                                         Arthritis of knee
+         22                    42534821                Arthritis of left elbow caused by bacteria
+         23                     4188412                  Suppurative arthritis caused by bacteria
+         24                    42534822               Arthritis of right wrist caused by bacteria
+         25                      608808            Bilateral arthritis of feet caused by Bacteria
 
 Source term: Other instability, unspecified hip (45606197)
-Searched term: hip instability
+Searched term: instability, hip
 Gold standard concept rank: 1
 
  match_rank Correct  matched_concept_id                      matched_concept_name
           1     Yes             4172835                              Hip unstable
-          2                     4285734                      Instability of joint
-          3                       78517                       Multiple joint pain
-          4                     4152998       Congenital instability of hip joint
-          5                     4324953 Familial articular hypermobility syndrome
-          6                    36676846             Instability of left hip joint
-          7                    45765571               Global instability of ankle
-          8                    36687074       Bilateral instability of hip joints
-          9                    36676845            Instability of right hip joint
-         10                     4218552                         Ankle instability
-         11                     4094742                             Unstable knee
-         12                     4172708                           Joint stability
-         13                    40481062            Instability of joint of pelvis
-         14                     4107224                    Sacroiliac instability
-         15                     4177357            Instability of multiple joints
-         16                     4202835               Musculoskeletal instability
-         17                    40482440                 Instability of foot joint
-         18                     4331737                     Unsteady when walking
-         19                     4345332                        Spinal instability
-         20                     4035609              Chronic instability of joint
-         21                     4094740                       Hip joint stability
-         22                     4344510            Instability of symphysis pubis
-         23                    36687183         Instability of joint of left foot
-         24                    37108633        Instability of joint of left ankle
-         25                    36687182        Instability of joint of right foot
+          2                     4152998       Congenital instability of hip joint
+          3                     4285734                      Instability of joint
+          4                    36676845            Instability of right hip joint
+          5                    36676846             Instability of left hip joint
+          6                    36687074       Bilateral instability of hip joints
+          7                     4094742                             Unstable knee
+          8                    37165436 Instability of prosthesis of joint of hip
+          9                     4198492                   Shoulder joint unstable
+         10                    40481062            Instability of joint of pelvis
+         11                    37165121 Instability of prosthetic right hip joint
+         12                    37165118  Instability of prosthetic left hip joint
+         13                     4185800                      Elbow joint unstable
+         14                     4182522                      Wrist joint unstable
+         15                    40482662    Disorder of joint of ankle and/or foot
+         16                     4094740                       Hip joint stability
+         17                     4306084                  Dislocation of hip joint
+         18                    37110390                            Problem of hip
+         19                    45765571               Global instability of ankle
+         20                     4331737                     Unsteady when walking
+         21                     4177357            Instability of multiple joints
+         22                     4107224                    Sacroiliac instability
+         23                     4042501                           Disorder of hip
+         24                     4035609              Chronic instability of joint
+         25                    40482440                 Instability of foot joint
 
 Source term: Postpartum mood disturbance (45606661)
 Searched term: Postpartum mood disturbance

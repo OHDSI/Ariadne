@@ -1,0 +1,10 @@
+source_concept_id,source_concept_code,source_term,target_concept_id,target_concept_name,predicate,target_concept_id_b,target_concept_name_b,predicate_b
+8690,M76.9,"Unspecified enthesopathy, lower limb, excluding foot",4116324,Enthesopathy of lower leg and ankle region,exactMatch,4116324,Enthesopathy of lower leg and ankle region,broadMatch
+9724,M1A.129,"Lead-induced chronic gout, unspecified elbow",607432,Chronic gout caused by lead,broadMatch,NA,NA,NA
+9770,M1A.321,"Chronic gout due to renal impairment, right elbow",46270464,Gout of elbow due to renal impairment,broadMatch,NA,NA,NA
+9946,M84.472,"Pathological fracture, left ankle",760649,Pathological fracture of left ankle,exactMatch,NA,NA,NA
+10389,S02.91,Unspecified fracture of skull,4324690,Fracture of skull,exactMatch,NA,NA,NA
+10443,S05.30,"Ocular laceration without prolapse or loss of intraocular tissue, unspecified eye",372479,Laceration of eye,exactMatch,NA,NA,NA
+10446,S05.40,"Penetrating wound of orbit with or without foreign body, unspecified eye",4334734,Penetrating wound of orbit,exactMatch,NA,NA,NA
+12399,S42.90,"Fracture of unspecified shoulder girdle, part unspecified",37168846,Fracture of bone of shoulder girdle,exactMatch,NA,NA,NA
+20735,V90.29,Drowning and submersion due to falling or jumping from unspecified burning watercraft,4068331,Submersion and drowning due to falling from burning ship,broadMatch,4068331,Submersion and drowning due to falling from burning ship,exactMatch

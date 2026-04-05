@@ -1,0 +1,960 @@
+concept_id_1,concept_name_1,predicted_concept_id_2,predicted_concept_name_2,attribute_type,predicted_concept_code_2
+4277749,"Gestation period, 17 weeks",37160318,Maternal pregnancy period,Has occurrence,1156670009
+1450702,Plasmacytoma in remission,37156887,Plasmacytoma,Has asso morph,1187107005
+1450702,Plasmacytoma in remission,4113273,Remitting,Has clinical course,255319006
+193782,End-stage renal disease,4271678,Kidney structure,Has finding site,64033007
+193782,End-stage renal disease,4236661,Chronic,Has clinical course,90734009
+193782,End-stage renal disease,40282772,Renal function,Has interprets,11953005
+193782,End-stage renal disease,4125554,Impaired,Has interpretation,260379002
+4113790,"Cellulitis of leg, excluding foot",4299470,Cellulitis,Has asso morph,385627004
+4113790,"Cellulitis of leg, excluding foot",4107527,Lower leg structure,Has finding site,30021000
+443611,Chronic kidney disease stage 5,4271678,Kidney structure,Has finding site,64033007
+443611,Chronic kidney disease stage 5,4236661,Chronic,Has clinical course,90734009
+443611,Chronic kidney disease stage 5,40282772,Renal function,Has interprets,11953005
+443611,Chronic kidney disease stage 5,4125554,Impaired,Has interpretation,260379002
+43531641,Permanent neonatal diabetes mellitus,4301372,Endocrine pancreatic structure,Has finding site,78696007
+43531641,Permanent neonatal diabetes mellitus,4236661,Chronic,Has clinical course,90734009
+43531641,Permanent neonatal diabetes mellitus,4114528,Neonatal,Has occurrence,255407002
+762000,Benign hypertensive heart disease and chronic renal disease stage 2,4217142,Heart structure,Has finding site,80891009
+762000,Benign hypertensive heart disease and chronic renal disease stage 2,4271678,Kidney structure,Has finding site,64033007
+762000,Benign hypertensive heart disease and chronic renal disease stage 2,4236661,Chronic,Has clinical course,90734009
+762000,Benign hypertensive heart disease and chronic renal disease stage 2,40282772,Renal function,Has interprets,11953005
+762000,Benign hypertensive heart disease and chronic renal disease stage 2,4125554,Impaired,Has interpretation,260379002
+375736,"Trachoma, active stage",4053015,Inflammation,Has asso morph,23583003
+375736,"Trachoma, active stage",4253008,Inflammatory morphology,Has asso morph,409774005
+375736,"Trachoma, active stage",4105319,Conjunctival structure,Has finding site,29445007
+375736,"Trachoma, active stage",4274488,Chlamydia trachomatis,Has causative agent,63938009
+375736,"Trachoma, active stage",40480911,Infectious process,Has pathology,441862004
+22274,Neoplasm of uncertain behavior of larynx,4313421,Neoplasm of uncertain behavior,Has asso morph,86251006
+22274,Neoplasm of uncertain behavior of larynx,4262229,Laryngeal structure,Has finding site,4596009
+9724,"Lead-induced chronic gout, elbow",4053015,Inflammation,Has asso morph,23583003
+9724,"Lead-induced chronic gout, elbow",4253008,Inflammatory morphology,Has asso morph,409774005
+9724,"Lead-induced chronic gout, elbow",4061414,Elbow joint structure,Has finding site,16953009
+9724,"Lead-induced chronic gout, elbow",4229133,Lead,Has causative agent,88488004
+9724,"Lead-induced chronic gout, elbow",4236661,Chronic,Has clinical course,90734009
+9724,"Lead-induced chronic gout, elbow",4156643,Blood urate measurement,Has interprets,270984004
+9724,"Lead-induced chronic gout, elbow",4084765,Above reference range,Has interpretation,281302008
+22340,Esophageal varices without bleeding,4029830,Varix,Has asso morph,12856003
+22340,Esophageal varices without bleeding,4237655,Structure of esophageal vein,Has finding site,90895003
+46270436,Sinus node dysfunction,4339406,Structure of sinoatrial node,Has finding site,88210001
+22350,Edema of larynx,4196943,Edema,Has asso morph,79654002
+22350,Edema of larynx,4262229,Laryngeal structure,Has finding site,4596009
+46270436,Chronic tophaceous gout of elbow caused by drug,4307013,Tophus,Has asso morph,3875003
+46270436,Chronic tophaceous gout of elbow caused by drug,4053015,Inflammation,Has asso morph,23583003
+46270436,Chronic tophaceous gout of elbow caused by drug,4061414,Elbow joint structure,Has finding site,16953009
+46270436,Chronic tophaceous gout of elbow caused by drug,4254051,Drug or medicament,Has causative agent,410942007
+46270436,Chronic tophaceous gout of elbow caused by drug,4236661,Chronic,Has clinical course,90734009
+46270436,Chronic tophaceous gout of elbow caused by drug,4156643,Blood urate measurement,Has interprets,270984004
+46270436,Chronic tophaceous gout of elbow caused by drug,4084765,Above reference range,Has interpretation,281302008
+22281,Sickle cell-hemoglobin SS disease,4177967,Drepanocyte,Has asso morph,49938009
+22281,Sickle cell-hemoglobin SS disease,4218976,Erythrocyte,Has finding site,41898006
+22281,Sickle cell-hemoglobin SS disease,40480067,Measurement of total hemoglobin concentration,Has interprets,441689006
+22281,Sickle cell-hemoglobin SS disease,4083207,Below reference range,Has interpretation,281300000
+22281,Sickle cell-hemoglobin SS disease,4116830,Congenital,Has occurrence,255399007
+22288,Hereditary elliptocytosis,4259404,Elliptocyte,Has asso morph,45028007
+22288,Hereditary elliptocytosis,4218976,Erythrocyte,Has finding site,41898006
+22288,Hereditary elliptocytosis,4013249,Red blood cell shape,Has interprets,165477002
+22288,Hereditary elliptocytosis,4135493,Abnormal,Has interpretation,263654008
+22288,Hereditary elliptocytosis,4116830,Congenital,Has occurrence,255399007
+22492,Foreign body in pharynx,4078373,Foreign body,Has asso morph,19227008
+22492,Foreign body in pharynx,4207370,Pharyngeal structure,Has finding site,54066008
+22426,Congenital macrostomia,40481759,Enlargement,Has asso morph,442021009
+22426,Congenital macrostomia,4047651,Mouth region structure,Has finding site,123851003
+22426,Congenital macrostomia,4116830,Congenital,Has occurrence,255399007
+22426,Congenital macrostomia,4204670,Pathological developmental process,Has pathology,308490002
+22557,Malignant tumor of submandibular gland,37153816,Malignant neoplasm,Has asso morph,1240414004
+22557,Malignant tumor of submandibular gland,4282379,Malignant Neoplasm (Morphology),Has asso morph,367651003
+22557,Malignant tumor of submandibular gland,4299196,Submandibular salivary gland structure,Has finding site,385296007
+22722,Accessory salivary gland,4238909,Supernumerary structure,Has asso morph,91431006
+22722,Accessory salivary gland,4294042,Salivary gland structure,Has finding site,385294005
+22722,Accessory salivary gland,4116830,Congenital,Has occurrence,255399007
+22722,Accessory salivary gland,4204670,Pathological developmental process,Has pathology,308490002
+22820,Tuberculosis of esophagus,4269928,Granulomatous inflammation,Has asso morph,6266001
+22820,Tuberculosis of esophagus,4140098,Esophageal structure,Has finding site,32849002
+22820,Tuberculosis of esophagus,4035081,Mycobacterium tuberculosis complex,Has causative agent,113858008
+22820,Tuberculosis of esophagus,40480911,Infectious process,Has pathology,441862004
+24970,Chronic laryngitis,4236661,Chronic,Has clinical course,90734009
+22856,Polyglandular dysfunction,4298971,Structure of multiple endocrine glands,Has finding site,77637002
+22871,Neoplasm of uncertain behavior of pineal gland,4313421,Neoplasm of uncertain behavior,Has asso morph,86251006
+22871,Neoplasm of uncertain behavior of pineal gland,4164136,Pineal structure,Has finding site,45793000
+22839,Overlapping malignant neoplasm of larynx,37153816,Malignant neoplasm,Has asso morph,1240414004
+22839,Overlapping malignant neoplasm of larynx,4312326,"Neoplasm, malignant (primary)",Has asso morph,86049000
+22839,Overlapping malignant neoplasm of larynx,4262229,Laryngeal structure,Has finding site,4596009
+22945,Horizontal overbite,4149424,Overriding structures (morphologic abnormality),Has asso morph,30812002
+22945,Horizontal overbite,4064671,Developmental abnormality (morphologic abnormality),Has asso morph,21390004
+22945,Horizontal overbite,45772952,Malocclusion (morphologic abnormality),Has asso morph,707598004
+22945,Horizontal overbite,4075101,Dentition (body structure),Has finding site,245543004
+22955,Perforation of esophagus,4263947,Perforation,Has asso morph,36191001
+22955,Perforation of esophagus,4140098,Esophageal structure,Has finding site,32849002
+23164,Disorder of anterior pituitary,4270353,Adenohypophysis structure,Has finding site,62818001
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,4239211,Perforated ulcer,Has asso morph,91182001
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,4243483,Chronic bleeding ulcer,Has asso morph,37904008
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,37304196,Structure of lumen of upper gastrointestinal tract,Has finding site,787915005
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,4271189,Upper gastrointestinal tract structure,Has finding site,62834003
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,4236661,Chronic,Has clinical course,90734009
+23034,Neonatal hypoglycemia,4034504,Structure of endocrine system,Has finding site,113331007
+23034,Neonatal hypoglycemia,4202143,Blood glucose concentration,Has interprets,434912009
+23034,Neonatal hypoglycemia,4083207,Below reference range,Has interpretation,281300000
+23034,Neonatal hypoglycemia,4114528,Neonatal,Has occurrence,255407002
+23137,Chlamydial pharyngitis,4053015,Inflammation,Has asso morph,23583003
+23137,Chlamydial pharyngitis,4253008,Inflammatory morphology,Has asso morph,409774005
+23137,Chlamydial pharyngitis,4207370,Pharyngeal structure,Has finding site,54066008
+23137,Chlamydial pharyngitis,4037323,Chlamydia,Has causative agent,16241000
+23137,Chlamydial pharyngitis,40480911,Infectious process,Has pathology,441862004
+23220,Chronic tonsillitis,4253009,Chronic inflammatory morphology,Has asso morph,409777003
+23220,Chronic tonsillitis,4327174,Palatine tonsillar structure,Has finding site,75573002
+23220,Chronic tonsillitis,4236661,Chronic,Has clinical course,90734009
+22666,Vomiting after gastrointestinal tract surgery,4046957,Gastrointestinal tract structure,Has finding site,122865005
+23247,Chronic peptic ulcer with perforation but without obstruction,4233476,Chronic ulcer,Has asso morph,405719001
+23247,Chronic peptic ulcer with perforation but without obstruction,4239211,Perforated ulcer,Has asso morph,91182001
+23247,Chronic peptic ulcer with perforation but without obstruction,37304196,Structure of lumen of upper gastrointestinal tract,Has finding site,787915005
+23247,Chronic peptic ulcer with perforation but without obstruction,4271189,Upper gastrointestinal tract structure,Has finding site,62834003
+23247,Chronic peptic ulcer with perforation but without obstruction,4236661,Chronic,Has clinical course,90734009
+23237,Acute peptic ulcer with hemorrhage AND obstruction,4096339,Acute ulcer,Has asso morph,26317001
+23237,Acute peptic ulcer with hemorrhage AND obstruction,4208270,Bleeding ulcer,Has asso morph,55075001
+23237,Acute peptic ulcer with hemorrhage AND obstruction,4179955,Hemorrhage,Has asso morph,50960005
+23237,Acute peptic ulcer with hemorrhage AND obstruction,4093906,Obstruction,Has asso morph,26036001
+23237,Acute peptic ulcer with hemorrhage AND obstruction,37304196,Structure of lumen of upper gastrointestinal tract,Has finding site,787915005
+23237,Acute peptic ulcer with hemorrhage AND obstruction,4271189,Upper gastrointestinal tract structure,Has finding site,62834003
+23237,Acute peptic ulcer with hemorrhage AND obstruction,4312510,Sudden onset AND/OR short duration,Has clinical course,424124008
+23325,Heartburn,4140098,Esophageal structure,Has finding site,32849002
+23245,Esophageal bleeding,4179955,Hemorrhage,Has asso morph,50960005
+23245,Esophageal bleeding,4140098,Esophageal structure,Has finding site,32849002
+23304,Neck webbing,4295289,Congenital webbing,Has asso morph,76640006
+23304,Neck webbing,4182739,Skin structure of neck,Has finding site,43081002
+23653,Foreign body in esophagus,4078373,Foreign body,Has asso morph,19227008
+23653,Foreign body in esophagus,4140098,Esophageal structure,Has finding site,32849002
+23567,Branchial cleft cyst,37206155,Branchial cyst,Has asso morph,785762005
+23567,Branchial cleft cyst,4300167,Structure of head and/or neck,Has finding site,774007
+23567,Branchial cleft cyst,4116830,Congenital,Has occurrence,255399007
+23567,Branchial cleft cyst,4204670,Pathological developmental process,Has pathology,308490002
+23731,Benign neoplasm of larynx,4305589,"Neoplasm, benign",Has asso morph,3898006
+23731,Benign neoplasm of larynx,4262229,Laryngeal structure,Has finding site,4596009
+23799,Pharynx or nasopharynx edema,4196943,Edema (morphologic abnormality),Has asso morph,79654002
+23799,Pharynx or nasopharynx edema,4207370,Pharyngeal structure,Has finding site,54066008
+23799,Pharynx or nasopharynx edema,4216712,Nasopharyngeal structure,Has finding site,71836000
+23806,Atrophy of salivary gland,4028206,Atrophy,Has asso morph,13331008
+23806,Atrophy of salivary gland,4294042,Salivary gland structure,Has finding site,385294005
+23865,Congenital anomaly of pharynx,4175951,Morphologically abnormal structure,Has asso morph,49755003
+23865,Congenital anomaly of pharynx,4207370,Pharyngeal structure,Has finding site,54066008
+23865,Congenital anomaly of pharynx,4116830,Congenital,Has occurrence,255399007
+23865,Congenital anomaly of pharynx,4204670,Pathological developmental process,Has pathology,308490002
+23986,Disorder of pituitary gland,4209428,Pituitary structure,Has finding site,56329008
+23868,Congenital anomaly of esophagus,4175951,Morphologically abnormal structure,Has asso morph,49755003
+23868,Congenital anomaly of esophagus,4140098,Esophageal structure,Has finding site,32849002
+23868,Congenital anomaly of esophagus,4116830,Congenital,Has occurrence,255399007
+24974,Stenosis of larynx,4217691,Stenosis,Has asso morph,415582006
+23868,Congenital anomaly of esophagus,4204670,Pathological developmental process,Has pathology,308490002
+23798,Acute laryngopharyngitis,4163835,Acute inflammation,Has asso morph,4532008
+23798,Acute laryngopharyngitis,4262229,Laryngeal structure,Has finding site,4596009
+23798,Acute laryngopharyngitis,4207370,Pharyngeal structure,Has finding site,54066008
+23798,Acute laryngopharyngitis,4312510,Sudden onset AND/OR short duration,Has clinical course,424124008
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",4233476,Chronic ulcer,Has asso morph,405719001
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",37304196,Structure of lumen of upper gastrointestinal tract,Has finding site,787915005
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",4271189,Upper gastrointestinal tract structure,Has finding site,62834003
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",4236661,Chronic,Has clinical course,90734009
+24134,Neck pain,4260843,Neck structure,Has finding site,45048000
+23988,Hemolytic anemia due to glutathione metabolism disorder,4218976,Erythrocyte,Has finding site,41898006
+24198,Contusion of esophagus,4203279,Contusion - lesion,Has asso morph,308492005
+24198,Contusion of esophagus,4140098,Esophageal structure,Has finding site,32849002
+24148,Congenital diverticulum of pharynx,4218881,Congenital diverticulum,Has asso morph,82037003
+24148,Congenital diverticulum of pharynx,4207370,Pharyngeal structure,Has finding site,54066008
+24148,Congenital diverticulum of pharynx,4116830,Congenital,Has occurrence,255399007
+24148,Congenital diverticulum of pharynx,4204670,Pathological developmental process,Has pathology,308490002
+24230,Foreign body in larynx,4078373,Foreign body,Has asso morph,19227008
+24230,Foreign body in larynx,4262229,Laryngeal structure,Has finding site,4596009
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,4233476,Chronic ulcer,Has asso morph,405719001
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,4208270,Bleeding ulcer,Has asso morph,55075001
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,4179955,Hemorrhage,Has asso morph,50960005
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,4093906,Obstruction,Has asso morph,26036001
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,37304196,Structure of lumen of upper gastrointestinal tract,Has finding site,787915005
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,4271189,Upper gastrointestinal tract structure,Has finding site,62834003
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,4236661,Chronic,Has clinical course,90734009
+24296,Primary malignant neoplasm of pituitary gland,4312326,"Neoplasm, malignant (primary)",Has asso morph,86049000
+24296,Primary malignant neoplasm of pituitary gland,37153816,Malignant neoplasm,Has asso morph,1240414004
+24296,Primary malignant neoplasm of pituitary gland,4209428,Pituitary structure,Has finding site,56329008
+24296,Primary malignant neoplasm of pituitary gland,37157802,Primary malignant neoplastic proliferation,Has pathology,1234914003
+24006,Sickle cell-hemoglobin C disease,4177967,Drepanocyte,Has asso morph,49938009
+24006,Sickle cell-hemoglobin C disease,4218976,Erythrocyte,Has finding site,41898006
+24006,Sickle cell-hemoglobin C disease,40480067,Measurement of total hemoglobin concentration,Has interprets,441689006
+24006,Sickle cell-hemoglobin C disease,4083207,Below reference range,Has interpretation,281300000
+24006,Sickle cell-hemoglobin C disease,4116830,Congenital,Has occurrence,255399007
+24602,Benign neoplasm of esophagus,4305589,"Neoplasm, benign",Has asso morph,3898006
+24602,Benign neoplasm of esophagus,4140098,Esophageal structure,Has finding site,32849002
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",4233476,Chronic ulcer,Has asso morph,405719001
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",4179955,Hemorrhage,Has asso morph,50960005
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",4239211,Perforated ulcer,Has asso morph,91182001
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",4093906,Obstruction,Has asso morph,26036001
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",4271189,Upper gastrointestinal tract structure,Has finding site,62834003
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",4236661,Chronic,Has clinical course,90734009
+24609,Hypoglycemia,4034504,Structure of endocrine system,Has finding site,113331007
+24609,Hypoglycemia,4202143,Blood glucose concentration,Has interprets,434912009
+24609,Hypoglycemia,4083207,Below reference range,Has interpretation,281300000
+24612,"Multiple endocrine neoplasia, type 2",4030314,Neoplasm,Has asso morph,108369006
+24612,"Multiple endocrine neoplasia, type 2",4298971,Structure of multiple endocrine glands,Has finding site,77637002
+24660,Acute tonsillitis,4163835,Acute inflammation,Has asso morph,4532008
+24660,Acute tonsillitis,4327174,Palatine tonsillar structure,Has finding site,75573002
+24660,Acute tonsillitis,4312510,Sudden onset AND/OR short duration,Has clinical course,424124008
+24884,Benign neoplasm of carotid body,37156893,Benign neuroendocrine neoplasm,Has asso morph,1187127006
+24884,Benign neoplasm of carotid body,4197418,Carotid body structure,Has finding site,51345006
+24818,Injury of neck,4078068,Traumatic abnormality,Has asso morph,19130008
+24818,Injury of neck,4260843,Neck structure,Has finding site,45048000
+24966,Esophageal varices,4029830,Varix,Has asso morph,12856003
+24966,Esophageal varices,4237655,Structure of esophageal vein,Has finding site,90895003
+24897,Carcinoma in situ of larynx,37156895,Carcinoma in situ,Has asso morph,1187138006
+24897,Carcinoma in situ of larynx,4266173,Carcinoma in situ - category,Has asso morph,399919001
+24897,Carcinoma in situ of larynx,4262229,Laryngeal structure,Has finding site,4596009
+24909,Hereditary spherocytosis,4123834,Spherocyte,Has asso morph,259682008
+24909,Hereditary spherocytosis,4218976,Erythrocyte,Has finding site,41898006
+24909,Hereditary spherocytosis,4116830,Congenital,Has occurrence,255399007
+24969,Laryngitis,4053015,Inflammation,Has asso morph,23583003
+24969,Laryngitis,4253008,Inflammatory morphology,Has asso morph,409774005
+24969,Laryngitis,4262229,Laryngeal structure,Has finding site,4596009
+24970,Chronic laryngitis,4053015,Inflammation,Has asso morph,23583003
+24970,Chronic laryngitis,4253008,Inflammatory morphology,Has asso morph,409774005
+24970,Chronic laryngitis,4253009,Chronic inflammatory morphology,Has asso morph,409777003
+24970,Chronic laryngitis,4262229,Laryngeal structure,Has finding site,4596009
+24974,Stenosis of larynx,4262229,Laryngeal structure,Has finding site,4596009
+24977,Mucocele of salivary gland,4055737,Mucous cyst,Has asso morph,19633006
+24977,Mucocele of salivary gland,4294042,Salivary gland structure,Has finding site,385294005
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,4233476,Chronic ulcer,Has asso morph,405719001
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,4093906,Obstruction,Has asso morph,26036001
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,37304196,Structure of lumen of upper gastrointestinal tract,Has finding site,787915005
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,4271189,Upper gastrointestinal tract structure,Has finding site,62834003
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,4236661,Chronic,Has clinical course,90734009
+24978,Chronic adenotonsillitis,4253009,Chronic inflammatory morphology,Has asso morph,409777003
+24978,Chronic adenotonsillitis,4123604,Tonsil and adenoid structure,Has finding site,303337002
+24978,Chronic adenotonsillitis,4236661,Chronic,Has clinical course,90734009
+25056,Congenital anomaly of neck,4175951,Morphologically abnormal structure,Has asso morph,49755003
+25056,Congenital anomaly of neck,4260843,Neck structure,Has finding site,45048000
+25056,Congenital anomaly of neck,4116830,Congenital,Has occurrence,255399007
+25056,Congenital anomaly of neck,4204670,Pathological developmental process,Has pathology,308490002
+25068,Branchial cleft sinus and fistula,37206157,Branchial sinus,Has asso morph,785764006
+25068,Branchial cleft sinus and fistula,37206156,Branchial fistula,Has asso morph,785763000
+25068,Branchial cleft sinus and fistula,4300167,Structure of head and/or neck,Has finding site,774007
+25068,Branchial cleft sinus and fistula,4116830,Congenital,Has occurrence,255399007
+25068,Branchial cleft sinus and fistula,4204670,Pathological developmental process,Has pathology,308490002
+25189,Malignant tumor of oral cavity,37153816,Malignant neoplasm,Has asso morph,1240414004
+25189,Malignant tumor of oral cavity,4282379,Malignant Neoplasm (Morphology),Has asso morph,367651003
+25189,Malignant tumor of oral cavity,4253672,Oral cavity structure,Has finding site,74262004
+25572,Disorder of salivary gland,4294042,Salivary gland structure,Has finding site,385294005
+25211,Iatrogenic pituitary disorder,4209428,Pituitary structure,Has finding site,56329008
+25297,Acute pharyngitis,4163835,Acute inflammation,Has asso morph,4532008
+25297,Acute pharyngitis,4207370,Pharyngeal structure,Has finding site,54066008
+25297,Acute pharyngitis,4312510,Sudden onset AND/OR short duration,Has clinical course,424124008
+25486,Primary malignant neoplasm of islets of Langerhans,4312326,"Neoplasm, malignant (primary)",Has asso morph,86049000
+25486,Primary malignant neoplasm of islets of Langerhans,4132730,Malignant epithelial neuroendocrine neoplasm,Has asso morph,127575007
+25486,Primary malignant neoplasm of islets of Langerhans,4301372,Endocrine pancreatic structure,Has finding site,78696007
+25486,Primary malignant neoplasm of islets of Langerhans,37157802,Primary malignant neoplastic proliferation,Has pathology,1234914003
+25518,Sickle cell trait,4218976,Erythrocyte,Has finding site,41898006
+25518,Sickle cell trait,4116830,Congenital,Has occurrence,255399007
+25582,Tracheoesophageal fistula,4043006,Fistula,Has asso morph,118622000
+25582,Tracheoesophageal fistula,4195956,Tracheal structure,Has finding site,44567001
+25582,Tracheoesophageal fistula,4140098,Esophageal structure,Has finding site,32849002
+25698,Complication of transplanted pancreas,36717084,Structure of transplanted pancreas,Has finding site,719423002
+25748,Overlapping malignant neoplasm of esophagus,4312326,"Neoplasm, malignant (primary)",Has asso morph,86049000
+25748,Overlapping malignant neoplasm of esophagus,37153816,Malignant neoplasm,Has asso morph,1240414004
+25748,Overlapping malignant neoplasm of esophagus,4140098,Esophageal structure,Has finding site,32849002
+25757,Primary malignant neoplasm of aortic body,4312326,"Neoplasm, malignant (primary)",Has asso morph,86049000
+25757,Primary malignant neoplasm of aortic body,37153816,Malignant neoplasm,Has asso morph,1240414004
+25757,Primary malignant neoplasm of aortic body,4327482,Aortic body,Has finding site,75061007
+25757,Primary malignant neoplasm of aortic body,37157802,Primary malignant neoplastic proliferation,Has pathology,1234914003
+25844,Ulcer of esophagus,4206914,Ulcer,Has asso morph,56208002
+25844,Ulcer of esophagus,4140098,Esophageal structure,Has finding site,32849002
+26060,Benign neoplasm of tonsil,4305589,"Neoplasm, benign",Has asso morph,3898006
+26060,Benign neoplasm of tonsil,4327174,Palatine tonsillar structure,Has finding site,75573002
+26052,Primary malignant neoplasm of larynx,4312326,"Neoplasm, malignant (primary)",Has asso morph,86049000
+26052,Primary malignant neoplasm of larynx,37153816,Malignant neoplasm,Has asso morph,1240414004
+26052,Primary malignant neoplasm of larynx,4262229,Laryngeal structure,Has finding site,4596009
+26052,Primary malignant neoplasm of larynx,37157802,Primary malignant neoplastic proliferation,Has pathology,1234914003
+25780,Pituitary dwarfism,4200975,Structure of distal part of pituitary,Has finding site,52618001
+25780,Pituitary dwarfism,4154781,Height / growth measure,Has interprets,271603002
+25780,Pituitary dwarfism,4083207,Below reference range,Has interpretation,281300000
+25780,Pituitary dwarfism,4204670,Pathological developmental process,Has pathology,308490002
+26286,Burn of neck,4168004,Burn injury,Has asso morph,48333001
+26286,Burn of neck,4182739,Skin structure of neck,Has finding site,43081002
+26213,Congenital salivary gland fistula,4220792,Congenital fistula,Has asso morph,40086006
+26213,Congenital salivary gland fistula,4043006,Fistula,Has asso morph,118622000
+26213,Congenital salivary gland fistula,4294042,Salivary gland structure,Has finding site,385294005
+26213,Congenital salivary gland fistula,4116830,Congenital,Has occurrence,255399007
+26213,Congenital salivary gland fistula,4204670,Pathological developmental process,Has pathology,308490002
+26141,Barrett's esophagus with esophagitis,4239525,Intestinal metaplasia,Has asso morph,69310004
+26141,Barrett's esophagus with esophagitis,4253008,Inflammatory morphology,Has asso morph,409774005
+26141,Barrett's esophagus with esophagitis,4140098,Esophageal structure,Has finding site,32849002
+26361,Primary malignant neoplasm of pineal gland,4312326,"Neoplasm, malignant (primary)",Has asso morph,86049000
+26361,Primary malignant neoplasm of pineal gland,37153816,Malignant neoplasm,Has asso morph,1240414004
+26361,Primary malignant neoplasm of pineal gland,4164136,Pineal structure,Has finding site,45793000
+26361,Primary malignant neoplasm of pineal gland,37157802,Primary malignant neoplastic proliferation,Has pathology,1234914003
+26069,Postablative testicular hypofunction,4122979,Testicular endocrine structure,Has finding site,304042006
+26069,Postablative testicular hypofunction,4049132,Endocrine function,Has interprets,123036008
+26069,Postablative testicular hypofunction,4053347,Decreased,Has interpretation,1250004
+26459,Acute esophagitis,4253008,Inflammatory morphology,Has asso morph,409774005
+26459,Acute esophagitis,4140098,Esophageal structure,Has finding site,32849002
+26459,Acute esophagitis,4191741,Acute onset,Has clinical course,373933003
+26441,Bleeding ulcer of esophagus,4208270,Bleeding ulcer,Has asso morph,55075001
+26441,Bleeding ulcer of esophagus,4179955,Hemorrhage,Has asso morph,50960005
+26441,Bleeding ulcer of esophagus,4140098,Esophageal structure,Has finding site,32849002
+26638,Primary malignant neoplasm of esophagus,4312326,"Neoplasm, malignant (primary)",Has asso morph,86049000
+26638,Primary malignant neoplasm of esophagus,37153816,Malignant neoplasm,Has asso morph,1240414004
+26638,Primary malignant neoplasm of esophagus,4140098,Esophageal structure,Has finding site,32849002
+26638,Primary malignant neoplasm of esophagus,37157802,Primary malignant neoplastic proliferation,Has pathology,1234914003
+26514,Laryngeal web,4295289,Congenital webbing,Has asso morph,76640006
+26514,Laryngeal web,4262229,Laryngeal structure,Has finding site,4596009
+26711,Chronic pharyngitis,4253009,Chronic inflammatory morphology,Has asso morph,409777003
+26711,Chronic pharyngitis,4207370,Pharyngeal structure,Has finding site,54066008
+26711,Chronic pharyngitis,4236661,Chronic,Has clinical course,90734009
+26378,Hyperpituitarism,4209428,Pituitary structure,Has finding site,56329008
+26378,Hyperpituitarism,4049132,Endocrine function,Has interprets,123036008
+26378,Hyperpituitarism,4146067,Increased,Has interpretation,35105006
+26718,Acute peptic ulcer with perforation AND obstruction,4096339,Acute ulcer,Has asso morph,26317001
+26718,Acute peptic ulcer with perforation AND obstruction,4239211,Perforated ulcer,Has asso morph,91182001
+26718,Acute peptic ulcer with perforation AND obstruction,4093906,Obstruction,Has asso morph,26036001
+26718,Acute peptic ulcer with perforation AND obstruction,4271189,Upper gastrointestinal tract structure,Has finding site,62834003
+26718,Acute peptic ulcer with perforation AND obstruction,4312510,Sudden onset AND/OR short duration,Has clinical course,424124008
+26662,Testicular hypofunction,4049132,Endocrine function,Has interprets,123036008
+26662,Testicular hypofunction,4053347,Decreased,Has interpretation,1250004
+26719,Chronic laryngotracheitis,4053015,Inflammation,Has asso morph,23583003
+26719,Chronic laryngotracheitis,4253009,Chronic inflammatory morphology,Has asso morph,409777003
+26719,Chronic laryngotracheitis,4262229,Laryngeal structure,Has finding site,4596009
+26719,Chronic laryngotracheitis,4195956,Tracheal structure,Has finding site,44567001
+26719,Chronic laryngotracheitis,4236661,Chronic,Has clinical course,90734009
+26727,Hematemesis,4179955,Hemorrhage,Has asso morph,50960005
+26727,Hematemesis,4271189,Upper gastrointestinal tract structure,Has finding site,62834003
+26847,"Splinter of neck, without major open wound",4143690,Splinter foreign body,Has asso morph,426912003
+26847,"Splinter of neck, without major open wound",4260843,Neck structure,Has finding site,45048000
+26935,Disorder of endocrine testis,4122979,Testicular endocrine structure,Has finding site,304042006
+26899,Tuberculous laryngitis,4269928,Granulomatous inflammation,Has asso morph,6266001
+26899,Tuberculous laryngitis,4262229,Laryngeal structure,Has finding site,4596009
+26899,Tuberculous laryngitis,4035081,Mycobacterium tuberculosis complex,Has causative agent,113858008
+26899,Tuberculous laryngitis,40480911,Infectious process,Has pathology,441862004
+26823,Oral phase dysphagia,4253672,Oral cavity structure,Has finding site,74262004
+26823,Oral phase dysphagia,4128522,Ability to swallow,Has interprets,288935001
+26823,Oral phase dysphagia,4153379,Difficulty,Has interpretation,371157007
+26942,Hemoglobin SS disease with crisis,4177967,Drepanocyte,Has asso morph,49938009
+26942,Hemoglobin SS disease with crisis,4218976,Erythrocyte,Has finding site,41898006
+26942,Hemoglobin SS disease with crisis,4178879,Hemoglobin S,Has causative agent,50095005
+26942,Hemoglobin SS disease with crisis,4116830,Congenital,Has occurrence,255399007
+26942,Hemoglobin SS disease with crisis,40480067,Measurement of total hemoglobin concentration,Has interprets,441689006
+26942,Hemoglobin SS disease with crisis,4083207,Below reference range,Has interpretation,281300000
+27438,Burn of esophagus,4168004,Burn injury,Has asso morph,48333001
+27438,Burn of esophagus,4140098,Esophageal structure,Has finding site,32849002
+27235,Primary malignant neoplasm of carotid body,4312326,"Neoplasm, malignant (primary)",Has asso morph,86049000
+27235,Primary malignant neoplasm of carotid body,37153816,Malignant neoplasm,Has asso morph,1240414004
+27235,Primary malignant neoplasm of carotid body,4197418,Carotid body structure,Has finding site,51345006
+27235,Primary malignant neoplasm of carotid body,37157802,Primary malignant neoplastic proliferation,Has pathology,1234914003
+27516,Neoplasm of uncertain behavior of paraganglia,4313421,Neoplasm of uncertain behavior,Has asso morph,86251006
+27516,Neoplasm of uncertain behavior of paraganglia,4144244,Paraganglia structure,Has finding site,33805007
+27526,Nezelof's syndrome,4116830,Congenital,Has occurrence,255399007
+27526,Nezelof's syndrome,35626089,Abnormal immune process,Has pathology,769247005
+26908,Vincent's angina,4053015,Inflammation,Has asso morph,23583003
+26908,Vincent's angina,4206914,Ulcer (morphologic abnormality),Has asso morph,56208002
+26908,Vincent's angina,4280654,Necrosis,Has asso morph,6574001
+26908,Vincent's angina,4327174,Palatine tonsillar structure,Has finding site,75573002
+26908,Vincent's angina,4171014,Treponema vincentii,Has causative agent,47474000
+26908,Vincent's angina,4139265,Fusobacterium nucleatum,Has causative agent,32763000
+26908,Vincent's angina,4312510,Sudden onset AND/OR short duration,Has clinical course,424124008
+26908,Vincent's angina,40480911,Infectious process,Has pathology,441862004
+27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,4164431,Acute bleeding ulcer,Has asso morph,45771005
+27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,4239211,Perforated ulcer,Has asso morph,91182001
+27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,4179955,Hemorrhage,Has asso morph,50960005
+28396,Hereditary hemolytic anemia,4116830,Congenital,Has occurrence,255399007
+27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,37304196,Structure of lumen of upper gastrointestinal tract,Has finding site,787915005
+27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,4271189,Upper gastrointestinal tract structure,Has finding site,62834003
+27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,4312510,Sudden onset AND/OR short duration,Has clinical course,424124008
+27835,Neoplasm of uncertain behavior of pituitary gland,4313421,Neoplasm of uncertain behavior,Has asso morph,86251006
+27835,Neoplasm of uncertain behavior of pituitary gland,4209428,Pituitary structure,Has finding site,56329008
+27826,Combination of endocrine dysfunction,4034504,Structure of endocrine system,Has finding site,113331007
+27918,Eosinophilic esophagitis,4042400,Chronic eosinophilic inflammation,Has asso morph,16759001
+27918,Eosinophilic esophagitis,4140098,Esophageal structure,Has finding site,32849002
+27918,Eosinophilic esophagitis,4236661,Chronic,Has clinical course,90734009
+27918,Eosinophilic esophagitis,43021170,Allergic process,Has pathology,472964009
+27321,Persistent vomiting,4271189,Upper gastrointestinal tract structure,Has finding site,62834003
+27321,Persistent vomiting,4267304,Chronic persistent,Has clinical course,62459000
+27321,Persistent vomiting,4025208,Digestive system function,Has interprets,106079008
+27321,Persistent vomiting,4079377,Altered,Has interpretation,18307000
+27587,Disturbance of salivary secretion,4294042,Salivary gland structure,Has finding site,385294005
+27587,Disturbance of salivary secretion,4143620,Salivary secretion,Has interprets,34178000
+27587,Disturbance of salivary secretion,4135493,Abnormal,Has interpretation,263654008
+28115,Benign neoplasm of pineal gland,4305589,"Neoplasm, benign",Has asso morph,3898006
+28115,Benign neoplasm of pineal gland,4164136,Pineal structure,Has finding site,45793000
+28109,Carcinoma in situ of esophagus,37156895,Carcinoma in situ,Has asso morph,1187138006
+28109,Carcinoma in situ of esophagus,4266173,Carcinoma in situ - category,Has asso morph,399919001
+28109,Carcinoma in situ of esophagus,4140098,Esophageal structure,Has finding site,32849002
+28083,Primary malignant neoplasm of pharynx,4312326,"Neoplasm, malignant (primary)",Has asso morph,86049000
+28083,Primary malignant neoplasm of pharynx,37153816,Malignant neoplasm,Has asso morph,1240414004
+28083,Primary malignant neoplasm of pharynx,4207370,Pharyngeal structure,Has finding site,54066008
+28083,Primary malignant neoplasm of pharynx,37157802,Primary malignant neoplastic proliferation,Has pathology,1234914003
+27674,Nausea and vomiting,4271189,Upper gastrointestinal tract structure,Has finding site,62834003
+27674,Nausea and vomiting,4025208,Digestive system function,Has interprets,106079008
+27674,Nausea and vomiting,4079377,Altered,Has interpretation,18307000
+28060,Streptococcal sore throat,4053015,Inflammation,Has asso morph,23583003
+28060,Streptococcal sore throat,4253008,Inflammatory morphology,Has asso morph,409774005
+28060,Streptococcal sore throat,4207370,Pharyngeal structure,Has finding site,54066008
+28060,Streptococcal sore throat,4240344,Streptococcus,Has causative agent,58800005
+28060,Streptococcal sore throat,40480911,Infectious process,Has pathology,441862004
+28179,Polyp of vocal cord or larynx,4187628,Polyp,Has asso morph,41329004
+28179,Polyp of vocal cord or larynx,4262229,Laryngeal structure,Has finding site,4596009
+28127,"Multiple endocrine neoplasia, type 1",4030314,Neoplasm,Has asso morph,108369006
+28127,"Multiple endocrine neoplasia, type 1",4298971,Structure of multiple endocrine glands,Has finding site,77637002
+28127,"Multiple endocrine neoplasia, type 1",4116830,Congenital,Has occurrence,255399007
+28385,Disorder of posterior pituitary,4292400,Neurohypophysis structure,Has finding site,37512009
+28248,Cervical auricle,4238909,Supernumerary structure,Has asso morph,91431006
+28248,Cervical auricle,4260843,Neck structure,Has finding site,45048000
+28248,Cervical auricle,4116830,Congenital,Has occurrence,255399007
+28248,Cervical auricle,4204670,Pathological developmental process,Has pathology,308490002
+28356,Overlapping malignant neoplasm of major salivary gland,4312326,"Neoplasm, malignant (primary)",Has asso morph,86049000
+28356,Overlapping malignant neoplasm of major salivary gland,37153816,Malignant neoplasm,Has asso morph,1240414004
+28356,Overlapping malignant neoplasm of major salivary gland,4002730,Major salivary gland structure,Has finding site,119282003
+28462,Fistula of salivary gland,4043006,Fistula,Has asso morph,118622000
+28462,Fistula of salivary gland,4294042,Salivary gland structure,Has finding site,385294005
+28461,Hypertrophy of salivary gland,4210465,Hypertrophy (morphologic abnormality),Has asso morph,56246009
+28461,Hypertrophy of salivary gland,4294042,Salivary gland structure,Has finding site,385294005
+28457,Hypertrophy of tonsils,4210465,Hypertrophy,Has asso morph,56246009
+28457,Hypertrophy of tonsils,4088482,Entire left tonsil (palatine),Has finding site,280412006
+28457,Hypertrophy of tonsils,4090917,Entire right tonsil (palatine),Has finding site,280411004
+28457,Hypertrophy of tonsils,4239899,Size of tonsil,Has interprets,364047008
+28457,Hypertrophy of tonsils,4128641,Enlarged,Has interpretation,260376009
+28716,Benign neoplasm of aortic body,4305589,"Neoplasm, benign",Has asso morph,3898006
+28716,Benign neoplasm of aortic body,4327482,Aortic body,Has finding site,75061007
+28714,Syndrome of diencephalo-hypophyseal origin,4195703,Hypothalamic structure,Has finding site,67923007
+28714,Syndrome of diencephalo-hypophyseal origin,4209428,Pituitary structure,Has finding site,56329008
+28779,Bleeding esophageal varices,4237283,Bleeding varices,Has asso morph,57052009
+28779,Bleeding esophageal varices,4237655,Structure of esophageal vein,Has finding site,90895003
+28974,Candidiasis of the esophagus,4140098,Esophageal structure,Has finding site,32849002
+28974,Candidiasis of the esophagus,4139129,Candida,Has causative agent,3265006
+28974,Candidiasis of the esophagus,40480911,Infectious process,Has pathology,441862004
+28396,Hereditary hemolytic anemia,4175951,Morphologically abnormal structure,Has asso morph,49755003
+28396,Hereditary hemolytic anemia,4218976,Erythrocyte,Has finding site,41898006
+28396,Hereditary hemolytic anemia,4224294,Hemolysis,Has interprets,404227002
+28396,Hereditary hemolytic anemia,4181412,Present,Has interpretation,52101004
+28396,Hereditary hemolytic anemia,4030871,Red blood cell count,Has interprets,14089001
+28396,Hereditary hemolytic anemia,4083207,Below reference range,Has interpretation,281300000
+28396,Hereditary hemolytic anemia,40480067,Measurement of total hemoglobin concentration,Has interprets,441689006
+28396,Hereditary hemolytic anemia,4083207,Below reference range,Has interpretation,281300000
+29056,Sialoadenitis,4053015,Inflammation,Has asso morph,23583003
+29056,Sialoadenitis,4253008,Inflammatory morphology,Has asso morph,409774005
+29056,Sialoadenitis,4294042,Salivary gland structure,Has finding site,385294005
+29783,Severe combined immunodeficiency disease,4021240,Structure of immune system,Has finding site,116003000
+29783,Severe combined immunodeficiency disease,4116830,Congenital,Has occurrence,255399007
+29783,Severe combined immunodeficiency disease,35626089,Abnormal immune process,Has pathology,769247005
+29783,Severe combined immunodeficiency disease,4087703,Severe,Has severity,24484000
+29979,Crushing injury of neck,4060415,Crushing injury (morphology),Has asso morph,19921004
+29979,Crushing injury of neck,4260843,Neck structure,Has finding site,45048000
+30061,Neoplasm of uncertain behavior of major salivary gland,4313421,Neoplasm of uncertain behavior,Has asso morph,86251006
+30061,Neoplasm of uncertain behavior of major salivary gland,4002730,Major salivary gland structure,Has finding site,119282003
+28403,Gigantism and acromegaly,40481759,Enlargement,Has asso morph,442021009
+28403,Gigantism and acromegaly,4242541,Entire body as a whole,Has finding site,38266002
+28403,Gigantism and acromegaly,4154781,Height / growth measure,Has interprets,271603002
+28403,Gigantism and acromegaly,4146067,Increased,Has interpretation,35105006
+29735,Candidiasis of mouth,4253672,Oral cavity structure,Has finding site,74262004
+29735,Candidiasis of mouth,4139129,Candida,Has causative agent,3265006
+29735,Candidiasis of mouth,40480911,Infectious process,Has pathology,441862004
+30124,Obstruction of larynx,4093906,Obstruction (morphologic abnormality),Has asso morph,26036001
+30124,Obstruction of larynx,4262229,Laryngeal structure,Has finding site,4596009
+30234,Neck sprain,4298490,Sprain,Has asso morph,384709000
+30234,Neck sprain,4217193,Structure of ligament of neck,Has finding site,72579007
+30274,Full thickness burn of neck,4213471,Third degree burn injury,Has asso morph,80247002
+30274,Full thickness burn of neck,4182739,Skin structure of neck,Has finding site,43081002
+30163,Cellulitis and abscess of neck,4299470,Cellulitis,Has asso morph,385627004
+30163,Cellulitis and abscess of neck,4195605,Abscess morphology,Has asso morph,44132006
+30163,Cellulitis and abscess of neck,4260843,Neck structure,Has finding site,45048000
+30356,Benign neoplasm of pharynx,4305589,"Neoplasm, benign",Has asso morph,3898006
+30356,Benign neoplasm of pharynx,4207370,Pharyngeal structure,Has finding site,54066008
+30284,Motion sickness,4209294,Motion,Has causative agent,56219004
+30133,Acute laryngitis,4053015,Inflammation,Has asso morph,23583003
+30133,Acute laryngitis,4253008,Inflammatory morphology,Has asso morph,409774005
+30133,Acute laryngitis,4249823,Acute inflammatory morphology,Has asso morph,409776007
+30133,Acute laryngitis,4262229,Laryngeal structure,Has finding site,4596009
+30133,Acute laryngitis,4191741,Acute onset,Has clinical course,373933003
+30333,Gonorrhea of pharynx,4263306,Pharyngeal mucous membrane structure,Has finding site,46715004
+30333,Gonorrhea of pharynx,4285582,Neisseria gonorrhoeae,Has causative agent,68704007
+30333,Gonorrhea of pharynx,40480911,Infectious process,Has pathology,441862004
+30346,Primary malignant neoplasm of neck,4312326,"Neoplasm, malignant (primary)",Has asso morph,86049000
+30346,Primary malignant neoplasm of neck,37153816,Malignant neoplasm,Has asso morph,1240414004
+30346,Primary malignant neoplasm of neck,4260843,Neck structure,Has finding site,45048000
+30346,Primary malignant neoplasm of neck,37157802,Primary malignant neoplastic proliferation,Has pathology,1234914003
+30361,Hypoglycemic disorder,4034504,Structure of endocrine system,Has finding site,113331007
+30361,Hypoglycemic disorder,4202143,Blood glucose concentration,Has interprets,434912009
+30361,Hypoglycemic disorder,4083207,Below reference range,Has interpretation,281300000
+30441,Sialolithiasis,4209441,Calculus,Has asso morph,56381008
+30441,Sialolithiasis,4294042,Salivary gland structure,Has finding site,385294005
+30365,Panhypopituitarism,4209428,Pituitary structure,Has finding site,56329008
+30365,Panhypopituitarism,4049132,Endocrine function,Has interprets,123036008
+30365,Panhypopituitarism,4053347,Decreased,Has interpretation,1250004
+30437,Gastro-esophageal reflux disease with esophagitis,4253008,Inflammatory morphology,Has asso morph,409774005
+30437,Gastro-esophageal reflux disease with esophagitis,4140098,Esophageal structure,Has finding site,32849002
+30439,Acute peptic ulcer with perforation but without obstruction,4096339,Acute ulcer,Has asso morph,26317001
+30439,Acute peptic ulcer with perforation but without obstruction,4239211,Perforated ulcer,Has asso morph,91182001
+30439,Acute peptic ulcer with perforation but without obstruction,37304196,Structure of lumen of upper gastrointestinal tract,Has finding site,787915005
+30439,Acute peptic ulcer with perforation but without obstruction,4271189,Upper gastrointestinal tract structure,Has finding site,62834003
+30439,Acute peptic ulcer with perforation but without obstruction,4312510,Sudden onset AND/OR short duration,Has clinical course,424124008
+30442,Chronic peptic ulcer with perforation AND obstruction,4233476,Chronic ulcer,Has asso morph,405719001
+30442,Chronic peptic ulcer with perforation AND obstruction,4239211,Perforated ulcer,Has asso morph,91182001
+30442,Chronic peptic ulcer with perforation AND obstruction,4093906,Obstruction,Has asso morph,26036001
+30442,Chronic peptic ulcer with perforation AND obstruction,37304196,Structure of lumen of upper gastrointestinal tract,Has finding site,787915005
+30442,Chronic peptic ulcer with perforation AND obstruction,4236661,Chronic,Has clinical course,90734009
+30679,Benign neoplasm of major salivary gland,4305589,"Neoplasm, benign",Has asso morph,3898006
+30679,Benign neoplasm of major salivary gland,4002730,Major salivary gland structure,Has finding site,119282003
+30515,Congenital esophageal ring,45773386,Developmental stricture,Has asso morph,702609004
+30515,Congenital esophageal ring,4100082,Stricture,Has asso morph,27551008
+30515,Congenital esophageal ring,4140098,Esophageal structure,Has finding site,32849002
+30515,Congenital esophageal ring,4116830,Congenital,Has occurrence,255399007
+30515,Congenital esophageal ring,4204670,Pathological developmental process,Has pathology,308490002
+30753,Esophagitis,4253008,Inflammatory morphology,Has asso morph,409774005
+30753,Esophagitis,4140098,Esophageal structure,Has finding site,32849002
+30678,Polyglandular activity in multiple endocrine adenomatosis,4189035,Multiple endocrine adenomas,Has asso morph,60549007
+30678,Polyglandular activity in multiple endocrine adenomatosis,4298971,Structure of multiple endocrine glands,Has finding site,77637002
+31057,Disorder of pharynx,4207370,Pharyngeal structure,Has finding site,54066008
+30683,Hemoglobin SS disease without crisis,4177967,Drepanocyte,Has asso morph,49938009
+30683,Hemoglobin SS disease without crisis,4218976,Erythrocyte,Has finding site,41898006
+30683,Hemoglobin SS disease without crisis,4178879,Hemoglobin S,Has causative agent,50095005
+30683,Hemoglobin SS disease without crisis,4116830,Congenital,Has occurrence,255399007
+30683,Hemoglobin SS disease without crisis,40480067,Measurement of total hemoglobin concentration,Has interprets,441689006
+30683,Hemoglobin SS disease without crisis,4083207,Below reference range,Has interpretation,281300000
+30978,Thalassemia,4218976,Erythrocyte,Has finding site,41898006
+30978,Thalassemia,40480067,Measurement of total hemoglobin concentration,Has interprets,441689006
+30978,Thalassemia,4083207,Below reference range,Has interpretation,281300000
+30978,Thalassemia,4116830,Congenital,Has occurrence,255399007
+30969,Testicular hyperfunction,4238088,Testis structure,Has finding site,40689003
+30969,Testicular hyperfunction,4049132,Endocrine function,Has interprets,123036008
+30969,Testicular hyperfunction,4146067,Increased,Has interpretation,35105006
+30770,Chronic peptic ulcer with hemorrhage but without obstruction,4243483,Chronic bleeding ulcer,Has asso morph,37904008
+30770,Chronic peptic ulcer with hemorrhage but without obstruction,37304196,Structure of lumen of upper gastrointestinal tract,Has finding site,787915005
+30770,Chronic peptic ulcer with hemorrhage but without obstruction,4236661,Chronic,Has clinical course,90734009
+31317,Dysphagia,4132867,Upper digestive tract structure,Has finding site,127868003
+31317,Dysphagia,4128522,Ability to swallow,Has interprets,288935001
+31317,Dysphagia,4153379,Difficulty,Has interpretation,371157007
+31509,Primary malignant neoplasm of tonsil,37153816,Malignant neoplasm,Has asso morph,1240414004
+31509,Primary malignant neoplasm of tonsil,4327174,Palatine tonsillar structure,Has finding site,75573002
+31509,Primary malignant neoplasm of tonsil,37157802,Primary malignant neoplastic proliferation,Has pathology,1234914003
+31386,Congenital absence of salivary gland,4302931,Absence,Has asso morph,418560003
+31386,Congenital absence of salivary gland,4294042,Salivary gland structure,Has finding site,385294005
+31386,Congenital absence of salivary gland,4116830,Congenital,Has occurrence,255399007
+31386,Congenital absence of salivary gland,4204670,Pathological developmental process,Has pathology,308490002
+31602,Disorder of the larynx,4262229,Laryngeal structure,Has finding site,4596009
+31610,Disorder of esophagus,4140098,Esophageal structure,Has finding site,32849002
+31597,Acute laryngotracheitis,4053015,Inflammation,Has asso morph,23583003
+31597,Acute laryngotracheitis,4253008,Inflammatory morphology,Has asso morph,409774005
+31597,Acute laryngotracheitis,4249823,Acute inflammatory morphology,Has asso morph,409776007
+31597,Acute laryngotracheitis,4262229,Laryngeal structure,Has finding site,4596009
+31597,Acute laryngotracheitis,4195956,Tracheal structure,Has finding site,44567001
+31597,Acute laryngotracheitis,4191741,Acute onset,Has clinical course,373933003
+31601,Acute laryngotracheitis with obstruction,4053015,Inflammation,Has asso morph,23583003
+31601,Acute laryngotracheitis with obstruction,4093906,Obstruction,Has asso morph,26036001
+31601,Acute laryngotracheitis with obstruction,4262229,Laryngeal structure,Has finding site,4596009
+31601,Acute laryngotracheitis with obstruction,4195956,Tracheal structure,Has finding site,44567001
+31601,Acute laryngotracheitis with obstruction,4191741,Acute onset,Has clinical course,373933003
+31598,Hypertrophy of tonsils AND adenoids,4210465,Hypertrophy (morphologic abnormality),Has asso morph,56246009
+31598,Hypertrophy of tonsils AND adenoids,4123604,Tonsil and adenoid structure,Has finding site,303337002
+31598,Hypertrophy of tonsils AND adenoids,4239899,Size of tonsil,Has interprets,364047008
+31598,Hypertrophy of tonsils AND adenoids,4128641,Enlarged,Has interpretation,260376009
+31598,Hypertrophy of tonsils AND adenoids,4096681,Adenoids size,Has interprets,249363002
+31598,Hypertrophy of tonsils AND adenoids,4128641,Enlarged,Has interpretation,260376009
+31821,Disorder of endocrine system,4034504,Structure of endocrine system,Has finding site,113331007
+31668,Acquired deformity of neck,4263843,Deformity,Has asso morph,6081001
+31668,Acquired deformity of neck,4260843,Neck structure,Has finding site,45048000
+31668,Acquired deformity of neck,35624340,Period of life between birth and death,Has occurrence,767023003
+31967,Nausea,4271189,Upper gastrointestinal tract structure,Has finding site,62834003
+31609,Abscess of salivary gland,4195605,Abscess morphology,Has asso morph,44132006
+31609,Abscess of salivary gland,4294042,Salivary gland structure,Has finding site,385294005
+31609,Abscess of salivary gland,40480911,Infectious process,Has pathology,441862004
+31335,Acute peptic ulcer with hemorrhage but without obstruction,4096339,Acute ulcer,Has asso morph,26317001
+31335,Acute peptic ulcer with hemorrhage but without obstruction,4208270,Bleeding ulcer,Has asso morph,55075001
+31335,Acute peptic ulcer with hemorrhage but without obstruction,37304196,Structure of lumen of upper gastrointestinal tract,Has finding site,787915005
+31335,Acute peptic ulcer with hemorrhage but without obstruction,4271189,Upper gastrointestinal tract structure,Has finding site,62834003
+31335,Acute peptic ulcer with hemorrhage but without obstruction,4312510,Sudden onset AND/OR short duration,Has clinical course,424124008
+31884,Acquired diverticulum of esophagus,4150051,Diverticulum,Has asso morph,31113003
+31884,Acquired diverticulum of esophagus,4140098,Esophageal structure,Has finding site,32849002
+31884,Acquired diverticulum of esophagus,35624340,Period of life between birth and death,Has occurrence,767023003
+72332,Serous labyrinthitis,4053015,Inflammation,Has asso morph,23583003
+72332,Serous labyrinthitis,4121004,Labyrinth structure,Has finding site,302462009
+72245,Chlamydial infection of lower genitourinary tract,4241088,Lower genitourinary tract structure,Has finding site,59183004
+72245,Chlamydial infection of lower genitourinary tract,4037323,Chlamydia,Has causative agent,16241000
+72245,Chlamydial infection of lower genitourinary tract,40480911,Infectious process,Has pathology,441862004
+72390,Obstetric non-purulent mastitis,4027360,Nonsuppurative inflammation,Has asso morph,12794006
+72390,Obstetric non-purulent mastitis,4298444,Breast structure,Has finding site,76752008
+72390,Obstetric non-purulent mastitis,37160319,Maternal perinatal period,Has occurrence,1156671008
+72399,Arthropathy in Behcet's syndrome of multiple sites,4253008,Inflammatory morphology,Has asso morph,409774005
+72399,Arthropathy in Behcet's syndrome of multiple sites,36695780,Joint structure of multiple body sites,Has finding site,773190007
+72398,Arthropathy in Behcet's syndrome,4253008,Inflammatory morphology,Has asso morph,409774005
+72398,Arthropathy in Behcet's syndrome,4214466,Joint structure,Has finding site,39352004
+72403,Hemarthrosis of the ankle and/or foot,4179955,Hemorrhage,Has asso morph,50960005
+72403,Hemarthrosis of the ankle and/or foot,4194884,Joint structure of ankle and/or foot,Has finding site,312816002
+72401,Kashin-Bek disease,4030637,Degenerative abnormality,Has asso morph,107669003
+72401,Kashin-Bek disease,4140663,Degeneration,Has asso morph,33359002
+72401,Kashin-Bek disease,4214466,Joint structure,Has finding site,39352004
+72377,Shoulder girdle dystocia,4096787,Shoulder girdle structure,Has finding site,26444007
+72377,Shoulder girdle dystocia,4207963,Fetal structure,Has finding site,55460000
+72377,Shoulder girdle dystocia,37160330,Maternal intrapartum period,Has occurrence,1156682000
+72404,Joint stiffness,37219112,Structure of joint region,Has finding site,785818007
+72404,Joint stiffness,4264818,Range of joint movement,Has interprets,364564000
+72404,Joint stiffness,4083207,Below reference range,Has interpretation,281300000
+72407,Effusion of joint of shoulder region,4215818,Effusion,Has asso morph,41699000
+72407,Effusion of joint of shoulder region,4151929,Joint structure of shoulder region,Has finding site,31398001
+72405,Osteoarthritis of shoulder region,4030637,Degenerative abnormality,Has asso morph,107669003
+72405,Osteoarthritis of shoulder region,4140663,Degeneration,Has asso morph,33359002
+72405,Osteoarthritis of shoulder region,4151929,Joint structure of shoulder region,Has finding site,31398001
+72410,Infection of bone,4154333,Bone structure,Has finding site,272673000
+72410,Infection of bone,40480911,Infectious process,Has pathology,441862004
+72413,Nontraumatic rupture of muscle,4053605,Rupture,Has asso morph,125671007
+72413,Nontraumatic rupture of muscle,4325458,Muscle structure,Has finding site,71616004
+72400,Arthropathy of the pelvic region and thigh associated with helminthiasis,4090445,Joint structure of pelvis or upper leg,Has finding site,280438006
+72400,Arthropathy of the pelvic region and thigh associated with helminthiasis,40480023,Class Cestoda and/or Class Trematoda and/or Phylum Nemata,Has causative agent,441649000
+72406,Old disruption of ligament of knee other than collateral AND/OR cruciate ligaments,4297172,Disruption,Has asso morph,76555007
+72406,Old disruption of ligament of knee other than collateral AND/OR cruciate ligaments,4239029,Structure of ligament of knee joint,Has finding site,68010000
+72406,Old disruption of ligament of knee other than collateral AND/OR cruciate ligaments,4132507,Past,Has temporal context,410513005
+72415,Synovial plica,4175951,Morphologically abnormal structure,Has asso morph,49755003
+72415,Synovial plica,4230317,Structure of synovial membrane of joint,Has finding site,88928006
+72421,Solitary bone cyst,4013214,Unicameral bone cyst,Has asso morph,112643007
+72421,Solitary bone cyst,4154333,Bone structure,Has finding site,272673000
+72418,Scoliosis deformity of spine,4136505,Lateral abnormal curvature,Has asso morph,31739005
+72418,Scoliosis deformity of spine,4128342,Musculoskeletal structure of spine,Has finding site,289959001
+72459,Closed fracture of two ribs,36675156,Closed fracture of multiple bones,Has asso morph,771486008
+72459,Closed fracture of two ribs,4011851,Bone structure of rib,Has finding site,113197003
+72460,Open fracture of seven ribs,36675157,Compound fracture of multiple bones,Has asso morph,771487004
+72460,Open fracture of seven ribs,4011851,Bone structure of rib,Has finding site,113197003
+72465,Closed fracture of one or more phalanges of hand,4049776,"Fracture, closed",Has asso morph,20946005
+72465,Closed fracture of one or more phalanges of hand,4251333,Bone structure of phalanx of hand,Has finding site,73696005
+72487,Crushing injury of foot,4060415,Crushing injury (morphology),Has asso morph,19921004
+72487,Crushing injury of foot,4211098,Foot structure,Has finding site,56459004
+72468,Open dislocation of jaw,4194530,Open dislocation,Has asso morph,7906001
+72468,Open dislocation of jaw,4202366,Temporomandibular joint structure,Has finding site,53620006
+72469,Closed traumatic dislocation of joint of shoulder region,4175294,Closed dislocation,Has asso morph,50399007
+72469,Closed traumatic dislocation of joint of shoulder region,4151929,Joint structure of shoulder region,Has finding site,31398001
+72486,Blister of elbow without infection,4144955,Blister,Has asso morph,339008
+72486,Blister of elbow without infection,4254263,Skin structure of elbow,Has finding site,74757004
+72434,Congenital hydrocele,4298084,Hydrocele,Has asso morph,386152007
+72434,Congenital hydrocele,4134453,Tunica vaginalis structure,Has finding site,12817009
+72434,Congenital hydrocele,4116830,Congenital,Has occurrence,255399007
+72434,Congenital hydrocele,4204670,Pathological developmental process,Has pathology,308490002
+72516,Burn of knee,4168004,Burn injury,Has asso morph,48333001
+72516,Burn of knee,4217806,Knee region structure,Has finding site,72696002
+72618,Disorder of skeletal muscle,4133963,Skeletal muscle structure,Has finding site,127954009
+72578,Neoplasm of uncertain behavior of breast,4313421,Neoplasm of uncertain behavior,Has asso morph,86251006
+72578,Neoplasm of uncertain behavior of breast,4298444,Breast structure,Has finding site,76752008
+72521,Immersion foot,4242243,Cold injury,Has asso morph,38045000
+72521,Immersion foot,4211098,Foot structure,Has finding site,56459004
+72562,Gonococcal spondylitis,4053015,Inflammation,Has asso morph,23583003
+72562,Gonococcal spondylitis,4253008,Inflammatory morphology,Has asso morph,409774005
+72562,Gonococcal spondylitis,4198252,Bone structure of spine,Has finding site,51282000
+72562,Gonococcal spondylitis,4285582,Neisseria gonorrhoeae,Has causative agent,68704007
+72562,Gonococcal spondylitis,40480911,Infectious process,Has pathology,441862004
+72576,Benign neoplasm of breast,4305589,"Neoplasm, benign",Has asso morph,3898006
+72576,Benign neoplasm of breast,4298444,Breast structure,Has finding site,76752008
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",4312326,"Neoplasm, malignant (primary)",Has asso morph,86049000
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",37153816,Malignant neoplasm,Has asso morph,1240414004
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",4041251,Bone structure of pelvis,Has finding site,118645006
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",4196394,Structure of sacrococcygeal vertebrae,Has finding site,44522008
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",4276201,Bone structure of coccyx,Has finding site,64688005
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",37157802,Primary malignant neoplastic proliferation,Has pathology,1234914003
+72715,Exostosis,4215424,External hyperostosis,Has asso morph,80400009
+72715,Exostosis,4154333,Bone structure,Has finding site,272673000
+72693,Poor fetal growth affecting management,4089069,Relation of fetal size to dates,Has interprets,249053001
+72693,Poor fetal growth affecting management,4127781,Reduced,Has interpretation,260400001
+72693,Poor fetal growth affecting management,4121979,Fetal period,Has occurrence,303112003
+72709,Crystal arthropathy of multiple sites,4014361,Deposition of crystalline material,Has asso morph,103629003
+72709,Crystal arthropathy of multiple sites,36695780,Joint structure of multiple body sites,Has finding site,773190007
+72708,Traumatic arthropathy of the shoulder region,4078068,Traumatic abnormality,Has asso morph,19130008
+72708,Traumatic arthropathy of the shoulder region,4151929,Joint structure of shoulder region,Has finding site,31398001
+72712,Synovial cyst,40288199,Synovial cyst,Has asso morph,123250005
+72712,Synovial cyst,4230317,Structure of synovial membrane of joint,Has finding site,88928006
+72711,Shoulder stiff,4151929,Joint structure of shoulder region,Has finding site,31398001
+72711,Shoulder stiff,4185647,Shoulder joint - range of movement,Has interprets,298773006
+72711,Shoulder stiff,4083207,Below reference range,Has interpretation,281300000
+72737,Microcalcifications of the breast,4132707,Microcalcification,Has asso morph,12747003
+72737,Microcalcifications of the breast,4298444,Breast structure,Has finding site,76752008
+72926,Labyrinthine fistula,4043006,Fistula,Has asso morph,118622000
+72926,Labyrinthine fistula,4121004,Labyrinth structure,Has finding site,302462009
+72817,Tuberculosis of urinary organs,4269928,Granulomatous inflammation,Has asso morph,6266001
+72817,Tuberculosis of urinary organs,37017945,Structure of urinary organ,Has finding site,714321003
+72817,Tuberculosis of urinary organs,4035081,Mycobacterium tuberculosis complex,Has causative agent,113858008
+72817,Tuberculosis of urinary organs,40480911,Infectious process,Has pathology,441862004
+72745,Open dislocation of elbow,4194530,Open dislocation,Has asso morph,7906001
+72745,Open dislocation of elbow,4061414,Elbow joint structure,Has finding site,16953009
+72726,Light-for-dates with signs of fetal malnutrition,4207963,Fetal structure,Has finding site,55460000
+72726,Light-for-dates with signs of fetal malnutrition,4089069,Relation of fetal size to dates,Has interprets,249053001
+72726,Light-for-dates with signs of fetal malnutrition,4083207,Below reference range,Has interpretation,281300000
+72726,Light-for-dates with signs of fetal malnutrition,4121979,Fetal period,Has occurrence,303112003
+72984,Reactive arthritis of joint of shoulder region due to and following dysentery,4053015,Inflammation,Has asso morph,23583003
+72984,Reactive arthritis of joint of shoulder region due to and following dysentery,4253008,Inflammatory morphology,Has asso morph,409774005
+72984,Reactive arthritis of joint of shoulder region due to and following dysentery,4151929,Joint structure of shoulder region,Has finding site,31398001
+72717,Postoperative heterotopic calcification,43530981,Acquired heterotopic structure,Has asso morph,609527008
+72717,Postoperative heterotopic calcification,4112703,Pathologic calcification,Has asso morph,18115005
+72857,Late effect of rickets,4214470,Osteoid tissue,Has finding site,39365008
+72857,Late effect of rickets,46272765,Structure of epiphyseal plate,Has finding site,711190000
+72986,Disorder of lower leg,4107527,Lower leg structure,Has finding site,30021000
+72985,Arthropathy of the ankle and/or foot associated with helminthiasis,4194884,Joint structure of ankle and/or foot,Has finding site,312816002
+72988,Pyogenic arthritis of hand,4164958,Suppurative inflammation,Has asso morph,41034006
+72988,Pyogenic arthritis of hand,4222144,Structure of joint of hand,Has finding site,40238009
+72988,Pyogenic arthritis of hand,40480911,Infectious process,Has pathology,441862004
+72991,Traumatic arthropathy of multiple sites,4078068,Traumatic abnormality,Has asso morph,19130008
+72991,Traumatic arthropathy of multiple sites,36695780,Joint structure of multiple body sites,Has finding site,773190007
+72990,Localized osteoarthrosis uncertain if primary OR secondary,4030637,Degenerative abnormality,Has asso morph,107669003
+72990,Localized osteoarthrosis uncertain if primary OR secondary,4140663,Degeneration,Has asso morph,33359002
+72990,Localized osteoarthrosis uncertain if primary OR secondary,4214466,Joint structure,Has finding site,39352004
+72992,Allergic arthritis,4053015,Inflammation,Has asso morph,23583003
+72992,Allergic arthritis,4253008,Inflammatory morphology,Has asso morph,409774005
+72992,Allergic arthritis,4214466,Joint structure,Has finding site,39352004
+72992,Allergic arthritis,43021170,Allergic process,Has pathology,472964009
+72989,"Arthropathy associated with mycoses, of the ankle and/or foot",4194884,Joint structure of ankle and/or foot,Has finding site,312816002
+72993,"Localized, primary osteoarthritis",4030637,Degenerative abnormality,Has asso morph,107669003
+72993,"Localized, primary osteoarthritis",4140663,Degeneration,Has asso morph,33359002
+72993,"Localized, primary osteoarthritis",4214466,Joint structure,Has finding site,39352004
+72994,Jaccoud's syndrome,4133823,Acquired deformity,Has asso morph,127560004
+72994,Jaccoud's syndrome,4214466,Joint structure,Has finding site,39352004
+72994,Jaccoud's syndrome,4236661,Chronic,Has clinical course,90734009
+73001,Myositis,4253008,Inflammatory morphology,Has asso morph,409774005
+73001,Myositis,4133963,Skeletal muscle structure,Has finding site,127954009
+72995,Contracture of joint of hand,4237281,Contracture,Has asso morph,57048009
+72995,Contracture of joint of hand,37219133,Structure of hand joint region,Has finding site,786074005
+72995,Contracture of joint of hand,37206793,Hand joint range of movement,Has interprets,786985009
+72995,Contracture of joint of hand,4053347,Decreased,Has interpretation,1250004
+72997,Articular cartilage disorder of upper arm,4193455,Articular cartilage of upper limb,Has finding site,312558006
+73008,Enthesopathy,4257828,Structure of enthesis,Has finding site,410054009
+73012,Lordosis deformity of spine,4246304,Anteroposterior abnormal curvature,Has asso morph,61051007
+73012,Lordosis deformity of spine,4128342,Musculoskeletal structure of spine,Has finding site,289959001
+73019,Breast engorgement in newborn,4298444,Breast structure,Has finding site,76752008
+73019,Breast engorgement in newborn,4114528,Neonatal,Has occurrence,255407002
+73017,Congenital anomaly of toe,4175951,Morphologically abnormal structure,Has asso morph,49755003
+73017,Congenital anomaly of toe,4106395,Toe structure,Has finding site,29707007
+73017,Congenital anomaly of toe,4116830,Congenital,Has occurrence,255399007
+73017,Congenital anomaly of toe,4204670,Pathological developmental process,Has pathology,308490002
+73026,Abnormal breath sounds,4218410,Lower respiratory tract structure,Has finding site,82094008
+73026,Abnormal breath sounds,4199296,Respiratory sounds,Has interprets,52653008
+73026,Abnormal breath sounds,4135493,Abnormal,Has interpretation,263654008
+73036,Closed fracture of olecranon process of ulna,4049776,"Fracture, closed",Has asso morph,20946005
+73036,Closed fracture of olecranon process of ulna,4161175,Structure of olecranon,Has finding site,371504003
+73043,Open dislocation of glenohumeral joint,4194530,Open dislocation,Has asso morph,7906001
+73043,Open dislocation of glenohumeral joint,4310972,Glenohumeral joint structure,Has finding site,85537004
+73042,Open fracture finger middle phalanx,4178756,"Fracture, open",Has asso morph,52329006
+73042,Open fracture finger middle phalanx,4144509,Bone structure of middle phalanx of finger,Has finding site,306791009
+73045,Sprain of hand,4298490,Sprain,Has asso morph,384709000
+73045,Sprain of hand,4048233,Structure of ligament of hand,Has finding site,123858009
+73021,Bilateral congenital dislocation of hip,4227147,Dislocation,Has asso morph,87642003
+73021,Bilateral congenital dislocation of hip,4176631,Left hip joint structure,Has finding site,362907004
+73021,Bilateral congenital dislocation of hip,4177897,Right hip joint structure,Has finding site,362908009
+73021,Bilateral congenital dislocation of hip,4116830,Congenital,Has occurrence,255399007
+73021,Bilateral congenital dislocation of hip,4204670,Pathological developmental process,Has pathology,308490002
+73065,Contusion of genital organ,4203279,Contusion - lesion,Has asso morph,308492005
+73065,Contusion of genital organ,4216845,Genital structure,Has finding site,71934003
+73041,Closed fracture of five ribs,36675156,Closed fracture of multiple bones,Has asso morph,771486008
+73041,Closed fracture of five ribs,4011851,Bone structure of rib,Has finding site,113197003
+73085,Injury of superficial femoral artery,4078068,Traumatic abnormality,Has asso morph,19130008
+73085,Injury of superficial femoral artery,4111596,Superficial femoral artery,Has finding site,181349008
+73075,Contusion of upper limb,4203279,Contusion - lesion,Has asso morph,308492005
+73075,Contusion of upper limb,4200396,Upper limb structure,Has finding site,53120007
+73089,Contusion of buttock,4203279,Contusion - lesion,Has asso morph,308492005
+73089,Contusion of buttock,4263335,Buttock structure,Has finding site,46862004
+73072,Crushing injury of upper arm,4060415,Crushing injury (morphology),Has asso morph,19921004
+73072,Crushing injury of upper arm,4165266,Upper arm structure,Has finding site,40983000
+73090,Contusion of foot,4203279,Contusion - lesion,Has asso morph,308492005
+73090,Contusion of foot,4211098,Foot structure,Has finding site,56459004
+73091,Deep third degree burn of breast,4223957,Deep third degree burn injury,Has asso morph,40477005
+73091,Deep third degree burn of breast,4220068,Skin structure of breast,Has finding site,82038008
+73153,Malignant neoplasm of lateral wall of urinary bladder,37153816,Malignant neoplasm,Has asso morph,1240414004
+73153,Malignant neoplasm of lateral wall of urinary bladder,4078693,Structure of lateral wall of urinary bladder,Has finding site,19318009
+73122,Tuberculosis of knee,4269928,Granulomatous inflammation,Has asso morph,6266001
+73122,Tuberculosis of knee,4169744,Knee joint structure,Has finding site,49076000
+73122,Tuberculosis of knee,4035081,Mycobacterium tuberculosis complex,Has causative agent,113858008
+73122,Tuberculosis of knee,40480911,Infectious process,Has pathology,441862004
+73231,Pain of temporomandibular joint,4202366,Temporomandibular joint structure,Has finding site,53620006
+73183,Myotonic disorder,4133963,Skeletal muscle structure,Has finding site,127954009
+73241,Anal and rectal polyp,4187628,Polyp,Has asso morph,41329004
+73241,Anal and rectal polyp,4202233,Anal structure,Has finding site,53505006
+73241,Anal and rectal polyp,4144541,Rectum structure,Has finding site,34402009
+73287,Crystal arthropathy of ankle AND/OR foot,4014361,Deposition of crystalline material (morphologic abnormality),Has asso morph,103629003
+73287,Crystal arthropathy of ankle AND/OR foot,4194884,Joint structure of ankle and/or foot,Has finding site,312816002
+73289,Pathological dislocation of multiple joints,4227147,Dislocation,Has asso morph,87642003
+73289,Pathological dislocation of multiple joints,4051845,Spontaneous dislocation,Has asso morph,125177007
+73289,Pathological dislocation of multiple joints,36695780,Joint structure of multiple body sites,Has finding site,773190007
+73290,Contracture of joint,4237281,Contracture,Has asso morph,57048009
+73290,Contracture of joint,37219112,Structure of joint region,Has finding site,785818007
+73290,Contracture of joint,4264818,Range of joint movement,Has interprets,364564000
+73290,Contracture of joint,4053347,Decreased,Has interpretation,1250004
+73291,Palindromic rheumatism of ankle and/or foot,4053015,Inflammation,Has asso morph,23583003
+73291,Palindromic rheumatism of ankle and/or foot,4253008,Inflammatory morphology,Has asso morph,409774005
+73291,Palindromic rheumatism of ankle and/or foot,4194884,Joint structure of ankle and/or foot,Has finding site,312816002
+73291,Palindromic rheumatism of ankle and/or foot,4113136,Recurrent,Has clinical course,255227004
+73184,Familial periodic paralysis,4133963,Skeletal muscle structure,Has finding site,127954009
+73184,Familial periodic paralysis,4081681,Episodic,Has clinical course,278499009
+73302,Curvature of spine,4186604,Abnormal curvature,Has asso morph,46360000
+73302,Curvature of spine,4128342,Musculoskeletal structure of spine,Has finding site,289959001
+73300,Radial styloid tenosynovitis,4053015,Inflammation,Has asso morph,23583003
+73300,Radial styloid tenosynovitis,4253008,Inflammatory morphology,Has asso morph,409774005
+73300,Radial styloid tenosynovitis,37158520,Structure of tendon sheath within wrist region,Has finding site,1260413003
+73334,Closed posterior dislocation of elbow,4176744,Posterior closed dislocation (morphologic abnormality),Has asso morph,49210009
+73334,Closed posterior dislocation of elbow,4061414,Elbow joint structure (body structure),Has finding site,16953009
+73313,Longitudinal deficiency of tarsal bone,4008722,Abnormally short growth (morphologic abnormality),Has asso morph,11182007
+73313,Longitudinal deficiency of tarsal bone,4029044,Entire tarsal bone (body structure),Has finding site,108372004
+73313,Longitudinal deficiency of tarsal bone,4116830,Congenital (qualifier value),Has occurrence,255399007
+73313,Longitudinal deficiency of tarsal bone,4204670,Pathological developmental process (qualifier value),Has pathology,308490002
+73318,Polydactyly of fingers,4238909,Supernumerary structure,Has asso morph,91431006
+73318,Polydactyly of fingers,4192373,Finger structure,Has finding site,7569003
+73318,Polydactyly of fingers,4116830,Congenital,Has occurrence,255399007
+73318,Polydactyly of fingers,4204670,Pathological developmental process,Has pathology,308490002
+73268,Fetal distress affecting management of mother,4207963,Fetal structure,Has finding site,55460000
+73268,Fetal distress affecting management of mother,4121979,Fetal period,Has occurrence,303112003
+73307,Transverse deficiency of lower limb,604359,Transverse deficiency,Has asso morph,890175002
+73307,Transverse deficiency of lower limb,4025823,Lower extremity part,Has finding site,120575009
+73307,Transverse deficiency of lower limb,4116830,Congenital,Has occurrence,255399007
+73307,Transverse deficiency of lower limb,4204670,Pathological developmental process,Has pathology,308490002
+73297,Resolving infantile idiopathic scoliosis,4136505,Lateral abnormal curvature,Has asso morph,31739005
+73297,Resolving infantile idiopathic scoliosis,4128342,Musculoskeletal structure of spine,Has finding site,289959001
+73297,Resolving infantile idiopathic scoliosis,4113273,Remitting,Has clinical course,255319006
+73297,Resolving infantile idiopathic scoliosis,4275212,Infancy,Has occurrence,3658006
+73338,Sprain of lateral collateral ligament of knee,4298490,Sprain,Has asso morph,384709000
+73338,Sprain of lateral collateral ligament of knee,4219423,Structure of lateral collateral ligament of knee joint,Has finding site,39959004
+73336,Closed traumatic dislocation ankle joint,4175294,Closed dislocation,Has asso morph,50399007
+73336,Closed traumatic dislocation ankle joint,4044882,Closed traumatic dislocation,Has asso morph,129155002
+73336,Closed traumatic dislocation ankle joint,4289928,Ankle joint structure,Has finding site,70258002
+73335,Closed posterior dislocation of proximal end of tibia,4176744,Posterior closed dislocation,Has asso morph,49210009
+73335,Closed posterior dislocation of proximal end of tibia,4069282,Bone structure of proximal tibia,Has finding site,20285007
+73341,Closed fracture of head of radius,4049776,"Fracture, closed",Has asso morph,20946005
+73341,Closed fracture of head of radius,4178906,Structure of head of radius,Has finding site,50184001
+73349,Injury of rectum without open wound into abdominal cavity,4078068,Traumatic abnormality,Has asso morph,19130008
+73349,Injury of rectum without open wound into abdominal cavity,4295343,Damage,Has asso morph,37782003
+73349,Injury of rectum without open wound into abdominal cavity,4144541,Rectum structure,Has finding site,34402009
+73343,Closed posterior dislocation of hip,4176744,Posterior closed dislocation,Has asso morph,49210009
+73343,Closed posterior dislocation of hip,4082516,Hip joint structure,Has finding site,24136001
+73362,Crushing injury of multiple sites of upper limb,4060415,Crushing injury (morphology),Has asso morph,19921004
+73362,Crushing injury of multiple sites of upper limb,4200396,Upper limb structure,Has finding site,53120007
+73361,Abrasion and/or friction burn of elbow with infection,4290983,Abrasion and/or friction burn,Has asso morph,400168005
+73361,Abrasion and/or friction burn of elbow with infection,4254263,Skin structure of elbow,Has finding site,74757004
+73361,Abrasion and/or friction burn of elbow with infection,40480911,Infectious process,Has pathology,441862004
+73366,Crushing injury of lower leg,4060415,Crushing injury (morphology),Has asso morph,19921004
+73366,Crushing injury of lower leg,4107527,Lower leg structure,Has finding site,30021000
+73372,Burn of breast,4168004,Burn injury,Has asso morph,48333001
+73372,Burn of breast,4220068,Skin structure of breast,Has finding site,82038008
+73365,Epidermal burn of elbow,4298699,First degree burn injury,Has asso morph,77140003
+73365,Epidermal burn of elbow,4254263,Skin structure of elbow,Has finding site,74757004
+73373,Epidermal burn of upper limb,4298699,First degree burn injury,Has asso morph,77140003
+73373,Epidermal burn of upper limb,4159864,Skin structure of upper limb,Has finding site,371311000
+73378,Frostbite of foot,4242243,Cold injury,Has asso morph,38045000
+73378,Frostbite of foot,4211098,Foot structure,Has finding site,56459004
+73383,Full thickness burn of foot,4213471,Third degree burn injury,Has asso morph,80247002
+73383,Full thickness burn of foot,4219316,Skin and/or subcutaneous tissue structure of foot,Has finding site,417460003
+73550,Crystal arthropathy of elbow,4014361,Deposition of crystalline material,Has asso morph,103629003
+73550,Crystal arthropathy of elbow,4061414,Elbow joint structure,Has finding site,16953009
+73409,Primary anal syphilis,4145453,Anal canal structure,Has finding site,34381000
+73409,Primary anal syphilis,4248851,Treponema pallidum,Has causative agent,72904005
+73409,Primary anal syphilis,40480911,Infectious process,Has pathology,441862004
+73553,Arthropathy,4214466,Joint structure,Has finding site,39352004
+73555,Transient arthropathy of the pelvic region and thigh,4090445,Joint structure of pelvis or upper leg,Has finding site,280438006
+73555,Transient arthropathy of the pelvic region and thigh,4033243,Transitory,Has clinical course,14803004
+73557,Allergic arthritis of the pelvic region and thigh,4053015,Inflammation,Has asso morph,23583003
+73557,Allergic arthritis of the pelvic region and thigh,4253008,Inflammatory morphology,Has asso morph,409774005
+73557,Allergic arthritis of the pelvic region and thigh,4090445,Joint structure of pelvis or upper leg,Has finding site,280438006
+73557,Allergic arthritis of the pelvic region and thigh,35626103,Non-immunoglobulin E-mediated allergic process,Has pathology,769261000
+73560,Calcaneal spur,4230331,Osteophyte,Has asso morph,88998003
+73560,Calcaneal spur,4196052,Bone structure of calcaneum,Has finding site,80144004
+73554,Kashin-Beck disease of the pelvic region and thigh,4030637,Degenerative abnormality,Has asso morph,107669003
+73554,Kashin-Beck disease of the pelvic region and thigh,4140663,Degeneration,Has asso morph,33359002
+73554,Kashin-Beck disease of the pelvic region and thigh,4090445,Joint structure of pelvis or upper leg,Has finding site,280438006
+73571,Pathological fracture,4331181,Pathologic fracture,Has asso morph,22640007
+73571,Pathological fracture,4154333,Bone structure,Has finding site,272673000
+73564,Full thickness rotator cuff tear,4139813,Complete rupture,Has asso morph,263722006
+73564,Full thickness rotator cuff tear,4073952,Tendon of rotator cuff of shoulder,Has finding site,245100002
+73561,Loose body in joint of shoulder region,4069416,Loose body,Has asso morph,20456003
+73561,Loose body in joint of shoulder region,4151929,Joint structure of shoulder region,Has finding site,31398001
+73534,Disproportion between fetus and pelvis,4030017,Mechanical abnormality,Has asso morph,107658001
+73534,Disproportion between fetus and pelvis,4041251,Bone structure of pelvis,Has finding site,118645006
+73534,Disproportion between fetus and pelvis,37160330,Maternal intrapartum period,Has occurrence,1156682000
+73568,Palindromic rheumatism of shoulder region,4253008,Inflammatory morphology,Has asso morph,409774005
+73568,Palindromic rheumatism of shoulder region,4151929,Joint structure of shoulder region,Has finding site,31398001
+73568,Palindromic rheumatism of shoulder region,4113136,Recurrent,Has clinical course,255227004
+73574,Nonunion of fracture,4140519,"Fracture, ununited",Has asso morph,33080003
+73574,Nonunion of fracture,4154333,Bone structure,Has finding site,272673000
+73575,Deformity of toe,4263843,Deformity,Has asso morph,6081001
+73575,Deformity of toe,4106395,Toe structure,Has finding site,29707007
+73649,Contusion of finger,4203279,Contusion - lesion,Has asso morph,308492005
+73649,Contusion of finger,4192373,Finger structure,Has finding site,7569003
+73609,Open fracture of clavicle,4178756,"Fracture, open",Has asso morph,52329006
+73609,Open fracture of clavicle,4197120,Bone structure of clavicle,Has finding site,51299004
+73616,Open fracture of lunate bone of wrist,4178756,"Fracture, open",Has asso morph,52329006
+73616,Open fracture of lunate bone of wrist,4178722,Structure of lunate bone,Has finding site,52181001
+73580,Reduction deformity of lower limb,4300039,Congenital deformity,Has asso morph,385297003
+73580,Reduction deformity of lower limb,4267861,Lower limb structure,Has finding site,61685007
+73580,Reduction deformity of lower limb,4116830,Congenital,Has occurrence,255399007
+73580,Reduction deformity of lower limb,4204670,Pathological developmental process,Has pathology,308490002
+73673,Disorder of prosthetic joint,4214466,Joint structure,Has finding site,39352004
+73614,Closed fracture of seven ribs,36675156,Closed fracture of multiple bones,Has asso morph,771486008
+73614,Closed fracture of seven ribs,4011851,Bone structure of rib,Has finding site,113197003
+73686,Tuberculosis of genitourinary system,4269928,Granulomatous inflammation,Has asso morph,6266001
+73686,Tuberculosis of genitourinary system,4069509,Structure of genitourinary system,Has finding site,21514008
+73686,Tuberculosis of genitourinary system,4035081,Mycobacterium tuberculosis complex,Has causative agent,113858008
+73686,Tuberculosis of genitourinary system,40480911,Infectious process,Has pathology,441862004
+73723,Benign neoplasm of epididymis,4305589,"Neoplasm, benign",Has asso morph,3898006
+73723,Benign neoplasm of epididymis,4227148,Epididymis structure,Has finding site,87644002
+73819,Pain of breast,4298444,Breast structure,Has finding site,76752008
+73712,Malignant neoplasm of dome of urinary bladder,37153816,Malignant neoplasm,Has asso morph,1240414004
+73712,Malignant neoplasm of dome of urinary bladder,4282252,Structure of dome of urinary bladder,Has finding site,367608002
+73720,Overlapping malignant neoplasm of urinary system,4312326,"Neoplasm, malignant (primary)",Has asso morph,86049000
+73720,Overlapping malignant neoplasm of urinary system,37153816,Malignant neoplasm,Has asso morph,1240414004
+73720,Overlapping malignant neoplasm of urinary system,4047487,Urinary system structure,Has finding site,122489005
+73838,Pyogenic arthritis of multiple sites,4164958,Suppurative inflammation,Has asso morph,41034006
+73838,Pyogenic arthritis of multiple sites,36695780,Joint structure of multiple body sites,Has finding site,773190007
+73838,Pyogenic arthritis of multiple sites,40480911,Infectious process,Has pathology,441862004
+73754,Restless legs,4107527,Lower leg structure,Has finding site,30021000
+73754,Restless legs,4113276,Movement,Has interprets,255324009
+73754,Restless legs,4135493,Abnormal,Has interpretation,263654008
+73845,Joint ankylosis of the shoulder region,4271126,Ankylosis,Has asso morph,36504009
+73845,Joint ankylosis of the shoulder region,4151929,Joint structure of shoulder region,Has finding site,31398001
+73847,Finding of elbow joint,4061414,Elbow joint structure,Has finding site,16953009
+73841,Multiple stiff joints,37219112,Structure of joint region,Has finding site,785818007
+73841,Multiple stiff joints,4264818,Range of joint movement,Has interprets,364564000
+73841,Multiple stiff joints,4083207,Below reference range,Has interpretation,281300000
+73849,Acquired lordosis deformity of spine,4246304,Anteroposterior abnormal curvature,Has asso morph,61051007
+73849,Acquired lordosis deformity of spine,4128342,Musculoskeletal structure of spine,Has finding site,289959001
+73849,Acquired lordosis deformity of spine,35624340,Period of life between birth and death,Has occurrence,767023003
+73842,Enthesopathy of elbow region,37111287,Structure of enthesis of elbow region,Has finding site,725971002
+73851,Effusion of joint of multiple sites,4215818,Effusion (morphologic abnormality),Has asso morph,41699000
+73851,Effusion of joint of multiple sites,36695780,Joint structure of multiple body sites,Has finding site,773190007
+73840,"Localized, primary osteoarthritis of the shoulder region",4030637,Degenerative abnormality,Has asso morph,107669003
+73840,"Localized, primary osteoarthritis of the shoulder region",4140663,Degeneration,Has asso morph,33359002
+73840,"Localized, primary osteoarthritis of the shoulder region",4151929,Joint structure of shoulder region,Has finding site,31398001
+73866,Congenital anomaly of breast,4175951,Morphologically abnormal structure,Has asso morph,49755003
+73866,Congenital anomaly of breast,4298444,Breast structure,Has finding site,76752008
+73866,Congenital anomaly of breast,4116830,Congenital,Has occurrence,255399007
+73866,Congenital anomaly of breast,4204670,Pathological developmental process,Has pathology,308490002
+73855,Arrest of bone development AND/OR growth,4308872,Growth arrest,Has asso morph,83477007
+73855,Arrest of bone development AND/OR growth,4154333,Bone structure,Has finding site,272673000
+73855,Arrest of bone development AND/OR growth,4204670,Pathological developmental process,Has pathology,308490002
+73854,Progressive myositis ossificans,4243907,Osseous metaplasia,Has asso morph,38109001
+73854,Progressive myositis ossificans,4133963,Skeletal muscle structure,Has finding site,127954009
+73888,Open fracture of navicular bone of foot,4178756,"Fracture, open",Has asso morph,52329006
+73888,Open fracture of navicular bone of foot,4328070,Bone structure of navicular,Has finding site,75772009
+73872,Congenital deformity of knee joint,4263843,Deformity (morphologic abnormality),Has asso morph,6081001
+73872,Congenital deformity of knee joint,4169744,Knee joint structure,Has finding site,49076000
+73872,Congenital deformity of knee joint,4116830,Congenital,Has occurrence,255399007
+73872,Congenital deformity of knee joint,4204670,Pathological developmental process,Has pathology,308490002
+73889,Sprain of distal tibiofibular ligament,4298490,Sprain,Has asso morph,384709000
+73889,Sprain of distal tibiofibular ligament,4314540,Structure of ligament of distal tibiofibular joint,Has finding site,87183004
+73884,Closed fracture of three ribs,36675156,Closed fracture of multiple bones,Has asso morph,771486008
+73884,Closed fracture of three ribs,4011851,Bone structure of rib,Has finding site,113197003
+73913,Burn of shoulder,4168004,Burn injury,Has asso morph,48333001
+73913,Burn of shoulder,4061541,Shoulder region structure,Has finding site,16982005
+73923,Contusion of upper arm,4203279,Contusion - lesion,Has asso morph,308492005
+73923,Contusion of upper arm,4165266,Upper arm structure,Has finding site,40983000
+73925,Burn of upper limb,4168004,Burn injury,Has asso morph,48333001
+73925,Burn of upper limb,4218477,Skin and/or subcutaneous tissue structure of upper limb,Has finding site,417599008
+74064,Ankylosis of temporomandibular joint,4271126,Ankylosis,Has asso morph,36504009
+74064,Ankylosis of temporomandibular joint,4202366,Temporomandibular joint structure,Has finding site,53620006
+74052,Labyrinthitis,4053015,Inflammation,Has asso morph,23583003
+74052,Labyrinthitis,4253008,Inflammatory morphology,Has asso morph,409774005
+74052,Labyrinthitis,4121004,Labyrinth structure,Has finding site,302462009
+74082,Acontractile detrusor,4282251,Structure of detrusor muscle of urinary bladder,Has finding site,367607007
+74124,Traumatic arthropathy,4253008,Inflammatory morphology,Has asso morph,409774005
+74124,Traumatic arthropathy,4214466,Joint structure,Has finding site,39352004
+74120,Arthropathy of the shoulder region associated with helminthiasis,4253008,Inflammatory morphology,Has asso morph,409774005
+74120,Arthropathy of the shoulder region associated with helminthiasis,4151929,Joint structure of shoulder region,Has finding site,31398001
+74080,Orthostatic proteinuria,4211845,Urine protein measurement,Has interprets,57378007
+74080,Orthostatic proteinuria,4084765,Above reference range,Has interpretation,281302008
+74127,Contracture of elbow joint,4237281,Contracture,Has asso morph,57048009
+74127,Contracture of elbow joint,4027910,Elbow region structure,Has finding site,127949000
+74127,Contracture of elbow joint,4185672,Elbow joint - range of movement,Has interprets,298878008
+74127,Contracture of elbow joint,4053347,Decreased,Has interpretation,1250004
+74126,Protrusio acetabuli of the pelvic region and thigh,4012790,Protrusion,Has asso morph,112639008
+74126,Protrusio acetabuli of the pelvic region and thigh,4292088,Bone structure of acetabulum,Has finding site,37783008
+74125,Inflammatory polyarthropathy,4053015,Inflammation,Has asso morph,23583003
+74125,Inflammatory polyarthropathy,4253008,Inflammatory morphology,Has asso morph,409774005
+74125,Inflammatory polyarthropathy,36695780,Joint structure of multiple body sites,Has finding site,773190007

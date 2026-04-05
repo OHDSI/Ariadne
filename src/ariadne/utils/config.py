@@ -22,6 +22,18 @@ import yaml
 from ariadne.utils.utils import get_project_root, resolve_path
 from spacy.util import from_dict
 
+# Lazy imports to avoid circular dependency when hierarchy is not installed
+_HierarchyConfig = None
+
+
+def _get_hierarchy_config_cls():
+    """Lazy-load HierarchyConfig to break the import cycle."""
+    global _HierarchyConfig
+    if _HierarchyConfig is None:
+        from ariadne.hierarchy.config import HierarchyConfig
+        _HierarchyConfig = HierarchyConfig
+    return _HierarchyConfig
+
 
 @dataclass
 class SystemConfig:
@@ -29,6 +41,7 @@ class SystemConfig:
     terms_folder: Path
     verbatim_mapping_index_file: Path
     llm_mapper_responses_folder: Path
+    term_cleaner_responses_folder: Path
     download_batch_size: int
     max_cores: int
 
@@ -37,6 +50,7 @@ class SystemConfig:
         self.terms_folder = resolve_path(self.terms_folder)
         self.verbatim_mapping_index_file = resolve_path(self.verbatim_mapping_index_file)
         self.llm_mapper_responses_folder = resolve_path(self.llm_mapper_responses_folder)
+        self.term_cleaner_responses_folder = resolve_path(self.term_cleaner_responses_folder)
 
 
 @dataclass
@@ -91,6 +105,7 @@ class Config:
     term_cleaning: TermCleaning = field(default_factory=TermCleaning)
     vector_search: VectorSearch = field(default_factory=VectorSearch)
     llm_mapping: Llm_mapping = field(default_factory=Llm_mapping)
+    hierarchy: Optional[Any] = None  # HierarchyConfig, set lazily to avoid import cycles
 
     def __init__(self, filename: str = "config.yaml"):
         """
@@ -114,6 +129,14 @@ class Config:
         self.term_cleaning = self.from_dict(TermCleaning, raw["term_cleaning"])
         self.vector_search = self.from_dict(VectorSearch, raw["vector_search"])
         self.llm_mapping = self.from_dict(Llm_mapping, raw["llm_mapping"])
+
+        # Hierarchy is optional — only present when config.yaml has a 'hierarchy' section
+        hierarchy_raw = raw.get("hierarchy")
+        if hierarchy_raw is not None:
+            HierarchyConfig = _get_hierarchy_config_cls()
+            self.hierarchy = HierarchyConfig.from_dict(hierarchy_raw)
+        else:
+            self.hierarchy = None
 
     def from_dict(self, cls: Type["Config"], data: Dict[str, Any]) -> "Config":
         def build(dc_type: Type[Any], subdata: Dict[str, Any]) -> Any:
@@ -145,13 +168,16 @@ class Config:
             else:
                 return obj
 
-        return {
+        result = {
             "system": serialize(self.system),
             "verbatim_mapping": serialize(self.verbatim_mapping),
             "term_cleaning": serialize(self.term_cleaning),
             "vector_search": serialize(self.vector_search),
             "llm_mapping": serialize(self.llm_mapping),
         }
+        if self.hierarchy is not None:
+            result["hierarchy"] = serialize(self.hierarchy)
+        return result
 
 
 if __name__ == "__main__":

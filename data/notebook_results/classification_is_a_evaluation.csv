@@ -1,0 +1,1493 @@
+concept_id_1,concept_name,parent_omop_id,parent_name,status
+73026,Abnormal breath sounds,4278456,Breath sounds - finding,both
+73026,Abnormal breath sounds,4027547,Respiratory auscultation finding,predicted_only
+73361,Abrasion and/or friction burn of elbow with infection,43530817,"Abrasion and/or friction burn of upper limb, infected",gs_only
+73361,Abrasion and/or friction burn of elbow with infection,4106352,Superficial injury of elbow,gs_only
+73361,Abrasion and/or friction burn of elbow with infection,444193,Superficial injury of elbow with infection,gs_only
+73361,Abrasion and/or friction burn of elbow with infection,73361,Abrasion and/or friction burn of elbow with infection,predicted_only
+31609,Abscess of salivary gland,444271,Abscess of oral tissue,gs_only
+31609,Abscess of salivary gland,4114483,Lesion of salivary gland,gs_only
+31609,Abscess of salivary gland,4322566,Mass of salivary gland,gs_only
+31609,Abscess of salivary gland,4061734,Abscess of face,predicted_only
+31609,Abscess of salivary gland,31609,Abscess of salivary gland,predicted_only
+31609,Abscess of salivary gland,4048767,Oral fistula,predicted_only
+31609,Abscess of salivary gland,4170116,Oral infection,predicted_only
+22722,Accessory salivary gland,4006301,Congenital anomaly of salivary gland,gs_only
+22722,Accessory salivary gland,22722,Accessory salivary gland,predicted_only
+22722,Accessory salivary gland,46270990,Salivary gland heterotopia,predicted_only
+74082,Acontractile detrusor,4032435,Urinary bladder muscle dysfunction - underactive,gs_only
+74082,Acontractile detrusor,4027240,Disorder of smooth muscle,predicted_only
+74082,Acontractile detrusor,195312,Functional disorder of urinary bladder,predicted_only
+31668,Acquired deformity of neck,4182168,Deformity of neck,gs_only
+31668,Acquired deformity of neck,4042837,Disorder of neck,gs_only
+31668,Acquired deformity of neck,31668,Acquired deformity of neck,predicted_only
+31668,Acquired deformity of neck,4028071,Disorder of trunk,predicted_only
+31884,Acquired diverticulum of esophagus,4187895,Esophageal diverticulum,gs_only
+31884,Acquired diverticulum of esophagus,31884,Acquired diverticulum of esophagus,predicted_only
+31884,Acquired diverticulum of esophagus,4055891,Traction esophageal diverticulum,predicted_only
+73849,Acquired lordosis deformity of spine,4044721,Acquired curvature of spine,both
+73849,Acquired lordosis deformity of spine,73012,Lordosis deformity of spine,both
+26459,Acute esophagitis,30753,Esophagitis,gs_only
+30133,Acute laryngitis,4173027,Acute laryngitis and/or tracheitis,gs_only
+30133,Acute laryngitis,24969,Laryngitis,gs_only
+23798,Acute laryngopharyngitis,30133,Acute laryngitis,gs_only
+23798,Acute laryngopharyngitis,25297,Acute pharyngitis,gs_only
+23798,Acute laryngopharyngitis,4110480,Pharyngolaryngitis,gs_only
+23798,Acute laryngopharyngitis,23798,Acute laryngopharyngitis,predicted_only
+23798,Acute laryngopharyngitis,257011,Acute upper respiratory infection,predicted_only
+23798,Acute laryngopharyngitis,4207471,Infective laryngitis,predicted_only
+23798,Acute laryngopharyngitis,437779,Streptococcal infectious disease,predicted_only
+31597,Acute laryngotracheitis,30133,Acute laryngitis,gs_only
+31597,Acute laryngotracheitis,437903,Acute tracheitis,gs_only
+31597,Acute laryngotracheitis,4208388,Laryngotracheitis,gs_only
+31597,Acute laryngotracheitis,4112534,Chronic laryngitis and laryngotracheitis,predicted_only
+31601,Acute laryngotracheitis with obstruction,31597,Acute laryngotracheitis,gs_only
+31601,Acute laryngotracheitis with obstruction,4112534,Chronic laryngitis and laryngotracheitis,predicted_only
+31601,Acute laryngotracheitis with obstruction,30124,Obstruction of larynx,predicted_only
+31601,Acute laryngotracheitis with obstruction,4249742,Obstruction of trachea,predicted_only
+23237,Acute peptic ulcer with hemorrhage AND obstruction,4046500,Acute peptic ulcer with hemorrhage,gs_only
+23237,Acute peptic ulcer with hemorrhage AND obstruction,4024846,Acute peptic ulcer with obstruction,gs_only
+23237,Acute peptic ulcer with hemorrhage AND obstruction,4273101,Peptic ulcer with hemorrhage AND obstruction,gs_only
+23237,Acute peptic ulcer with hemorrhage AND obstruction,4100660,Acute gastrointestinal hemorrhage,predicted_only
+23237,Acute peptic ulcer with hemorrhage AND obstruction,26718,Acute peptic ulcer with perforation AND obstruction,predicted_only
+23237,Acute peptic ulcer with hemorrhage AND obstruction,4095410,"Peptic ulcer with hemorrhage, with perforation AND with obstruction",predicted_only
+23237,Acute peptic ulcer with hemorrhage AND obstruction,37203956,Peptic ulcer with obstruction,predicted_only
+27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,4155629,Abdominal cavity injury,gs_only
+27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,4006994,Acute peptic ulcer with hemorrhage and perforation,gs_only
+27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,31335,Acute peptic ulcer with hemorrhage but without obstruction,gs_only
+27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,30439,Acute peptic ulcer with perforation but without obstruction,gs_only
+27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,4297887,Disorder of digestive organ,gs_only
+27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,4235740,Peptic ulcer with hemorrhage AND with perforation but without obstruction,gs_only
+27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,194986,"Acute peptic ulcer with hemorrhage, with perforation AND with obstruction",predicted_only
+31335,Acute peptic ulcer with hemorrhage but without obstruction,4046500,Acute peptic ulcer with hemorrhage,gs_only
+31335,Acute peptic ulcer with hemorrhage but without obstruction,4169394,Peptic ulcer with hemorrhage but without obstruction,gs_only
+31335,Acute peptic ulcer with hemorrhage but without obstruction,4100660,Acute gastrointestinal hemorrhage,predicted_only
+31335,Acute peptic ulcer with hemorrhage but without obstruction,4057060,Acute peptic ulcer,predicted_only
+31335,Acute peptic ulcer with hemorrhage but without obstruction,436148,Chronic duodenal ulcer with hemorrhage but without obstruction,predicted_only
+26718,Acute peptic ulcer with perforation AND obstruction,4024846,Acute peptic ulcer with obstruction,gs_only
+26718,Acute peptic ulcer with perforation AND obstruction,4194543,Acute peptic ulcer with perforation,gs_only
+26718,Acute peptic ulcer with perforation AND obstruction,4174823,Peptic ulcer with perforation AND obstruction,gs_only
+26718,Acute peptic ulcer with perforation AND obstruction,26718,Acute peptic ulcer with perforation AND obstruction,predicted_only
+30439,Acute peptic ulcer with perforation but without obstruction,4194543,Acute peptic ulcer with perforation,gs_only
+30439,Acute peptic ulcer with perforation but without obstruction,4054392,Peptic ulcer with perforation but without obstruction,gs_only
+30439,Acute peptic ulcer with perforation but without obstruction,4100660,Acute gastrointestinal hemorrhage,predicted_only
+30439,Acute peptic ulcer with perforation but without obstruction,26718,Acute peptic ulcer with perforation AND obstruction,predicted_only
+30439,Acute peptic ulcer with perforation but without obstruction,4149010,Duodenal ulcer with hemorrhage but without obstruction,predicted_only
+30439,Acute peptic ulcer with perforation but without obstruction,4129397,Injury of duodenum,predicted_only
+30439,Acute peptic ulcer with perforation but without obstruction,4095410,"Peptic ulcer with hemorrhage, with perforation AND with obstruction",predicted_only
+25297,Acute pharyngitis,4132552,Acute digestive system disorder,gs_only
+25297,Acute pharyngitis,4134294,Acute inflammatory disease,gs_only
+25297,Acute pharyngitis,4006969,Acute respiratory disease,gs_only
+25297,Acute pharyngitis,4226263,Pharyngitis,gs_only
+25297,Acute pharyngitis,25297,Acute pharyngitis,predicted_only
+25297,Acute pharyngitis,257011,Acute upper respiratory infection,predicted_only
+25297,Acute pharyngitis,4193318,Infective pharyngitis,predicted_only
+24660,Acute tonsillitis,25297,Acute pharyngitis,gs_only
+24660,Acute tonsillitis,4234533,Tonsillitis,gs_only
+24660,Acute tonsillitis,24660,Acute tonsillitis,predicted_only
+24660,Acute tonsillitis,45766331,Bacterial tonsillitis,predicted_only
+72992,Allergic arthritis,4224260,Allergic disorder by body site affected,gs_only
+72992,Allergic arthritis,80488,Arthropathy associated with a hypersensitivity reaction,gs_only
+72992,Allergic arthritis,4224742,Non-IgE-mediated allergic disorder,gs_only
+72992,Allergic arthritis,72992,Allergic arthritis,predicted_only
+72992,Allergic arthritis,4094283,Lower limb joint arthritis,predicted_only
+73557,Allergic arthritis of the pelvic region and thigh,72992,Allergic arthritis,gs_only
+73557,Allergic arthritis of the pelvic region and thigh,74892,Articular gout,predicted_only
+73557,Allergic arthritis of the pelvic region and thigh,4224742,Non-IgE-mediated allergic disorder,predicted_only
+73557,Allergic arthritis of the pelvic region and thigh,80495,Palindromic rheumatism of pelvic region and thigh,predicted_only
+73241,Anal and rectal polyp,4228686,Anal polyp,gs_only
+73241,Anal and rectal polyp,4216644,Rectal polyp,gs_only
+73241,Anal and rectal polyp,73241,Anal and rectal polyp,predicted_only
+73241,Anal and rectal polyp,4243411,Benign neoplasm of gastrointestinal tract,predicted_only
+73241,Anal and rectal polyp,4129882,Neoplasm of anus,predicted_only
+74064,Ankylosis of temporomandibular joint,80493,Ankylosis of joint,gs_only
+74064,Ankylosis of temporomandibular joint,35624868,Lesion of face,gs_only
+74064,Ankylosis of temporomandibular joint,74396,Temporomandibular joint disorder,gs_only
+74064,Ankylosis of temporomandibular joint,761755,Ankylosis of left temporomandibular joint,predicted_only
+74064,Ankylosis of temporomandibular joint,760903,Right temporomandibular joint disorder,predicted_only
+73855,Arrest of bone development AND/OR growth,4160354,Disorder of bone development,gs_only
+73855,Arrest of bone development AND/OR growth,764156,Disorder of left lower extremity,predicted_only
+73855,Arrest of bone development AND/OR growth,1245241,Epiphyseal arrest of lower leg,predicted_only
+73553,Arthropathy,37206233,Disorder of joint region,gs_only
+73553,Arthropathy,4339410,Disorder of skeletal system,gs_only
+73553,Arthropathy,77960,Joint finding,gs_only
+73553,Arthropathy,76777,Arthropathy associated with infection,predicted_only
+72989,"Arthropathy associated with mycoses, of the ankle and/or foot",75896,Arthropathy associated with a mycosis,gs_only
+72989,"Arthropathy associated with mycoses, of the ankle and/or foot",40482662,Disorder of joint of ankle and/or foot,gs_only
+72989,"Arthropathy associated with mycoses, of the ankle and/or foot",72989,"Arthropathy associated with mycoses, of the ankle and/or foot",predicted_only
+72989,"Arthropathy associated with mycoses, of the ankle and/or foot",133853,Osteomyelitis of ankle AND/OR foot,predicted_only
+72398,Arthropathy in Behcet's syndrome,80494,Arthropathy associated with another disorder,gs_only
+72398,Arthropathy in Behcet's syndrome,1245645,Disorder of joint of right shoulder region due to Behcet syndrome,predicted_only
+72398,Arthropathy in Behcet's syndrome,4083688,Monosodium urate arthritis and periarthritis,predicted_only
+72399,Arthropathy in Behcet's syndrome of multiple sites,72398,Arthropathy in Behcet's syndrome,gs_only
+72399,Arthropathy in Behcet's syndrome of multiple sites,80175,"Arthropathy associated with mycoses, of the shoulder region",predicted_only
+72399,Arthropathy in Behcet's syndrome of multiple sites,1245645,Disorder of joint of right shoulder region due to Behcet syndrome,predicted_only
+72399,Arthropathy in Behcet's syndrome of multiple sites,4265764,Polyarthritis associated with another disorder,predicted_only
+72985,Arthropathy of the ankle and/or foot associated with helminthiasis,40482662,Disorder of joint of ankle and/or foot,both
+72985,Arthropathy of the ankle and/or foot associated with helminthiasis,4057588,Arthritis associated with another disorder,gs_only
+72985,Arthropathy of the ankle and/or foot associated with helminthiasis,76193,Arthropathy associated with helminthiasis,gs_only
+72985,Arthropathy of the ankle and/or foot associated with helminthiasis,4094283,Lower limb joint arthritis,gs_only
+72985,Arthropathy of the ankle and/or foot associated with helminthiasis,76777,Arthropathy associated with infection,predicted_only
+72400,Arthropathy of the pelvic region and thigh associated with helminthiasis,4057588,Arthritis associated with another disorder,gs_only
+72400,Arthropathy of the pelvic region and thigh associated with helminthiasis,76193,Arthropathy associated with helminthiasis,gs_only
+72400,Arthropathy of the pelvic region and thigh associated with helminthiasis,74892,Articular gout,predicted_only
+72400,Arthropathy of the pelvic region and thigh associated with helminthiasis,72993,"Localized, primary osteoarthritis",predicted_only
+74120,Arthropathy of the shoulder region associated with helminthiasis,4057588,Arthritis associated with another disorder,both
+74120,Arthropathy of the shoulder region associated with helminthiasis,1075361,Arthritis of shoulder region joint,both
+74120,Arthropathy of the shoulder region associated with helminthiasis,76193,Arthropathy associated with helminthiasis,gs_only
+74120,Arthropathy of the shoulder region associated with helminthiasis,76777,Arthropathy associated with infection,predicted_only
+72997,Articular cartilage disorder of upper arm,439103,Articular cartilage disorder,both
+72997,Articular cartilage disorder of upper arm,76191,Disorder of upper arm,gs_only
+72997,Articular cartilage disorder of upper arm,4323193,Disorder of wrist joint,predicted_only
+23806,Atrophy of salivary gland,4179873,Degenerative disorder,gs_only
+23806,Atrophy of salivary gland,25572,Disorder of salivary gland,gs_only
+23806,Atrophy of salivary gland,23806,Atrophy of salivary gland,predicted_only
+23806,Atrophy of salivary gland,139057,Disorder of oral soft tissues,predicted_only
+26141,Barrett's esophagus with esophagitis,443344,Barrett's esophagus,gs_only
+26141,Barrett's esophagus with esophagitis,30753,Esophagitis,gs_only
+762000,Benign hypertensive heart disease and chronic renal disease stage 2,44784621,Hypertensive heart and chronic kidney disease,both
+762000,Benign hypertensive heart disease and chronic renal disease stage 2,4263504,Benign hypertensive heart disease,gs_only
+762000,Benign hypertensive heart disease and chronic renal disease stage 2,44782692,Chronic kidney disease stage 2 due to hypertension,gs_only
+762000,Benign hypertensive heart disease and chronic renal disease stage 2,196991,Chronic renal impairment,predicted_only
+28716,Benign neoplasm of aortic body,444463,Benign neoplasm of paraganglion,gs_only
+28716,Benign neoplasm of aortic body,4130063,Neoplasm of aortic body,gs_only
+28716,Benign neoplasm of aortic body,28716,Benign neoplasm of aortic body,predicted_only
+28716,Benign neoplasm of aortic body,442105,Benign neoplasm of soft tissue,predicted_only
+28716,Benign neoplasm of aortic body,4130677,Neoplasm of para-aortic body,predicted_only
+72576,Benign neoplasm of breast,4113104,Benign neoplasm of thorax,gs_only
+72576,Benign neoplasm of breast,81251,Neoplasm of breast,gs_only
+72576,Benign neoplasm of breast,72576,Benign neoplasm of breast,predicted_only
+72576,Benign neoplasm of breast,4242831,Benign neoplasm of skin of chest,predicted_only
+24884,Benign neoplasm of carotid body,4242368,Benign neoplasm of neck,gs_only
+24884,Benign neoplasm of carotid body,444463,Benign neoplasm of paraganglion,gs_only
+24884,Benign neoplasm of carotid body,4131121,Neoplasm of carotid body,gs_only
+24884,Benign neoplasm of carotid body,24884,Benign neoplasm of carotid body,predicted_only
+24884,Benign neoplasm of carotid body,442105,Benign neoplasm of soft tissue,predicted_only
+24884,Benign neoplasm of carotid body,438990,Benign neuroendocrine tumor,predicted_only
+24884,Benign neoplasm of carotid body,4130677,Neoplasm of para-aortic body,predicted_only
+73723,Benign neoplasm of epididymis,200670,Benign neoplasm of male genital organ,gs_only
+73723,Benign neoplasm of epididymis,4131755,Neoplasm of epididymis,gs_only
+73723,Benign neoplasm of epididymis,73723,Benign neoplasm of epididymis,predicted_only
+73723,Benign neoplasm of epididymis,317814,Benign neoplasm of heart,predicted_only
+73723,Benign neoplasm of epididymis,4054529,Neoplasm of epicardium,predicted_only
+24602,Benign neoplasm of esophagus,4243411,Benign neoplasm of gastrointestinal tract,gs_only
+24602,Benign neoplasm of esophagus,193431,Benign tumor of digestive organ,gs_only
+24602,Benign neoplasm of esophagus,4130990,Neoplasm of esophagus,gs_only
+24602,Benign neoplasm of esophagus,24602,Benign neoplasm of esophagus,predicted_only
+24602,Benign neoplasm of esophagus,442105,Benign neoplasm of soft tissue,predicted_only
+24602,Benign neoplasm of esophagus,4242980,Benign neoplasm of trunk,predicted_only
+23731,Benign neoplasm of larynx,4242368,Benign neoplasm of neck,gs_only
+23731,Benign neoplasm of larynx,4242982,Benign neoplasm of upper respiratory tract,gs_only
+23731,Benign neoplasm of larynx,4055265,Neoplasm of larynx,gs_only
+23731,Benign neoplasm of larynx,23731,Benign neoplasm of larynx,predicted_only
+23731,Benign neoplasm of larynx,444452,Benign neoplasm of soft tissues of neck,predicted_only
+23731,Benign neoplasm of larynx,4055267,Neoplasm of false vocal cord,predicted_only
+30679,Benign neoplasm of major salivary gland,4113120,Benign tumor of salivary gland,both
+30679,Benign neoplasm of major salivary gland,4054610,Neoplasm of major salivary gland,both
+30356,Benign neoplasm of pharynx,4156941,"Benign neoplasm of lip, oral cavity and pharynx",gs_only
+30356,Benign neoplasm of pharynx,4242982,Benign neoplasm of upper respiratory tract,gs_only
+30356,Benign neoplasm of pharynx,193431,Benign tumor of digestive organ,gs_only
+30356,Benign neoplasm of pharynx,4131451,Neoplasm of pharynx,gs_only
+30356,Benign neoplasm of pharynx,30356,Benign neoplasm of pharynx,predicted_only
+30356,Benign neoplasm of pharynx,444452,Benign neoplasm of soft tissues of neck,predicted_only
+30356,Benign neoplasm of pharynx,4055267,Neoplasm of false vocal cord,predicted_only
+28115,Benign neoplasm of pineal gland,4173658,Benign cerebral tumor,both
+28115,Benign neoplasm of pineal gland,136937,Benign neoplasm of endocrine gland,both
+28115,Benign neoplasm of pineal gland,4131120,Neoplasm of pineal gland,both
+26060,Benign neoplasm of tonsil,4242988,Benign neoplasm of Waldeyer's ring,gs_only
+26060,Benign neoplasm of tonsil,4240017,Benign neoplasm of lateral wall of oropharynx,gs_only
+26060,Benign neoplasm of tonsil,4130836,Neoplasm of tonsil,gs_only
+26060,Benign neoplasm of tonsil,26060,Benign neoplasm of tonsil,predicted_only
+26060,Benign neoplasm of tonsil,4130375,Neoplasm of tongue,predicted_only
+73021,Bilateral congenital dislocation of hip,36687058,Arthropathy of bilateral hip joints,gs_only
+73021,Bilateral congenital dislocation of hip,35608132,Congenital dislocation of left hip,gs_only
+73021,Bilateral congenital dislocation of hip,762233,Congenital dislocation of left hip,gs_only
+73021,Bilateral congenital dislocation of hip,765119,Congenital dislocation of right hip,gs_only
+73021,Bilateral congenital dislocation of hip,35608133,Congenital dislocation of right hip,gs_only
+73021,Bilateral congenital dislocation of hip,73021,Bilateral congenital dislocation of hip,predicted_only
+73021,Bilateral congenital dislocation of hip,40323559,Dislocation of knee joint,predicted_only
+28779,Bleeding esophageal varices,24966,Esophageal varices,gs_only
+28779,Bleeding esophageal varices,37311947,Hemorrhage of digestive system,gs_only
+28779,Bleeding esophageal varices,4344497,Soft tissue lesion,gs_only
+28779,Bleeding esophageal varices,4124866,Venous hemorrhage,gs_only
+28779,Bleeding esophageal varices,28779,Bleeding esophageal varices,predicted_only
+26441,Bleeding ulcer of esophagus,23245,Esophageal bleeding,gs_only
+26441,Bleeding ulcer of esophagus,4271696,Peptic ulcer with hemorrhage,gs_only
+26441,Bleeding ulcer of esophagus,25844,Ulcer of esophagus,gs_only
+26441,Bleeding ulcer of esophagus,26441,Bleeding ulcer of esophagus,predicted_only
+26441,Bleeding ulcer of esophagus,4341252,Esophageal anastomotic hemorrhage,predicted_only
+26441,Bleeding ulcer of esophagus,4027942,Esophagogastric ulcer,predicted_only
+26441,Bleeding ulcer of esophagus,4222477,Gastrojejunal ulcer with hemorrhage,predicted_only
+26441,Bleeding ulcer of esophagus,4086529,Injury of jejunum,predicted_only
+26441,Bleeding ulcer of esophagus,4053830,Injury of stomach,predicted_only
+26441,Bleeding ulcer of esophagus,4340118,Rupture of esophagus,predicted_only
+72486,Blister of elbow without infection,4267555,Blister of skin without infection,both
+72486,Blister of elbow without infection,4271029,Disorder of skin of upper limb,both
+72486,Blister of elbow without infection,444189,Injury of elbow,both
+72486,Blister of elbow without infection,4344259,Soft tissue lesion of elbow region,both
+23567,Branchial cleft cyst,4178668,Branchial cleft anomaly,both
+23567,Branchial cleft cyst,4209224,Cyst,both
+23567,Branchial cleft cyst,443258,Mass of head and/or neck,both
+25068,Branchial cleft sinus and fistula,4100729,Branchial cleft sinus,gs_only
+25068,Branchial cleft sinus and fistula,439377,Fistula of branchial cleft,gs_only
+25068,Branchial cleft sinus and fistula,25068,Branchial cleft sinus and fistula,predicted_only
+25068,Branchial cleft sinus and fistula,443258,Mass of head and/or neck,predicted_only
+73019,Breast engorgement in newborn,77030,Disorder of breast,gs_only
+73019,Breast engorgement in newborn,4172315,Engorgement of breasts,gs_only
+73019,Breast engorgement in newborn,4042220,Neonatal disorder,gs_only
+73019,Breast engorgement in newborn,4022933,Breast finding,predicted_only
+73019,Breast engorgement in newborn,439156,Finding of neonate,predicted_only
+73372,Burn of breast,197163,Burn of trunk,gs_only
+73372,Burn of breast,4265765,Injury of breast,gs_only
+73372,Burn of breast,4128492,Lesion of breast,gs_only
+73372,Burn of breast,73372,Burn of breast,predicted_only
+73372,Burn of breast,765718,Lesion of skin of breast,predicted_only
+73372,Burn of breast,441171,Second degree burn of chest wall,predicted_only
+27438,Burn of esophagus,4155764,Esophageal injury,both
+27438,Burn of esophagus,195976,Burn of gastrointestinal tract,gs_only
+27438,Burn of esophagus,198030,Burn of internal organ,gs_only
+27438,Burn of esophagus,4113545,Lesion of esophagus,gs_only
+27438,Burn of esophagus,4053585,Injury of larynx,predicted_only
+27438,Burn of esophagus,4115254,Lesion of larynx,predicted_only
+72516,Burn of knee,197751,Burn of lower limb,gs_only
+72516,Burn of knee,444132,Injury of knee,gs_only
+72516,Burn of knee,72516,Burn of knee,predicted_only
+72516,Burn of knee,444131,Injury of lower leg,predicted_only
+26286,Burn of neck,4293479,Burn of head AND/OR neck,gs_only
+26286,Burn of neck,24818,Injury of neck,gs_only
+26286,Burn of neck,4185207,Lesion of neck,gs_only
+26286,Burn of neck,4266654,Abrasion and/or friction burn of skin,predicted_only
+26286,Burn of neck,26286,Burn of neck,predicted_only
+26286,Burn of neck,4123196,Burn of skin of body region,predicted_only
+26286,Burn of neck,4170635,Superficial injury of neck,predicted_only
+73913,Burn of shoulder,73925,Burn of upper limb,gs_only
+73913,Burn of shoulder,76611,Injury of shoulder region,gs_only
+73913,Burn of shoulder,73913,Burn of shoulder,predicted_only
+73913,Burn of shoulder,760749,Injury of right elbow region,predicted_only
+73925,Burn of upper limb,442013,Burn,gs_only
+73925,Burn of upper limb,4130851,Injury of upper extremity,gs_only
+73925,Burn of upper limb,4235162,Deep full thickness burn,predicted_only
+73925,Burn of upper limb,75709,Full thickness burn of upper limb,predicted_only
+73560,Calcaneal spur,4101635,Finding of bone of foot,gs_only
+73560,Calcaneal spur,40481843,Mass of foot,gs_only
+73560,Calcaneal spur,4116964,Mass of musculoskeletal structure,gs_only
+73560,Calcaneal spur,73560,Calcaneal spur,predicted_only
+73560,Calcaneal spur,37109006,Exostosis of right foot,predicted_only
+73560,Calcaneal spur,45757591,Osteophyte of bone,predicted_only
+29735,Candidiasis of mouth,433968,Candidiasis,gs_only
+29735,Candidiasis of mouth,4042502,Disease of mouth,gs_only
+29735,Candidiasis of mouth,4207190,Fungal infection by site,gs_only
+29735,Candidiasis of mouth,4134887,Infectious disease of digestive tract,gs_only
+29735,Candidiasis of mouth,4176944,Infective disorder of head,gs_only
+29735,Candidiasis of mouth,29735,Candidiasis of mouth,predicted_only
+29735,Candidiasis of mouth,4130007,Nipple infection,predicted_only
+29735,Candidiasis of mouth,4170116,Oral infection,predicted_only
+28974,Candidiasis of the esophagus,31610,Disorder of esophagus,gs_only
+28974,Candidiasis of the esophagus,193133,Gastrointestinal candidiasis,gs_only
+28974,Candidiasis of the esophagus,28974,Candidiasis of the esophagus,predicted_only
+28109,Carcinoma in situ of esophagus,196064,Carcinoma in situ of digestive organ,gs_only
+28109,Carcinoma in situ of esophagus,4244495,Carcinoma in situ of gastrointestinal tract,gs_only
+28109,Carcinoma in situ of esophagus,4130990,Neoplasm of esophagus,gs_only
+28109,Carcinoma in situ of esophagus,28109,Carcinoma in situ of esophagus,predicted_only
+28109,Carcinoma in situ of esophagus,4112605,Carcinoma of upper third of esophagus,predicted_only
+28109,Carcinoma in situ of esophagus,4094854,Malignant tumor of cervical part of esophagus,predicted_only
+24897,Carcinoma in situ of larynx,4241921,Carcinoma in situ of upper respiratory tract,gs_only
+24897,Carcinoma in situ of larynx,4055265,Neoplasm of larynx,gs_only
+24897,Carcinoma in situ of larynx,24897,Carcinoma in situ of larynx,predicted_only
+24897,Carcinoma in situ of larynx,4241919,Carcinoma in situ of tongue,predicted_only
+24897,Carcinoma in situ of larynx,4054514,Neoplasm of nasopharynx,predicted_only
+30163,Cellulitis and abscess of neck,4266864,Abscess of neck,gs_only
+30163,Cellulitis and abscess of neck,4290877,Cellulitis of neck,gs_only
+30163,Cellulitis and abscess of neck,42709830,Cellulitis and abscess of lower limb,predicted_only
+30163,Cellulitis and abscess of neck,30163,Cellulitis and abscess of neck,predicted_only
+4113790,"Cellulitis of leg, excluding foot",42709838,Cellulitis of lower limb,gs_only
+4113790,"Cellulitis of leg, excluding foot",42709839,Cellulitis of lower leg,predicted_only
+4113790,"Cellulitis of leg, excluding foot",1245278,Cellulitis of second toe,predicted_only
+4113790,"Cellulitis of leg, excluding foot",1245281,Cellulitis of toe of right foot,predicted_only
+28248,Cervical auricle,25056,Congenital anomaly of neck,both
+28248,Cervical auricle,23567,Branchial cleft cyst,gs_only
+28248,Cervical auricle,36716871,Cyst of neck,gs_only
+28248,Cervical auricle,764582,Congenital malformation of right external ear,predicted_only
+28248,Cervical auricle,378548,Polyotia,predicted_only
+72245,Chlamydial infection of lower genitourinary tract,79732,Genitourinary chlamydia infection,gs_only
+72245,Chlamydial infection of lower genitourinary tract,4145825,Anorectal disorder,predicted_only
+72245,Chlamydial infection of lower genitourinary tract,4200533,Bacterial infection by site,predicted_only
+72245,Chlamydial infection of lower genitourinary tract,72245,Chlamydial infection of lower genitourinary tract,predicted_only
+23137,Chlamydial pharyngitis,4193874,Bacterial infection of the digestive tract,gs_only
+23137,Chlamydial pharyngitis,4207185,Bacterial upper respiratory infection,gs_only
+23137,Chlamydial pharyngitis,438066,Chlamydial infection,gs_only
+23137,Chlamydial pharyngitis,4193318,Infective pharyngitis,gs_only
+23137,Chlamydial pharyngitis,4208665,Bacterial genital infection,predicted_only
+23137,Chlamydial pharyngitis,23137,Chlamydial pharyngitis,predicted_only
+23137,Chlamydial pharyngitis,4207310,Infective epididymitis,predicted_only
+24978,Chronic adenotonsillitis,439851,Chronic adenoiditis,gs_only
+24978,Chronic adenotonsillitis,23220,Chronic tonsillitis,gs_only
+24978,Chronic adenotonsillitis,432347,Chronic disease of tonsils AND/OR adenoids,predicted_only
+24978,Chronic adenotonsillitis,4181188,Inflammatory disorder of immune system,predicted_only
+443611,Chronic kidney disease stage 5,46271022,Chronic kidney disease,gs_only
+443611,Chronic kidney disease stage 5,196991,Chronic renal impairment,gs_only
+443611,Chronic kidney disease stage 5,443614,Chronic kidney disease stage 1,predicted_only
+24970,Chronic laryngitis,4063381,Chronic disease of respiratory system,gs_only
+24970,Chronic laryngitis,444208,Chronic inflammatory disorder,gs_only
+24970,Chronic laryngitis,24969,Laryngitis,gs_only
+24970,Chronic laryngitis,4112534,Chronic laryngitis and laryngotracheitis,predicted_only
+24970,Chronic laryngitis,46270074,Chronic pharyngolaryngitis,predicted_only
+26719,Chronic laryngotracheitis,4112534,Chronic laryngitis and laryngotracheitis,gs_only
+26719,Chronic laryngotracheitis,4254103,Chronic tracheitis,gs_only
+26719,Chronic laryngotracheitis,26719,Chronic laryngotracheitis,predicted_only
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,4174044,Chronic peptic ulcer with hemorrhage,gs_only
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,4024849,Chronic peptic ulcer with obstruction,gs_only
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,4273101,Peptic ulcer with hemorrhage AND obstruction,gs_only
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,4100660,Acute gastrointestinal hemorrhage,predicted_only
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,26718,Acute peptic ulcer with perforation AND obstruction,predicted_only
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,30442,Chronic peptic ulcer with perforation AND obstruction,predicted_only
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,4095410,"Peptic ulcer with hemorrhage, with perforation AND with obstruction",predicted_only
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,37203956,Peptic ulcer with obstruction,predicted_only
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,4134593,Chronic digestive system disorder,gs_only
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,4235740,Peptic ulcer with hemorrhage AND with perforation but without obstruction,gs_only
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",predicted_only
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,4129397,Injury of duodenum,predicted_only
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,4086529,Injury of jejunum,predicted_only
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,4053830,Injury of stomach,predicted_only
+30770,Chronic peptic ulcer with hemorrhage but without obstruction,4174044,Chronic peptic ulcer with hemorrhage,gs_only
+30770,Chronic peptic ulcer with hemorrhage but without obstruction,4169394,Peptic ulcer with hemorrhage but without obstruction,gs_only
+30770,Chronic peptic ulcer with hemorrhage but without obstruction,436148,Chronic duodenal ulcer with hemorrhage but without obstruction,predicted_only
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",30442,Chronic peptic ulcer with perforation AND obstruction,both
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",24076,Chronic peptic ulcer with hemorrhage AND obstruction,gs_only
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",4247008,Chronic peptic ulcer with hemorrhage AND perforation,gs_only
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",4095410,"Peptic ulcer with hemorrhage, with perforation AND with obstruction",gs_only
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",194986,"Acute peptic ulcer with hemorrhage, with perforation AND with obstruction",predicted_only
+30442,Chronic peptic ulcer with perforation AND obstruction,4024849,Chronic peptic ulcer with obstruction,gs_only
+30442,Chronic peptic ulcer with perforation AND obstruction,4146517,Chronic peptic ulcer with perforation,gs_only
+30442,Chronic peptic ulcer with perforation AND obstruction,4174823,Peptic ulcer with perforation AND obstruction,gs_only
+30442,Chronic peptic ulcer with perforation AND obstruction,26718,Acute peptic ulcer with perforation AND obstruction,predicted_only
+30442,Chronic peptic ulcer with perforation AND obstruction,30442,Chronic peptic ulcer with perforation AND obstruction,predicted_only
+30442,Chronic peptic ulcer with perforation AND obstruction,37203956,Peptic ulcer with obstruction,predicted_only
+23247,Chronic peptic ulcer with perforation but without obstruction,4146517,Chronic peptic ulcer with perforation,gs_only
+23247,Chronic peptic ulcer with perforation but without obstruction,4054392,Peptic ulcer with perforation but without obstruction,gs_only
+23247,Chronic peptic ulcer with perforation but without obstruction,4026000,Acute intestinal obstruction,predicted_only
+23247,Chronic peptic ulcer with perforation but without obstruction,26718,Acute peptic ulcer with perforation AND obstruction,predicted_only
+23247,Chronic peptic ulcer with perforation but without obstruction,4024986,Chronic gastrojejunal ulcer with obstruction,predicted_only
+23247,Chronic peptic ulcer with perforation but without obstruction,30442,Chronic peptic ulcer with perforation AND obstruction,predicted_only
+23247,Chronic peptic ulcer with perforation but without obstruction,4086529,Injury of jejunum,predicted_only
+23247,Chronic peptic ulcer with perforation but without obstruction,4053830,Injury of stomach,predicted_only
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,4024849,Chronic peptic ulcer with obstruction,gs_only
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,4204555,Chronic peptic ulcer without hemorrhage AND without perforation,gs_only
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,200771,Peptic ulcer without hemorrhage AND without perforation but with obstruction,gs_only
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",4204555,Chronic peptic ulcer without hemorrhage AND without perforation,gs_only
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",201069,"Peptic ulcer without hemorrhage, without perforation AND without obstruction",gs_only
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",4024986,Chronic gastrojejunal ulcer with obstruction,predicted_only
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",4197099,Combined gastric AND duodenal ulcer,predicted_only
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",4149010,Duodenal ulcer with hemorrhage but without obstruction,predicted_only
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",4273101,Peptic ulcer with hemorrhage AND obstruction,predicted_only
+26711,Chronic pharyngitis,4134593,Chronic digestive system disorder,gs_only
+26711,Chronic pharyngitis,4063381,Chronic disease of respiratory system,gs_only
+26711,Chronic pharyngitis,444208,Chronic inflammatory disorder,gs_only
+26711,Chronic pharyngitis,4226263,Pharyngitis,gs_only
+26711,Chronic pharyngitis,26711,Chronic pharyngitis,predicted_only
+26711,Chronic pharyngitis,4197268,Nasopharyngitis,predicted_only
+23220,Chronic tonsillitis,4170138,Chronic disease of tonsil,gs_only
+23220,Chronic tonsillitis,26711,Chronic pharyngitis,gs_only
+23220,Chronic tonsillitis,4234533,Tonsillitis,gs_only
+23220,Chronic tonsillitis,24660,Acute tonsillitis,predicted_only
+23220,Chronic tonsillitis,257011,Acute upper respiratory infection,predicted_only
+23220,Chronic tonsillitis,45766331,Bacterial tonsillitis,predicted_only
+23220,Chronic tonsillitis,4073287,Chronic infectious disease,predicted_only
+23220,Chronic tonsillitis,23220,Chronic tonsillitis,predicted_only
+73041,Closed fracture of five ribs,78273,Closed fracture of multiple ribs,both
+73041,Closed fracture of five ribs,4288590,Fracture of five ribs,gs_only
+73041,Closed fracture of five ribs,75942,Open fracture of rib,predicted_only
+73341,Closed fracture of head of radius,4190345,Closed fracture involving joint,gs_only
+73341,Closed fracture of head of radius,45773541,Closed fracture of proximal epiphysis of radius,gs_only
+73341,Closed fracture of head of radius,4136716,Fracture of radial head,gs_only
+73341,Closed fracture of head of radius,73341,Closed fracture of head of radius,predicted_only
+73341,Closed fracture of head of radius,435380,Closed fracture of radius AND ulna,predicted_only
+73341,Closed fracture of head of radius,4010371,"Closed fracture of ulna, lower epiphysis",predicted_only
+73036,Closed fracture of olecranon process of ulna,4190345,Closed fracture involving joint,gs_only
+73036,Closed fracture of olecranon process of ulna,436251,Closed fracture of proximal end of ulna,gs_only
+73036,Closed fracture of olecranon process of ulna,4083488,Fracture of olecranon,gs_only
+73036,Closed fracture of olecranon process of ulna,73036,Closed fracture of olecranon process of ulna,predicted_only
+73036,Closed fracture of olecranon process of ulna,4010371,"Closed fracture of ulna, lower epiphysis",predicted_only
+72465,Closed fracture of one or more phalanges of hand,45772685,Closed fracture of hand,gs_only
+72465,Closed fracture of one or more phalanges of hand,4226282,Fracture of phalanx of hand,gs_only
+72465,Closed fracture of one or more phalanges of hand,4088051,Closed fracture of phalanx of finger,predicted_only
+73614,Closed fracture of seven ribs,78273,Closed fracture of multiple ribs,gs_only
+73614,Closed fracture of seven ribs,4032308,Fracture of seven ribs,gs_only
+73884,Closed fracture of three ribs,78273,Closed fracture of multiple ribs,gs_only
+73884,Closed fracture of three ribs,4239149,Fracture of three ribs,gs_only
+72459,Closed fracture of two ribs,78273,Closed fracture of multiple ribs,gs_only
+72459,Closed fracture of two ribs,4136498,Fracture of two ribs,gs_only
+73334,Closed posterior dislocation of elbow,4221189,Dislocation of elbow joint,gs_only
+73334,Closed posterior dislocation of elbow,4009760,"Closed traumatic dislocation elbow joint, posterior",predicted_only
+73343,Closed posterior dislocation of hip,4306084,Dislocation of hip joint,gs_only
+73343,Closed posterior dislocation of hip,4012285,Closed fracture dislocation of hip joint,predicted_only
+73343,Closed posterior dislocation of hip,73343,Closed posterior dislocation of hip,predicted_only
+73335,Closed posterior dislocation of proximal end of tibia,40323559,Dislocation of knee joint,gs_only
+73335,Closed posterior dislocation of proximal end of tibia,72986,Disorder of lower leg,gs_only
+73335,Closed posterior dislocation of proximal end of tibia,1245129,Displacement of bone,gs_only
+73335,Closed posterior dislocation of proximal end of tibia,604317,Finding of bone of lower limb,gs_only
+73335,Closed posterior dislocation of proximal end of tibia,4177556,Injury of tibia,predicted_only
+73335,Closed posterior dislocation of proximal end of tibia,1245130,Traumatic displacement of bone,predicted_only
+73336,Closed traumatic dislocation ankle joint,40492779,Closed traumatic dislocation of joint,gs_only
+73336,Closed traumatic dislocation ankle joint,79113,Traumatic dislocation of ankle joint,gs_only
+73336,Closed traumatic dislocation ankle joint,73336,Closed traumatic dislocation ankle joint,predicted_only
+73336,Closed traumatic dislocation ankle joint,437120,Closed traumatic dislocation of joint of foot,predicted_only
+73336,Closed traumatic dislocation ankle joint,42536867,Traumatic dislocation of tarsal joint,predicted_only
+72469,Closed traumatic dislocation of joint of shoulder region,40492779,Closed traumatic dislocation of joint,gs_only
+72469,Closed traumatic dislocation of joint of shoulder region,75899,Traumatic dislocation of shoulder region,gs_only
+72469,Closed traumatic dislocation of joint of shoulder region,72469,Closed traumatic dislocation of joint of shoulder region,predicted_only
+72469,Closed traumatic dislocation of joint of shoulder region,443457,Open dislocation of shoulder region,predicted_only
+72469,Closed traumatic dislocation of joint of shoulder region,37116637,Traumatic dislocation of scapulothoracic joint,predicted_only
+27826,Combination of endocrine dysfunction,4131812,Polyglandular dysfunction AND/OR related disorders,gs_only
+27826,Combination of endocrine dysfunction,193165,Disorder of adrenal gland,predicted_only
+25698,Complication of transplanted pancreas,201461,Disorder affecting transplanted structure,gs_only
+25698,Complication of transplanted pancreas,192963,Disorder of pancreas,gs_only
+25698,Complication of transplanted pancreas,4300243,Postoperative complication,gs_only
+25698,Complication of transplanted pancreas,42537741,Transplant present,gs_only
+25698,Complication of transplanted pancreas,37205026,Awaiting transplantation,predicted_only
+25698,Complication of transplanted pancreas,765041,Awaiting transplantation of organ,predicted_only
+31386,Congenital absence of salivary gland,4241529,Congenital absence of mouth,gs_only
+31386,Congenital absence of salivary gland,4006301,Congenital anomaly of salivary gland,gs_only
+31386,Congenital absence of salivary gland,31386,Congenital absence of salivary gland,predicted_only
+73866,Congenital anomaly of breast,4176798,Congenital anomaly of thorax,gs_only
+73866,Congenital anomaly of breast,77030,Disorder of breast,gs_only
+73866,Congenital anomaly of breast,73866,Congenital anomaly of breast,predicted_only
+73866,Congenital anomaly of breast,4046112,Congenital anomaly of lower respiratory system,predicted_only
+73866,Congenital anomaly of breast,257907,Disorder of lung,predicted_only
+23868,Congenital anomaly of esophagus,4134606,Congenital anomaly of digestive organ,gs_only
+23868,Congenital anomaly of esophagus,200836,Congenital anomaly of gastrointestinal tract,gs_only
+23868,Congenital anomaly of esophagus,31120,Congenital anomaly of upper alimentary tract,gs_only
+23868,Congenital anomaly of esophagus,4169977,Congenital malformation of upper alimentary tract,gs_only
+23868,Congenital anomaly of esophagus,31610,Disorder of esophagus,gs_only
+23868,Congenital anomaly of esophagus,23868,Congenital anomaly of esophagus,predicted_only
+23868,Congenital anomaly of esophagus,4149721,Esophageal fistula,predicted_only
+25056,Congenital anomaly of neck,40481040,Congenital anomaly,gs_only
+25056,Congenital anomaly of neck,4079975,Congenital malformation,gs_only
+25056,Congenital anomaly of neck,4042837,Disorder of neck,gs_only
+25056,Congenital anomaly of neck,25056,Congenital anomaly of neck,predicted_only
+25056,Congenital anomaly of neck,133298,Musculoskeletal disorder of the neck,predicted_only
+23865,Congenital anomaly of pharynx,4134606,Congenital anomaly of digestive organ,gs_only
+23865,Congenital anomaly of pharynx,31120,Congenital anomaly of upper alimentary tract,gs_only
+23865,Congenital anomaly of pharynx,4215370,Congenital anomaly of upper respiratory system,gs_only
+23865,Congenital anomaly of pharynx,4169977,Congenital malformation of upper alimentary tract,gs_only
+23865,Congenital anomaly of pharynx,31057,Disorder of pharynx,gs_only
+23865,Congenital anomaly of pharynx,23865,Congenital anomaly of pharynx,predicted_only
+73017,Congenital anomaly of toe,4301416,Congenital anomaly of digit,gs_only
+73017,Congenital anomaly of toe,78560,Congenital anomaly of foot,gs_only
+73017,Congenital anomaly of toe,4028528,Disorder of toe,gs_only
+73017,Congenital anomaly of toe,35614908,Congenital absence of right foot,predicted_only
+73017,Congenital anomaly of toe,4280077,Congenital absence of toe,predicted_only
+73872,Congenital deformity of knee joint,4324765,Arthropathy of knee joint,gs_only
+73872,Congenital deformity of knee joint,4316226,Congenital anomaly of joint,gs_only
+73872,Congenital deformity of knee joint,37164303,Congenital deformity of lower limb,gs_only
+73872,Congenital deformity of knee joint,1076497,Congenital deformity of musculoskeletal system,gs_only
+73872,Congenital deformity of knee joint,4103031,Deformity of knee joint,gs_only
+73872,Congenital deformity of knee joint,73872,Congenital deformity of knee joint,predicted_only
+73872,Congenital deformity of knee joint,619253,Congenital dislocation of joint,predicted_only
+73872,Congenital deformity of knee joint,40323559,Dislocation of knee joint,predicted_only
+24148,Congenital diverticulum of pharynx,23865,Congenital anomaly of pharynx,gs_only
+24148,Congenital diverticulum of pharynx,37174262,Lesion of pharynx,gs_only
+24148,Congenital diverticulum of pharynx,24148,Congenital diverticulum of pharynx,predicted_only
+30515,Congenital esophageal ring,23868,Congenital anomaly of esophagus,gs_only
+30515,Congenital esophageal ring,4340117,Esophageal web / ring,gs_only
+30515,Congenital esophageal ring,443913,Congenital anomaly of trachea,predicted_only
+30515,Congenital esophageal ring,4268622,Stricture of esophagus,predicted_only
+72434,Congenital hydrocele,76737,Hydrocele,both
+72434,Congenital hydrocele,4127734,Congenital abnormality of scrotum,gs_only
+72434,Congenital hydrocele,4006302,Congenital anomaly of genital system,gs_only
+72434,Congenital hydrocele,37110208,Lesion of genitalia,gs_only
+72434,Congenital hydrocele,4032593,Acquired hydrocele,predicted_only
+72434,Congenital hydrocele,4208095,Congenital anomaly of testis,predicted_only
+72434,Congenital hydrocele,443401,Congenital connective tissue disorder,predicted_only
+22426,Congenital macrostomia,133303,Congenital anomaly of mouth,both
+22426,Congenital macrostomia,439394,Congenital anomaly of face,gs_only
+22426,Congenital macrostomia,35624868,Lesion of face,gs_only
+22426,Congenital macrostomia,43530620,Oral lesion,gs_only
+22426,Congenital macrostomia,42709918,Orofacial cleft,gs_only
+26213,Congenital salivary gland fistula,4006301,Congenital anomaly of salivary gland,gs_only
+26213,Congenital salivary gland fistula,28462,Fistula of salivary gland,gs_only
+26213,Congenital salivary gland fistula,26213,Congenital salivary gland fistula,predicted_only
+74127,Contracture of elbow joint,73290,Contracture of joint,gs_only
+74127,Contracture of elbow joint,4126334,Decreased range of elbow movement,gs_only
+74127,Contracture of elbow joint,4186162,Deformity of upper limb,gs_only
+74127,Contracture of elbow joint,4027383,Disorder of elbow,gs_only
+74127,Contracture of elbow joint,74127,Contracture of elbow joint,predicted_only
+74127,Contracture of elbow joint,764154,Disorder of left upper extremity,predicted_only
+73290,Contracture of joint,4168498,Deformity,gs_only
+73290,Contracture of joint,37206233,Disorder of joint region,gs_only
+73290,Contracture of joint,4323826,Limitation of joint movement,gs_only
+73290,Contracture of joint,372604,Movement disorder,gs_only
+73290,Contracture of joint,73290,Contracture of joint,predicted_only
+73290,Contracture of joint,44782620,Disorder of free lower limb,predicted_only
+72995,Contracture of joint of hand,73290,Contracture of joint,gs_only
+72995,Contracture of joint of hand,4182643,Deformity of hand,gs_only
+72995,Contracture of joint of hand,77635,Disorder of hand,gs_only
+72995,Contracture of joint of hand,72995,Contracture of joint of hand,predicted_only
+72995,Contracture of joint of hand,764153,Disorder of right upper extremity,predicted_only
+73089,Contusion of buttock,199978,Contusion of lower limb,gs_only
+73089,Contusion of buttock,195977,Contusion of trunk,gs_only
+73089,Contusion of buttock,4174096,Injury of buttock,gs_only
+73089,Contusion of buttock,73089,Contusion of buttock,predicted_only
+73089,Contusion of buttock,4057346,"Contusion, hip and thigh",predicted_only
+24198,Contusion of esophagus,4016547,Closed injury of esophagus,gs_only
+24198,Contusion of esophagus,441737,Contusion,gs_only
+24198,Contusion of esophagus,4155764,Esophageal injury,predicted_only
+24198,Contusion of esophagus,4103988,Esophageal mass,predicted_only
+24198,Contusion of esophagus,4168335,Wound,predicted_only
+73649,Contusion of finger,81723,Contusion of hand,gs_only
+73649,Contusion of finger,81454,Injury of finger,gs_only
+73649,Contusion of finger,73649,Contusion of finger,predicted_only
+73649,Contusion of finger,73090,Contusion of foot,predicted_only
+73649,Contusion of finger,4151204,Injury of toe,predicted_only
+73649,Contusion of finger,4102562,Lesion of toe,predicted_only
+73090,Contusion of foot,199978,Contusion of lower limb,gs_only
+73090,Contusion of foot,444130,Injury of foot,gs_only
+73090,Contusion of foot,73090,Contusion of foot,predicted_only
+73090,Contusion of foot,36675105,Injury of right foot,predicted_only
+73065,Contusion of genital organ,195977,Contusion of trunk,both
+73065,Contusion of genital organ,4152297,Genital injury,both
+73065,Contusion of genital organ,37110208,Lesion of genitalia,both
+73065,Contusion of genital organ,4154168,Pelvic injury,predicted_only
+73923,Contusion of upper arm,73075,Contusion of upper limb,gs_only
+73923,Contusion of upper arm,444190,Injury of upper arm,gs_only
+73923,Contusion of upper arm,76565,Contusion of shoulder region,predicted_only
+73923,Contusion of upper arm,73923,Contusion of upper arm,predicted_only
+73923,Contusion of upper arm,44783028,Injury of shoulder and upper arm,predicted_only
+73923,Contusion of upper arm,37110781,Wound of axillary region,predicted_only
+73075,Contusion of upper limb,441737,Contusion,gs_only
+73075,Contusion of upper limb,4130851,Injury of upper extremity,gs_only
+73075,Contusion of upper limb,73075,Contusion of upper limb,predicted_only
+73075,Contusion of upper limb,4130852,Injury of lower limb,predicted_only
+72487,Crushing injury of foot,194229,Crushing injury of lower limb,gs_only
+72487,Crushing injury of foot,444130,Injury of foot,gs_only
+72487,Crushing injury of foot,72487,Crushing injury of foot,predicted_only
+72487,Crushing injury of foot,37108731,Injury of left foot,predicted_only
+73366,Crushing injury of lower leg,194229,Crushing injury of lower limb,gs_only
+73366,Crushing injury of lower leg,444131,Injury of lower leg,gs_only
+73366,Crushing injury of lower leg,73366,Crushing injury of lower leg,predicted_only
+73366,Crushing injury of lower leg,442564,Injury of thigh,predicted_only
+73362,Crushing injury of multiple sites of upper limb,78609,Crushing injury of upper limb,both
+73362,Crushing injury of multiple sites of upper limb,440913,Crushing injury of multiple sites,gs_only
+73362,Crushing injury of multiple sites of upper limb,444190,Injury of upper arm,predicted_only
+29979,Crushing injury of neck,437428,Crushing injury,gs_only
+29979,Crushing injury of neck,24818,Injury of neck,gs_only
+29979,Crushing injury of neck,4185207,Lesion of neck,gs_only
+29979,Crushing injury of neck,4053585,Injury of larynx,predicted_only
+29979,Crushing injury of neck,4115254,Lesion of larynx,predicted_only
+73072,Crushing injury of upper arm,78609,Crushing injury of upper limb,gs_only
+73072,Crushing injury of upper arm,444190,Injury of upper arm,gs_only
+73072,Crushing injury of upper arm,73072,Crushing injury of upper arm,predicted_only
+73287,Crystal arthropathy of ankle AND/OR foot,80484,Crystal arthropathy,gs_only
+73287,Crystal arthropathy of ankle AND/OR foot,4219481,Degenerative joint disease of ankle AND/OR foot,gs_only
+73287,Crystal arthropathy of ankle AND/OR foot,73287,Crystal arthropathy of ankle AND/OR foot,predicted_only
+73287,Crystal arthropathy of ankle AND/OR foot,4079749,Osteoarthritis of hip,predicted_only
+73550,Crystal arthropathy of elbow,80484,Crystal arthropathy,gs_only
+73550,Crystal arthropathy of elbow,4083695,Osteoarthritis of elbow,gs_only
+73550,Crystal arthropathy of elbow,73550,Crystal arthropathy of elbow,predicted_only
+72709,Crystal arthropathy of multiple sites,80484,Crystal arthropathy,both
+72709,Crystal arthropathy of multiple sites,4025957,Degenerative polyarthritis,predicted_only
+72709,Crystal arthropathy of multiple sites,4079749,Osteoarthritis of hip,predicted_only
+73302,Curvature of spine,4182166,Deformity of spine,gs_only
+73302,Curvature of spine,4260918,Disorder of spinal region,gs_only
+73302,Curvature of spine,73302,Curvature of spine,predicted_only
+73302,Curvature of spine,4244662,Disorder of musculoskeletal system,predicted_only
+73091,Deep third degree burn of breast,195995,Deep third degree burn of trunk,gs_only
+73091,Deep third degree burn of breast,77730,Third degree burn of breast,gs_only
+73091,Deep third degree burn of breast,4235162,Deep full thickness burn,predicted_only
+73091,Deep third degree burn of breast,73091,Deep third degree burn of breast,predicted_only
+73575,Deformity of toe,4047269,Deformity of foot,gs_only
+73575,Deformity of toe,4270698,Form of toes - finding,gs_only
+73575,Deformity of toe,4227252,Toe finding,gs_only
+73575,Deformity of toe,36676834,Acquired deformity of right foot,predicted_only
+73575,Deformity of toe,4101637,Deformity of bone in foot,predicted_only
+73575,Deformity of toe,73575,Deformity of toe,predicted_only
+73575,Deformity of toe,4028528,Disorder of toe,predicted_only
+23164,Disorder of anterior pituitary,23986,Disorder of pituitary gland,gs_only
+23164,Disorder of anterior pituitary,23164,Disorder of anterior pituitary,predicted_only
+31821,Disorder of endocrine system,4180628,Disorder of body system,both
+26935,Disorder of endocrine testis,4132094,Disorder of endocrine gonad,gs_only
+26935,Disorder of endocrine testis,4276801,Disorder of testis,gs_only
+26935,Disorder of endocrine testis,26935,Disorder of endocrine testis,predicted_only
+31610,Disorder of esophagus,4297887,Disorder of digestive organ,gs_only
+31610,Disorder of esophagus,4000609,Disorder of upper gastrointestinal tract,gs_only
+31610,Disorder of esophagus,4101212,Finding of esophagus,gs_only
+31610,Disorder of esophagus,31610,Disorder of esophagus,predicted_only
+72986,Disorder of lower leg,44782620,Disorder of free lower limb,gs_only
+72986,Disorder of lower leg,40482430,Deformity of limb,predicted_only
+72986,Disorder of lower leg,72986,Disorder of lower leg,predicted_only
+72986,Disorder of lower leg,42535452,Left leg peripheral neuropathy,predicted_only
+31057,Disorder of pharynx,4297887,Disorder of digestive organ,gs_only
+31057,Disorder of pharynx,4198525,Disorder of upper digestive tract,gs_only
+31057,Disorder of pharynx,254068,Disorder of upper respiratory system,gs_only
+31057,Disorder of pharynx,4022571,Finding of pharynx,gs_only
+31057,Disorder of pharynx,4042836,Disorder of head,predicted_only
+31057,Disorder of pharynx,31057,Disorder of pharynx,predicted_only
+23986,Disorder of pituitary gland,372887,Disorder of brain,gs_only
+23986,Disorder of pituitary gland,31821,Disorder of endocrine system,gs_only
+23986,Disorder of pituitary gland,23986,Disorder of pituitary gland,predicted_only
+28385,Disorder of posterior pituitary,23986,Disorder of pituitary gland,both
+73673,Disorder of prosthetic joint,73553,Arthropathy,both
+73673,Disorder of prosthetic joint,434822,Complication of internal prosthetic device,gs_only
+73673,Disorder of prosthetic joint,4152377,Disorders of musculoskeletal implants and repairs,gs_only
+73673,Disorder of prosthetic joint,4193176,Musculoskeletal infective disorder,predicted_only
+25572,Disorder of salivary gland,4106676,Disorder of salivary structure,gs_only
+25572,Disorder of salivary gland,4158189,Salivary gland finding,gs_only
+25572,Disorder of salivary gland,25572,Disorder of salivary gland,predicted_only
+25572,Disorder of salivary gland,4033853,Disorder of skin appendage,predicted_only
+72618,Disorder of skeletal muscle,137275,Disorder of muscle,gs_only
+72618,Disorder of skeletal muscle,4244662,Disorder of musculoskeletal system,gs_only
+72618,Disorder of skeletal muscle,376208,Disorder of soft tissue,gs_only
+72618,Disorder of skeletal muscle,4093991,General finding of soft tissue,predicted_only
+72618,Disorder of skeletal muscle,4024566,Muscle finding,predicted_only
+72618,Disorder of skeletal muscle,135930,Musculoskeletal finding,predicted_only
+31602,Disorder of the larynx,4042837,Disorder of neck,gs_only
+31602,Disorder of the larynx,254068,Disorder of upper respiratory system,gs_only
+31602,Disorder of the larynx,4155904,Larynx finding,gs_only
+31602,Disorder of the larynx,31602,Disorder of the larynx,predicted_only
+73534,Disproportion between fetus and pelvis,4266188,Disorder of body wall,gs_only
+73534,Disproportion between fetus and pelvis,75909,Disorder of bone,gs_only
+73534,Disproportion between fetus and pelvis,79890,Disorder of pelvic size and disproportion,gs_only
+73534,Disproportion between fetus and pelvis,80165,Fetal disproportion,gs_only
+73534,Disproportion between fetus and pelvis,4219381,Finding of bone of pelvis,gs_only
+73534,Disproportion between fetus and pelvis,73534,Disproportion between fetus and pelvis,predicted_only
+73534,Disproportion between fetus and pelvis,4278604,Form of pelvis and buttocks - finding,predicted_only
+73534,Disproportion between fetus and pelvis,37167863,Maternal disorder during labor,predicted_only
+27587,Disturbance of salivary secretion,25572,Disorder of salivary gland,both
+27587,Disturbance of salivary secretion,4241080,Abnormal salivary secretion,predicted_only
+27587,Disturbance of salivary secretion,4101203,Finding of saliva,predicted_only
+31317,Dysphagia,4198525,Disorder of upper digestive tract,gs_only
+31317,Dysphagia,4125274,Difficulty swallowing,predicted_only
+31317,Dysphagia,31317,Dysphagia,predicted_only
+22350,Edema of larynx,4040388,Disorder characterized by edema,gs_only
+22350,Edema of larynx,31602,Disorder of the larynx,gs_only
+22350,Edema of larynx,22350,Edema of larynx,predicted_only
+22350,Edema of larynx,4172539,Subglottic finding,predicted_only
+73851,Effusion of joint of multiple sites,79903,Effusion of joint,gs_only
+73851,Effusion of joint of multiple sites,75897,Polyarthropathy,gs_only
+73851,Effusion of joint of multiple sites,36676837,Arthropathy of right knee joint,predicted_only
+73851,Effusion of joint of multiple sites,73851,Effusion of joint of multiple sites,predicted_only
+73851,Effusion of joint of multiple sites,4115991,Knee joint effusion,predicted_only
+72407,Effusion of joint of shoulder region,40484571,Disorder of joint of shoulder region,gs_only
+72407,Effusion of joint of shoulder region,79903,Effusion of joint,gs_only
+72407,Effusion of joint of shoulder region,36676837,Arthropathy of right knee joint,predicted_only
+72407,Effusion of joint of shoulder region,72407,Effusion of joint of shoulder region,predicted_only
+72407,Effusion of joint of shoulder region,4115991,Knee joint effusion,predicted_only
+193782,End-stage renal disease,198185,Chronic renal failure,gs_only
+193782,End-stage renal disease,37156007,End stage organ failure,gs_only
+193782,End-stage renal disease,193782,End-stage renal disease,predicted_only
+73008,Enthesopathy,4244662,Disorder of musculoskeletal system,gs_only
+73008,Enthesopathy,78831,Disorder of ankle,predicted_only
+73008,Enthesopathy,4194889,Enthesopathy of lower limb,predicted_only
+73842,Enthesopathy of elbow region,4027383,Disorder of elbow,gs_only
+73842,Enthesopathy of elbow region,42537682,Enthesopathy of upper limb,gs_only
+73842,Enthesopathy of elbow region,4323893,Arthropathy of elbow,predicted_only
+73842,Enthesopathy of elbow region,80497,Disorder of cervical spine,predicted_only
+73842,Enthesopathy of elbow region,73842,Enthesopathy of elbow region,predicted_only
+27918,Eosinophilic esophagitis,4224063,Allergic disorder of digestive system,gs_only
+27918,Eosinophilic esophagitis,4188970,Chronic disease of immune function,gs_only
+27918,Eosinophilic esophagitis,4249567,Chronic esophagitis,gs_only
+27918,Eosinophilic esophagitis,27918,Eosinophilic esophagitis,predicted_only
+73365,Epidermal burn of elbow,76570,Burn of elbow,gs_only
+73365,Epidermal burn of elbow,73373,Epidermal burn of upper limb,gs_only
+73365,Epidermal burn of elbow,4106352,Superficial injury of elbow,gs_only
+73365,Epidermal burn of elbow,73365,Epidermal burn of elbow,predicted_only
+73365,Epidermal burn of elbow,138644,Epidermal burn of lower limb,predicted_only
+73373,Epidermal burn of upper limb,4123196,Burn of skin of body region,gs_only
+73373,Epidermal burn of upper limb,73925,Burn of upper limb,gs_only
+73373,Epidermal burn of upper limb,4296204,Epidermal burn of skin,gs_only
+73373,Epidermal burn of upper limb,4167229,Superficial injury of upper limb,gs_only
+73373,Epidermal burn of upper limb,75407,Burn of multiple sites of upper limb,predicted_only
+73373,Epidermal burn of upper limb,434529,Epidermal burn of multiple sites,predicted_only
+73373,Epidermal burn of upper limb,73373,Epidermal burn of upper limb,predicted_only
+23245,Esophageal bleeding,31610,Disorder of esophagus,gs_only
+23245,Esophageal bleeding,4291649,Upper gastrointestinal bleeding,gs_only
+23245,Esophageal bleeding,23245,Esophageal bleeding,predicted_only
+23245,Esophageal bleeding,4103988,Esophageal mass,predicted_only
+24966,Esophageal varices,40488439,Abnormality of systemic vein,gs_only
+24966,Esophageal varices,4190192,Disorder of blood vessels of thorax,gs_only
+24966,Esophageal varices,4201745,Disorder of digestive system,gs_only
+24966,Esophageal varices,4095643,Trunk varices,gs_only
+22340,Esophageal varices without bleeding,24966,Esophageal varices,both
+22340,Esophageal varices without bleeding,4123283,Disorder of stoma,predicted_only
+30753,Esophagitis,31610,Disorder of esophagus,gs_only
+30753,Esophagitis,4181063,Inflammation of specific body organs,gs_only
+30753,Esophagitis,4043371,Inflammatory disorder of digestive tract,gs_only
+30753,Esophagitis,30753,Esophagitis,predicted_only
+30753,Esophagitis,200447,Gastrointestinal complication,predicted_only
+72715,Exostosis,75909,Disorder of bone,both
+72715,Exostosis,4116964,Mass of musculoskeletal structure,both
+73184,Familial periodic paralysis,4095278,Metabolic myopathy,gs_only
+73184,Familial periodic paralysis,4134133,Chronic disease of musculoskeletal system,predicted_only
+73184,Familial periodic paralysis,72618,Disorder of skeletal muscle,predicted_only
+73184,Familial periodic paralysis,4266760,Gross movement of body and limbs - finding,predicted_only
+73184,Familial periodic paralysis,372604,Movement disorder,predicted_only
+73268,Fetal distress affecting management of mother,4305304,Nonreassuring fetal status,both
+73268,Fetal distress affecting management of mother,74104,Fetal condition affecting obstetrical care of mother,gs_only
+73268,Fetal distress affecting management of mother,4323285,Fetal disorder,gs_only
+73268,Fetal distress affecting management of mother,4063305,Fetal distress - delivered,predicted_only
+73847,Finding of elbow joint,444221,Finding of elbow region,gs_only
+73847,Finding of elbow joint,77960,Joint finding,gs_only
+73847,Finding of elbow joint,73847,Finding of elbow joint,predicted_only
+73847,Finding of elbow joint,4022923,Finding of knee region,predicted_only
+28462,Fistula of salivary gland,4114483,Lesion of salivary gland,both
+28462,Fistula of salivary gland,4048767,Oral fistula,both
+23653,Foreign body in esophagus,31610,Disorder of esophagus,gs_only
+23653,Foreign body in esophagus,201728,Foreign body in digestive tract,gs_only
+23653,Foreign body in esophagus,440142,Disorder of mediastinum,predicted_only
+23653,Foreign body in esophagus,23653,Foreign body in esophagus,predicted_only
+24230,Foreign body in larynx,31602,Disorder of the larynx,gs_only
+24230,Foreign body in larynx,4029819,Foreign body in upper respiratory tract,gs_only
+24230,Foreign body in larynx,4312766,Foreign body of neck,gs_only
+24230,Foreign body in larynx,257907,Disorder of lung,predicted_only
+24230,Foreign body in larynx,24230,Foreign body in larynx,predicted_only
+22492,Foreign body in pharynx,31057,Disorder of pharynx,gs_only
+22492,Foreign body in pharynx,201728,Foreign body in digestive tract,gs_only
+22492,Foreign body in pharynx,4029819,Foreign body in upper respiratory tract,gs_only
+22492,Foreign body in pharynx,22492,Foreign body in pharynx,predicted_only
+73378,Frostbite of foot,444130,Injury of foot,both
+73378,Frostbite of foot,441487,Frostbite,gs_only
+73378,Frostbite of foot,4169905,Foot pain,predicted_only
+73378,Frostbite of foot,36675198,Painful and cold lower limb,predicted_only
+73383,Full thickness burn of foot,74250,Burn of foot,gs_only
+73383,Full thickness burn of foot,198645,Full thickness burn of lower limb,gs_only
+73383,Full thickness burn of foot,4344273,Soft tissue lesion of foot region,gs_only
+73383,Full thickness burn of foot,37309846,Burn of dorsum of right hand,predicted_only
+73383,Full thickness burn of foot,73383,Full thickness burn of foot,predicted_only
+73383,Full thickness burn of foot,37309891,Full thickness burn of right hand,predicted_only
+30274,Full thickness burn of neck,26286,Burn of neck,gs_only
+30274,Full thickness burn of neck,4028056,Disorder of skin AND/OR subcutaneous tissue of neck,gs_only
+30274,Full thickness burn of neck,261176,"Full thickness burn of face, head or neck",gs_only
+30274,Full thickness burn of neck,42538213,Full thickness burn of head and/or neck,gs_only
+30274,Full thickness burn of neck,4123196,Burn of skin of body region,predicted_only
+30274,Full thickness burn of neck,4266046,Disorder of skin of neck,predicted_only
+30274,Full thickness burn of neck,30274,Full thickness burn of neck,predicted_only
+30274,Full thickness burn of neck,75709,Full thickness burn of upper limb,predicted_only
+73564,Full thickness rotator cuff tear,36713625,Injury of rotator cuff,gs_only
+73564,Full thickness rotator cuff tear,43530877,Traumatic and/or non-traumatic injury of anatomical site,gs_only
+73564,Full thickness rotator cuff tear,761506,Arthropathy of right shoulder,predicted_only
+73564,Full thickness rotator cuff tear,73564,Full thickness rotator cuff tear,predicted_only
+73564,Full thickness rotator cuff tear,36686379,Injury of right shoulder,predicted_only
+73564,Full thickness rotator cuff tear,4054054,Joint injury,predicted_only
+73564,Full thickness rotator cuff tear,4217388,Rotator cuff tear arthropathy,predicted_only
+73564,Full thickness rotator cuff tear,619862,Rupture of rotator cuff of shoulder,predicted_only
+30437,Gastro-esophageal reflux disease with esophagitis,30753,Esophagitis,both
+30437,Gastro-esophageal reflux disease with esophagitis,201340,Gastritis,predicted_only
+4277749,"Gestation period, 17 weeks",4178165,Gestation 14 - 20 weeks,both
+4277749,"Gestation period, 17 weeks",4244438,Second trimester pregnancy,both
+28403,Gigantism and acromegaly,4253197,Acromegaly,gs_only
+28403,Gigantism and acromegaly,4216994,Gigantism,gs_only
+28403,Gigantism and acromegaly,4269698,Body measurement finding,predicted_only
+72562,Gonococcal spondylitis,433417,Gonorrhea,gs_only
+72562,Gonococcal spondylitis,37116425,Infection of musculoskeletal system caused by Neisseria gonorrhoeae,gs_only
+72562,Gonococcal spondylitis,36715562,Infection of vertebra,gs_only
+72562,Gonococcal spondylitis,4223530,Spondylitis,gs_only
+72562,Gonococcal spondylitis,44782549,Disorder of vertebral column,predicted_only
+72562,Gonococcal spondylitis,74864,Gonococcal infection of joint,predicted_only
+72562,Gonococcal spondylitis,762781,Infectious synovitis,predicted_only
+72562,Gonococcal spondylitis,4167096,Osteitis,predicted_only
+30333,Gonorrhea of pharynx,4193874,Bacterial infection of the digestive tract,gs_only
+30333,Gonorrhea of pharynx,4207185,Bacterial upper respiratory infection,gs_only
+30333,Gonorrhea of pharynx,31057,Disorder of pharynx,gs_only
+30333,Gonorrhea of pharynx,433417,Gonorrhea,gs_only
+30333,Gonorrhea of pharynx,4090614,Disorder of soft tissue of head,predicted_only
+30333,Gonorrhea of pharynx,30333,Gonorrhea of pharynx,predicted_only
+30333,Gonorrhea of pharynx,4176944,Infective disorder of head,predicted_only
+30333,Gonorrhea of pharynx,438968,Secondary syphilis of mucous membrane,predicted_only
+30333,Gonorrhea of pharynx,4320030,Soft tissue infection,predicted_only
+23325,Heartburn,4264107,Burning pain,gs_only
+23325,Heartburn,4091509,Esophageal reflux finding,gs_only
+23325,Heartburn,4009391,Pain in esophagus,gs_only
+23325,Heartburn,4101212,Finding of esophagus,predicted_only
+72403,Hemarthrosis of the ankle and/or foot,40482662,Disorder of joint of ankle and/or foot,gs_only
+72403,Hemarthrosis of the ankle and/or foot,76784,Hemarthrosis,gs_only
+72403,Hemarthrosis of the ankle and/or foot,72403,Hemarthrosis of the ankle and/or foot,predicted_only
+72403,Hemarthrosis of the ankle and/or foot,4035744,Secondary inflammatory arthritis,predicted_only
+26727,Hematemesis,4291649,Upper gastrointestinal bleeding,gs_only
+26727,Hematemesis,441408,Vomiting,gs_only
+26727,Hematemesis,437312,Bleeding,predicted_only
+26942,Hemoglobin SS disease with crisis,4216915,Hemoglobin S sickling disorder with crisis,gs_only
+26942,Hemoglobin SS disease with crisis,22281,Sickle cell-hemoglobin SS disease,gs_only
+30683,Hemoglobin SS disease without crisis,4166115,Hemoglobin S sickling disorder without crisis,gs_only
+30683,Hemoglobin SS disease without crisis,22281,Sickle cell-hemoglobin SS disease,gs_only
+23988,Hemolytic anemia due to glutathione metabolism disorder,28396,Hereditary hemolytic anemia,gs_only
+23988,Hemolytic anemia due to glutathione metabolism disorder,441840,Clinical finding,predicted_only
+22288,Hereditary elliptocytosis,4175331,Congenital hemolytic anemia,gs_only
+22288,Hereditary elliptocytosis,4079975,Congenital malformation,gs_only
+22288,Hereditary elliptocytosis,4180651,Developmental hereditary disorder,gs_only
+22288,Hereditary elliptocytosis,4122936,Erythrocyte membrane abnormality,gs_only
+22288,Hereditary elliptocytosis,28396,Hereditary hemolytic anemia,gs_only
+22288,Hereditary elliptocytosis,4207240,Anemia due to intrinsic red cell abnormality,predicted_only
+22288,Hereditary elliptocytosis,440508,Congenital disease,predicted_only
+22288,Hereditary elliptocytosis,40480457,Evaluation finding,predicted_only
+22288,Hereditary elliptocytosis,432739,Red blood cell disorder,predicted_only
+28396,Hereditary hemolytic anemia,4013074,Hemoglobin below reference range,gs_only
+28396,Hereditary hemolytic anemia,435503,Hemolytic anemia,gs_only
+28396,Hereditary hemolytic anemia,4214409,Hereditary red blood cell disorder,gs_only
+28396,Hereditary hemolytic anemia,4175331,Congenital hemolytic anemia,predicted_only
+28396,Hereditary hemolytic anemia,36712925,Decline in functional status,predicted_only
+28396,Hereditary hemolytic anemia,37174817,Finding of presence of substance,predicted_only
+28396,Hereditary hemolytic anemia,37160526,Lesion of sclera,predicted_only
+28396,Hereditary hemolytic anemia,37018424,Lesion of skin and/or skin-associated mucous membrane,predicted_only
+24909,Hereditary spherocytosis,4009785,Anemia due to membrane defect,gs_only
+24909,Hereditary spherocytosis,4077761,Autosomal hereditary disorder,gs_only
+24909,Hereditary spherocytosis,4122936,Erythrocyte membrane abnormality,gs_only
+24909,Hereditary spherocytosis,28396,Hereditary hemolytic anemia,gs_only
+24909,Hereditary spherocytosis,4207240,Anemia due to intrinsic red cell abnormality,predicted_only
+24909,Hereditary spherocytosis,4006473,Autosomal dominant hereditary disorder,predicted_only
+24909,Hereditary spherocytosis,440508,Congenital disease,predicted_only
+24909,Hereditary spherocytosis,4214409,Hereditary red blood cell disorder,predicted_only
+22945,Horizontal overbite,260759,Malocclusion of teeth,both
+26378,Hyperpituitarism,23164,Disorder of anterior pituitary,gs_only
+26378,Hyperpituitarism,4223692,Increased hormone production,gs_only
+26378,Hyperpituitarism,23986,Disorder of pituitary gland,predicted_only
+26378,Hyperpituitarism,4041284,Functional finding,predicted_only
+26378,Hyperpituitarism,4200516,Lesion of brain,predicted_only
+26378,Hyperpituitarism,4115108,Mass of endocrine structure,predicted_only
+26378,Hyperpituitarism,4129540,Pituitary mass,predicted_only
+28461,Hypertrophy of salivary gland,25572,Disorder of salivary gland,gs_only
+28461,Hypertrophy of salivary gland,193431,Benign tumor of digestive organ,predicted_only
+28461,Hypertrophy of salivary gland,28461,Hypertrophy of salivary gland,predicted_only
+28457,Hypertrophy of tonsils,4046076,Disorder of tonsil (palatine tonsil),gs_only
+28457,Hypertrophy of tonsils,605321,Enlargement of left tonsil,gs_only
+28457,Hypertrophy of tonsils,605322,Enlargement of right tonsil,gs_only
+28457,Hypertrophy of tonsils,28457,Hypertrophy of tonsils,predicted_only
+31598,Hypertrophy of tonsils AND adenoids,438788,Hypertrophy of adenoids,gs_only
+31598,Hypertrophy of tonsils AND adenoids,28457,Hypertrophy of tonsils,gs_only
+31598,Hypertrophy of tonsils AND adenoids,4046076,Disorder of tonsil (palatine tonsil),predicted_only
+31598,Hypertrophy of tonsils AND adenoids,605322,Enlargement of right tonsil,predicted_only
+24609,Hypoglycemia,31821,Disorder of endocrine system,gs_only
+24609,Hypoglycemia,30361,Hypoglycemic disorder,gs_only
+24609,Hypoglycemia,4029423,Hypoglycemia due to diabetes mellitus,predicted_only
+24609,Hypoglycemia,4029424,Non-diabetic hypoglycemia,predicted_only
+30361,Hypoglycemic disorder,4130161,Disorder of glucose regulation,gs_only
+25211,Iatrogenic pituitary disorder,23986,Disorder of pituitary gland,gs_only
+25211,Iatrogenic pituitary disorder,444199,Iatrogenic disorder,gs_only
+25211,Iatrogenic pituitary disorder,434554,"Hormone, synthetic hormone substitute or hormone antagonist adverse reaction",predicted_only
+25211,Iatrogenic pituitary disorder,25211,Iatrogenic pituitary disorder,predicted_only
+72521,Immersion foot,37111520,Cold injury,gs_only
+72521,Immersion foot,4031623,Cold-induced dermatosis,gs_only
+72521,Immersion foot,444130,Injury of foot,gs_only
+72521,Immersion foot,36683647,Injury to skin caused by trauma,gs_only
+72521,Immersion foot,435119,Late effect of injury,gs_only
+72521,Immersion foot,46269695,Lesion of skin of foot,gs_only
+72521,Immersion foot,4022924,Finding of foot region,predicted_only
+72410,Infection of bone,75909,Disorder of bone,both
+72410,Infection of bone,4193176,Musculoskeletal infective disorder,both
+74125,Inflammatory polyarthropathy,4291025,Arthritis,gs_only
+74125,Inflammatory polyarthropathy,75897,Polyarthropathy,gs_only
+74125,Inflammatory polyarthropathy,4243832,Subacute infective polyarthritis,predicted_only
+24818,Injury of neck,4042837,Disorder of neck,gs_only
+24818,Injury of neck,619741,Injury of head and/or neck,gs_only
+24818,Injury of neck,4022201,Injury of musculoskeletal system,predicted_only
+24818,Injury of neck,24818,Injury of neck,predicted_only
+24818,Injury of neck,133298,Musculoskeletal disorder of the neck,predicted_only
+73349,Injury of rectum without open wound into abdominal cavity,4212235,Injury of intestine without open wound into abdominal cavity,gs_only
+73349,Injury of rectum without open wound into abdominal cavity,4053833,Injury of rectum,gs_only
+73349,Injury of rectum without open wound into abdominal cavity,4103995,Lesion of rectum,gs_only
+73349,Injury of rectum without open wound into abdominal cavity,73349,Injury of rectum without open wound into abdominal cavity,predicted_only
+73085,Injury of superficial femoral artery,37118664,Injury of femoral artery,gs_only
+73085,Injury of superficial femoral artery,442564,Injury of thigh,gs_only
+73085,Injury of superficial femoral artery,437149,Injury of femoral vein,predicted_only
+73085,Injury of superficial femoral artery,36686527,Injury of right leg,predicted_only
+73085,Injury of superficial femoral artery,73085,Injury of superficial femoral artery,predicted_only
+72994,Jaccoud's syndrome,4189855,Chronic arthropathy,gs_only
+72994,Jaccoud's syndrome,77960,Joint finding,predicted_only
+73845,Joint ankylosis of the shoulder region,4199576,Ankylosis of upper limb joint,gs_only
+73845,Joint ankylosis of the shoulder region,40484571,Disorder of joint of shoulder region,gs_only
+73845,Joint ankylosis of the shoulder region,4323490,Ankylosis of joint of finger,predicted_only
+73845,Joint ankylosis of the shoulder region,36676838,Arthropathy of joint of right hand,predicted_only
+73845,Joint ankylosis of the shoulder region,73845,Joint ankylosis of the shoulder region,predicted_only
+72404,Joint stiffness,4182011,Finding of joint movement,gs_only
+72404,Joint stiffness,4154764,Stiffness,gs_only
+72404,Joint stiffness,72404,Joint stiffness,predicted_only
+72404,Joint stiffness,4323826,Limitation of joint movement,predicted_only
+72404,Joint stiffness,762321,Stiffness of left knee,predicted_only
+73554,Kashin-Beck disease of the pelvic region and thigh,72401,Kashin-Bek disease,gs_only
+73554,Kashin-Beck disease of the pelvic region and thigh,74892,Articular gout,predicted_only
+72401,Kashin-Bek disease,4343920,Endemic osteoarthritis,gs_only
+72401,Kashin-Bek disease,72401,Kashin-Bek disease,predicted_only
+72926,Labyrinthine fistula,45757697,Ear lesion,gs_only
+72926,Labyrinthine fistula,4324769,Fistula,gs_only
+72926,Labyrinthine fistula,81303,Labyrinthine disorder,gs_only
+72926,Labyrinthine fistula,72926,Labyrinthine fistula,predicted_only
+72926,Labyrinthine fistula,36685153,Lesion of left ear,predicted_only
+74052,Labyrinthitis,81303,Labyrinthine disorder,gs_only
+74052,Labyrinthitis,4183452,Otitis,gs_only
+74052,Labyrinthitis,74052,Labyrinthitis,predicted_only
+26514,Laryngeal web,31602,Disorder of the larynx,gs_only
+26514,Laryngeal web,4128546,Congenital pyloric antral membrane,predicted_only
+26514,Laryngeal web,4115254,Lesion of larynx,predicted_only
+24969,Laryngitis,31602,Disorder of the larynx,gs_only
+24969,Laryngitis,4181063,Inflammation of specific body organs,gs_only
+24969,Laryngitis,4043671,Inflammatory disorder of upper respiratory tract,gs_only
+24969,Laryngitis,4207471,Infective laryngitis,predicted_only
+24969,Laryngitis,437779,Streptococcal infectious disease,predicted_only
+72857,Late effect of rickets,75909,Disorder of bone,gs_only
+72857,Late effect of rickets,4201705,Sequela of disorder,gs_only
+72857,Late effect of rickets,4181217,Sequelae of disorders classified by disorder-system,gs_only
+72857,Late effect of rickets,4101286,Sequelae of malnutrition and other nutritional deficiencies,gs_only
+72857,Late effect of rickets,435510,Hypocalcemia,predicted_only
+72857,Late effect of rickets,4189941,Rickets,predicted_only
+9724,"Lead-induced chronic gout, elbow",36684527,Arthritis of left elbow due to gout,predicted_only
+9724,"Lead-induced chronic gout, elbow",4189855,Chronic arthropathy,predicted_only
+9724,"Lead-induced chronic gout, elbow",4027557,Chronic metabolic disorder,predicted_only
+72726,Light-for-dates with signs of fetal malnutrition,75639,Poor fetal nutrition,gs_only
+72726,Light-for-dates with signs of fetal malnutrition,4145947,Small for gestational age fetus,gs_only
+72726,Light-for-dates with signs of fetal malnutrition,4271774,Relation of fetal size to dates - finding,predicted_only
+72990,Localized osteoarthrosis uncertain if primary OR secondary,4143463,Localized osteoarthrosis,gs_only
+72990,Localized osteoarthrosis uncertain if primary OR secondary,80802,"Localized, secondary osteoarthritis",predicted_only
+72993,"Localized, primary osteoarthritis",4143463,Localized osteoarthrosis,gs_only
+72993,"Localized, primary osteoarthritis",1244522,Secondary osteoarthritis of joint of hand,predicted_only
+73840,"Localized, primary osteoarthritis of the shoulder region",72405,Degenerative joint disease of shoulder region,gs_only
+73840,"Localized, primary osteoarthritis of the shoulder region",72993,"Localized, primary osteoarthritis",gs_only
+73840,"Localized, primary osteoarthritis of the shoulder region",1244606,Secondary osteoarthritis of glenohumeral joint,predicted_only
+73313,Longitudinal deficiency of tarsal bone,4242183,Congenital abnormal shape of tarsal bone,gs_only
+73313,Longitudinal deficiency of tarsal bone,74472,Congenital deformity of foot,gs_only
+73313,Longitudinal deficiency of tarsal bone,1076497,Congenital deformity of musculoskeletal system,gs_only
+73313,Longitudinal deficiency of tarsal bone,4006428,Congenital undergrowth of foot,gs_only
+73313,Longitudinal deficiency of tarsal bone,4113577,Congenital undergrowth of partial lower limb,gs_only
+73313,Longitudinal deficiency of tarsal bone,4101637,Deformity of bone in foot,gs_only
+73313,Longitudinal deficiency of tarsal bone,4242185,Congenital abnormal shape of tibia,predicted_only
+73313,Longitudinal deficiency of tarsal bone,73313,Longitudinal deficiency of tarsal bone,predicted_only
+73313,Longitudinal deficiency of tarsal bone,434473,Longitudinal deficiency of tibia AND/OR fibula,predicted_only
+73561,Loose body in joint of shoulder region,40484571,Disorder of joint of shoulder region,gs_only
+73561,Loose body in joint of shoulder region,79104,Loose body in joint,gs_only
+73561,Loose body in joint of shoulder region,36676838,Arthropathy of joint of right hand,predicted_only
+73561,Loose body in joint of shoulder region,77071,Loose body in joint of hand,predicted_only
+73561,Loose body in joint of shoulder region,73561,Loose body in joint of shoulder region,predicted_only
+73012,Lordosis deformity of spine,73302,Curvature of spine,gs_only
+73012,Lordosis deformity of spine,4244662,Disorder of musculoskeletal system,gs_only
+73012,Lordosis deformity of spine,73012,Lordosis deformity of spine,predicted_only
+73712,Malignant neoplasm of dome of urinary bladder,197508,Malignant neoplasm of urinary bladder,gs_only
+73712,Malignant neoplasm of dome of urinary bladder,42709928,Neoplasm of dome of urinary bladder,gs_only
+73712,Malignant neoplasm of dome of urinary bladder,42709931,Primary malignant neoplasm of dome of urinary bladder,predicted_only
+73153,Malignant neoplasm of lateral wall of urinary bladder,197508,Malignant neoplasm of urinary bladder,gs_only
+73153,Malignant neoplasm of lateral wall of urinary bladder,4131749,Neoplasm of lateral wall of urinary bladder,gs_only
+73153,Malignant neoplasm of lateral wall of urinary bladder,192855,Carcinoma in situ of urinary bladder,predicted_only
+73153,Malignant neoplasm of lateral wall of urinary bladder,73153,Malignant neoplasm of lateral wall of urinary bladder,predicted_only
+25189,Malignant tumor of oral cavity,436045,"Malignant neoplasm of lip, oral cavity and pharynx",gs_only
+25189,Malignant tumor of oral cavity,4123594,Tumor of oral cavity,gs_only
+25189,Malignant tumor of oral cavity,4162118,Malignant neoplasm of border of tongue,predicted_only
+25189,Malignant tumor of oral cavity,4130982,Neoplasm of tip of tongue,predicted_only
+22557,Malignant tumor of submandibular gland,4181333,Malignant tumor of major salivary gland,gs_only
+22557,Malignant tumor of submandibular gland,4130378,Neoplasm of submaxillary gland,gs_only
+22557,Malignant tumor of submandibular gland,4112584,Tumor of submandibular gland,gs_only
+22557,Malignant tumor of submandibular gland,22557,Malignant tumor of submandibular gland,predicted_only
+72737,Microcalcifications of the breast,4205375,Calcification of breast,gs_only
+72737,Microcalcifications of the breast,4030364,Extraskeletal calcification,gs_only
+72737,Microcalcifications of the breast,72737,Microcalcifications of the breast,predicted_only
+72737,Microcalcifications of the breast,4032503,Radiographic calcification,predicted_only
+30284,Motion sickness,4167864,Effect of exposure to physical force,both
+30284,Motion sickness,31967,Nausea,gs_only
+24977,Mucocele of salivary gland,4103985,Cyst of salivary gland,gs_only
+24977,Mucocele of salivary gland,37166137,Adenocarcinoma of head,predicted_only
+24977,Mucocele of salivary gland,37204489,Malignant epithelial neoplasm of salivary gland,predicted_only
+24977,Mucocele of salivary gland,24977,Mucocele of salivary gland,predicted_only
+28127,"Multiple endocrine neoplasia, type 1",37204336,Genetic disease,gs_only
+28127,"Multiple endocrine neoplasia, type 1",30678,Polyglandular activity in multiple endocrine adenomatosis,gs_only
+28127,"Multiple endocrine neoplasia, type 1",440508,Congenital disease,predicted_only
+24612,"Multiple endocrine neoplasia, type 2",4006473,Autosomal dominant hereditary disorder,gs_only
+24612,"Multiple endocrine neoplasia, type 2",44782478,Hereditary cancer-predisposing syndrome,gs_only
+24612,"Multiple endocrine neoplasia, type 2",4176808,Hereditary disorder of endocrine system,gs_only
+24612,"Multiple endocrine neoplasia, type 2",30678,Polyglandular activity in multiple endocrine adenomatosis,gs_only
+24612,"Multiple endocrine neoplasia, type 2",4156115,Malignant neoplasm of endocrine gland,predicted_only
+24612,"Multiple endocrine neoplasia, type 2",4130672,Neoplasm of multiple endocrine glands,predicted_only
+73841,Multiple stiff joints,72404,Joint stiffness,gs_only
+73841,Multiple stiff joints,4323826,Limitation of joint movement,gs_only
+73841,Multiple stiff joints,36687079,Bilateral stiffness of joints of elbows,predicted_only
+73001,Myositis,72618,Disorder of skeletal muscle,gs_only
+73001,Myositis,4181063,Inflammation of specific body organs,gs_only
+73001,Myositis,4028369,Inflammatory disorder of muscle,gs_only
+73001,Myositis,4176946,Inflammatory disorder of musculoskeletal system,gs_only
+73001,Myositis,764155,Disorder of right lower extremity,predicted_only
+73001,Myositis,73001,Myositis,predicted_only
+73183,Myotonic disorder,72618,Disorder of skeletal muscle,gs_only
+73183,Myotonic disorder,444363,Drug-related disorder,predicted_only
+73183,Myotonic disorder,73183,Myotonic disorder,predicted_only
+31967,Nausea,4304916,Gastrointestinal tract finding,gs_only
+31967,Nausea,4101344,Finding of vomiting,predicted_only
+27674,Nausea and vomiting,4000609,Disorder of upper gastrointestinal tract,gs_only
+27674,Nausea and vomiting,31967,Nausea,gs_only
+27674,Nausea and vomiting,441408,Vomiting,gs_only
+24134,Neck pain,4184252,Finding of neck region,both
+24134,Neck pain,4132926,Pain finding at anatomical site,both
+30234,Neck sprain,24818,Injury of neck,gs_only
+30234,Neck sprain,4185207,Lesion of neck,gs_only
+30234,Neck sprain,133298,Musculoskeletal disorder of the neck,gs_only
+30234,Neck sprain,4023316,Sprain of joint,gs_only
+30234,Neck sprain,4184398,Finding of sensation of musculoskeletal structure of neck,predicted_only
+30234,Neck sprain,77074,Joint pain,predicted_only
+30234,Neck sprain,4094284,Ligament finding,predicted_only
+23304,Neck webbing,25056,Congenital anomaly of neck,gs_only
+23304,Neck webbing,132446,Congenital anomaly of skin,gs_only
+23304,Neck webbing,4266046,Disorder of skin of neck,gs_only
+23304,Neck webbing,4185207,Lesion of neck,gs_only
+23304,Neck webbing,4316083,Skin lesion,gs_only
+23304,Neck webbing,4184252,Finding of neck region,predicted_only
+23304,Neck webbing,141960,Skin finding,predicted_only
+23034,Neonatal hypoglycemia,24609,Hypoglycemia,gs_only
+23034,Neonatal hypoglycemia,42537310,Neonatal metabolic disorder,gs_only
+23034,Neonatal hypoglycemia,42537311,Neonatal disorder of endocrine system,predicted_only
+23034,Neonatal hypoglycemia,4048927,Transitory neonatal hypokalemia,predicted_only
+72578,Neoplasm of uncertain behavior of breast,81251,Neoplasm of breast,gs_only
+72578,Neoplasm of uncertain behavior of breast,4317829,Neoplasm of uncertain behavior of trunk,gs_only
+72578,Neoplasm of uncertain behavior of breast,1075563,Neoplasm of lower inner quadrant of breast,predicted_only
+72578,Neoplasm of uncertain behavior of breast,72578,Neoplasm of uncertain behavior of breast,predicted_only
+72578,Neoplasm of uncertain behavior of breast,4317685,Neoplasm of uncertain behavior of respiratory tract,predicted_only
+22274,Neoplasm of uncertain behavior of larynx,4055265,Neoplasm of larynx,gs_only
+22274,Neoplasm of uncertain behavior of larynx,4316607,Neoplasm of uncertain behavior of neck,gs_only
+22274,Neoplasm of uncertain behavior of larynx,4317831,Neoplasm of uncertain behavior of upper respiratory tract,gs_only
+22274,Neoplasm of uncertain behavior of larynx,4314958,Neoplasm of uncertain behavior of head,predicted_only
+22274,Neoplasm of uncertain behavior of larynx,22274,Neoplasm of uncertain behavior of larynx,predicted_only
+22274,Neoplasm of uncertain behavior of larynx,4316619,Neoplasm of uncertain behavior of pharynx,predicted_only
+30061,Neoplasm of uncertain behavior of major salivary gland,4054610,Neoplasm of major salivary gland,gs_only
+30061,Neoplasm of uncertain behavior of major salivary gland,40492458,Neoplasm of uncertain behavior of digestive organ,gs_only
+30061,Neoplasm of uncertain behavior of major salivary gland,4116233,Neoplasm of uncertain behavior of oral cavity,gs_only
+30061,Neoplasm of uncertain behavior of major salivary gland,30061,Neoplasm of uncertain behavior of major salivary gland,predicted_only
+30061,Neoplasm of uncertain behavior of major salivary gland,4316619,Neoplasm of uncertain behavior of pharynx,predicted_only
+27516,Neoplasm of uncertain behavior of paraganglia,4130676,Neoplasm of paraganglion,gs_only
+27516,Neoplasm of uncertain behavior of paraganglia,432582,Neoplastic disease of uncertain behavior,gs_only
+27516,Neoplasm of uncertain behavior of paraganglia,4129891,Neoplasm of retroperitoneum,predicted_only
+27516,Neoplasm of uncertain behavior of paraganglia,27516,Neoplasm of uncertain behavior of paraganglia,predicted_only
+27516,Neoplasm of uncertain behavior of paraganglia,4317829,Neoplasm of uncertain behavior of trunk,predicted_only
+22871,Neoplasm of uncertain behavior of pineal gland,4131120,Neoplasm of pineal gland,gs_only
+22871,Neoplasm of uncertain behavior of pineal gland,4315941,Neoplasm of uncertain behavior of cerebrum,gs_only
+22871,Neoplasm of uncertain behavior of pineal gland,132277,Neoplasm of uncertain behavior of endocrine glands and nervous system,gs_only
+22871,Neoplasm of uncertain behavior of pineal gland,22871,Neoplasm of uncertain behavior of pineal gland,predicted_only
+27835,Neoplasm of uncertain behavior of pituitary gland,4130061,Neoplasm of pituitary gland,both
+27835,Neoplasm of uncertain behavior of pituitary gland,4315941,Neoplasm of uncertain behavior of cerebrum,both
+27835,Neoplasm of uncertain behavior of pituitary gland,132277,Neoplasm of uncertain behavior of endocrine glands and nervous system,both
+27526,Nezelof's syndrome,29783,Severe combined immunodeficiency disease,gs_only
+27526,Nezelof's syndrome,441840,Clinical finding,predicted_only
+72413,Nontraumatic rupture of muscle,4137356,Rupture of muscle,both
+72413,Nontraumatic rupture of muscle,605525,Nontraumatic injury,gs_only
+72413,Nontraumatic rupture of muscle,43530877,Traumatic and/or non-traumatic injury of anatomical site,predicted_only
+73574,Nonunion of fracture,4084934,Disorder of fracture healing,gs_only
+73574,Nonunion of fracture,4237458,Fracture of clavicle,predicted_only
+73574,Nonunion of fracture,73574,Nonunion of fracture,predicted_only
+72390,Obstetric non-purulent mastitis,4170627,Mastitis - obstetric,gs_only
+72390,Obstetric non-purulent mastitis,4034177,Abscess of nipple,predicted_only
+72390,Obstetric non-purulent mastitis,72390,Obstetric non-purulent mastitis,predicted_only
+30124,Obstruction of larynx,31602,Disorder of the larynx,gs_only
+30124,Obstruction of larynx,4286507,Upper respiratory tract obstruction,gs_only
+30124,Obstruction of larynx,4185207,Lesion of neck,predicted_only
+30124,Obstruction of larynx,30124,Obstruction of larynx,predicted_only
+30124,Obstruction of larynx,4341363,Stomal obstruction,predicted_only
+72406,Old disruption of ligament of knee other than collateral AND/OR cruciate ligaments,4032488,Old disruption of ligament of knee,gs_only
+72406,Old disruption of ligament of knee other than collateral AND/OR cruciate ligaments,765234,Disorder of joint of right knee,predicted_only
+72406,Old disruption of ligament of knee other than collateral AND/OR cruciate ligaments,4188487,Rupture of cruciate ligaments,predicted_only
+72745,Open dislocation of elbow,4159964,Open traumatic dislocation of joint,both
+72745,Open dislocation of elbow,4053600,Open wound of elbow,both
+72745,Open dislocation of elbow,4053588,Traumatic dislocation of elbow joint,both
+73043,Open dislocation of glenohumeral joint,4213373,Dislocation of shoulder joint,both
+73043,Open dislocation of glenohumeral joint,443457,Open dislocation of shoulder region,both
+73043,Open dislocation of glenohumeral joint,4114600,Traumatic arthropathy of shoulder,both
+72468,Open dislocation of jaw,4159964,Open traumatic dislocation of joint,gs_only
+72468,Open dislocation of jaw,4049957,Open wound of face,gs_only
+72468,Open dislocation of jaw,4051121,Open wound of jaw,gs_only
+72468,Open dislocation of jaw,4216978,Traumatic dislocation of temporomandibular joint,gs_only
+72468,Open dislocation of jaw,4123293,Dislocation of temporomandibular joint,predicted_only
+72468,Open dislocation of jaw,444191,Injury of face,predicted_only
+72468,Open dislocation of jaw,4154163,Jaw injury,predicted_only
+72468,Open dislocation of jaw,4054054,Joint injury,predicted_only
+72468,Open dislocation of jaw,35624868,Lesion of face,predicted_only
+72468,Open dislocation of jaw,4179141,Lesion of joint,predicted_only
+72468,Open dislocation of jaw,760903,Right temporomandibular joint disorder,predicted_only
+72468,Open dislocation of jaw,4168335,Wound,predicted_only
+73042,Open fracture finger middle phalanx,4174010,Fracture of middle phalanx of finger,gs_only
+73042,Open fracture finger middle phalanx,4032634,Open fracture of middle AND/OR proximal phalanx of finger,gs_only
+73042,Open fracture finger middle phalanx,4067970,Open fracture of phalanx of finger,gs_only
+73042,Open fracture finger middle phalanx,45772708,Open fracture of middle phalanx of little finger,predicted_only
+73042,Open fracture finger middle phalanx,760013,Open fracture of phalanx of left little finger,predicted_only
+73609,Open fracture of clavicle,4237458,Fracture of clavicle,gs_only
+73609,Open fracture of clavicle,4050089,Open wound of front wall of thorax,gs_only
+73609,Open fracture of clavicle,4167912,Shoulder fracture - open,gs_only
+73609,Open fracture of clavicle,1245429,Fracture of right clavicle,predicted_only
+73609,Open fracture of clavicle,73609,Open fracture of clavicle,predicted_only
+73616,Open fracture of lunate bone of wrist,4063560,Fracture of lunate bone of wrist,gs_only
+73616,Open fracture of lunate bone of wrist,74772,Open fracture of carpal bone,gs_only
+73616,Open fracture of lunate bone of wrist,4136570,Fracture dislocation of lunate,predicted_only
+73616,Open fracture of lunate bone of wrist,4168335,Wound,predicted_only
+73888,Open fracture of navicular bone of foot,4134337,Fracture of navicular,gs_only
+73888,Open fracture of navicular bone of foot,4180748,Open fracture of tarsal bone,gs_only
+73888,Open fracture of navicular bone of foot,42536862,Fracture of medial cuneiform,predicted_only
+73888,Open fracture of navicular bone of foot,440557,Open fracture of cuneiform bone of foot,predicted_only
+73888,Open fracture of navicular bone of foot,73888,Open fracture of navicular bone of foot,predicted_only
+72460,Open fracture of seven ribs,78574,Open fracture of multiple ribs,both
+72460,Open fracture of seven ribs,4032308,Fracture of seven ribs,gs_only
+26823,Oral phase dysphagia,4042502,Disease of mouth,both
+26823,Oral phase dysphagia,4022570,Oral cavity finding,both
+26823,Oral phase dysphagia,31317,Dysphagia,gs_only
+74080,Orthostatic proteinuria,4128528,Asymptomatic proteinuria,gs_only
+74080,Orthostatic proteinuria,75650,Proteinuria,predicted_only
+72405,Osteoarthritis of shoulder region,40484571,Disorder of joint of shoulder region,gs_only
+72405,Osteoarthritis of shoulder region,80180,Osteoarthritis,gs_only
+25748,Overlapping malignant neoplasm of esophagus,4181343,Malignant tumor of esophagus,gs_only
+25748,Overlapping malignant neoplasm of esophagus,197227,Overlapping malignant neoplasm of gastrointestinal tract,gs_only
+25748,Overlapping malignant neoplasm of esophagus,25748,Overlapping malignant neoplasm of esophagus,predicted_only
+22839,Overlapping malignant neoplasm of larynx,4178968,Malignant tumor of larynx,both
+22839,Overlapping malignant neoplasm of larynx,4095312,Malignant tumor of nasopharynx,predicted_only
+28356,Overlapping malignant neoplasm of major salivary gland,4181333,Malignant tumor of major salivary gland,both
+28356,Overlapping malignant neoplasm of major salivary gland,439685,Malignant neoplasm of overlapping sites of digestive system,gs_only
+28356,Overlapping malignant neoplasm of major salivary gland,4095312,Malignant tumor of nasopharynx,predicted_only
+28356,Overlapping malignant neoplasm of major salivary gland,4178964,Malignant tumor of palate,predicted_only
+73720,Overlapping malignant neoplasm of urinary system,4169598,Malignant tumor of urinary system,both
+73720,Overlapping malignant neoplasm of urinary system,4003682,Overlapping malignant neoplasm of uterine cervix,predicted_only
+73819,Pain of breast,77670,Chest pain,gs_only
+73819,Pain of breast,4126244,Finding of sensation of breast,gs_only
+73819,Pain of breast,4265765,Injury of breast,predicted_only
+73819,Pain of breast,4128492,Lesion of breast,predicted_only
+73231,Pain of temporomandibular joint,74396,Temporomandibular joint disorder,both
+73231,Pain of temporomandibular joint,4168686,Jaw pain,gs_only
+73231,Pain of temporomandibular joint,77074,Joint pain,gs_only
+73231,Pain of temporomandibular joint,4317968,Pain in face,gs_only
+73231,Pain of temporomandibular joint,4185204,Tenderness of temporomandibular joint,predicted_only
+73291,Palindromic rheumatism of ankle and/or foot,40482662,Disorder of joint of ankle and/or foot,gs_only
+73291,Palindromic rheumatism of ankle and/or foot,4094283,Lower limb joint arthritis,gs_only
+73291,Palindromic rheumatism of ankle and/or foot,76196,Palindromic rheumatism,gs_only
+73291,Palindromic rheumatism of ankle and/or foot,73291,Palindromic rheumatism of ankle and/or foot,predicted_only
+73291,Palindromic rheumatism of ankle and/or foot,1074841,Palindromic rheumatism of joint of wrist region,predicted_only
+73568,Palindromic rheumatism of shoulder region,1075361,Arthritis of shoulder region joint,gs_only
+73568,Palindromic rheumatism of shoulder region,76196,Palindromic rheumatism,gs_only
+73568,Palindromic rheumatism of shoulder region,37173822,Arthritis of joint of left shoulder region,predicted_only
+73568,Palindromic rheumatism of shoulder region,73568,Palindromic rheumatism of shoulder region,predicted_only
+30365,Panhypopituitarism,23164,Disorder of anterior pituitary,gs_only
+30365,Panhypopituitarism,4254542,Hypopituitarism,gs_only
+30365,Panhypopituitarism,36712925,Decline in functional status,predicted_only
+30365,Panhypopituitarism,444107,Endocrine finding,predicted_only
+30365,Panhypopituitarism,4150642,Post-infective hypopituitarism,predicted_only
+73289,Pathological dislocation of multiple joints,75897,Polyarthropathy,both
+73289,Pathological dislocation of multiple joints,77356,Pathological dislocation of joint,gs_only
+73289,Pathological dislocation of multiple joints,4194597,Dislocation of hand joint,predicted_only
+73289,Pathological dislocation of multiple joints,80004,Injury of hand,predicted_only
+73289,Pathological dislocation of multiple joints,4054054,Joint injury,predicted_only
+73571,Pathological fracture,75053,Fracture of bone,both
+22955,Perforation of esophagus,4155764,Esophageal injury,gs_only
+22955,Perforation of esophagus,4202064,Gastrointestinal perforation,gs_only
+22955,Perforation of esophagus,4113545,Lesion of esophagus,gs_only
+22955,Perforation of esophagus,22955,Perforation of esophagus,predicted_only
+22955,Perforation of esophagus,4317841,Perforation of pharynx,predicted_only
+22955,Perforation of esophagus,4340118,Rupture of esophagus,predicted_only
+43531641,Permanent neonatal diabetes mellitus,193323,Neonatal diabetes mellitus,gs_only
+43531641,Permanent neonatal diabetes mellitus,439156,Finding of neonate,predicted_only
+43531641,Permanent neonatal diabetes mellitus,4115580,Finding of pancreas,predicted_only
+27321,Persistent vomiting,4000609,Disorder of upper gastrointestinal tract,both
+27321,Persistent vomiting,441408,Vomiting,gs_only
+27321,Persistent vomiting,4134593,Chronic digestive system disorder,predicted_only
+23799,Pharynx or nasopharynx edema,4056883,Edema of pharynx,gs_only
+23799,Pharynx or nasopharynx edema,4245407,Edema of nasopharynx,predicted_only
+25780,Pituitary dwarfism,373087,Central nervous system complication,both
+25780,Pituitary dwarfism,23164,Disorder of anterior pituitary,both
+25780,Pituitary dwarfism,37016351,Short stature co-occurrent and due to endocrine disorder,gs_only
+25780,Pituitary dwarfism,4269698,Body measurement finding,predicted_only
+25780,Pituitary dwarfism,435244,Developmental disorder,predicted_only
+1450702,Plasmacytoma in remission,4188970,Chronic disease of immune function,predicted_only
+1450702,Plasmacytoma in remission,4079274,Malignant white blood cell disorder,predicted_only
+1450702,Plasmacytoma in remission,4023315,Non-malignant lymphocyte AND/OR plasma cell disorder,predicted_only
+1450702,Plasmacytoma in remission,4216139,Plasmacytoma,predicted_only
+73318,Polydactyly of fingers,4051577,Congenital anomaly of finger,gs_only
+73318,Polydactyly of fingers,74740,Polydactyly,gs_only
+73318,Polydactyly of fingers,73318,Polydactyly of fingers,predicted_only
+73318,Polydactyly of fingers,761229,Polydactyly of fingers of bilateral hands,predicted_only
+30678,Polyglandular activity in multiple endocrine adenomatosis,4316507,Neoplasm of uncertain behavior of multiple endocrine glands,both
+30678,Polyglandular activity in multiple endocrine adenomatosis,22856,Polyglandular dysfunction,gs_only
+30678,Polyglandular activity in multiple endocrine adenomatosis,193165,Disorder of adrenal gland,predicted_only
+22856,Polyglandular dysfunction,4131812,Polyglandular dysfunction AND/OR related disorders,gs_only
+22856,Polyglandular dysfunction,4223448,Autoimmune polyendocrinopathy,predicted_only
+22856,Polyglandular dysfunction,193165,Disorder of adrenal gland,predicted_only
+28179,Polyp of vocal cord or larynx,4313723,Polyp of larynx,both
+28179,Polyp of vocal cord or larynx,374364,Disorder of middle ear,predicted_only
+28179,Polyp of vocal cord or larynx,45757697,Ear lesion,predicted_only
+28179,Polyp of vocal cord or larynx,4102112,Mass of ear structure,predicted_only
+72693,Poor fetal growth affecting management,74104,Fetal condition affecting obstetrical care of mother,gs_only
+72693,Poor fetal growth affecting management,4323285,Fetal disorder,gs_only
+72693,Poor fetal growth affecting management,4271774,Relation of fetal size to dates - finding,predicted_only
+26069,Postablative testicular hypofunction,4098451,Postsurgical testicular hypofunction,gs_only
+26069,Postablative testicular hypofunction,36717157,Testicular hypofunction following procedure,gs_only
+26069,Postablative testicular hypofunction,36712925,Decline in functional status,predicted_only
+26069,Postablative testicular hypofunction,444107,Endocrine finding,predicted_only
+26069,Postablative testicular hypofunction,4091204,Testicular finding,predicted_only
+72717,Postoperative heterotopic calcification,4280820,Calcinosis,gs_only
+72717,Postoperative heterotopic calcification,4030364,Extraskeletal calcification,gs_only
+72717,Postoperative heterotopic calcification,4300243,Postoperative complication,gs_only
+72717,Postoperative heterotopic calcification,441840,Clinical finding,predicted_only
+73409,Primary anal syphilis,4160365,Anal infection,both
+73409,Primary anal syphilis,4193166,Bacterial gastrointestinal infectious disease,both
+73409,Primary anal syphilis,4200533,Bacterial infection by site,gs_only
+73409,Primary anal syphilis,4080334,Primary extragenital syphilis,gs_only
+73409,Primary anal syphilis,42537671,Disorder of anal canal,predicted_only
+73409,Primary anal syphilis,4124509,Oral mucosal bacterial disease,predicted_only
+73409,Primary anal syphilis,436033,Syphilis,predicted_only
+25757,Primary malignant neoplasm of aortic body,4130063,Neoplasm of aortic body,gs_only
+25757,Primary malignant neoplasm of aortic body,442122,Primary malignant neoplasm of paraganglion,gs_only
+25757,Primary malignant neoplasm of aortic body,36715807,Neoplasm of cardiovascular system,predicted_only
+25757,Primary malignant neoplasm of aortic body,25757,Primary malignant neoplasm of aortic body,predicted_only
+27235,Primary malignant neoplasm of carotid body,40487047,Malignant neoplasm of carotid body,gs_only
+27235,Primary malignant neoplasm of carotid body,30346,Primary malignant neoplasm of neck,gs_only
+27235,Primary malignant neoplasm of carotid body,442122,Primary malignant neoplasm of paraganglion,gs_only
+27235,Primary malignant neoplasm of carotid body,4054815,Neoplasm of temporal bone,predicted_only
+27235,Primary malignant neoplasm of carotid body,4246802,Primary malignant neoplasm of bone of skull,predicted_only
+27235,Primary malignant neoplasm of carotid body,27235,Primary malignant neoplasm of carotid body,predicted_only
+26638,Primary malignant neoplasm of esophagus,4181343,Malignant tumor of esophagus,gs_only
+26638,Primary malignant neoplasm of esophagus,4179720,Primary malignant neoplasm of gastrointestinal tract,gs_only
+26638,Primary malignant neoplasm of esophagus,608068,Malignant mesenchymal neoplasm of esophagus,predicted_only
+26638,Primary malignant neoplasm of esophagus,26638,Primary malignant neoplasm of esophagus,predicted_only
+25486,Primary malignant neoplasm of islets of Langerhans,4112734,Malignant tumor of endocrine pancreas,gs_only
+25486,Primary malignant neoplasm of islets of Langerhans,133420,Primary malignant neoplasm of endocrine gland,gs_only
+25486,Primary malignant neoplasm of islets of Langerhans,199754,Primary malignant neoplasm of pancreas,gs_only
+25486,Primary malignant neoplasm of islets of Langerhans,37110334,Primary malignant epithelial neoplasm of endocrine gland,predicted_only
+25486,Primary malignant neoplasm of islets of Langerhans,25486,Primary malignant neoplasm of islets of Langerhans,predicted_only
+25486,Primary malignant neoplasm of islets of Langerhans,42536743,Primary malignant neuroendocrine neoplasm of pancreas,predicted_only
+26052,Primary malignant neoplasm of larynx,4178968,Malignant tumor of larynx,gs_only
+26052,Primary malignant neoplasm of larynx,30346,Primary malignant neoplasm of neck,gs_only
+26052,Primary malignant neoplasm of larynx,252840,Primary malignant neoplasm of upper respiratory tract,gs_only
+26052,Primary malignant neoplasm of larynx,4177243,Malignant tumor of pharynx,predicted_only
+26052,Primary malignant neoplasm of larynx,26052,Primary malignant neoplasm of larynx,predicted_only
+30346,Primary malignant neoplasm of neck,4178979,Malignant tumor of neck,gs_only
+30346,Primary malignant neoplasm of neck,439392,Primary malignant neoplasm,gs_only
+30346,Primary malignant neoplasm of neck,4162251,Malignant neoplasm of skin head and neck,predicted_only
+30346,Primary malignant neoplasm of neck,30346,Primary malignant neoplasm of neck,predicted_only
+30346,Primary malignant neoplasm of neck,139750,Primary malignant neoplasm of skin,predicted_only
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",4089769,"Malignant neoplasm of pelvic bones, sacrum and coccyx",gs_only
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",76914,Primary malignant neoplasm of bone,gs_only
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",198988,Primary malignant neoplasm of pelvis,gs_only
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",4246803,Primary malignant neoplasm of bone of upper limb,predicted_only
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",4246033,Primary malignant neoplasm of coccyx,predicted_only
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",predicted_only
+28083,Primary malignant neoplasm of pharynx,4177243,Malignant tumor of pharynx,gs_only
+28083,Primary malignant neoplasm of pharynx,252840,Primary malignant neoplasm of upper respiratory tract,gs_only
+28083,Primary malignant neoplasm of pharynx,28083,Primary malignant neoplasm of pharynx,predicted_only
+26361,Primary malignant neoplasm of pineal gland,4178977,Malignant tumor of pineal gland,gs_only
+26361,Primary malignant neoplasm of pineal gland,380661,Primary malignant neoplasm of cerebrum,gs_only
+26361,Primary malignant neoplasm of pineal gland,133420,Primary malignant neoplasm of endocrine gland,gs_only
+26361,Primary malignant neoplasm of pineal gland,4241776,Carcinoma in situ of endocrine gland,predicted_only
+26361,Primary malignant neoplasm of pineal gland,26361,Primary malignant neoplasm of pineal gland,predicted_only
+24296,Primary malignant neoplasm of pituitary gland,4177235,Malignant tumor of pituitary gland,gs_only
+24296,Primary malignant neoplasm of pituitary gland,380661,Primary malignant neoplasm of cerebrum,gs_only
+24296,Primary malignant neoplasm of pituitary gland,133420,Primary malignant neoplasm of endocrine gland,gs_only
+24296,Primary malignant neoplasm of pituitary gland,24296,Primary malignant neoplasm of pituitary gland,predicted_only
+31509,Primary malignant neoplasm of tonsil,4181339,Malignant tumor of tonsil,gs_only
+31509,Primary malignant neoplasm of tonsil,432254,Primary malignant neoplasm of Waldeyer's ring,gs_only
+31509,Primary malignant neoplasm of tonsil,440345,Primary malignant neoplasm of lateral wall of oropharynx,gs_only
+31509,Primary malignant neoplasm of tonsil,31509,Primary malignant neoplasm of tonsil,predicted_only
+73854,Progressive myositis ossificans,4182033,Deposition in skeletal muscle,both
+73854,Progressive myositis ossificans,4185186,Lesion of skeletal muscle,both
+73854,Progressive myositis ossificans,4006473,Autosomal dominant hereditary disorder,gs_only
+73854,Progressive myositis ossificans,4094389,"Ectopic bone tissue, congenital",gs_only
+73854,Progressive myositis ossificans,4178826,Hereditary disorder of musculoskeletal system,gs_only
+73854,Progressive myositis ossificans,4345568,Hereditary myositis ossificans,gs_only
+73854,Progressive myositis ossificans,4196401,Muscular ossification,gs_only
+73854,Progressive myositis ossificans,607417,Idiopathic muscular ossification,predicted_only
+74126,Protrusio acetabuli of the pelvic region and thigh,77357,Intrapelvic protrusion of acetabulum,both
+74126,Protrusio acetabuli of the pelvic region and thigh,761507,Arthropathy of left hip joint,predicted_only
+72988,Pyogenic arthritis of hand,4177365,Infective arthritis of joint of hand,gs_only
+72988,Pyogenic arthritis of hand,80482,Suppurative arthritis,gs_only
+72988,Pyogenic arthritis of hand,1246240,Infective arthritis of hip,predicted_only
+72988,Pyogenic arthritis of hand,72988,Pyogenic arthritis of hand,predicted_only
+73838,Pyogenic arthritis of multiple sites,4266078,Infective polyarthritis,gs_only
+73838,Pyogenic arthritis of multiple sites,80482,Suppurative arthritis,gs_only
+73838,Pyogenic arthritis of multiple sites,1246240,Infective arthritis of hip,predicted_only
+73838,Pyogenic arthritis of multiple sites,73838,Pyogenic arthritis of multiple sites,predicted_only
+73300,Radial styloid tenosynovitis,4090616,Disorder of soft tissue of upper limb,gs_only
+73300,Radial styloid tenosynovitis,4181064,Inflammatory disorder of extremity,gs_only
+73300,Radial styloid tenosynovitis,4344503,Tendinitis AND/OR tenosynovitis of wrist AND/OR hand,gs_only
+73300,Radial styloid tenosynovitis,4195698,Tenosynovitis,gs_only
+73300,Radial styloid tenosynovitis,77630,Disorder of shoulder,predicted_only
+73300,Radial styloid tenosynovitis,40481788,Tenosynovitis of wrist,predicted_only
+72984,Reactive arthritis of joint of shoulder region due to and following dysentery,1075361,Arthritis of shoulder region joint,gs_only
+72984,Reactive arthritis of joint of shoulder region due to and following dysentery,4079729,Reactive arthritis due to and following dysentery,gs_only
+72984,Reactive arthritis of joint of shoulder region due to and following dysentery,4066954,Sexually acquired reactive arthritis of joint of shoulder region,predicted_only
+73580,Reduction deformity of lower limb,37164303,Congenital deformity of lower limb,gs_only
+73580,Reduction deformity of lower limb,138538,Longitudinal deficiency of limb,gs_only
+73580,Reduction deformity of lower limb,40482430,Deformity of limb,predicted_only
+73580,Reduction deformity of lower limb,4022922,Finding of lower limb,predicted_only
+73297,Resolving infantile idiopathic scoliosis,4069935,Idiopathic scoliosis,gs_only
+73297,Resolving infantile idiopathic scoliosis,4182166,Deformity of spine,predicted_only
+73297,Resolving infantile idiopathic scoliosis,135930,Musculoskeletal finding,predicted_only
+73754,Restless legs,193460,Disorder of lower limb,gs_only
+73754,Restless legs,35626941,Sleep related movement disorder,gs_only
+73754,Restless legs,72986,Disorder of lower leg,predicted_only
+73754,Restless legs,372604,Movement disorder,predicted_only
+73754,Restless legs,73754,Restless legs,predicted_only
+72418,Scoliosis deformity of spine,73302,Curvature of spine,gs_only
+72418,Scoliosis deformity of spine,4244662,Disorder of musculoskeletal system,gs_only
+72418,Scoliosis deformity of spine,4006164,Lordosis and scoliosis deformity of spine,predicted_only
+72332,Serous labyrinthitis,74052,Labyrinthitis,gs_only
+72332,Serous labyrinthitis,36685152,Disorder of left ear,predicted_only
+72332,Serous labyrinthitis,45770932,Labyrinthine hydrops,predicted_only
+29783,Severe combined immunodeficiency disease,40483560,Combined immunodeficiency disease,gs_only
+29783,Severe combined immunodeficiency disease,4263109,Congenital immunodeficiency disease,gs_only
+29783,Severe combined immunodeficiency disease,4180159,Hereditary disorder of immune system,gs_only
+29783,Severe combined immunodeficiency disease,4212886,Disorder of immune structure,predicted_only
+29783,Severe combined immunodeficiency disease,29783,Severe combined immunodeficiency disease,predicted_only
+72377,Shoulder girdle dystocia,4025199,Pelvic dystocia AND/OR uterine disorder,gs_only
+72377,Shoulder girdle dystocia,4128846,Finding of structures of conception,predicted_only
+72377,Shoulder girdle dystocia,37167863,Maternal disorder during labor,predicted_only
+72377,Shoulder girdle dystocia,257370,Skeletal injury due to birth trauma,predicted_only
+72377,Shoulder girdle dystocia,4114600,Traumatic arthropathy of shoulder,predicted_only
+72711,Shoulder stiff,4119632,Decreased range of shoulder movement,gs_only
+72711,Shoulder stiff,72404,Joint stiffness,gs_only
+72711,Shoulder stiff,4127435,Decreased range of lumbar spine movement,predicted_only
+72711,Shoulder stiff,77960,Joint finding,predicted_only
+72711,Shoulder stiff,4185178,Joint stiffness of spine,predicted_only
+72711,Shoulder stiff,72711,Shoulder stiff,predicted_only
+29056,Sialoadenitis,25572,Disorder of salivary gland,gs_only
+29056,Sialoadenitis,4181063,Inflammation of specific body organs,gs_only
+29056,Sialoadenitis,4043371,Inflammatory disorder of digestive tract,gs_only
+29056,Sialoadenitis,4181187,Inflammatory disorder of head,gs_only
+29056,Sialoadenitis,4158189,Salivary gland finding,predicted_only
+30441,Sialolithiasis,4196732,Calculus finding,both
+30441,Sialolithiasis,4114483,Lesion of salivary gland,gs_only
+30441,Sialolithiasis,4158189,Salivary gland finding,predicted_only
+25518,Sickle cell trait,4214191,Hereditary hemoglobin S,gs_only
+25518,Sickle cell trait,4047524,Heterozygous hemoglobinopathy,gs_only
+25518,Sickle cell trait,4278669,Beta thalassemia,predicted_only
+25518,Sickle cell trait,4130066,Hereditary hemoglobinopathy due to globin chain mutation,predicted_only
+24006,Sickle cell-hemoglobin C disease,4049095,Double heterozygous sickling disorder,gs_only
+24006,Sickle cell-hemoglobin C disease,4295183,Mixed hemoglobin disorder,gs_only
+24006,Sickle cell-hemoglobin C disease,4176425,Hemoglobin C disease,predicted_only
+24006,Sickle cell-hemoglobin C disease,4188474,Thalassemia with other hemoglobinopathy,predicted_only
+22281,Sickle cell-hemoglobin SS disease,4031662,Anemia due to disturbance of hemoglobin synthesis,gs_only
+22281,Sickle cell-hemoglobin SS disease,4207240,Anemia due to intrinsic red cell abnormality,gs_only
+22281,Sickle cell-hemoglobin SS disease,4312008,Anemia due to substance,gs_only
+22281,Sickle cell-hemoglobin SS disease,4048205,Homozygous hemoglobinopathy,gs_only
+22281,Sickle cell-hemoglobin SS disease,4213628,Sickling disorder due to hemoglobin S,gs_only
+22281,Sickle cell-hemoglobin SS disease,4216915,Hemoglobin S sickling disorder with crisis,predicted_only
+22281,Sickle cell-hemoglobin SS disease,22281,Sickle cell-hemoglobin SS disease,predicted_only
+46270436,Sinus node dysfunction,46270450,Chronic tophaceous gout caused by drug,gs_only
+46270436,Sinus node dysfunction,46270454,Gout of elbow caused by drug,gs_only
+46270436,Sinus node dysfunction,80494,Arthropathy associated with another disorder,predicted_only
+46270436,Sinus node dysfunction,321462,Cardiac complication,predicted_only
+46270436,Sinus node dysfunction,4134586,Chronic heart disease,predicted_only
+46270436,Sinus node dysfunction,4250767,Chronic tophaceous gout,predicted_only
+46270436,Sinus node dysfunction,4005650,Drug-induced lesion,predicted_only
+46270436,Sinus node dysfunction,4299408,Gouty tophus,predicted_only
+46270436,Sinus node dysfunction,4083695,Osteoarthritis of elbow,predicted_only
+46270436,Sinus node dysfunction,4027255,Structural disorder of heart,predicted_only
+72421,Solitary bone cyst,80509,Bone cyst,gs_only
+72421,Solitary bone cyst,72421,Solitary bone cyst,predicted_only
+26847,"Splinter of neck, without major open wound",4094328,Splinter in neck,both
+26847,"Splinter of neck, without major open wound",4094473,Splinter in trunk,predicted_only
+26847,"Splinter of neck, without major open wound",4055988,"Splinter of lower limb, without major open wound, infected",predicted_only
+73889,Sprain of distal tibiofibular ligament,81151,Sprain of ankle,gs_only
+73889,Sprain of distal tibiofibular ligament,4115535,Traumatic arthropathy of tibiofibular joint,gs_only
+73889,Sprain of distal tibiofibular ligament,40492779,Closed traumatic dislocation of joint,predicted_only
+73889,Sprain of distal tibiofibular ligament,4170312,"Dislocation of fibula, distal end",predicted_only
+73889,Sprain of distal tibiofibular ligament,73889,Sprain of distal tibiofibular ligament,predicted_only
+73045,Sprain of hand,40480937,Injury of ligament of hand,gs_only
+73045,Sprain of hand,4179141,Lesion of joint,gs_only
+73045,Sprain of hand,4018956,Sprain of wrist and/or hand,gs_only
+73045,Sprain of hand,81937,Traumatic arthropathy of the hand,gs_only
+73045,Sprain of hand,444130,Injury of foot,predicted_only
+73045,Sprain of hand,4344273,Soft tissue lesion of foot region,predicted_only
+73045,Sprain of hand,4016673,Sprain of ankle and/or foot,predicted_only
+73045,Sprain of hand,73045,Sprain of hand,predicted_only
+73338,Sprain of lateral collateral ligament of knee,40479766,Injury of lateral collateral ligament of knee,both
+73338,Sprain of lateral collateral ligament of knee,4207505,Sprain of knee,gs_only
+73338,Sprain of lateral collateral ligament of knee,36676836,Arthropathy of left knee joint,predicted_only
+73338,Sprain of lateral collateral ligament of knee,4154161,Injury by mechanism,predicted_only
+73338,Sprain of lateral collateral ligament of knee,36684940,Injury of left knee,predicted_only
+73338,Sprain of lateral collateral ligament of knee,4179141,Lesion of joint,predicted_only
+73338,Sprain of lateral collateral ligament of knee,4344497,Soft tissue lesion,predicted_only
+24974,Stenosis of larynx,4115254,Lesion of larynx,gs_only
+24974,Stenosis of larynx,321887,Disorder of artery,predicted_only
+24974,Stenosis of larynx,4318716,Gastrointestinal stenosis,predicted_only
+24974,Stenosis of larynx,24974,Stenosis of larynx,predicted_only
+28060,Streptococcal sore throat,4193874,Bacterial infection of the digestive tract,gs_only
+28060,Streptococcal sore throat,4207185,Bacterial upper respiratory infection,gs_only
+28060,Streptococcal sore throat,4193318,Infective pharyngitis,gs_only
+28060,Streptococcal sore throat,437779,Streptococcal infectious disease,gs_only
+28060,Streptococcal sore throat,28060,Streptococcal sore throat,predicted_only
+28714,Syndrome of diencephalo-hypophyseal origin,28385,Disorder of posterior pituitary,gs_only
+28714,Syndrome of diencephalo-hypophyseal origin,373087,Central nervous system complication,predicted_only
+28714,Syndrome of diencephalo-hypophyseal origin,4029449,Diencephalic syndrome,predicted_only
+72712,Synovial cyst,4209224,Cyst,gs_only
+72712,Synovial cyst,74135,Disorder of synovial membrane,gs_only
+72712,Synovial cyst,4116964,Mass of musculoskeletal structure,gs_only
+72712,Synovial cyst,40481517,Mass of soft tissue,gs_only
+72712,Synovial cyst,4344497,Soft tissue lesion,gs_only
+72712,Synovial cyst,36676837,Arthropathy of right knee joint,predicted_only
+72712,Synovial cyst,4347174,Synovial cyst of knee,predicted_only
+72415,Synovial plica,74135,Disorder of synovial membrane,gs_only
+72415,Synovial plica,36676837,Arthropathy of right knee joint,predicted_only
+72415,Synovial plica,4345587,Synovial plica of knee,predicted_only
+30969,Testicular hyperfunction,26935,Disorder of endocrine testis,gs_only
+30969,Testicular hyperfunction,4113644,Hypergonadism,gs_only
+30969,Testicular hyperfunction,4208095,Congenital anomaly of testis,predicted_only
+30969,Testicular hyperfunction,444107,Endocrine finding,predicted_only
+30969,Testicular hyperfunction,4041284,Functional finding,predicted_only
+30969,Testicular hyperfunction,4138110,Hypertrophy of testis,predicted_only
+26662,Testicular hypofunction,4066814,Decreased hormone production,gs_only
+26662,Testicular hypofunction,4175133,Male hypogonadism,gs_only
+26662,Testicular hypofunction,36712925,Decline in functional status,predicted_only
+26662,Testicular hypofunction,444107,Endocrine finding,predicted_only
+26662,Testicular hypofunction,4199315,Incomplete spermatogenic arrest,predicted_only
+26662,Testicular hypofunction,198197,Male infertility,predicted_only
+30978,Thalassemia,4031662,Anemia due to disturbance of hemoglobin synthesis,gs_only
+30978,Thalassemia,4144746,Hereditary hemoglobinopathy,gs_only
+30978,Thalassemia,4278669,Beta thalassemia,predicted_only
+30978,Thalassemia,4023612,Heterozygous thalassemia,predicted_only
+25582,Tracheoesophageal fistula,4340670,Internal esophageal fistula,gs_only
+25582,Tracheoesophageal fistula,4121300,Tracheal fistula,gs_only
+25582,Tracheoesophageal fistula,4246743,Congenital esophagotracheal fistula,predicted_only
+375736,"Trachoma, active stage",380640,Trachoma,gs_only
+375736,"Trachoma, active stage",4080857,Conjunctival finding,predicted_only
+73555,Transient arthropathy of the pelvic region and thigh,81930,Transient arthropathy,gs_only
+73555,Transient arthropathy of the pelvic region and thigh,36674930,Acute gout,predicted_only
+73555,Transient arthropathy of the pelvic region and thigh,74892,Articular gout,predicted_only
+73555,Transient arthropathy of the pelvic region and thigh,46270563,Transient arthritis,predicted_only
+73555,Transient arthropathy of the pelvic region and thigh,4115673,Transient arthropathy of elbow joint,predicted_only
+73555,Transient arthropathy of the pelvic region and thigh,73555,Transient arthropathy of the pelvic region and thigh,predicted_only
+73307,Transverse deficiency of lower limb,37109843,Absence of lower limb,gs_only
+73307,Transverse deficiency of lower limb,201956,Congenital anomaly of lower limb,gs_only
+73307,Transverse deficiency of lower limb,73307,Transverse deficiency of lower limb,predicted_only
+73307,Transverse deficiency of lower limb,133593,Transverse deficiency of upper limb,predicted_only
+74124,Traumatic arthropathy,4054054,Joint injury,gs_only
+74124,Traumatic arthropathy,440921,Traumatic injury,gs_only
+74124,Traumatic arthropathy,46270563,Transient arthritis,predicted_only
+74124,Traumatic arthropathy,4116596,Transient arthropathy of acromioclavicular joint,predicted_only
+72991,Traumatic arthropathy of multiple sites,75897,Polyarthropathy,gs_only
+72991,Traumatic arthropathy of multiple sites,74124,Traumatic arthropathy,gs_only
+72991,Traumatic arthropathy of multiple sites,80806,Climacteric arthritis of multiple sites,predicted_only
+72708,Traumatic arthropathy of the shoulder region,40484571,Disorder of joint of shoulder region,gs_only
+72708,Traumatic arthropathy of the shoulder region,76611,Injury of shoulder region,gs_only
+72708,Traumatic arthropathy of the shoulder region,4162433,Traumatic arthropathy of upper extremity,gs_only
+72708,Traumatic arthropathy of the shoulder region,4116596,Transient arthropathy of acromioclavicular joint,predicted_only
+22820,Tuberculosis of esophagus,4341224,Bacterial esophagitis,gs_only
+22820,Tuberculosis of esophagus,4345697,Tuberculosis of gastrointestinal tract,gs_only
+22820,Tuberculosis of esophagus,22820,Tuberculosis of esophagus,predicted_only
+73686,Tuberculosis of genitourinary system,4193167,Bacterial urogenital infection,gs_only
+73686,Tuberculosis of genitourinary system,4029363,Granulomatous disorder,gs_only
+73686,Tuberculosis of genitourinary system,4159963,Inflammatory disorder of genitourinary system,gs_only
+73686,Tuberculosis of genitourinary system,434557,Tuberculosis,gs_only
+73686,Tuberculosis of genitourinary system,40492320,Tuberculosis of abdomen,predicted_only
+73686,Tuberculosis of genitourinary system,72817,Tuberculosis of urinary organs,predicted_only
+73122,Tuberculosis of knee,4159739,Arthritis of knee,gs_only
+73122,Tuberculosis of knee,75455,Tuberculosis of joint,gs_only
+73122,Tuberculosis of knee,4098475,Tuberculous arthritis,gs_only
+73122,Tuberculosis of knee,762771,Granulomatous synovitis,predicted_only
+73122,Tuberculosis of knee,73122,Tuberculosis of knee,predicted_only
+72817,Tuberculosis of urinary organs,4208664,Bacterial urinary infection,gs_only
+72817,Tuberculosis of urinary organs,197331,Disorder of urinary tract,gs_only
+72817,Tuberculosis of urinary organs,73686,Tuberculosis of genitourinary system,gs_only
+72817,Tuberculosis of urinary organs,4181063,Inflammation of specific body organs,predicted_only
+26899,Tuberculous laryngitis,4207185,Bacterial upper respiratory infection,gs_only
+26899,Tuberculous laryngitis,4207471,Infective laryngitis,gs_only
+26899,Tuberculous laryngitis,45771090,Respiratory tuberculosis,gs_only
+26899,Tuberculous laryngitis,4148052,Cervical lymphadenitis,predicted_only
+26899,Tuberculous laryngitis,321483,Respiratory complication,predicted_only
+26899,Tuberculous laryngitis,40486464,Tuberculous abscess,predicted_only
+26899,Tuberculous laryngitis,26899,Tuberculous laryngitis,predicted_only
+25844,Ulcer of esophagus,4113545,Lesion of esophagus,gs_only
+25844,Ulcer of esophagus,4027663,Peptic ulcer,gs_only
+25844,Ulcer of esophagus,442270,Disorder of duodenum,predicted_only
+25844,Ulcer of esophagus,25844,Ulcer of esophagus,predicted_only
+26908,Vincent's angina,4193874,Bacterial infection of the digestive tract,gs_only
+26908,Vincent's angina,4207185,Bacterial upper respiratory infection,gs_only
+26908,Vincent's angina,4247910,Gangrenous pharyngitis,gs_only
+26908,Vincent's angina,46273307,Infection caused by Fusobacterium,gs_only
+26908,Vincent's angina,4193318,Infective pharyngitis,gs_only
+26908,Vincent's angina,433967,Spirochetal infection,gs_only
+26908,Vincent's angina,4091366,Tonsil finding,predicted_only
+22666,Vomiting after gastrointestinal tract surgery,4216862,Postoperative vomiting,gs_only
+22666,Vomiting after gastrointestinal tract surgery,4302537,Digestive system finding,predicted_only
