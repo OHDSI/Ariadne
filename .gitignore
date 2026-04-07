@@ -14,5 +14,3 @@ data/*
 !data/notebook_results/
 !data/notebook_results/**
 sandbox/drug_results/
-sandbox/drug_structurer_responses/
-

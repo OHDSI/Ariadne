@@ -10,6 +10,7 @@ import pandas as pd
 import yaml
 
 from ariadne.utils.config import Config
+from ariadne.utils.config_drug_mapping import ConfigDrugMapping
 from ariadne.utils.gen_ai_api import get_llm_response
 from ariadne.utils.utils import get_project_root
 
@@ -370,11 +371,12 @@ def normalize_structured_drugs(structured: DrugStructureResult) -> NormalizedDru
 
 
 class LlmDrugStructurer:
-    def __init__(self, config: Config = Config(), config_filename: str = "config.yaml"):
+    def __init__(self, config: ConfigDrugMapping = ConfigDrugMapping()):
         self.responses_folder = config.system.llm_mapper_responses_folder
         os.makedirs(self.responses_folder, exist_ok=True)
         self._cost = 0.0
-        self.prompts = self._load_drug_prompts(config_filename)
+        self.drug_structuring_prompts = config.drug_structuring
+ 
 
     @staticmethod
     def _load_drug_prompts(config_filename: str) -> dict[str, str]:
@@ -546,7 +548,7 @@ class LlmDrugStructurer:
             classified = self._call_llm_batch(
                 stage="classify",
                 records=batch_records,
-                system_prompt=self.prompts["drug_device_system_prompt"],
+                system_prompt=self.drug_structuring_prompts.drug_device_system_prompt,
                 schema=_CLASSIFICATION_SCHEMA,
             )
             if classified is None:
@@ -575,7 +577,7 @@ class LlmDrugStructurer:
                 ingredients = self._call_llm_batch(
                     stage="ingredient",
                     records=drug_records,
-                    system_prompt=self.prompts["ingredient_system_prompt"],
+                    system_prompt=self.drug_structuring_prompts.ingredient_system_prompt,
                     schema=_INGREDIENT_SCHEMA,
                 )
                 if ingredients is not None:
@@ -602,7 +604,7 @@ class LlmDrugStructurer:
                 drugs = self._call_llm_batch(
                     stage="drug",
                     records=drug_records,
-                    system_prompt=self.prompts["drug_system_prompt"],
+                    system_prompt=self.drug_structuring_prompts.drug_system_prompt,
                     schema=_DRUG_SCHEMA,
                 )
                 if drugs is not None:
@@ -631,7 +633,7 @@ class LlmDrugStructurer:
                 devices = self._call_llm_batch(
                     stage="device",
                     records=device_records,
-                    system_prompt=self.prompts["device_system_prompt"],
+                    system_prompt=self.drug_structuring_prompts.device_system_prompt,
                     schema=_DEVICE_SCHEMA,
                 )
                 if devices is not None:
