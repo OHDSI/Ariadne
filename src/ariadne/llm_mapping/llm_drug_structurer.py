@@ -200,7 +200,7 @@ def normalize_structured_drugs(structured: DrugStructureResult) -> NormalizedDru
             {
                 "concept_name": row.get("full_product_name"),
                 "domain_id": "Drug",
-                "concept_class_id": "Branded Drug" if brand_name else "Clinical Drug",
+                "concept_class_id": "Drug Product",
                 "concept_code": drug_code,
             }
         )

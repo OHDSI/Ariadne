@@ -130,24 +130,6 @@ class VocabVerbatimTermMapper:
         )
         return source_terms
 
-        # mapped_data = []
-        # for term in source_terms[term_column]:
-        #     concepts = self.map_term(term)
-        #     if concepts:
-        #         for concept in concepts:
-        #             mapped_data.append({
-        #                 term_column: term,
-        #                 matched_concept_id_column: concept[0],
-        #                 matched_concept_name_column: concept[1]
-        #             })
-        #     else:
-        #         mapped_data.append({
-        #             term_column: term,
-        #             matched_concept_id_column: -1,
-        #             matched_concept_name_column: ""
-        #         })
-        # return pd.DataFrame(mapped_data)
-
 
 if __name__ == "__main__":
     mapper = VocabVerbatimTermMapper()
