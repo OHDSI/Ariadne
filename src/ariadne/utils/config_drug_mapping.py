@@ -20,7 +20,6 @@ from typing import List, Optional, Any, Type, Dict
 import yaml
 
 from ariadne.utils.utils import get_project_root, resolve_path
-from spacy.util import from_dict
 
 
 @dataclass
@@ -37,21 +36,6 @@ class SystemConfig:
         self.terms_folder = resolve_path(self.terms_folder)
         self.verbatim_mapping_index_file = resolve_path(self.verbatim_mapping_index_file)
         self.llm_mapper_responses_folder = resolve_path(self.llm_mapper_responses_folder)
-
-
-@dataclass
-class StandardConceptFilter:
-    vocabularies: Optional[List[str]]
-    domain_ids: Optional[List[str]]
-    concept_class_ids: Optional[List[str]]
-    include_classification_concepts: bool
-    include_synonyms: bool
-
-
-@dataclass
-class VerbatimMapping:
-    substrings_to_remove: List[str]
-    standard_concept_filter: StandardConceptFilter
 
 
 @dataclass
@@ -84,6 +68,23 @@ class DrugStructuring:
     device_system_prompt: str
 
 
+@dataclass
+class DrugMapperConceptClassConfig:
+    terms_folder: Path
+    verbatim_mapping_index_file: Path
+    substrings_to_remove: List[str] = field(default_factory=list)
+    include_synonyms: bool = True
+    domain_ids: Optional[List[str]] = None
+    standard_concept: bool = True
+    vocabularies: Optional[List[str]] = None
+    concept_class_ids: Optional[List[str]] = None
+    system_prompt: str = ""
+
+    def __post_init__(self):
+        self.terms_folder = resolve_path(self.terms_folder)
+        self.verbatim_mapping_index_file = resolve_path(self.verbatim_mapping_index_file)
+
+
 class ConfigDrugMapping:
     """
     Configuration class for the Ariadne toolkit. Loads settings from a YAML file and provides structured access to
@@ -91,10 +92,10 @@ class ConfigDrugMapping:
     """
 
     system: SystemConfig = field(default_factory=SystemConfig)
-    verbatim_mapping: VerbatimMapping = field(default_factory=VerbatimMapping)
     vector_search: VectorSearch = field(default_factory=VectorSearch)
     llm_mapping: Llm_mapping = field(default_factory=Llm_mapping)
     drug_structuring: DrugStructuring = field(default_factory=DrugStructuring)
+    concept_classes: Dict[str, DrugMapperConceptClassConfig] = field(default_factory=dict)
 
     def __init__(self, filename: str = "config_drug_mapping.yaml"):
         """
@@ -113,25 +114,14 @@ class ConfigDrugMapping:
         with path.open("r", encoding="utf-8") as fh:
             raw = yaml.safe_load(fh) or {}
 
-        self.system = self.from_dict(SystemConfig, raw["system"])
-        self.verbatim_mapping = self.from_dict(VerbatimMapping, raw["verbatim_mapping"])
-        self.vector_search = self.from_dict(VectorSearch, raw["vector_search"])
-        self.llm_mapping = self.from_dict(Llm_mapping, raw["llm_mapping"])
-        self.drug_structuring = self.from_dict(DrugStructuring, raw["drug_structuring"])
-
-
-        if not path.exists():
-            path = get_project_root() / filename
-            if not path.exists():
-                raise FileNotFoundError(f"Could not find {filename} in {Path.cwd()} or project root.")
-        with path.open("r", encoding="utf-8") as fh:
-            raw = yaml.safe_load(fh) or {}
-
-        self.system = self.from_dict(SystemConfig, raw["system"])
-        self.verbatim_mapping = self.from_dict(VerbatimMapping, raw["verbatim_mapping"])
-        self.vector_search = self.from_dict(VectorSearch, raw["vector_search"])
-        self.llm_mapping = self.from_dict(Llm_mapping, raw["llm_mapping"])
-        self.drug_structuring = self.from_dict(DrugStructuring, raw["drug_structuring"])
+        self.system = self.from_dict(SystemConfig, raw.get("system", {}))
+        self.vector_search = self.from_dict(VectorSearch, raw.get("vector_search", {}))
+        self.llm_mapping = self.from_dict(Llm_mapping, raw.get("llm_mapping", {}))
+        self.drug_structuring = self.from_dict(DrugStructuring, raw.get("drug_structuring", {}))
+        self.concept_classes = {
+            class_name: self.from_dict(DrugMapperConceptClassConfig, class_config)
+            for class_name, class_config in (raw.get("concept_classes", {}) or {}).items()
+        }
 
     def from_dict(self, cls: Type["ConfigDrugMapping"], data: Dict[str, Any]) -> "ConfigDrugMapping":
         def build(dc_type: Type[Any], subdata: Dict[str, Any]) -> Any:
@@ -165,10 +155,10 @@ class ConfigDrugMapping:
 
         return {
             "system": serialize(self.system),
-            "verbatim_mapping": serialize(self.verbatim_mapping),
             "vector_search": serialize(self.vector_search),
             "llm_mapping": serialize(self.llm_mapping),
             "drug_structuring": serialize(self.drug_structuring),
+            "concept_classes": serialize(self.concept_classes),
         }
 
 

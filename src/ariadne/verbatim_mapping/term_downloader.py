@@ -53,6 +53,7 @@ def _create_query(engine: Engine, config: Config) -> Select:
     metadata = MetaData()
     concept = Table("concept", metadata, schema=vocabulary_schema, autoload_with=engine)
 
+    enforce_standard_only = getattr(filter_config, "standard_concept", True)
     standard_concepts = ["S"]
     if filter_config.include_classification_concepts:
         standard_concepts.append("C")
@@ -62,7 +63,9 @@ def _create_query(engine: Engine, config: Config) -> Select:
         concept.c.concept_id,
         concept.c.concept_name.label("term"),
         concept.c.concept_name,
-    ).where(concept.c.standard_concept.in_(standard_concepts))
+    )
+    if enforce_standard_only:
+        query1 = query1.where(concept.c.standard_concept.in_(standard_concepts))
     if filter_config.domain_ids:
         query1 = query1.where(concept.c.domain_id.in_(filter_config.domain_ids))
     if filter_config.concept_class_ids:
