@@ -20,6 +20,7 @@ _DEFAULT_SNOMED_RELATIONSHIPS: list[str] = [
     'Has clinical course', 'Has finding context', 'Has interpretation',
     'Has interprets', 'Has occurrence', 'Has pathology',
     'Has relat context', 'Has severity', 'Has temporal context',
+    'Finding asso with',
 ]
 
 

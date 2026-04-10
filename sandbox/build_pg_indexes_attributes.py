@@ -18,7 +18,9 @@ Environment variables (loaded from .env):
 
 import argparse
 import os
+import pickle
 import sys
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -46,6 +48,8 @@ SNOMED_RELATIONSHIPS = [
 
 REFERENCE_SAMPLE_SIZE = 10_000
 EMBEDDING_BATCH_SIZE = 500
+ATTR_EMBEDDINGS_CHECKPOINT = Path("/tmp/snomed_attr_embeddings.pkl")
+REF_EMBEDDINGS_CHECKPOINT = Path("/tmp/snomed_ref_embeddings.pkl")
 
 
 # ---------------------------------------------------------------------------
@@ -201,11 +205,28 @@ def _embed_texts(texts: list) -> tuple[np.ndarray, float]:
     return np.vstack(all_vecs), total_cost
 
 
+def _save_embeddings_checkpoint(embeddings: np.ndarray, df: pd.DataFrame, checkpoint_path: Path) -> None:
+    """Save embeddings and dataframe to checkpoint file for resuming."""
+    with open(checkpoint_path, "wb") as f:
+        pickle.dump({"embeddings": embeddings, "df": df}, f)
+    print(f"  Saved embeddings checkpoint: {checkpoint_path}")
+
+
+def _load_embeddings_checkpoint(checkpoint_path: Path) -> tuple[np.ndarray, pd.DataFrame] | None:
+    """Load embeddings from checkpoint if it exists."""
+    if checkpoint_path.exists():
+        with open(checkpoint_path, "rb") as f:
+            data = pickle.load(f)
+        print(f"  Loaded embeddings from checkpoint: {checkpoint_path}")
+        return data["embeddings"], data["df"]
+    return None
+
+
 # ---------------------------------------------------------------------------
 # Upsert functions
 # ---------------------------------------------------------------------------
 
-def upsert_attribute_index(conn: psycopg.Connection, df: pd.DataFrame, rebuild: bool = False) -> psycopg.Connection:
+def upsert_attribute_index(conn: psycopg.Connection, df: pd.DataFrame, rebuild: bool = False, skip_embedding: bool = False) -> psycopg.Connection:
     schema = _vocab_schema()
     if rebuild:
         with conn.cursor() as cur:
@@ -213,10 +234,25 @@ def upsert_attribute_index(conn: psycopg.Connection, df: pd.DataFrame, rebuild: 
                         .format(schema=sql.Identifier(schema)))
         conn.commit()
         print("Truncated snomed_attribute.")
+        # Clear checkpoint on rebuild
+        if ATTR_EMBEDDINGS_CHECKPOINT.exists():
+            ATTR_EMBEDDINGS_CHECKPOINT.unlink()
 
-    print(f"Embedding {len(df):,} attribute concept names...")
-    embeddings, cost = _embed_texts(df["concept_name"].tolist())
-    print(f"Attribute embeddings done. Cost: ${cost:.4f}")
+    # Try to load embeddings from checkpoint
+    if skip_embedding or ATTR_EMBEDDINGS_CHECKPOINT.exists():
+        result = _load_embeddings_checkpoint(ATTR_EMBEDDINGS_CHECKPOINT)
+        if result:
+            embeddings, df = result
+        else:
+            print(f"Embedding {len(df):,} attribute concept names...")
+            embeddings, cost = _embed_texts(df["concept_name"].tolist())
+            print(f"Attribute embeddings done. Cost: ${cost:.4f}")
+            _save_embeddings_checkpoint(embeddings, df, ATTR_EMBEDDINGS_CHECKPOINT)
+    else:
+        print(f"Embedding {len(df):,} attribute concept names...")
+        embeddings, cost = _embed_texts(df["concept_name"].tolist())
+        print(f"Attribute embeddings done. Cost: ${cost:.4f}")
+        _save_embeddings_checkpoint(embeddings, df, ATTR_EMBEDDINGS_CHECKPOINT)
 
     rows = [
         (
@@ -399,7 +435,17 @@ def main():
                         help="Only rebuild the snomed_attribute table.")
     parser.add_argument("--reference-only", action="store_true",
                         help="Only rebuild the snomed_reference table.")
+    parser.add_argument("--skip-embedding", action="store_true",
+                        help="Skip embedding and use cached checkpoint (for resuming failed inserts).")
+    parser.add_argument("--clear-cache", action="store_true",
+                        help="Clear cached embeddings before running.")
     args, _ = parser.parse_known_args()
+    
+    if args.clear_cache:
+        for cp in (ATTR_EMBEDDINGS_CHECKPOINT, REF_EMBEDDINGS_CHECKPOINT):
+            if cp.exists():
+                cp.unlink()
+                print(f"Cleared {cp}")
 
     print("Connecting to PostgreSQL...")
     conn = _pg_connect()
@@ -407,12 +453,27 @@ def main():
     try:
         if not args.reference_only:
             print("\n--- Building snomed_attribute ---")
-            attr_df = load_attributes_from_db()
-            # Determine embedding dim from a single probe
-            probe = get_embedding_vectors([attr_df["concept_name"].iloc[0]])
-            dim = probe["embeddings"].shape[1]
+            if not (args.skip_embedding and ATTR_EMBEDDINGS_CHECKPOINT.exists()):
+                attr_df = load_attributes_from_db()
+            else:
+                attr_df = None  # Will be loaded from checkpoint
+            # Determine embedding dim from a single probe or checkpoint
+            if ATTR_EMBEDDINGS_CHECKPOINT.exists() and args.skip_embedding:
+                checkpoint_data = _load_embeddings_checkpoint(ATTR_EMBEDDINGS_CHECKPOINT)
+                if checkpoint_data:
+                    dim = checkpoint_data[0].shape[1]
+                else:
+                    probe = get_embedding_vectors([attr_df["concept_name"].iloc[0]])
+                    dim = probe["embeddings"].shape[1]
+            else:
+                if attr_df is None:
+                    attr_df = load_attributes_from_db()
+                probe = get_embedding_vectors([attr_df["concept_name"].iloc[0]])
+                dim = probe["embeddings"].shape[1]
             create_tables(conn, dim)
-            conn = upsert_attribute_index(conn, attr_df, rebuild=args.rebuild)
+            if attr_df is None:
+                _, attr_df = _load_embeddings_checkpoint(ATTR_EMBEDDINGS_CHECKPOINT)
+            conn = upsert_attribute_index(conn, attr_df, rebuild=args.rebuild, skip_embedding=args.skip_embedding)
 
         if not args.attributes_only:
             print("\n--- Building snomed_reference ---")

@@ -184,7 +184,7 @@ hierarchy:
     hierarchy_similarity: 0.85
 
   evaluation:
-    gold_standard_path: "./data/gold_standards/hierarchy_attributes_train_test_gs.csv"
+    gold_standard_path: "./data/gold_standards/hierarchy_icd_gs.csv"
     output_dir: "./data/notebook_results"
 
   snomed_relationships:
@@ -200,6 +200,7 @@ hierarchy:
     - "Has relat context"
     - "Has severity"
     - "Has temporal context"
+    - "Finding asso with"
 
   prompts:
     extraction: |
@@ -297,6 +298,7 @@ hierarchy:
       - finding_context: known present, known absent, suspected, etc.
       - subject_relationship_context: family member, mother, subject of record
       - temporal_context: current, past, current or past
+      - finding_asso_with: the primary associated condition when the term is explicitly "X in [Disease Y]", "X associated with Y", or "X complicating Y", and Y is a named disease that is neither the morphology, causative agent, nor finding site. Use when the term's meaning is defined by its occurrence in the context of a specific named disease. Example: "Arthropathy in SLE" → finding_asso_with = Systemic lupus erythematosus; "Myocarditis in COVID-19" → finding_asso_with = COVID-19; "Anemia in neoplastic disease" → finding_asso_with = Neoplastic disease. Do NOT use for causative agents (bacteria, viruses as direct causes → use causative_agent instead).
 
       CONTEXT ATTRIBUTES — scan EVERY term for these (add even when only implied):
       | Attribute | Meaning | Cue words | Example |
@@ -357,6 +359,7 @@ hierarchy:
          • Do NOT assign interprets/interpretation for: organ dysfunction not defined by a named lab test, paralysis, structural congenital anomalies, or impaired movement due to arthropathy.
 
       C. Has severity: map adjectives to "Mild", "Moderate" ..., or "Severe" qualifier values; avoid choosing severity when no cue is present.
+      D. Finding asso with: select the SNOMED CLINICAL FINDING concept representing the named associated disease. Prefer the most specific concept (e.g. "Systemic lupus erythematosus" over "Connective tissue disease"). Do not confuse with causative_agent — the associated condition is a co-occurring named disease, not an infectious organism or substance.
       C. Has associated morphology:
          – Only choose MORPHOLOGIC ABNORMALITY concepts (e.g., "Inflammatory morphology", "Malignant neoplasm").
          – Use inflammation cues ("-itis", "inflammatory"), neoplasm cues ("cancer", "malignant", "sarcoma", etc.), and hematologic change terms ("spherocytosis", "hemolytic").

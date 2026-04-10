@@ -54,6 +54,7 @@ GS_CATEGORY_TO_TYPE_ID: dict[str, int] = {
     "Has relat context":   408732007,
     "Has severity":        246112005,
     "Has temporal context": 408731000,
+    "Finding asso with":    47429007,   # Associated with
 }
 
 # ---------------------------------------------------------------------------

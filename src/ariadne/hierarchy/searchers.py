@@ -43,6 +43,7 @@ ATTR_KEY_TO_SNOMED_CATEGORY: dict[str, str] = {
     "severity": "Has severity (SNOMED)",
     "subject_relationship_context": "Has subject relationship context (SNOMED)",
     "temporal_context": "Has temporal context (SNOMED)",
+    "finding_asso_with": "Finding asso with (SNOMED)",
 }
 
 ATTR_KEY_TO_GS_CATEGORY: dict[str, str] = {
@@ -58,6 +59,7 @@ ATTR_KEY_TO_GS_CATEGORY: dict[str, str] = {
     "severity": "Has severity",
     "subject_relationship_context": "Has relat context",
     "temporal_context": "Has temporal context",
+    "finding_asso_with": "Finding asso with",
 }
 
 SNOMED_CATEGORY_TO_ATTR_KEY: dict[str, str] = {v: k for k, v in ATTR_KEY_TO_SNOMED_CATEGORY.items()}
@@ -72,7 +74,7 @@ class AbstractSnomedSearcher(ABC):
 
     Enforces lifecycle management (``close`` / context-manager) and cost
     tracking — matching the patterns used by ``PgvectorConceptSearcher`` and
-    ``LlmMapper`` elsewhere in Ariadne.
+    ``LlmMapper``.
 
     Subclasses must implement :meth:`search`.
     """
@@ -120,10 +122,6 @@ class AbstractSnomedSearcher(ABC):
 # ---------------------------------------------------------------------------
 
 class SnomedAttributeSearcher(AbstractSnomedSearcher):
-    """Queries ``snomed_attribute`` via pgvector — no data loaded into memory.
-
-    Follows the same pattern as ``PgvectorConceptSearcher`` in ariadne.
-    """
 
     def search(self, text: str, category_name: str, top_k: int | None = None) -> SearchResult:
         """Embed *text* and return the closest concepts in the given attribute category.
@@ -285,10 +283,6 @@ class SnomedAttributeSearcher(AbstractSnomedSearcher):
 # ---------------------------------------------------------------------------
 
 class SnomedReferenceSearcher(AbstractSnomedSearcher):
-    """Queries ``snomed_reference`` via pgvector — no data loaded into memory.
-
-    Follows the same pattern as ``PgvectorConceptSearcher`` in ariadne.
-    """
 
     def __init__(self, cfg: HierarchyConfig | None = None,
                  exclude_concept_ids: set[int] | None = None):

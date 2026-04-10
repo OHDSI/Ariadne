@@ -248,6 +248,7 @@ def _build_prediction_rows(results: list[dict]) -> list[dict]:
                             "concept_name_1": concept_name_1,
                             "predicted_concept_id_2": concept.get("concept_id"),
                             "predicted_concept_name_2": concept.get("concept_name"),
+                            "predicted_concept_code_2": concept.get("concept_code"),
                             "attribute_type": ATTR_KEY_TO_GS_CATEGORY.get(sub_key, f"Has {sub_key}"),
                         })
                 continue
@@ -262,6 +263,7 @@ def _build_prediction_rows(results: list[dict]) -> list[dict]:
                             "concept_name_1": concept_name_1,
                             "predicted_concept_id_2": item.get("concept_id"),
                             "predicted_concept_name_2": item.get("concept_name"),
+                            "predicted_concept_code_2": item.get("concept_code"),
                             "attribute_type": attr_type,
                         })
             # Handle single concept dict (legacy format)
@@ -271,6 +273,7 @@ def _build_prediction_rows(results: list[dict]) -> list[dict]:
                     "concept_name_1": concept_name_1,
                     "predicted_concept_id_2": attr_value.get("concept_id"),
                     "predicted_concept_name_2": attr_value.get("concept_name"),
+                    "predicted_concept_code_2": attr_value.get("concept_code"),
                     "attribute_type": attr_type,
                 })
     return pred_rows
