@@ -1,15 +1,14 @@
-system:
-  log_folder: logs
+verbatim_mapping:
   terms_folder: data/terms_drug_device
   verbatim_mapping_index_file: data/verbatim_drug_mapping_index.pkl
-  llm_mapper_responses_folder: data/llm_drug_mapper_responses
   download_batch_size: 100000
-  max_cores: 10
+  log_folder: logs
 
 vector_search:
   max_candidates: 25
 
 llm_mapping:
+  llm_mapper_responses_folder: data/llm_drug_mapper_responses
   context:
     include_target_parents: True
     include_target_children: True
@@ -78,6 +77,7 @@ llm_mapping:
       Return only these four keys and no additional keys.
 
 drug_structuring:
+  llm_mapper_responses_folder: data/llm_drug_mapper_responses
   drug_device_system_prompt: |
     You are a senior medical terminology and product classification expert with deep knowledge of pharmaceuticals, medical devices, and healthcare products.
     
@@ -270,111 +270,190 @@ drug_structuring:
 
 concept_classes:
   ingredient:
-    terms_folder: data/terms_drug_ingredient
-    verbatim_mapping_index_file: data/verbatim_drug_mapping_index_ingredient.pkl
-    substrings_to_remove:
-      - hydrochloride
-      - sodium
-      - hydrate
-    domain_ids:
-      - Drug
-    standard_concept: true
-    vocabularies:
-    concept_class_ids:
-      - Ingredient
-    system_prompt: |
-      You are a clinical terminology expert mapping drug ingredients to OMOP standard concepts.
-      Choose the single best equivalent concept when it is an exact semantic match.
-      If no exact semantic match exists, return no match.
+    verbatim_mapping:
+      terms_folder: data/terms_drug_ingredient
+      verbatim_mapping_index_file: data/verbatim_drug_mapping_index_ingredient.pkl
+      substrings_to_remove:
+        - hydrochloride
+        - sodium
+        - hydrate
+      standard_concept_filter:
+        domain_ids:
+          - Drug
+        standard_concept: true
+        concept_class_ids:
+          - Ingredient
+    llm_mapping:
+      llm_mapper_responses_folder: data/llm_drug_mapper_responses/ingredient
+      system_prompts:
+        - |
+          You are a clinical terminology expert mapping drug ingredients to OMOP standard concepts.
+          Choose the single best equivalent concept when it is an exact semantic match.
+          If no exact semantic match exists, return no match.
 
-      Output Format:
-      Provide your response in a single JSON object. Do not include any text outside of the JSON.
-      JSON
-      {
-        "source_term": "string",
-        "match_found": boolean,
-        "concept_id": "integer or null",
-        "justification": "string"
-      }
-      Return only these four keys and no additional keys.
+          Output Format:
+          Provide your response in a single JSON object. Do not include any text outside of the JSON.
+          JSON
+          {
+            "source_term": "string",
+            "match_found": boolean,
+            "concept_id": "integer or null",
+            "justification": "string"
+          }
+          Return only these four keys and no additional keys.
 
   brand_name:
-    terms_folder: data/terms_drug_brand_name
-    verbatim_mapping_index_file: data/verbatim_drug_mapping_index_brand_name.pkl
-    substrings_to_remove:
-    domain_ids:
-      - Drug
-    standard_concept: false
-    vocabularies:
-      - RxNorm
-      - RxNorm Extension
-    concept_class_ids:
-      - Brand Name
-    system_prompt: |
-      You are a clinical terminology expert mapping branded drug names to OMOP standard concepts.
-      Choose the single best equivalent concept when it is an exact semantic match.
-      If no exact semantic match exists, return no match.
+    verbatim_mapping:
+      terms_folder: data/terms_drug_brand_name
+      verbatim_mapping_index_file: data/verbatim_drug_mapping_index_brand_name.pkl
+      standard_concept_filter:
+        domain_ids:
+          - Drug
+        standard_concept: false
+        vocabularies:
+          - RxNorm
+          - RxNorm Extension
+        concept_class_ids:
+          - Brand Name
+    llm_mapping:
+      llm_mapper_responses_folder: data/llm_drug_mapper_responses/brand_name
+      system_prompts:
+        - |
+          You are a clinical terminology expert mapping branded drug names to OMOP standard concepts.
+          Choose the single best equivalent concept when it is an exact semantic match.
+          If no exact semantic match exists, return no match.
+          
+          Output Format:
+          Provide your response in a single JSON object. Do not include any text outside of the JSON.
+          JSON
+          {
+            "source_term": "string",
+            "match_found": boolean,
+            "concept_id": "integer or null",
+            "justification": "string"
+          }
+          Return only these four keys and no additional keys.
 
   dose_form:
-    terms_folder: data/terms_drug_dose_form
-    verbatim_mapping_index_file: data/verbatim_drug_mapping_index_dose_form.pkl
-    substrings_to_remove:
-    domain_ids:
-      - Drug
-    standard_concept: false
-    vocabularies:
-      - RxNorm
-      - RxNorm Extension
-    concept_class_ids:
-      - Dose Form
-    system_prompt: |
-      You are a clinical terminology expert mapping drug dose forms to OMOP standard concepts.
-      Choose the single best equivalent concept when it is an exact semantic match.
-      If no exact semantic match exists, return no match.
+    verbatim_mapping:
+      terms_folder: data/terms_drug_dose_form
+      verbatim_mapping_index_file: data/verbatim_drug_mapping_index_dose_form.pkl
+      standard_concept_filter:
+        domain_ids:
+          - Drug
+        standard_concept: false
+        vocabularies:
+          - RxNorm
+          - RxNorm Extension
+        concept_class_ids:
+          - Dose Form
+    llm_mapping:
+      llm_mapper_responses_folder: data/llm_drug_mapper_responses/dose_form
+      system_prompts:
+        - |
+          You are a clinical terminology expert mapping drug dose forms to OMOP standard concepts.
+          Choose the single best equivalent concept when it is an exact semantic match.
+          If no exact semantic match exists, return no match.
+          
+          Output Format:
+          Provide your response in a single JSON object. Do not include any text outside of the JSON.
+          JSON
+          {
+            "source_term": "string",
+            "match_found": boolean,
+            "concept_id": "integer or null",
+            "justification": "string"
+          }
+          Return only these four keys and no additional keys.
 
   supplier:
-    terms_folder: data/terms_drug_supplier
-    verbatim_mapping_index_file: data/verbatim_drug_mapping_index_supplier.pkl
-    substrings_to_remove:
-    domain_ids:
-      - Drug
-    standard_concept: false
-    vocabularies:
-      - RxNorm
-      - RxNorm Extension
-    concept_class_ids:
-      - Supplier
-    system_prompt: |
-      You are a clinical terminology expert mapping drug suppliers to OMOP standard concepts.
-      Choose the single best equivalent concept when it is an exact semantic match.
-      If no exact semantic match exists, return no match.
+    verbatim_mapping:
+      terms_folder: data/terms_drug_supplier
+      verbatim_mapping_index_file: data/verbatim_drug_mapping_index_supplier.pkl
+      standard_concept_filter:
+        domain_ids:
+          - Drug
+        standard_concept: false
+        vocabularies:
+          - RxNorm
+          - RxNorm Extension
+        concept_class_ids:
+          - Supplier
+    llm_mapping:
+      llm_mapper_responses_folder: data/llm_drug_mapper_responses/supplier
+      system_prompts:
+        - |
+          You are a clinical terminology expert mapping drug suppliers to OMOP standard concepts.
+          Choose the single best equivalent concept when it is an exact semantic match.
+          If no exact semantic match exists, return no match.
+          
+          Output Format:
+          Provide your response in a single JSON object. Do not include any text outside of the JSON.
+          JSON
+          {
+            "source_term": "string",
+            "match_found": boolean,
+            "concept_id": "integer or null",
+            "justification": "string"
+          }
+          Return only these four keys and no additional keys.
 
   unit:
-    terms_folder: data/terms_drug_unit
-    verbatim_mapping_index_file: data/verbatim_drug_mapping_index_unit.pkl
-    substrings_to_remove:
-    domain_ids:
-      - Unit
-    standard_concept: true
-    vocabularies:
-      - UCUM
-    concept_class_ids:
-    system_prompt: |
-      You are a clinical terminology expert mapping drug strength units to OMOP standard concepts.
-      Choose the single best equivalent concept when it is an exact semantic match.
-      If no exact semantic match exists, return no match.
+    verbatim_mapping:
+      terms_folder: data/terms_drug_unit
+      verbatim_mapping_index_file: data/verbatim_drug_mapping_index_unit.pkl
+      standard_concept_filter:
+        domain_ids:
+          - Unit
+        standard_concept: true
+        vocabularies:
+          - UCUM
+    llm_mapping:
+      llm_mapper_responses_folder: data/llm_drug_mapper_responses/unit
+      system_prompts:
+        - |
+          You are a clinical terminology expert mapping drug strength units to OMOP standard concepts.
+          Choose the single best equivalent concept when it is an exact semantic match.
+          If no exact semantic match exists, return no match.
+          
+          Output Format:
+          Provide your response in a single JSON object. Do not include any text outside of the JSON.
+          JSON
+          {
+            "source_term": "string",
+            "match_found": boolean,
+            "concept_id": "integer or null",
+            "justification": "string"
+          }
+          Return only these four keys and no additional keys.
 
   device:
-    terms_folder: data/terms_drug_device_only
-    verbatim_mapping_index_file: data/verbatim_drug_mapping_index_device.pkl
-    substrings_to_remove: []
-    domain_ids:
-      - Device
-    standard_concept: true
-    vocabularies:
-    concept_class_ids:
-      - Device
-    system_prompt: |
-      You are a clinical terminology expert mapping drug-associated devices to OMOP standard concepts.
-      Choose the single best equivalent concept when it is an exact semantic match.
-      If no exact semantic match exists, return no match.
+    verbatim_mapping:
+      terms_folder: data/terms_drug_device_only
+      verbatim_mapping_index_file: data/verbatim_drug_mapping_index_device.pkl
+      substrings_to_remove:
+      standard_concept_filter:
+        domain_ids:
+          - Device
+        standard_concept: true
+        concept_class_ids:
+          - Device
+    llm_mapping:
+      llm_mapper_responses_folder: data/llm_drug_mapper_responses/device
+      system_prompts:
+        - |
+          You are a clinical terminology expert mapping drug-associated devices to OMOP standard concepts.
+          Choose the single best equivalent concept when it is an exact semantic match.
+          If no exact semantic match exists, return no match.
+          
+          Output Format:
+          Provide your response in a single JSON object. Do not include any text outside of the JSON.
+          JSON
+          {
+            "source_term": "string",
+            "match_found": boolean,
+            "concept_id": "integer or null",
+            "justification": "string"
+          }
+          Return only these four keys and no additional keys.
+

@@ -1,5 +1,3 @@
-import types
-
 import pandas as pd
 
 from ariadne.llm_mapping.llm_drug_structurer import (
@@ -7,54 +5,21 @@ from ariadne.llm_mapping.llm_drug_structurer import (
     LlmDrugStructurer,
     normalize_structured_drugs,
 )
+from ariadne.utils.settings import DrugStructuringSettings
 
 
-def _make_config(responses_folder):
-    return types.SimpleNamespace(
-        system=types.SimpleNamespace(llm_mapper_responses_folder=responses_folder)
+def _make_settings(responses_folder):
+    return DrugStructuringSettings(
+        llm_mapper_responses_folder=responses_folder,
+        drug_device_system_prompt="classify prompt",
+        ingredient_system_prompt="ingredient prompt",
+        drug_system_prompt="drug prompt",
+        device_system_prompt="device prompt",
     )
-
-
-def _write_minimal_drug_config(path):
-    path.write_text(
-        (
-            "drug_mapping:\n"
-            "  drug_device_system_prompt: classify prompt\n"
-            "  ingredient_system_prompt: ingredient prompt\n"
-            "  drug_system_prompt: drug prompt\n"
-            "  device_system_prompt: device prompt\n"
-        ),
-        encoding="utf-8",
-    )
-
-
-def test_load_drug_prompts_requires_device_system_prompt(tmp_path):
-    config_file = tmp_path / "test_config.yaml"
-    config_file.write_text(
-        (
-            "drug_mapping:\n"
-            "  drug_device_system_prompt: classify prompt\n"
-            "  ingredient_system_prompt: ingredient prompt\n"
-            "  drug_system_prompt: drug prompt\n"
-        ),
-        encoding="utf-8",
-    )
-
-    try:
-        LlmDrugStructurer(config=_make_config(str(tmp_path)), config_filename=str(config_file))
-        raise AssertionError("Expected ValueError for missing prompt key")
-    except ValueError as err:
-        assert "device_system_prompt" in str(err)
 
 
 def test_structure_drugs_extracts_full_product_name_dose_form_and_box_size(tmp_path, monkeypatch):
-    config_file = tmp_path / "test_config.yaml"
-    _write_minimal_drug_config(config_file)
-
-    structurer = LlmDrugStructurer(
-        config=_make_config(str(tmp_path)),
-        config_filename=str(config_file),
-    )
+    structurer = LlmDrugStructurer(settings=_make_settings(str(tmp_path)))
 
     call_args = []
 
@@ -128,14 +93,8 @@ def test_structure_drugs_extracts_full_product_name_dose_form_and_box_size(tmp_p
     result = structurer.structure_drugs(source_df, "drug_code")
 
     assert result.classification_df.to_dict("records") == [
-        {
-            "drug_code": "D1",
-            "category": "drug",
-        },
-        {
-            "drug_code": "D2",
-            "category": "device",
-        },
+        {"drug_code": "D1", "category": "drug"},
+        {"drug_code": "D2", "category": "device"},
     ]
 
     assert result.ingredient_df.to_dict("records") == [
@@ -166,10 +125,7 @@ def test_structure_drugs_extracts_full_product_name_dose_form_and_box_size(tmp_p
     ]
 
     assert result.device_df.to_dict("records") == [
-        {
-            "drug_code": "D2",
-            "full_device_name": "Blood glucose strip",
-        }
+        {"drug_code": "D2", "full_device_name": "Blood glucose strip"},
     ]
 
     ingredient_call = next(call for call in call_args if call["stage"] == "ingredient")
@@ -182,14 +138,14 @@ def test_structure_drugs_extracts_full_product_name_dose_form_and_box_size(tmp_p
     assert "denominator_unit" in ingredient_required_keys
 
     drug_call = next(call for call in call_args if call["stage"] == "drug")
-    assert drug_call["system_prompt"] == structurer.prompts["drug_system_prompt"]
+    assert drug_call["system_prompt"] == structurer.drug_structuring_prompts.drug_system_prompt
     drug_required_keys = drug_call["schema"]["properties"]["results"]["items"]["required"]
     assert "full_product_name" in drug_required_keys
     assert "dose_form" in drug_required_keys
     assert "box_size" in drug_required_keys
 
     device_call = next(call for call in call_args if call["stage"] == "device")
-    assert device_call["system_prompt"] == structurer.prompts["device_system_prompt"]
+    assert device_call["system_prompt"] == structurer.drug_structuring_prompts.device_system_prompt
     device_required_keys = device_call["schema"]["properties"]["results"]["items"]["required"]
     assert "full_device_name" in device_required_keys
 

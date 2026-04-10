@@ -1,24 +1,24 @@
 import json
-import types
 
 import pandas as pd
 
 from ariadne.llm_mapping.llm_mapper import LlmMapper
+from ariadne.utils.settings import LlmMapperSettings, ConceptContextSettings
 
 
-def _make_config(responses_folder):
-    context = types.SimpleNamespace(
-        include_target_parents=False,
-        include_target_children=False,
-        include_target_synonyms=False,
-        include_target_domain=False,
-        include_target_class=False,
-        include_target_vocabulary=False,
-        re_insert_target_details=False,
-    )
-    return types.SimpleNamespace(
-        llm_mapping=types.SimpleNamespace(system_prompts=["step1", "step2"], context=context),
-        system=types.SimpleNamespace(llm_mapper_responses_folder=responses_folder),
+def _make_settings(responses_folder):
+    return LlmMapperSettings(
+        llm_mapper_responses_folder=responses_folder,
+        context=ConceptContextSettings(
+            include_target_parents=False,
+            include_target_children=False,
+            include_target_synonyms=False,
+            include_target_domain=False,
+            include_target_class=False,
+            include_target_vocabulary=False,
+            re_insert_target_details=False,
+        ),
+        system_prompts=["step1", "step2"],
     )
 
 
@@ -32,7 +32,7 @@ def _target_concepts_df():
 
 
 def test_map_term_requests_structured_output_on_final_step(tmp_path, monkeypatch):
-    mapper = LlmMapper(config=_make_config(str(tmp_path)))
+    mapper = LlmMapper(settings=_make_settings(str(tmp_path)))
     calls = []
 
     def fake_get_llm_response(prompt, system_prompt, show_reasoning=False, json_schema=None, **kwargs):
@@ -78,7 +78,7 @@ def test_map_term_requests_structured_output_on_final_step(tmp_path, monkeypatch
 
 
 def test_map_term_uses_cached_responses_without_api_call(tmp_path, monkeypatch):
-    mapper = LlmMapper(config=_make_config(str(tmp_path)))
+    mapper = LlmMapper(settings=_make_settings(str(tmp_path)))
 
     step1 = tmp_path / "response_99_s1.txt"
     step2 = tmp_path / "response_99_s2.txt"

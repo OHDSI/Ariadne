@@ -15,14 +15,13 @@
 # limitations under the License.
 
 
-import multiprocessing
 import os
 import pickle
 
 import pandas as pd
-from typing import Set, List, Optional
+from typing import List
 
-from ariadne.utils.config import Config
+from ariadne.utils.settings import VerbatimMappingSettings
 from ariadne.verbatim_mapping.term_normalizer import TermNormalizer
 
 
@@ -32,36 +31,35 @@ class VocabVerbatimTermMapper:
     The index is created from vocabulary term files stored in Parquet format, downloaded using the download_terms
     module.
 
-    1. If an index file exists at the verbatim_mapping_index_file path specified in the config, it is loaded.
-    2. If not, the index is created by processing all Parquet files in the terms folder specified in the config.
+    1. If an index file exists at the verbatim_mapping_index_file path specified in the settings, it is loaded.
+    2. If not, the index is created by processing all Parquet files in the terms folder specified in the settings.
     """
 
-    def __init__(self, config: Config = Config()):
-        self.term_normalizer = TermNormalizer(config)
-        if os.path.exists(config.system.verbatim_mapping_index_file):
-            with open(config.system.verbatim_mapping_index_file, "rb") as handle:
+    def __init__(self, settings: VerbatimMappingSettings):
+        self.term_normalizer = TermNormalizer(settings.substrings_to_remove)
+        if os.path.exists(settings.verbatim_mapping_index_file):
+            with open(settings.verbatim_mapping_index_file, "rb") as handle:
                 self.index = pickle.load(handle)
-            print(f"Index loaded from {config.system.verbatim_mapping_index_file}")
+            print(f"Index loaded from {settings.verbatim_mapping_index_file}")
         else:
-            self._create_index(config)
+            self._create_index(settings)
 
-    def _create_index(self, config: Config):
+    def _create_index(self, settings: VerbatimMappingSettings):
         print("Creating index")
-        if not os.path.exists(config.system.terms_folder):
+        if not os.path.exists(settings.terms_folder):
             raise FileNotFoundError(
-                f"Terms folder {config.system.terms_folder} does not exist. Make sure to run the download_terms module first."
+                f"Terms folder {settings.terms_folder} does not exist. Make sure to run the download_terms module first."
             )
         all_files = [
-            os.path.join(config.system.terms_folder, f)
-            for f in os.listdir(config.system.terms_folder)
+            os.path.join(settings.terms_folder, f)
+            for f in os.listdir(settings.terms_folder)
             if f.endswith(".parquet")
         ]
-        pool = multiprocessing.get_context("spawn").Pool(processes=config.system.max_cores)
         index_data = {}
         for file in all_files:
             print(f"Processing file: {file}")
             df = pd.read_parquet(file)
-            normalized_terms = pool.map(self.term_normalizer.normalize_term, df["term"].tolist())
+            normalized_terms = self.term_normalizer.normalize_terms(df["term"].tolist())
             for norm_term, concept_id, concept_name in zip(
                 normalized_terms, df["concept_id"].tolist(), df["concept_name"].tolist()
             ):
@@ -77,13 +75,12 @@ class VocabVerbatimTermMapper:
                 else:
                     index_data[norm_term] = concept
 
-        pool.close()
         self.index = index_data
 
         try:
-            with open(config.system.verbatim_mapping_index_file, "wb") as f:
+            with open(settings.verbatim_mapping_index_file, "wb") as f:
                 pickle.dump(index_data, f)
-            print(f"Index saved to {config.system.verbatim_mapping_index_file}")
+            print(f"Index saved to {settings.verbatim_mapping_index_file}")
         except OSError as e:
             print(f"Error saving index: {e}")
 
@@ -132,7 +129,10 @@ class VocabVerbatimTermMapper:
 
 
 if __name__ == "__main__":
-    mapper = VocabVerbatimTermMapper()
+    from ariadne.utils.config import Config
+
+    config = Config()
+    mapper = VocabVerbatimTermMapper(settings=config.verbatim_mapping)
 
     concepts = mapper.map_term("Acute myocardial infarction")
     for concept in concepts:

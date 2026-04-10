@@ -40,15 +40,15 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 
 from ariadne.utils.logger import open_log
-from ariadne.utils.config import Config
+from ariadne.utils.settings import VerbatimMappingSettings
 from ariadne.utils.utils import get_environment_variable
 
 load_dotenv()
 
 
-def _create_query(engine: Engine, config: Config) -> Select:
+def _create_query(engine: Engine, settings: VerbatimMappingSettings) -> Select:
     vocabulary_schema = get_environment_variable("VOCAB_SCHEMA")
-    filter_config = config.verbatim_mapping.standard_concept_filter
+    filter_config = settings.standard_concept_filter
 
     metadata = MetaData()
     concept = Table("concept", metadata, schema=vocabulary_schema, autoload_with=engine)
@@ -127,36 +127,36 @@ def _store_in_parquet(
     pq.write_table(table, file_name)
 
 
-def download_terms(config: Config = Config()) -> None:
+def download_terms(settings: VerbatimMappingSettings) -> None:
     """
     Download terms from vocabulary database and store them in parquet files for use in verbatim mapping.
 
     Args:
-        config: A Config object containing configuration parameters. This function uses the verbatim_mapping section of
-            the config, which specifies the vocabularies, domains, etc. to filter the terms to be downloaded.
+        settings: A VerbatimMappingSettings object containing configuration parameters. This specifies the
+            vocabularies, domains, etc. to filter the terms to be downloaded.
 
     Returns:
         None
     """
     # Check if Parquet files already exist. Skip download if they do.
-    if os.path.exists(config.system.terms_folder) and os.listdir(config.system.terms_folder):
-        print(f"Parquet files already exist in folder {config.system.terms_folder}. Skipping download.")
+    if os.path.exists(settings.terms_folder) and os.listdir(settings.terms_folder):
+        print(f"Parquet files already exist in folder {settings.terms_folder}. Skipping download.")
         return
 
-    os.makedirs(config.system.log_folder, exist_ok=True)
-    os.makedirs(config.system.terms_folder, exist_ok=True)
-    open_log(os.path.join(config.system.log_folder, "logDownloadTerms.txt"))
+    os.makedirs(settings.log_folder, exist_ok=True)
+    os.makedirs(settings.terms_folder, exist_ok=True)
+    open_log(os.path.join(settings.log_folder, "logDownloadTerms.txt"))
 
     logging.info("Starting downloading terms")
 
     engine = create_engine(get_environment_variable("VOCAB_CONNECTION_STRING"))
-    query = _create_query(engine=engine, config=config)
+    query = _create_query(engine=engine, settings=settings)
 
     with engine.connect() as connection:
         terms_result_set = connection.execution_options(stream_results=True).execute(query)
         total_inserted = 0
         while True:
-            chunk = terms_result_set.fetchmany(config.system.download_batch_size)
+            chunk = terms_result_set.fetchmany(settings.download_batch_size)
             if not chunk:
                 break
             _store_in_parquet(
@@ -168,7 +168,7 @@ def download_terms(config: Config = Config()) -> None:
                 # standard_concepts=[row.standard_concept for row in chunk],
                 # sources=[row.source for row in chunk],
                 file_name=os.path.join(
-                    config.system.terms_folder,
+                    settings.terms_folder,
                     f"Terms_{total_inserted + 1}_{total_inserted + len(chunk)}.parquet",
                 ),
             )
@@ -178,4 +178,7 @@ def download_terms(config: Config = Config()) -> None:
 
 
 if __name__ == "__main__":
-    download_terms()
+    from ariadne.utils.config import Config
+
+    config = Config()
+    download_terms(settings=config.verbatim_mapping)

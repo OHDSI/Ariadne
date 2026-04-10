@@ -3,16 +3,12 @@ import json
 import os
 import re
 from dataclasses import dataclass
-from pathlib import Path
 from typing import Any
 
 import pandas as pd
-import yaml
 
-from ariadne.utils.config import Config
-from ariadne.utils.config_drug_mapping import ConfigDrugMapping
+from ariadne.utils.settings import DrugStructuringSettings
 from ariadne.utils.gen_ai_api import get_llm_response
-from ariadne.utils.utils import get_project_root
 
 
 _BATCH_SIZE = 25
@@ -371,35 +367,11 @@ def normalize_structured_drugs(structured: DrugStructureResult) -> NormalizedDru
 
 
 class LlmDrugStructurer:
-    def __init__(self, config: ConfigDrugMapping = ConfigDrugMapping()):
-        self.responses_folder = config.system.llm_mapper_responses_folder
+    def __init__(self, settings: DrugStructuringSettings):
+        self.responses_folder = settings.llm_mapper_responses_folder
         os.makedirs(self.responses_folder, exist_ok=True)
         self._cost = 0.0
-        self.drug_structuring_prompts = config.drug_structuring
- 
-
-    @staticmethod
-    def _load_drug_prompts(config_filename: str) -> dict[str, str]:
-        path = Path.cwd() / config_filename
-        if not path.exists():
-            path = get_project_root() / config_filename
-        if not path.exists():
-            raise FileNotFoundError(f"Could not find {config_filename} in {Path.cwd()} or project root.")
-
-        with path.open("r", encoding="utf-8") as fh:
-            raw = yaml.safe_load(fh) or {}
-
-        drug_mapping = raw.get("drug_mapping", {})
-        required_keys = [
-            "drug_device_system_prompt",
-            "ingredient_system_prompt",
-            "drug_system_prompt",
-            "device_system_prompt",
-        ]
-        missing_keys = [key for key in required_keys if key not in drug_mapping]
-        if missing_keys:
-            raise ValueError(f"Missing drug_mapping prompt keys in {config_filename}: {missing_keys}")
-        return {key: drug_mapping[key] for key in required_keys}
+        self.drug_structuring_prompts = settings
 
     @staticmethod
     def _extract_json_dict(response_text: str) -> dict[str, Any] | None:

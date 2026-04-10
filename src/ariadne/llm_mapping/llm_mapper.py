@@ -5,7 +5,7 @@ import json
 
 import pandas as pd
 
-from ariadne.utils.config import Config
+from ariadne.utils.settings import LlmMapperSettings
 from ariadne.utils.gen_ai_api import get_llm_response
 
 
@@ -23,10 +23,10 @@ _FINAL_MAPPING_SCHEMA = {
 
 
 class LlmMapper:
-    def __init__(self, config: Config = Config()):
-        self.system_prompts = config.llm_mapping.system_prompts
-        self.context_settings = config.llm_mapping.context
-        self.responses_folder = config.system.llm_mapper_responses_folder
+    def __init__(self, settings: LlmMapperSettings):
+        self.system_prompts = settings.system_prompts
+        self.context_settings = settings.context
+        self.responses_folder = settings.llm_mapper_responses_folder
         os.makedirs(self.responses_folder, exist_ok=True)
         self._cost = 0.0
         """
@@ -145,7 +145,7 @@ class LlmMapper:
                     return None, None, None
                 self._cost = self._cost + response_with_usage["usage"]["total_cost_usd"]
 
-                if step == 0 and self.context_settings.re_insert_target_details:
+                if step == 0 and num_prompts > 1 and self.context_settings.re_insert_target_details:
                     # Re-insert target details into the response JSON for the next step:
                     try:
                         data = self._extract_json_dict(response)
@@ -317,7 +317,10 @@ class LlmMapper:
 
 
 if __name__ == "__main__":
-    mapper = LlmMapper()
+    from ariadne.utils.config import Config
+
+    config = Config()
+    mapper = LlmMapper(settings=config.llm_mapping)
 
     source_term = "Acute myocardial infarction"
     target_concepts = pd.DataFrame(

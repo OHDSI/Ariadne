@@ -1,20 +1,18 @@
 import json
-import types
 
 import pandas as pd
 import pytest
 
 from ariadne.term_cleanup.term_cleaner import TermCleaner
+from ariadne.utils.settings import TermCleanerSettings
 
 
-def _make_config() -> types.SimpleNamespace:
-    return types.SimpleNamespace(
-        term_cleaning=types.SimpleNamespace(system_prompt="test prompt")
-    )
+def _make_settings() -> TermCleanerSettings:
+    return TermCleanerSettings(system_prompt="test prompt")
 
 
 def test_clean_term_uses_structured_output(monkeypatch):
-    cleaner = TermCleaner(config=_make_config())
+    cleaner = TermCleaner(settings=_make_settings())
 
     def fake_get_llm_response(**kwargs):
         assert kwargs["json_schema"] is not None
@@ -38,7 +36,7 @@ def test_clean_term_uses_structured_output(monkeypatch):
 
 
 def test_clean_terms_dataframe(monkeypatch):
-    cleaner = TermCleaner(config=_make_config())
+    cleaner = TermCleaner(settings=_make_settings())
     call_sizes = []
 
     def fake_get_llm_response(**kwargs):
@@ -70,7 +68,7 @@ def test_clean_terms_dataframe(monkeypatch):
 
 
 def test_clean_term_raises_on_malformed_structured_response(monkeypatch):
-    cleaner = TermCleaner(config=_make_config())
+    cleaner = TermCleaner(settings=_make_settings())
 
     def fake_get_llm_response(**kwargs):
         return {

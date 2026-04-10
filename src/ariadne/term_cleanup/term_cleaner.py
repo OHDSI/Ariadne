@@ -18,7 +18,7 @@ import json
 import pandas as pd
 import re
 from ariadne.utils.gen_ai_api import get_llm_response
-from ariadne.utils.config import Config
+from ariadne.utils.settings import TermCleanerSettings
 
 
 _TRIGGER_PATTERN = r"not|unspecified|unidentified|without|other| nos|,nos| nec|,nec|encounter"
@@ -49,8 +49,8 @@ class TermCleaner:
     A class to clean clinical terms by removing non-essential modifiers and information using a Large Language Model (LLM).
     """
 
-    def __init__(self, config: Config = Config()):
-        self.system_prompt = config.term_cleaning.system_prompt
+    def __init__(self, settings: TermCleanerSettings):
+        self.system_prompt = settings.system_prompt
         self.cost = 0.0
 
     def clean_term(self, term: str) -> str:
@@ -156,7 +156,10 @@ class TermCleaner:
 
 
 if __name__ == "__main__":
-    term_cleaner = TermCleaner()
+    from ariadne.utils.config import Config
+
+    config = Config()
+    term_cleaner = TermCleaner(settings=config.term_cleaning)
     data = {
         "term": [
             "Acute myocardial infarction, unspecified",

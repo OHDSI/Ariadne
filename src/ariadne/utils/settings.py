@@ -1,0 +1,194 @@
+# Copyright 2025 Observational Health Data Sciences and Informatics
+#
+# This file is part of Ariadne
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+"""
+Shared, per-component settings dataclasses used by processing classes.
+
+Top-level config classes (Config, ConfigDrugMapping) are *composed* of these
+settings so the same structures are reused across different workflows.
+Each processing class accepts only the settings it actually needs.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field, fields, is_dataclass
+from typing import Any, Dict, List, Optional, Type, get_type_hints
+
+from ariadne.utils.utils import resolve_path
+
+
+# ── generic helper ────────────────────────────────────────────────────────────
+
+
+def build_dataclass(cls: Type[Any], data: Dict[str, Any] | None) -> Any:
+    """Recursively build a dataclass instance from a plain dict."""
+    if data is None:
+        data = {}
+    if not is_dataclass(cls):
+        return data
+    kw: dict[str, Any] = {}
+    # Resolve string annotations to actual types
+    try:
+        resolved_hints = get_type_hints(cls)
+    except Exception:
+        resolved_hints = {}
+    for f in fields(cls):
+        if f.name not in data:
+            continue
+        value = data[f.name]
+        # Use resolved type hint if available, else fall back to f.type
+        raw_type = resolved_hints.get(f.name, f.type)
+        # Unwrap Optional[X] / X | None to get the inner type
+        origin = getattr(raw_type, "__origin__", None)
+        if origin is not None:
+            args = getattr(raw_type, "__args__", ())
+            # For Optional[X], args is (X, NoneType); pick the non-None arg
+            non_none = [a for a in args if a is not type(None)]
+            raw_type = non_none[0] if non_none else raw_type
+        if is_dataclass(raw_type) and isinstance(value, dict):
+            kw[f.name] = build_dataclass(raw_type, value)
+        else:
+            kw[f.name] = value
+    return cls(**kw)
+
+
+def serialize_dataclass(obj: Any) -> Any:
+    """Recursively serialize a dataclass (or list/dict of dataclasses) to plain dicts."""
+    if is_dataclass(obj):
+        result = {}
+        for f in fields(obj):
+            value = getattr(obj, f.name)
+            result[f.name] = serialize_dataclass(value)
+        return result
+    elif isinstance(obj, dict):
+        return {k: serialize_dataclass(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [serialize_dataclass(item) for item in obj]
+    else:
+        return obj
+
+
+# ── reusable filter ───────────────────────────────────────────────────────────
+
+
+@dataclass
+class StandardConceptFilter:
+    """Controls which concepts are included in the verbatim-mapping vocabulary download."""
+
+    vocabularies: Optional[List[str]] = None
+    domain_ids: Optional[List[str]] = None
+    concept_class_ids: Optional[List[str]] = None
+    include_classification_concepts: bool = False
+    include_synonyms: bool = True
+    standard_concept: bool = True  # True → restrict to standard_concept = 'S'
+
+
+# ── per-component settings ────────────────────────────────────────────────────
+
+
+@dataclass
+class TermCleanerSettings:
+    """Everything :class:`TermCleaner` needs."""
+
+    system_prompt: str = ""
+
+
+@dataclass
+class VerbatimMappingSettings:
+    """Everything :func:`download_terms`, :class:`VocabVerbatimTermMapper`, and
+    :class:`TermNormalizer` need."""
+
+    terms_folder: str = "data/terms"
+    verbatim_mapping_index_file: str = "data/verbatim_mapping_index.pkl"
+    download_batch_size: int = 100_000
+    log_folder: str = "logs"
+    substrings_to_remove: List[str] = field(default_factory=list)
+    standard_concept_filter: StandardConceptFilter = field(
+        default_factory=StandardConceptFilter
+    )
+
+    def __post_init__(self) -> None:
+        self.terms_folder = resolve_path(self.terms_folder)
+        self.verbatim_mapping_index_file = resolve_path(self.verbatim_mapping_index_file)
+        self.log_folder = resolve_path(self.log_folder)
+
+
+@dataclass
+class VectorSearchSettings:
+    """Everything concept searchers read from config."""
+
+    max_candidates: int = 25
+
+
+@dataclass
+class ConceptContextSettings:
+    """Controls which context columns :func:`add_concept_context` adds."""
+
+    include_target_parents: bool = True
+    include_target_children: bool = True
+    include_target_synonyms: bool = True
+    include_target_domain: bool = True
+    include_target_class: bool = True
+    include_target_vocabulary: bool = True
+    re_insert_target_details: bool = True
+
+
+@dataclass
+class LlmMapperSettings:
+    """Everything :class:`LlmMapper` needs."""
+
+    llm_mapper_responses_folder: str = "data/llm_mapper_responses"
+    context: ConceptContextSettings = field(default_factory=ConceptContextSettings)
+    system_prompts: List[str] = field(default_factory=list)
+
+    def __post_init__(self) -> None:
+        self.llm_mapper_responses_folder = resolve_path(self.llm_mapper_responses_folder)
+
+
+@dataclass
+class DrugStructuringSettings:
+    """Everything :class:`LlmDrugStructurer` needs."""
+
+    llm_mapper_responses_folder: str = "data/llm_drug_mapper_responses"
+    drug_device_system_prompt: str = ""
+    ingredient_system_prompt: str = ""
+    drug_system_prompt: str = ""
+    device_system_prompt: str = ""
+
+    def __post_init__(self) -> None:
+        self.llm_mapper_responses_folder = resolve_path(self.llm_mapper_responses_folder)
+
+
+@dataclass
+class ConceptClassSettings:
+    """Per-concept-class settings as a composition of shared component dataclasses.
+
+    Each entry in ``concept_classes`` in ``config_drug_mapping.yaml`` maps
+    directly to one of these.  Shared values (``log_folder``,
+    ``download_batch_size``, ``llm_mapper_responses_folder``,
+    ``context``, ``system_prompts`` when none are defined locally) are merged
+    in at parse time by :class:`ConfigDrugMapping` so that ``DrugMapper`` can
+    consume these settings directly without any further merging.
+    """
+
+    verbatim_mapping: VerbatimMappingSettings = field(
+        default_factory=VerbatimMappingSettings
+    )
+    llm_mapping: LlmMapperSettings = field(default_factory=LlmMapperSettings)
+
+
+
+
