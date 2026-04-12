@@ -44,6 +44,8 @@ ATTR_KEY_TO_SNOMED_CATEGORY: dict[str, str] = {
     "subject_relationship_context": "Has subject relationship context (SNOMED)",
     "temporal_context": "Has temporal context (SNOMED)",
     "finding_asso_with": "Finding asso with (SNOMED)",
+    "associated_with": "Finding asso with (SNOMED)",
+    "finding_associated_with": "Finding asso with (SNOMED)",
 }
 
 ATTR_KEY_TO_GS_CATEGORY: dict[str, str] = {
@@ -60,6 +62,8 @@ ATTR_KEY_TO_GS_CATEGORY: dict[str, str] = {
     "subject_relationship_context": "Has relat context",
     "temporal_context": "Has temporal context",
     "finding_asso_with": "Finding asso with",
+    "associated_with": "Finding asso with",
+    "finding_associated_with": "Finding asso with",
 }
 
 SNOMED_CATEGORY_TO_ATTR_KEY: dict[str, str] = {v: k for k, v in ATTR_KEY_TO_SNOMED_CATEGORY.items()}

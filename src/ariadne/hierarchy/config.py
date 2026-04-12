@@ -54,8 +54,9 @@ class ScoringConfig:
 class EvaluationConfig:
     """Paths used by the evaluation harness."""
 
-    gold_standard_path: str = "./data/gold_standards/hierarchy_attributes_train_test_gs.csv"
-    output_dir: str = "./data/gold_standards"
+    attribute_gold_standard_path: str = "./data/gold_standards/hierarchy_attributes_snomed_gs.csv"
+    parent_gold_standard_path: str = "./data/gold_standards/hierarchy_snomed_gs.csv"
+    output_dir: str = "./data/notebook_results"
 
 
 @dataclass

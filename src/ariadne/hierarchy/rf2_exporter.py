@@ -164,7 +164,7 @@ def _rows_from_source(
     Args:
         source: Path to ``attribute_results.csv`` or a DataFrame with the same
                 columns (``concept_id_1``, ``concept_name_1``,
-                ``predicted_concept_code_2``, ``attribute_type``).
+                ``predicted_concept_code_2``, ``attribute_category``).
 
     Returns:
         List of tuples, skipping rows with missing ``predicted_concept_code_2``.
@@ -174,25 +174,8 @@ def _rows_from_source(
     else:
         df = source.copy()
 
-    # Support both column-name conventions
-    col_code = next(
-        (c for c in ["predicted_concept_code_2", "concept_code_2"] if c in df.columns),
-        None,
-    )
-    col_type = next(
-        (c for c in ["attribute_type", "attribute_category"] if c in df.columns),
-        None,
-    )
-    if col_code is None:
-        raise ValueError(
-            "Source must have a 'predicted_concept_code_2' column. "
-            "Run the notebook pipeline cell first to generate attribute_results.csv."
-        )
-    if col_type is None:
-        raise ValueError("Source must have an 'attribute_type' or 'attribute_category' column.")
-
     before = len(df)
-    df = df.dropna(subset=[col_code])
+    df = df.dropna(subset=["predicted_concept_code_2"])
     dropped = before - len(df)
     if dropped:
         logger.warning(
@@ -202,11 +185,15 @@ def _rows_from_source(
 
     rows = []
     for _, row in df.iterrows():
+        # Convert concept_code to int first to strip float ".0" suffix
+        # (pandas reads numeric codes as float when the column has NaNs)
+        raw_code = row["predicted_concept_code_2"]
+        code_str = str(int(float(raw_code)))
         rows.append((
             int(row["concept_id_1"]),
             str(row.get("concept_name_1", "")),
-            str(row[col_code]),
-            str(row[col_type]),
+            code_str,
+            str(row["attribute_category"]),
         ))
     return rows
 
@@ -237,7 +224,7 @@ def export_to_rf2(
         source: Path to ``attribute_results.csv`` **or** a DataFrame with
             columns ``concept_id_1``, ``concept_name_1``,
             ``predicted_concept_code_2`` (SNOMED SCTID string), and
-            ``attribute_type``.
+            ``attribute_category``.
         output_dir: Directory where the ``Delta/`` folder and ZIP are written.
         date: Effective date string in ``YYYYMMDD`` format.  Defaults to today.
         module_id: SNOMED module concept ID (default: SNOMED CT core module).
@@ -317,7 +304,7 @@ def export_to_rf2(
 
     if unknown_types:
         logger.warning(
-            "Skipped rows with unrecognised attribute_type values: %s",
+            "Skipped rows with unrecognised attribute_category values: %s",
             unknown_types,
         )
 

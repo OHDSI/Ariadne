@@ -184,7 +184,8 @@ hierarchy:
     hierarchy_similarity: 0.85
 
   evaluation:
-    gold_standard_path: "./data/gold_standards/hierarchy_icd_gs.csv"
+    attribute_gold_standard_path: "./data/gold_standards/hierarchy_attributes_snomed_gs.csv"
+    parent_gold_standard_path: "./data/gold_standards/hierarchy_snomed_gs.csv"
     output_dir: "./data/notebook_results"
 
   snomed_relationships:

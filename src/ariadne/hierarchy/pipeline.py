@@ -267,6 +267,8 @@ def _unpack_mentions(components: dict) -> list[tuple[str, str, str]]:
         "has_relat_context": "subject_relationship_context",
         "has_related_context": "subject_relationship_context",
         "has_related": "subject_relationship_context",
+        "associated_with": "finding_asso_with",
+        "finding_associated_with": "finding_asso_with",
     }
 
     mentions: list[tuple[str, str, str]] = []

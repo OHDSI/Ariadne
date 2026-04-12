@@ -52,11 +52,11 @@ def _cmd_run(args: argparse.Namespace) -> None:
 
     with attribute_index, reference_index:
         results = process_gold_standard(
-            cfg.evaluation.gold_standard_path, attribute_index,
+            cfg.evaluation.attribute_gold_standard_path, attribute_index,
             reference_index=reference_index, cfg=cfg,
             max_workers=args.workers,
         )
-        evaluate_results(results, cfg.evaluation.gold_standard_path, cfg=cfg)
+        evaluate_results(results, cfg.evaluation.attribute_gold_standard_path, cfg=cfg)
 
 
 # ---------------------------------------------------------------------------

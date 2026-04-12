@@ -313,7 +313,7 @@ def classify_delta(
 
 def parse_classification_results(
     results_zip: str | Path,
-) -> tuple[pd.DataFrame, pd.DataFrame]:
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Parse the classification results ZIP into DataFrames.
 
     Args:
@@ -321,7 +321,7 @@ def parse_classification_results(
             :func:`classify_delta`.
 
     Returns:
-        ``(new_is_a, removed_redundant)`` where:
+        ``(new_is_a, removed_redundant, equiv_df)`` where:
 
         - **new_is_a** — DataFrame of newly inferred *Is a* relationships
           (``active == 1``, ``typeId == 116680003``).  Columns:
@@ -329,10 +329,13 @@ def parse_classification_results(
         - **removed_redundant** — DataFrame of relationships marked inactive
           (``active == 0``).  These are stated relationships that became
           redundant after classification.
+        - **equiv_df** — DataFrame of equivalent concept pairs from the
+          EquivalentConceptSimpleMap refset.  Columns include
+          ``referencedComponentId`` and ``mapTarget`` (group UUID).
     """
     results_zip = Path(results_zip)
     rel_dfs: list[pd.DataFrame] = []
-    equiv_rows = 0
+    equiv_df = pd.DataFrame()
 
     with zipfile.ZipFile(results_zip, "r") as zf:
         for name in zf.namelist():
@@ -341,17 +344,16 @@ def parse_classification_results(
                     df = pd.read_csv(f, sep="\t", dtype=str)
                     rel_dfs.append(df)
 
-            # Check for equivalent concepts (should be empty)
+            # Parse equivalent concepts refset
             if "equivalent" in name.lower() or "equiv" in name.lower():
                 with zf.open(name) as f:
                     equiv_df = pd.read_csv(f, sep="\t", dtype=str)
-                    equiv_rows = len(equiv_df)
-                    if equiv_rows > 0:
+                    if len(equiv_df) > 0:
                         logger.warning(
                             "EQUIVALENT CONCEPTS FOUND (%d rows)!  "
                             "This usually indicates a modelling error — "
                             "two concepts have identical defining attributes.",
-                            equiv_rows,
+                            len(equiv_df),
                         )
 
     if not rel_dfs:
@@ -361,7 +363,7 @@ def parse_classification_results(
             "destinationId", "relationshipGroup", "typeId",
             "characteristicTypeId", "modifierId",
         ])
-        return empty, empty
+        return empty, empty, equiv_df
 
     all_rels = pd.concat(rel_dfs, ignore_index=True)
 
@@ -374,10 +376,10 @@ def parse_classification_results(
     logger.info(
         "Classification results: %d new 'Is a' relationships, "
         "%d redundant removals, %d equivalent concept rows.",
-        len(new_is_a), len(removed), equiv_rows,
+        len(new_is_a), len(removed), len(equiv_df),
     )
 
-    return new_is_a, removed
+    return new_is_a, removed, equiv_df
 
 
 # ---------------------------------------------------------------------------

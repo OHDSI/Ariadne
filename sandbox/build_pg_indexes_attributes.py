@@ -44,6 +44,7 @@ SNOMED_RELATIONSHIPS = [
     "Has asso morph", "Has finding site", "Has causative agent", "Has clinical course",
     "Has finding context", "Has interpretation", "Has interprets", "Has occurrence",
     "Has pathology", "Has relat context", "Has severity", "Has temporal context",
+    "Finding asso with",
 ]
 
 REFERENCE_SAMPLE_SIZE = 10_000

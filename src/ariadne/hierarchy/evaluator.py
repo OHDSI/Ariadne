@@ -249,7 +249,7 @@ def _build_prediction_rows(results: list[dict]) -> list[dict]:
                             "predicted_concept_id_2": concept.get("concept_id"),
                             "predicted_concept_name_2": concept.get("concept_name"),
                             "predicted_concept_code_2": concept.get("concept_code"),
-                            "attribute_type": ATTR_KEY_TO_GS_CATEGORY.get(sub_key, f"Has {sub_key}"),
+                            "attribute_category": ATTR_KEY_TO_GS_CATEGORY.get(sub_key, f"Has {sub_key}"),
                         })
                 continue
 
@@ -264,7 +264,7 @@ def _build_prediction_rows(results: list[dict]) -> list[dict]:
                             "predicted_concept_id_2": item.get("concept_id"),
                             "predicted_concept_name_2": item.get("concept_name"),
                             "predicted_concept_code_2": item.get("concept_code"),
-                            "attribute_type": attr_type,
+                            "attribute_category": attr_type,
                         })
             # Handle single concept dict (legacy format)
             elif isinstance(attr_value, dict):
@@ -274,7 +274,7 @@ def _build_prediction_rows(results: list[dict]) -> list[dict]:
                     "predicted_concept_id_2": attr_value.get("concept_id"),
                     "predicted_concept_name_2": attr_value.get("concept_name"),
                     "predicted_concept_code_2": attr_value.get("concept_code"),
-                    "attribute_type": attr_type,
+                    "attribute_category": attr_type,
                 })
     return pred_rows
 
@@ -287,7 +287,7 @@ def evaluate_results(
     """Produce a combined evaluation table (full outer join of GS and predictions).
 
     Columns:
-        concept_id_1, concept_name_1, attribute_type,
+        concept_id_1, concept_name_1, attribute_category,
         gs_concept_id_2, gs_concept_name_2,
         predicted_concept_id_2, predicted_concept_name_2,
         matched, status (``match`` / ``missed`` / ``extra``).
@@ -310,10 +310,7 @@ def evaluate_results(
 
     # --- load gold standard ---
     gs_df = pd.read_csv(gs_path)
-    gs_df = gs_df.rename(columns={'attribute_category': 'attribute_type'})
-    gs_cols = ['concept_id_1', 'concept_name_1', 'concept_id_2', 'concept_name_2', 'attribute_type']
-    gs_df = gs_df[[c for c in gs_cols if c in gs_df.columns]].copy()
-    gs_df = gs_df.rename(columns={'concept_id_2': 'gs_concept_id_2', 'concept_name_2': 'gs_concept_name_2'})
+    gs_df = gs_df.rename(columns={'concept_id_2': 'gs_concept_id_2', 'concept_code_2': 'gs_concept_code_2', 'concept_name_2': 'gs_concept_name_2'})
 
     # --- full outer join on the matching key ---
     gs_df['_join_id2'] = gs_df['gs_concept_id_2']
@@ -321,7 +318,7 @@ def evaluate_results(
 
     combined = gs_df.merge(
         pred_df,
-        on=['concept_id_1', '_join_id2', 'attribute_type'],
+        on=['concept_id_1', '_join_id2', 'attribute_category'],
         how='outer',
         suffixes=('_gs', '_pred'),
     )
@@ -342,15 +339,15 @@ def evaluate_results(
     combined.loc[~has_gs & has_pred, 'status'] = 'extra'
 
     # --- order columns nicely ---
-    leading = ['concept_id_1', 'concept_name_1', 'attribute_type',
-               'gs_concept_id_2', 'gs_concept_name_2',
+    leading = ['concept_id_1', 'concept_name_1', 'attribute_category',
+               'gs_concept_id_2', 'gs_concept_code_2', 'gs_concept_name_2',
                'predicted_concept_id_2', 'predicted_concept_code_2', 'predicted_concept_name_2',
                'matched', 'status']
     extra_cols = [c for c in combined.columns if c not in leading]
     combined = combined[[c for c in leading if c in combined.columns] + extra_cols]
 
     # Sort for readability
-    combined = combined.sort_values(['concept_id_1', 'attribute_type', 'status']).reset_index(drop=True)
+    combined = combined.sort_values(['concept_id_1', 'attribute_category', 'status']).reset_index(drop=True)
 
     # --- summary stats ---
     n_gs = int(has_gs.sum())
@@ -368,7 +365,7 @@ def evaluate_results(
     logger.info("F1:                 %.1f%%", f1)
 
     # --- save ---
-    out_path = os.path.join(output_dir, "attributes_evaluation.csv")
+    out_path = os.path.join(output_dir, "attribute_evaluation.csv")
     combined.to_csv(out_path, index=False)
     logger.info("Combined evaluation saved: %s (%d rows)", out_path, len(combined))
     return combined

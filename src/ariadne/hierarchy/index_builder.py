@@ -33,18 +33,14 @@ from psycopg import sql
 from pgvector.psycopg import register_vector
 from sqlalchemy import create_engine
 
+from ariadne.hierarchy.config import _DEFAULT_SNOMED_RELATIONSHIPS
 from ariadne.utils.gen_ai_api import get_embedding_vectors
 from ariadne.utils.utils import get_environment_variable
 
 logger = logging.getLogger(__name__)
 
-# SNOMED relationship IDs to index (must match pipeline.py / GS columns)
-SNOMED_RELATIONSHIPS: list[str] = [
-    "Has asso morph", "Has finding site", "Has causative agent", "Has clinical course",
-    "Has finding context", "Has interpretation", "Has interprets", "Has occurrence",
-    "Has pathology", "Has relat context", "Has severity", "Has temporal context",
-    "Finding asso with",
-]
+# Re-use the canonical list from config.py (single source of truth)
+SNOMED_RELATIONSHIPS: list[str] = list(_DEFAULT_SNOMED_RELATIONSHIPS)
 
 REFERENCE_SAMPLE_SIZE = 10_000
 EMBEDDING_BATCH_SIZE = 500
