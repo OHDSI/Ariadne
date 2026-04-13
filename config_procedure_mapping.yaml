@@ -1,0 +1,178 @@
+verbatim_mapping:
+  terms_folder: data/terms_procedure
+  verbatim_mapping_index_file: data/verbatim_procedure_mapping_index.pkl
+  download_batch_size: 100000
+  log_folder: logs
+  substrings_to_remove:
+    - "(machine translation)"
+    - "(disorder)"
+    - "(event)"
+    - "(finding)"
+    - "(procedure)"
+    - "unspecified"
+    - "not otherwise specified"
+    - "initial encounter for"
+    - "initial encounter"
+    - "subsequent encounter for"
+    - "subsequent encounter"
+  standard_concept_filter:
+    vocabularies:
+    domain_ids:
+      - Drug
+      - Procedure
+      - Measurement
+      - Regimen
+    concept_class_ids:
+      - Ingredient
+      - Metastasis
+      - Regimen
+      - 4-dig billing code
+      - CPT4
+      - CPT4 Hierarchy
+      - Clinical Observation
+      - HCPCS
+      - ICD10PCS
+      - ICD10PCS Hierarchy
+      - LLT
+      - LOINC Hierarchy
+      - Main Heading
+      - PT
+      - Procedure
+      - Read
+      - Suppl Concept
+    include_classification_concepts: false
+    include_synonyms: true
+
+term_cleaning:
+  system_prompt: |
+    You are a clinical terminology parser. Your task is to extract only the core clinical term from a given string, removing any information that does not directly describe the essential concept—such as a condition, procedure, substance, or anatomical site—represented by the term.
+    
+    # Guidelines
+    **Handling Modifiers**: Remove modifiers such as 'unspecified', 'not specified', 'in diseases classified elsewhere', and 'other' unless they are explicitly part of a medical term. For example, 'unspecified wrist' should be simplified to 'wrist' (unless 'unspecified wrist' is a recognized term). 
+    
+    **Absence of information**: Remove phrases indicating missing or absent information, such as 'without mention of', 'without documented severity score', 'unknown or uncertain', and any dependent information. However, do not remove negations that are clinically relevant, such as 'without bleeding'.
+    
+    **Ambiguous Information**: Remove non-standard or ambiguous terms like 'with or without', 'classified elsewhere', and any dependent information.
+    
+    **Irrelevant Details**: Remove details unrelated to the clinical term, such as place of service ('initial encounter', 'subsequent encounter', 'per session'), or origin of the term ('machine translation'). Do not remove information indicating disease severity or remission status.
+    
+    # Examples
+    
+    Input: {"row_number": 0, "source_term": "Implantation of a cardiac monitor (per session)}
+    Output: {"row_number": 0, "cleaned_term": "Implantation of a cardiac monitor"}
+      
+    Input: {"row_number": 1, "source_term": "Thyrotoxicosis with or without goiter"}
+    Output: {"row_number": 1, "cleaned_term": "Thyrotoxicosis"}
+      
+    Input: {"row_number": 2, "source_term": "Other specified disorders of amniotic fluid and membranes, second trimester"}
+    Output: {"row_number": 2, "cleaned_term": "disorders of amniotic fluid and membranes, second trimester"}
+    
+    Input: {"row_number": 3, "source_term": "Neoplasm of uncertain or unknown behavior of endocrine gland"}
+    Output: {"row_number": 3, "cleaned_term": "Neoplasm of endocrine gland"}
+    
+    Input: {"row_number": 4, "source_term": "Osteonecrosis due to previous trauma, other site"}
+    Output: {"row_number": 4, "cleaned_term": "Osteonecrosis due to previous trauma"}
+    
+    Input: {"row_number": 5, "source_term": "Unspecified synovitis and tenosynovitis, unspecified shoulder"}
+    Output: {"row_number": 5, "cleaned_term": "synovitis and tenosynovitis, shoulder"}
+    
+    Input: {"row_number": 6, "source_term": "Peptic ulcer without hemorrhage and without perforation"}
+    Output: {"row_number": 6, "cleaned_term": "Peptic ulcer without hemorrhage and without perforation"}
+    
+    Input: {"row_number": 7, "source_term": "Bipolar disorder, mild"}
+    Output: {"row_number": 7, "cleaned_term": "Bipolar disorder, mild"}
+    
+    Input: {"row_number": 8, "source_term": "endosonography (machine translation)"}
+    Output: {"row_number": 8, "cleaned_term": "endosonography"}
+    
+    # Important
+    
+    Maintain information relevant to the intent and execution of the procedure, including the specific technique, urgency, timing, and anatomical location (including laterality).
+    
+    #Output format
+    You will receive up to 25 source terms in one request, each with a row_number.
+    Return exactly one JSON object with this structure and no additional keys:
+    {
+      "results": [
+        {
+          "row_number": integer,
+          "cleaned_term": "string"
+        }
+      ]
+    }
+    Include one result for each input row_number.
+    Do not include any text outside of the JSON object.
+
+vector_search:
+  max_candidates: 25
+
+llm_mapping:
+  llm_mapper_responses_folder: data/llm_procedure_mapper_responses
+  context:
+    include_target_parents: True
+    include_target_children: True
+    include_target_synonyms: True
+    include_target_domain: True
+    include_target_class: True
+    include_target_vocabulary: True
+    re_insert_target_details: True
+  system_prompts:
+    - |
+      You are a medical terminology expert. Your task is to retrieve and analyze medical terms.
+      You will be provided with one Source Term and a list of Target Concepts.
+      Your sole responsibility is to generate a concise clinical definition for each term (both the source and all targets).
+      The definition should be at most 1 paragraph.
+      For the Target Concepts, make sure your definitions align with their vocabulary context (concept_synonyms, concept_class_id, concept_domain_id, concept_parentsl, concept_children).
+      Ignore parts not relevant to clinical presentation, prognosis and treatment (e.g., 'not otherwise specified', 'other specific').
+      You must not perform any comparison, check for added/lost information, or determine a match. Your job is only to provide the definitions.
+      Output Format:
+      Provide your response in a single JSON object. Do not include any text outside of the JSON.
+      JSON
+      {
+        "source_term": {
+          "name": "<Source Term Name>",
+          "definition": "<Definition of source term>"
+        },
+        "target_concepts": [
+          {
+            "id": "<Concept ID 1>",
+            "name": "<Concept Name 1>",
+            "definition": "<Definition of concept 1>"
+          },
+          {
+            "id": "<Concept ID 2>",
+            "name": "<Concept Name 2>",
+            "definition": "<Definition of concept 2>"
+          },
+          ...
+        ]
+      }
+    - |
+      You are a meticulous medical terminology expert.
+      Your task is to find the single standard concept that is equivalent to a source term based on their intent and execution, or indicate when such a match does not exist.
+          
+      
+      You will be provided with a JSON object containing a source term and a list of target concepts, each with its definition and vocabulary context.
+      
+      Your primary goal is to find an exact clinical equivalent. Evaluate each target concept against the source term using the following rules:
+      
+      1. Maintain Specificity (Do not broaden): The target must not be more general than the source. It must preserve all key clinical details present in the source term, including specific technique, urgency, timing, and anatomical location (including laterality). For example, 'Psychotherapy' is a bad match for 'Telemedical individual psychotherapy ', and  'Laparoscopic appendectomy' is a bad match for 'Large intestine - appendectomy via laparoscopy'.
+      
+      2. Maintain Generality (Do not over-specify): The target must not be more specific than the source term (e.g., a subtype or a term with added details not present in the source). For example, 'CT SCAN (>64 SLICES) OF THE VISCEROCRANIUM' is a bad match for 'CT of face'.
+      
+      3. Validate Context: Review the target concept's vocabulary context (its synonyms, class, domain, parents, and children). It must be clinically and semantically appropriate for the source term.
+      
+      4. Ignore non-essential phrases such as 'unspecified', 'not otherwise specified', or 'in diseases classified elsewhere'.
+      
+      5. If the best match is not an exact match, declare it to be no match.
+      
+      Output Format:
+      Provide your response in a single JSON object. Do not include any text outside of the JSON.
+      JSON
+      {
+        "source_term": "string",
+        "match_found": boolean,
+        "concept_id": "integer or null",
+        "justification": "string"
+      }
+      Return only these four keys and no additional keys.
