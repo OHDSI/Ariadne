@@ -3,7 +3,7 @@ import pandas as pd
 from ariadne.llm_mapping.concept_context_retriever import add_concept_context
 from ariadne.llm_mapping.llm_mapper import LlmMapper
 from ariadne.utils.config_drug_mapping import ConfigDrugMapping
-from ariadne.utils.settings import ConceptClassSettings, StandardConceptFilter
+from ariadne.utils.settings import MappingPerConceptClassSettings, StandardConceptFilter
 from ariadne.vector_search.hecate_concept_searcher import HecateConceptSearcher
 from ariadne.verbatim_mapping.term_downloader import download_terms
 from ariadne.verbatim_mapping.vocab_verbatim_term_mapper import VocabVerbatimTermMapper
@@ -49,8 +49,9 @@ class DrugMapper:
             vocabulary_ids=scf.vocabularies,
         )
 
-    def _map_class_rows(self, class_rows: pd.DataFrame, cc: ConceptClassSettings) -> pd.DataFrame:
+    def _map_class_rows(self, class_rows: pd.DataFrame, cc: MappingPerConceptClassSettings) -> pd.DataFrame:
         vm_settings = cc.verbatim_mapping
+        vs_settings = cc.vector_search
         llm_settings = cc.llm_mapping
 
         download_terms(settings=vm_settings)
@@ -71,7 +72,7 @@ class DrugMapper:
             candidates = hecate.search_terms(
                 unmatched,
                 term_column="concept_name",
-                limit=25,
+                limit=vs_settings.max_candidates,
                 standard_concept=hecate_kwargs["standard_concept"],
                 domain_ids=hecate_kwargs["domain_ids"],
                 concept_class_ids=hecate_kwargs["concept_class_ids"],
@@ -119,10 +120,12 @@ class DrugMapper:
                 continue
 
             config_key = _CONCEPT_CLASS_TO_CONFIG_KEY[concept_class_id]
-            if config_key not in self.config.concept_classes:
-                raise ValueError(f"Missing concept_classes config for '{config_key}' ({concept_class_id})")
+            if config_key not in self.config.mapping_per_concept_class:
+                raise ValueError(
+                    f"Missing mapping_per_concept_class config for '{config_key}' ({concept_class_id})"
+                )
 
-            cc = self.config.concept_classes[config_key]
+            cc = self.config.mapping_per_concept_class[config_key]
             class_mapped = self._map_class_rows(class_rows, cc)
             mapped_batches.append(class_mapped)
 

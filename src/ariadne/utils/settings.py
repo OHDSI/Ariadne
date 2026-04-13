@@ -173,20 +173,13 @@ class DrugStructuringSettings:
 
 
 @dataclass
-class ConceptClassSettings:
-    """Per-concept-class settings as a composition of shared component dataclasses.
-
-    Each entry in ``concept_classes`` in ``config_drug_mapping.yaml`` maps
-    directly to one of these.  Shared values (``log_folder``,
-    ``download_batch_size``, ``llm_mapper_responses_folder``,
-    ``context``, ``system_prompts`` when none are defined locally) are merged
-    in at parse time by :class:`ConfigDrugMapping` so that ``DrugMapper`` can
-    consume these settings directly without any further merging.
-    """
+class MappingPerConceptClassSettings:
+    """Per-concept-class settings used by the drug-mapping pipeline."""
 
     verbatim_mapping: VerbatimMappingSettings = field(
         default_factory=VerbatimMappingSettings
     )
+    vector_search: VectorSearchSettings = field(default_factory=VectorSearchSettings)
     llm_mapping: LlmMapperSettings = field(default_factory=LlmMapperSettings)
 
 

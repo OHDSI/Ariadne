@@ -5,9 +5,9 @@ import pandas as pd
 
 from ariadne.llm_mapping.drug_mapper import DrugMapper
 from ariadne.utils.settings import (
-    ConceptClassSettings,
     ConceptContextSettings,
     LlmMapperSettings,
+    MappingPerConceptClassSettings,
     StandardConceptFilter,
     VerbatimMappingSettings,
     VectorSearchSettings,
@@ -25,7 +25,7 @@ def _build_test_config(tmp_path):
         re_insert_target_details=False,
     )
 
-    concept_classes = {}
+    mapping_per_concept_class = {}
     class_key_to_label = {
         "ingredient": "Ingredient",
         "brand_name": "Brand Name",
@@ -35,7 +35,7 @@ def _build_test_config(tmp_path):
         "device": "Device",
     }
     for class_key, label in class_key_to_label.items():
-        concept_classes[class_key] = ConceptClassSettings(
+        mapping_per_concept_class[class_key] = MappingPerConceptClassSettings(
             verbatim_mapping=VerbatimMappingSettings(
                 terms_folder=str(Path(tmp_path) / f"terms_{label.replace(' ', '_').lower()}"),
                 verbatim_mapping_index_file=str(Path(tmp_path) / f"index_{label.replace(' ', '_').lower()}.pkl"),
@@ -48,6 +48,7 @@ def _build_test_config(tmp_path):
                     concept_class_ids=[label],
                 ),
             ),
+            vector_search=VectorSearchSettings(max_candidates=17),
             llm_mapping=LlmMapperSettings(
                 llm_mapper_responses_folder=str(Path(tmp_path) / "responses"),
                 context=shared_context,
@@ -55,22 +56,7 @@ def _build_test_config(tmp_path):
             ),
         )
 
-    return SimpleNamespace(
-        verbatim_mapping=VerbatimMappingSettings(
-            terms_folder=str(Path(tmp_path) / "terms"),
-            verbatim_mapping_index_file=str(Path(tmp_path) / "index.pkl"),
-            download_batch_size=1000,
-            log_folder=str(Path(tmp_path) / "logs"),
-            substrings_to_remove=[],
-        ),
-        vector_search=VectorSearchSettings(max_candidates=25),
-        llm_mapping=LlmMapperSettings(
-            llm_mapper_responses_folder=str(Path(tmp_path) / "responses"),
-            context=shared_context,
-            system_prompts=["global-step-1", "global-step-2"],
-        ),
-        concept_classes=concept_classes,
-    )
+    return SimpleNamespace(mapping_per_concept_class=mapping_per_concept_class)
 
 
 def test_drug_mapper_runs_class_specific_pipeline(monkeypatch, tmp_path):
@@ -78,6 +64,7 @@ def test_drug_mapper_runs_class_specific_pipeline(monkeypatch, tmp_path):
     mapper = DrugMapper(config=config)
 
     download_calls = []
+    hecate_limits = []
 
     def fake_download_terms(settings):
         download_calls.append(settings.terms_folder)
@@ -101,13 +88,14 @@ def test_drug_mapper_runs_class_specific_pipeline(monkeypatch, tmp_path):
             pass
 
         def search_terms(self, df, term_column, **kwargs):
+            hecate_limits.append(kwargs.get("limit"))
             rows = []
             for _, row in df.iterrows():
                 rows.append(
                     {
                         "cleaned_term": row[term_column],
-                        "source_concept_id": row["source_concept_id"],
-                        "source_term": row["source_term"],
+                        "concept_code": row["concept_code"],
+                        "concept_name": row["concept_name"],
                         "matched_concept_id": 9000 + len(str(row[term_column])),
                         "matched_concept_name": f"Candidate for {row[term_column]}",
                         "match_score": 0.95,
@@ -123,7 +111,7 @@ def test_drug_mapper_runs_class_specific_pipeline(monkeypatch, tmp_path):
         def __init__(self, settings):
             self.system_prompts = settings.system_prompts
 
-        def map_terms(self, source_target_concepts, term_column, source_id_column, source_term_column):
+        def map_terms(self, source_target_concepts, term_column, source_id_column, source_term_column, **kwargs):
             outputs = []
             for term, group in source_target_concepts.groupby(term_column):
                 mapped_id = {
@@ -165,10 +153,16 @@ def test_drug_mapper_runs_class_specific_pipeline(monkeypatch, tmp_path):
     relationship_to_concept = mapper.map_drug_concepts(drug_concept_stage)
 
     assert len(download_calls) == 6
-    assert set(relationship_to_concept.columns) == {"concept_code_1", "concept_id"}
+    assert hecate_limits and all(limit == 17 for limit in hecate_limits)
+    assert set(relationship_to_concept.columns) == {
+        "concept_code",
+        "source_name",
+        "mapped_concept_id",
+        "mapped_concept_name",
+    }
 
     result = {
-        row["concept_code_1"]: row["concept_id"]
+        row["concept_code"]: row["mapped_concept_id"]
         for row in relationship_to_concept.to_dict("records")
     }
     assert result["ING_1"] == 100
@@ -182,7 +176,7 @@ def test_drug_mapper_runs_class_specific_pipeline(monkeypatch, tmp_path):
 
 def test_drug_mapper_requires_exact_class_config(tmp_path):
     config = _build_test_config(tmp_path)
-    del config.concept_classes["brand_name"]
+    del config.mapping_per_concept_class["brand_name"]
     mapper = DrugMapper(config=config)
 
     df = pd.DataFrame(
