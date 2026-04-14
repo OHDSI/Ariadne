@@ -155,8 +155,7 @@ llm_mapping:
       }
     - |
       You are a meticulous medical terminology expert.
-      Your task is to find the single standard concept that is equivalent to a source term based on their intent and execution, or indicate when such a match does not exist.
-          
+      Your task is to find the standard concept(s) that is equivalent to a source term based on their intent and execution, or indicate when such a match does not exist.
       
       You will be provided with a JSON object containing a source term and a list of target concepts, each with its definition and vocabulary context.
       
@@ -170,6 +169,8 @@ llm_mapping:
       
       4. Ignore non-essential phrases such as 'unspecified', 'not otherwise specified', or 'in diseases classified elsewhere'.
       
+      5. If there is no single target concept that is an exact match, but there are multiple target concepts that together cover all the clinical details of the source term without adding or losing any information, you may consider them as a combined match and return multiple concept IDs.
+      
       5. If the best match is not an exact match, declare it to be no match.
       
       Output Format:
@@ -178,7 +179,7 @@ llm_mapping:
       {
         "source_term": "string",
         "match_found": boolean,
-        "concept_id": "integer or null",
+        "concept_ids": [integer],
         "justification": "string"
       }
       Return only these four keys and no additional keys.

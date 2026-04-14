@@ -110,3 +110,71 @@ def test_map_term_uses_cached_responses_without_api_call(tmp_path, monkeypatch):
     assert mapped_name == "no_match"
     assert rationale == "No exact equivalent"
 
+
+def test_map_term_multiple_targets_drops_no_match_sentinel(tmp_path, monkeypatch):
+    mapper = LlmMapper(settings=_make_settings(str(tmp_path)))
+
+    def fake_get_llm_response(prompt, system_prompt, show_reasoning=False, json_schema=None, **kwargs):
+        if json_schema is None:
+            return {
+                "content": "intermediate response",
+                "parsed_json": None,
+                "usage": {"total_cost_usd": 0.1},
+            }
+        return {
+            "content": json.dumps(
+                {
+                    "source_term": "Acute myocardial infarction",
+                    "match_found": True,
+                    "concept_ids": [222, -1, 111],
+                    "justification": "Requires combination",
+                }
+            ),
+            "parsed_json": {
+                "source_term": "Acute myocardial infarction",
+                "match_found": True,
+                "concept_ids": [222, -1, 111],
+                "justification": "Requires combination",
+            },
+            "usage": {"total_cost_usd": 0.2},
+        }
+
+    monkeypatch.setattr("ariadne.llm_mapping.llm_mapper.get_llm_response", fake_get_llm_response)
+
+    mapped_id, mapped_name, rationale = mapper.map_term(
+        "Acute myocardial infarction",
+        source_id="43",
+        target_concepts=_target_concepts_df(),
+        allow_multiple_targets=True,
+    )
+
+    assert mapped_id == [222, 111]
+    assert mapped_name == ["Exact concept", "Wrong concept"]
+    assert rationale == "Requires combination"
+
+
+def test_map_terms_multiple_targets_duplicates_output_rows(tmp_path, monkeypatch):
+    mapper = LlmMapper(settings=_make_settings(str(tmp_path)))
+    source_target_concepts = pd.DataFrame(
+        {
+            "source_concept_id": ["42", "42"],
+            "source_term": ["Acute myocardial infarction", "Acute myocardial infarction"],
+            "cleaned_term": ["Acute myocardial infarction", "Acute myocardial infarction"],
+            "matched_concept_id": [111, 222],
+            "matched_concept_name": ["Wrong concept", "Exact concept"],
+        }
+    )
+
+    def fake_map_term(*args, **kwargs):
+        return [111, 222], ["Wrong concept", "Exact concept"], "Two concepts needed"
+
+    monkeypatch.setattr(mapper, "map_term", fake_map_term)
+
+    mapped = mapper.map_terms(source_target_concepts=source_target_concepts, allow_multiple_targets=True)
+
+    assert len(mapped) == 2
+    assert list(mapped["mapped_concept_id"]) == [111, 222]
+    assert list(mapped["mapped_concept_name"]) == ["Wrong concept", "Exact concept"]
+    assert set(mapped["mapped_rationale"]) == {"Two concepts needed"}
+
+

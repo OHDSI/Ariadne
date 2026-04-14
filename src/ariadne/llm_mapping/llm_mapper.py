@@ -21,6 +21,21 @@ _FINAL_MAPPING_SCHEMA = {
     "additionalProperties": False,
 }
 
+_FINAL_MAPPING_MULTI_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "source_term": {"type": "string"},
+        "match_found": {"type": "boolean"},
+        "concept_ids": {
+            "type": "array",
+            "items": {"type": "integer"},
+        },
+        "justification": {"type": "string"},
+    },
+    "required": ["source_term", "match_found", "concept_ids", "justification"],
+    "additionalProperties": False,
+}
+
 
 class LlmMapper:
     def __init__(self, settings: LlmMapperSettings):
@@ -58,7 +73,8 @@ class LlmMapper:
         parents_column: Optional[str] = "matched_parents",
         children_column: Optional[str] = "matched_children",
         synonyms_column: Optional[str] = "matched_synonyms",
-    ) -> Tuple[int | None, str | None, str | None]:
+        allow_multiple_targets: bool = False,
+    ) -> Tuple[int | List[int] | None, str | List[str] | None, str | None]:
         """
         Maps a source term to the matching target concept using LLM prompts. The LLM can be prompted in multiple
         steps. The first step provides the source term and candidate target concepts as prompt, with information
@@ -83,8 +99,11 @@ class LlmMapper:
             synonyms_column: The name of the column containing target concept synonyms.
 
         Returns:
-            A tuple of (matched_concept_id, matched_concept_name, match_rationale). If no match is found, returns
-            (-1, "no_match", ""). If the content filter is hit, returns (None, None, None).
+            A tuple of (matched_concept_id, matched_concept_name, match_rationale).
+            - When allow_multiple_targets=False, matched_concept_id/name are scalar values.
+            - When allow_multiple_targets=True and matches are found, matched_concept_id/name are lists.
+            If no match is found, returns (-1, "no_match", ""). If the content filter is hit, returns
+            (None, None, None).
         """
 
         num_prompts = len(self.system_prompts)
@@ -135,7 +154,11 @@ class LlmMapper:
                 response_with_usage = get_llm_response(
                     prompt,
                     system_prompt,
-                    json_schema=_FINAL_MAPPING_SCHEMA if use_final_structured_output else None,
+                    json_schema=(
+                        _FINAL_MAPPING_MULTI_SCHEMA
+                        if use_final_structured_output and allow_multiple_targets
+                        else _FINAL_MAPPING_SCHEMA if use_final_structured_output else None
+                    ),
                 )
                 response = response_with_usage["content"]
                 if not response:
@@ -174,21 +197,48 @@ class LlmMapper:
         # Process the final response to extract the match:
         response = response.replace("**", "")
         parsed = self._extract_json_dict(response)
-        if parsed and all(key in parsed for key in ("match_found", "concept_id", "justification")):
+        if parsed and "match_found" in parsed and "justification" in parsed:
             justification = str(parsed["justification"])
             if not parsed["match_found"]:
                 return -1, "no_match", justification
 
-            try:
-                match_value_int = int(parsed["concept_id"])
-            except (TypeError, ValueError):
-                raise ValueError(f"Match value '{parsed['concept_id']}' is not a valid integer.")
+            raw_match_values: List[int] = []
+            if "concept_ids" in parsed and isinstance(parsed["concept_ids"], list):
+                for value in parsed["concept_ids"]:
+                    try:
+                        raw_match_values.append(int(value))
+                    except (TypeError, ValueError):
+                        raise ValueError(f"Match value '{value}' is not a valid integer.")
+            elif "concept_id" in parsed:
+                try:
+                    raw_match_values = [int(parsed["concept_id"])]
+                except (TypeError, ValueError):
+                    raise ValueError(f"Match value '{parsed['concept_id']}' is not a valid integer.")
+            else:
+                raise ValueError("Could not find concept_id or concept_ids in LLM response.")
 
-            matched_row = target_concepts[target_concepts[concept_id_column] == match_value_int]
-            if matched_row.empty:
-                raise ValueError(f"Match '{match_value_int}' not found in search results.")
-            concept_name = str(matched_row.iloc[0][concept_name_column])
-            return match_value_int, concept_name, justification
+            # In multi-target mode, ignore no-match sentinel values if valid targets are present.
+            if allow_multiple_targets and any(value != -1 for value in raw_match_values):
+                raw_match_values = [value for value in raw_match_values if value != -1]
+
+            deduplicated_values: List[int] = []
+            for value in raw_match_values:
+                if value not in deduplicated_values:
+                    deduplicated_values.append(value)
+
+            if not deduplicated_values or deduplicated_values == [-1]:
+                return -1, "no_match", justification
+
+            matched_names: List[str] = []
+            for match_value_int in deduplicated_values:
+                matched_row = target_concepts[target_concepts[concept_id_column] == match_value_int]
+                if matched_row.empty:
+                    raise ValueError(f"Match '{match_value_int}' not found in search results.")
+                matched_names.append(str(matched_row.iloc[0][concept_name_column]))
+
+            if allow_multiple_targets:
+                return deduplicated_values, matched_names, justification
+            return deduplicated_values[0], matched_names[0], justification
 
         match = re.findall(r"^#* ?Match ?:.*", response, flags=re.MULTILINE | re.IGNORECASE)
         if match:
@@ -200,15 +250,35 @@ class LlmMapper:
                 number_match = re.findall(r"\d+", match[-1])
                 if not number_match:
                     raise ValueError(f"No numeric match found in response: {response}")
-                number_match_value = number_match[0]
-                try:
-                    match_value_int = int(number_match_value)
-                except ValueError:
-                    raise ValueError(f"Match value '{number_match_value}' is not a valid integer.")
-                matched_row = target_concepts[target_concepts[concept_id_column] == match_value_int]
-                if matched_row.empty:
-                    raise ValueError(f"Match '{number_match_value}' not found in search results.")
-                concept_name = str(matched_row.iloc[0][concept_name_column])
+                match_values = [int(value) for value in number_match]
+                if allow_multiple_targets and any(value != -1 for value in match_values):
+                    match_values = [value for value in match_values if value != -1]
+                if not match_values:
+                    match_values = [-1]
+
+                if match_values == [-1]:
+                    match_value_int = -1
+                    concept_name = "no_match"
+                elif allow_multiple_targets:
+                    deduplicated_values: List[int] = []
+                    for value in match_values:
+                        if value not in deduplicated_values:
+                            deduplicated_values.append(value)
+                    matched_names: List[str] = []
+                    for value in deduplicated_values:
+                        matched_row = target_concepts[target_concepts[concept_id_column] == value]
+                        if matched_row.empty:
+                            raise ValueError(f"Match '{value}' not found in search results.")
+                        matched_names.append(str(matched_row.iloc[0][concept_name_column]))
+                    match_value_int = deduplicated_values
+                    concept_name = matched_names
+                else:
+                    number_match_value = match_values[0]
+                    matched_row = target_concepts[target_concepts[concept_id_column] == number_match_value]
+                    if matched_row.empty:
+                        raise ValueError(f"Match '{number_match_value}' not found in search results.")
+                    match_value_int = number_match_value
+                    concept_name = str(matched_row.iloc[0][concept_name_column])
             # Extract the rationale if provided.
             rationale_match = re.search(r"Justification[:\-]?(.*)", response, flags=re.DOTALL | re.IGNORECASE)
             rationale = ""
@@ -237,6 +307,7 @@ class LlmMapper:
         mapped_concept_name_column: str = "mapped_concept_name",
         mapped_rationale_column: str = "mapped_rationale",
         source_ids: List[str] | None = None,
+        allow_multiple_targets: bool = False,
     ) -> pd.DataFrame:
         """
         Maps source terms in a DataFrame column to target concepts using LLM prompts. The system prompts are taken
@@ -281,6 +352,7 @@ class LlmMapper:
                 term,
                 source_id,
                 group,
+                allow_multiple_targets,
                 concept_id_column,
                 concept_name_column,
                 domain_id_column,
@@ -289,20 +361,27 @@ class LlmMapper:
                 parents_column,
                 children_column,
                 synonyms_column,
+                allow_multiple_targets=allow_multiple_targets,
             )
             if matched_concept_id is None:
                 # Content filter was hit:
                 continue
-            mapped_data.append(
-                {
-                    term_column: term,
-                    source_id_column: source_id,
-                    source_term_column: group.iloc[0][source_term_column],
-                    mapped_concept_id_column: matched_concept_id,
-                    mapped_concept_name_column: matched_concept_name,
-                    mapped_rationale_column: match_rationale,
-                }
-            )
+
+            concept_ids = matched_concept_id if isinstance(matched_concept_id, list) else [matched_concept_id]
+            concept_names = matched_concept_name if isinstance(matched_concept_name, list) else [matched_concept_name]
+
+            for idx, mapped_id in enumerate(concept_ids):
+                mapped_name = concept_names[idx] if idx < len(concept_names) else None
+                mapped_data.append(
+                    {
+                        term_column: term,
+                        source_id_column: source_id,
+                        source_term_column: group.iloc[0][source_term_column],
+                        mapped_concept_id_column: mapped_id,
+                        mapped_concept_name_column: mapped_name,
+                        mapped_rationale_column: match_rationale,
+                    }
+                )
         return pd.DataFrame(mapped_data)
 
     def get_total_cost(self) -> float:
