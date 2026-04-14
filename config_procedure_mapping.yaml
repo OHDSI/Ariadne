@@ -15,31 +15,37 @@ verbatim_mapping:
     - "initial encounter"
     - "subsequent encounter for"
     - "subsequent encounter"
+    - "(per side)"
+    - "(per session)"
   standard_concept_filter:
     vocabularies:
     domain_ids:
-      - Drug
       - Procedure
+      - Spec Anatomic Site
+      - Observation
+      - Drug
       - Measurement
+      - Device
       - Regimen
     concept_class_ids:
+      - ICD10PCS Hierarchy
+      - ICD10PCS
+      - Procedure
+      - 4-dig billing code
+      - Body Structure
+      - 3-dig nonbill code
       - Ingredient
+      - Qualifier Value
+      - 3-dig billing code
+      - 2-dig nonbill code
+      - Clinical Drug Form
+      - Vaccine Group
+      - CVX
+      - Physical Object
+      - Branded Drug
+      - CPT4
       - Metastasis
       - Regimen
-      - 4-dig billing code
-      - CPT4
-      - CPT4 Hierarchy
-      - Clinical Observation
-      - HCPCS
-      - ICD10PCS
-      - ICD10PCS Hierarchy
-      - LLT
-      - LOINC Hierarchy
-      - Main Heading
-      - PT
-      - Procedure
-      - Read
-      - Suppl Concept
     include_classification_concepts: false
     include_synonyms: true
 
