@@ -23,7 +23,7 @@ import pandas as pd
 from ariadne.utils.utils import resolve_path
 
 # Gold standard column names:
-SOURCE_CONCEPT_ID = "source_concept_id"
+SOURCE_ID = "source_code"
 SOURCE_TERM = "source_term"
 TARGET_CONCEPT_ID = "target_concept_id"
 TARGET_CONCEPT_NAME = "target_concept_name"
@@ -51,7 +51,7 @@ def _load_gold_standard(filename: str | Path) -> Dict[int, Dict[str, Any]]:
         else:
             details[TARGET_CONCEPT_ID_B] = int(row[TARGET_CONCEPT_ID_B])
             details[TARGET_CONCEPT_NAME_B] = str(row[TARGET_CONCEPT_NAME_B])
-        gold_standard[int(row[SOURCE_CONCEPT_ID])] = details
+        gold_standard[int(row[SOURCE_ID])] = details
 
     return gold_standard
 
@@ -60,7 +60,7 @@ def evaluate_concept_search(
     search_results: pd.DataFrame,
     output_file: str | Path,
     gold_standard_file: str = "data/gold_standards/exact_matching_gs.csv",
-    source_id_column: str = "source_concept_id",
+    source_id_column: str = "source_code",
     term_column: str = "cleaned_term",
     matched_concept_id_column: str = "matched_concept_id",
     matched_concept_name_column: str = "matched_concept_name",
@@ -94,7 +94,7 @@ def evaluate_concept_search(
 
     grouped = search_results.groupby(source_id_column)
     for source_id, group in grouped:
-        gs_entry = gold_standard[gold_standard[SOURCE_CONCEPT_ID] == source_id]
+        gs_entry = gold_standard[gold_standard[SOURCE_ID] == source_id]
         if gs_entry.empty:
             continue
         gs_entry = gs_entry.iloc[0]

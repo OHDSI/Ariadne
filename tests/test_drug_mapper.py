@@ -22,7 +22,7 @@ def _build_test_config(tmp_path):
         include_target_domain=False,
         include_target_class=False,
         include_target_vocabulary=False,
-        re_insert_target_details=False,
+        re_insert_source_target_details=False,
     )
 
     mapping_per_concept_class = {}

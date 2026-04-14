@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Optional, List
 
 import pandas as pd
@@ -5,7 +6,7 @@ import pandas as pd
 from ariadne.evaluation.concept_search_evaluator import _load_gold_standard
 from ariadne.utils.utils import resolve_path
 
-SOURCE_CONCEPT_ID = "source_concept_id"
+SOURCE_ID = "source_code"
 SOURCE_TERM = "source_term"
 TARGET_CONCEPT_ID = "target_concept_id"
 TARGET_CONCEPT_NAME = "target_concept_name"
@@ -19,8 +20,8 @@ BROAD_MATCH = "broadMatch"
 
 def evaluate(
     selection_results: pd.DataFrame,
-    gold_standard_file: str = "data/gold_standards/exact_matching_gs.csv",
-    source_id_column: str = "source_concept_id",
+    gold_standard_file: [str|Path] = "data/gold_standards/exact_matching_gs.csv",
+    source_id_column: str = "source_code",
     term_column: str = "cleaned_term",
     mapped_concept_id_column: str = "mapped_concept_id",
     mapped_concept_name_column: str = "mapped_concept_name",
@@ -46,7 +47,7 @@ def evaluate(
         A Pandas DataFrame with the evaluation results.
     """
     gold_standard = pd.read_csv(resolve_path(gold_standard_file),
-                                dtype={SOURCE_CONCEPT_ID: str})
+                                dtype={SOURCE_ID: str})
 
     if mapped_method_column:
         output_mapped_method_column = mapped_method_column
@@ -60,7 +61,7 @@ def evaluate(
         if source_ids is not None and source_id not in source_ids:
             continue
 
-        gold_entry = gold_standard[gold_standard[SOURCE_CONCEPT_ID] == source_id]
+        gold_entry = gold_standard[gold_standard[SOURCE_ID] == source_id]
         if gold_entry.empty:
             continue
         gold_entry = gold_entry.iloc[0]
@@ -81,7 +82,7 @@ def evaluate(
             or (mapped_concept_id == -1 and gold_predicate_b == BROAD_MATCH)
         )
         result_row = {
-            SOURCE_CONCEPT_ID: source_id,
+            SOURCE_ID: source_id,
             SOURCE_TERM: gold_entry.get(SOURCE_TERM),
             output_mapped_method_column: map_method,
             TARGET_CONCEPT_ID: gold_target_concept_id,

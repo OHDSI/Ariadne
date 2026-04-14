@@ -62,11 +62,11 @@ mapped_terms = llm_mapper.map_terms(
 verbatim_match_file = project_root / "data" / "notebook_results" / "exact_matching_verbatim_maps.csv"
 verbatim_matches = pd.read_csv(verbatim_match_file)
 final_mapped_terms = verbatim_matches[verbatim_matches["mapped_concept_id"] != -1][
-    ["source_concept_id", "source_term", "cleaned_term", "mapped_concept_id", "mapped_concept_name"]
+    ["source_code", "source_term", "cleaned_term", "mapped_concept_id", "mapped_concept_name"]
 ].copy()
 final_mapped_terms["map_method"] = "verbatim"
 llm_mapped_terms_filtered = mapped_terms[
-    ["source_concept_id", "source_term", "cleaned_term", "mapped_concept_id", "mapped_concept_name", "mapped_rationale"]
+    ["source_code", "source_term", "cleaned_term", "mapped_concept_id", "mapped_concept_name", "mapped_rationale"]
 ].copy()
 llm_mapped_terms_filtered["map_method"] = "llm"
 final_mapped_terms = pd.concat([final_mapped_terms, llm_mapped_terms_filtered], ignore_index=True)

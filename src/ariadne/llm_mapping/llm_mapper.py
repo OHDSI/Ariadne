@@ -1,7 +1,7 @@
+import json
 import os
 import re
-from typing import Optional, Tuple, List
-import json
+from typing import Any, List, Mapping, Optional, Tuple
 
 import pandas as pd
 
@@ -65,6 +65,7 @@ class LlmMapper:
         source_term: str,
         source_id: Optional[str],
         target_concepts: pd.DataFrame,
+        source_context: Optional[Mapping[str, Any]] = None,
         concept_id_column: str = "matched_concept_id",
         concept_name_column: str = "matched_concept_name",
         domain_id_column: Optional[str] = "matched_domain_id",
@@ -89,6 +90,7 @@ class LlmMapper:
             source_term: The source clinical term to map.
             source_id: An optional unique identifier for the source term, used for caching responses.
             target_concepts: A DataFrame containing candidate target concepts with columns:
+            source_context: Optional additional source details (column_name -> value) to add to prompts.
             concept_id_column: The name of the column containing target concept IDs.
             concept_name_column: The name of the column containing target concept names.
             domain_id_column: The name of the column containing target domain IDs.
@@ -109,6 +111,9 @@ class LlmMapper:
         num_prompts = len(self.system_prompts)
         if source_id is None:
             source_id = abs(hash(source_term)) % (10**8)
+
+        source_context_payload = dict(source_context or {})
+        source_details = {"source_term": source_term, **source_context_payload}
 
         input_columns = [concept_id_column, concept_name_column]
         context_columns = ["concept_id", "concept_name"]
@@ -148,7 +153,11 @@ class LlmMapper:
                 system_prompt = self.system_prompts[step]
                 if step == 0:
                     context_json = context.to_json(orient="records", lines=True)
-                    prompt = f"Source term: {source_term}\n\nCandidate target concepts:\n{context_json}"
+                    if source_context_payload:
+                        source_details_json = json.dumps(source_details, ensure_ascii=False, indent=2)
+                        prompt = f"Source details:\n{source_details_json}\n\nCandidate target concepts:\n{context_json}"
+                    else:
+                        prompt = f"Source term: {source_term}\n\nCandidate target concepts:\n{context_json}"
 
                 use_final_structured_output = step == num_prompts - 1
                 response_with_usage = get_llm_response(
@@ -168,25 +177,28 @@ class LlmMapper:
                     return None, None, None
                 self._cost = self._cost + response_with_usage["usage"]["total_cost_usd"]
 
-                if step == 0 and num_prompts > 1 and self.context_settings.re_insert_target_details:
-                    # Re-insert target details into the response JSON for the next step:
+                if step == 0 and num_prompts > 1 and self.context_settings.re_insert_source_target_details:
                     try:
                         data = self._extract_json_dict(response)
                         if data:
-                            target_definitions = data["target_concepts"]
-                            target_definitions = pd.DataFrame(target_definitions)
+                            new_source_data = data.get("source_term", source_term)
+                            new_source_data.update(source_context_payload)
+
+                            target_definitions = pd.DataFrame(data["target_concepts"])
                             target_definitions["id"] = pd.to_numeric(target_definitions["id"], errors="coerce")
                             merged = pd.merge(
                                 target_definitions, context, left_on="id", right_on="concept_id", how="left"
                             )
                             merged = merged.drop(columns=["concept_id"])
-                            new_data = {
-                                "source_term": data["source_term"],
-                                "target_concepts": merged.to_dict(orient="records"),
+                            new_target_data = merged.to_dict(orient="records")
+
+                            new_data: dict[str, Any] = {
+                                "source_term": new_source_data,
+                                "target_concepts": new_target_data
                             }
                             response = json.dumps(new_data, indent=2)
                     except Exception as e:
-                        print(f"Warning: Could not re-insert target details: {e}")
+                        print(f"Warning: Could not re-insert source/target details: {e}")
 
                 with open(response_file, "w", encoding="utf-8") as f:
                     f.write(response)
@@ -293,8 +305,9 @@ class LlmMapper:
         self,
         source_target_concepts: pd.DataFrame,
         term_column: str = "cleaned_term",
-        source_id_column: Optional[str] = "source_concept_id",
+        source_id_column: Optional[str] = "source_code",
         source_term_column: Optional[str] = "source_term",
+        source_context_columns: Optional[List[str]] = None,
         concept_id_column: str = "matched_concept_id",
         concept_name_column: str = "matched_concept_name",
         domain_id_column: Optional[str] = "matched_domain_id",
@@ -324,6 +337,7 @@ class LlmMapper:
             term_column: The name of the column containing source terms fed to the LLM.
             source_id_column: The name of the column containing the unique source term IDs.
             source_term_column: The name of the column containing the original source terms.
+            source_context_columns: Optional list of source-side columns to include in prompts and output rows.
             concept_id_column: The name of the column containing the target concept IDs.
             concept_name_column: The name of the column containing the target concept names.
             domain_id_column: The name of the column containing the target domain IDs.
@@ -341,6 +355,7 @@ class LlmMapper:
         """
 
         mapped_data = []
+        source_context_columns = source_context_columns or []
         grouped = source_target_concepts.groupby(term_column)
         for term, group in grouped:
             source_id = None
@@ -348,19 +363,36 @@ class LlmMapper:
                 source_id = str(group.iloc[0][source_id_column])
                 if source_ids is not None and source_id not in source_ids:
                     continue
+
+            source_context: dict[str, Any] = {}
+            source_context_output: dict[str, Any] = {}
+            for column in source_context_columns:
+                if column not in group.columns:
+                    raise ValueError(f"source_context_columns column '{column}' is not present in input data.")
+                value = group.iloc[0][column]
+                if hasattr(value, "item"):
+                    try:
+                        value = value.item()
+                    except Exception:
+                        pass
+                source_context_output[column] = value
+                if pd.isna(value):
+                    continue
+                source_context[column] = value
+
             matched_concept_id, matched_concept_name, match_rationale = self.map_term(
-                term,
-                source_id,
-                group,
-                allow_multiple_targets,
-                concept_id_column,
-                concept_name_column,
-                domain_id_column,
-                concept_class_id_column,
-                vocabulary_id_column,
-                parents_column,
-                children_column,
-                synonyms_column,
+                source_term=term,
+                source_id=source_id,
+                target_concepts=group,
+                source_context=source_context,
+                concept_id_column=concept_id_column,
+                concept_name_column=concept_name_column,
+                domain_id_column=domain_id_column,
+                concept_class_id_column=concept_class_id_column,
+                vocabulary_id_column=vocabulary_id_column,
+                parents_column=parents_column,
+                children_column=children_column,
+                synonyms_column=synonyms_column,
                 allow_multiple_targets=allow_multiple_targets,
             )
             if matched_concept_id is None:
@@ -377,6 +409,7 @@ class LlmMapper:
                         term_column: term,
                         source_id_column: source_id,
                         source_term_column: group.iloc[0][source_term_column],
+                        **source_context_output,
                         mapped_concept_id_column: mapped_id,
                         mapped_concept_name_column: mapped_name,
                         mapped_rationale_column: match_rationale,

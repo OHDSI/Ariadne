@@ -1,4 +1,4 @@
-source_concept_id,source_term,target_concept_id,target_concept_name,predicate,target_concept_id_b,target_concept_name_b,predicate_b
+source_code,source_term,target_concept_id,target_concept_name,predicate,target_concept_id_b,target_concept_name_b,predicate_b
 8690,"Unspecified enthesopathy, lower limb, excluding foot",4116324,Enthesopathy of lower leg and ankle region,exactMatch,4116324,Enthesopathy of lower leg and ankle region,broadMatch
 9724,"Lead-induced chronic gout, unspecified elbow",607432,Chronic gout caused by lead,broadMatch,NA,NA,NA
 9770,"Chronic gout due to renal impairment, right elbow",46270464,Gout of elbow due to renal impairment,broadMatch,NA,NA,NA

@@ -143,7 +143,7 @@ class ConceptContextSettings:
     include_target_domain: bool = True
     include_target_class: bool = True
     include_target_vocabulary: bool = True
-    re_insert_target_details: bool = True
+    re_insert_source_target_details: bool = True
 
 
 @dataclass
