@@ -21,7 +21,6 @@ from ariadne.utils.gen_ai_api import get_llm_response
 from ariadne.utils.settings import TermCleanerSettings
 
 
-_TRIGGER_PATTERN = r"not|unspecified|unidentified|without|other| nos|,nos| nec|,nec|encounter"
 _BATCH_SIZE = 25
 _TERM_CLEANING_BATCH_SCHEMA = {
     "type": "object",
@@ -64,9 +63,6 @@ class TermCleaner:
             The cleaned clinical term.
         """
 
-        if re.search(_TRIGGER_PATTERN, term, flags=re.IGNORECASE) is None:
-            return term
-
         return self._clean_terms_batch([term])[0]
 
     def _clean_terms_batch(self, terms: list[str]) -> list[str]:
@@ -105,11 +101,12 @@ class TermCleaner:
             cleaned_term = item["cleaned_term"]
             if not isinstance(row_number, int):
                 raise ValueError("Each term cleaning result must include integer 'row_number'.")
+            if row_number < 0 or row_number >= len(cleaned_terms):
+                raise ValueError("Row number out of range in term cleaning result.")
             if not isinstance(cleaned_term, str):
                 raise ValueError("Each term cleaning result must include string 'cleaned_term'.")
             cleaned_term = cleaned_term.strip()
-            if cleaned_term and 0 <= row_number < len(cleaned_terms):
-                cleaned_terms[row_number] = cleaned_term
+            cleaned_terms[row_number] = cleaned_term
         return cleaned_terms
 
     def clean_terms(
@@ -129,18 +126,11 @@ class TermCleaner:
 
         df[output_column] = df[term_column]
 
-        trigger_indices = [
-            i
-            for i, term in enumerate(df[term_column].tolist())
-            if re.search(_TRIGGER_PATTERN, term, flags=re.IGNORECASE) is not None
-        ]
-
-        for start in range(0, len(trigger_indices), _BATCH_SIZE):
-            batch_indices = trigger_indices[start : start + _BATCH_SIZE]
-            batch_terms = [df.iloc[idx][term_column] for idx in batch_indices]
+        for start in range(0, df.shape[0], _BATCH_SIZE):
+            batch_df = df.iloc[start:start + _BATCH_SIZE]
+            batch_terms = batch_df[term_column].astype(str).tolist()
             cleaned_batch = self._clean_terms_batch(batch_terms)
-            for idx, cleaned in zip(batch_indices, cleaned_batch):
-                df.iat[idx, df.columns.get_loc(output_column)] = cleaned
+            df.loc[batch_df.index, output_column] = cleaned_batch
 
         return df
 
