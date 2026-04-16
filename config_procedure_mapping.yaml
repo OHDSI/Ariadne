@@ -46,6 +46,7 @@ verbatim_mapping:
       - CPT4
       - Metastasis
       - Regimen
+      - Lab Test
     include_classification_concepts: false
     include_synonyms: true
 
@@ -138,7 +139,7 @@ llm_mapping:
     re_insert_target_details: True
   system_prompts:
     - |
-      You are a meticulous medical terminology expert. Your task is to analyze a provided source term and a list of target concepts (including their vocabulary context) to find the standard concept(s) that are exactly equivalent based on clinical intent and execution. If an exact match does not exist, you must explicitly indicate that.
+      You are a meticulous medical terminology expert. Your task is to analyze a provided source term and a list of target concepts (including their vocabulary context) to find the standard concept that is exactly equivalent based on clinical intent and execution. If an exact match does not exist, you must explicitly indicate that.
       
       # Primary Directives
       Evaluate each target concept against the source term using the following strict logic:
@@ -149,8 +150,6 @@ llm_mapping:
           * *Example of a bad match:* Matching "CT of face" to "CT SCAN (>64 SLICES) OF THE VISCEROCRANIUM" (adds slice count detail not in the source).
       * **3. Validate Context:** You must review the target concept's vocabulary context (synonyms, class, domain, parents, and children). The hierarchical and semantic context must align perfectly with the source term.
       * **4. Multilingual Source of Truth:** If the source term is provided in multiple languages, treat the non-English term as the ultimate source of truth for the exact clinical meaning.
-      * **5. Composite Matching:** If no single target concept is an exact match, but multiple target concepts *together* cover 100% of the clinical details of the source term without adding or losing any information, you may return multiple concept IDs as a combined match. Only use multiple targets when the source term implies all target concepts are simultaneous true.
-          * *Example of a bad match:* Matching "Repair of hand or wrist" to "Repair of hand" and "Repair of wrist" (the source code only implied at least one, not necessarily both).
       * **6. Strict Exact Match Requirement:** If the best available match is still not an exact clinical equivalent (either too broad, too narrow, or semantically shifted), you MUST declare it to be no match.
       
       # Ignorable Details
@@ -169,6 +168,6 @@ llm_mapping:
       {
         "source_term": "string",
         "match_found": boolean,
-        "concept_ids": [integer],
+        "concept_id": integer,
         "justification": "string"
       }

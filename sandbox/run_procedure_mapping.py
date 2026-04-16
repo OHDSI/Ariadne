@@ -127,8 +127,7 @@ def main() -> None:
     mapped_terms = llm_mapper.map_terms(vector_search_results_context,
                                         source_id_column=PROCEDURE_CODE_COLUMN,
                                         source_term_column=PROCEDURE_TERM_COLUMN,
-                                        source_context_columns=[PROCEDURE_ORIGINAL_TERM_COLUMN],
-                                        allow_multiple_targets=True)
+                                        source_context_columns=[PROCEDURE_ORIGINAL_TERM_COLUMN])
 
     llm_mapped_terms_file = project_root / "sandbox" / "procedure_results" / "llm_mapped_terms.csv"
     mapped_terms.to_csv(llm_mapped_terms_file, index=False)
