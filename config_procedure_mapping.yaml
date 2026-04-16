@@ -55,19 +55,20 @@ term_cleaning:
     
     # Guidelines
     
-    * **Handling Modifiers:** Remove modifiers such as "unspecified," "not specified," "other," or "other specified" unless they are explicitly part of an unalterable medical term.
-    * **Context-dependent Indicators:** Remove standard classification artifacts and abbreviations such as "NEC" (Not Elsewhere Classified) and "NOS" (Not Otherwise Specified), or phrases like "in diseases classified elsewhere."
-    * **Absence of Information:** Remove phrases indicating missing or absent information, such as "without mention of," "without documented severity score," "unknown or uncertain," and any dependent text. *Exception:* Do not remove negations that are clinically relevant to the procedure itself (e.g., "without contrast").
-    * **Ambiguous/Dependent Information:** Remove non-standard or ambiguous terms like "with or without," and any dependent condition information.
+    * **Handling Modifiers:** Remove modifiers such as "unspecified", "not specified", "other", or "other specified" unless they are explicitly part of an unalterable medical term.
+    * **Context-dependent Indicators:** Remove standard classification artifacts and abbreviations such as "NEC" (Not Elsewhere Classified) and "NOS" (Not Otherwise Specified), or phrases like "in diseases classified elsewhere".
+    * **Default Clinical States:** Remove modifiers that explicitly state the assumed default baseline of a procedure. For example, because imaging studies are performed without contrast by default, you must remove phrases like "without contrast" or "w/o contrast". 
+    * **Absence of Information:** Remove phrases indicating missing or absent information, such as "without mention of", "without documented severity score", "unknown or uncertain", and any dependent text. 
+    * **Ambiguous Information:** Remove non-standard or ambiguous terms like "with or without", and any dependent condition information.
     * **Irrelevant Details:** Remove details entirely unrelated to the procedure itself, including:
-        * Sequence of service (e.g., "initial encounter," "subsequent encounter").
-        * Disease status or patient health that does not alter the factual procedure (e.g., "without malignancy," "with Acute Myocardial Infarction," "Heart Failure or Shock").
-        * Billing or administrative info (e.g., "per side," "per session").
+        * Sequence of service (e.g., "initial encounter", "subsequent encounter").
+        * Disease status or patient health that does not alter the factual procedure (e.g., "without malignancy", "with Acute Myocardial Infarction", "Heart Failure or Shock").
+        * Billing or administrative info (e.g., "per side", "per session").
         * Data origin (e.g., "machine translation").
-        * Negated parts that are not implied by the rest of the term (e.g. "Adenoidectomy without tonsillectomy").
+        * Excluded concomitant procedures (e.g., "without tonsillectomy").
     
     # Important Retentions
-    You MUST maintain all information relevant to the intent and execution of the procedure. This includes the aimed outcome (e.g. 'induction of labor'), specific technique, approach, scope, and anatomical location. Retain specific laterality (e.g., "left," "right," "bilateral").
+    You MUST maintain all information relevant to the intent and execution of the procedure. This includes the aimed outcome (e.g. 'induction of labor'), specific technique, approach, scope, and anatomical location. Retain specific technique additions that go beyond the default state (e.g., "with contrast"). Retain specific laterality (e.g., "left", "right", "bilateral").
     
     # Output Format
     You will receive a JSON payload containing an array of up to 25 source terms, each with a `row_number`. 
@@ -98,7 +99,9 @@ term_cleaning:
         {"row_number": 6, "source_term": "Globe suture (per side)"},
         {"row_number": 7, "source_term": "Total colonoscopy"},
         {"row_number": 8, "source_term": "Adenoidectomy without tonsillectomy"},
-        {"row_number": 9, "source_term": "Induction of labor: Amniotomy"}
+        {"row_number": 9, "source_term": "Induction of labor: Amniotomy"},
+        {"row_number": 10, "source_term": "CT of skull w/o contrast"},
+        {"row_number": 11, "source_term": "CT of skull with contrast"}
       ]
     }
     
@@ -114,7 +117,9 @@ term_cleaning:
         {"row_number": 6, "cleaned_term": "Globe suture"},
         {"row_number": 7, "cleaned_term": "Total colonoscopy"},
         {"row_number": 8, "cleaned_term": "Adenoidectomy"},
-        {"row_number": 9, "cleaned_term": "Induction of labor: Amniotomy"}
+        {"row_number": 9, "cleaned_term": "Induction of labor: Amniotomy"},
+        {"row_number": 10, "cleaned_term": "CT of skull"},
+        {"row_number": 10, "cleaned_term": "CT of skull with contrast"}
       ]
     }
 
@@ -138,7 +143,7 @@ llm_mapping:
       # Primary Directives
       Evaluate each target concept against the source term using the following strict logic:
       
-      * **1. Maintain Specificity (Do Not Broaden):** The target must not be more general than the source. It must explicitly preserve all key clinical details present in the source term, including specific technique, approach, scope, and anatomical location. Retain specific laterality (e.g., "left," "right," "bilateral").
+      * **1. Maintain Specificity (Do Not Broaden):** The target must not be more general than the source. It must explicitly preserve all key clinical details present in the source term, including specific technique, approach, scope, and anatomical location. Retain specific laterality (e.g., "left", "right", "bilateral").
           * *Example of a bad match:* Matching "Telemedical individual psychotherapy" to "Psychotherapy" (lacks telemedicine and individual context).
       * **2. Maintain Generality (Do Not Over-Specify):** The target must not be more specific than the source term. Do not select a subtype or a term with added clinical details not present in the source. 
           * *Example of a bad match:* Matching "CT of face" to "CT SCAN (>64 SLICES) OF THE VISCEROCRANIUM" (adds slice count detail not in the source).
@@ -150,15 +155,17 @@ llm_mapping:
       
       # Ignorable Details
       Ignore the following details if they appear in the source term, as they do not alter the core factual procedure:
-      * **Sequence of service:** e.g., "initial encounter," "subsequent encounter."
-      * **Disease status/Patient health:** e.g., "without malignancy," "with Acute Myocardial Infarction," "Heart Failure or Shock" (unless intrinsic to the procedure itself).
-      * **Billing/Administrative info:** e.g., "per side," "per session."
-      * **Data origin:** e.g., "machine translation."
+      * **Sequence of service:** e.g., "initial encounter", "subsequent encounter".
+      * **Disease status/Patient health:** e.g., "without malignancy", "with Acute Myocardial Infarction", "Heart Failure or Shock" (unless intrinsic to the procedure itself).
+      * **Billing/Administrative info:** e.g., "per side", "per session".
+      * **Data origin:** e.g., "machine translation".
+      * **Exluded concomitant procedures:** e.g., "without tonsillectomy".
+      * **Default Clinical States:** e.g., "w/o contrast". 
       * **Context-dependent indicators:** e.g., "unspecified", "not specified", "classified elsewhere", "other", "NOS", "NEC".
       
       # Output Format
       Provide your response as a single, valid JSON object. Do not include any text outside of the JSON. Do not wrap the JSON in Markdown code blocks (do not use ```json). Return ONLY these four keys:
-     
+      
       {
         "source_term": "string",
         "match_found": boolean,
