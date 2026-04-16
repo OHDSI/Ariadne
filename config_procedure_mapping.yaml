@@ -64,9 +64,10 @@ term_cleaning:
         * Disease status or patient health that does not alter the factual procedure (e.g., "without malignancy," "with Acute Myocardial Infarction," "Heart Failure or Shock").
         * Billing or administrative info (e.g., "per side," "per session").
         * Data origin (e.g., "machine translation").
+        * Negated parts that are not implied by the rest of the term (e.g. "Adenoidectomy without tonsillectomy").
     
     # Important Retentions
-    You MUST maintain all information relevant to the intent and execution of the procedure. This includes the specific technique, approach, scope, and anatomical location. Retain specific laterality (e.g., "left," "right," "bilateral").
+    You MUST maintain all information relevant to the intent and execution of the procedure. This includes the aimed outcome (e.g. 'induction of labor'), specific technique, approach, scope, and anatomical location. Retain specific laterality (e.g., "left," "right," "bilateral").
     
     # Output Format
     You will receive a JSON payload containing an array of up to 25 source terms, each with a `row_number`. 
@@ -95,7 +96,9 @@ term_cleaning:
         {"row_number": 4, "source_term": "Appendectomy without malignancy or peritonitis without complications"},
         {"row_number": 5, "source_term": "Endosonography (machine translation)"},
         {"row_number": 6, "source_term": "Globe suture (per side)"},
-        {"row_number": 7, "source_term": "Total colonoscopy"}
+        {"row_number": 7, "source_term": "Total colonoscopy"},
+        {"row_number": 8, "source_term": "Adenoidectomy without tonsillectomy"},
+        {"row_number": 9, "source_term": "Induction of labor: Amniotomy"}
       ]
     }
     
@@ -109,7 +112,9 @@ term_cleaning:
         {"row_number": 4, "cleaned_term": "Appendectomy"},
         {"row_number": 5, "cleaned_term": "Endosonography"},
         {"row_number": 6, "cleaned_term": "Globe suture"},
-        {"row_number": 7, "cleaned_term": "Total colonoscopy"}
+        {"row_number": 7, "cleaned_term": "Total colonoscopy"},
+        {"row_number": 8, "cleaned_term": "Adenoidectomy"},
+        {"row_number": 9, "cleaned_term": "Induction of labor: Amniotomy"}
       ]
     }
 
@@ -128,44 +133,7 @@ llm_mapping:
     re_insert_target_details: True
   system_prompts:
     - |
-      You are a medical terminology expert. Your sole responsibility is to generate a concise, accurate clinical definition for a provided Source Term and a list of Target Concepts. 
-      
-      **Guidelines for Definitions:**
-      * **Length:** Each definition must be at most 1 paragraph.
-      * **Contextual Accuracy:** For Target Concepts, ensure your definitions align directly with their provided vocabulary context (including `concept_synonyms`, `concept_class_id`, `concept_domain_id`, `concept_parents`, and `concept_children`).
-      * **Ignore Irrelevant Modifiers:** Focus strictly on the core clinical concept. Ignore extraneous details that do not alter the factual procedure or condition, such as:
-          * Sequence of service (e.g., "initial encounter," "subsequent encounter").
-          * Disease status or patient health not intrinsic to the procedure (e.g., "without malignancy," "with Acute Myocardial Infarction," "Heart Failure or Shock").
-          * Billing or administrative information (e.g., "per side," "per session").
-          * Data origin metadata (e.g., "machine translation").
-          * Context-dependent or ambiguous indicators (e.g., "unspecified", "not specified", "classified elsewhere", "other", "NOS", "NEC").
-      
-      **Strict Constraints:**
-      * You must NOT perform any comparison between the Source Term and Target Concepts.
-      
-      **Output Format:**
-      Provide your response as a single, valid JSON object. Do not include any text outside of the JSON object. Do not wrap the JSON in Markdown code blocks (do not use ```json).
-      
-      {
-        "source_term": {
-          "name": "<Source Term Name>",
-          "definition": "<Definition of source term>"
-        },
-        "target_concepts": [
-          {
-            "id": "<Concept ID 1>",
-            "name": "<Concept Name 1>",
-            "definition": "<Definition of concept 1>"
-          },
-          {
-            "id": "<Concept ID 2>",
-            "name": "<Concept Name 2>",
-            "definition": "<Definition of concept 2>"
-          }
-        ]
-      }
-    - |
-      You are a meticulous medical terminology expert. Your task is to analyze a provided source term and a list of target concepts (including their definitions and vocabulary context) to find the standard concept(s) that are exactly equivalent based on clinical intent and execution. If an exact match does not exist, you must explicitly indicate that.
+      You are a meticulous medical terminology expert. Your task is to analyze a provided source term and a list of target concepts (including their vocabulary context) to find the standard concept(s) that are exactly equivalent based on clinical intent and execution. If an exact match does not exist, you must explicitly indicate that.
       
       # Primary Directives
       Evaluate each target concept against the source term using the following strict logic:
@@ -176,7 +144,8 @@ llm_mapping:
           * *Example of a bad match:* Matching "CT of face" to "CT SCAN (>64 SLICES) OF THE VISCEROCRANIUM" (adds slice count detail not in the source).
       * **3. Validate Context:** You must review the target concept's vocabulary context (synonyms, class, domain, parents, and children). The hierarchical and semantic context must align perfectly with the source term.
       * **4. Multilingual Source of Truth:** If the source term is provided in multiple languages, treat the non-English term as the ultimate source of truth for the exact clinical meaning.
-      * **5. Composite Matching:** If no single target concept is an exact match, but multiple target concepts *together* cover 100% of the clinical details of the source term without adding or losing any information, you may return multiple concept IDs as a combined match.
+      * **5. Composite Matching:** If no single target concept is an exact match, but multiple target concepts *together* cover 100% of the clinical details of the source term without adding or losing any information, you may return multiple concept IDs as a combined match. Only use multiple targets when the source term implies all target concepts are simultaneous true.
+          * *Example of a bad match:* Matching "Repair of hand or wrist" to "Repair of hand" and "Repair of wrist" (the source code only implied at least one, not necessarily both).
       * **6. Strict Exact Match Requirement:** If the best available match is still not an exact clinical equivalent (either too broad, too narrow, or semantically shifted), you MUST declare it to be no match.
       
       # Ignorable Details
