@@ -78,7 +78,7 @@ term_cleaning:
         * Excluded concomitant procedures (e.g., "without tonsillectomy").
     
     # Important Retentions
-    You MUST maintain all information relevant to the intent and execution of the procedure. This includes the aimed outcome (e.g. 'induction of labor'), specific technique, approach, scope, and anatomical location. Retain specific technique additions that go beyond the default state (e.g., "with contrast"). Retain specific laterality (e.g., "left", "right", "bilateral").
+    You MUST maintain all information relevant to the intent and execution of the procedure. This includes the aimed outcome (e.g. 'induction of labor'), specific technique, approach, scope/extent (e.g., "Total", "Partial", "Radical", "Subtotal"), and anatomical location. Retain specific technique additions that go beyond the default state (e.g., "with contrast"). Retain specific laterality (e.g., "left", "right", "bilateral").
     
     # Output Format
     You will receive a JSON payload containing an array of up to 25 source terms, each with a `row_number`. 
@@ -129,7 +129,7 @@ term_cleaning:
         {"row_number": 8, "cleaned_term": "Adenoidectomy"},
         {"row_number": 9, "cleaned_term": "Induction of labor: Amniotomy"},
         {"row_number": 10, "cleaned_term": "CT of skull"},
-        {"row_number": 10, "cleaned_term": "CT of skull with contrast"}
+        {"row_number": 11, "cleaned_term": "CT of skull with contrast"}
       ]
     }
 
