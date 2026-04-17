@@ -116,6 +116,7 @@ class VerbatimMappingSettings:
     download_batch_size: int = 100_000
     log_folder: str = "logs"
     substrings_to_remove: List[str] = field(default_factory=list)
+    preferred_vocabulary_ids: List[str] = field(default_factory=list)
     standard_concept_filter: StandardConceptFilter = field(
         default_factory=StandardConceptFilter
     )

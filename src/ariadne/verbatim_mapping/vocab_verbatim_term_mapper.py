@@ -37,6 +37,10 @@ class VocabVerbatimTermMapper:
 
     def __init__(self, settings: VerbatimMappingSettings):
         self.term_normalizer = TermNormalizer(settings.substrings_to_remove)
+        self.preferred_vocabulary_ids = settings.preferred_vocabulary_ids
+        self._vocabulary_rank = {
+            vocabulary_id: idx for idx, vocabulary_id in enumerate(self.preferred_vocabulary_ids)
+        }
         if os.path.exists(settings.verbatim_mapping_index_file):
             with open(settings.verbatim_mapping_index_file, "rb") as handle:
                 self.index = pickle.load(handle)
@@ -60,17 +64,24 @@ class VocabVerbatimTermMapper:
             print(f"Processing file: {file}")
             df = pd.read_parquet(file)
             normalized_terms = self.term_normalizer.normalize_terms(df["term"].tolist())
-            for norm_term, concept_id, concept_name in zip(
-                normalized_terms, df["concept_id"].tolist(), df["concept_name"].tolist()
+            for norm_term, concept_id, concept_name, vocabulary_id in zip(
+                normalized_terms,
+                df["concept_id"].tolist(),
+                df["concept_name"].tolist(),
+                df["vocabulary_id"].tolist(),
             ):
-                concept = (int(concept_id), concept_name)
+                concept = {
+                    "concept_id": int(concept_id),
+                    "concept_name": concept_name,
+                    "vocabulary_id": vocabulary_id,
+                }
                 if norm_term in index_data:
                     existing = index_data[norm_term]
                     if isinstance(existing, list):
-                        if concept_id not in [c[0] for c in existing]:
+                        if concept["concept_id"] not in [c["concept_id"] for c in existing]:
                             existing.append(concept)
                     else:
-                        if concept_id != existing[0]:
+                        if concept["concept_id"] != existing["concept_id"]:
                             index_data[norm_term] = [existing, concept]
                 else:
                     index_data[norm_term] = concept
@@ -97,10 +108,17 @@ class VocabVerbatimTermMapper:
         normalized_source = self.term_normalizer.normalize_term(source_term)
         if normalized_source in self.index:
             concepts = self.index[normalized_source]
-            if isinstance(concepts, list):
-                return concepts
-            else:
-                return [concepts]
+            candidates = concepts if isinstance(concepts, list) else [concepts]
+
+            if self.preferred_vocabulary_ids and len(candidates) > 1:
+                max_rank = len(self.preferred_vocabulary_ids)
+                preferred = min(
+                    candidates,
+                    key=lambda c: self._vocabulary_rank.get(c["vocabulary_id"], max_rank),
+                )
+                return [(preferred["concept_id"], preferred["concept_name"])]
+
+            return [(c["concept_id"], c["concept_name"]) for c in candidates]
         return []
 
     def map_terms(
@@ -122,8 +140,12 @@ class VocabVerbatimTermMapper:
         Returns:
             A DataFrame with the original columns and their mapped concept IDs and names.
         """
+        def _pick_first_match(term: str) -> pd.Series:
+            concepts = self.map_term(term)
+            return pd.Series(concepts[0] if concepts else (-1, ""))
+
         source_terms[[mapped_concept_id_column, mapped_concept_name_column]] = source_terms[term_column].apply(
-            lambda term: pd.Series(self.map_term(term)[0] if self.map_term(term) else (-1, ""))
+            _pick_first_match
         )
         return source_terms
 

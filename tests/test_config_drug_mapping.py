@@ -19,6 +19,9 @@ def test_config_drug_mapping_parses_mapping_per_concept_class(tmp_path):
             "    verbatim_mapping:\n"
             "      terms_folder: data/terms_ing\n"
             "      verbatim_mapping_index_file: data/index_ing.pkl\n"
+            "      preferred_vocabulary_ids:\n"
+            "        - RxNorm\n"
+            "        - SNOMED\n"
             "      substrings_to_remove:\n"
             "        - hydrochloride\n"
             "      standard_concept_filter:\n"
@@ -52,6 +55,7 @@ def test_config_drug_mapping_parses_mapping_per_concept_class(tmp_path):
 
     # Verbatim mapping settings parsed correctly
     assert cc.verbatim_mapping.substrings_to_remove == ["hydrochloride"]
+    assert cc.verbatim_mapping.preferred_vocabulary_ids == ["RxNorm", "SNOMED"]
     assert Path(cc.verbatim_mapping.terms_folder) == get_project_root() / "data" / "terms_ing"
     assert cc.verbatim_mapping.standard_concept_filter.standard_concept is True
     assert cc.verbatim_mapping.standard_concept_filter.concept_class_ids == ["Ingredient"]

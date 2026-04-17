@@ -49,6 +49,15 @@ verbatim_mapping:
       - Lab Test
     include_classification_concepts: false
     include_synonyms: true
+  preferred_vocabulary_ids:
+    - SNOMED
+    - LOINC
+    - CPT4
+    - HCPCS
+    - ICD10PCS
+    - ICD9Proc
+    - OPCS4
+    - OMOP Extension
 
 term_cleaning:
   system_prompt: |
@@ -151,6 +160,7 @@ llm_mapping:
       * **3. Validate Context:** You must review the target concept's vocabulary context (synonyms, class, domain, parents, and children). The hierarchical and semantic context must align perfectly with the source term.
       * **4. Multilingual Source of Truth:** If the source term is provided in multiple languages, treat the non-English term as the ultimate source of truth for the exact clinical meaning.
       * **6. Strict Exact Match Requirement:** If the best available match is still not an exact clinical equivalent (either too broad, too narrow, or semantically shifted), you MUST declare it to be no match.
+      * **7. Prioritize Based on Vocabulary:** If multiple exact matches are found, prioritize them based on the following vocabulary hierarchy: SNOMED > LOINC > CPT4 > HCPCS > ICD10PCS > ICD9Proc > OPCS4 > OMOP Extension.
       
       # Ignorable Details
       Ignore the following details if they appear in the source term, as they do not alter the core factual procedure:

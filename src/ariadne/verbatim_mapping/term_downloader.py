@@ -63,6 +63,7 @@ def _create_query(engine: Engine, settings: VerbatimMappingSettings) -> Select:
         concept.c.concept_id,
         concept.c.concept_name.label("term"),
         concept.c.concept_name,
+        concept.c.vocabulary_id,
     )
     if enforce_standard_only:
         query1 = query1.where(concept.c.standard_concept.in_(standard_concepts))
@@ -89,6 +90,7 @@ def _create_query(engine: Engine, settings: VerbatimMappingSettings) -> Select:
             cs_alias.c.concept_id,
             cs_alias.c.concept_synonym_name.label("term"),
             concept_names.c.concept_name,
+            concept_names.c.vocabulary_id,
         ).join(concept_names, cs_alias.c.concept_id == concept_names.c.concept_id)
 
         # Combine queries
@@ -103,11 +105,13 @@ def _store_in_parquet(
     concept_ids: List[int],
     terms: List[str],
     concept_names: List[str],
+    vocabulary_ids: List[str],
     file_name: str,
 ) -> None:
     concept_id_array = pa.array(concept_ids)
     term_array = pa.array(terms)
     concept_name_array = pa.array(concept_names)
+    vocabulary_id_array = pa.array(vocabulary_ids)
     # vocabulary_id_array = pa.array(vocabulary_ids)
     # domain_id_array = pa.array(domain_ids)
     # standard_concept_array = pa.array(standard_concepts)
@@ -117,11 +121,13 @@ def _store_in_parquet(
             concept_id_array,
             term_array,
             concept_name_array,
+            vocabulary_id_array,
         ],
         names=[
             "concept_id",
             "term",
             "concept_name",
+            "vocabulary_id",
         ],
     )
     pq.write_table(table, file_name)
@@ -163,6 +169,7 @@ def download_terms(settings: VerbatimMappingSettings) -> None:
                 concept_ids=[row.concept_id for row in chunk],
                 terms=[row.term for row in chunk],
                 concept_names=[row.concept_name for row in chunk],
+                vocabulary_ids=[row.vocabulary_id for row in chunk],
                 # vocabulary_ids=[row.vocabulary_id for row in chunk],
                 # domain_ids=[row.domain_id for row in chunk],
                 # standard_concepts=[row.standard_concept for row in chunk],

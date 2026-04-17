@@ -89,13 +89,14 @@ class TermNormalizer:
         # 7. Join tokens into a single string
         return " ".join(processed_tokens)
 
-    def normalize_terms(self, terms: List[str], batch_size: int = 1000) -> List[str]:
+    def normalize_terms(self, terms: List[str], batch_size: int = 1000, n_process: int = 4) -> List[str]:
         """
         Normalizes a list of clinical term strings in batch using spaCy's nlp.pipe for efficiency.
 
         Args:
             terms: List of clinical term strings to normalize.
             batch_size: Number of terms to process in each spaCy batch.
+            n_process: Number of worker processes for spaCy's pipe (1 disables multiprocessing).
         Returns:
             List of normalized term strings in the same order as the input.
         """
@@ -109,9 +110,9 @@ class TermNormalizer:
             t = re.sub(r'[^\w\s]', ' ', t)
             preprocessed.append(t)
 
-        # Use spaCy's built-in batch processing (no multiprocessing pickle needed)
+        # Use spaCy's built-in batch processing; n_process>1 enables multiprocessing.
         results = []
-        for doc in self.nlp.pipe(preprocessed, batch_size=batch_size):
+        for doc in self.nlp.pipe(preprocessed, batch_size=batch_size, n_process=n_process):
             processed_tokens = [token.lemma_ for token in doc if token.lemma_.strip()]
             results.append(" ".join(processed_tokens))
         return results
