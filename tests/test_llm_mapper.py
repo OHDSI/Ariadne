@@ -274,3 +274,73 @@ def test_map_terms_passes_source_context_columns_to_map_term(tmp_path, monkeypat
     assert mapped.iloc[0]["age_band"] == "65+"
 
 
+def test_map_terms_groups_by_source_id_when_source_id_column_is_provided(tmp_path, monkeypatch):
+    mapper = LlmMapper(settings=_make_settings(str(tmp_path)))
+    source_target_concepts = pd.DataFrame(
+        {
+            "source_code": ["42", "42"],
+            "source_term": ["Acute myocardial infarction", "Heart attack"],
+            "cleaned_term": ["acute mi", "heart attack"],
+            "matched_concept_id": [111, 222],
+            "matched_concept_name": ["Wrong concept", "Exact concept"],
+        }
+    )
+
+    calls = []
+
+    def fake_map_term(source_term, source_id, target_concepts, **kwargs):
+        calls.append(
+            {
+                "source_term": source_term,
+                "source_id": source_id,
+                "candidate_count": len(target_concepts),
+            }
+        )
+        return 222, "Exact concept", "Test rationale"
+
+    monkeypatch.setattr(mapper, "map_term", fake_map_term)
+
+    mapped = mapper.map_terms(source_target_concepts=source_target_concepts)
+
+    assert len(calls) == 1
+    assert calls[0]["source_id"] == "42"
+    assert calls[0]["source_term"] == "acute mi"
+    assert calls[0]["candidate_count"] == 2
+    assert len(mapped) == 1
+
+
+def test_map_terms_groups_by_term_when_source_id_column_is_none(tmp_path, monkeypatch):
+    mapper = LlmMapper(settings=_make_settings(str(tmp_path)))
+    source_target_concepts = pd.DataFrame(
+        {
+            "source_term": ["Acute myocardial infarction", "Heart attack"],
+            "cleaned_term": ["acute mi", "heart attack"],
+            "matched_concept_id": [111, 222],
+            "matched_concept_name": ["Wrong concept", "Exact concept"],
+        }
+    )
+
+    calls = []
+
+    def fake_map_term(source_term, source_id, target_concepts, **kwargs):
+        calls.append(
+            {
+                "source_term": source_term,
+                "source_id": source_id,
+                "candidate_count": len(target_concepts),
+            }
+        )
+        return 222, "Exact concept", "Test rationale"
+
+    monkeypatch.setattr(mapper, "map_term", fake_map_term)
+
+    mapped = mapper.map_terms(
+        source_target_concepts=source_target_concepts,
+        source_id_column=None,
+    )
+
+    assert len(calls) == 2
+    assert all(call["source_id"] is None for call in calls)
+    assert {call["source_term"] for call in calls} == {"acute mi", "heart attack"}
+    assert all(call["candidate_count"] == 1 for call in calls)
+    assert len(mapped) == 2

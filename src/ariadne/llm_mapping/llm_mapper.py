@@ -356,14 +356,22 @@ class LlmMapper:
 
         mapped_data = []
         source_context_columns = source_context_columns or []
-        grouped = source_target_concepts.groupby(term_column)
-        for term, group in grouped:
+
+        # Prefer grouping by source ID when available so one source record is mapped once.
+        grouping_column = term_column
+        if source_id_column:
+            if source_id_column not in source_target_concepts.columns:
+                raise ValueError(f"source_id_column '{source_id_column}' is not present in input data.")
+            grouping_column = source_id_column
+
+        grouped = source_target_concepts.groupby(grouping_column)
+        for _, group in grouped:
+            term = group.iloc[0][term_column]
             source_id = None
             if source_id_column and source_id_column in group.columns:
                 source_id = str(group.iloc[0][source_id_column])
                 if source_ids is not None and source_id not in source_ids:
                     continue
-
             source_context: dict[str, Any] = {}
             source_context_output: dict[str, Any] = {}
             for column in source_context_columns:

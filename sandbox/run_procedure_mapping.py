@@ -24,7 +24,7 @@ def main() -> None:
     project_root = Path.cwd().parent
 
     # Load input file and make unique
-    gold_standard_path = project_root / "data" / "gold_standards" / "procedure_mapping_train_set.csv"
+    gold_standard_path = project_root / "data" / "gold_standards" / "procedure_mapping_test_set.csv"
     gold_standard = pd.read_csv(gold_standard_path)
     unique_terms = (
         gold_standard.loc[:, [PROCEDURE_CODE_COLUMN, PROCEDURE_ORIGINAL_TERM_COLUMN, PROCEDURE_TERM_COLUMN]]
@@ -164,12 +164,12 @@ def main() -> None:
     final_mapped_terms_file = project_root / "sandbox" / "procedure_results" / "final_mapped_terms.csv"
     final_mapped_terms.to_csv(final_mapped_terms_file, index=False)
 
-    # Evaluate
-    final_evaluation_results = evaluate(final_mapped_terms,
-                                        gold_standard_file=gold_standard_path)
-    final_evaluation_results.to_csv(
-        project_root / "sandbox" / "procedure_results" / "exact_matching_final_evaluation.csv", index=False
-    )
+    # # Evaluate
+    # final_evaluation_results = evaluate(final_mapped_terms,
+    #                                     gold_standard_file=gold_standard_path)
+    # final_evaluation_results.to_csv(
+    #     project_root / "sandbox" / "procedure_results" / "exact_matching_final_evaluation.csv", index=False
+    # )
 
 
 if __name__ == "__main__":
