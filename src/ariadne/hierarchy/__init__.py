@@ -3,7 +3,7 @@
 Public API re-exports for convenient imports::
 
     from ariadne.hierarchy import (
-        HierarchyConfig,
+        HierarchySettings,
         SnomedAttributeSearcher,
         SnomedReferenceSearcher,
         find_attributes_two_stage,
@@ -12,14 +12,6 @@ Public API re-exports for convenient imports::
     )
 """
 
-from ariadne.hierarchy.config import (
-    EvaluationConfig,
-    HierarchyConfig,
-    ModelsConfig,
-    PromptsConfig,
-    RetrievalConfig,
-    ScoringConfig,
-)
 from ariadne.hierarchy.classifier import (
     classify_delta,
     classification_summary,
@@ -48,11 +40,19 @@ from ariadne.hierarchy.types import (
     SearchBatchResult,
     SearchResult,
 )
+from ariadne.utils.settings import (
+    EvaluationConfig,
+    HierarchySettings,
+    ModelsConfig,
+    PromptsConfig,
+    RetrievalConfig,
+    ScoringConfig,
+)
 
 
 __all__ = [
     # Config
-    "HierarchyConfig",
+    "HierarchySettings",
     "ModelsConfig",
     "RetrievalConfig",
     "ScoringConfig",

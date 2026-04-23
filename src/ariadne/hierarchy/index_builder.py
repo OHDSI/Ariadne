@@ -33,7 +33,7 @@ from psycopg import sql
 from pgvector.psycopg import register_vector
 from sqlalchemy import create_engine
 
-from ariadne.hierarchy.config import _DEFAULT_SNOMED_RELATIONSHIPS
+from ariadne.utils.settings import _DEFAULT_SNOMED_RELATIONSHIPS
 from ariadne.utils.gen_ai_api import get_embedding_vectors
 from ariadne.utils.utils import get_environment_variable
 

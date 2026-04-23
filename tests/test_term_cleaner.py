@@ -11,7 +11,7 @@ def _make_settings() -> TermCleanerSettings:
     return TermCleanerSettings(system_prompt="test prompt")
 
 
-def test_clean_term_uses_structured_output(monkeypatch):
+def test_clean_terms_batch_uses_structured_output(monkeypatch):
     cleaner = TermCleaner(settings=_make_settings())
 
     def fake_get_llm_response(**kwargs):
@@ -28,9 +28,9 @@ def test_clean_term_uses_structured_output(monkeypatch):
 
     monkeypatch.setattr("ariadne.term_cleanup.term_cleaner.get_llm_response", fake_get_llm_response)
 
-    cleaned = cleaner.clean_term("Unspecified synovitis")
+    cleaned = cleaner._clean_terms_batch(["Unspecified synovitis"])
 
-    assert cleaned == "synovitis"
+    assert cleaned == ["synovitis"]
     assert cleaner.get_total_cost() == 0.01
 
 
@@ -67,7 +67,7 @@ def test_clean_terms_dataframe(monkeypatch):
     assert call_sizes == [25, 5]
 
 
-def test_clean_term_raises_on_malformed_structured_response(monkeypatch):
+def test_clean_terms_batch_raises_on_malformed_structured_response(monkeypatch):
     cleaner = TermCleaner(settings=_make_settings())
 
     def fake_get_llm_response(**kwargs):
@@ -80,6 +80,5 @@ def test_clean_term_raises_on_malformed_structured_response(monkeypatch):
     monkeypatch.setattr("ariadne.term_cleanup.term_cleaner.get_llm_response", fake_get_llm_response)
 
     with pytest.raises(ValueError, match="cleaned_term"):
-        cleaner.clean_term("Unspecified synovitis")
-
+        cleaner._clean_terms_batch(["Unspecified synovitis"])
 

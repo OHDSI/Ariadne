@@ -14,13 +14,14 @@ import psycopg
 from psycopg import sql
 from pgvector.psycopg import register_vector
 
-from ariadne.hierarchy.config import HierarchyConfig
 from ariadne.hierarchy.types import (
     ReferenceSearchResult,
     SearchBatchResult,
     SearchResult,
 )
+from ariadne.utils.config import load_hierarchy_settings
 from ariadne.utils.gen_ai_api import get_embedding_vectors
+from ariadne.utils.settings import HierarchySettings
 from ariadne.utils.utils import get_environment_variable
 
 logger = logging.getLogger(__name__)
@@ -83,8 +84,10 @@ class AbstractSnomedSearcher(ABC):
     Subclasses must implement :meth:`search`.
     """
 
-    def __init__(self, cfg: HierarchyConfig | None = None):
-        self.cfg = cfg or HierarchyConfig.from_yaml()
+    def __init__(self, cfg: HierarchySettings | None = None):
+        if cfg is None:
+            cfg = load_hierarchy_settings()
+        self.cfg = cfg
         conn_str = get_environment_variable("VOCAB_CONNECTION_STRING")
         conn_str = conn_str.replace("+psycopg", "").replace("+psycopg2", "")
         self.connection = psycopg.connect(conn_str, autocommit=True)
@@ -288,7 +291,7 @@ class SnomedAttributeSearcher(AbstractSnomedSearcher):
 
 class SnomedReferenceSearcher(AbstractSnomedSearcher):
 
-    def __init__(self, cfg: HierarchyConfig | None = None,
+    def __init__(self, cfg: HierarchySettings | None = None,
                  exclude_concept_ids: set[int] | None = None):
         super().__init__(cfg)
         self._exclude_concept_ids: list[int] = sorted(exclude_concept_ids) if exclude_concept_ids else []

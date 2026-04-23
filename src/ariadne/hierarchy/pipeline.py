@@ -15,13 +15,10 @@ import logging
 
 import pandas as pd
 
-from ariadne.hierarchy.config import HierarchyConfig
 from ariadne.hierarchy.searchers import (
     ATTR_KEY_TO_SNOMED_CATEGORY,
     AbstractSnomedSearcher,
     SNOMED_CATEGORY_TO_ATTR_KEY,
-    SnomedAttributeSearcher,
-    SnomedReferenceSearcher,
 )
 from ariadne.hierarchy.types import (
     INTERPRETS_PAIRED_KEYS,
@@ -34,7 +31,9 @@ from ariadne.hierarchy.types import (
     split_interprets_pairs,
     validate_interprets_pairs,
 )
+from ariadne.utils.config import load_hierarchy_settings
 from ariadne.utils.gen_ai_api import get_llm_response
+from ariadne.utils.settings import HierarchySettings
 
 logger = logging.getLogger(__name__)
 
@@ -175,7 +174,7 @@ def _collect_reference_values(similar_terms: list[dict]) -> dict[str, list[dict]
 def _retrieve_reference_examples(
     medical_term: str,
     reference_index: ReferenceIndex | None,
-    cfg: HierarchyConfig,
+    cfg: HierarchySettings,
     verbose: bool,
     precomputed_embedding=None,
 ) -> ReferenceRetrievalResult:
@@ -217,7 +216,7 @@ def _retrieve_reference_examples(
 def extract_components(
     medical_term: str,
     reference_text: str,
-    cfg: HierarchyConfig,
+    cfg: HierarchySettings,
 ) -> ExtractionResult:
     """Step 2: Use the LLM to infer applicable SNOMED attributes.
 
@@ -305,7 +304,7 @@ def _enrich_candidates(
     attr_key: str,
     reference_values_by_attr: dict[str, list[dict]],
     attribute_index: AttributeIndex,
-    cfg: HierarchyConfig,
+    cfg: HierarchySettings,
     verbose: bool,
 ) -> pd.DataFrame:
     """Enrich candidates for a single attribute with reference values and hierarchy.
@@ -364,7 +363,7 @@ def _retrieve_candidates(
     attribute_index: AttributeIndex,
     similar_terms: list,
     verbose: bool,
-    cfg: HierarchyConfig,
+    cfg: HierarchySettings,
 ) -> SearchResult:
     """Step 3: Embed each inferred attribute value and retrieve SNOMED candidates.
 
@@ -505,7 +504,7 @@ def find_attributes_two_stage(
     medical_term: str,
     attribute_index: AttributeIndex,
     reference_index: ReferenceIndex | None = None,
-    cfg: HierarchyConfig | None = None,
+    cfg: HierarchySettings | None = None,
     verbose: bool = True,
     precomputed_embedding=None,
 ) -> dict:
@@ -532,11 +531,11 @@ def find_attributes_two_stage(
         Dict with keys ``attributes``, ``extracted_components``,
         ``retrieved_candidates``, ``reference_examples``, ``cost``.
     """
-    cfg = cfg or HierarchyConfig.from_yaml()
+    cfg_local: HierarchySettings = cfg if cfg is not None else load_hierarchy_settings()
 
     # Step 1
     similar_terms, reference_text, ref_cost = _retrieve_reference_examples(
-        medical_term, reference_index, cfg, verbose,
+        medical_term, reference_index, cfg_local, verbose,
         precomputed_embedding=precomputed_embedding,
     )
 
@@ -544,7 +543,7 @@ def find_attributes_two_stage(
     if verbose:
         logger.info("Step 2: Inferring attributes...")
     components, extraction_cost = extract_components(medical_term, reference_text=reference_text,
-                                                     cfg=cfg)
+                                                     cfg=cfg_local)
     if verbose:
         logger.info("  Inferred: %s", json.dumps({k: v for k, v in components.items() if v}, indent=2))
 
@@ -553,7 +552,7 @@ def find_attributes_two_stage(
         logger.info("Step 3: Retrieving candidates...")
     candidates_df, embedding_cost = _retrieve_candidates(
         components, attribute_index, similar_terms,
-        verbose, cfg=cfg
+        verbose, cfg=cfg_local
     )
 
     # Step 4
@@ -561,7 +560,7 @@ def find_attributes_two_stage(
         logger.info("Step 4: Selecting best matches...")
     candidates_text = _build_selection_prompt(candidates_df)
     user_prompt = f"Medical term: {medical_term}\n\n{reference_text}\n\nCandidates:\n{candidates_text}"
-    response, selection_cost = call_llm(cfg.prompts.selection, user_prompt, model=cfg.models.selection)
+    response, selection_cost = call_llm(cfg_local.prompts.selection, user_prompt, model=cfg_local.models.selection)
 
     total_cost = ref_cost + extraction_cost + embedding_cost + selection_cost
 

@@ -15,11 +15,12 @@
 # limitations under the License.
 
 from pathlib import Path
-from typing import Any, Dict
+from typing import Any, Dict, cast
 
 import yaml
 
 from ariadne.utils.settings import (
+    HierarchySettings,
     LlmMapperSettings,
     TermCleanerSettings,
     VectorSearchSettings,
@@ -43,6 +44,7 @@ class Config:
     term_cleaning: TermCleanerSettings
     vector_search: VectorSearchSettings
     llm_mapping: LlmMapperSettings
+    hierarchy: HierarchySettings | None
 
     def __init__(self, filename: str = "config.yaml"):
         """
@@ -64,17 +66,40 @@ class Config:
         self.term_cleaning = build_dataclass(TermCleanerSettings, raw.get("term_cleaning", {}))
         self.vector_search = build_dataclass(VectorSearchSettings, raw.get("vector_search", {}))
         self.llm_mapping = build_dataclass(LlmMapperSettings, raw.get("llm_mapping", {}))
+        hierarchy_raw = raw.get("hierarchy")
+        self.hierarchy = build_dataclass(HierarchySettings, hierarchy_raw) if hierarchy_raw is not None else None
 
     def to_dict(self) -> Dict[str, Any]:
-        return {
+        result: Dict[str, Any] = {
             "verbatim_mapping": serialize_dataclass(self.verbatim_mapping),
             "term_cleaning": serialize_dataclass(self.term_cleaning),
             "vector_search": serialize_dataclass(self.vector_search),
             "llm_mapping": serialize_dataclass(self.llm_mapping),
         }
         if self.hierarchy is not None:
-            result["hierarchy"] = serialize(self.hierarchy)
+            result["hierarchy"] = serialize_dataclass(self.hierarchy)
         return result
+
+
+def load_hierarchy_settings(filename: str = "config.yaml") -> HierarchySettings:
+    """Load hierarchy settings from the top-level config file.
+
+    Args:
+        filename: Path to YAML config (CWD first, then project root).
+    """
+    hierarchy = Config(filename).hierarchy
+    if hierarchy is None:
+        raise ValueError(
+            "Config is missing the optional 'hierarchy' section. "
+            "Add a 'hierarchy' block to run hierarchy workflows."
+        )
+
+    if not hierarchy.prompts.extraction or not hierarchy.prompts.extraction.strip():
+        raise ValueError("hierarchy.prompts.extraction is empty in config.")
+    if not hierarchy.prompts.selection or not hierarchy.prompts.selection.strip():
+        raise ValueError("hierarchy.prompts.selection is empty in config.")
+
+    return cast(HierarchySettings, hierarchy)
 
 
 if __name__ == "__main__":

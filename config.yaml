@@ -40,39 +40,40 @@ term_cleaning:
     **Irrelevant Details**: Remove details unrelated to the clinical term, such as place of service ('initial encounter', 'subsequent encounter'), or origin of the term ('machine translation'). Do not remove information indicating disease severity or remission status.
     
     # Examples
-    
-    Input: {"row_number": 0, "source_term": "Unspecified enthesopathy, lower limb, excluding foot"}
-    Output: {"row_number": 0, "cleaned_term": "enthesopathy, lower limb, excluding foot"}
-      
-    Input: {"row_number": 1, "source_term": "Thyrotoxicosis with or without goiter"}
-    Output: {"row_number": 1, "cleaned_term": "Thyrotoxicosis"}
-      
-    Input: {"row_number": 2, "source_term": "Other specified disorders of amniotic fluid and membranes, second trimester"}
-    Output: {"row_number": 2, "cleaned_term": "disorders of amniotic fluid and membranes, second trimester"}
-    
-    Input: {"row_number": 3, "source_term": "Neoplasm of uncertain or unknown behavior of endocrine gland"}
-    Output: {"row_number": 3, "cleaned_term": "Neoplasm of endocrine gland"}
-    
-    Input: {"row_number": 4, "source_term": "Osteonecrosis due to previous trauma, other site"}
-    Output: {"row_number": 4, "cleaned_term": "Osteonecrosis due to previous trauma"}
-    
-    Input: {"row_number": 5, "source_term": "Unspecified synovitis and tenosynovitis, unspecified shoulder"}
-    Output: {"row_number": 5, "cleaned_term": "synovitis and tenosynovitis, shoulder"}
-    
-    Input: {"row_number": 6, "source_term": "Peptic ulcer without hemorrhage and without perforation"}
-    Output: {"row_number": 6, "cleaned_term": "Peptic ulcer without hemorrhage and without perforation"}
-    
-    Input: {"row_number": 7, "source_term": "Bipolar disorder, mild"}
-    Output: {"row_number": 7, "cleaned_term": "Bipolar disorder, mild"}
-    
-    Input: {"row_number": 8, "source_term": "endosonography (machine translation)"}
-    Output: {"row_number": 8, "cleaned_term": "endosonography"}
-    
-    Input: {"row_number": 9, "source_term": "Moderate persistent asthma, uncomplicated"}
-    Output: {"row_number": 9, "cleaned_term": "Moderate persistent asthma"}
-    
-    Input: {"row_number": 9, "source_term": "Lack of coordination, classified elsewhere"}
-    Output: {"row_number": 9, "cleaned_term": "Lack of coordination}
+
+    Input JSON:
+    {
+      "terms": [
+        {"row_number": 0, "source_term": "Unspecified enthesopathy, lower limb, excluding foot"},
+        {"row_number": 1, "source_term": "Thyrotoxicosis with or without goiter"},
+        {"row_number": 2, "source_term": "Other specified disorders of amniotic fluid and membranes, second trimester"},
+        {"row_number": 3, "source_term": "Neoplasm of uncertain or unknown behavior of endocrine gland"},
+        {"row_number": 4, "source_term": "Osteonecrosis due to previous trauma, other site"},
+        {"row_number": 5, "source_term": "Unspecified synovitis and tenosynovitis, unspecified shoulder"},
+        {"row_number": 6, "source_term": "Peptic ulcer without hemorrhage and without perforation"},
+        {"row_number": 7, "source_term": "Bipolar disorder, mild"},
+        {"row_number": 8, "source_term": "endosonography (machine translation)"},
+        {"row_number": 9, "source_term": "Moderate persistent asthma, uncomplicated"}
+        {"row_number": 9, "source_term": "Lack of coordination, classified elsewhere"},
+      ]
+    }
+
+    Output JSON:
+    {
+      "terms": [
+        {"row_number": 0, "cleaned_term": "enthesopathy, lower limb, excluding foot"},
+        {"row_number": 1, "cleaned_term": "Thyrotoxicosis"},
+        {"row_number": 2, "cleaned_term": "disorders of amniotic fluid and membranes, second trimester"},
+        {"row_number": 3, "cleaned_term": "Neoplasm of endocrine gland"},
+        {"row_number": 4, "cleaned_term": "Osteonecrosis due to previous trauma"},
+        {"row_number": 5, "cleaned_term": "synovitis and tenosynovitis, shoulder"},
+        {"row_number": 6, "cleaned_term": "Peptic ulcer without hemorrhage and without perforation"},
+        {"row_number": 7, "cleaned_term": "Bipolar disorder, mild"},
+        {"row_number": 8, "cleaned_term": "endosonography"},
+        {"row_number": 9, "cleaned_term": "Moderate persistent asthma"}
+        {"row_number": 9, "cleaned_term": "Lack of coordination"},
+      ]
+    }
     
     # Important
     

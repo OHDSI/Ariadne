@@ -120,7 +120,6 @@ class TermCleaner:
         self.system_prompt = settings.system_prompt
         self.cost = 0.0
         self._cost_lock = threading.Lock()
-        self.max_workers = max_workers
 
     def rewrite_and(
         self, term: str, vocabulary_id: str = "", concept_code: str = ""
@@ -146,10 +145,8 @@ class TermCleaner:
         if not terms:
             return []
 
-        # TODO: call Anna's logic
         rows = [{"row_number": i, "source_term": term} for i, term in enumerate(terms)]
         prompt = (
-            "Clean each source term in the provided JSON and return one cleaned term per row_number.\n"
             "Input JSON:\n"
             f"{json.dumps({'terms': rows}, ensure_ascii=False)}"
         )
@@ -213,51 +210,22 @@ class TermCleaner:
             DataFrame with cleaned terms in *output_column*.
         """
         has_vocab = vocabulary_column in df.columns
-        has_code  = code_column in df.columns
+        has_code = code_column in df.columns
 
-        # Deduplicate on (term, vocab, code) when available, else just term.
-        # Two rows with the same term but different concept_code may produce
-        # different results (one excluded from the rewrite, one not).
+        terms = df[term_column].astype(str).tolist()
         if has_vocab and has_code:
-            keys = (
-                df[[term_column, vocabulary_column, code_column]]
-                .dropna(subset=[term_column])
-                .drop_duplicates()
-                .itertuples(index=False, name=None)
-            )
-            keys = list(keys)
-            result_map: dict = {}
-            with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
-                futures = {
-                    executor.submit(self.clean_term, t, str(v), str(c)): (t, v, c)
-                    for t, v, c in keys
-                }
-                for future in as_completed(futures):
-                    t, v, c = futures[future]
-                    result_map[(t, v, c)] = future.result()
-            df[output_column] = df.apply(
-                lambda r: result_map.get(
-                    (r[term_column], r[vocabulary_column], r[code_column]), r[term_column]
-                ),
-                axis=1,
-            )
-        else:
-            unique_terms = list(df[term_column].dropna().unique())
-            term_map: dict = {}
-            with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
-                futures = {executor.submit(self.clean_term, t): t for t in unique_terms}
-                for future in as_completed(futures):
-                    term_map[futures[future]] = future.result()
-            df[output_column] = df[term_column].map(term_map)
+            vocab_values = df[vocabulary_column].fillna("").astype(str).tolist()
+            code_values = df[code_column].fillna("").astype(str).tolist()
+            terms = [
+                self.rewrite_and(term, vocabulary_id, concept_code)
+                for term, vocabulary_id, concept_code in zip(terms, vocab_values, code_values)
+            ]
 
-
-        df[output_column] = df[term_column]
-
-        for start in range(0, df.shape[0], _BATCH_SIZE):
-            batch_df = df.iloc[start:start + _BATCH_SIZE]
-            batch_terms = batch_df[term_column].astype(str).tolist()
+        for start in range(0, len(terms), _BATCH_SIZE):
+            batch_indices = df.index[start : start + _BATCH_SIZE]
+            batch_terms = terms[start : start + _BATCH_SIZE]
             cleaned_batch = self._clean_terms_batch(batch_terms)
-            df.loc[batch_df.index, output_column] = cleaned_batch
+            df.loc[batch_indices, output_column] = cleaned_batch
 
         return df
 

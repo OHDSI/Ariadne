@@ -30,6 +30,23 @@ from typing import Any, Dict, List, Optional, Type, get_type_hints
 from ariadne.utils.utils import resolve_path
 
 
+_DEFAULT_SNOMED_RELATIONSHIPS: list[str] = [
+    "Has asso morph",
+    "Has finding site",
+    "Has causative agent",
+    "Has clinical course",
+    "Has finding context",
+    "Has interpretation",
+    "Has interprets",
+    "Has occurrence",
+    "Has pathology",
+    "Has relat context",
+    "Has severity",
+    "Has temporal context",
+    "Finding asso with",
+]
+
+
 # ── generic helper ────────────────────────────────────────────────────────────
 
 
@@ -182,6 +199,61 @@ class MappingPerConceptClassSettings:
     )
     vector_search: VectorSearchSettings = field(default_factory=VectorSearchSettings)
     llm_mapping: LlmMapperSettings = field(default_factory=LlmMapperSettings)
+
+
+@dataclass
+class ModelsConfig:
+    """LLM / embedding model identifiers for hierarchy extraction."""
+
+    embedding: str = "text-embedding-3-large"
+    extraction: str = "o3"
+    selection: str = "o3"
+
+
+@dataclass
+class RetrievalConfig:
+    """Retrieval-stage hyper-parameters for hierarchy extraction."""
+
+    num_reference_examples: int = 5
+    top_k_per_category: int = 20
+    hnsw_ef_search: int = 200
+
+
+@dataclass
+class ScoringConfig:
+    """Similarity score overrides used by hierarchy ranking."""
+
+    reference_similarity: float = 0.9
+    hierarchy_similarity: float = 0.85
+
+
+@dataclass
+class EvaluationConfig:
+    """Output and gold-standard paths for hierarchy evaluation."""
+
+    attribute_gold_standard_path: str = "./data/gold_standards/hierarchy_attributes_snomed_gs.csv"
+    parent_gold_standard_path: str = "./data/gold_standards/hierarchy_snomed_gs.csv"
+    output_dir: str = "./data/notebook_results"
+
+
+@dataclass
+class PromptsConfig:
+    """Prompt templates for hierarchy extraction and candidate selection."""
+
+    extraction: str = ""
+    selection: str = ""
+
+
+@dataclass
+class HierarchySettings:
+    """Settings block loaded from the optional top-level ``hierarchy`` config key."""
+
+    models: ModelsConfig = field(default_factory=ModelsConfig)
+    retrieval: RetrievalConfig = field(default_factory=RetrievalConfig)
+    scoring: ScoringConfig = field(default_factory=ScoringConfig)
+    evaluation: EvaluationConfig = field(default_factory=EvaluationConfig)
+    prompts: PromptsConfig = field(default_factory=PromptsConfig)
+    snomed_relationships: List[str] = field(default_factory=lambda: list(_DEFAULT_SNOMED_RELATIONSHIPS))
 
 
 

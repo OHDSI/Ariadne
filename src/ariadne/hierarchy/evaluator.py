@@ -15,10 +15,11 @@ from pathlib import Path
 import pandas as pd
 import psycopg
 
-from ariadne.hierarchy.config import HierarchyConfig
 from ariadne.hierarchy.pipeline import AttributeIndex, ContentFilterError, ReferenceIndex, find_attributes_two_stage
 from ariadne.hierarchy.searchers import ATTR_KEY_TO_GS_CATEGORY
 from ariadne.hierarchy.types import split_interprets_pairs
+from ariadne.utils.config import load_hierarchy_settings
+from ariadne.utils.settings import HierarchySettings
 
 logger = logging.getLogger(__name__)
 
@@ -33,7 +34,7 @@ def _process_term(
     concept_name: str,
     attribute_index: AttributeIndex,
     reference_index: ReferenceIndex | None,
-    cfg: HierarchyConfig,
+    cfg: HierarchySettings,
 ) -> dict:
     """Process a single term — used by both sequential and parallel paths."""
     try:
@@ -56,7 +57,7 @@ def process_gold_standard(
     gs_path: str,
     attribute_index: AttributeIndex,
     reference_index: ReferenceIndex | None = None,
-    cfg: HierarchyConfig | None = None,
+    cfg: HierarchySettings | None = None,
     checkpoint_every: int = 5,
     max_workers: int = 1,
 ) -> list[dict]:
@@ -79,15 +80,15 @@ def process_gold_standard(
     Returns:
         List of result dicts (one per term).
     """
-    cfg = cfg or HierarchyConfig.from_yaml()
-    checkpoint_file = Path(cfg.evaluation.output_dir) / "hierarchy_checkpoint.pkl"
+    cfg_local: HierarchySettings = cfg if cfg is not None else load_hierarchy_settings()
+    checkpoint_file = Path(cfg_local.evaluation.output_dir) / "hierarchy_checkpoint.pkl"
 
     gs_df = pd.read_csv(gs_path)
     unique_terms = gs_df[["concept_id_1", "concept_name_1"]].drop_duplicates()
     logger.info("Processing %d terms from %s", len(unique_terms), gs_path)
     logger.info(
         "Models: extraction=%s, selection=%s | workers=%d",
-        cfg.models.extraction, cfg.models.selection, max_workers,
+        cfg_local.models.extraction, cfg_local.models.selection, max_workers,
     )
 
     # --- resume from checkpoint if available ---
@@ -126,7 +127,7 @@ def process_gold_standard(
             )
             result = _process_term(
                 row.concept_id_1, row.concept_name_1,
-                attribute_index, reference_index, cfg,
+                attribute_index, reference_index, cfg_local,
             )
             all_results.append(result)
             processed_ids.add(row.concept_id_1)
@@ -136,7 +137,7 @@ def process_gold_standard(
                             result["cost"]["total_cost"], total_cost)
 
             if len(all_results) % checkpoint_every == 0:
-                _save_checkpoint(checkpoint_file, all_results, processed_ids, cfg)
+                _save_checkpoint(checkpoint_file, all_results, processed_ids, cfg_local)
 
     else:
         # ── Parallel path ──────────────────────────────────────────────────
@@ -153,12 +154,12 @@ def process_gold_standard(
 
         def _worker(concept_id: int, concept_name: str) -> dict:
             # Create thread-local DB connections if needed
-            local_attr = attr_cls(cfg=cfg) if attr_needs_conn else attribute_index
+            local_attr = attr_cls(cfg=cfg_local) if attr_needs_conn else attribute_index
             local_ref = None
             if reference_index is not None:
-                local_ref = ref_cls(cfg=cfg) if ref_needs_conn else reference_index
+                local_ref = ref_cls(cfg=cfg_local) if ref_needs_conn else reference_index
             try:
-                return _process_term(concept_id, concept_name, local_attr, local_ref, cfg)
+                return _process_term(concept_id, concept_name, local_attr, local_ref, cfg_local)
             finally:
                 if attr_needs_conn:
                     local_attr.close()
@@ -188,7 +189,7 @@ def process_gold_standard(
                         total_cost,
                     )
                     if n_done % checkpoint_every == 0:
-                        _save_checkpoint(checkpoint_file, all_results, processed_ids, cfg)
+                        _save_checkpoint(checkpoint_file, all_results, processed_ids, cfg_local)
 
     logger.info(
         "\n%s\nCompleted: %d terms, Total cost: $%.4f",
@@ -207,7 +208,7 @@ def _save_checkpoint(
     checkpoint_file: Path,
     results: list[dict],
     processed_ids: set,
-    cfg: HierarchyConfig,
+    cfg: HierarchySettings,
 ) -> None:
     os.makedirs(cfg.evaluation.output_dir, exist_ok=True)
     with open(checkpoint_file, "wb") as f:
@@ -282,7 +283,7 @@ def _build_prediction_rows(results: list[dict]) -> list[dict]:
 def evaluate_results(
     results: list[dict],
     gs_path: str,
-    cfg: HierarchyConfig | None = None,
+    cfg: HierarchySettings | None = None,
 ) -> pd.DataFrame:
     """Produce a combined evaluation table (full outer join of GS and predictions).
 
@@ -302,8 +303,8 @@ def evaluate_results(
     Returns:
         Combined evaluation DataFrame.
     """
-    cfg = cfg or HierarchyConfig.from_yaml()
-    output_dir = cfg.evaluation.output_dir
+    cfg_local: HierarchySettings = cfg if cfg is not None else load_hierarchy_settings()
+    output_dir = cfg_local.evaluation.output_dir
     # --- build predicted rows ---
     pred_rows = _build_prediction_rows(results)
     pred_df = pd.DataFrame(pred_rows)

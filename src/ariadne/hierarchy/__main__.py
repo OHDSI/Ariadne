@@ -21,6 +21,7 @@ Subcommands::
 import argparse
 import logging
 import sys
+from typing import cast
 
 from dotenv import load_dotenv
 
@@ -34,16 +35,16 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 
 def _cmd_run(args: argparse.Namespace) -> None:
-    from ariadne.hierarchy.config import HierarchyConfig
     from ariadne.hierarchy.evaluator import evaluate_results, process_gold_standard
     from ariadne.hierarchy.searchers import SnomedAttributeSearcher, SnomedReferenceSearcher
+    from ariadne.utils.config import load_hierarchy_settings
+    from ariadne.utils.settings import HierarchySettings
 
     logging.basicConfig(level=logging.INFO, format="%(message)s")
-    cfg = HierarchyConfig.from_yaml(args.config)
+    cfg = cast(HierarchySettings, load_hierarchy_settings(args.config))
 
     if args.extraction_model:
-        from dataclasses import replace
-        cfg = replace(cfg, models=replace(cfg.models, extraction=args.extraction_model))
+        cfg.models.extraction = args.extraction_model
         logger.info("Extraction model overridden to: %s", args.extraction_model)
 
     logger.info("Connecting to PostgreSQL (snomed_attribute / snomed_reference)...")
