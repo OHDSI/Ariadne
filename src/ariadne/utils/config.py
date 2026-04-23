@@ -46,12 +46,13 @@ class Config:
     llm_mapping: LlmMapperSettings
     hierarchy: HierarchySettings | None
 
-    def __init__(self, filename: str = "config.yaml"):
+    def __init__(self, filename: str = "config_condition_mapping.yaml"):
         """
         Initializes the Config object by loading settings from the specified YAML file.
 
         Args:
-            filename: The path to the YAML configuration file. Defaults to 'config.yaml' in the current working
+            filename: The path to the YAML configuration file. Defaults to
+                        'config_condition_mapping.yaml' in the current working
                         directory or project root.
         """
         path = Path.cwd() / filename
@@ -81,7 +82,7 @@ class Config:
         return result
 
 
-def load_hierarchy_settings(filename: str = "config.yaml") -> HierarchySettings:
+def load_hierarchy_settings(filename: str = "config_condition_mapping.yaml") -> HierarchySettings:
     """Load hierarchy settings from the top-level config file.
 
     Args:

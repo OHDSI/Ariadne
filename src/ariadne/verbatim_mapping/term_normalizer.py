@@ -44,7 +44,7 @@ class TermNormalizer:
         1. Convert to lowercase.
         2. Remove possessive "'s" at the end of words.
         3. Remove specific non-informative substrings (e.g., '(disorder)'). The strings are taken from the
-           substrings_to_remove list in the config yaml file
+           substrings_to_remove list in the config_condition_mapping.yaml file
         4. Remove all punctuation.
         5. Tokenize and lemmatize (e.g., "disorders" -> "disorder").
         6. Join tokens into a single string, preserving order.

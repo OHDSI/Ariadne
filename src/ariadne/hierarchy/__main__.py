@@ -91,8 +91,8 @@ def main(argv: list[str] | None = None) -> None:
 
     # -- run ----------------------------------------------------------------
     run_p = subparsers.add_parser("run", help="Run the evaluation pipeline.")
-    run_p.add_argument("--config", default="config.yaml",
-                       help="Path to config.yaml (reads 'hierarchy' section).")
+    run_p.add_argument("--config", default="config_condition_mapping.yaml",
+                       help="Path to config_condition_mapping.yaml (reads 'hierarchy' section).")
     run_p.add_argument("--workers", type=int, default=1,
                        help="Parallel worker threads (default: 1).")
     run_p.add_argument("--extraction-model", default=None, dest="extraction_model",

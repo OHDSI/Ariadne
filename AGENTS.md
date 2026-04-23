@@ -3,13 +3,13 @@
 ## Project Scope
 - Ariadne maps source clinical terms to OMOP standard concepts using a staged pipeline: cleanup -> candidate search -> LLM selection -> evaluation.
 - Core packages are under `src/ariadne/`: `term_cleanup`, `vector_search`, `llm_mapping`, `verbatim_mapping`, `evaluation`, `utils`.
-- Runtime behavior is mostly configuration-driven via `config.yaml` loaded by `Config` in `src/ariadne/utils/config.py`.
+- Runtime behavior is mostly configuration-driven via `config_condition_mapping.yaml` loaded by `Config` in `src/ariadne/utils/config.py`.
 
 ## Architecture and Data Flow
 - Fast exact matching path: `VocabVerbatimTermMapper` (`src/ariadne/verbatim_mapping/vocab_verbatim_term_mapper.py`) normalizes source terms and looks up a local pickle index (`data/verbatim_mapping_index.pkl`).
 - Candidate generation path: `HecateConceptSearcher` (`src/ariadne/vector_search/hecate_concept_searcher.py`) queries external Hecate API and returns ranked candidates (`matched_concept_*`, `match_rank`).
 - Context enrichment: `add_concept_context(...)` in `src/ariadne/llm_mapping/concept_context_retriever.py` joins OMOP DB metadata (parents/children/synonyms) onto candidate rows.
-- Final selection: `LlmMapper.map_terms(...)` (`src/ariadne/llm_mapping/llm_mapper.py`) runs multi-step prompts from `config.yaml` and outputs `mapped_concept_id`, `mapped_concept_name`, `mapped_rationale`.
+- Final selection: `LlmMapper.map_terms(...)` (`src/ariadne/llm_mapping/llm_mapper.py`) runs multi-step prompts from `config_condition_mapping.yaml` and outputs `mapped_concept_id`, `mapped_concept_name`, `mapped_rationale`.
 - Evaluation: `evaluate(...)` and `evaluate_concept_search(...)` in `src/ariadne/evaluation/` compare outputs against `data/gold_standards/exact_matching_gs.csv`.
 
 ## Critical Runtime Dependencies

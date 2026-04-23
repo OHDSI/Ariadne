@@ -1,6 +1,6 @@
 verbatim_mapping:
-  terms_folder: data/terms
-  verbatim_mapping_index_file: data/verbatim_mapping_index.pkl
+  terms_folder: data/terms_condition_mapping
+  verbatim_mapping_index_file: data/verbatim_condition_mapping_index.pkl
   download_batch_size: 100000
   log_folder: logs
   substrings_to_remove:
@@ -413,3 +413,4 @@ hierarchy:
           },
           "reasoning": "Brief explanation"
       }
+

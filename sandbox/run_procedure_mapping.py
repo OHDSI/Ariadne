@@ -50,7 +50,7 @@ def main() -> None:
         verbatim_matches = pd.read_csv(verbatim_match_file)
         print("Loaded verbatim matches from file.")
     else:
-        download_terms(settings=config.verbatim_mapping) # Downloads the terms as Parquet files to the folder specified in config.yaml.
+        download_terms(settings=config.verbatim_mapping)
         verbatim_mapper = VocabVerbatimTermMapper(settings=config.verbatim_mapping) # Will construct the vocabulary index if needed
         verbatim_matches = verbatim_mapper.map_terms(cleaned_terms)
         verbatim_matches.to_csv(verbatim_match_file, index=False)
