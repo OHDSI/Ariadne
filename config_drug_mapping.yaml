@@ -91,7 +91,6 @@ drug_structuring:
       - Patches, drug implants and other forms that release molecules over a period of time (even extended release tablets or capsules) may also be stored in numerator/denominator form (e.g. X MG / Y HOUR).
       - For drugs that are administered in a form of oral liquid (solution, suspension, syrup), denominator value of 5 ML should be kept only when we are certain that the dosage is not given "per tbsp."; if 5 ML is not an actual fixed administered dose (e.g., a sachet or vial), it should be treated as concentration (denominator_value = NULL).
       - Similarly, if you do not have information about actual volume (vial or bottle), do not put 1 ml in denominator. Instead, set denominator_value = NULL and denominator_unit = 'mL'. All drugs that have denominator_value will end up being Quantified Clinical/Branded Drug.
-      - Box size equal to 1 should be simply stored as NULL.
       - Drugs cannot have differing information for denominators among different ingredients, skip dosage for some ingredients or have same ingredient with different dosages
       - Strength information must be explicitly linked to the extracted ingredient. If there are multiple ingredients and multiple strength values, only extract strength values that can be confidently associated with the specific ingredient based on proximity or clear labeling in the string. If no strength information can be confidently linked to the extracted ingredient, return null for these fields.
     
