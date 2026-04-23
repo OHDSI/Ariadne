@@ -72,6 +72,9 @@ class Config:
             "vector_search": serialize_dataclass(self.vector_search),
             "llm_mapping": serialize_dataclass(self.llm_mapping),
         }
+        if self.hierarchy is not None:
+            result["hierarchy"] = serialize(self.hierarchy)
+        return result
 
 
 if __name__ == "__main__":

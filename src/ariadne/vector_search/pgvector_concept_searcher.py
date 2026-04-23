@@ -16,7 +16,9 @@
 
 import os
 import pickle
-from typing import List, Dict, Optional
+import time
+from pathlib import Path
+from typing import List, Dict, Optional, Set
 
 import numpy as np
 import pandas as pd
@@ -28,12 +30,10 @@ from ariadne.utils.utils import get_environment_variable
 from ariadne.utils.gen_ai_api import get_embedding_vectors
 from ariadne.vector_search.abstract_concept_searcher import AbstractConceptSearcher
 
-
 load_dotenv()
 
 
 class PgvectorConceptSearcher(AbstractConceptSearcher):
-
     """
     A concept searcher that uses pgvector in a PostgreSQL database to find concepts based on embedding vectors.
     """
@@ -69,7 +69,7 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
             self.concept_classes_to_ignore = None
             self.vocabularies_to_ignore = None
 
-        connection = psycopg.connect(os.getenv("vocab_connection_string").replace("+psycopg", ""))
+        connection = psycopg.connect(get_environment_variable("VOCAB_CONNECTION_STRING").replace("+psycopg", ""))
         register_vector(connection)
         with connection.cursor() as cur:
             cur.execute("SET hnsw.ef_search = 1000")
@@ -215,15 +215,16 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
         return df
 
     def search_terms(
-        self,
-        df: pd.DataFrame,
-        term_column: str,
-        matched_concept_id_column: str = "matched_concept_id",
-        matched_concept_name_column: str = "matched_concept_name",
-        match_score_column: str = "match_score",
-        match_rank_column: str = "match_rank",
-        limit: int = 25,
-    ) -> pd.DataFrame:
+            self,
+            df: pd.DataFrame,
+            term_column: str,
+            matched_concept_id_column: str = "matched_concept_id",
+            matched_concept_name_column: str = "matched_concept_name",
+            match_score_column: str = "match_score",
+            match_rank_column: str = "match_rank",
+            limit: int = 25,
+            return_embeddings: bool = False,
+    ):
         """
         Searches for concepts matching terms in a DataFrame column.
 
@@ -235,23 +236,34 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
             match_score_column: Name of the column to store match scores.
             match_rank_column: Name of the column to store match ranks.
             limit: The maximum number of results to return for each term.
+            return_embeddings: When True, also return a ``dict[term -> np.ndarray]``
+                mapping each unique source term to its embedding vector.  The
+                caller can pass these vectors to
+                ``find_attributes_two_stage(..., precomputed_embedding=...)`` to
+                skip the duplicate reference-retrieval embedding call in Step 2.
 
         Returns:
-            A DataFrame containing the same columns as the input dataframe plus the matching concepts for each term. For
-            each term in the input dataframe, multiple rows will be returned corresponding to each matching concept.
+            When *return_embeddings* is False (default): a DataFrame containing
+            the same columns as the input dataframe plus the matching concepts
+            for each term (multiple rows per input term).
 
+            When *return_embeddings* is True: a ``(results_df, term_to_vector)``
+            tuple where ``term_to_vector`` is ``dict[str, np.ndarray]``.
         """
 
-        vectors_with_usage = get_embedding_vectors(df[term_column].tolist())
+        terms = df[term_column].tolist()
+        vectors_with_usage = get_embedding_vectors(terms)
         self.cost = self.cost + vectors_with_usage["usage"]["total_cost_usd"]
         vectors = vectors_with_usage["embeddings"]
 
         df = df.reset_index(drop=True)
         all_results = []
+        term_to_vector: dict[str, np.ndarray] = {}
         for index, row in df.iterrows():
             term = row[term_column]
-            # print(f"Processing term '{term}'")
             vector = vectors[index]
+            if return_embeddings:
+                term_to_vector[term] = vector
             results = self._search_pgvector(vector, limit=limit)
             results = pd.DataFrame(
                 results,
@@ -271,6 +283,8 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
             all_results.append(results)
 
         all_results = pd.concat(all_results)
+        if return_embeddings:
+            return all_results, term_to_vector
         return all_results
 
     def get_total_cost(self) -> float:

@@ -3,10 +3,14 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 
-**Ariadne** is a Python toolkit for mapping source terminologies to standard concepts in the OHDSI Vocabulary. 
+**Ariadne** is a Python toolkit for two-step pipeline to harmonize source vocabularies into the OHDSI Standardized Vocabularies in two steps:
+- mapping source terminologies to standard concepts 
+- finding parents for umapped concepts in standard hierarchy 
+As of now, works with Condition domain excluding special cases (history of, allergies, surveys, etc.) following [documentation for mapping rules and assumptions](https://ohdsiorg.sharepoint.com/:w:/s/Workgroup-CommonDataModel/IQCFVrVoVAJcTZqqgi_iDiPeAVhU2fVplbRK-Y-vboGgbh0?e=822ZoC).
 
 ## Features
 
+* **Clean-up:** normalizes concept names per mapping rules, removing non-essential information.
 * **Verbatim term mapping:** maps terms that (almost) exactly match standard concepts. Using term normalization techniques like lowercasing, punctuation removal, and word stemming.
 * **Embedding vector search:** leverages embedding language models to find semantically similar standard concepts for source terms.
 * **Exact term mapping:** using reasoning LLMs to find exact matches in the vocabulary.

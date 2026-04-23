@@ -1,0 +1,94 @@
+"""SNOMED CT attribute extraction pipeline (hierarchy sub-package).
+
+Public API re-exports for convenient imports::
+
+    from ariadne.hierarchy import (
+        HierarchyConfig,
+        SnomedAttributeSearcher,
+        SnomedReferenceSearcher,
+        find_attributes_two_stage,
+        process_gold_standard,
+        evaluate_results,
+    )
+"""
+
+from ariadne.hierarchy.config import (
+    EvaluationConfig,
+    HierarchyConfig,
+    ModelsConfig,
+    PromptsConfig,
+    RetrievalConfig,
+    ScoringConfig,
+)
+from ariadne.hierarchy.classifier import (
+    classify_delta,
+    classification_summary,
+    parse_classification_results,
+    pre_classification_checks,
+    resolve_parent_names,
+)
+from ariadne.hierarchy.evaluator import evaluate_results, process_gold_standard
+from ariadne.hierarchy.index_builder import build as build_indexes, check_populated
+from ariadne.hierarchy.pipeline import ContentFilterError, find_attributes_two_stage
+from ariadne.hierarchy.rf2_exporter import export_to_rf2
+from ariadne.hierarchy.searchers import (
+    ATTR_KEY_TO_GS_CATEGORY,
+    ATTR_KEY_TO_SNOMED_CATEGORY,
+    SNOMED_CATEGORY_TO_ATTR_KEY,
+    AbstractSnomedSearcher,
+    SnomedAttributeSearcher,
+    SnomedReferenceSearcher,
+)
+from ariadne.hierarchy.types import (
+    ExtractionResult,
+    INTERPRETS_PAIRED_KEYS,
+    LlmResult,
+    ReferenceRetrievalResult,
+    ReferenceSearchResult,
+    SearchBatchResult,
+    SearchResult,
+)
+
+
+__all__ = [
+    # Config
+    "HierarchyConfig",
+    "ModelsConfig",
+    "RetrievalConfig",
+    "ScoringConfig",
+    "EvaluationConfig",
+    "PromptsConfig",
+    # Searchers
+    "AbstractSnomedSearcher",
+    "SnomedAttributeSearcher",
+    "SnomedReferenceSearcher",
+    # Mappings
+    "ATTR_KEY_TO_SNOMED_CATEGORY",
+    "ATTR_KEY_TO_GS_CATEGORY",
+    "SNOMED_CATEGORY_TO_ATTR_KEY",
+    # Types
+    "LlmResult",
+    "ExtractionResult",
+    "SearchResult",
+    "SearchBatchResult",
+    "ReferenceSearchResult",
+    "ReferenceRetrievalResult",
+    "INTERPRETS_PAIRED_KEYS",
+    # Pipeline
+    "ContentFilterError",
+    "find_attributes_two_stage",
+    # Evaluation
+    "process_gold_standard",
+    "evaluate_results",
+    # Index builder
+    "build_indexes",
+    "check_populated",
+    # RF2 exporter
+    "export_to_rf2",
+    # Classifier
+    "classify_delta",
+    "parse_classification_results",
+    "pre_classification_checks",
+    "resolve_parent_names",
+    "classification_summary",
+]

@@ -15,6 +15,7 @@ nav:
   - Home: index.md
   - Notebooks:
       - Exact mapping: notebooks/01_evaluate_exact_mapping.ipynb
+      - Attribute evaluation: notebooks/02_evaluate_attributes.ipynb
 
 extra_css:
   - stylesheets/extra.css
