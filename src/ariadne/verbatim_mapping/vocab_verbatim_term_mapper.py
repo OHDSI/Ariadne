@@ -15,14 +15,13 @@
 # limitations under the License.
 
 
-import multiprocessing
 import os
 import pickle
 
 import pandas as pd
-from typing import Set, List, Optional
+from typing import List
 
-from ariadne.utils.config import Config
+from ariadne.utils.settings import VerbatimMappingSettings
 from ariadne.verbatim_mapping.term_normalizer import TermNormalizer
 
 
@@ -32,58 +31,67 @@ class VocabVerbatimTermMapper:
     The index is created from vocabulary term files stored in Parquet format, downloaded using the download_terms
     module.
 
-    1. If an index file exists at the verbatim_mapping_index_file path specified in the config, it is loaded.
-    2. If not, the index is created by processing all Parquet files in the terms folder specified in the config.
+    1. If an index file exists at the verbatim_mapping_index_file path specified in the settings, it is loaded.
+    2. If not, the index is created by processing all Parquet files in the terms folder specified in the settings.
     """
 
-    def __init__(self, config: Config = Config()):
-        self.term_normalizer = TermNormalizer(config)
-        if os.path.exists(config.system.verbatim_mapping_index_file):
-            with open(config.system.verbatim_mapping_index_file, "rb") as handle:
+    def __init__(self, settings: VerbatimMappingSettings):
+        self.term_normalizer = TermNormalizer(settings.substrings_to_remove)
+        self.preferred_vocabulary_ids = settings.preferred_vocabulary_ids
+        self._vocabulary_rank = {
+            vocabulary_id: idx for idx, vocabulary_id in enumerate(self.preferred_vocabulary_ids)
+        }
+        if os.path.exists(settings.verbatim_mapping_index_file):
+            with open(settings.verbatim_mapping_index_file, "rb") as handle:
                 self.index = pickle.load(handle)
-            print(f"Index loaded from {config.system.verbatim_mapping_index_file}")
+            print(f"Index loaded from {settings.verbatim_mapping_index_file}")
         else:
-            self._create_index(config)
+            self._create_index(settings)
 
-    def _create_index(self, config: Config):
+    def _create_index(self, settings: VerbatimMappingSettings):
         print("Creating index")
-        if not os.path.exists(config.system.terms_folder):
+        if not os.path.exists(settings.terms_folder):
             raise FileNotFoundError(
-                f"Terms folder {config.system.terms_folder} does not exist. Make sure to run the download_terms module first."
+                f"Terms folder {settings.terms_folder} does not exist. Make sure to run the download_terms module first."
             )
         all_files = [
-            os.path.join(config.system.terms_folder, f)
-            for f in os.listdir(config.system.terms_folder)
+            os.path.join(settings.terms_folder, f)
+            for f in os.listdir(settings.terms_folder)
             if f.endswith(".parquet")
         ]
-        pool = multiprocessing.get_context("spawn").Pool(processes=config.system.max_cores)
         index_data = {}
         for file in all_files:
             print(f"Processing file: {file}")
             df = pd.read_parquet(file)
-            normalized_terms = pool.map(self.term_normalizer.normalize_term, df["term"].tolist())
-            for norm_term, concept_id, concept_name in zip(
-                normalized_terms, df["concept_id"].tolist(), df["concept_name"].tolist()
+            normalized_terms = self.term_normalizer.normalize_terms(df["term"].tolist())
+            for norm_term, concept_id, concept_name, vocabulary_id in zip(
+                normalized_terms,
+                df["concept_id"].tolist(),
+                df["concept_name"].tolist(),
+                df["vocabulary_id"].tolist(),
             ):
-                concept = (int(concept_id), concept_name)
+                concept = {
+                    "concept_id": int(concept_id),
+                    "concept_name": concept_name,
+                    "vocabulary_id": vocabulary_id,
+                }
                 if norm_term in index_data:
                     existing = index_data[norm_term]
                     if isinstance(existing, list):
-                        if concept_id not in [c[0] for c in existing]:
+                        if concept["concept_id"] not in [c["concept_id"] for c in existing]:
                             existing.append(concept)
                     else:
-                        if concept_id != existing[0]:
+                        if concept["concept_id"] != existing["concept_id"]:
                             index_data[norm_term] = [existing, concept]
                 else:
                     index_data[norm_term] = concept
 
-        pool.close()
         self.index = index_data
 
         try:
-            with open(config.system.verbatim_mapping_index_file, "wb") as f:
+            with open(settings.verbatim_mapping_index_file, "wb") as f:
                 pickle.dump(index_data, f)
-            print(f"Index saved to {config.system.verbatim_mapping_index_file}")
+            print(f"Index saved to {settings.verbatim_mapping_index_file}")
         except OSError as e:
             print(f"Error saving index: {e}")
 
@@ -100,10 +108,17 @@ class VocabVerbatimTermMapper:
         normalized_source = self.term_normalizer.normalize_term(source_term)
         if normalized_source in self.index:
             concepts = self.index[normalized_source]
-            if isinstance(concepts, list):
-                return concepts
-            else:
-                return [concepts]
+            candidates = concepts if isinstance(concepts, list) else [concepts]
+
+            if self.preferred_vocabulary_ids and len(candidates) > 1:
+                max_rank = len(self.preferred_vocabulary_ids)
+                preferred = min(
+                    candidates,
+                    key=lambda c: self._vocabulary_rank.get(c["vocabulary_id"], max_rank),
+                )
+                return [(preferred["concept_id"], preferred["concept_name"])]
+
+            return [(c["concept_id"], c["concept_name"]) for c in candidates]
         return []
 
     def map_terms(
@@ -125,32 +140,21 @@ class VocabVerbatimTermMapper:
         Returns:
             A DataFrame with the original columns and their mapped concept IDs and names.
         """
+        def _pick_first_match(term: str) -> pd.Series:
+            concepts = self.map_term(term)
+            return pd.Series(concepts[0] if concepts else (-1, ""))
+
         source_terms[[mapped_concept_id_column, mapped_concept_name_column]] = source_terms[term_column].apply(
-            lambda term: pd.Series(self.map_term(term)[0] if self.map_term(term) else (-1, ""))
+            _pick_first_match
         )
         return source_terms
 
-        # mapped_data = []
-        # for term in source_terms[term_column]:
-        #     concepts = self.map_term(term)
-        #     if concepts:
-        #         for concept in concepts:
-        #             mapped_data.append({
-        #                 term_column: term,
-        #                 matched_concept_id_column: concept[0],
-        #                 matched_concept_name_column: concept[1]
-        #             })
-        #     else:
-        #         mapped_data.append({
-        #             term_column: term,
-        #             matched_concept_id_column: -1,
-        #             matched_concept_name_column: ""
-        #         })
-        # return pd.DataFrame(mapped_data)
-
 
 if __name__ == "__main__":
-    mapper = VocabVerbatimTermMapper()
+    from ariadne.utils.config import Config
+
+    config = Config()
+    mapper = VocabVerbatimTermMapper(settings=config.verbatim_mapping)
 
     concepts = mapper.map_term("Acute myocardial infarction")
     for concept in concepts:

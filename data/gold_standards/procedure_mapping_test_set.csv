@@ -1,0 +1,292 @@
+source_data_identifier,source_code,original_source_term,source_term
+1,28521000,ΒΙΟΨΙΑ ΚΑΤΕΥΘΥΝΟΜΕΝΗ ΜΕ ΑΞΟΝΙΚΟ ΤΟΜΟΓΡΑΦΟ ,CT-GUIDED BIOPSY
+1,30000095,ΣΥΝ.ΑΚΤΘ.ΔΙΑΜ.ΕΝΤΣ.ΣΥΝΘΕΤΗ,INTENSITY-MODULATED RADIATION THERAPY (IMRT)
+1,40000125,"ΑΞ.ΤΟΜ. (>64 ΤΟΜΕΣ) ΑΝΩ ΚΟΙΛΙΑ (ΗΠΑΡ,ΧΟΛΕΟΦ,ΠΑΓΚΡΕΑΣ,ΣΠΛΗΝΑΣ) ","CT SCAN (>64 SLICES) UPPER ABDOMEN (HEPAR, HOLEOF, PANCREAS, SPLEEN)"
+1,40000201,ΑΚΤΙΝΟΓΡΑΦΙΑ ΑΥΧΕΝΙΚΗΣ ΜΟΙΡΑΣ ΣΠΟΝΔΥΛΙΚΗΣ ΣΤΗΛΗΣ,X-RAY OF CERVICAL SPINE
+1,40000825,ΑΚΤΙΝΟΓΡΑΦΙΑ ΚΑΤ ΩΜΟΝ ΑΡΘΡΩΣΗΣ,X-RAY OF THE SHOULDER JOINT
+1,40000840,ΑΚΤΙΝΟΓΡΑΦΙΑ ΑΚΡΑΣ ΧΕΙΡΟΣ,X-RAY OF THE EDGE OF THE HAND
+1,40000885,ΑΚΤΙΝΟΓΡΑΦΙΑ ΠΗΧΙΟΚΑΡΠΙΚΗ,X-RAY OF WRIST
+1,40001000,ΜΑΣΤΟΓΡΑΦΙΑ (ΑΚΤ/ΦΙΑ ΕΚΑΣΤΟΥ ΜΑΣΤΟΥ) F+P,MAMMOGRAPHY (EACH BREAST X-RAY) F+P
+1,40001210,ΕΝΔΟΚΟΛΠΙΚΟ ΥΠΕΡΗΧΟΓΡΑΦΗΜΑ,TRANSVAGINAL ULTRASOUND
+1,40001220,ΚΟΛΠΟΣΚΟΠΗΣΗ,COLPOSCOPY
+1,40002205,ΣΥΝΕΔΡΙΑ ΜΕ ΓΡΑΜ.ΕΠΙΤΑΧ ΠΟΛ/ΛΩΝ ΠΕΔΙΩΝ,SESSION WITH MEDICAL LINEAR ACCELERATORS (LINACS)
+1,40003900,ΑΚΤΙΝΟΓΡΑΦΙΑ ΛΕΚΑΝΗΣ ΚΑΙ ΚΑΤ'ΙΣΧΙΟΝ ΑΡΘΡΩΣΕΩΝ,X-RAY OF PELVIS AND PELVIC JOINT
+1,40004400,ΑΚΤΙΝΟΓΡΑΦΙΑ ΤΗΣ ΚΑΤΑ ΓΟΝΥ ΑΡΘΡΩΣΕΩΣ,X-RAY OF KNEE JOINT
+1,40004500,ΠΥΕΛΟΓΡΑΦΙΑ (ΑΝΕΥ ΤΟΥ ΦΑΡΜΑΚΟΥ) ,PYELOGRAPHY (WITHOUT MEDICATION)
+1,40009850,ΥΠΕΡΗΧΟΓΡΑΦΗΜΑ ΚΥΗΣΕΩΣ Α' ΤΡΙΜΗΝΟΥ (ΑΥΧΕΝΙΚΗ ΔΙΑΦΑΝΕΙΑ-ΕΛΕΓΧΟΣ ΖΩΤΙΚΟΤΗΤΑΣ),1ST TRIMESTER PREGNANCY ULTRASOUND (CERVICAL TRANSPARENCY - VITALITY CHECK)
+1,40009875,ΥΠΕΡΗΧΟΓΡΑΦΗΜΑ ΕΜΒΡΥΟΥ,FETUS ULTRASOUND
+1,40400100,ΑΞΟΝΙΚΗ ΤΟΜΟΓΡΑΦΙΑ ΧΩΡΙΣΤΑ ΓΙΑ ΚΑΘΕ ΤΜΗΜΑ ΤΟΥ ΣΩΜΑΤΟΣ,CT SEPARATE EACH PART OF THE BODY
+1,40400140,"ΑΞΟΝ. ΤΟΜΟΓΡΑΦΙΑ ΑΝΩ ΚΟΙΛΙΑΣ(ΗΠΑΡ, ΧΟΛΟΦΟΡΟ ΣΥΣΤΗΜΑ , ΠΑΓΚΡΕΑΣ, ΣΠΛΗΝΑΣ)","CT SCAN OF UPPER ABDOMEN (LIVER, BILIARY TRACT)"
+1,40400160,ΑΞΟΝ. ΤΟΜΟΓΡΑΦΙΑ ΚΑΤΩ ΚΟΙΛΙΑ,CT SCAN OF LOWER ABDOMEN
+1,40701500,ΨΗΦΙΑΚΗ ΑΓΓΕΙΟΓΡΑΦΙΑ - ΝΕΦΡΟΙΚΟΙΛΙΑΚΗ ΑΟΡΤΗ-ΔΕΞΙΑ,DIGITAL ANGIOGRAPHY - RENAL ABDOMINAL AORTA-RIGHT
+1,80005120,ΠΡΟΚΛΗΣΗ ΒΛΑΒΗΣ ΜΕ ΕΙΔΙΚΟ ΜΗΧΑΝΗΜΑ ΚΡΥΟΠΗΞΙΑΣ,Inducing damage with a special cryosurgery machine
+1,90001510,ΔΙΕΝΕΡΓΕΙΑ ΔΥΝΑΜΙΚΗΣ ΗΧΟΚΑΡΔΙΟΓΡΑΦΙΑΣ,STRESS ECHO PROCEDURE
+1,90002100,ΔΟΚΙΜΑΣΙΑ ΚΟΠΩΣΕΩΣ ΕΠΙ ΚΥΛΙΟΜΕΝΟΥ ΤΑΠΗΤΟΣ,TREADMILL STRESS TEST
+1,90002301,"ΥΠΕΡΗΧ/ΚΗ ΜΕΛΕΤΗ M-MODE ΠΕΡΙΟΡΙΣΜΕΝΗ (ΔΙΑΘΩΡΑΚΙΚΗ,ΠΡΑΓΜΑΤΙΚΟΥ ΧΡΟΝΟΥ,2-ΔΙΑΣΤΑΣΕΩΝ)","M-MODE, 2D PULSE AND CONTINUOUS DOPPLER, M-MODE ULTRASOUND STUDY LIMITED"
+1,90002500,ΥΠΕΡ/ΜΑ ΚΑΡΔΙΑΣ ΜΕ ΕΓΧΡΩΜΟ TRIPLEX,HEART ULTRASOUND WITH COLOR TRIPLEX
+1,110023900,ΗΛΕΚΤΡΟΦΟΡΗΣΗ ΠΡΩΤΕΪΝΩΝ ΟΡΟΥ,SERUM PROTEIN ELECTROPHORESIS
+1,110030200,ΔΟΚΙΜ. ΕΛΕΓΧ.ΘΡΟΜΒΟΦΥΛΙΑΣ ,PCR-FV-LEIDEN THROMBOPHILIA TEST
+1,110208400,ΝΕΦΕΛΟΜΕΤΡΙΚΟΣ ΠΡΟΣΔΙΟΡΙΣΜΟΣ ΤΟΥ ΡΕΥΜΑΤΟΕΙΔΟΥΣ ΠΑΡΑΓΟΝΤΑ,RF NEPHELOMETRY
+1,110610070,ΣΠΙΝΘΗΡΟΓΡΑΦΗΜΑ ΜΥΟΚΑΡΔΙΟΥ ΣΕ ΚΟΠΩΣΗ,FATIGUE MYOCARDIAL SCINTIGRAM
+1,110610122,Σπινθηρογράφημα Νεφρών στατικό με ραδιενεργό νεφρόγραμμα,SCINTIOGRAM KIDNEY DMSA
+1,110610160,Σπινθ. οστών και αρθρώσεων,BONE SCINTIGRAPHY
+1,120000100,ΗΕΓ - ΗΛΕΚΤΡΟΕΓΚΕΦΑΛΟΓΡΑΦΙΑ,EEG
+1,140001200,"ΚΙΝΗΣΙΟΘΕΡΑΠΕΙΑ, ΧΕΙΡΟΜΑΛΑΞΗ ","PHYSIOTHERAPY, HAND MASSAGE"
+1,160000010,ΤΟΜΟΓΡΑΦΙΑ ΟΠΤΙΚΗΣ ΣΥΝΟΧΗΣ,OPTICAL COHERENCE TOMOGRAPHY (OCT)
+1,160100900,ΟΡΘΟΠΤΙΚΗ ΜΕΛΕΤΗ-ΟΠΤΙΚΗ ΟΞΥΤΗΤΑ,ORTHOPTIC STUDY-OPTICAL ACUITY
+1,170001800,ΑΝΑΠΝΕΥΣΤΙΚΗ ΦΥΣΙΟΘΕΡΑΠΕΙΑ ΚΑΤΑ ΣΥΝΕΔΡΙΑ ,RESPIRATORY PHYSICAL THERAPY PER SESSION
+1,170001900,ΑΠΛΗ ΣΠΙΡΟΜΕΤΡΗΣΗ ΑΝΑΠΝΕΥΣΤΙΚΕΣ ΔΟΚΙΜΑΣΙΕΣ,SIMPLE SPIROMETRY BREATHING TESTS
+1,170001901,ΚΑΘΟΡΙΣΜΟΣ ΥΠΟΛΕΙΠΟΜΕΝΟΥ ΑΕΡΟΣ ΑΝΑΠΝΕΥΣΤΙΚΕΣ ΔΟΚΙΜΑΣΙΕΣ,DETERMINATION OF RESIDUAL AIR BREATHING TESTS
+1,170001910,ΑΠΛΗ ΣΠΕΙΡΟΜΕΤΡΗΣΗ,SIMPLE SPIROMETRY
+1,180006700,ΑΦΑΙΡΕΣΗ ΑΘΗΡΩΜΑΤΩΔΩΝ ΚΥΣΤΕΩΝ,REMOVAL OF EPIDERMOID CYST
+1,190000500,ΕΞΕΤΑΣΗ ΑΚΟΥΣΤΙΚΗΣ ΙΚΑΝΟΤΗΤΑΣ ΔΙΑ ΤΟΝΟΔΟΤΩΝ,PURE TONE AUDIOMETRY
+1,190012900,ΔΙΟΙΣΟΦΑΓΙΟΣ ΥΠΕΡΗΧ/ΚΗ ΜΕΛΕΤΗ ΠΛΗΡΗΣ,TRANSESOPHAGEAL ECHOCARDIOGRAM
+1,190013200,ΔΩΔΕΚΑΔΑΚΤΥΛΟΣΚΟΠΗΣΗ (12ΔΑΚΤΥΛΟΣΚΟΠΗΣΗ),DUODENOSCOPY
+1,190101400,ΤΥΜΠΑΝΟΓΡΑΜΜΑ,TYMPANOGRAM
+1,200001500,ΒΙΟΨΙΑ ΔΙΑ ΛΕΠΤΗΣ ΒΕΛΟΝΗΣ,FINE NEEDLE ASPIRATION (FNA)
+1,240000900,TRIPLEX ΚΑΡΩΤΙΔΩΝ ΥΠΕΡΗΧΗΤΙΚΗ ΑΡΤΗΡΙΟΓΡΑΦΙΑ,TRIPLEX CAROTIDS ULTRASONIC ARTIEROGRAPHY
+1,285101220,MRI Ο.Μ.Σ.Σ.,MRI LUMBAR SPINE
+1,290000017,ΑΙΜΟΔΙΑΔΙΗΘΗΣΗ (HDF) ΜΕ ONLINE παραγωγή υγρού υποκατάστασης,HEMODIAFILTRATION (HDF) WITH ONLINE PRODUCTION OF FLUID REPLACEMENT
+1,300001600,ΑΦΑΙΡΕΣΗ ΡΑΜΜΑΤΩΝ,SUTURE REMOVAL
+1,500000084,ΥΠΕΡ/ΜΑ U/S ΜΑΣΤΟΥ,ULTRASOUND OF BREAST
+1,550000019,ΠΡΟΛΗΠΤΙΚΗ ΤΕΣΤ ΠΑΠ,PREVENTIVE PAP TEST
+1,H08Χ,Λαπαρασκοπική χολοκυστεκτομή χωρίς κλειστό χοληδόχο πόρο χωρίς καταστροφικές συνέπειες,Laparoscopic cholecystectomy without closed bile duct without complications
+1,Κ15Χ,Διαδερμικές επεμβάσεις στεφανιαίων αγγείων χωρίς ΟΕΜ,PERCUTANEOUS CORONARY INTERVENTIONS WITHOUT AMI (ACUTE MYOCARDIAL INFARCTION)
+1,Π10Χ,"Επεμβάσεις κήλης (βουβωνοκήλης, ομφαλοκήλης κτλ) χωρίς  συνυπάρχουσες παθήσεις","HERNIA OPERATIONS (INGUINAL HERNIA, UMBILICAL HERNIA, ETC.) WITHOUT COEXISTING DISEASES"
+1,Υ07Χ,Διουρηθρικές επεμβάσεις εκτός της προστατεκτομής χωρίς  συνυπάρχουσες παθήσεις,Transurethral procedures other than prostatectomy without comorbidities
+2,382101,RADIOL.OND. SINUS                         1 R,Radiol. exam sinus 1 view
+2,382540,ORTHOPANTOMOGRAM 'PANORAMIXOPNAME',Orthopantomogram 'panoramix recording/intake/admission'
+2,382942,CT HALS                                   M C,CT neck with contrast
+2,382990,MRI HALS,MRI neck
+2,383001,RADIOL.OND. WERVELKOLOM - TOTAAL          1 R,Radiol. exam spine - total 1 view
+2,383141,CT WERVELKOLOM - CERVICAAL                Z C,CT spine - cervical w/o contrast
+2,383402,RADIOL.OND. SACRUM-OS COCCYGIS-S.I.GEWRICHTEN         2 R,Radiol. exam sacrum-coccyx-SI-joints 2 views
+2,385001,RADIOL.OND. THORAX                        1 R,Radiol. exam chest 1 view
+2,385002,RADIOL.OND. THORAX                        2 R,Radiol. exam chest 2 views
+2,385442,CT ART. EN VEN.PULMONALES                 M C,CT pulmonary arteries and veins with contrast
+2,386802,RADIOL.OND. RIB-STERNUM                   2 R,Radiol. exam rib-sternum 2 views
+2,387000,DOORLICHTING ZONDER OPNAME BUIK,Fluoroscopy without recording/intake/admission abdomen
+2,387230,INBRENGEN VOEDINGS- OF LAVAGESONDE MAAG,Insertion nutrition- or lavage tube stomach
+2,387611,ENDORETROGRADE CHOLANGIOGRAFIE,Endoretrograde cholangiography
+2,387677,ECHOGELEIDE ALS ASS.BIJ PUNCTIE-BIOPSIE LEVER EN GALWEGEN,Ultrasound-guided as assistance for puncture-biopsy liver and biliary tract
+2,387811,ENDORETROGRADE PANCREATOGRAFIE,Endoretrograde pancreatography
+2,388042,CT ONDERBUIK                              M C,CT lower abdomen with contrast
+2,388370,ECHO BLAAS,Ultrasound bladder
+2,388922,ANGIO AORTA ABDOMINALIS,Angiography abdominal aorta
+2,389141,CT BEKKEN                                 Z C,CT pelvis w/o contrast
+2,932540,ORTHOPANTOMOGRAM,Orthopantomogram
+2,330390A,IMPLANTATIE PERMANENTE ELEKTRODE IN FORAMEN SACRALE,Implantation permanent electrode in sacral foramen
+2,331294A,GLAS.LICHAAM- PARS PLANA VITRECTOMIE,Vitreous body - pars plana vitrectomy
+2,332216B,LARYNX      - DIRECTE THER. LARYNGOSCOPIE - MICROSCOPISCH,Larynx - direct ther. laryngoscopy - microscopic
+2,335700Z,BUIK        - HERNIA INGUINALIS - ENKELZIJDIG - OPEN,Abdomen - inguinal hernia - unilateral - open
+2,339250B,KNIE        - ARTROSCOPIE - OPERATIEF - MENISCI,Knee - arthroscopy - operative - menisci
+2,381201B,OPNAME VLGS TOWNE TWINING SCHEDELBASIS    1 R,recording/intake/admission according to Towne Twining skull base 1 view
+2,384000L,DOORLICHTING ZONDER OPNAME ARM                   - LINKS,Fluoroscopy without recording/intake/admission arm - left
+2,384001L,RADIOL.OND. GEHELE SCHOUDER MET ARM EN HAND 1 R  - LINKS,Radiol. exam entire shoulder with arm and hand 1 view - left
+2,384070R,ECHO ARM                                         - RECHTS,Ultrasound arm - right
+2,388170L,ECHO NIER                                        - LINKS,Ultrasound kidney - left
+2,389000R,DOORLICHTING ZONDER OPNAME BEEN                  - RECHTS,Fluoroscopy without recording/intake/admission leg - right
+2,389002R,RADIOL.OND. HELE BOVENBEEN MET ONDERB.EN VOET  2 R   - RE,Radiol. exam entire upper leg with lower leg and foot 2 views - right
+2,389201P,RADIOL.OND. HEUP - AXIAAL                 1 R    - RECHTS,Radiol. exam hip - axial 1 view - right
+2,389370R,ECHO BOVENBEEN                                   - RECHTS,Ultrasound upper leg - right
+2,389490R,MRI KNIE                                         - RECHTS,MRI knee - right
+2,389570L,ECHO ONDERBEEN                                   - LINKS,Ultrasound lower leg - left
+2,CR0003,Skeletstatus,Skeletal status
+2,CR2401,Draintraject Schedel-Thorax-Buik,Drainage trajectory Skull-Thorax-Abdomen
+2,CR3002,Scolioseonderzoek,Scoliosis examination
+2,CR4201B,Schouder bdz,Shoulder bilateral
+2,CR4202B,Clavicula/Sternoclav. bdz,Clavicle/Sternoclavicular bilateral
+2,CR4205B,Schouder/ac gewricht bdz,Shoulder/AC joint bilateral
+2,CR4207B,Bovenarm bdz,Upper arm bilateral
+2,CR4207L,Bovenarm li,Upper arm left
+2,CR4207R,Bovenarm re,Upper arm right
+2,CR4606L,Vinger li,Finger left
+2,CR5001,Thorax 1 richting,Chest X-ray 1 view
+2,CR5007,Thorax/ribdetail,Thorax/rib detail
+2,CR9401B,Knie bdz,Knee bilateral
+2,CR9403B,Knie bdz+Rosenberg,Knee bilateral+Rosenberg view
+2,CR9601R,Enkel re,Ankle right
+2,CR9608B,Enkel en voet bdz,Ankle and foot bilateral
+2,CT1302,CTA Neuro,CTA Neuro
+2,CT2044,CT Orbita,CT Orbit
+2,CT3005,CT cwk,CT cervical spine
+2,CT3007,CT LWK,CT lumbar spine
+2,CT5004,CTA Thorax,CTA Thorax
+2,CT5005,CT Thorax/abdomen,CT Thorax/abdomen
+2,CT5006,CT thorax/bovenbuik,CT thorax/upper abdomen
+2,CT7004,CTA Abdomen perifeer,CTA Abdomen peripheral
+2,CT7005,CTA Thorax abdomen,CTA Thorax abdomen
+2,CT9102B,CT knie bdz,CT knee bilateral
+2,MR1013,MRA Halsvaten,MRA neck vessels
+2,MR3001,MRI  cwk/twk/lwk,MRI cervical/thoracic/lumbar spine
+2,MR3106,MRI cwk en plexus brachialis,MRI cervical spine and brachial plexus
+2,MR3201,MRI twk,MRI thoracic spine
+2,MR5003,MRA aortaboog,MRA aortic arch
+2,MR7001,MRI gehele buik,MRI whole abdomen
+2,MR7015,MRI Kleine bekken,MRI minor pelvis
+2,US0002,Echogeleid biopt overig,Ultrasound-guided biopsy other
+2,US2970,Echo Hals,Ultrasound neck
+2,US5001,Echo thorax,Ultrasound thorax
+2,US7071,Echo Abdomen,Ultrasound Abdomen
+2,US9004L,Echo bovenbeen li,Ultrasound upper leg left
+2,US9005L,Echo knie li,Ultrasound knee left
+2,ZH00000260,Langdurige EEG monitoring (alleen iom KNF),Long-term EEG monitoring (only in consultation with CN)
+2,ZH00000333,7 dagen holter,7 days holter
+2,ZH00000382,Abdominale echo (poli),Abdominal ultrasound (outpatient)
+2,ZH00000384,Echo/fibroscan,Ultrasound/fibroscan
+2,ZH00000432,EMG 30 minuten,EMG 30 minutes
+2,ZH00000433,EMG 45 minuten,EMG 45 minutes
+2,ZH00000435,Lichaamsplethysmografie (body box),Body plethysmography (body box)
+2,ZH00000436,6 - min wandeltest,6 - minute walk test
+2,ZH00000438,EMG 60 minuten,EMG 60 minutes
+2,ZH00000505,Echogeleid biopt lever,Ultrasound-guided biopsy liver
+2,ZH00000510,ECG,ECG
+2,ZH00000542,CT pols-hand links,CT wrist-hand left
+2,ZH00000543,CT pols-hand rechts,CT wrist-hand right
+2,ZH00000555,CBCT,CBCT
+2,ZH00000634,PET-CT FDG Total Body i.c.m. diagn. CT inj.,PET-CT FDG Total Body in comb. with diagn. CT inj.
+2,ZH00000635,PET-CT FDG Total Body i.c.m. diagn. CT scan,PET-CT FDG Total Body in comb. with diagn. CT scan
+2,ZH00000650,PET-CT Ga-Dotataat i.c.m. diagn. CT scan,PET-CT Ga-Dotatate in comb. with diagn. CT scan
+2,ZH00000731,MCU,MCU
+2,ZH00000735,Thoraxchirurgie,Thoracic surgery
+2,ZH00000775,CT thorax/abdomen,CT thorax/abdomen
+2,ZH00000787,CT hals-thorax-abdomen,CT neck-thorax-abdomen
+2,ZH00000819,DXA-01 (FN/LWK/VFA),DXA-01 (FN/Lumber Spine/VFA)
+2,ZH00032950,Strikte isolatie,Strict isolation
+2,ZH00032954,Contact isolatie,Contact isolation
+3,ED060,Katheterembolisation – Beckenarterien (LE=je Sitzung),Catheter embolization - pelvic arteries (per session)
+3,EP020,"Perkutane transluminale Embolektomie, Thrombektomie oder Fremdkörperentfernung (exkl. intrakranielle Gefäße) (LE=je Sitzung)","Percutaneous transluminal embolectomy, thrombectomy or foreign body removal (excl. intracranial vessels) (per session)"
+3,EQ550,Bildgebungsgesteuerte perkutane Embolisation venöser und lymphatischer Malformationen (LE=je Sitzung),Imaging-guided percutaneous embolization of venous and lymphatic malformations (per session)
+3,FA010,Adenotomie (LE=je Sitzung),Adenoidectomy (per session)
+3,FG540,Kälte-/Wärme-/Druck-Test (LE=je Sitzung),Cold/heat/pressure test (per session)
+3,FV090,Selektive Plasmapherese (LE=je Sitzung),Selective plasmapheresis (per session)
+3,GA030,Korrektur des Nasenseptums (Septumplastik) (LE=je Sitzung),Correction of the nasal septum (septoplasty) (per session)
+3,GB010,Sanierung der Nasennebenhöhlen der 1. Reihe – offen (LE=je Sitzung),Restoration of the paranasal sinuses of the 1st row - open surgery (per session)
+3,GD070,Erweiterte Resektion des Pharynx und Larynx mit Rekonstruktion (LE=je Sitzung),Extended resection of the pharynx and larynx with reconstruction (per session)
+3,GL530,Lungendiffusionsmessung (LE=je Sitzung),Lung diffusion testing (per session)
+3,GL540,Bronchialer Provokationstest (LE=je Sitzung),Bronchoprovocation test (per session)
+3,GZ515,Endoskopie der oberen Luftwege (LE=je Sitzung),Endoscopy of the upper airways (per session)
+3,HB520,Wurzelspitzenresektion (LE=je Zahn),Apicoectomy (per tooth)
+3,HD070,Teilresektion des Pharynx (LE=je Sitzung),Partial resection of the pharynx (per session)
+3,HD090,Velopharynxplastik (LE=je Sitzung),Velopharyngoplasty (per session)
+3,HE025,Endoskopische bildgebungskontrollierte Implantation metallischer Stents/Stentgrafts – Ösophagus (LE=je Sitzung),Endoscopic imaging-controlled implantation of metallic stents/stent grafts - esophagus (per session)
+3,HE140,Korrektur angeborener Fehlbildungen des Ösophagus – offen (LE=je Sitzung),Correction of congenital malformations of the esophagus - open surgery (per session)
+3,HF170,Distale Magenresektion mit Lymphadenektomie – laparoskopisch (LE=je Sitzung),Distal gastric resection with lymphadenectomy - laparoscopic surgery (per session)
+3,HG080,Teilresektion des Dünndarms mit Anastomosierung – laparoskopisch (LE=je Sitzung),"Partial resection of the small intestine with anastomosis, laparoscopic surgery (per session)"
+3,HH110,Resektion des Kolon transversum – laparoskopisch (LE=je Sitzung),Resection of the transverse colon - laparoscopic surgery (per session)
+3,HH120,Resektion des linken Hemikolons ohne primäre Anastomose (LE=je Sitzung),Resection of the left hemicolon without primary anastomosis (per session)
+3,HH510,Koloskopie (LE=je Sitzung),Colonoscopy (per session)
+3,HJ139,Sonstige Operation – Rektum (LE=je Sitzung),Other surgery - rectum (per session)
+3,HN050,Pankreasteilresektion links – offen (LE=je Sitzung),Partial left pancreatectomy - open surgery (per session)
+3,HP060,Relaparoskopie nach operativem Eingriff im gleichen Aufenthalt (LE=je Sitzung),Relaparoscopy after surgical intervention during the same stay (per session)
+3,JA512,Wechsel einer perkutanen Nephrostomie (LE=je Seite),Replacement of a percutaneous nephrostomy (per side)
+3,JC170,Ureterozystoneostomie und Resektion eines Megaureter (LE=je Seite),Ureteroneocystostomy and resection of a megaureter (per side)
+3,JE510,Urethradruckprofil (LE=je Sitzung),Urethral pressure profile (per session)
+3,JF029,Sonstige Operation – Retroperitoneum (LE=je Sitzung),Other surgery - retroperitoneum (per session)
+3,JG020,Transurethrale Resektion der Prostata (LE=je Sitzung),Transurethral resection of the prostate (per session)
+3,JH130,Penisteilamputation (LE=je Sitzung),Partial penile amputation (per session)
+3,JK095,Radikale vaginale Trachelektomie (LE=je Sitzung),Radical vaginal trachelectomy (per session)
+3,JK530,Einsetzen oder Wechsel eines Intrauterinpessars (LE=je Sitzung),Insertion or replacement of an intrauterine device (per session)
+3,JL020,"Kolposuspension, Kolpopexie – vaginal (LE=je Sitzung)","Colposuspension, colpopexy - vaginal (per session)"
+3,JN079,Sonstige Operation â€“ Geburt (LE=je Sitzung),"Other surgery - birth (per session), suture"
+3,JN550,Ã„uÃŸere Wendung bei Beckenendlage in Sectiobereitschaft (LE=je Sitzung),External cephalic version for breech presentation with readiness for cesarean section (per session)
+3,KA010,Partielle oder totale Hypophysektomie â€“ transkraniell (LE=je Sitzung),Partial or total hypophysectomy - transcranial (per session)
+3,KD030,Parathyreoidektomie â€“ endoskopisch (LE=je Sitzung),Parathyroidectomy - endoscopic (per session)
+3,KH019,Sonstige Operation â€“ endokrine DrÃ¼sen (LE=je Sitzung),Other surgery - endocrine glands (per session)
+3,LA020,Exzision einer extraduralen Raumforderung am SchÃ¤delknochen ohne Duraplastik (LE=je Sitzung),Excision of an extradural mass on the cranial bone without duraplasty (per session)
+3,LA070,Nahtresektion und Umformung des GehirnschÃ¤dels ohne frontobasalen Vorschub (LE=je Sitzung),Suture resection and reshaping of the cranium without frontobasal advancement (per session)
+3,LB070,Arthroplastik des Kiefergelenks (LE=je Sitzung),Arthroplasty of the temporomandibular joint (per session)
+3,LB100,Implantation einer Totalendoprothese des Kiefergelenks (LE=je Seite),Implantation of a total endoprosthesis of the temporomandibular joint (per side)
+3,LB120,Reimplantation einer Totalendoprothese des Kiefergelenks (LE=je Seite),Reimplantation of a total endoprosthesis of the temporomandibular joint (per side)
+3,LH020,Aufrichtung und FÃ¼llung des WirbelkÃ¶rpers durch perkutane Punktion (LE=je Sitzung),Elevation and filling of a vertebra by percutaneous puncture (per session)
+3,LH030,InterarcuÃ¤re Dekompression des Spinalkanals (LE=je Sitzung),Interarcuate decompression of the spinal canal (per session)
+3,LJ010,Sternumresektion (LE=je Sitzung),Sternum resection (per session)
+3,LM050,Verschluss eines Zwerchfelldefektes â€“ offen (LE=je Sitzung),Closure of a diaphragmatic defect - open surgery (per session)
+3,LZ100,Operative Entfernung mehrerer retinierter ZÃ¤hne/eines dystopen Zahnes (LE=je Sitzung),Surgical removal of multiple impacted teeth/a dystopic tooth (per session)
+3,MA040,Subakromiale Dekompression â€“ arthroskopisch (LE=je Seite),Subacromial decompression - arthroscopic (per side)
+3,MD030,"Osteosynthese mehrerer Mittelhandknochen, Finger (LE=je Seite)","Osteosynthesis of multiple metacarpal bones, fingers (per side)"
+3,MH050,Resektionsarthroplastik des Daumensattelgelenks (LE=je Seite),Resection arthroplasty of the carpometacarpal joint of the thumb (per side)
+3,MZ110,Amputation im Handgelenk oder distal (exkl. Finger) (LE=je Seite),Amputation of hand at wrist or distal (excl. fingers) (per side)
+3,MZ160,Replantation eines Fingers (LE=je Seite),Replantation of a finger (per side)
+3,NF170,Rekonstruktion des vorderen und hinteren Kreuzbandes â€“ offen (LE=je Seite),Reconstruction of the anterior and posterior cruciate ligament - open surgery (per side)
+3,NF203,Reimplantation einer femoropatellaren Prothese des Kniegelenks (LE=je Seite),Reimplantation of a patellofemoral prosthesis of the knee joint (per side)
+3,NG060,Implantation einer Endoprothese des Sprunggelenks (LE=je Seite),Implantation of endoprosthesis into ankle joint (per side)
+3,NZ051,KnochenverlÃ¤ngerungsoperation mit voll implantierbarer fernsteuerbarer Distraktionsvorrichtung â€“ untere ExtremitÃ¤t (LE=je Seite),Bone lengthening surgery with fully implantable remote-controlled distraction device - lower extremity (per side)
+3,NZ160,Replantation im FuÃŸbereich (LE=je Seite),Replantation in the foot area (per side)
+3,QE010,Stereotaktische Mammabiopsie (LE=je Sitzung),Stereotactic breast biopsy (per session)
+3,XA031,Onkologische Therapie â€“ andere Substanzen: Tebentafusp 68 Âµg abs. (LE=je Applikation),Oncological therapy - other substances: Tebentafusp 68Âµg (per application)
+3,XA042,Onkologische Therapie â€“ monoklonaler AntikÃ¶rper Aflibercept: 4 mg/kg KG (LE=je Applikation),Oncological therapy - Administration of monoclonal antibody Aflibercept: 4 mg/kg bodyweight (per application)
+3,XA090,Onkologische Therapie â€“ monoklonaler AntikÃ¶rper Rituximab (Anti-CD20) (LE=je Applikation),Oncological therapy - monoclonal antibody Rituximab (Anti-CD20) (per application)
+3,XA111,"Onkologische Therapie â€“ monoklonaler AntikÃ¶rper Trastuzumab-Deruxtecan: 5,4 oder 6,4 mg/kg KG (LE=je Applikation)",Oncological therapy - monoclonal antibody Trastuzumab-Deruxtecan: 5.4 or 6.4 mg/kg bodyweight (per application)
+3,XA133,Onkologische Therapie â€“ monoklonaler AntikÃ¶rper Glofitamab: 30 mg abs. (LE=je Applikation),Oncological therapy - monoclonal antibody Glofitamab: 30mg (per application)
+3,XC166,Cabazitaxel (Tag 1),Chemotherapy administration - Cabazitaxel (Day 1)
+3,XC358,Cyclophosphamid/Docetaxel (Tag 1),Chemotherapy administration - Cyclophosphamide/Docetaxel (Day 1)
+3,XC814,mSMILE (Tag 1-8),Chemotherapy administration - mSMILE (Day 1-8)
+3,XC868,VAIA (Tag 21-23),Chemotherapy administration - VAIA (day 21-23)
+3,XN030,Implantation eines Stentgrafts in die Aorta aszendens (LE=je Sitzung),Implantation of a stent graft in the ascending aorta (per session)
+3,XN050,Implantation eines Mitralklappenclips â€“ perkutan (LE=je Sitzung),Implantation of a mitral valve clip - percutaneous (per session)
+3,XN220,Perkutane Aspirationsthrombektomie der Pulmonalarterie (LE=je Sitzung),Percutaneous aspiration thrombectomy of the pulmonary artery (per session)
+3,ZN050,PrÃ¤operative Gewebemarkierung â€“ ultraschallgezielt (LE=je Sitzung),Preoperative tissue marking - ultrasound-guided (per session)
+3,ZN290,67-Galliumszintigraphie (LE=je Sitzung),67-Gallium scintigraphy (per session)
+3,ZN351,Radionuklidtherapie mit Lu177-DOTA-Tate (LE=je Sitzung),Radionuclide therapy with Lu177-DOTA-Tate (per session)
+3,ZN600,Sonographie von oberflÃ¤chlichen Raumforderungen (LE=je Sitzung),Sonography of superficial masses (per session)
+3,ZN870,PrÃ¤operative anÃ¤sthesiologische Untersuchung (LE=je Sitzung),Preoperative anesthesiological examination (per session)
+3,ZN882,GynÃ¤kologische Vorsorgeuntersuchung (LE=je Sitzung),Gynecological check-up (per session)
+3,ZV510,Entnahme von Untersuchungsmaterial zur In-vitro-Diagnostik (LE=andere),Collection of material for in-vitro diagnostics (other)
+3,ZV635,Histologische Befundung von PrÃ¤paraten aus zytologischem Material (Zellblock) (LE=je ambulantem Besuch),Histological assessment of specimens from cytological material (cell block) (per outpatient visit)
+3,ZV675,Semiquantitative Immunhistochemie (LE=je ambulantem Besuch),Semiquantitative immunohistochemistry (per outpatient visit)
+4,1,Biopsy,Biopsy
+4,2,Treated with gamma knife,Treated with gamma knife
+4,2.1,Surgical exploration with or without biopsy,Surgical exploration with or without biopsy
+4,3,Treated with radioactive iodine,Treated with radioactive iodine
+4,9,Unspecified caesaerean section,Unspecified caesaerean section
+4,9.1,Local ablative treatment with or without biopsy,Local ablative treatment with or without biopsy
+4,10,Surgical removal of tumor and parts of or the entire organ(s),Surgical removal of tumor and parts of or the entire organ(s)
+4,11,Surgical removal of only tumor,Surgical removal of only tumor
+4,12,Surgical removal of lymph nodes,Surgical removal of lymph nodes
+4,13,Transvesical resection,Transvesical resection
+4,14,Larger specialised surgical procedures,Larger specialised surgical procedures
+4,15,Mastectomy with removal of lymph nodes,Mastectomy with removal of lymph nodes
+4,97,Therapeutic intervention directed at metastasis/palliative care,Therapeutic intervention directed at metastasis/palliative care
+4,98,Surgical procedure NOS,Surgical procedure NOS
+4,BAX10,NÂlebiopsi av tyreoidea,Needle biopsy of the thyroid gland
+4,DUQ25,Mikrolaryngoskopi med biopsi,Microlaryngoscopy with biopsy
+4,ELX00,NÂlebiopsi av spyttkjertel,Needle biopsy of a salivary gland
+4,EUN05,Orofaryngoskopi med biopsi,Oropharyngoscopy with biopsy
+4,EUN15,Hypofaryngoskopi med biopsi,Hypopharyngoscopy with biopsy
+4,GAB06D,"NÂlebiopsi av toraksskjelett, CT-veiledet",CT-guided needle biopsy of the thoracic skeleton
+4,GAB16D,"NÂlebiopsi av brystvegg, CT-veiledet",CT-guided needle biopsy of the chest wall
+4,GAB16K,"NÂlebiopsi av brystvegg, ultralydveiledet",Ultrasound-guided needle biopsy of the chest wall
+4,GAB26K,"NÂlebiopsi av pleura, ultralydveiledet",Ultrasound-guided needle biopsy of the pleura
+4,GAX00,NÂlebiopsi av brystvegg,Needle biopsy of the chest wall
+4,GAX10,NÂlebiopsi av pleura,Needle biopsy of the pleura
+4,GDB16D,"NÂlebiopsi av lunge, CT-veiledet",CT-guided needle biopsy of lung
+4,GDB16K,"NÂlebiopsi av lunge, ultralydveiledet",Ultrasound-guided needle biopsy of the lung
+4,GDX06,NÂlebiopsi av lunge,Needle biopsy of the lung
+4,GEB16D,"NÂlebiopsi av mediastinum, CT-veiledet",CT-guided needle biopsy of the mediastinum
+4,GUC15,Fleksibel bronkoskopi med biopsi fra trachea eller bronkie,Flexible bronchoscopy with biopsy from the trachea or bronchus
+4,GUC18,Fleksibel bronkoskopi med biopsi fra lunge,Flexible bronchoscopy with biopsy from the lung
+4,GUC25,Fleksibel bronkoskopi med biopsi fra mediastinum,Flexible bronchoscopy with biopsy from the mediastinum
+4,HAB16K,"NÂlebiopsi av mamma, ultralydveiledet",Ultrasound-guided needle biopsy of the breast
+4,JAB06D,"NÂlebiopsi av bukvegg, CT-veiledet",CT-guided needle biopsy of the abdominal wall
+4,JAB06K,"NÂlebiopsi av bukvegg, ultralydveiledet",Ultrasound-guided needle biopsy of the abdominal wall
+4,JJB06K,"NÂlebiopsi av lever, ultralydveiledet",Ultrasound-guided needle biopsy of the liver
+4,JJX00,Percutaneous needle biopsy of the liver,Percutaneous needle biopsy of the liver
+4,JUD05,Gastroskopi med biopsi,Gastroscopy with biopsy
+4,JUF35,Koloskopi med biopsi,Colonoscopy with biopsy
+4,JUF45,Fleksibel sigmoidoskopi med biopsi,Flexible sigmoidoscopy with biopsy
+4,JUG05,Rektoskopi med biopsi,Rectoscopy with biopsy
+4,JUK05,ERCP med biopsi,ERCP with biopsy
+4,KAB06K,Ultrasound-guided needle biopsy of the kidney or renal pelvis,Ultrasound-guided needle biopsy of the kidney or renal pelvis
+4,KEB06K,"NÂlebiopsi av prostata, ultralydveiledet",Ultrasound-guided needle biopsy of the prostate
+4,KUA05,Retrograd ureterorenoskopi med biopsi,Retrograde ureterorenoscopy with biopsy
+4,KUC05,Cystoskopi med biopsi,Cystoscopy with biopsy
+4,NAX00,Puncture or needle biopsy of soft tissue of the spine,Puncture or needle biopsy of soft tissue of the spine
+4,NEA30,Perkutan biopsi av bein i bekkenet,Percutaneous biopsy of pelvic bone
+4,NXX25,Borebiopsi av beinmarg,Trephine biopsy of bone marrow
+4,PJA13K,"Punksjonscytologi fra lymfeknute pÂ halsen, ultralydveiledet",Ultrasound-guided fine-needle aspiration cytology of a cervical lymph node
+4,PJB00K,"Biopsi av lymfeknute, ultralydveiledet",Ultrasound-guided biopsy of a lymph node
+4,PJB05K,"NÂlebiopsi av lymfeknute, ultralydveiledet",Ultrasound-guided needle biopsy of a lymph node
+4,PJX05,NÂlebiopsi av lymfeknute,Needle biopsy of a lymph node
+4,QXX00,Hudbiopsi,Skin biopsy
+4,V_MFR.INDUKSJON_PROSTAGLANDIN,Induction of labor: Prostaglandin,Induction of labor: Prostaglandin

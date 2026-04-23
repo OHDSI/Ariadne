@@ -15,10 +15,9 @@
 # limitations under the License.
 
 import re
+from typing import List
 
 import spacy
-
-from ariadne.utils.config import Config
 
 
 class TermNormalizer:
@@ -26,8 +25,8 @@ class TermNormalizer:
     Normalizes clinical term strings for high-precision matching.
     """
 
-    def __init__(self, config: Config = Config()):
-        self.config = config
+    def __init__(self, substrings_to_remove: List[str] | None = None):
+        self.substrings_to_remove = substrings_to_remove or []
         try:
             self.nlp = spacy.load("en_core_web_sm")
             print("spaCy model 'en_core_web_sm' loaded successfully.")
@@ -68,7 +67,7 @@ class TermNormalizer:
         term = re.sub(r"(\w)'s\b", r"\1", term)
 
         # 3. Remove specific non-informative substrings
-        for sub in self.config.verbatim_mapping.substrings_to_remove:
+        for sub in self.substrings_to_remove:
             term = term.replace(sub, ' ')
 
         # 4. Remove all punctuation (replace with a space)
@@ -89,6 +88,34 @@ class TermNormalizer:
 
         # 7. Join tokens into a single string
         return " ".join(processed_tokens)
+
+    def normalize_terms(self, terms: List[str], batch_size: int = 1000, n_process: int = 4) -> List[str]:
+        """
+        Normalizes a list of clinical term strings in batch using spaCy's nlp.pipe for efficiency.
+
+        Args:
+            terms: List of clinical term strings to normalize.
+            batch_size: Number of terms to process in each spaCy batch.
+            n_process: Number of worker processes for spaCy's pipe (1 disables multiprocessing).
+        Returns:
+            List of normalized term strings in the same order as the input.
+        """
+        # Pre-process steps 1-4 before sending to spaCy
+        preprocessed = []
+        for term in terms:
+            t = term.lower()
+            t = re.sub(r"(\w)'s\b", r"\1", t)
+            for sub in self.substrings_to_remove:
+                t = t.replace(sub, ' ')
+            t = re.sub(r'[^\w\s]', ' ', t)
+            preprocessed.append(t)
+
+        # Use spaCy's built-in batch processing; n_process>1 enables multiprocessing.
+        results = []
+        for doc in self.nlp.pipe(preprocessed, batch_size=batch_size, n_process=n_process):
+            processed_tokens = [token.lemma_ for token in doc if token.lemma_.strip()]
+            results.append(" ".join(processed_tokens))
+        return results
 
 
 if __name__ == "__main__":

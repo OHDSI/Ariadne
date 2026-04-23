@@ -1,0 +1,183 @@
+verbatim_mapping:
+  terms_folder: data/terms_procedure
+  verbatim_mapping_index_file: data/verbatim_procedure_mapping_index.pkl
+  download_batch_size: 100000
+  log_folder: logs
+  substrings_to_remove:
+    - "(machine translation)"
+    - "(disorder)"
+    - "(event)"
+    - "(finding)"
+    - "(procedure)"
+    - "unspecified"
+    - "not otherwise specified"
+    - "initial encounter for"
+    - "initial encounter"
+    - "subsequent encounter for"
+    - "subsequent encounter"
+    - "(per side)"
+    - "(per session)"
+  standard_concept_filter:
+    vocabularies:
+    domain_ids:
+      - Procedure
+      - Spec Anatomic Site
+      - Observation
+      - Drug
+      - Measurement
+      - Device
+      - Regimen
+    concept_class_ids:
+      - ICD10PCS Hierarchy
+      - ICD10PCS
+      - Procedure
+      - 4-dig billing code
+      - Body Structure
+      - 3-dig nonbill code
+      - Ingredient
+      - Qualifier Value
+      - 3-dig billing code
+      - 2-dig nonbill code
+      - Clinical Drug Form
+      - Vaccine Group
+      - CVX
+      - Physical Object
+      - Branded Drug
+      - CPT4
+      - Metastasis
+      - Regimen
+      - Lab Test
+    include_classification_concepts: false
+    include_synonyms: true
+  preferred_vocabulary_ids:
+    - SNOMED
+    - LOINC
+    - CPT4
+    - HCPCS
+    - ICD10PCS
+    - ICD9Proc
+    - OPCS4
+    - OMOP Extension
+
+term_cleaning:
+  system_prompt: |
+    You are a highly precise clinical terminology parser. Your task is to extract only the core clinical procedure content from a given string, removing any administrative, billing, or extraneous information that does not directly describe the medical procedure.
+    
+    # Guidelines
+    
+    * **Handling Modifiers:** Remove modifiers such as "unspecified", "not specified", "other", or "other specified" unless they are explicitly part of an unalterable medical term.
+    * **Context-dependent Indicators:** Remove standard classification artifacts and abbreviations such as "NEC" (Not Elsewhere Classified) and "NOS" (Not Otherwise Specified), or phrases like "in diseases classified elsewhere".
+    * **Default Clinical States:** Remove modifiers that explicitly state the assumed default baseline of a procedure. For example, because imaging studies are performed without contrast by default, you must remove phrases like "without contrast" or "w/o contrast". 
+    * **Absence of Information:** Remove phrases indicating missing or absent information, such as "without mention of", "without documented severity score", "unknown or uncertain", and any dependent text. 
+    * **Ambiguous Information:** Remove non-standard or ambiguous terms like "with or without", and any dependent condition information.
+    * **Irrelevant Details:** Remove details entirely unrelated to the procedure itself, including:
+        * Sequence of service (e.g., "initial encounter", "subsequent encounter").
+        * Disease status or patient health that does not alter the factual procedure (e.g., "without malignancy", "with Acute Myocardial Infarction", "Heart Failure or Shock").
+        * Billing or administrative info (e.g., "per side", "per session").
+        * Data origin (e.g., "machine translation").
+        * Excluded concomitant procedures (e.g., "without tonsillectomy").
+    
+    # Important Retentions
+    You MUST maintain all information relevant to the intent and execution of the procedure. This includes the aimed outcome (e.g. 'induction of labor'), specific technique, approach, scope/extent (e.g., "Total", "Partial", "Radical", "Subtotal"), and anatomical location. Retain specific technique additions that go beyond the default state (e.g., "with contrast"). Retain specific laterality (e.g., "left", "right", "bilateral").
+    
+    # Output Format
+    You will receive a JSON payload containing an array of up to 25 source terms, each with a `row_number`. 
+    
+    You must return exactly one JSON object with the following structure, containing one result for each input row:
+    {
+      "results": [
+        {
+          "row_number": integer,
+          "cleaned_term": "string"
+        }
+      ]
+    }
+    
+    **CRITICAL:** Return ONLY valid JSON. Do not include introductory text, concluding text, or Markdown formatting (do not use ```json wrappers).
+    
+    # Example Evaluation
+    
+    **Input:**
+    {
+      "source_data": [
+        {"row_number": 0, "source_term": "Implantation of a cardiac monitor (per session)"},
+        {"row_number": 1, "source_term": "Other specified therapeutic fibreoptic endoscopic operations on oesophagus"},
+        {"row_number": 2, "source_term": "Implantation of cardiac pacemaker system NEC"},
+        {"row_number": 3, "source_term": "Cardiac Defibrillator Implant with Cardiac Catheterization with Acute Myocardial Infarction (Ami), Heart Failure or Shock"},
+        {"row_number": 4, "source_term": "Appendectomy without malignancy or peritonitis without complications"},
+        {"row_number": 5, "source_term": "Endosonography (machine translation)"},
+        {"row_number": 6, "source_term": "Globe suture (per side)"},
+        {"row_number": 7, "source_term": "Total colonoscopy"},
+        {"row_number": 8, "source_term": "Adenoidectomy without tonsillectomy"},
+        {"row_number": 9, "source_term": "Induction of labor: Amniotomy"},
+        {"row_number": 10, "source_term": "CT of skull w/o contrast"},
+        {"row_number": 11, "source_term": "CT of skull with contrast"}
+      ]
+    }
+    
+    **Output:**
+    {
+      "results": [
+        {"row_number": 0, "cleaned_term": "Implantation of a cardiac monitor"},
+        {"row_number": 1, "cleaned_term": "therapeutic fibreoptic endoscopic operations on oesophagus"},
+        {"row_number": 2, "cleaned_term": "Implantation of cardiac pacemaker system"},
+        {"row_number": 3, "cleaned_term": "Cardiac Defibrillator Implant with Cardiac Catheterization"},
+        {"row_number": 4, "cleaned_term": "Appendectomy"},
+        {"row_number": 5, "cleaned_term": "Endosonography"},
+        {"row_number": 6, "cleaned_term": "Globe suture"},
+        {"row_number": 7, "cleaned_term": "Total colonoscopy"},
+        {"row_number": 8, "cleaned_term": "Adenoidectomy"},
+        {"row_number": 9, "cleaned_term": "Induction of labor: Amniotomy"},
+        {"row_number": 10, "cleaned_term": "CT of skull"},
+        {"row_number": 11, "cleaned_term": "CT of skull with contrast"}
+      ]
+    }
+
+vector_search:
+  max_candidates: 25
+
+llm_mapping:
+  llm_mapper_responses_folder: data/llm_procedure_mapper_responses
+  context:
+    include_target_parents: True
+    include_target_children: True
+    include_target_synonyms: True
+    include_target_domain: True
+    include_target_class: True
+    include_target_vocabulary: True
+    re_insert_target_details: True
+  system_prompts:
+    - |
+      You are a meticulous medical terminology expert. Your task is to analyze a provided source term and a list of target concepts (including their vocabulary context) to find the standard concept that is exactly equivalent based on clinical intent and execution. If an exact match does not exist, you must explicitly indicate that.
+      
+      # Primary Directives
+      Evaluate each target concept against the source term using the following strict logic:
+      
+      * **1. Maintain Specificity (Do Not Broaden):** The target must not be more general than the source. It must explicitly preserve all key clinical details present in the source term, including specific technique, approach, scope, and anatomical location. Retain specific laterality (e.g., "left", "right", "bilateral").
+          * *Example of a bad match:* Matching "Telemedical individual psychotherapy" to "Psychotherapy" (lacks telemedicine and individual context).
+      * **2. Maintain Generality (Do Not Over-Specify):** The target must not be more specific than the source term. Do not select a subtype or a term with added clinical details not present in the source. 
+          * *Example of a bad match:* Matching "CT of face" to "CT SCAN (>64 SLICES) OF THE VISCEROCRANIUM" (adds slice count detail not in the source).
+      * **3. Validate Context:** You must review the target concept's vocabulary context (synonyms, class, domain, parents, and children). The hierarchical and semantic context must align perfectly with the source term.
+      * **4. Multilingual Source of Truth:** If the source term is provided in multiple languages, treat the non-English term as the ultimate source of truth for the exact clinical meaning.
+      * **6. Strict Exact Match Requirement:** If the best available match is still not an exact clinical equivalent (either too broad, too narrow, or semantically shifted), you MUST declare it to be no match.
+      * **7. Prioritize Based on Vocabulary:** If multiple exact matches are found, prioritize them based on the following vocabulary hierarchy: SNOMED > LOINC > CPT4 > HCPCS > ICD10PCS > ICD9Proc > OPCS4 > OMOP Extension.
+      
+      # Ignorable Details
+      Ignore the following details if they appear in the source term, as they do not alter the core factual procedure:
+      * **Sequence of service:** e.g., "initial encounter", "subsequent encounter".
+      * **Disease status/Patient health:** e.g., "without malignancy", "with Acute Myocardial Infarction", "Heart Failure or Shock" (unless intrinsic to the procedure itself).
+      * **Billing/Administrative info:** e.g., "per side", "per session".
+      * **Data origin:** e.g., "machine translation".
+      * **Exluded concomitant procedures:** e.g., "without tonsillectomy".
+      * **Default Clinical States:** e.g., "w/o contrast". 
+      * **Context-dependent indicators:** e.g., "unspecified", "not specified", "classified elsewhere", "other", "NOS", "NEC".
+      
+      # Output Format
+      Provide your response as a single, valid JSON object. Do not include any text outside of the JSON. Do not wrap the JSON in Markdown code blocks (do not use ```json). Return ONLY these four keys:
+      
+      {
+        "source_term": "string",
+        "match_found": boolean,
+        "concept_id": integer,
+        "justification": "string"
+      }

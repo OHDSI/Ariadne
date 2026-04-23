@@ -40,19 +40,20 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 
 from ariadne.utils.logger import open_log
-from ariadne.utils.config import Config
+from ariadne.utils.settings import VerbatimMappingSettings
 from ariadne.utils.utils import get_environment_variable
 
 load_dotenv()
 
 
-def _create_query(engine: Engine, config: Config) -> Select:
+def _create_query(engine: Engine, settings: VerbatimMappingSettings) -> Select:
     vocabulary_schema = get_environment_variable("VOCAB_SCHEMA")
-    filter_config = config.verbatim_mapping.standard_concept_filter
+    filter_config = settings.standard_concept_filter
 
     metadata = MetaData()
     concept = Table("concept", metadata, schema=vocabulary_schema, autoload_with=engine)
 
+    enforce_standard_only = getattr(filter_config, "standard_concept", True)
     standard_concepts = ["S"]
     if filter_config.include_classification_concepts:
         standard_concepts.append("C")
@@ -62,13 +63,14 @@ def _create_query(engine: Engine, config: Config) -> Select:
         concept.c.concept_id,
         concept.c.concept_name.label("term"),
         concept.c.concept_name,
-        # concept.c.vocabulary_id,
-        # concept.c.domain_id,
-        # concept.c.standard_concept,
-        # cast("name", String).label("source"),
-    ).where(concept.c.standard_concept.in_(standard_concepts))
+        concept.c.vocabulary_id,
+    )
+    if enforce_standard_only:
+        query1 = query1.where(concept.c.standard_concept.in_(standard_concepts))
     if filter_config.domain_ids:
         query1 = query1.where(concept.c.domain_id.in_(filter_config.domain_ids))
+    if filter_config.concept_class_ids:
+        query1 = query1.where(concept.c.concept_class_id.in_(filter_config.concept_class_ids))
     if filter_config.vocabularies:
         query1 = query1.where(concept.c.vocabulary_id.in_(filter_config.vocabularies))
 
@@ -88,10 +90,7 @@ def _create_query(engine: Engine, config: Config) -> Select:
             cs_alias.c.concept_id,
             cs_alias.c.concept_synonym_name.label("term"),
             concept_names.c.concept_name,
-            # concept_names.c.vocabulary_id,
-            # concept_names.c.domain_id,
-            # concept_names.c.standard_concept,
-            # cast("synonym", String).label("source"),
+            concept_names.c.vocabulary_id,
         ).join(concept_names, cs_alias.c.concept_id == concept_names.c.concept_id)
 
         # Combine queries
@@ -106,15 +105,13 @@ def _store_in_parquet(
     concept_ids: List[int],
     terms: List[str],
     concept_names: List[str],
-    # vocabulary_ids: List[str],
-    # domain_ids: List[str],
-    # standard_concepts: List[str],
-    # sources: List[str],
+    vocabulary_ids: List[str],
     file_name: str,
 ) -> None:
     concept_id_array = pa.array(concept_ids)
     term_array = pa.array(terms)
     concept_name_array = pa.array(concept_names)
+    vocabulary_id_array = pa.array(vocabulary_ids)
     # vocabulary_id_array = pa.array(vocabulary_ids)
     # domain_id_array = pa.array(domain_ids)
     # standard_concept_array = pa.array(standard_concepts)
@@ -124,66 +121,61 @@ def _store_in_parquet(
             concept_id_array,
             term_array,
             concept_name_array,
-            # vocabulary_id_array,
-            # domain_id_array,
-            # standard_concept_array,
-            # source_array,
+            vocabulary_id_array,
         ],
         names=[
             "concept_id",
             "term",
             "concept_name",
-            # "vocabulary_id",
-            # "domain_id",
-            # "standard_concept",
-            # "source",
+            "vocabulary_id",
         ],
     )
     pq.write_table(table, file_name)
 
 
-def download_terms(config: Config = Config()) -> None:
+def download_terms(settings: VerbatimMappingSettings) -> None:
     """
     Download terms from vocabulary database and store them in parquet files for use in verbatim mapping.
 
     Args:
-        config: A Config object containing configuration parameters. This function uses the verbatim_mapping section of
-            the config, which specifies the vocabularies, domains, etc. to filter the terms to be downloaded.
+        settings: A VerbatimMappingSettings object containing configuration parameters. This specifies the
+            vocabularies, domains, etc. to filter the terms to be downloaded.
 
     Returns:
         None
     """
     # Check if Parquet files already exist. Skip download if they do.
-    if os.path.exists(config.system.terms_folder) and os.listdir(config.system.terms_folder):
-        print(f"Parquet files already exist in folder {config.system.terms_folder}. Skipping download.")
+    if os.path.exists(settings.terms_folder) and os.listdir(settings.terms_folder):
+        print(f"Parquet files already exist in folder {settings.terms_folder}. Skipping download.")
         return
 
-    os.makedirs(config.system.log_folder, exist_ok=True)
-    os.makedirs(config.system.terms_folder, exist_ok=True)
-    open_log(os.path.join(config.system.log_folder, "logDownloadTerms.txt"))
+    os.makedirs(settings.log_folder, exist_ok=True)
+    os.makedirs(settings.terms_folder, exist_ok=True)
+    open_log(os.path.join(settings.log_folder, "logDownloadTerms.txt"))
 
     logging.info("Starting downloading terms")
 
     engine = create_engine(get_environment_variable("VOCAB_CONNECTION_STRING"))
-    query = _create_query(engine=engine, config=config)
+    query = _create_query(engine=engine, settings=settings)
 
     with engine.connect() as connection:
         terms_result_set = connection.execution_options(stream_results=True).execute(query)
         total_inserted = 0
         while True:
-            chunk = terms_result_set.fetchmany(config.system.download_batch_size)
+            chunk = terms_result_set.fetchmany(settings.download_batch_size)
             if not chunk:
                 break
             _store_in_parquet(
                 concept_ids=[row.concept_id for row in chunk],
                 terms=[row.term for row in chunk],
                 concept_names=[row.concept_name for row in chunk],
+                vocabulary_ids=[row.vocabulary_id for row in chunk],
                 # vocabulary_ids=[row.vocabulary_id for row in chunk],
                 # domain_ids=[row.domain_id for row in chunk],
                 # standard_concepts=[row.standard_concept for row in chunk],
                 # sources=[row.source for row in chunk],
                 file_name=os.path.join(
-                    config.system.terms_folder,
+                    settings.terms_folder,
                     f"Terms_{total_inserted + 1}_{total_inserted + len(chunk)}.parquet",
                 ),
             )
@@ -193,4 +185,7 @@ def download_terms(config: Config = Config()) -> None:
 
 
 if __name__ == "__main__":
-    download_terms()
+    from ariadne.utils.config import Config
+
+    config = Config()
+    download_terms(settings=config.verbatim_mapping)

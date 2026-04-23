@@ -1,13 +1,8 @@
-system:
-  log_folder: logs
+verbatim_mapping:
   terms_folder: data/terms
   verbatim_mapping_index_file: data/verbatim_mapping_index.pkl
-  llm_mapper_responses_folder: data/llm_mapper_responses
-  term_cleaner_responses_folder: data/term_cleaner_responses
   download_batch_size: 100000
-  max_cores: 10
-
-verbatim_mapping:
+  log_folder: logs
   substrings_to_remove:
     - "(machine translation)"
     - "(disorder)"
@@ -27,6 +22,7 @@ verbatim_mapping:
       - Observation
       - Measurement
       - Procedure
+    concept_class_ids:
     include_classification_concepts: false
     include_synonyms: true
 
@@ -45,50 +41,62 @@ term_cleaning:
     
     # Examples
     
-    Input: 'Unspecified enthesopathy, lower limb, excluding foot'
-    Output: '#Term: enthesopathy, lower limb, excluding foot'
+    Input: {"row_number": 0, "source_term": "Unspecified enthesopathy, lower limb, excluding foot"}
+    Output: {"row_number": 0, "cleaned_term": "enthesopathy, lower limb, excluding foot"}
       
-    Input: 'Thyrotoxicosis with or without goiter'
-    Output: '#Term: Thyrotoxicosis'
+    Input: {"row_number": 1, "source_term": "Thyrotoxicosis with or without goiter"}
+    Output: {"row_number": 1, "cleaned_term": "Thyrotoxicosis"}
       
-    Input: 'Other specified disorders of amniotic fluid and membranes, second trimester'
-    Output: '#Term: disorders of amniotic fluid and membranes, second trimester'
+    Input: {"row_number": 2, "source_term": "Other specified disorders of amniotic fluid and membranes, second trimester"}
+    Output: {"row_number": 2, "cleaned_term": "disorders of amniotic fluid and membranes, second trimester"}
     
-    Input: 'Neoplasm of uncertain or unknown behavior of endocrine gland'
-    Output: '#Term: Neoplasm of endocrine gland'
+    Input: {"row_number": 3, "source_term": "Neoplasm of uncertain or unknown behavior of endocrine gland"}
+    Output: {"row_number": 3, "cleaned_term": "Neoplasm of endocrine gland"}
     
-    Input: 'Osteonecrosis due to previous trauma, other site' 
-    Output: '#Term: Osteonecrosis due to previous trauma'
+    Input: {"row_number": 4, "source_term": "Osteonecrosis due to previous trauma, other site"}
+    Output: {"row_number": 4, "cleaned_term": "Osteonecrosis due to previous trauma"}
     
-    Input: 'Unspecified synovitis and tenosynovitis, unspecified shoulder'
-    Output: '#Term: synovitis and tenosynovitis, shoulder'
+    Input: {"row_number": 5, "source_term": "Unspecified synovitis and tenosynovitis, unspecified shoulder"}
+    Output: {"row_number": 5, "cleaned_term": "synovitis and tenosynovitis, shoulder"}
     
-    Input: 'Peptic ulcer without hemorrhage and without perforation'
-    Output: '#Term: Peptic ulcer without hemorrhage and without perforation'
+    Input: {"row_number": 6, "source_term": "Peptic ulcer without hemorrhage and without perforation"}
+    Output: {"row_number": 6, "cleaned_term": "Peptic ulcer without hemorrhage and without perforation"}
     
-    Input: 'Bipolar disorder, mild'
-    Output: '#Term: Bipolar disorder, mild'
+    Input: {"row_number": 7, "source_term": "Bipolar disorder, mild"}
+    Output: {"row_number": 7, "cleaned_term": "Bipolar disorder, mild"}
     
-    Input: 'endosonography (machine translation)'
-    Output: '#Term: endosonography'
-
-    Input: 'Moderate persistent asthma, uncomplicated'
-    Output: '#Term: Moderate persistent asthma'
-
-    Input: 'Lack of coordination, classified elsewhere'
-    Output: '#Term: Lack of coordination'
-
+    Input: {"row_number": 8, "source_term": "endosonography (machine translation)"}
+    Output: {"row_number": 8, "cleaned_term": "endosonography"}
+    
+    Input: {"row_number": 9, "source_term": "Moderate persistent asthma, uncomplicated"}
+    Output: {"row_number": 9, "cleaned_term": "Moderate persistent asthma"}
+    
+    Input: {"row_number": 9, "source_term": "Lack of coordination, classified elsewhere"}
+    Output: {"row_number": 9, "cleaned_term": "Lack of coordination}
+    
     # Important
     
     Maintain information relevant for the clinical presentation, prognosis and treatment of the term. This includes information about severity, stage, timing, location, and body part (including lateratily).
     
     #Output format
-    Present the extracted term with '#Term:' preceding it.
+    You will receive up to 25 source terms in one request, each with a row_number.
+    Return exactly one JSON object with this structure and no additional keys:
+    {
+      "results": [
+        {
+          "row_number": integer,
+          "cleaned_term": "string"
+        }
+      ]
+    }
+    Include one result for each input row_number.
+    Do not include any text outside of the JSON object.
 
 vector_search:
   max_candidates: 25
 
 llm_mapping:
+  llm_mapper_responses_folder: data/llm_mapper_responses
   context:
     include_target_parents: True
     include_target_children: True
@@ -151,8 +159,7 @@ llm_mapping:
       {
         "source_term": "string",
         "match_found": boolean,
-        "concept_id": "string or null",
-        "concept_name": "string or null",
+        "concept_id": "integer or null",
         "justification": "string"
       }
 

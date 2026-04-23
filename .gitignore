@@ -13,13 +13,12 @@ data/*
 !data/gold_standards/**
 !data/notebook_results/
 !data/notebook_results/**
-
-data/gold_standards/.DS_Store
-.env.example
+*.DS_Store
 phoebe_embeddings.checkpoint.pkl
 sandbox/classify_icd10cm_and.py
 out.csv
 src/ariadne/vector_search/pgvector_concept_searcher_phoebe.py
-data/notebook_results/.DS_Store
 sandbox/phoebe.py
 docs/snomed_ref_description.md
+sandbox/drug_results/
+sandbox/procedure_results/

@@ -46,7 +46,7 @@ def get_environment_variable(name: str) -> str:
     return value
 
 
-def resolve_path(path: str) -> str:
+def resolve_path(path: [str | Path]) -> str:
     """If the path is relative, makes it absolute by prepending the project root.
 
     Args:

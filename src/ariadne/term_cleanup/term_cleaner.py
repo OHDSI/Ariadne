@@ -16,6 +16,7 @@
 
 import hashlib
 import os
+import json
 import pandas as pd
 import re
 import threading
@@ -23,14 +24,29 @@ import warnings
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from ariadne.utils.gen_ai_api import get_llm_response
-from ariadne.utils.config import Config
+from ariadne.utils.settings import TermCleanerSettings
 
+_BATCH_SIZE = 25
 
-_TRIGGER_PATTERN = (
-    r"not\b|unspecified|unidentified|without\b|other\b"
-    r"| nos\b|,nos\b| nec\b|,nec\b|encounter"
-    r"|uncomplicated|classified elsewhere|with or without|\bunknown\b"
-)
+_TERM_CLEANING_BATCH_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "results": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "row_number": {"type": "integer"},
+                    "cleaned_term": {"type": "string"},
+                },
+                "required": ["row_number", "cleaned_term"],
+                "additionalProperties": False,
+            },
+        },
+    },
+    "required": ["results"],
+    "additionalProperties": False,
+}
 
 # ---------------------------------------------------------------------------
 # ICD "and" → "and/or" rewrite logic
@@ -100,23 +116,17 @@ class TermCleaner:
     A class to clean clinical terms by removing non-essential modifiers and information using a Large Language Model (LLM).
     """
 
-    def __init__(self, config: Config = Config(), max_workers: int = 8):
-        self.system_prompt = config.term_cleaning.system_prompt
-        self.responses_folder = config.system.term_cleaner_responses_folder
-        os.makedirs(self.responses_folder, exist_ok=True)
+    def __init__(self, settings: TermCleanerSettings):
+        self.system_prompt = settings.system_prompt
         self.cost = 0.0
         self._cost_lock = threading.Lock()
         self.max_workers = max_workers
 
-    def clean_term(
+    def rewrite_and(
         self, term: str, vocabulary_id: str = "", concept_code: str = ""
     ) -> str:
         """
-        Cleans a clinical term in two passes:
-          1. Offline: rewrite ' and ' → ' and/or ' for ICD-family terms where
-             appropriate (no LLM, no network).
-          2. LLM: remove non-essential modifiers (NOS, unspecified, etc.).
-
+        Rewrite ' and ' → ' and/or ' for ICD-family terms where appropriate.
         Args:
             term: The clinical term to be cleaned.
             vocabulary_id: Source vocabulary (e.g. 'ICD10CM'). Used for
@@ -127,40 +137,54 @@ class TermCleaner:
         Returns:
             The cleaned clinical term.
         """
-        # Pass 1 — and → and/or rewrite (offline, no LLM)
         if _should_replace_and(term, vocabulary_id, concept_code):
             term = re.sub(r" and ", " and/or ", term, flags=re.IGNORECASE)
+        return term
 
-        # Pass 2 — NOS/unspecified/etc. LLM cleanup
-        if re.search(_TRIGGER_PATTERN, term, flags=re.IGNORECASE) is None:
-            return term
+    def _clean_terms_batch(self, terms: list[str]) -> list[str]:
+        """Cleans up to 25 terms in one LLM request and returns results in input order."""
+        if not terms:
+            return []
 
-        # Return cached result if available
-        cache_key = hashlib.md5(term.encode()).hexdigest()
-        cache_file = os.path.join(self.responses_folder, f"term_clean_{cache_key}.txt")
-        if os.path.exists(cache_file):
-            with open(cache_file, "r", encoding="utf-8") as fh:
-                return fh.read().strip()
-
-        prompt = f"#Term: {term}"
-        response = get_llm_response(prompt=prompt, system_prompt=self.system_prompt)
-        with self._cost_lock:
-            self.cost += response["usage"]["total_cost_usd"]
-
-        # Try '#Term:' prefix (case-insensitive), fall back to stripped raw response
-        content = response["content"].strip()
-        match = re.search(r"#[Tt]erm:\s*(.+)$", content, flags=re.MULTILINE)
-        if match:
-            cleaned = match.group(1).strip()
-        else:
-            warnings.warn(f"Could not parse '#Term:' from response for '{term}'; using raw response")
-            cleaned = content
-
-        # Persist to cache
-        with open(cache_file, "w", encoding="utf-8") as fh:
-            fh.write(cleaned)
-
-        return cleaned
+        # TODO: call Anna's logic
+        rows = [{"row_number": i, "source_term": term} for i, term in enumerate(terms)]
+        prompt = (
+            "Clean each source term in the provided JSON and return one cleaned term per row_number.\n"
+            "Input JSON:\n"
+            f"{json.dumps({'terms': rows}, ensure_ascii=False)}"
+        )
+        response = get_llm_response(
+            prompt=prompt,
+            system_prompt=self.system_prompt,
+            json_schema=_TERM_CLEANING_BATCH_SCHEMA,
+            json_schema_name="term_cleaning_batch",
+        )
+        self.cost += response["usage"]["total_cost_usd"]
+        cleaned_terms = list(terms)
+        parsed = response["parsed_json"]
+        if not isinstance(parsed, dict):
+            raise ValueError("Term cleaning response must be a JSON object with a 'results' array.")
+        results = parsed["results"]
+        if not isinstance(results, list):
+            raise ValueError("Term cleaning response 'results' must be a list.")
+        for item in results:
+            if not isinstance(item, dict):
+                raise ValueError("Each term cleaning result must be an object.")
+            if "row_number" not in item:
+                raise ValueError("Each term cleaning result must include integer 'row_number'.")
+            if "cleaned_term" not in item:
+                raise ValueError("Each term cleaning result must include string 'cleaned_term'.")
+            row_number = item["row_number"]
+            cleaned_term = item["cleaned_term"]
+            if not isinstance(row_number, int):
+                raise ValueError("Each term cleaning result must include integer 'row_number'.")
+            if row_number < 0 or row_number >= len(cleaned_terms):
+                raise ValueError("Row number out of range in term cleaning result.")
+            if not isinstance(cleaned_term, str):
+                raise ValueError("Each term cleaning result must include string 'cleaned_term'.")
+            cleaned_term = cleaned_term.strip()
+            cleaned_terms[row_number] = cleaned_term
+        return cleaned_terms
 
     def clean_terms(
         self,
@@ -226,6 +250,15 @@ class TermCleaner:
                     term_map[futures[future]] = future.result()
             df[output_column] = df[term_column].map(term_map)
 
+
+        df[output_column] = df[term_column]
+
+        for start in range(0, df.shape[0], _BATCH_SIZE):
+            batch_df = df.iloc[start:start + _BATCH_SIZE]
+            batch_terms = batch_df[term_column].astype(str).tolist()
+            cleaned_batch = self._clean_terms_batch(batch_terms)
+            df.loc[batch_df.index, output_column] = cleaned_batch
+
         return df
 
     def get_total_cost(self) -> float:
@@ -240,7 +273,10 @@ class TermCleaner:
 
 
 if __name__ == "__main__":
-    term_cleaner = TermCleaner()
+    from ariadne.utils.config import Config
+
+    config = Config()
+    term_cleaner = TermCleaner(settings=config.term_cleaning)
     data = {
         "term": [
             "Acute myocardial infarction, unspecified",

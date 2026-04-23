@@ -16,12 +16,13 @@
 
 
 import requests
+from typing import Optional, List
 
 import pandas as pd
 from ariadne.vector_search.abstract_concept_searcher import AbstractConceptSearcher
-from pandas.core.interchange.dataframe_protocol import DataFrame
 
-_HECATE_URL = "https://hecate.pantheon-hds.com/api/search_standard"
+_HECATE_SEARCH_URL = "https://hecate.pantheon-hds.com/api/search"
+_HECATE_SEARCH_STANDARD_URL = "https://hecate.pantheon-hds.com/api/search_standard"
 
 
 class HecateConceptSearcher(AbstractConceptSearcher):
@@ -30,7 +31,14 @@ class HecateConceptSearcher(AbstractConceptSearcher):
     A concept searcher that uses the OHDSI Hecate API to find concepts based on query strings.
     """
 
-    def __init__(self, for_evaluation: bool = False):
+    def __init__(
+        self,
+        for_evaluation: bool = False,
+        standard_concept: Optional[str] = None,
+        domain_ids: Optional[List[str]] = None,
+        concept_class_ids: Optional[List[str]] = None,
+        vocabulary_ids: Optional[List[str]] = None,
+    ):
         """
         Initializes the HecateConceptSearcher.
 
@@ -41,6 +49,7 @@ class HecateConceptSearcher(AbstractConceptSearcher):
 
         if for_evaluation:
             print("HecateConceptSearcher initialized in evaluation mode.")
+            self.default_url = _HECATE_SEARCH_STANDARD_URL
             self.default_params = {
                 "standard_concept": "S",
                 "domain_id": "Condition,Observation,Measurement,Procedure",
@@ -49,11 +58,51 @@ class HecateConceptSearcher(AbstractConceptSearcher):
             }
         else:
             print("HecateConceptSearcher initialized in standard mode.")
-            self.default_params = {
-                "standard_concept": "S",
-            }
+            self.default_url = _HECATE_SEARCH_STANDARD_URL
+            self.default_params = {}
+            normalized_standard = (standard_concept or "S").strip()
+            if normalized_standard.lower() == "none":
+                self.default_url = _HECATE_SEARCH_URL
+                self.default_params["standard_concept"] = "None"
+            elif normalized_standard != "S":
+                self.default_url = _HECATE_SEARCH_URL
+                self.default_params["standard_concept"] = normalized_standard
+            if domain_ids:
+                self.default_params["domain_id"] = ",".join(domain_ids)
+            if concept_class_ids:
+                self.default_params["concept_class_id"] = ",".join(concept_class_ids)
+            if vocabulary_ids:
+                self.default_params["vocabulary_id"] = ",".join(vocabulary_ids)
 
-    def search_term(self, query_string: str, limit: int = 25) -> DataFrame:
+    def _resolve_endpoint_for_standard_concept(self, standard_concept: Optional[str]) -> tuple[str, dict]:
+        params = dict(self.default_params)
+        endpoint = self.default_url
+
+        if standard_concept is None:
+            return endpoint, params
+
+        normalized_standard = standard_concept.strip()
+        if normalized_standard.lower() == "none":
+            endpoint = _HECATE_SEARCH_URL
+            params["standard_concept"] = "None"
+        elif normalized_standard == "S":
+            endpoint = _HECATE_SEARCH_STANDARD_URL
+            params.pop("standard_concept", None)
+        else:
+            endpoint = _HECATE_SEARCH_URL
+            params["standard_concept"] = normalized_standard
+
+        return endpoint, params
+
+    def search_term(
+        self,
+        query_string: str,
+        limit: int = 25,
+        standard_concept: Optional[str] = None,
+        domain_ids: Optional[List[str]] = None,
+        concept_class_ids: Optional[List[str]] = None,
+        vocabulary_ids: Optional[List[str]] = None,
+    ) -> pd.DataFrame:
         """
         Searches for concepts matching the given query string.
 
@@ -67,11 +116,17 @@ class HecateConceptSearcher(AbstractConceptSearcher):
 
         """
 
-        params = {"q": query_string, "limit": limit}
-        params.update(self.default_params)
+        endpoint, params = self._resolve_endpoint_for_standard_concept(standard_concept)
+        params.update({"q": query_string, "limit": limit})
+        if domain_ids:
+            params["domain_id"] = ",".join(domain_ids)
+        if concept_class_ids:
+            params["concept_class_id"] = ",".join(concept_class_ids)
+        if vocabulary_ids:
+            params["vocabulary_id"] = ",".join(vocabulary_ids)
 
         try:
-            response = requests.get(_HECATE_URL, params=params, timeout=15)
+            response = requests.get(endpoint, params=params, timeout=15)
             response.raise_for_status()
             terms = response.json()
             concepts = []
@@ -80,7 +135,12 @@ class HecateConceptSearcher(AbstractConceptSearcher):
                 for concept in term.get("concepts", []):
                     concept["score"] = term.get("score", None)
                 concepts.extend(term.get("concepts", []))
-            return pd.DataFrame(concepts)
+            results_df = pd.DataFrame(concepts)
+            if results_df.empty:
+                return results_df
+            if vocabulary_ids and "vocabulary_id" in results_df.columns:
+                results_df = results_df[results_df["vocabulary_id"].isin(vocabulary_ids)]
+            return results_df
 
         except requests.exceptions.HTTPError as http_err:
             print(f"HTTP error occurred: {http_err}")
@@ -104,6 +164,10 @@ class HecateConceptSearcher(AbstractConceptSearcher):
         match_score_column: str = "match_score",
         match_rank_column: str = "match_rank",
         limit: int = 25,
+        standard_concept: Optional[str] = None,
+        domain_ids: Optional[List[str]] = None,
+        concept_class_ids: Optional[List[str]] = None,
+        vocabulary_ids: Optional[List[str]] = None,
     ) -> pd.DataFrame:
         """
         Searches the Hecate API for concepts matching terms in a DataFrame column.
@@ -127,7 +191,14 @@ class HecateConceptSearcher(AbstractConceptSearcher):
         for index, row in df.iterrows():
             term = row[term_column]
             print(f"Processing term '{term}'")
-            results = self.search_term(term, limit=limit)
+            results = self.search_term(
+                term,
+                limit=limit,
+                standard_concept=standard_concept,
+                domain_ids=domain_ids,
+                concept_class_ids=concept_class_ids,
+                vocabulary_ids=vocabulary_ids,
+            )
             if results is not None:
                 rows = []
                 for rank, (_, concept) in enumerate(results.iterrows(), start=1):
@@ -147,10 +218,13 @@ class HecateConceptSearcher(AbstractConceptSearcher):
                 for col in df.columns:
                     results[col] = row[col]
                 results = results[orig_cols + new_columns]
-                all_results.append(results)
+                if not results.empty:
+                    all_results.append(results)
 
-        all_results = pd.concat(all_results)
-        return all_results
+        if not all_results:
+            return pd.DataFrame()
+
+        return pd.concat(all_results, ignore_index=True)
 
 
 if __name__ == "__main__":

@@ -1,7 +1,7 @@
-import os
+import json
 import numpy as np
 from ariadne.utils.utils import get_environment_variable
-from openai import OpenAI, AzureOpenAI
+from openai import OpenAI
 from typing import List, Optional, Dict, Any, Tuple
 from dotenv import load_dotenv
 
@@ -36,6 +36,7 @@ class _AIClientFactory:
             provider_type: 'openai', 'azure', or 'local'
         """
         provider = get_environment_variable("GENAI_PROVIDER").lower()
+        api_key: Optional[str] = None
 
         if task_type == "embedding":
             model_name = get_environment_variable("EMBEDDING_MODEL")
@@ -74,7 +75,9 @@ class _AIClientFactory:
 def _calculate_cost(model_name: str, input_tok: int, output_tok: int, provider_type: str) -> float:
     if provider_type == "local":
         return 0.0
-    price_key = next((k for k in _PRICING_TABLE if k in model_name), None)
+    # Match longest keys first so specific models (e.g. o3-mini) win over generic prefixes (e.g. o3).
+    keys = sorted(_PRICING_TABLE.keys(), key=len, reverse=True)
+    price_key = next((k for k in keys if k in model_name), None)
     if not price_key:
         return 0.0
     prices = _PRICING_TABLE[price_key]
@@ -99,18 +102,28 @@ def get_embedding_vectors(texts: List[str]) -> Dict[str, Any]:
 
     client, model, provider = _AIClientFactory.get_client(task_type="embedding")
 
-    response = client.embeddings.create(input=texts, model=model)
-
-    data = sorted(response.data, key=lambda x: x.index)
-    np_vectors = np.array([item.embedding for item in data])
-
-    usage = response.usage
-    total_cost = _calculate_cost(model, usage.prompt_tokens, 0, provider)
+    batch_size = 100
+    verbose = len(texts) > batch_size
+    batch_results = []
+    total_tokens = 0
+    for i in range(0, len(texts), batch_size):
+        # if i != 9400:
+        #     continue
+        batch = texts[i : i + batch_size]
+        if verbose:
+            print(f"Getting embedding vectors for batch {i + 1} - {i + len(batch)} ({len(texts)} total)")
+        response = client.embeddings.create(input=batch, model=model)
+        data = sorted(response.data, key=lambda x: x.index)
+        np_vectors = np.array([item.embedding for item in data])
+        batch_results.append(np_vectors)
+        usage = response.usage
+        total_tokens = total_tokens + usage.prompt_tokens
+    total_cost = _calculate_cost(model, total_tokens, 0, provider)
 
     return {
-        "embeddings": np_vectors,
+        "embeddings": np.concatenate(batch_results, axis=0),
         "usage": {
-            "input_tokens": usage.prompt_tokens,
+            "input_tokens": total_tokens,
             "output_tokens": 0,
             "reasoning_tokens": 0,
             "total_cost_usd": total_cost,
@@ -119,16 +132,28 @@ def get_embedding_vectors(texts: List[str]) -> Dict[str, Any]:
     }
 
 
-def get_llm_response(prompt: str, system_prompt: Optional[str] = None, show_reasoning: bool = False) -> Dict[str, Any]:
+def get_llm_response(
+    prompt: str,
+    system_prompt: Optional[str] = None,
+    show_reasoning: bool = False,
+    json_schema: Optional[Dict[str, Any]] = None,
+    json_schema_name: str = "ariadne_response",
+    force_json_object: bool = False,
+) -> Dict[str, Any]:
     """
     Generates text response using the LLM-specific config.
 
     Args:
         prompt: The user prompt to send to the LLM.
         system_prompt: Optional system prompt to guide the LLM's behavior.
+        show_reasoning: If False, strips any text before '</think>' from local reasoning models.
+        json_schema: Optional JSON schema to request strict structured output.
+        json_schema_name: Name attached to the schema for providers that require one.
+        force_json_object: If True, requests a JSON object without strict schema.
     Returns:
         A dictionary containing:
             - "content": The generated text response from the LLM.
+            - "parsed_json": Parsed JSON response when structured output was requested and valid.
             - "usage": A dictionary with token usage and cost details.
     """
 
@@ -139,21 +164,44 @@ def get_llm_response(prompt: str, system_prompt: Optional[str] = None, show_reas
         messages.append({"role": "system", "content": system_prompt})
     messages.append({"role": "user", "content": prompt})
 
+    create_kwargs: Dict[str, Any] = {"model": model, "messages": messages}
     if model in _TEMPERATURE_OK_MODELS:
-        temperature = 0.0
-    else:
-        temperature = None
+        create_kwargs["temperature"] = 0.0
+
+    structured_requested = json_schema is not None or force_json_object
+    if json_schema is not None:
+        create_kwargs["response_format"] = {
+            "type": "json_schema",
+            "json_schema": {
+                "name": json_schema_name,
+                "strict": True,
+                "schema": json_schema,
+            },
+        }
+    elif force_json_object:
+        create_kwargs["response_format"] = {"type": "json_object"}
 
     try:
-        response = client.chat.completions.create(model=model, messages=messages, temperature=temperature)
+        response = client.chat.completions.create(**create_kwargs)
     except Exception as e:
         msg = str(e).lower()
-        if any(k in msg for k in ("content filter", "content_filter", "filtered", "policy", "moderation")):
+        if structured_requested and (
+            "response_format" in msg
+            or "json_schema" in msg
+            or "unsupported" in msg
+            or "not supported" in msg
+            or "invalid_request" in msg
+        ):
+            fallback_kwargs = dict(create_kwargs)
+            fallback_kwargs.pop("response_format", None)
+            response = client.chat.completions.create(**fallback_kwargs)
+        elif any(k in msg for k in ("content filter", "content_filter", "filtered", "policy", "moderation")):
             import warnings
 
-            warnings.warn(f"Content filter triggered for obscene prompt '{prompt}'; returning None as response.")
+            warnings.warn("Content filter triggered; returning None as response content.")
             return {
                 "content": None,
+                "parsed_json": None,
                 "usage": {
                     "input_tokens": 0,
                     "output_tokens": 0,
@@ -162,7 +210,8 @@ def get_llm_response(prompt: str, system_prompt: Optional[str] = None, show_reas
                     "model_used": model,
                 },
             }
-        raise
+        else:
+            raise
 
     usage = response.usage
     reasoning_tokens = 0
@@ -171,12 +220,20 @@ def get_llm_response(prompt: str, system_prompt: Optional[str] = None, show_reas
 
     total_cost = _calculate_cost(model, usage.prompt_tokens, usage.completion_tokens, provider)
 
-    content = response.choices[0].message.content
-    if not show_reasoning:
+    content = response.choices[0].message.content or ""
+    if not show_reasoning and isinstance(content, str):
         content = content.split("</think>", 1)[-1]
+
+    parsed_json = None
+    if structured_requested and content:
+        try:
+            parsed_json = json.loads(content)
+        except json.JSONDecodeError:
+            parsed_json = None
 
     return {
         "content": content,
+        "parsed_json": parsed_json,
         "usage": {
             "input_tokens": usage.prompt_tokens,
             "output_tokens": usage.completion_tokens,
