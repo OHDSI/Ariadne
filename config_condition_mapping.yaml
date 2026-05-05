@@ -1,6 +1,6 @@
 verbatim_mapping:
-  terms_folder: data/terms_condition_mapping
-  verbatim_mapping_index_file: data/verbatim_condition_mapping_index.pkl
+  terms_folder: data/terms_condition
+  verbatim_mapping_index_file: data/verbatim_condition_index.pkl
   download_batch_size: 100000
   log_folder: logs
   substrings_to_remove:
@@ -97,7 +97,7 @@ vector_search:
   max_candidates: 25
 
 llm_mapping:
-  llm_mapper_responses_folder: data/llm_mapper_responses
+  llm_mapper_responses_folder: data/llm_condition_mapper_responses
   context:
     include_target_parents: True
     include_target_children: True
@@ -108,39 +108,9 @@ llm_mapping:
     re_insert_target_details: True
   system_prompts:
     - |
-      You are a medical terminology expert. Your task is to retrieve and analyze medical terms.
-      You will be provided with one Source Term and a list of Target Concepts.
-      Your sole responsibility is to generate a concise clinical definition for each term (both the source and all targets).
-      The definition should be at most 1 paragraph.
-      For the Target Concepts, make sure your definitions align with their vocabulary context (concept_synonyms, concept_class_id, concept_domain_id, concept_parentsl, concept_children).
-      Ignore parts not relevant to clinical presentation, prognosis and treatment (e.g., 'not otherwise specified', 'other specific').
-      You must not perform any comparison, check for added/lost information, or determine a match. Your job is only to provide the definitions.
-      Output Format:
-      Provide your response in a single JSON object. Do not include any text outside of the JSON.
-      JSON
-      {
-        "source_term": {
-          "name": "<Source Term Name>",
-          "definition": "<Definition of source term>"
-        },
-        "target_concepts": [
-          {
-            "id": "<Concept ID 1>",
-            "name": "<Concept Name 1>",
-            "definition": "<Definition of concept 1>"
-          },
-          {
-            "id": "<Concept ID 2>",
-            "name": "<Concept Name 2>",
-            "definition": "<Definition of concept 2>"
-          },
-          ...
-        ]
-      }
-    - |
       You are a meticulous medical terminology expert.
       Your task is to find the single standard concept that is equivalent to a source term based on their clinical presentation, prognosis and treatment, or indicate when such a match does not exist.
-      You will be provided with a JSON object containing a source term and a list of target concepts, each with its definition and vocabulary context.
+      You will be provided with a JSON object containing a source term and a list of target concepts, each with its vocabulary context.
       
       Your primary goal is to find an exact clinical equivalent. Evaluate each target concept against the source term using the following rules:
       
