@@ -3,18 +3,24 @@
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
 
-**Ariadne** is a Python toolkit for two-step pipeline to harmonize source vocabularies into the OHDSI Standardized Vocabularies in two steps:
-- mapping source terminologies to standard concepts 
-- finding parents for umapped concepts in standard hierarchy 
-As of now, works with Condition domain excluding special cases (history of, allergies, surveys, etc.) following [documentation for mapping rules and assumptions](https://ohdsiorg.sharepoint.com/:w:/s/Workgroup-CommonDataModel/IQCFVrVoVAJcTZqqgi_iDiPeAVhU2fVplbRK-Y-vboGgbh0?e=822ZoC).
+**Ariadne** is a Python toolkit to harmonize source vocabularies into the OHDSI Standardized Vocabularies.
+
+It currently supports three workflows:
+- **Conditions:** exact matching and hierarchy matching (for identifying a parent concept when no exact standard match is available).
+- **Drugs:** prepares source codes for inserting into the OHDSI Boiler software as described [here](https://github.com/OHDSI/Vocabulary-v5.0/wiki/Community-contribution.-Drug-vocabularies).
+- **Procedures:** exact source-to-standard concept mapping for procedure vocabularies.
+
+The toolkit is designed to be extensible, allowing for the addition of new workflows (e.g., measurements, devices) and mapping strategies as needed.
+
 
 ## Features
 
-* **Clean-up:** normalizes concept names per mapping rules, removing non-essential information.
-* **Verbatim term mapping:** maps terms that (almost) exactly match standard concepts. Using term normalization techniques like lowercasing, punctuation removal, and word stemming.
-* **Embedding vector search:** leverages embedding language models to find semantically similar standard concepts for source terms.
-* **Exact term mapping:** using reasoning LLMs to find exact matches in the vocabulary.
-* **Evaluation:** uses golden standard mappings to evaluate mapping performance.
+* **Clean-up:** normalizes source terms per mapping rules, removing non-essential information.
+* **Verbatim term mapping:** maps terms that (almost) exactly match standard concepts using normalization (lowercasing, punctuation removal, stemming).
+* **Embedding vector search:** retrieves semantically similar standard concepts as mapping candidates.
+* **LLM-assisted exact mapping:** selects the best standard concept from candidates.
+* **Hierarchy matching (Conditions):** finds parent concepts for unmatched terms in the standard hierarchy.
+* **Evaluation:** compares outputs against gold-standard mappings.
 
 ## Documentation
 

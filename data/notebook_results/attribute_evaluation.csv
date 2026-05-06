@@ -1,429 +1,354 @@
 concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2,gs_concept_name_2,predicted_concept_id_2,predicted_concept_code_2,predicted_concept_name_2,matched,status
-22274,Neoplasm of uncertain behavior of larynx,Has asso morph,4313421.0,86251006.0,Neoplasm of uncertain behavior,4313421.0,86251006,Neoplasm of uncertain behavior,True,match
-22274,Neoplasm of uncertain behavior of larynx,Has finding site,4262229.0,4596009.0,Laryngeal structure,4262229.0,4596009,Laryngeal structure,True,match
-22281,Sickle cell-hemoglobin SS disease,Has asso morph,4177967.0,49938009.0,Drepanocyte,4177967.0,49938009,Drepanocyte,True,match
-22281,Sickle cell-hemoglobin SS disease,Has causative agent,4178879.0,50095005.0,Hemoglobin S,4178879.0,50095005,Hemoglobin S,True,match
-22281,Sickle cell-hemoglobin SS disease,Has finding site,4218976.0,41898006.0,Erythrocyte,4218976.0,41898006,Erythrocyte,True,match
-22281,Sickle cell-hemoglobin SS disease,Has interpretation,4083207.0,281300000.0,Below reference range,4083207.0,281300000,Below reference range,True,match
-22281,Sickle cell-hemoglobin SS disease,Has interprets,40480067.0,441689006.0,Measurement of total hemoglobin concentration,40480067.0,441689006,Measurement of total hemoglobin concentration,True,match
-22281,Sickle cell-hemoglobin SS disease,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
-22288,Hereditary elliptocytosis,Has asso morph,4259404.0,45028007.0,Elliptocyte,4259404.0,45028007,Elliptocyte,True,match
-22288,Hereditary elliptocytosis,Has finding site,4218976.0,41898006.0,Erythrocyte,4218976.0,41898006,Erythrocyte,True,match
-22288,Hereditary elliptocytosis,Has interpretation,4083207.0,281300000.0,Below reference range,4083207.0,281300000,Below reference range,True,match
-22288,Hereditary elliptocytosis,Has interpretation,4083207.0,281300000.0,Below reference range,4083207.0,281300000,Below reference range,True,match
-22288,Hereditary elliptocytosis,Has interpretation,4181412.0,52101004.0,Present,4181412.0,52101004,Present,True,match
-22288,Hereditary elliptocytosis,Has interprets,4030871.0,14089001.0,Red blood cell count,4030871.0,14089001,Red blood cell count,True,match
-22288,Hereditary elliptocytosis,Has interprets,4224294.0,404227002.0,Hemolysis,4224294.0,404227002,Hemolysis,True,match
-22288,Hereditary elliptocytosis,Has interprets,40480067.0,441689006.0,Measurement of total hemoglobin concentration,40480067.0,441689006,Measurement of total hemoglobin concentration,True,match
-22288,Hereditary elliptocytosis,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
-22288,Hereditary elliptocytosis,Has pathology,4204670.0,308490002.0,Pathological developmental process,4204670.0,308490002,Pathological developmental process,True,match
-22340,Esophageal varices without bleeding,Has asso morph,4029830.0,12856003.0,Varix,4029830.0,12856003,Varix,True,match
-22340,Esophageal varices without bleeding,Has finding site,4237655.0,90895003.0,Structure of esophageal vein,4237655.0,90895003,Structure of esophageal vein,True,match
-22350,Edema of larynx,Has asso morph,4196943.0,79654002.0,Edema,4196943.0,79654002,Edema (morphologic abnormality),True,match
-22350,Edema of larynx,Has finding site,,,,4111456.0,181212004,Entire larynx (body structure),False,extra
+22274,Neoplasm of uncertain behavior of larynx,Has asso morph,4313421.0,86251006.0,Neoplasm of uncertain behavior,,,,False,missed
+22274,Neoplasm of uncertain behavior of larynx,Has finding site,4262229.0,4596009.0,Laryngeal structure,,,,False,missed
+22281,Sickle cell-hemoglobin SS disease,Has asso morph,4177967.0,49938009.0,Drepanocyte,,,,False,missed
+22281,Sickle cell-hemoglobin SS disease,Has causative agent,4178879.0,50095005.0,Hemoglobin S,,,,False,missed
+22281,Sickle cell-hemoglobin SS disease,Has finding site,4218976.0,41898006.0,Erythrocyte,,,,False,missed
+22281,Sickle cell-hemoglobin SS disease,Has interpretation,4083207.0,281300000.0,Below reference range,,,,False,missed
+22281,Sickle cell-hemoglobin SS disease,Has interprets,40480067.0,441689006.0,Measurement of total hemoglobin concentration,,,,False,missed
+22281,Sickle cell-hemoglobin SS disease,Has occurrence,4116830.0,255399007.0,Congenital,,,,False,missed
+22288,Hereditary elliptocytosis,Has asso morph,4259404.0,45028007.0,Elliptocyte,,,,False,missed
+22288,Hereditary elliptocytosis,Has finding site,4218976.0,41898006.0,Erythrocyte,,,,False,missed
+22288,Hereditary elliptocytosis,Has interpretation,4083207.0,281300000.0,Below reference range,,,,False,missed
+22288,Hereditary elliptocytosis,Has interpretation,4181412.0,52101004.0,Present,,,,False,missed
+22288,Hereditary elliptocytosis,Has interprets,4030871.0,14089001.0,Red blood cell count,,,,False,missed
+22288,Hereditary elliptocytosis,Has interprets,4224294.0,404227002.0,Hemolysis,,,,False,missed
+22288,Hereditary elliptocytosis,Has interprets,40480067.0,441689006.0,Measurement of total hemoglobin concentration,,,,False,missed
+22288,Hereditary elliptocytosis,Has occurrence,4116830.0,255399007.0,Congenital,,,,False,missed
+22288,Hereditary elliptocytosis,Has pathology,4204670.0,308490002.0,Pathological developmental process,,,,False,missed
+22340,Esophageal varices without bleeding,Has asso morph,4029830.0,12856003.0,Varix,,,,False,missed
+22340,Esophageal varices without bleeding,Has finding site,4237655.0,90895003.0,Structure of esophageal vein,,,,False,missed
+22350,Edema of larynx,Has asso morph,4196943.0,79654002.0,Edema,,,,False,missed
 22350,Edema of larynx,Has finding site,4262229.0,4596009.0,Laryngeal structure,,,,False,missed
-22426,Congenital macrostomia,Has asso morph,,,,40480930.0,441880008,Congenital enlargement,False,extra
-22426,Congenital macrostomia,Has asso morph,,,,40481759.0,442021009,Enlargement,False,extra
 22426,Congenital macrostomia,Has asso morph,4154268.0,371520008.0,Developmental failure of fusion,,,,False,missed
-22426,Congenital macrostomia,Has finding site,,,,4047651.0,123851003,Mouth region structure,False,extra
 22426,Congenital macrostomia,Has finding site,4307655.0,836005.0,Structure of oral region of face,,,,False,missed
-22426,Congenital macrostomia,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
-22426,Congenital macrostomia,Has pathology,4204670.0,308490002.0,Pathological developmental process,4204670.0,308490002,Pathological developmental process,True,match
-22492,Foreign body in pharynx,Has asso morph,4078373.0,19227008.0,Foreign body,4078373.0,19227008,Foreign body,True,match
-22492,Foreign body in pharynx,Has finding site,4207370.0,54066008.0,Pharyngeal structure,4207370.0,54066008,Pharyngeal structure,True,match
-22557,Malignant tumor of submandibular gland,Has asso morph,,,,4282379.0,367651003,Malignant Neoplasm (Morphology),False,extra
-22557,Malignant tumor of submandibular gland,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,37153816.0,1240414004,Malignant neoplasm,True,match
+22426,Congenital macrostomia,Has occurrence,4116830.0,255399007.0,Congenital,,,,False,missed
+22426,Congenital macrostomia,Has pathology,4204670.0,308490002.0,Pathological developmental process,,,,False,missed
+22492,Foreign body in pharynx,Has asso morph,4078373.0,19227008.0,Foreign body,,,,False,missed
+22492,Foreign body in pharynx,Has finding site,4207370.0,54066008.0,Pharyngeal structure,,,,False,missed
 22557,Malignant tumor of submandibular gland,Has asso morph,4268747.0,6219000.0,"Neoplasm, malignant, uncertain whether primary or metastatic",,,,False,missed
-22557,Malignant tumor of submandibular gland,Has finding site,4299196.0,385296007.0,Submandibular salivary gland structure,4299196.0,385296007,Submandibular salivary gland structure,True,match
-22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,Has asso morph,4208270.0,55075001.0,Bleeding ulcer,4208270.0,55075001,Bleeding ulcer,True,match
-22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,Has asso morph,4239211.0,91182001.0,Perforated ulcer,4239211.0,91182001,Perforated ulcer,True,match
-22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,Has asso morph,4243483.0,37904008.0,Chronic bleeding ulcer,4243483.0,37904008,Chronic bleeding ulcer,True,match
-22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,Has clinical course,4236661.0,90734009.0,Chronic,4236661.0,90734009,Chronic,True,match
-22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,4271189.0,62834003,Upper gastrointestinal tract structure,True,match
+22557,Malignant tumor of submandibular gland,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,,,,False,missed
+22557,Malignant tumor of submandibular gland,Has finding site,4299196.0,385296007.0,Submandibular salivary gland structure,,,,False,missed
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,Has asso morph,4208270.0,55075001.0,Bleeding ulcer,,,,False,missed
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,Has asso morph,4239211.0,91182001.0,Perforated ulcer,,,,False,missed
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,Has asso morph,4243483.0,37904008.0,Chronic bleeding ulcer,,,,False,missed
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,Has clinical course,4236661.0,90734009.0,Chronic,,,,False,missed
 22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,Has finding site,4046957.0,122865005.0,Gastrointestinal tract structure,,,,False,missed
-22666,Vomiting after gastrointestinal tract surgery,Has finding site,4046957.0,122865005.0,Gastrointestinal tract structure,4046957.0,122865005,Gastrointestinal tract structure,True,match
-22666,Vomiting after gastrointestinal tract surgery,Has interpretation,,,,4135493.0,263654008,Abnormal,False,extra
-22666,Vomiting after gastrointestinal tract surgery,Has interprets,4025208.0,106079008.0,Digestive system function,4025208.0,106079008,Digestive system function,True,match
-22722,Accessory salivary gland,Has asso morph,4238909.0,91431006.0,Supernumerary structure,4238909.0,91431006,Supernumerary structure,True,match
-22722,Accessory salivary gland,Has finding site,4294042.0,385294005.0,Salivary gland structure,4294042.0,385294005,Salivary gland structure,True,match
-22722,Accessory salivary gland,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
-22722,Accessory salivary gland,Has pathology,4204670.0,308490002.0,Pathological developmental process,4204670.0,308490002,Pathological developmental process,True,match
-22820,Tuberculosis of esophagus,Has asso morph,4269928.0,6266001.0,Granulomatous inflammation,4269928.0,6266001,Granulomatous inflammation,True,match
-22820,Tuberculosis of esophagus,Has causative agent,4035081.0,113858008.0,Mycobacterium tuberculosis complex,4035081.0,113858008,Mycobacterium tuberculosis complex,True,match
-22820,Tuberculosis of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
-22820,Tuberculosis of esophagus,Has pathology,40480911.0,441862004.0,Infectious process,40480911.0,441862004,Infectious process,True,match
-22839,Overlapping malignant neoplasm of larynx,Has asso morph,,,,4312326.0,86049000,"Neoplasm, malignant (primary)",False,extra
-22839,Overlapping malignant neoplasm of larynx,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,37153816.0,1240414004,Malignant neoplasm,True,match
-22839,Overlapping malignant neoplasm of larynx,Has finding site,4262229.0,4596009.0,Laryngeal structure,4262229.0,4596009,Laryngeal structure,True,match
-22856,Polyglandular dysfunction,Has asso morph,,,,4175951.0,49755003,Morphologically abnormal structure,False,extra
-22856,Polyglandular dysfunction,Has finding site,4298971.0,77637002.0,Structure of multiple endocrine glands,4298971.0,77637002,Structure of multiple endocrine glands,True,match
-22871,Neoplasm of uncertain behavior of pineal gland,Has asso morph,4313421.0,86251006.0,Neoplasm of uncertain behavior,4313421.0,86251006,Neoplasm of uncertain behavior,True,match
-22871,Neoplasm of uncertain behavior of pineal gland,Has finding site,4164136.0,45793000.0,Pineal structure,4164136.0,45793000,Pineal structure,True,match
-22945,Horizontal overbite,Has asso morph,,,,4064671.0,21390004,Developmental abnormality,False,extra
-22945,Horizontal overbite,Has asso morph,4149424.0,30812002.0,Overriding structures,4149424.0,30812002,Overriding structures,True,match
-22945,Horizontal overbite,Has asso morph,45772952.0,707598004.0,Malocclusion,45772952.0,707598004,Malocclusion,True,match
-22945,Horizontal overbite,Has finding site,4075101.0,245543004.0,Dentition,4075101.0,245543004,Dentition,True,match
-22955,Perforation of esophagus,Has asso morph,4263947.0,36191001.0,Perforation,4263947.0,36191001,Perforation,True,match
-22955,Perforation of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,,,,False,missed
+22666,Vomiting after gastrointestinal tract surgery,Has finding site,4046957.0,122865005.0,Gastrointestinal tract structure,,,,False,missed
+22666,Vomiting after gastrointestinal tract surgery,Has interprets,4025208.0,106079008.0,Digestive system function,,,,False,missed
+22722,Accessory salivary gland,Has asso morph,4238909.0,91431006.0,Supernumerary structure,,,,False,missed
+22722,Accessory salivary gland,Has finding site,4294042.0,385294005.0,Salivary gland structure,,,,False,missed
+22722,Accessory salivary gland,Has occurrence,4116830.0,255399007.0,Congenital,,,,False,missed
+22722,Accessory salivary gland,Has pathology,4204670.0,308490002.0,Pathological developmental process,,,,False,missed
+22820,Tuberculosis of esophagus,Has asso morph,4269928.0,6266001.0,Granulomatous inflammation,,,,False,missed
+22820,Tuberculosis of esophagus,Has causative agent,4035081.0,113858008.0,Mycobacterium tuberculosis complex,,,,False,missed
+22820,Tuberculosis of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,,,,False,missed
+22820,Tuberculosis of esophagus,Has pathology,40480911.0,441862004.0,Infectious process,,,,False,missed
+22839,Overlapping malignant neoplasm of larynx,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,,,,False,missed
+22839,Overlapping malignant neoplasm of larynx,Has finding site,4262229.0,4596009.0,Laryngeal structure,,,,False,missed
+22856,Polyglandular dysfunction,Has finding site,4298971.0,77637002.0,Structure of multiple endocrine glands,,,,False,missed
+22871,Neoplasm of uncertain behavior of pineal gland,Has asso morph,4313421.0,86251006.0,Neoplasm of uncertain behavior,,,,False,missed
+22871,Neoplasm of uncertain behavior of pineal gland,Has finding site,4164136.0,45793000.0,Pineal structure,,,,False,missed
+22945,Horizontal overbite,Has asso morph,4149424.0,30812002.0,Overriding structures,,,,False,missed
+22945,Horizontal overbite,Has asso morph,45772952.0,707598004.0,Malocclusion,,,,False,missed
+22945,Horizontal overbite,Has finding site,4075101.0,245543004.0,Dentition,,,,False,missed
+22955,Perforation of esophagus,Has asso morph,4263947.0,36191001.0,Perforation,,,,False,missed
+22955,Perforation of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,,,,False,missed
 23034,Neonatal hypoglycemia,Has finding site,4034504.0,113331007.0,Structure of endocrine system,,,,False,missed
-23034,Neonatal hypoglycemia,Has interpretation,4083207.0,281300000.0,Below reference range,4083207.0,281300000,Below reference range,True,match
-23034,Neonatal hypoglycemia,Has interprets,4202143.0,434912009.0,Blood glucose concentration,4202143.0,434912009,Blood glucose concentration,True,match
-23034,Neonatal hypoglycemia,Has occurrence,4114528.0,255407002.0,Neonatal,4114528.0,255407002,Neonatal,True,match
-23137,Chlamydial pharyngitis,Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
-23137,Chlamydial pharyngitis,Has asso morph,4253008.0,409774005.0,Inflammatory morphology,4253008.0,409774005,Inflammatory morphology,True,match
-23137,Chlamydial pharyngitis,Has causative agent,4037323.0,16241000.0,Chlamydia,4037323.0,16241000,Chlamydia,True,match
-23137,Chlamydial pharyngitis,Has finding site,4207370.0,54066008.0,Pharyngeal structure,4207370.0,54066008,Pharyngeal structure,True,match
-23137,Chlamydial pharyngitis,Has pathology,40480911.0,441862004.0,Infectious process,40480911.0,441862004,Infectious process,True,match
-23164,Disorder of anterior pituitary,Has finding site,4270353.0,62818001.0,Adenohypophysis structure,4270353.0,62818001,Adenohypophysis structure,True,match
-23220,Chronic tonsillitis,Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
-23220,Chronic tonsillitis,Has asso morph,,,,4224657.0,84499006,Chronic inflammation,False,extra
-23220,Chronic tonsillitis,Has asso morph,4253009.0,409777003.0,Chronic inflammatory morphology,4253009.0,409777003,Chronic inflammatory morphology,True,match
-23220,Chronic tonsillitis,Has clinical course,4236661.0,90734009.0,Chronic,4236661.0,90734009,Chronic,True,match
-23220,Chronic tonsillitis,Has finding site,4327174.0,75573002.0,Palatine tonsillar structure,4327174.0,75573002,Palatine tonsillar structure,True,match
-23237,Acute peptic ulcer with hemorrhage AND obstruction,Has asso morph,,,,4179955.0,50960005,Hemorrhage,False,extra
-23237,Acute peptic ulcer with hemorrhage AND obstruction,Has asso morph,4093906.0,26036001.0,Obstruction,4093906.0,26036001,Obstruction,True,match
-23237,Acute peptic ulcer with hemorrhage AND obstruction,Has asso morph,4164431.0,45771005.0,Acute bleeding ulcer,4164431.0,45771005,Acute bleeding ulcer,True,match
-23237,Acute peptic ulcer with hemorrhage AND obstruction,Has clinical course,4312510.0,424124008.0,Sudden onset AND/OR short duration,4312510.0,424124008,Sudden onset AND/OR short duration,True,match
-23237,Acute peptic ulcer with hemorrhage AND obstruction,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,4271189.0,62834003,Upper gastrointestinal tract structure,True,match
-23245,Esophageal bleeding,Has asso morph,4179955.0,50960005.0,Hemorrhage,4179955.0,50960005,Hemorrhage,True,match
-23245,Esophageal bleeding,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
-23247,Chronic peptic ulcer with perforation but without obstruction,Has asso morph,4233476.0,405719001.0,Chronic ulcer,4233476.0,405719001,Chronic ulcer,True,match
-23247,Chronic peptic ulcer with perforation but without obstruction,Has asso morph,4239211.0,91182001.0,Perforated ulcer,4239211.0,91182001,Perforated ulcer,True,match
-23247,Chronic peptic ulcer with perforation but without obstruction,Has clinical course,4236661.0,90734009.0,Chronic,4236661.0,90734009,Chronic,True,match
-23247,Chronic peptic ulcer with perforation but without obstruction,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,4271189.0,62834003,Upper gastrointestinal tract structure,True,match
-23304,Neck webbing,Has asso morph,4295289.0,76640006.0,Congenital webbing,4295289.0,76640006,Congenital webbing,True,match
-23304,Neck webbing,Has finding site,4182739.0,43081002.0,Skin structure of neck,4182739.0,43081002,Skin structure of neck,True,match
+23034,Neonatal hypoglycemia,Has interpretation,4083207.0,281300000.0,Below reference range,,,,False,missed
+23034,Neonatal hypoglycemia,Has interprets,4202143.0,434912009.0,Blood glucose concentration,,,,False,missed
+23034,Neonatal hypoglycemia,Has occurrence,4114528.0,255407002.0,Neonatal,,,,False,missed
+23137,Chlamydial pharyngitis,Has asso morph,4253008.0,409774005.0,Inflammatory morphology,,,,False,missed
+23137,Chlamydial pharyngitis,Has causative agent,4037323.0,16241000.0,Chlamydia,,,,False,missed
+23137,Chlamydial pharyngitis,Has finding site,4207370.0,54066008.0,Pharyngeal structure,,,,False,missed
+23137,Chlamydial pharyngitis,Has pathology,40480911.0,441862004.0,Infectious process,,,,False,missed
+23164,Disorder of anterior pituitary,Has finding site,4270353.0,62818001.0,Adenohypophysis structure,,,,False,missed
+23220,Chronic tonsillitis,Has asso morph,4253009.0,409777003.0,Chronic inflammatory morphology,,,,False,missed
+23220,Chronic tonsillitis,Has clinical course,4236661.0,90734009.0,Chronic,,,,False,missed
+23220,Chronic tonsillitis,Has finding site,4327174.0,75573002.0,Palatine tonsillar structure,,,,False,missed
+23237,Acute peptic ulcer with hemorrhage AND obstruction,Has asso morph,4093906.0,26036001.0,Obstruction,,,,False,missed
+23237,Acute peptic ulcer with hemorrhage AND obstruction,Has asso morph,4164431.0,45771005.0,Acute bleeding ulcer,,,,False,missed
+23237,Acute peptic ulcer with hemorrhage AND obstruction,Has clinical course,4312510.0,424124008.0,Sudden onset AND/OR short duration,,,,False,missed
+23237,Acute peptic ulcer with hemorrhage AND obstruction,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,,,,False,missed
+23245,Esophageal bleeding,Has asso morph,4179955.0,50960005.0,Hemorrhage,,,,False,missed
+23245,Esophageal bleeding,Has finding site,4140098.0,32849002.0,Esophageal structure,,,,False,missed
+23247,Chronic peptic ulcer with perforation but without obstruction,Has asso morph,4233476.0,405719001.0,Chronic ulcer,,,,False,missed
+23247,Chronic peptic ulcer with perforation but without obstruction,Has asso morph,4239211.0,91182001.0,Perforated ulcer,,,,False,missed
+23247,Chronic peptic ulcer with perforation but without obstruction,Has clinical course,4236661.0,90734009.0,Chronic,,,,False,missed
+23247,Chronic peptic ulcer with perforation but without obstruction,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,,,,False,missed
+23304,Neck webbing,Has asso morph,4295289.0,76640006.0,Congenital webbing,,,,False,missed
+23304,Neck webbing,Has finding site,4182739.0,43081002.0,Skin structure of neck,,,,False,missed
 23304,Neck webbing,Has occurrence,4116830.0,255399007.0,Congenital,,,,False,missed
 23304,Neck webbing,Has pathology,4204670.0,308490002.0,Pathological developmental process,,,,False,missed
-23325,Heartburn,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
-23567,Branchial cleft cyst,Has asso morph,37206155.0,785762005.0,Branchial cyst,37206155.0,785762005,Branchial cyst,True,match
-23567,Branchial cleft cyst,Has finding site,4300167.0,774007.0,Structure of head and/or neck,4300167.0,774007,Structure of head and/or neck,True,match
-23567,Branchial cleft cyst,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
-23567,Branchial cleft cyst,Has pathology,4204670.0,308490002.0,Pathological developmental process,4204670.0,308490002,Pathological developmental process,True,match
-23653,Foreign body in esophagus,Has asso morph,4078373.0,19227008.0,Foreign body,4078373.0,19227008,Foreign body,True,match
-23653,Foreign body in esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
-23731,Benign neoplasm of larynx,Has asso morph,4305589.0,3898006.0,"Neoplasm, benign",4305589.0,3898006,"Neoplasm, benign",True,match
-23731,Benign neoplasm of larynx,Has finding site,4262229.0,4596009.0,Laryngeal structure,4262229.0,4596009,Laryngeal structure,True,match
-23798,Acute laryngopharyngitis,Has asso morph,4163835.0,4532008.0,Acute inflammation,4163835.0,4532008,Acute inflammation,True,match
-23798,Acute laryngopharyngitis,Has clinical course,4312510.0,424124008.0,Sudden onset AND/OR short duration,4312510.0,424124008,Sudden onset AND/OR short duration,True,match
-23798,Acute laryngopharyngitis,Has finding site,,,,4194306.0,312535008,Pharynx and/or larynx structures,False,extra
+23325,Heartburn,Has finding site,4140098.0,32849002.0,Esophageal structure,,,,False,missed
+23567,Branchial cleft cyst,Has asso morph,37206155.0,785762005.0,Branchial cyst,,,,False,missed
+23567,Branchial cleft cyst,Has finding site,4300167.0,774007.0,Structure of head and/or neck,,,,False,missed
+23567,Branchial cleft cyst,Has occurrence,4116830.0,255399007.0,Congenital,,,,False,missed
+23567,Branchial cleft cyst,Has pathology,4204670.0,308490002.0,Pathological developmental process,,,,False,missed
+23653,Foreign body in esophagus,Has asso morph,4078373.0,19227008.0,Foreign body,,,,False,missed
+23653,Foreign body in esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,,,,False,missed
+23731,Benign neoplasm of larynx,Has asso morph,4305589.0,3898006.0,"Neoplasm, benign",,,,False,missed
+23731,Benign neoplasm of larynx,Has finding site,4262229.0,4596009.0,Laryngeal structure,,,,False,missed
+23798,Acute laryngopharyngitis,Has asso morph,4163835.0,4532008.0,Acute inflammation,,,,False,missed
+23798,Acute laryngopharyngitis,Has clinical course,4312510.0,424124008.0,Sudden onset AND/OR short duration,,,,False,missed
 23798,Acute laryngopharyngitis,Has finding site,4207370.0,54066008.0,Pharyngeal structure,,,,False,missed
 23798,Acute laryngopharyngitis,Has finding site,4262229.0,4596009.0,Laryngeal structure,,,,False,missed
-23799,Pharynx or nasopharynx edema,Has asso morph,4196943.0,79654002.0,Edema,4196943.0,79654002,Edema,True,match
-23799,Pharynx or nasopharynx edema,Has finding site,,,,4216712.0,71836000,Nasopharyngeal structure,False,extra
-23799,Pharynx or nasopharynx edema,Has finding site,4207370.0,54066008.0,Pharyngeal structure,4207370.0,54066008,Pharyngeal structure,True,match
-23806,Atrophy of salivary gland,Has asso morph,4028206.0,13331008.0,Atrophy,4028206.0,13331008,Atrophy,True,match
-23806,Atrophy of salivary gland,Has finding site,4294042.0,385294005.0,Salivary gland structure,4294042.0,385294005,Salivary gland structure,True,match
-23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",Has asso morph,4233476.0,405719001.0,Chronic ulcer,4233476.0,405719001,Chronic ulcer,True,match
-23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",Has clinical course,4236661.0,90734009.0,Chronic,4236661.0,90734009,Chronic,True,match
-23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,4271189.0,62834003,Upper gastrointestinal tract structure,True,match
-23865,Congenital anomaly of pharynx,Has asso morph,4175951.0,49755003.0,Morphologically abnormal structure,4175951.0,49755003,Morphologically abnormal structure,True,match
-23865,Congenital anomaly of pharynx,Has finding site,4207370.0,54066008.0,Pharyngeal structure,4207370.0,54066008,Pharyngeal structure,True,match
-23865,Congenital anomaly of pharynx,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
-23865,Congenital anomaly of pharynx,Has pathology,4204670.0,308490002.0,Pathological developmental process,4204670.0,308490002,Pathological developmental process,True,match
-23868,Congenital anomaly of esophagus,Has asso morph,4175951.0,49755003.0,Morphologically abnormal structure,4175951.0,49755003,Morphologically abnormal structure,True,match
-23868,Congenital anomaly of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
-23868,Congenital anomaly of esophagus,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
-23868,Congenital anomaly of esophagus,Has pathology,4204670.0,308490002.0,Pathological developmental process,4204670.0,308490002,Pathological developmental process,True,match
-23986,Disorder of pituitary gland,Has finding site,4209428.0,56329008.0,Pituitary structure,4209428.0,56329008,Pituitary structure,True,match
-23988,Hemolytic anemia due to glutathione metabolism disorder,Has finding site,4218976.0,41898006.0,Erythrocyte,4218976.0,41898006,Erythrocyte,True,match
-23988,Hemolytic anemia due to glutathione metabolism disorder,Has interpretation,4083207.0,281300000.0,Below reference range,4083207.0,281300000,Below reference range,True,match
-23988,Hemolytic anemia due to glutathione metabolism disorder,Has interpretation,4181412.0,52101004.0,Present,4181412.0,52101004,Present,True,match
-23988,Hemolytic anemia due to glutathione metabolism disorder,Has interprets,4030871.0,14089001.0,Red blood cell count,4030871.0,14089001,Red blood cell count,True,match
-23988,Hemolytic anemia due to glutathione metabolism disorder,Has interprets,4224294.0,404227002.0,Hemolysis,4224294.0,404227002,Hemolysis,True,match
+23799,Pharynx or nasopharynx edema,Has asso morph,4196943.0,79654002.0,Edema,,,,False,missed
+23799,Pharynx or nasopharynx edema,Has finding site,4207370.0,54066008.0,Pharyngeal structure,,,,False,missed
+23806,Atrophy of salivary gland,Has asso morph,4028206.0,13331008.0,Atrophy,,,,False,missed
+23806,Atrophy of salivary gland,Has finding site,4294042.0,385294005.0,Salivary gland structure,,,,False,missed
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",Has asso morph,4233476.0,405719001.0,Chronic ulcer,,,,False,missed
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",Has clinical course,4236661.0,90734009.0,Chronic,,,,False,missed
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,,,,False,missed
+23865,Congenital anomaly of pharynx,Has asso morph,4175951.0,49755003.0,Morphologically abnormal structure,,,,False,missed
+23865,Congenital anomaly of pharynx,Has finding site,4207370.0,54066008.0,Pharyngeal structure,,,,False,missed
+23865,Congenital anomaly of pharynx,Has occurrence,4116830.0,255399007.0,Congenital,,,,False,missed
+23865,Congenital anomaly of pharynx,Has pathology,4204670.0,308490002.0,Pathological developmental process,,,,False,missed
+23868,Congenital anomaly of esophagus,Has asso morph,4175951.0,49755003.0,Morphologically abnormal structure,,,,False,missed
+23868,Congenital anomaly of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,,,,False,missed
+23868,Congenital anomaly of esophagus,Has occurrence,4116830.0,255399007.0,Congenital,,,,False,missed
+23868,Congenital anomaly of esophagus,Has pathology,4204670.0,308490002.0,Pathological developmental process,,,,False,missed
+23986,Disorder of pituitary gland,Has finding site,4209428.0,56329008.0,Pituitary structure,,,,False,missed
+23988,Hemolytic anemia due to glutathione metabolism disorder,Has finding site,4218976.0,41898006.0,Erythrocyte,,,,False,missed
+23988,Hemolytic anemia due to glutathione metabolism disorder,Has interpretation,4083207.0,281300000.0,Below reference range,,,,False,missed
+23988,Hemolytic anemia due to glutathione metabolism disorder,Has interpretation,4181412.0,52101004.0,Present,,,,False,missed
+23988,Hemolytic anemia due to glutathione metabolism disorder,Has interprets,4030871.0,14089001.0,Red blood cell count,,,,False,missed
+23988,Hemolytic anemia due to glutathione metabolism disorder,Has interprets,4224294.0,404227002.0,Hemolysis,,,,False,missed
 23988,Hemolytic anemia due to glutathione metabolism disorder,Has interprets,40480067.0,441689006.0,Measurement of total hemoglobin concentration,,,,False,missed
-23988,Hemolytic anemia due to glutathione metabolism disorder,Has occurrence,,,,4116830.0,255399007,Congenital,False,extra
-24006,Sickle cell-hemoglobin C disease,Has finding site,4218976.0,41898006.0,Erythrocyte,4218976.0,41898006,Erythrocyte,True,match
-24006,Sickle cell-hemoglobin C disease,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
-24076,Chronic peptic ulcer with hemorrhage AND obstruction,Has asso morph,,,,4179955.0,50960005,Hemorrhage,False,extra
-24076,Chronic peptic ulcer with hemorrhage AND obstruction,Has asso morph,4093906.0,26036001.0,Obstruction,4093906.0,26036001,Obstruction,True,match
-24076,Chronic peptic ulcer with hemorrhage AND obstruction,Has asso morph,4243483.0,37904008.0,Chronic bleeding ulcer,4243483.0,37904008,Chronic bleeding ulcer,True,match
-24076,Chronic peptic ulcer with hemorrhage AND obstruction,Has clinical course,4236661.0,90734009.0,Chronic,4236661.0,90734009,Chronic,True,match
-24076,Chronic peptic ulcer with hemorrhage AND obstruction,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,4271189.0,62834003,Upper gastrointestinal tract structure,True,match
-24134,Neck pain,Has finding site,4260843.0,45048000.0,Neck structure,4260843.0,45048000,Neck structure,True,match
-24148,Congenital diverticulum of pharynx,Has asso morph,4218881.0,82037003.0,Congenital diverticulum,4218881.0,82037003,Congenital diverticulum,True,match
-24148,Congenital diverticulum of pharynx,Has finding site,4207370.0,54066008.0,Pharyngeal structure,4207370.0,54066008,Pharyngeal structure,True,match
-24148,Congenital diverticulum of pharynx,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
-24148,Congenital diverticulum of pharynx,Has pathology,4204670.0,308490002.0,Pathological developmental process,4204670.0,308490002,Pathological developmental process,True,match
-24198,Contusion of esophagus,Has asso morph,4203279.0,308492005.0,Contusion - lesion,4203279.0,308492005,Contusion - lesion,True,match
-24198,Contusion of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
-24230,Foreign body in larynx,Has asso morph,4078373.0,19227008.0,Foreign body,4078373.0,19227008,Foreign body,True,match
-24230,Foreign body in larynx,Has finding site,,,,4111456.0,181212004,Entire larynx,False,extra
+24006,Sickle cell-hemoglobin C disease,Has finding site,4218976.0,41898006.0,Erythrocyte,,,,False,missed
+24006,Sickle cell-hemoglobin C disease,Has occurrence,4116830.0,255399007.0,Congenital,,,,False,missed
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,Has asso morph,4093906.0,26036001.0,Obstruction,,,,False,missed
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,Has asso morph,4243483.0,37904008.0,Chronic bleeding ulcer,,,,False,missed
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,Has clinical course,4236661.0,90734009.0,Chronic,,,,False,missed
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,,,,False,missed
+24134,Neck pain,Has finding site,4260843.0,45048000.0,Neck structure,,,,False,missed
+24148,Congenital diverticulum of pharynx,Has asso morph,4218881.0,82037003.0,Congenital diverticulum,,,,False,missed
+24148,Congenital diverticulum of pharynx,Has finding site,4207370.0,54066008.0,Pharyngeal structure,,,,False,missed
+24148,Congenital diverticulum of pharynx,Has occurrence,4116830.0,255399007.0,Congenital,,,,False,missed
+24148,Congenital diverticulum of pharynx,Has pathology,4204670.0,308490002.0,Pathological developmental process,,,,False,missed
+24198,Contusion of esophagus,Has asso morph,4203279.0,308492005.0,Contusion - lesion,,,,False,missed
+24198,Contusion of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,,,,False,missed
+24230,Foreign body in larynx,Has asso morph,4078373.0,19227008.0,Foreign body,,,,False,missed
 24230,Foreign body in larynx,Has finding site,4262229.0,4596009.0,Laryngeal structure,,,,False,missed
-24296,Primary malignant neoplasm of pituitary gland,Has asso morph,,,,4312326.0,86049000,"Neoplasm, malignant (primary)",False,extra
-24296,Primary malignant neoplasm of pituitary gland,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,37153816.0,1240414004,Malignant neoplasm,True,match
-24296,Primary malignant neoplasm of pituitary gland,Has finding site,4209428.0,56329008.0,Pituitary structure,4209428.0,56329008,Pituitary structure,True,match
-24296,Primary malignant neoplasm of pituitary gland,Has pathology,37157802.0,1234914003.0,Primary malignant neoplastic proliferation,37157802.0,1234914003,Primary malignant neoplastic proliferation,True,match
-24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Has asso morph,,,,4208270.0,55075001,Bleeding ulcer,False,extra
-24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Has asso morph,4093906.0,26036001.0,Obstruction,4093906.0,26036001,Obstruction,True,match
-24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Has asso morph,4239211.0,91182001.0,Perforated ulcer,4239211.0,91182001,Perforated ulcer,True,match
-24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Has asso morph,4243483.0,37904008.0,Chronic bleeding ulcer,4243483.0,37904008,Chronic bleeding ulcer,True,match
-24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Has clinical course,4236661.0,90734009.0,Chronic,4236661.0,90734009,Chronic,True,match
-24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Has finding site,,,,4046957.0,122865005,Gastrointestinal tract structure,False,extra
-24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,4271189.0,62834003,Upper gastrointestinal tract structure,True,match
-24602,Benign neoplasm of esophagus,Has asso morph,4305589.0,3898006.0,"Neoplasm, benign",4305589.0,3898006,"Neoplasm, benign",True,match
-24602,Benign neoplasm of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
-24609,Hypoglycemia,Has finding site,4034504.0,113331007.0,Structure of endocrine system,4034504.0,113331007,Structure of endocrine system,True,match
-24609,Hypoglycemia,Has interpretation,4083207.0,281300000.0,Below reference range,4083207.0,281300000,Below reference range,True,match
-24609,Hypoglycemia,Has interprets,4202143.0,434912009.0,Blood glucose concentration,4202143.0,434912009,Blood glucose concentration,True,match
-24612,"Multiple endocrine neoplasia, type 2",Has asso morph,,,,4030314.0,108369006,Neoplasm,False,extra
+24296,Primary malignant neoplasm of pituitary gland,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,,,,False,missed
+24296,Primary malignant neoplasm of pituitary gland,Has finding site,4209428.0,56329008.0,Pituitary structure,,,,False,missed
+24296,Primary malignant neoplasm of pituitary gland,Has pathology,37157802.0,1234914003.0,Primary malignant neoplastic proliferation,,,,False,missed
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Has asso morph,4093906.0,26036001.0,Obstruction,,,,False,missed
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Has asso morph,4239211.0,91182001.0,Perforated ulcer,,,,False,missed
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Has asso morph,4243483.0,37904008.0,Chronic bleeding ulcer,,,,False,missed
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Has clinical course,4236661.0,90734009.0,Chronic,,,,False,missed
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,,,,False,missed
+24602,Benign neoplasm of esophagus,Has asso morph,4305589.0,3898006.0,"Neoplasm, benign",,,,False,missed
+24602,Benign neoplasm of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,,,,False,missed
+24609,Hypoglycemia,Has finding site,4034504.0,113331007.0,Structure of endocrine system,,,,False,missed
+24609,Hypoglycemia,Has interpretation,4083207.0,281300000.0,Below reference range,,,,False,missed
+24609,Hypoglycemia,Has interprets,4202143.0,434912009.0,Blood glucose concentration,,,,False,missed
 24612,"Multiple endocrine neoplasia, type 2",Has asso morph,4189035.0,60549007.0,Multiple endocrine adenomas,,,,False,missed
-24612,"Multiple endocrine neoplasia, type 2",Has finding site,4298971.0,77637002.0,Structure of multiple endocrine glands,4298971.0,77637002,Structure of multiple endocrine glands,True,match
-24612,"Multiple endocrine neoplasia, type 2",Has occurrence,,,,4116830.0,255399007,Congenital,False,extra
-24660,Acute tonsillitis,Has asso morph,4163835.0,4532008.0,Acute inflammation,4163835.0,4532008,Acute inflammation,True,match
-24660,Acute tonsillitis,Has clinical course,4312510.0,424124008.0,Sudden onset AND/OR short duration,4312510.0,424124008,Sudden onset AND/OR short duration,True,match
-24660,Acute tonsillitis,Has finding site,4327174.0,75573002.0,Palatine tonsillar structure,4327174.0,75573002,Palatine tonsillar structure,True,match
-24818,Injury of neck,Has asso morph,4078068.0,19130008.0,Traumatic abnormality,4078068.0,19130008,Traumatic abnormality,True,match
-24818,Injury of neck,Has finding site,4260843.0,45048000.0,Neck structure,4260843.0,45048000,Neck structure,True,match
-24884,Benign neoplasm of carotid body,Has asso morph,4305589.0,3898006.0,"Neoplasm, benign",4305589.0,3898006,"Neoplasm, benign",True,match
-24884,Benign neoplasm of carotid body,Has finding site,4197418.0,51345006.0,Carotid body structure,4197418.0,51345006,Carotid body structure,True,match
-24897,Carcinoma in situ of larynx,Has asso morph,,,,4266173.0,399919001,Carcinoma in situ - category,False,extra
-24897,Carcinoma in situ of larynx,Has asso morph,37156895.0,1187138006.0,Carcinoma in situ,37156895.0,1187138006,Carcinoma in situ,True,match
-24897,Carcinoma in situ of larynx,Has finding site,4262229.0,4596009.0,Laryngeal structure,4262229.0,4596009,Laryngeal structure,True,match
-24909,Hereditary spherocytosis,Has asso morph,4123834.0,259682008.0,Spherocyte,4123834.0,259682008,Spherocyte,True,match
-24909,Hereditary spherocytosis,Has finding site,4218976.0,41898006.0,Erythrocyte,4218976.0,41898006,Erythrocyte,True,match
-24909,Hereditary spherocytosis,Has interpretation,4083207.0,281300000.0,Below reference range,4083207.0,281300000,Below reference range,True,match
-24909,Hereditary spherocytosis,Has interpretation,4181412.0,52101004.0,Present,4181412.0,52101004,Present,True,match
-24909,Hereditary spherocytosis,Has interprets,4030871.0,14089001.0,Red blood cell count,4030871.0,14089001,Red blood cell count,True,match
-24909,Hereditary spherocytosis,Has interprets,4224294.0,404227002.0,Hemolysis,4224294.0,404227002,Hemolysis,True,match
+24612,"Multiple endocrine neoplasia, type 2",Has finding site,4298971.0,77637002.0,Structure of multiple endocrine glands,,,,False,missed
+24660,Acute tonsillitis,Has asso morph,4163835.0,4532008.0,Acute inflammation,,,,False,missed
+24660,Acute tonsillitis,Has clinical course,4312510.0,424124008.0,Sudden onset AND/OR short duration,,,,False,missed
+24660,Acute tonsillitis,Has finding site,4327174.0,75573002.0,Palatine tonsillar structure,,,,False,missed
+24818,Injury of neck,Has asso morph,4078068.0,19130008.0,Traumatic abnormality,,,,False,missed
+24818,Injury of neck,Has finding site,4260843.0,45048000.0,Neck structure,,,,False,missed
+24884,Benign neoplasm of carotid body,Has asso morph,4305589.0,3898006.0,"Neoplasm, benign",,,,False,missed
+24884,Benign neoplasm of carotid body,Has finding site,4197418.0,51345006.0,Carotid body structure,,,,False,missed
+24897,Carcinoma in situ of larynx,Has asso morph,37156895.0,1187138006.0,Carcinoma in situ,,,,False,missed
+24897,Carcinoma in situ of larynx,Has finding site,4262229.0,4596009.0,Laryngeal structure,,,,False,missed
+24909,Hereditary spherocytosis,Has asso morph,4123834.0,259682008.0,Spherocyte,,,,False,missed
+24909,Hereditary spherocytosis,Has finding site,4218976.0,41898006.0,Erythrocyte,,,,False,missed
+24909,Hereditary spherocytosis,Has interpretation,4083207.0,281300000.0,Below reference range,,,,False,missed
+24909,Hereditary spherocytosis,Has interpretation,4181412.0,52101004.0,Present,,,,False,missed
+24909,Hereditary spherocytosis,Has interprets,4030871.0,14089001.0,Red blood cell count,,,,False,missed
+24909,Hereditary spherocytosis,Has interprets,4224294.0,404227002.0,Hemolysis,,,,False,missed
 24909,Hereditary spherocytosis,Has interprets,40480067.0,441689006.0,Measurement of total hemoglobin concentration,,,,False,missed
-24909,Hereditary spherocytosis,Has occurrence,,,,4116830.0,255399007,Congenital,False,extra
-24966,Esophageal varices,Has asso morph,4029830.0,12856003.0,Varix,4029830.0,12856003,Varix,True,match
-24966,Esophageal varices,Has finding site,4237655.0,90895003.0,Structure of esophageal vein,4237655.0,90895003,Structure of esophageal vein,True,match
-24969,Laryngitis,Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
-24969,Laryngitis,Has asso morph,4253008.0,409774005.0,Inflammatory morphology,4253008.0,409774005,Inflammatory morphology,True,match
-24969,Laryngitis,Has finding site,4262229.0,4596009.0,Laryngeal structure,4262229.0,4596009,Laryngeal structure,True,match
-24970,Chronic laryngitis,Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
-24970,Chronic laryngitis,Has asso morph,,,,4224657.0,84499006,Chronic inflammation,False,extra
-24970,Chronic laryngitis,Has asso morph,4253009.0,409777003.0,Chronic inflammatory morphology,4253009.0,409777003,Chronic inflammatory morphology,True,match
-24970,Chronic laryngitis,Has clinical course,4236661.0,90734009.0,Chronic,4236661.0,90734009,Chronic,True,match
-24970,Chronic laryngitis,Has finding site,4262229.0,4596009.0,Laryngeal structure,4262229.0,4596009,Laryngeal structure,True,match
-24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,Has asso morph,4093906.0,26036001.0,Obstruction,4093906.0,26036001,Obstruction,True,match
-24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,Has asso morph,4233476.0,405719001.0,Chronic ulcer,4233476.0,405719001,Chronic ulcer,True,match
-24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,Has clinical course,4236661.0,90734009.0,Chronic,4236661.0,90734009,Chronic,True,match
-24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,4271189.0,62834003,Upper gastrointestinal tract structure,True,match
-24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,Has finding site,37304196.0,787915005.0,Structure of lumen of upper gastrointestinal tract,37304196.0,787915005,Structure of lumen of upper gastrointestinal tract,True,match
-24974,Stenosis of larynx,Has asso morph,4217691.0,415582006.0,Stenosis,4217691.0,415582006,Stenosis,True,match
-24974,Stenosis of larynx,Has finding site,4262229.0,4596009.0,Laryngeal structure,4262229.0,4596009,Laryngeal structure,True,match
-24977,Mucocele of salivary gland,Has asso morph,4055737.0,19633006.0,Mucous cyst,4055737.0,19633006,Mucous cyst,True,match
-24977,Mucocele of salivary gland,Has finding site,4294042.0,385294005.0,Salivary gland structure,4294042.0,385294005,Salivary gland structure,True,match
-24978,Chronic adenotonsillitis,Has asso morph,4253009.0,409777003.0,Chronic inflammatory morphology,4253009.0,409777003,Chronic inflammatory morphology,True,match
-24978,Chronic adenotonsillitis,Has clinical course,4236661.0,90734009.0,Chronic,4236661.0,90734009,Chronic,True,match
-24978,Chronic adenotonsillitis,Has finding site,,,,4123604.0,303337002,Tonsil and adenoid structure,False,extra
+24966,Esophageal varices,Has asso morph,4029830.0,12856003.0,Varix,,,,False,missed
+24966,Esophageal varices,Has finding site,4237655.0,90895003.0,Structure of esophageal vein,,,,False,missed
+24969,Laryngitis,Has asso morph,4253008.0,409774005.0,Inflammatory morphology,,,,False,missed
+24969,Laryngitis,Has finding site,4262229.0,4596009.0,Laryngeal structure,,,,False,missed
+24970,Chronic laryngitis,Has asso morph,4253009.0,409777003.0,Chronic inflammatory morphology,,,,False,missed
+24970,Chronic laryngitis,Has clinical course,4236661.0,90734009.0,Chronic,,,,False,missed
+24970,Chronic laryngitis,Has finding site,4262229.0,4596009.0,Laryngeal structure,,,,False,missed
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,Has asso morph,4093906.0,26036001.0,Obstruction,,,,False,missed
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,Has asso morph,4233476.0,405719001.0,Chronic ulcer,,,,False,missed
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,Has clinical course,4236661.0,90734009.0,Chronic,,,,False,missed
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,,,,False,missed
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,Has finding site,37304196.0,787915005.0,Structure of lumen of upper gastrointestinal tract,,,,False,missed
+24974,Stenosis of larynx,Has asso morph,4217691.0,415582006.0,Stenosis,,,,False,missed
+24974,Stenosis of larynx,Has finding site,4262229.0,4596009.0,Laryngeal structure,,,,False,missed
+24977,Mucocele of salivary gland,Has asso morph,4055737.0,19633006.0,Mucous cyst,,,,False,missed
+24977,Mucocele of salivary gland,Has finding site,4294042.0,385294005.0,Salivary gland structure,,,,False,missed
+24978,Chronic adenotonsillitis,Has asso morph,4253009.0,409777003.0,Chronic inflammatory morphology,,,,False,missed
+24978,Chronic adenotonsillitis,Has clinical course,4236661.0,90734009.0,Chronic,,,,False,missed
 24978,Chronic adenotonsillitis,Has finding site,4184153.0,55940004.0,Adenoidal structure,,,,False,missed
 24978,Chronic adenotonsillitis,Has finding site,4327174.0,75573002.0,Palatine tonsillar structure,,,,False,missed
-25056,Congenital anomaly of neck,Has asso morph,4175951.0,49755003.0,Morphologically abnormal structure,4175951.0,49755003,Morphologically abnormal structure,True,match
-25056,Congenital anomaly of neck,Has finding site,4260843.0,45048000.0,Neck structure,4260843.0,45048000,Neck structure,True,match
-25056,Congenital anomaly of neck,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
-25056,Congenital anomaly of neck,Has pathology,4204670.0,308490002.0,Pathological developmental process,4204670.0,308490002,Pathological developmental process,True,match
-25068,Branchial cleft sinus and fistula,Has asso morph,37206156.0,785763000.0,Branchial fistula,37206156.0,785763000,Branchial fistula,True,match
-25068,Branchial cleft sinus and fistula,Has asso morph,37206157.0,785764006.0,Branchial sinus,37206157.0,785764006,Branchial sinus,True,match
+25056,Congenital anomaly of neck,Has asso morph,4175951.0,49755003.0,Morphologically abnormal structure,,,,False,missed
+25056,Congenital anomaly of neck,Has finding site,4260843.0,45048000.0,Neck structure,,,,False,missed
+25056,Congenital anomaly of neck,Has occurrence,4116830.0,255399007.0,Congenital,,,,False,missed
+25056,Congenital anomaly of neck,Has pathology,4204670.0,308490002.0,Pathological developmental process,,,,False,missed
 25068,Branchial cleft sinus and fistula,Has asso morph,4043006.0,118622000.0,Fistula,,,,False,missed
-25068,Branchial cleft sinus and fistula,Has finding site,,,,4286785.0,68959004,Branchial arch structure,False,extra
+25068,Branchial cleft sinus and fistula,Has asso morph,37206156.0,785763000.0,Branchial fistula,,,,False,missed
+25068,Branchial cleft sinus and fistula,Has asso morph,37206157.0,785764006.0,Branchial sinus,,,,False,missed
 25068,Branchial cleft sinus and fistula,Has finding site,4300167.0,774007.0,Structure of head and/or neck,,,,False,missed
-25068,Branchial cleft sinus and fistula,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
-25068,Branchial cleft sinus and fistula,Has pathology,4204670.0,308490002.0,Pathological developmental process,4204670.0,308490002,Pathological developmental process,True,match
-25189,Malignant tumor of oral cavity,Has asso morph,,,,4282379.0,367651003,Malignant Neoplasm (Morphology),False,extra
-25189,Malignant tumor of oral cavity,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,37153816.0,1240414004,Malignant neoplasm,True,match
+25068,Branchial cleft sinus and fistula,Has occurrence,4116830.0,255399007.0,Congenital,,,,False,missed
+25068,Branchial cleft sinus and fistula,Has pathology,4204670.0,308490002.0,Pathological developmental process,,,,False,missed
 25189,Malignant tumor of oral cavity,Has asso morph,4268747.0,6219000.0,"Neoplasm, malignant, uncertain whether primary or metastatic",,,,False,missed
-25189,Malignant tumor of oral cavity,Has finding site,,,,4253672.0,74262004,Oral cavity structure,False,extra
+25189,Malignant tumor of oral cavity,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,,,,False,missed
 25189,Malignant tumor of oral cavity,Has finding site,44782621.0,700016008.0,Structure of internal part of mouth,,,,False,missed
-25211,Iatrogenic pituitary disorder,Has finding site,4209428.0,56329008.0,Pituitary structure,4209428.0,56329008,Pituitary structure,True,match
-25297,Acute pharyngitis,Has asso morph,4163835.0,4532008.0,Acute inflammation,4163835.0,4532008,Acute inflammation,True,match
-25297,Acute pharyngitis,Has clinical course,4312510.0,424124008.0,Sudden onset AND/OR short duration,4312510.0,424124008,Sudden onset AND/OR short duration,True,match
-25297,Acute pharyngitis,Has finding site,4207370.0,54066008.0,Pharyngeal structure,4207370.0,54066008,Pharyngeal structure,True,match
-25486,Primary malignant neoplasm of islets of Langerhans,Has asso morph,,,,4132730.0,127575007,Malignant epithelial neuroendocrine neoplasm,False,extra
-25486,Primary malignant neoplasm of islets of Langerhans,Has asso morph,,,,4312326.0,86049000,"Neoplasm, malignant (primary)",False,extra
+25211,Iatrogenic pituitary disorder,Has finding site,4209428.0,56329008.0,Pituitary structure,,,,False,missed
+25297,Acute pharyngitis,Has asso morph,4163835.0,4532008.0,Acute inflammation,,,,False,missed
+25297,Acute pharyngitis,Has clinical course,4312510.0,424124008.0,Sudden onset AND/OR short duration,,,,False,missed
+25297,Acute pharyngitis,Has finding site,4207370.0,54066008.0,Pharyngeal structure,,,,False,missed
 25486,Primary malignant neoplasm of islets of Langerhans,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,,,,False,missed
-25486,Primary malignant neoplasm of islets of Langerhans,Has finding site,4301372.0,78696007.0,Endocrine pancreatic structure,4301372.0,78696007,Endocrine pancreatic structure,True,match
-25486,Primary malignant neoplasm of islets of Langerhans,Has pathology,37157802.0,1234914003.0,Primary malignant neoplastic proliferation,37157802.0,1234914003,Primary malignant neoplastic proliferation,True,match
-25518,Sickle cell trait,Has finding site,4218976.0,41898006.0,Erythrocyte,4218976.0,41898006,Erythrocyte,True,match
-25518,Sickle cell trait,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
-25572,Disorder of salivary gland,Has finding site,4294042.0,385294005.0,Salivary gland structure,4294042.0,385294005,Salivary gland structure,True,match
-25582,Tracheoesophageal fistula,Has asso morph,4053885.0,12582004.0,Internal fistula,4053885.0,12582004,Internal fistula,True,match
-25582,Tracheoesophageal fistula,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
-25582,Tracheoesophageal fistula,Has finding site,4195956.0,44567001.0,Tracheal structure,4195956.0,44567001,Tracheal structure,True,match
-25698,Complication of transplanted pancreas,Has finding site,36717084.0,719423002.0,Structure of transplanted pancreas,36717084.0,719423002,Structure of transplanted pancreas,True,match
-25748,Overlapping malignant neoplasm of esophagus,Has asso morph,,,,4312326.0,86049000,"Neoplasm, malignant (primary)",False,extra
-25748,Overlapping malignant neoplasm of esophagus,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,37153816.0,1240414004,Malignant neoplasm,True,match
-25748,Overlapping malignant neoplasm of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
-25757,Primary malignant neoplasm of aortic body,Has asso morph,,,,4312326.0,86049000,"Neoplasm, malignant (primary)",False,extra
-25757,Primary malignant neoplasm of aortic body,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,37153816.0,1240414004,Malignant neoplasm,True,match
-25757,Primary malignant neoplasm of aortic body,Has finding site,4327482.0,75061007.0,Aortic body,4327482.0,75061007,Aortic body,True,match
-25757,Primary malignant neoplasm of aortic body,Has pathology,37157802.0,1234914003.0,Primary malignant neoplastic proliferation,37157802.0,1234914003,Primary malignant neoplastic proliferation,True,match
-25780,Pituitary dwarfism,Has finding site,,,,4270353.0,62818001,Adenohypophysis structure,False,extra
+25486,Primary malignant neoplasm of islets of Langerhans,Has finding site,4301372.0,78696007.0,Endocrine pancreatic structure,,,,False,missed
+25486,Primary malignant neoplasm of islets of Langerhans,Has pathology,37157802.0,1234914003.0,Primary malignant neoplastic proliferation,,,,False,missed
+25518,Sickle cell trait,Has finding site,4218976.0,41898006.0,Erythrocyte,,,,False,missed
+25518,Sickle cell trait,Has occurrence,4116830.0,255399007.0,Congenital,,,,False,missed
+25572,Disorder of salivary gland,Has finding site,4294042.0,385294005.0,Salivary gland structure,,,,False,missed
+25582,Tracheoesophageal fistula,Has asso morph,4053885.0,12582004.0,Internal fistula,,,,False,missed
+25582,Tracheoesophageal fistula,Has finding site,4140098.0,32849002.0,Esophageal structure,,,,False,missed
+25582,Tracheoesophageal fistula,Has finding site,4195956.0,44567001.0,Tracheal structure,,,,False,missed
+25698,Complication of transplanted pancreas,Has finding site,36717084.0,719423002.0,Structure of transplanted pancreas,,,,False,missed
+25748,Overlapping malignant neoplasm of esophagus,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,,,,False,missed
+25748,Overlapping malignant neoplasm of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,,,,False,missed
+25757,Primary malignant neoplasm of aortic body,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,,,,False,missed
+25757,Primary malignant neoplasm of aortic body,Has finding site,4327482.0,75061007.0,Aortic body,,,,False,missed
+25757,Primary malignant neoplasm of aortic body,Has pathology,37157802.0,1234914003.0,Primary malignant neoplastic proliferation,,,,False,missed
 25780,Pituitary dwarfism,Has finding site,4200975.0,52618001.0,Structure of distal part of pituitary,,,,False,missed
-25780,Pituitary dwarfism,Has interpretation,,,,4083207.0,281300000,Below reference range,False,extra
-25780,Pituitary dwarfism,Has interprets,4154781.0,271603002.0,Height / growth measure,4154781.0,271603002,Height / growth measure,True,match
-25780,Pituitary dwarfism,Has occurrence,,,,4116830.0,255399007,Congenital,False,extra
-25780,Pituitary dwarfism,Has pathology,4204670.0,308490002.0,Pathological developmental process,4204670.0,308490002,Pathological developmental process,True,match
-25844,Ulcer of esophagus,Has asso morph,4206914.0,56208002.0,Ulcer,4206914.0,56208002,Ulcer,True,match
-25844,Ulcer of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
-26052,Primary malignant neoplasm of larynx,Has asso morph,,,,4312326.0,86049000,"Neoplasm, malignant (primary)",False,extra
-26052,Primary malignant neoplasm of larynx,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,37153816.0,1240414004,Malignant neoplasm,True,match
-26052,Primary malignant neoplasm of larynx,Has finding site,4262229.0,4596009.0,Laryngeal structure,4262229.0,4596009,Laryngeal structure,True,match
-26052,Primary malignant neoplasm of larynx,Has pathology,37157802.0,1234914003.0,Primary malignant neoplastic proliferation,37157802.0,1234914003,Primary malignant neoplastic proliferation,True,match
-26060,Benign neoplasm of tonsil,Has asso morph,4305589.0,3898006.0,"Neoplasm, benign",4305589.0,3898006,"Neoplasm, benign",True,match
-26060,Benign neoplasm of tonsil,Has finding site,4327174.0,75573002.0,Palatine tonsillar structure,4327174.0,75573002,Palatine tonsillar structure,True,match
-26069,Postablative testicular hypofunction,Has finding site,4122979.0,304042006.0,Testicular endocrine structure,4122979.0,304042006,Testicular endocrine structure,True,match
-26069,Postablative testicular hypofunction,Has interpretation,4053347.0,1250004.0,Decreased,4053347.0,1250004,Decreased,True,match
-26069,Postablative testicular hypofunction,Has interprets,,,,4264547.0,364387009,Endocrine observable,False,extra
+25780,Pituitary dwarfism,Has interprets,4154781.0,271603002.0,Height / growth measure,,,,False,missed
+25780,Pituitary dwarfism,Has pathology,4204670.0,308490002.0,Pathological developmental process,,,,False,missed
+25844,Ulcer of esophagus,Has asso morph,4206914.0,56208002.0,Ulcer,,,,False,missed
+25844,Ulcer of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,,,,False,missed
+26052,Primary malignant neoplasm of larynx,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,,,,False,missed
+26052,Primary malignant neoplasm of larynx,Has finding site,4262229.0,4596009.0,Laryngeal structure,,,,False,missed
+26052,Primary malignant neoplasm of larynx,Has pathology,37157802.0,1234914003.0,Primary malignant neoplastic proliferation,,,,False,missed
+26060,Benign neoplasm of tonsil,Has asso morph,4305589.0,3898006.0,"Neoplasm, benign",,,,False,missed
+26060,Benign neoplasm of tonsil,Has finding site,4327174.0,75573002.0,Palatine tonsillar structure,,,,False,missed
+26069,Postablative testicular hypofunction,Has finding site,4122979.0,304042006.0,Testicular endocrine structure,,,,False,missed
+26069,Postablative testicular hypofunction,Has interpretation,4053347.0,1250004.0,Decreased,,,,False,missed
 26069,Postablative testicular hypofunction,Has interprets,4146194.0,35188005.0,Hormone production,,,,False,missed
-26141,Barrett's esophagus with esophagitis,Has asso morph,4239525.0,69310004.0,Intestinal metaplasia,4239525.0,69310004,Intestinal metaplasia,True,match
-26141,Barrett's esophagus with esophagitis,Has asso morph,4253008.0,409774005.0,Inflammatory morphology,4253008.0,409774005,Inflammatory morphology,True,match
-26141,Barrett's esophagus with esophagitis,Has finding site,4218887.0,82082004.0,Esophageal mucous membrane structure,4218887.0,82082004,Esophageal mucous membrane structure,True,match
+26141,Barrett's esophagus with esophagitis,Has asso morph,4239525.0,69310004.0,Intestinal metaplasia,,,,False,missed
+26141,Barrett's esophagus with esophagitis,Has asso morph,4253008.0,409774005.0,Inflammatory morphology,,,,False,missed
 26141,Barrett's esophagus with esophagitis,Has finding site,4140098.0,32849002.0,Esophageal structure,,,,False,missed
+26141,Barrett's esophagus with esophagitis,Has finding site,4218887.0,82082004.0,Esophageal mucous membrane structure,,,,False,missed
 26141,Barrett's esophagus with esophagitis,Has finding site,4281852.0,67173009.0,Structure of lower third of esophagus,,,,False,missed
-26213,Congenital salivary gland fistula,Has asso morph,,,,4220792.0,40086006,Congenital fistula,False,extra
-26213,Congenital salivary gland fistula,Has asso morph,4043006.0,118622000.0,Fistula,4043006.0,118622000,Fistula,True,match
-26213,Congenital salivary gland fistula,Has finding site,4294042.0,385294005.0,Salivary gland structure,4294042.0,385294005,Salivary gland structure,True,match
-26213,Congenital salivary gland fistula,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
-26213,Congenital salivary gland fistula,Has pathology,4204670.0,308490002.0,Pathological developmental process,4204670.0,308490002,Pathological developmental process,True,match
-26286,Burn of neck,Has asso morph,4168004.0,48333001.0,Burn injury,4168004.0,48333001,Burn injury,True,match
-26286,Burn of neck,Has finding site,4260843.0,45048000.0,Neck structure,4260843.0,45048000,Neck structure,True,match
-26361,Primary malignant neoplasm of pineal gland,Has asso morph,,,,4312326.0,86049000,"Neoplasm, malignant (primary)",False,extra
-26361,Primary malignant neoplasm of pineal gland,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,37153816.0,1240414004,Malignant neoplasm,True,match
-26361,Primary malignant neoplasm of pineal gland,Has finding site,4164136.0,45793000.0,Pineal structure,4164136.0,45793000,Pineal structure,True,match
-26361,Primary malignant neoplasm of pineal gland,Has pathology,37157802.0,1234914003.0,Primary malignant neoplastic proliferation,37157802.0,1234914003,Primary malignant neoplastic proliferation,True,match
-26378,Hyperpituitarism,Has finding site,4270353.0,62818001.0,Adenohypophysis structure,4270353.0,62818001,Adenohypophysis structure,True,match
+26213,Congenital salivary gland fistula,Has asso morph,4043006.0,118622000.0,Fistula,,,,False,missed
+26213,Congenital salivary gland fistula,Has finding site,4294042.0,385294005.0,Salivary gland structure,,,,False,missed
+26213,Congenital salivary gland fistula,Has occurrence,4116830.0,255399007.0,Congenital,,,,False,missed
+26213,Congenital salivary gland fistula,Has pathology,4204670.0,308490002.0,Pathological developmental process,,,,False,missed
+26286,Burn of neck,Has asso morph,4168004.0,48333001.0,Burn injury,,,,False,missed
+26286,Burn of neck,Has finding site,4260843.0,45048000.0,Neck structure,,,,False,missed
+26361,Primary malignant neoplasm of pineal gland,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,,,,False,missed
+26361,Primary malignant neoplasm of pineal gland,Has finding site,4164136.0,45793000.0,Pineal structure,,,,False,missed
+26361,Primary malignant neoplasm of pineal gland,Has pathology,37157802.0,1234914003.0,Primary malignant neoplastic proliferation,,,,False,missed
+26378,Hyperpituitarism,Has finding site,4270353.0,62818001.0,Adenohypophysis structure,,,,False,missed
 26378,Hyperpituitarism,Has interpretation,4146067.0,35105006.0,Increased,,,,False,missed
 26378,Hyperpituitarism,Has interprets,4146194.0,35188005.0,Hormone production,,,,False,missed
-26441,Bleeding ulcer of esophagus,Has asso morph,4208270.0,55075001.0,Bleeding ulcer,4208270.0,55075001,Bleeding ulcer,True,match
-26441,Bleeding ulcer of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
-26459,Acute esophagitis,Has asso morph,4163835.0,4532008.0,Acute inflammation,4163835.0,4532008,Acute inflammation,True,match
-26459,Acute esophagitis,Has clinical course,,,,4312510.0,424124008,Sudden onset AND/OR short duration,False,extra
-26459,Acute esophagitis,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
-26514,Laryngeal web,Has asso morph,,,,4295289.0,76640006,Congenital webbing,False,extra
-26514,Laryngeal web,Has finding site,4262229.0,4596009.0,Laryngeal structure,4262229.0,4596009,Laryngeal structure,True,match
-26514,Laryngeal web,Has occurrence,,,,4116830.0,,Congenital,False,extra
-26514,Laryngeal web,Has pathology,,,,4204670.0,,Pathological developmental process,False,extra
-26638,Primary malignant neoplasm of esophagus,Has asso morph,,,,4312326.0,86049000,"Neoplasm, malignant (primary)",False,extra
-26638,Primary malignant neoplasm of esophagus,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,37153816.0,1240414004,Malignant neoplasm,True,match
-26638,Primary malignant neoplasm of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
-26638,Primary malignant neoplasm of esophagus,Has pathology,37157802.0,1234914003.0,Primary malignant neoplastic proliferation,37157802.0,1234914003,Primary malignant neoplastic proliferation,True,match
-26662,Testicular hypofunction,Has finding site,4122979.0,304042006.0,Testicular endocrine structure,4122979.0,304042006,Testicular endocrine structure,True,match
-26662,Testicular hypofunction,Has interpretation,4053347.0,1250004.0,Decreased,4053347.0,1250004,Decreased,True,match
-26662,Testicular hypofunction,Has interprets,,,,4049132.0,123036008,Endocrine function,False,extra
+26441,Bleeding ulcer of esophagus,Has asso morph,4208270.0,55075001.0,Bleeding ulcer,,,,False,missed
+26441,Bleeding ulcer of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,,,,False,missed
+26459,Acute esophagitis,Has asso morph,4163835.0,4532008.0,Acute inflammation,,,,False,missed
+26459,Acute esophagitis,Has finding site,4140098.0,32849002.0,Esophageal structure,,,,False,missed
+26514,Laryngeal web,Has finding site,4262229.0,4596009.0,Laryngeal structure,,,,False,missed
+26638,Primary malignant neoplasm of esophagus,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,,,,False,missed
+26638,Primary malignant neoplasm of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,,,,False,missed
+26638,Primary malignant neoplasm of esophagus,Has pathology,37157802.0,1234914003.0,Primary malignant neoplastic proliferation,,,,False,missed
+26662,Testicular hypofunction,Has finding site,4122979.0,304042006.0,Testicular endocrine structure,,,,False,missed
+26662,Testicular hypofunction,Has interpretation,4053347.0,1250004.0,Decreased,,,,False,missed
 26662,Testicular hypofunction,Has interprets,4146194.0,35188005.0,Hormone production,,,,False,missed
-26711,Chronic pharyngitis,Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
-26711,Chronic pharyngitis,Has asso morph,4253009.0,409777003.0,Chronic inflammatory morphology,4253009.0,409777003,Chronic inflammatory morphology,True,match
-26711,Chronic pharyngitis,Has clinical course,4236661.0,90734009.0,Chronic,4236661.0,90734009,Chronic,True,match
-26711,Chronic pharyngitis,Has finding site,4207370.0,54066008.0,Pharyngeal structure,4207370.0,54066008,Pharyngeal structure,True,match
-26718,Acute peptic ulcer with perforation AND obstruction,Has asso morph,4093906.0,26036001.0,Obstruction,4093906.0,26036001,Obstruction,True,match
-26718,Acute peptic ulcer with perforation AND obstruction,Has asso morph,4096339.0,26317001.0,Acute ulcer,4096339.0,26317001,Acute ulcer,True,match
-26718,Acute peptic ulcer with perforation AND obstruction,Has asso morph,4239211.0,91182001.0,Perforated ulcer,4239211.0,91182001,Perforated ulcer,True,match
-26718,Acute peptic ulcer with perforation AND obstruction,Has clinical course,4312510.0,424124008.0,Sudden onset AND/OR short duration,4312510.0,424124008,Sudden onset AND/OR short duration,True,match
-26718,Acute peptic ulcer with perforation AND obstruction,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,4271189.0,62834003,Upper gastrointestinal tract structure,True,match
-26719,Chronic laryngotracheitis,Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
-26719,Chronic laryngotracheitis,Has asso morph,4253009.0,409777003.0,Chronic inflammatory morphology,4253009.0,409777003,Chronic inflammatory morphology,True,match
-26719,Chronic laryngotracheitis,Has clinical course,4236661.0,90734009.0,Chronic,4236661.0,90734009,Chronic,True,match
-26719,Chronic laryngotracheitis,Has finding site,4195956.0,44567001.0,Tracheal structure,4195956.0,44567001,Tracheal structure,True,match
-26719,Chronic laryngotracheitis,Has finding site,4262229.0,4596009.0,Laryngeal structure,4262229.0,4596009,Laryngeal structure,True,match
-26727,Hematemesis,Has asso morph,4179955.0,50960005.0,Hemorrhage,4179955.0,50960005,Hemorrhage,True,match
-26727,Hematemesis,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,4271189.0,62834003,Upper gastrointestinal tract structure,True,match
+26711,Chronic pharyngitis,Has asso morph,4253009.0,409777003.0,Chronic inflammatory morphology,,,,False,missed
+26711,Chronic pharyngitis,Has clinical course,4236661.0,90734009.0,Chronic,,,,False,missed
+26711,Chronic pharyngitis,Has finding site,4207370.0,54066008.0,Pharyngeal structure,,,,False,missed
+26718,Acute peptic ulcer with perforation AND obstruction,Has asso morph,4093906.0,26036001.0,Obstruction,,,,False,missed
+26718,Acute peptic ulcer with perforation AND obstruction,Has asso morph,4096339.0,26317001.0,Acute ulcer,,,,False,missed
+26718,Acute peptic ulcer with perforation AND obstruction,Has asso morph,4239211.0,91182001.0,Perforated ulcer,,,,False,missed
+26718,Acute peptic ulcer with perforation AND obstruction,Has clinical course,4312510.0,424124008.0,Sudden onset AND/OR short duration,,,,False,missed
+26718,Acute peptic ulcer with perforation AND obstruction,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,,,,False,missed
+26719,Chronic laryngotracheitis,Has asso morph,4253009.0,409777003.0,Chronic inflammatory morphology,,,,False,missed
+26719,Chronic laryngotracheitis,Has clinical course,4236661.0,90734009.0,Chronic,,,,False,missed
+26719,Chronic laryngotracheitis,Has finding site,4195956.0,44567001.0,Tracheal structure,,,,False,missed
+26719,Chronic laryngotracheitis,Has finding site,4262229.0,4596009.0,Laryngeal structure,,,,False,missed
+26727,Hematemesis,Has asso morph,4179955.0,50960005.0,Hemorrhage,,,,False,missed
+26727,Hematemesis,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,,,,False,missed
 26727,Hematemesis,Has interprets,4025208.0,106079008.0,Digestive system function,,,,False,missed
-26823,Oral phase dysphagia,Has finding site,,,,4253672.0,74262004,Oral cavity structure,False,extra
 26823,Oral phase dysphagia,Has finding site,44782621.0,700016008.0,Structure of internal part of mouth,,,,False,missed
-26823,Oral phase dysphagia,Has interpretation,,,,4153379.0,371157007,Difficulty,False,extra
-26823,Oral phase dysphagia,Has interprets,,,,4128522.0,288935001,Ability to swallow,False,extra
 26823,Oral phase dysphagia,Has interprets,4086154.0,246464006.0,Function,,,,False,missed
-26847,"Splinter of neck, without major open wound",Has asso morph,4143690.0,426912003.0,Splinter foreign body,4143690.0,426912003,Splinter foreign body,True,match
-26847,"Splinter of neck, without major open wound",Has finding site,4260843.0,45048000.0,Neck structure,4260843.0,45048000,Neck structure,True,match
-26899,Tuberculous laryngitis,Has asso morph,4269928.0,6266001.0,Granulomatous inflammation,4269928.0,6266001,Granulomatous inflammation,True,match
-26899,Tuberculous laryngitis,Has causative agent,4035081.0,113858008.0,Mycobacterium tuberculosis complex,4035081.0,113858008,Mycobacterium tuberculosis complex,True,match
-26899,Tuberculous laryngitis,Has finding site,,,,4324844.0,71248005,Structure of mucous membrane of larynx,False,extra
+26847,"Splinter of neck, without major open wound",Has asso morph,4143690.0,426912003.0,Splinter foreign body,,,,False,missed
+26847,"Splinter of neck, without major open wound",Has finding site,4260843.0,45048000.0,Neck structure,,,,False,missed
+26899,Tuberculous laryngitis,Has asso morph,4269928.0,6266001.0,Granulomatous inflammation,,,,False,missed
+26899,Tuberculous laryngitis,Has causative agent,4035081.0,113858008.0,Mycobacterium tuberculosis complex,,,,False,missed
 26899,Tuberculous laryngitis,Has finding site,4262229.0,4596009.0,Laryngeal structure,,,,False,missed
-26899,Tuberculous laryngitis,Has pathology,40480911.0,441862004.0,Infectious process,40480911.0,441862004,Infectious process,True,match
-26908,Vincent's angina,Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
-26908,Vincent's angina,Has asso morph,4217347.0,71877001.0,Acute necrotizing inflammation,4217347.0,71877001,Acute necrotizing inflammation,True,match
-26908,Vincent's angina,Has causative agent,4139265.0,32763000.0,Fusobacterium nucleatum,4139265.0,32763000,Fusobacterium nucleatum,True,match
+26899,Tuberculous laryngitis,Has pathology,40480911.0,441862004.0,Infectious process,,,,False,missed
+26908,Vincent's angina,Has asso morph,4217347.0,71877001.0,Acute necrotizing inflammation,,,,False,missed
+26908,Vincent's angina,Has causative agent,4139265.0,32763000.0,Fusobacterium nucleatum,,,,False,missed
 26908,Vincent's angina,Has causative agent,4171014.0,47474000.0,Treponema vincentii,,,,False,missed
-26908,Vincent's angina,Has clinical course,,,,4312510.0,424124008,Sudden onset AND/OR short duration,False,extra
-26908,Vincent's angina,Has finding site,,,,4034272.0,113279002,Gingival structure,False,extra
 26908,Vincent's angina,Has finding site,4207370.0,54066008.0,Pharyngeal structure,,,,False,missed
-26908,Vincent's angina,Has pathology,40480911.0,441862004.0,Infectious process,40480911.0,441862004,Infectious process,True,match
-26935,Disorder of endocrine testis,Has finding site,4122979.0,304042006.0,Testicular endocrine structure,4122979.0,304042006,Testicular endocrine structure,True,match
-26942,Hemoglobin SS disease with crisis,Has asso morph,4177967.0,49938009.0,Drepanocyte,4177967.0,49938009,Drepanocyte,True,match
-26942,Hemoglobin SS disease with crisis,Has causative agent,4178879.0,50095005.0,Hemoglobin S,4178879.0,50095005,Hemoglobin S,True,match
-26942,Hemoglobin SS disease with crisis,Has finding site,4218976.0,41898006.0,Erythrocyte,4218976.0,41898006,Erythrocyte,True,match
-26942,Hemoglobin SS disease with crisis,Has interpretation,4083207.0,281300000.0,Below reference range,4083207.0,281300000,Below reference range,True,match
-26942,Hemoglobin SS disease with crisis,Has interprets,40480067.0,441689006.0,Measurement of total hemoglobin concentration,40480067.0,441689006,Measurement of total hemoglobin concentration,True,match
-26942,Hemoglobin SS disease with crisis,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
-27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,Has asso morph,,,,4179955.0,50960005,Hemorrhage,False,extra
-27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,Has asso morph,4164431.0,45771005.0,Acute bleeding ulcer,4164431.0,45771005,Acute bleeding ulcer,True,match
-27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,Has asso morph,4239211.0,91182001.0,Perforated ulcer,4239211.0,91182001,Perforated ulcer,True,match
-27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,Has clinical course,4312510.0,424124008.0,Sudden onset AND/OR short duration,4312510.0,424124008,Sudden onset AND/OR short duration,True,match
-27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,Has finding site,,,,37304196.0,787915005,Structure of lumen of upper gastrointestinal tract,False,extra
-27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,4271189.0,62834003,Upper gastrointestinal tract structure,True,match
+26908,Vincent's angina,Has pathology,40480911.0,441862004.0,Infectious process,,,,False,missed
+26935,Disorder of endocrine testis,Has finding site,4122979.0,304042006.0,Testicular endocrine structure,,,,False,missed
+26942,Hemoglobin SS disease with crisis,Has asso morph,4177967.0,49938009.0,Drepanocyte,,,,False,missed
+26942,Hemoglobin SS disease with crisis,Has causative agent,4178879.0,50095005.0,Hemoglobin S,,,,False,missed
+26942,Hemoglobin SS disease with crisis,Has finding site,4218976.0,41898006.0,Erythrocyte,,,,False,missed
+26942,Hemoglobin SS disease with crisis,Has interpretation,4083207.0,281300000.0,Below reference range,,,,False,missed
+26942,Hemoglobin SS disease with crisis,Has interprets,40480067.0,441689006.0,Measurement of total hemoglobin concentration,,,,False,missed
+26942,Hemoglobin SS disease with crisis,Has occurrence,4116830.0,255399007.0,Congenital,,,,False,missed
+27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,Has asso morph,4164431.0,45771005.0,Acute bleeding ulcer,,,,False,missed
+27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,Has asso morph,4239211.0,91182001.0,Perforated ulcer,,,,False,missed
+27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,Has clinical course,4312510.0,424124008.0,Sudden onset AND/OR short duration,,,,False,missed
 27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,Has finding site,4200674.0,302184004.0,Stomach and/or duodenal structures,,,,False,missed
-27235,Primary malignant neoplasm of carotid body,Has asso morph,,,,4312326.0,86049000,"Neoplasm, malignant (primary)",False,extra
-27235,Primary malignant neoplasm of carotid body,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,37153816.0,1240414004,Malignant neoplasm,True,match
-27235,Primary malignant neoplasm of carotid body,Has finding site,4197418.0,51345006.0,Carotid body structure,4197418.0,51345006,Carotid body structure,True,match
-27235,Primary malignant neoplasm of carotid body,Has pathology,37157802.0,1234914003.0,Primary malignant neoplastic proliferation,37157802.0,1234914003,Primary malignant neoplastic proliferation,True,match
-27321,Persistent vomiting,Has clinical course,,,,4267304.0,62459000,Chronic persistent,False,extra
-27321,Persistent vomiting,Has finding site,,,,4046957.0,122865005,Gastrointestinal tract structure,False,extra
+27026,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,,,,False,missed
+27235,Primary malignant neoplasm of carotid body,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,,,,False,missed
+27235,Primary malignant neoplasm of carotid body,Has finding site,4197418.0,51345006.0,Carotid body structure,,,,False,missed
+27235,Primary malignant neoplasm of carotid body,Has pathology,37157802.0,1234914003.0,Primary malignant neoplastic proliferation,,,,False,missed
 27321,Persistent vomiting,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,,,,False,missed
 27321,Persistent vomiting,Has interprets,4025208.0,106079008.0,Digestive system function,,,,False,missed
-27438,Burn of esophagus,Has asso morph,4168004.0,48333001.0,Burn injury,4168004.0,48333001,Burn injury,True,match
-27438,Burn of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
-27516,Neoplasm of uncertain behavior of paraganglia,Has asso morph,4313421.0,86251006.0,Neoplasm of uncertain behavior,4313421.0,86251006,Neoplasm of uncertain behavior,True,match
-27516,Neoplasm of uncertain behavior of paraganglia,Has finding site,4144244.0,33805007.0,Paraganglia structure,4144244.0,33805007,Paraganglia structure,True,match
-27526,Nezelof's syndrome,Has asso morph,,,,4243003.0,38146002,Congenital hypoplasia,False,extra
-27526,Nezelof's syndrome,Has finding site,,,,4321259.0,9875009,Thymus gland structure,False,extra
+27438,Burn of esophagus,Has asso morph,4168004.0,48333001.0,Burn injury,,,,False,missed
+27438,Burn of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,,,,False,missed
+27516,Neoplasm of uncertain behavior of paraganglia,Has asso morph,4313421.0,86251006.0,Neoplasm of uncertain behavior,,,,False,missed
+27516,Neoplasm of uncertain behavior of paraganglia,Has finding site,4144244.0,33805007.0,Paraganglia structure,,,,False,missed
 27526,Nezelof's syndrome,Has finding site,4237366.0,91689009.0,Body system structure,,,,False,missed
-27526,Nezelof's syndrome,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
-27526,Nezelof's syndrome,Has pathology,,,,4204670.0,308490002,Pathological developmental process,False,extra
-27526,Nezelof's syndrome,Has pathology,35626089.0,769247005.0,Abnormal immune process,35626089.0,769247005,Abnormal immune process,True,match
-27587,Disturbance of salivary secretion,Has finding site,4294042.0,385294005.0,Salivary gland structure,4294042.0,385294005,Salivary gland structure,True,match
-27587,Disturbance of salivary secretion,Has interpretation,,,,4135493.0,263654008,Abnormal,False,extra
-27587,Disturbance of salivary secretion,Has interprets,,,,4143620.0,34178000,Salivary secretion,False,extra
-27674,Nausea and vomiting,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,4271189.0,62834003,Upper gastrointestinal tract structure,True,match
-27674,Nausea and vomiting,Has interpretation,,,,4135493.0,263654008,Abnormal,False,extra
-27674,Nausea and vomiting,Has interprets,4025208.0,106079008.0,Digestive system function,4025208.0,106079008,Digestive system function,True,match
-27826,Combination of endocrine dysfunction,Has finding site,4298971.0,77637002.0,Structure of multiple endocrine glands,4298971.0,77637002,Structure of multiple endocrine glands,True,match
-27835,Neoplasm of uncertain behavior of pituitary gland,Has asso morph,4313421.0,86251006.0,Neoplasm of uncertain behavior,4313421.0,86251006,Neoplasm of uncertain behavior,True,match
-27835,Neoplasm of uncertain behavior of pituitary gland,Has finding site,4209428.0,56329008.0,Pituitary structure,4209428.0,56329008,Pituitary structure,True,match
-27918,Eosinophilic esophagitis,Has asso morph,4042400.0,16759001.0,Chronic eosinophilic inflammation,4042400.0,16759001,Chronic eosinophilic inflammation,True,match
-27918,Eosinophilic esophagitis,Has clinical course,4236661.0,90734009.0,Chronic,4236661.0,90734009,Chronic,True,match
-27918,Eosinophilic esophagitis,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
-27918,Eosinophilic esophagitis,Has pathology,43021170.0,472964009.0,Allergic process,43021170.0,472964009,Allergic process,True,match
-28060,Streptococcal sore throat,Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
+27526,Nezelof's syndrome,Has occurrence,4116830.0,255399007.0,Congenital,,,,False,missed
+27526,Nezelof's syndrome,Has pathology,35626089.0,769247005.0,Abnormal immune process,,,,False,missed
+27587,Disturbance of salivary secretion,Has finding site,4294042.0,385294005.0,Salivary gland structure,,,,False,missed
+27674,Nausea and vomiting,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,,,,False,missed
+27674,Nausea and vomiting,Has interprets,4025208.0,106079008.0,Digestive system function,,,,False,missed
+27826,Combination of endocrine dysfunction,Has finding site,4298971.0,77637002.0,Structure of multiple endocrine glands,,,,False,missed
+27835,Neoplasm of uncertain behavior of pituitary gland,Has asso morph,4313421.0,86251006.0,Neoplasm of uncertain behavior,,,,False,missed
+27835,Neoplasm of uncertain behavior of pituitary gland,Has finding site,4209428.0,56329008.0,Pituitary structure,,,,False,missed
+27918,Eosinophilic esophagitis,Has asso morph,4042400.0,16759001.0,Chronic eosinophilic inflammation,,,,False,missed
+27918,Eosinophilic esophagitis,Has clinical course,4236661.0,90734009.0,Chronic,,,,False,missed
+27918,Eosinophilic esophagitis,Has finding site,4140098.0,32849002.0,Esophageal structure,,,,False,missed
+27918,Eosinophilic esophagitis,Has pathology,43021170.0,472964009.0,Allergic process,,,,False,missed
+28060,Streptococcal sore throat,Has asso morph,,,,4163835.0,4532008,Acute inflammation,False,extra
 28060,Streptococcal sore throat,Has asso morph,4253008.0,409774005.0,Inflammatory morphology,,,,False,missed
 28060,Streptococcal sore throat,Has causative agent,4240344.0,58800005.0,Streptococcus,4240344.0,58800005,Streptococcus,True,match
 28060,Streptococcal sore throat,Has finding site,4207370.0,54066008.0,Pharyngeal structure,4207370.0,54066008,Pharyngeal structure,True,match
 28060,Streptococcal sore throat,Has pathology,40480911.0,441862004.0,Infectious process,40480911.0,441862004,Infectious process,True,match
-28083,Primary malignant neoplasm of pharynx,Has asso morph,,,,4312326.0,86049000,"Neoplasm, malignant (primary)",False,extra
-28083,Primary malignant neoplasm of pharynx,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,37153816.0,1240414004,Malignant neoplasm,True,match
-28083,Primary malignant neoplasm of pharynx,Has finding site,4207370.0,54066008.0,Pharyngeal structure,4207370.0,54066008,Pharyngeal structure,True,match
-28083,Primary malignant neoplasm of pharynx,Has pathology,37157802.0,1234914003.0,Primary malignant neoplastic proliferation,37157802.0,1234914003,Primary malignant neoplastic proliferation,True,match
-28109,Carcinoma in situ of esophagus,Has asso morph,,,,4266173.0,399919001,Carcinoma in situ - category,False,extra
-28109,Carcinoma in situ of esophagus,Has asso morph,37156895.0,1187138006.0,Carcinoma in situ,37156895.0,1187138006,Carcinoma in situ,True,match
-28109,Carcinoma in situ of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
-28115,Benign neoplasm of pineal gland,Has asso morph,4305589.0,3898006.0,"Neoplasm, benign",4305589.0,3898006,"Neoplasm, benign",True,match
-28115,Benign neoplasm of pineal gland,Has finding site,4164136.0,45793000.0,Pineal structure,4164136.0,45793000,Pineal structure,True,match
-28127,"Multiple endocrine neoplasia, type 1",Has asso morph,,,,4030314.0,108369006,Neoplasm,False,extra
+28083,Primary malignant neoplasm of pharynx,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,,,,False,missed
+28083,Primary malignant neoplasm of pharynx,Has finding site,4207370.0,54066008.0,Pharyngeal structure,,,,False,missed
+28083,Primary malignant neoplasm of pharynx,Has pathology,37157802.0,1234914003.0,Primary malignant neoplastic proliferation,,,,False,missed
+28109,Carcinoma in situ of esophagus,Has asso morph,37156895.0,1187138006.0,Carcinoma in situ,,,,False,missed
+28109,Carcinoma in situ of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,,,,False,missed
+28115,Benign neoplasm of pineal gland,Has asso morph,4305589.0,3898006.0,"Neoplasm, benign",,,,False,missed
+28115,Benign neoplasm of pineal gland,Has finding site,4164136.0,45793000.0,Pineal structure,,,,False,missed
 28127,"Multiple endocrine neoplasia, type 1",Has asso morph,4189035.0,60549007.0,Multiple endocrine adenomas,,,,False,missed
-28127,"Multiple endocrine neoplasia, type 1",Has finding site,4298971.0,77637002.0,Structure of multiple endocrine glands,4298971.0,77637002,Structure of multiple endocrine glands,True,match
-28179,Polyp of vocal cord or larynx,Has asso morph,4187628.0,41329004.0,Polyp,4187628.0,41329004,Polyp,True,match
-28179,Polyp of vocal cord or larynx,Has finding site,,,,4263612.0,46105003,Vocal cord structure,False,extra
-28179,Polyp of vocal cord or larynx,Has finding site,4262229.0,4596009.0,Laryngeal structure,4262229.0,4596009,Laryngeal structure,True,match
-28248,Cervical auricle,Has asso morph,,,,4238909.0,91431006,Supernumerary structure,False,extra
+28127,"Multiple endocrine neoplasia, type 1",Has finding site,4298971.0,77637002.0,Structure of multiple endocrine glands,,,,False,missed
+28179,Polyp of vocal cord or larynx,Has asso morph,4187628.0,41329004.0,Polyp,,,,False,missed
+28179,Polyp of vocal cord or larynx,Has finding site,4262229.0,4596009.0,Laryngeal structure,,,,False,missed
 28248,Cervical auricle,Has asso morph,37206155.0,785762005.0,Branchial cyst,,,,False,missed
-28248,Cervical auricle,Has finding site,4260843.0,45048000.0,Neck structure,4260843.0,45048000,Neck structure,True,match
-28248,Cervical auricle,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
-28248,Cervical auricle,Has pathology,4204670.0,308490002.0,Pathological developmental process,4204670.0,308490002,Pathological developmental process,True,match
+28248,Cervical auricle,Has finding site,4260843.0,45048000.0,Neck structure,,,,False,missed
+28248,Cervical auricle,Has occurrence,4116830.0,255399007.0,Congenital,,,,False,missed
+28248,Cervical auricle,Has pathology,4204670.0,308490002.0,Pathological developmental process,,,,False,missed
 28356,Overlapping malignant neoplasm of major salivary gland,Has asso morph,,,,4312326.0,86049000,"Neoplasm, malignant (primary)",False,extra
 28356,Overlapping malignant neoplasm of major salivary gland,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,37153816.0,1240414004,Malignant neoplasm,True,match
 28356,Overlapping malignant neoplasm of major salivary gland,Has finding site,4002730.0,119282003.0,Major salivary gland structure,4002730.0,119282003,Major salivary gland structure,True,match
-28385,Disorder of posterior pituitary,Has finding site,4292400.0,37512009.0,Neurohypophysis structure,4292400.0,37512009,Neurohypophysis structure,True,match
-28396,Hereditary hemolytic anemia,Has finding site,4218976.0,41898006.0,Erythrocyte,4218976.0,41898006,Erythrocyte,True,match
-28396,Hereditary hemolytic anemia,Has interpretation,4083207.0,281300000.0,Below reference range,4083207.0,281300000,Below reference range,True,match
+28385,Disorder of posterior pituitary,Has finding site,4292400.0,37512009.0,Neurohypophysis structure,,,,False,missed
+28396,Hereditary hemolytic anemia,Has finding site,4218976.0,41898006.0,Erythrocyte,4218976.0,,Erythrocyte,True,match
 28396,Hereditary hemolytic anemia,Has interpretation,4083207.0,281300000.0,Below reference range,4083207.0,281300000,Below reference range,True,match
 28396,Hereditary hemolytic anemia,Has interpretation,4181412.0,52101004.0,Present,4181412.0,52101004,Present,True,match
 28396,Hereditary hemolytic anemia,Has interprets,4030871.0,14089001.0,Red blood cell count,4030871.0,14089001,Red blood cell count,True,match
 28396,Hereditary hemolytic anemia,Has interprets,4224294.0,404227002.0,Hemolysis,4224294.0,404227002,Hemolysis,True,match
-28396,Hereditary hemolytic anemia,Has interprets,40480067.0,441689006.0,Measurement of total hemoglobin concentration,40480067.0,441689006,Measurement of total hemoglobin concentration,True,match
+28396,Hereditary hemolytic anemia,Has interprets,40480067.0,441689006.0,Measurement of total hemoglobin concentration,,,,False,missed
 28396,Hereditary hemolytic anemia,Has occurrence,,,,4116830.0,255399007,Congenital,False,extra
+28396,Hereditary hemolytic anemia,Has pathology,,,,4204670.0,,Pathological developmental process,False,extra
 28403,Gigantism and acromegaly,Has finding site,4200975.0,52618001.0,Structure of distal part of pituitary,4200975.0,52618001,Structure of distal part of pituitary,True,match
 28403,Gigantism and acromegaly,Has interpretation,4146067.0,35105006.0,Increased,4146067.0,35105006,Increased,True,match
 28403,Gigantism and acromegaly,Has interpretation,4146067.0,35105006.0,Increased,4146067.0,35105006,Increased,True,match
@@ -440,7 +365,7 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 28461,Hypertrophy of salivary gland,Has finding site,4294042.0,385294005.0,Salivary gland structure,4294042.0,385294005,Salivary gland structure,True,match
 28462,Fistula of salivary gland,Has asso morph,4043006.0,118622000.0,Fistula,4043006.0,118622000,Fistula,True,match
 28462,Fistula of salivary gland,Has finding site,4294042.0,385294005.0,Salivary gland structure,4294042.0,385294005,Salivary gland structure,True,match
-28714,Syndrome of diencephalo-hypophyseal origin,Has finding site,,,,4112696.0,181125003,Entire pituitary gland,False,extra
+28714,Syndrome of diencephalo-hypophyseal origin,Has finding site,,,,4209428.0,56329008,Pituitary structure,False,extra
 28714,Syndrome of diencephalo-hypophyseal origin,Has finding site,,,,4227118.0,87563008,Structure of diencephalon,False,extra
 28714,Syndrome of diencephalo-hypophyseal origin,Has finding site,4292400.0,37512009.0,Neurohypophysis structure,,,,False,missed
 28716,Benign neoplasm of aortic body,Has asso morph,4305589.0,3898006.0,"Neoplasm, benign",4305589.0,3898006,"Neoplasm, benign",True,match
@@ -449,6 +374,8 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 28779,Bleeding esophageal varices,Has asso morph,,,,4179955.0,50960005,Hemorrhage,False,extra
 28779,Bleeding esophageal varices,Has asso morph,4237283.0,57052009.0,Bleeding varices,,,,False,missed
 28779,Bleeding esophageal varices,Has finding site,4237655.0,90895003.0,Structure of esophageal vein,4237655.0,90895003,Structure of esophageal vein,True,match
+28974,Candidiasis of the esophagus,Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
+28974,Candidiasis of the esophagus,Has asso morph,,,,4253008.0,409774005,Inflammatory morphology,False,extra
 28974,Candidiasis of the esophagus,Has causative agent,4139129.0,3265006.0,Candida,4139129.0,3265006,Candida,True,match
 28974,Candidiasis of the esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
 28974,Candidiasis of the esophagus,Has pathology,40480911.0,441862004.0,Infectious process,40480911.0,441862004,Infectious process,True,match
@@ -463,6 +390,7 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 29783,Severe combined immunodeficiency disease,Has finding site,4237366.0,91689009.0,Body system structure,,,,False,missed
 29783,Severe combined immunodeficiency disease,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
 29783,Severe combined immunodeficiency disease,Has pathology,35626089.0,769247005.0,Abnormal immune process,35626089.0,769247005,Abnormal immune process,True,match
+29783,Severe combined immunodeficiency disease,Has severity,,,,4087703.0,24484000,Severe,False,extra
 29979,Crushing injury of neck,Has asso morph,4060415.0,19921004.0,Crushing injury (morphology),4060415.0,19921004,Crushing injury (morphology),True,match
 29979,Crushing injury of neck,Has finding site,4260843.0,45048000.0,Neck structure,4260843.0,45048000,Neck structure,True,match
 30061,Neoplasm of uncertain behavior of major salivary gland,Has asso morph,4313421.0,86251006.0,Neoplasm of uncertain behavior,4313421.0,86251006,Neoplasm of uncertain behavior,True,match
@@ -476,10 +404,11 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 30163,Cellulitis and abscess of neck,Has asso morph,4299470.0,385627004.0,Cellulitis,4299470.0,385627004,Cellulitis,True,match
 30163,Cellulitis and abscess of neck,Has finding site,4260843.0,45048000.0,Neck structure,4260843.0,45048000,Neck structure,True,match
 30234,Neck sprain,Has asso morph,4298490.0,384709000.0,Sprain,4298490.0,384709000,Sprain,True,match
-30234,Neck sprain,Has finding site,4217193.0,72579007.0,Structure of ligament of neck,4217193.0,72579007,Structure of ligament of neck,True,match
+30234,Neck sprain,Has finding site,,,,4080377.0,182359007,Ligament of spine in cervical region,False,extra
+30234,Neck sprain,Has finding site,4217193.0,72579007.0,Structure of ligament of neck,,,,False,missed
 30274,Full thickness burn of neck,Has asso morph,4213471.0,80247002.0,Third degree burn injury,4213471.0,80247002,Third degree burn injury,True,match
 30274,Full thickness burn of neck,Has finding site,4189257.0,389073006.0,Skin and/or subcutaneous tissue structure of neck,4189257.0,389073006,Skin and/or subcutaneous tissue structure of neck,True,match
-30284,Motion sickness,Has causative agent,4209294.0,56219004.0,Motion,,,,False,missed
+30284,Motion sickness,Has causative agent,4209294.0,56219004.0,Motion,4209294.0,56219004,Motion,True,match
 30284,Motion sickness,Has finding site,,,,4260659.0,45006007,Vestibular structure,False,extra
 30284,Motion sickness,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,,,,False,missed
 30333,Gonorrhea of pharynx,Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
@@ -500,7 +429,7 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 30365,Panhypopituitarism,Has interpretation,,,,4053347.0,1250004,Decreased,False,extra
 30365,Panhypopituitarism,Has interprets,,,,4049132.0,123036008,Endocrine function,False,extra
 30437,Gastro-esophageal reflux disease with esophagitis,Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
-30437,Gastro-esophageal reflux disease with esophagitis,Has asso morph,4253008.0,409774005.0,Inflammatory morphology,,,,False,missed
+30437,Gastro-esophageal reflux disease with esophagitis,Has asso morph,4253008.0,409774005.0,Inflammatory morphology,4253008.0,409774005,Inflammatory morphology,True,match
 30437,Gastro-esophageal reflux disease with esophagitis,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
 30439,Acute peptic ulcer with perforation but without obstruction,Has asso morph,4096339.0,26317001.0,Acute ulcer,4096339.0,26317001,Acute ulcer,True,match
 30439,Acute peptic ulcer with perforation but without obstruction,Has asso morph,4239211.0,91182001.0,Perforated ulcer,4239211.0,91182001,Perforated ulcer,True,match
@@ -513,7 +442,7 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 30442,Chronic peptic ulcer with perforation AND obstruction,Has asso morph,4239211.0,91182001.0,Perforated ulcer,4239211.0,91182001,Perforated ulcer,True,match
 30442,Chronic peptic ulcer with perforation AND obstruction,Has clinical course,4236661.0,90734009.0,Chronic,4236661.0,90734009,Chronic,True,match
 30442,Chronic peptic ulcer with perforation AND obstruction,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,4271189.0,62834003,Upper gastrointestinal tract structure,True,match
-30515,Congenital esophageal ring,Has asso morph,,,,4047479.0,232001,Congenital fold,False,extra
+30515,Congenital esophageal ring,Has asso morph,,,,4295289.0,76640006,Congenital webbing,False,extra
 30515,Congenital esophageal ring,Has asso morph,4175951.0,49755003.0,Morphologically abnormal structure,,,,False,missed
 30515,Congenital esophageal ring,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
 30515,Congenital esophageal ring,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
@@ -564,8 +493,9 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 31597,Acute laryngotracheitis,Has clinical course,4312510.0,424124008.0,Sudden onset AND/OR short duration,4312510.0,424124008,Sudden onset AND/OR short duration,True,match
 31597,Acute laryngotracheitis,Has finding site,4195956.0,44567001.0,Tracheal structure,4195956.0,44567001,Tracheal structure,True,match
 31597,Acute laryngotracheitis,Has finding site,4262229.0,4596009.0,Laryngeal structure,4262229.0,4596009,Laryngeal structure,True,match
-31598,Hypertrophy of tonsils AND adenoids,Has asso morph,4210465.0,56246009.0,Hypertrophy,4210465.0,56246009,Hypertrophy (morphologic abnormality),True,match
-31598,Hypertrophy of tonsils AND adenoids,Has finding site,,,,4123604.0,303337002,Tonsil and adenoid structure,False,extra
+31598,Hypertrophy of tonsils AND adenoids,Has asso morph,4210465.0,56246009.0,Hypertrophy,4210465.0,56246009,Hypertrophy,True,match
+31598,Hypertrophy of tonsils AND adenoids,Has finding site,,,,4184153.0,55940004,Adenoidal structure,False,extra
+31598,Hypertrophy of tonsils AND adenoids,Has finding site,,,,4327174.0,75573002,Palatine tonsillar structure,False,extra
 31598,Hypertrophy of tonsils AND adenoids,Has finding site,4088482.0,280412006.0,Entire left tonsil (palatine),,,,False,missed
 31598,Hypertrophy of tonsils AND adenoids,Has finding site,4090917.0,280411004.0,Entire right tonsil (palatine),,,,False,missed
 31598,Hypertrophy of tonsils AND adenoids,Has finding site,4112713.0,181199001.0,Entire adenoid,,,,False,missed
@@ -586,14 +516,13 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 31821,Disorder of endocrine system,Has finding site,4034504.0,113331007.0,Structure of endocrine system,4034504.0,113331007,Structure of endocrine system,True,match
 31884,Acquired diverticulum of esophagus,Has asso morph,4053916.0,125284007.0,Single diverticulum,4053916.0,125284007,Single diverticulum,True,match
 31884,Acquired diverticulum of esophagus,Has finding site,4140098.0,32849002.0,Esophageal structure,4140098.0,32849002,Esophageal structure,True,match
-31884,Acquired diverticulum of esophagus,Has occurrence,35624340.0,767023003.0,Period of life between birth and death,,,,False,missed
+31884,Acquired diverticulum of esophagus,Has occurrence,35624340.0,767023003.0,Period of life between birth and death,35624340.0,767023003,Period of life between birth and death,True,match
 31967,Nausea,Has finding site,4271189.0,62834003.0,Upper gastrointestinal tract structure,4271189.0,62834003,Upper gastrointestinal tract structure,True,match
 72245,Chlamydial infection of lower genitourinary tract,Has causative agent,4037323.0,16241000.0,Chlamydia,4037323.0,16241000,Chlamydia,True,match
 72245,Chlamydial infection of lower genitourinary tract,Has finding site,4241088.0,59183004.0,Lower genitourinary tract structure,4241088.0,59183004,Lower genitourinary tract structure,True,match
 72245,Chlamydial infection of lower genitourinary tract,Has pathology,40480911.0,441862004.0,Infectious process,40480911.0,441862004,Infectious process,True,match
 72332,Serous labyrinthitis,Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
-72332,Serous labyrinthitis,Has asso morph,,,,4253008.0,409774005,Inflammatory morphology,False,extra
-72332,Serous labyrinthitis,Has asso morph,4085360.0,24811005.0,Serous inflammation,4085360.0,24811005,Serous inflammation,True,match
+72332,Serous labyrinthitis,Has asso morph,4085360.0,24811005.0,Serous inflammation,,,,False,missed
 72332,Serous labyrinthitis,Has finding site,4121004.0,302462009.0,Labyrinth structure,4121004.0,302462009,Labyrinth structure,True,match
 72377,Shoulder girdle dystocia,During,4128030.0,236973005.0,Delivery procedure,,,,False,missed
 72377,Shoulder girdle dystocia,Has occurrence,37160330.0,1156682000.0,Maternal intrapartum period,37160330.0,1156682000,Maternal intrapartum period,True,match
@@ -652,9 +581,9 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 72460,Open fracture of seven ribs,Has asso morph,,,,4249880.0,73732002,"Fracture, multiple, compound",False,extra
 72460,Open fracture of seven ribs,Has asso morph,36675157.0,771487004.0,Compound fracture of multiple bones,,,,False,missed
 72460,Open fracture of seven ribs,Has finding site,4011851.0,113197003.0,Bone structure of rib,4011851.0,113197003,Bone structure of rib,True,match
-72465,Closed fracture of one or more phalanges of hand,Has asso morph,,,,36675156.0,771486008,Closed fracture of multiple bones,False,extra
 72465,Closed fracture of one or more phalanges of hand,Has asso morph,4049776.0,20946005.0,"Fracture, closed",4049776.0,20946005,"Fracture, closed",True,match
-72465,Closed fracture of one or more phalanges of hand,Has finding site,4251333.0,73696005.0,Bone structure of phalanx of hand,4251333.0,73696005,Bone structure of phalanx of hand,True,match
+72465,Closed fracture of one or more phalanges of hand,Has finding site,,,,4152304.0,282823009,Bone structure of phalanx of finger,False,extra
+72465,Closed fracture of one or more phalanges of hand,Has finding site,4251333.0,73696005.0,Bone structure of phalanx of hand,,,,False,missed
 72468,Open dislocation of jaw,Has asso morph,4194530.0,7906001.0,Open dislocation,4194530.0,7906001,Open dislocation,True,match
 72468,Open dislocation of jaw,Has finding site,4202366.0,53620006.0,Temporomandibular joint structure,4202366.0,53620006,Temporomandibular joint structure,True,match
 72469,Closed traumatic dislocation of joint of shoulder region,Has asso morph,4175294.0,50399007.0,Closed dislocation,4175294.0,50399007,Closed dislocation,True,match
@@ -665,9 +594,9 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 72487,Crushing injury of foot,Has finding site,4211098.0,56459004.0,Foot structure,4211098.0,56459004,Foot structure,True,match
 72516,Burn of knee,Has asso morph,4168004.0,48333001.0,Burn injury,4168004.0,48333001,Burn injury,True,match
 72516,Burn of knee,Has finding site,4217806.0,72696002.0,Knee region structure,4217806.0,72696002,Knee region structure,True,match
-72521,Immersion foot,Has asso morph,4242243.0,38045000.0,Cold injury,4242243.0,38045000,Cold injury (morphologic abnormality),True,match
+72521,Immersion foot,Has asso morph,4242243.0,38045000.0,Cold injury,4242243.0,38045000,Cold injury,True,match
 72521,Immersion foot,Has causative agent,,,,4036190.0,11713004,Water,False,extra
-72521,Immersion foot,Has causative agent,4110148.0,285686007.0,Low temperature,4110148.0,285686007,Low temperature,True,match
+72521,Immersion foot,Has causative agent,4110148.0,285686007.0,Low temperature,,,,False,missed
 72521,Immersion foot,Has finding site,,,,4211098.0,56459004,Foot structure,False,extra
 72521,Immersion foot,Has finding site,4263673.0,60496002.0,Skin structure of foot,,,,False,missed
 72562,Gonococcal spondylitis,Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
@@ -676,7 +605,8 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 72562,Gonococcal spondylitis,Has finding site,,,,4198252.0,51282000,Bone structure of spine,False,extra
 72562,Gonococcal spondylitis,Has finding site,4149170.0,3572006.0,Structure of body of vertebra,,,,False,missed
 72562,Gonococcal spondylitis,Has pathology,40480911.0,441862004.0,Infectious process,40480911.0,441862004,Infectious process,True,match
-72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,,,,False,missed
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Has asso morph,,,,4312326.0,86049000,"Neoplasm, malignant (primary)",False,extra
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,37153816.0,1240414004,Malignant neoplasm,True,match
 72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Has finding site,,,,4276201.0,64688005,Bone structure of coccyx,False,extra
 72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Has finding site,,,,44783588.0,699698002,Structure of sacral vertebral column,False,extra
 72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Has finding site,4041251.0,118645006.0,Bone structure of pelvis,4041251.0,118645006,Bone structure of pelvis,True,match
@@ -688,6 +618,8 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 72618,Disorder of skeletal muscle,Has finding site,4133963.0,127954009.0,Skeletal muscle structure,4133963.0,127954009,Skeletal muscle structure,True,match
 72693,Poor fetal growth affecting management,Has asso morph,,,,4245750.0,59576002,Growth retardation,False,extra
 72693,Poor fetal growth affecting management,Has finding site,,,,4207963.0,55460000,Fetal structure,False,extra
+72693,Poor fetal growth affecting management,Has interpretation,,,,4083207.0,281300000,Below reference range,False,extra
+72693,Poor fetal growth affecting management,Has interprets,,,,4091644.0,249050003,Fetus size,False,extra
 72693,Poor fetal growth affecting management,Has occurrence,4121979.0,303112003.0,Fetal period,4121979.0,303112003,Fetal period,True,match
 72693,Poor fetal growth affecting management,Has pathology,,,,4204670.0,308490002,Pathological developmental process,False,extra
 72708,Traumatic arthropathy of the shoulder region,Has finding site,4151929.0,31398001.0,Joint structure of shoulder region,4151929.0,31398001,Joint structure of shoulder region,True,match
@@ -704,7 +636,7 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 72715,Exostosis,Has asso morph,4215424.0,80400009.0,External hyperostosis,4215424.0,80400009,External hyperostosis,True,match
 72715,Exostosis,Has finding site,4154333.0,272673000.0,Bone structure,4154333.0,272673000,Bone structure,True,match
 72717,Postoperative heterotopic calcification,Has asso morph,4112703.0,18115005.0,Pathologic calcification,4112703.0,18115005,Pathologic calcification,True,match
-72726,Light-for-dates with signs of fetal malnutrition,Has asso morph,4245750.0,59576002.0,Growth retardation,4245750.0,59576002,Growth retardation,True,match
+72726,Light-for-dates with signs of fetal malnutrition,Has asso morph,4245750.0,59576002.0,Growth retardation,,,,False,missed
 72726,Light-for-dates with signs of fetal malnutrition,Has interpretation,,,,4155143.0,371880002,Abnormally low,False,extra
 72726,Light-for-dates with signs of fetal malnutrition,Has interprets,,,,4264825.0,364589006,Birth weight,False,extra
 72726,Light-for-dates with signs of fetal malnutrition,Has occurrence,,,,4123429.0,303114002,Early neonatal period,False,extra
@@ -721,14 +653,13 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 72817,Tuberculosis of urinary organs,Has finding site,4329658.0,431938005.0,Structure of urinary tract proper,,,,False,missed
 72817,Tuberculosis of urinary organs,Has pathology,40480911.0,441862004.0,Infectious process,40480911.0,441862004,Infectious process,True,match
 72857,Late effect of rickets,Has finding site,,,,4214470.0,39365008,Osteoid tissue,False,extra
-72857,Late effect of rickets,Has finding site,,,,46272765.0,711190000,Structure of epiphyseal plate,False,extra
 72857,Late effect of rickets,Has finding site,4154333.0,272673000.0,Bone structure,,,,False,missed
 72926,Labyrinthine fistula,Has asso morph,4043006.0,118622000.0,Fistula,4043006.0,118622000,Fistula,True,match
 72926,Labyrinthine fistula,Has finding site,4121004.0,302462009.0,Labyrinth structure,4121004.0,302462009,Labyrinth structure,True,match
 72984,Reactive arthritis of joint of shoulder region due to and following dysentery,Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
 72984,Reactive arthritis of joint of shoulder region due to and following dysentery,Has asso morph,4253008.0,409774005.0,Inflammatory morphology,4253008.0,409774005,Inflammatory morphology,True,match
 72984,Reactive arthritis of joint of shoulder region due to and following dysentery,Has finding site,4151929.0,31398001.0,Joint structure of shoulder region,4151929.0,31398001,Joint structure of shoulder region,True,match
-72985,Arthropathy of the ankle and/or foot associated with helminthiasis,Finding asso with,441793.0,27601005.0,Infection caused by Cestoda and/or Trematoda and/or Phylum Nemata,,,,False,missed
+72985,Arthropathy of the ankle and/or foot associated with helminthiasis,Finding asso with,441793.0,27601005.0,Infection caused by Cestoda and/or Trematoda and/or Phylum Nemata,441793.0,,Infection caused by Cestoda and/or Trematoda and/or Phylum Nemata,True,match
 72985,Arthropathy of the ankle and/or foot associated with helminthiasis,Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
 72985,Arthropathy of the ankle and/or foot associated with helminthiasis,Has asso morph,4253008.0,409774005.0,Inflammatory morphology,4253008.0,409774005,Inflammatory morphology,True,match
 72985,Arthropathy of the ankle and/or foot associated with helminthiasis,Has finding site,4194884.0,312816002.0,Joint structure of ankle and/or foot,4194884.0,312816002,Joint structure of ankle and/or foot,True,match
@@ -737,8 +668,6 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 72988,Pyogenic arthritis of hand,Has finding site,4222144.0,40238009.0,Structure of joint of hand,4222144.0,40238009,Structure of joint of hand,True,match
 72988,Pyogenic arthritis of hand,Has pathology,40480911.0,441862004.0,Infectious process,40480911.0,441862004,Infectious process,True,match
 72989,"Arthropathy associated with mycoses, of the ankle and/or foot",Finding asso with,433701.0,3218000.0,Mycosis,,,,False,missed
-72989,"Arthropathy associated with mycoses, of the ankle and/or foot",Has asso morph,,,,4053015.0,,Inflammation,False,extra
-72989,"Arthropathy associated with mycoses, of the ankle and/or foot",Has asso morph,,,,4253008.0,,Inflammatory morphology,False,extra
 72989,"Arthropathy associated with mycoses, of the ankle and/or foot",Has finding site,4194884.0,312816002.0,Joint structure of ankle and/or foot,4194884.0,312816002,Joint structure of ankle and/or foot,True,match
 72990,Localized osteoarthrosis uncertain if primary OR secondary,Has asso morph,,,,4140663.0,33359002,Degeneration,False,extra
 72990,Localized osteoarthrosis uncertain if primary OR secondary,Has asso morph,4030637.0,107669003.0,Degenerative abnormality,4030637.0,107669003,Degenerative abnormality,True,match
@@ -751,7 +680,8 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 72993,"Localized, primary osteoarthritis",Has asso morph,,,,4140663.0,33359002,Degeneration,False,extra
 72993,"Localized, primary osteoarthritis",Has asso morph,4030637.0,107669003.0,Degenerative abnormality,4030637.0,107669003,Degenerative abnormality,True,match
 72993,"Localized, primary osteoarthritis",Has finding site,4214466.0,39352004.0,Joint structure,4214466.0,39352004,Joint structure,True,match
-72994,Jaccoud's syndrome,Has asso morph,,,,4263843.0,6081001,Deformity,False,extra
+72994,Jaccoud's syndrome,Has asso morph,,,,4253008.0,409774005,Inflammatory morphology,False,extra
+72994,Jaccoud's syndrome,Has asso morph,,,,4253009.0,409777003,Chronic inflammatory morphology,False,extra
 72994,Jaccoud's syndrome,Has clinical course,4236661.0,90734009.0,Chronic,,,,False,missed
 72994,Jaccoud's syndrome,Has finding site,,,,4222144.0,40238009,Structure of joint of hand,False,extra
 72994,Jaccoud's syndrome,Has finding site,4214466.0,39352004.0,Joint structure,,,,False,missed
@@ -791,9 +721,9 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 73041,Closed fracture of five ribs,Has finding site,4011851.0,113197003.0,Bone structure of rib,4011851.0,113197003,Bone structure of rib,True,match
 73042,Open fracture finger middle phalanx,Has asso morph,4178756.0,52329006.0,"Fracture, open",4178756.0,52329006,"Fracture, open",True,match
 73042,Open fracture finger middle phalanx,Has finding site,4144509.0,306791009.0,Bone structure of middle phalanx of finger,4144509.0,306791009,Bone structure of middle phalanx of finger,True,match
-73043,Open dislocation of glenohumeral joint,Has asso morph,4194530.0,7906001.0,Open dislocation,4194530.0,7906001,Open dislocation (morphologic abnormality),True,match
+73043,Open dislocation of glenohumeral joint,Has asso morph,4194530.0,7906001.0,Open dislocation,4194530.0,7906001,Open dislocation,True,match
 73043,Open dislocation of glenohumeral joint,Has finding site,4310972.0,85537004.0,Glenohumeral joint structure,4310972.0,85537004,Glenohumeral joint structure,True,match
-73045,Sprain of hand,Has asso morph,4298490.0,384709000.0,Sprain,4298490.0,384709000,Sprain (morphologic abnormality),True,match
+73045,Sprain of hand,Has asso morph,4298490.0,384709000.0,Sprain,4298490.0,384709000,Sprain,True,match
 73045,Sprain of hand,Has finding site,4048233.0,123858009.0,Structure of ligament of hand,4048233.0,123858009,Structure of ligament of hand,True,match
 73065,Contusion of genital organ,Has asso morph,4203279.0,308492005.0,Contusion - lesion,4203279.0,308492005,Contusion - lesion,True,match
 73065,Contusion of genital organ,Has finding site,44784125.0,700037000.0,Structure of genital organ,44784125.0,700037000,Structure of genital organ,True,match
@@ -817,13 +747,14 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 73153,Malignant neoplasm of lateral wall of urinary bladder,Has asso morph,37153816.0,1240414004.0,Malignant neoplasm,37153816.0,1240414004,Malignant neoplasm,True,match
 73153,Malignant neoplasm of lateral wall of urinary bladder,Has asso morph,4268747.0,6219000.0,"Neoplasm, malignant, uncertain whether primary or metastatic",,,,False,missed
 73153,Malignant neoplasm of lateral wall of urinary bladder,Has finding site,4078693.0,19318009.0,Structure of lateral wall of urinary bladder,4078693.0,19318009,Structure of lateral wall of urinary bladder,True,match
+73183,Myotonic disorder,Has asso morph,,,,4175951.0,49755003,Morphologically abnormal structure,False,extra
 73183,Myotonic disorder,Has finding site,4133963.0,127954009.0,Skeletal muscle structure,4133963.0,127954009,Skeletal muscle structure,True,match
+73184,Familial periodic paralysis,Has finding site,,,,4148296.0,3058005,Peripheral nervous system structure,False,extra
 73184,Familial periodic paralysis,Has finding site,4133963.0,127954009.0,Skeletal muscle structure,4133963.0,127954009,Skeletal muscle structure,True,match
 73231,Pain of temporomandibular joint,Has finding site,4202366.0,53620006.0,Temporomandibular joint structure,4202366.0,53620006,Temporomandibular joint structure,True,match
 73241,Anal and rectal polyp,Has asso morph,4187628.0,41329004.0,Polyp,4187628.0,41329004,Polyp,True,match
-73241,Anal and rectal polyp,Has finding site,,,,4090008.0,281088000,Anorectal structure,False,extra
-73241,Anal and rectal polyp,Has finding site,4144541.0,34402009.0,Rectum structure,,,,False,missed
-73241,Anal and rectal polyp,Has finding site,4202233.0,53505006.0,Anal structure,,,,False,missed
+73241,Anal and rectal polyp,Has finding site,4144541.0,34402009.0,Rectum structure,4144541.0,34402009,Rectum structure,True,match
+73241,Anal and rectal polyp,Has finding site,4202233.0,53505006.0,Anal structure,4202233.0,53505006,Anal structure,True,match
 73268,Fetal distress affecting management of mother,Has interpretation,,,,4135493.0,263654008,Abnormal,False,extra
 73268,Fetal distress affecting management of mother,Has interprets,,,,4132778.0,278844005,General clinical state,False,extra
 73268,Fetal distress affecting management of mother,Has occurrence,4121979.0,303112003.0,Fetal period,4121979.0,303112003,Fetal period,True,match
@@ -842,6 +773,7 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 73297,Resolving infantile idiopathic scoliosis,Has asso morph,4136505.0,31739005.0,Lateral abnormal curvature,4136505.0,31739005,Lateral abnormal curvature,True,match
 73297,Resolving infantile idiopathic scoliosis,Has clinical course,,,,4113273.0,255319006,Remitting,False,extra
 73297,Resolving infantile idiopathic scoliosis,Has finding site,4128342.0,289959001.0,Musculoskeletal structure of spine,4128342.0,289959001,Musculoskeletal structure of spine,True,match
+73297,Resolving infantile idiopathic scoliosis,Has occurrence,,,,4275212.0,3658006,Infancy,False,extra
 73300,Radial styloid tenosynovitis,Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
 73300,Radial styloid tenosynovitis,Has asso morph,4253008.0,409774005.0,Inflammatory morphology,4253008.0,409774005,Inflammatory morphology,True,match
 73300,Radial styloid tenosynovitis,Has finding site,4093218.0,280099008.0,Extensor pollicis brevis tendon sheath,4093218.0,280099008,Extensor pollicis brevis tendon sheath,True,match
@@ -899,7 +831,6 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 73378,Frostbite of foot,Has finding site,4211098.0,56459004.0,Foot structure,4211098.0,56459004,Foot structure,True,match
 73383,Full thickness burn of foot,Has asso morph,4213471.0,80247002.0,Third degree burn injury,4213471.0,80247002,Third degree burn injury,True,match
 73383,Full thickness burn of foot,Has finding site,4219316.0,417460003.0,Skin and/or subcutaneous tissue structure of foot,4219316.0,417460003,Skin and/or subcutaneous tissue structure of foot,True,match
-73409,Primary anal syphilis,Has asso morph,,,,4253008.0,,Inflammatory morphology,False,extra
 73409,Primary anal syphilis,Has causative agent,4248851.0,72904005.0,Treponema pallidum,4248851.0,72904005,Treponema pallidum,True,match
 73409,Primary anal syphilis,Has finding site,4202233.0,53505006.0,Anal structure,4202233.0,53505006,Anal structure,True,match
 73409,Primary anal syphilis,Has pathology,40480911.0,441862004.0,Infectious process,40480911.0,441862004,Infectious process,True,match
@@ -909,7 +840,8 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 73550,Crystal arthropathy of elbow,Has asso morph,4014361.0,103629003.0,Deposition of crystalline material,4014361.0,103629003,Deposition of crystalline material,True,match
 73550,Crystal arthropathy of elbow,Has finding site,4061414.0,16953009.0,Elbow joint structure,4061414.0,16953009,Elbow joint structure,True,match
 73553,Arthropathy,Has finding site,4214466.0,39352004.0,Joint structure,4214466.0,39352004,Joint structure,True,match
-73554,Kashin-Beck disease of the pelvic region and thigh,Has asso morph,4030637.0,107669003.0,Degenerative abnormality,,,,False,missed
+73554,Kashin-Beck disease of the pelvic region and thigh,Has asso morph,4030637.0,107669003.0,Degenerative abnormality,4030637.0,107669003,Degenerative abnormality,True,match
+73554,Kashin-Beck disease of the pelvic region and thigh,Has clinical course,,,,4236661.0,90734009,Chronic,False,extra
 73554,Kashin-Beck disease of the pelvic region and thigh,Has finding site,4090445.0,280438006.0,Joint structure of pelvis or upper leg,4090445.0,280438006,Joint structure of pelvis or upper leg,True,match
 73554,Kashin-Beck disease of the pelvic region and thigh,Has finding site,4214466.0,39352004.0,Joint structure,,,,False,missed
 73555,Transient arthropathy of the pelvic region and thigh,Has clinical course,4033243.0,14803004.0,Transitory,4033243.0,14803004,Transitory,True,match
@@ -950,7 +882,6 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 73649,Contusion of finger,Has asso morph,4203279.0,308492005.0,Contusion - lesion,4203279.0,308492005,Contusion - lesion,True,match
 73649,Contusion of finger,Has finding site,4192373.0,7569003.0,Finger structure,4192373.0,7569003,Finger structure,True,match
 73673,Disorder of prosthetic joint,Finding asso with,4035455.0,15447007.0,Joint prosthesis,,,,False,missed
-73673,Disorder of prosthetic joint,Has causative agent,,,,4121910.0,288149006,Internal prosthesis,False,extra
 73673,Disorder of prosthetic joint,Has finding site,4214466.0,39352004.0,Joint structure,4214466.0,39352004,Joint structure,True,match
 73686,Tuberculosis of genitourinary system,Has asso morph,4269928.0,6266001.0,Granulomatous inflammation,4269928.0,6266001,Granulomatous inflammation,True,match
 73686,Tuberculosis of genitourinary system,Has causative agent,4035081.0,113858008.0,Mycobacterium tuberculosis complex,4035081.0,113858008,Mycobacterium tuberculosis complex,True,match
@@ -996,7 +927,6 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 73866,Congenital anomaly of breast,Has finding site,4298444.0,76752008.0,Breast structure,4298444.0,76752008,Breast structure,True,match
 73866,Congenital anomaly of breast,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
 73866,Congenital anomaly of breast,Has pathology,4204670.0,308490002.0,Pathological developmental process,4204670.0,308490002,Pathological developmental process,True,match
-73872,Congenital deformity of knee joint,Has asso morph,,,,4300039.0,385297003,Congenital deformity,False,extra
 73872,Congenital deformity of knee joint,Has asso morph,4263843.0,6081001.0,Deformity,4263843.0,6081001,Deformity,True,match
 73872,Congenital deformity of knee joint,Has finding site,4169744.0,49076000.0,Knee joint structure,4169744.0,49076000,Knee joint structure,True,match
 73872,Congenital deformity of knee joint,Has occurrence,4116830.0,255399007.0,Congenital,4116830.0,255399007,Congenital,True,match
@@ -1012,8 +942,7 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 73923,Contusion of upper arm,Has asso morph,4203279.0,308492005.0,Contusion - lesion,4203279.0,308492005,Contusion - lesion,True,match
 73923,Contusion of upper arm,Has finding site,4165266.0,40983000.0,Upper arm structure,4165266.0,40983000,Upper arm structure,True,match
 73925,Burn of upper limb,Has asso morph,4168004.0,48333001.0,Burn injury,4168004.0,48333001,Burn injury,True,match
-73925,Burn of upper limb,Has finding site,,,,4218477.0,417599008,Skin and/or subcutaneous tissue structure of upper limb,False,extra
-73925,Burn of upper limb,Has finding site,4200396.0,53120007.0,Upper limb structure,,,,False,missed
+73925,Burn of upper limb,Has finding site,4200396.0,53120007.0,Upper limb structure,4200396.0,53120007,Upper limb structure,True,match
 74052,Labyrinthitis,Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
 74052,Labyrinthitis,Has asso morph,4253008.0,409774005.0,Inflammatory morphology,4253008.0,409774005,Inflammatory morphology,True,match
 74052,Labyrinthitis,Has finding site,4121004.0,302462009.0,Labyrinth structure,4121004.0,302462009,Labyrinth structure,True,match
@@ -1023,9 +952,7 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 74080,Orthostatic proteinuria,Has interpretation,4084765.0,281302008.0,Above reference range,4084765.0,281302008,Above reference range,True,match
 74080,Orthostatic proteinuria,Has interprets,4211845.0,57378007.0,Urine protein measurement,4211845.0,57378007,Urine protein measurement,True,match
 74082,Acontractile detrusor,Has finding site,4282251.0,367607007.0,Structure of detrusor muscle of urinary bladder,4282251.0,367607007,Structure of detrusor muscle of urinary bladder,True,match
-74082,Acontractile detrusor,Has interpretation,,,,4155060.0,,Decreased,False,extra
-74082,Acontractile detrusor,Has interprets,,,,4170255.0,,Urinary bladder function,False,extra
-74120,Arthropathy of the shoulder region associated with helminthiasis,Finding asso with,441793.0,27601005.0,Infection caused by Cestoda and/or Trematoda and/or Phylum Nemata,,,,False,missed
+74120,Arthropathy of the shoulder region associated with helminthiasis,Finding asso with,441793.0,27601005.0,Infection caused by Cestoda and/or Trematoda and/or Phylum Nemata,441793.0,,Infection caused by Cestoda and/or Trematoda and/or Phylum Nemata,True,match
 74120,Arthropathy of the shoulder region associated with helminthiasis,Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
 74120,Arthropathy of the shoulder region associated with helminthiasis,Has asso morph,4253008.0,409774005.0,Inflammatory morphology,4253008.0,409774005,Inflammatory morphology,True,match
 74120,Arthropathy of the shoulder region associated with helminthiasis,Has finding site,4151929.0,31398001.0,Joint structure of shoulder region,4151929.0,31398001,Joint structure of shoulder region,True,match
@@ -1036,17 +963,17 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 74126,Protrusio acetabuli of the pelvic region and thigh,Has asso morph,4012790.0,112639008.0,Protrusion,4012790.0,112639008,Protrusion,True,match
 74126,Protrusio acetabuli of the pelvic region and thigh,Has finding site,4292088.0,37783008.0,Bone structure of acetabulum,4292088.0,37783008,Bone structure of acetabulum,True,match
 74127,Contracture of elbow joint,Has asso morph,4237281.0,57048009.0,Contracture,4237281.0,57048009,Contracture,True,match
-74127,Contracture of elbow joint,Has finding site,4027910.0,127949000.0,Elbow region structure,4027910.0,127949000,Elbow region structure,True,match
+74127,Contracture of elbow joint,Has finding site,,,,4061414.0,16953009,Elbow joint structure,False,extra
+74127,Contracture of elbow joint,Has finding site,4027910.0,127949000.0,Elbow region structure,,,,False,missed
 74127,Contracture of elbow joint,Has interpretation,4053347.0,1250004.0,Decreased,4053347.0,1250004,Decreased,True,match
 74127,Contracture of elbow joint,Has interprets,4185672.0,298878008.0,Elbow joint - range of movement,4185672.0,298878008,Elbow joint - range of movement,True,match
 193782,End-stage renal disease,Has clinical course,4236661.0,90734009.0,Chronic,4236661.0,90734009,Chronic,True,match
 193782,End-stage renal disease,Has finding site,4271678.0,64033007.0,Kidney structure,4271678.0,64033007,Kidney structure,True,match
 193782,End-stage renal disease,Has interpretation,4125554.0,260379002.0,Impaired,4125554.0,260379002,Impaired,True,match
 193782,End-stage renal disease,Has interprets,40282772.0,11953005.0,Renal function,40282772.0,11953005,Renal function,True,match
-375736,"Trachoma, active stage",Has asso morph,,,,36715450.0,721129006,Lymphoid follicular inflammation,False,extra
+375736,"Trachoma, active stage",Has asso morph,,,,4053015.0,23583003,Inflammation,False,extra
 375736,"Trachoma, active stage",Has asso morph,4253008.0,409774005.0,Inflammatory morphology,,,,False,missed
 375736,"Trachoma, active stage",Has causative agent,4274488.0,63938009.0,Chlamydia trachomatis,4274488.0,63938009,Chlamydia trachomatis,True,match
-375736,"Trachoma, active stage",Has clinical course,,,,4165522.0,47501007,Chronic active,False,extra
 375736,"Trachoma, active stage",Has finding site,4105319.0,29445007.0,Conjunctival structure,4105319.0,29445007,Conjunctival structure,True,match
 375736,"Trachoma, active stage",Has pathology,40480911.0,441862004.0,Infectious process,40480911.0,441862004,Infectious process,True,match
 443611,Chronic kidney disease stage 5,Has clinical course,4236661.0,90734009.0,Chronic,4236661.0,90734009,Chronic,True,match
@@ -1062,7 +989,6 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 4113790,"Cellulitis of leg, excluding foot",Has finding site,,,,4107527.0,30021000,Lower leg structure,False,extra
 4113790,"Cellulitis of leg, excluding foot",Has finding site,4267861.0,61685007.0,Lower limb structure,,,,False,missed
 4277749,"Gestation period, 17 weeks",Has occurrence,37160318.0,1156670009.0,Maternal pregnancy period,37160318.0,1156670009,Maternal pregnancy period,True,match
-43531641,Permanent neonatal diabetes mellitus,Has clinical course,,,,4267304.0,62459000,Chronic persistent,False,extra
 43531641,Permanent neonatal diabetes mellitus,Has finding site,,,,4301372.0,78696007,Endocrine pancreatic structure,False,extra
 43531641,Permanent neonatal diabetes mellitus,Has finding site,4034504.0,113331007.0,Structure of endocrine system,,,,False,missed
 43531641,Permanent neonatal diabetes mellitus,Has occurrence,,,,4114528.0,255407002,Neonatal,False,extra
@@ -1077,4 +1003,6 @@ concept_id_1,concept_name_1,attribute_category,gs_concept_id_2,gs_concept_code_2
 46270436,Chronic tophaceous gout of elbow caused by drug,Has finding site,4027910.0,127949000.0,Elbow region structure,,,,False,missed
 46270436,Sinus node dysfunction,Has finding site,4242112.0,59652004.0,Atrial structure,,,,False,missed
 46270436,Chronic tophaceous gout of elbow caused by drug,Has interpretation,,,,4084765.0,281302008,Above reference range,False,extra
+46270436,Sinus node dysfunction,Has interpretation,,,,4135493.0,,Abnormal,False,extra
 46270436,Chronic tophaceous gout of elbow caused by drug,Has interprets,,,,4156643.0,270984004,Blood urate measurement,False,extra
+46270436,Sinus node dysfunction,Has interprets,,,,4239408.0,,Heart rate,False,extra
