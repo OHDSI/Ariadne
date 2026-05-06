@@ -6,6 +6,7 @@
 **Ariadne** is a Python toolkit to harmonize source vocabularies into the OHDSI Standardized Vocabularies.
 
 It currently supports three workflows:
+
 - **Conditions:** exact matching and hierarchy matching (for identifying a parent concept when no exact standard match is available).
 - **Drugs:** prepares source codes for inserting into the OHDSI Boiler software as described [here](https://github.com/OHDSI/Vocabulary-v5.0/wiki/Community-contribution.-Drug-vocabularies).
 - **Procedures:** exact source-to-standard concept mapping for procedure vocabularies.
