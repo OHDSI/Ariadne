@@ -1,18 +1,20 @@
 """SNOMED attribute and reference index builder for pgvector.
 
-Creates/populates two PostgreSQL tables in VOCAB_SCHEMA:
+Creates/populates two PostgreSQL tables in ``VOCAB_SCHEMA``:
     snomed_attribute   — attribute value concepts with embeddings.
-    snomed_reference   — 10 K sampled SNOMED disorder terms with embeddings.
+    snomed_reference   — sampled SNOMED source terms with relationship-target rows
+                         and source-term embeddings.
 
-This module is the canonical package-level version of sandbox/build_pg_indexes.py.
+This module is the canonical package-level version of
+``sandbox/build_pg_indexes_attributes.py``.
 The sandbox script is kept as a standalone convenience but this module is what
 the CLI (``python -m ariadne.hierarchy build-index``) calls.
 
 Usage::
 
-    python -m ariadne.hierarchy build-index            # build if tables empty
-    python -m ariadne.hierarchy build-index --check    # skip if already populated
-    python -m ariadne.hierarchy build-index --rebuild  # truncate and rebuild
+    python -m ariadne.hierarchy build-index                        # append mode
+    python -m ariadne.hierarchy build-index --if-exists skip      # skip if populated
+    python -m ariadne.hierarchy build-index --if-exists rebuild   # truncate and rebuild
     python -m ariadne.hierarchy build-index --attributes-only
     python -m ariadne.hierarchy build-index --reference-only
 
@@ -25,6 +27,7 @@ Environment variables (loaded from .env):
 from __future__ import annotations
 
 import logging
+from typing import Literal
 
 import numpy as np
 import pandas as pd
@@ -33,17 +36,14 @@ from psycopg import sql
 from pgvector.psycopg import register_vector
 from sqlalchemy import create_engine
 
-from ariadne.utils.settings import _DEFAULT_SNOMED_RELATIONSHIPS
+from ariadne.utils.settings import HierarchySettings, _DEFAULT_SNOMED_RELATIONSHIPS
 from ariadne.utils.gen_ai_api import get_embedding_vectors
 from ariadne.utils.utils import get_environment_variable
 
 logger = logging.getLogger(__name__)
 
-# Re-use the canonical list from config.py (single source of truth)
+# Re-use the canonical relationship list from settings (single source of truth).
 SNOMED_RELATIONSHIPS: list[str] = list(_DEFAULT_SNOMED_RELATIONSHIPS)
-
-REFERENCE_SAMPLE_SIZE = 10_000
-EMBEDDING_BATCH_SIZE = 500
 
 
 # ---------------------------------------------------------------------------
@@ -52,7 +52,7 @@ EMBEDDING_BATCH_SIZE = 500
 
 def _pg_connect() -> psycopg.Connection:
     """Return a psycopg connection (with pgvector registered) using the admin DSN."""
-    conn_str = get_environment_variable("VOCAB_CONNECTION_STRING_ADM")
+    conn_str = get_environment_variable("VOCAB_CONNECTION_STRING")
     conn_str = conn_str.replace("+psycopg", "").replace("+psycopg2", "")
     conn = psycopg.connect(conn_str)
     register_vector(conn)
@@ -68,7 +68,7 @@ def _vocab_schema() -> str:
 # ---------------------------------------------------------------------------
 
 def create_tables(conn: psycopg.Connection, dim: int = 3072) -> None:
-    """Create ``snomed_attribute`` and ``snomed_reference`` tables with HNSW indexes.
+    """Create ``snomed_attribute`` and ``snomed_reference`` tables.
 
     Safe to call when tables already exist (uses ``CREATE TABLE IF NOT EXISTS``).
 
@@ -85,15 +85,9 @@ def create_tables(conn: psycopg.Connection, dim: int = 3072) -> None:
                 concept_code       VARCHAR(255)  NOT NULL,
                 concept_name       VARCHAR(255)  NOT NULL,
                 attribute_category VARCHAR(255)  NOT NULL,
-                embedding          vector({dim})
+                embedding          halfvec({dim})
             )
         """).format(schema=sql.Identifier(schema), dim=sql.Literal(dim)))
-        cur.execute(sql.SQL("""
-            CREATE INDEX IF NOT EXISTS snomed_attribute_embedding_idx
-            ON {schema}.snomed_attribute
-            USING hnsw ((embedding::halfvec({dim})) halfvec_cosine_ops)
-        """).format(schema=sql.Identifier(schema), dim=sql.Literal(dim)))
-
         cur.execute(sql.SQL("""
             CREATE TABLE IF NOT EXISTS {schema}.snomed_reference (
                 id                 SERIAL PRIMARY KEY,
@@ -103,17 +97,42 @@ def create_tables(conn: psycopg.Connection, dim: int = 3072) -> None:
                 concept_code_2     VARCHAR(255)  NOT NULL,
                 concept_name_2     VARCHAR(255)  NOT NULL,
                 attribute_category VARCHAR(255)  NOT NULL,
-                embedding          vector({dim})
+                embedding          halfvec({dim})
             )
-        """).format(schema=sql.Identifier(schema), dim=sql.Literal(dim)))
-        cur.execute(sql.SQL("""
-            CREATE INDEX IF NOT EXISTS snomed_reference_embedding_idx
-            ON {schema}.snomed_reference
-            USING hnsw ((embedding::halfvec({dim})) halfvec_cosine_ops)
         """).format(schema=sql.Identifier(schema), dim=sql.Literal(dim)))
 
     conn.commit()
     logger.info("Tables created/verified in schema '%s'.", schema)
+
+
+def create_embedding_indexes(
+    conn: psycopg.Connection,
+    build_attribute: bool = True,
+    build_reference: bool = True,
+) -> None:
+    """Create HNSW embedding indexes for populated target tables when requested."""
+    schema = _vocab_schema()
+    with conn.cursor() as cur:
+        if build_attribute:
+            cur.execute(sql.SQL("""
+                CREATE INDEX IF NOT EXISTS snomed_attribute_embedding_idx
+                ON {schema}.snomed_attribute
+                USING hnsw (embedding halfvec_cosine_ops)
+            """).format(schema=sql.Identifier(schema)))
+
+        if build_reference:
+            cur.execute(sql.SQL("""
+                CREATE INDEX IF NOT EXISTS snomed_reference_embedding_idx
+                ON {schema}.snomed_reference
+                USING hnsw (embedding halfvec_cosine_ops)
+            """).format(schema=sql.Identifier(schema)))
+
+    conn.commit()
+    logger.info(
+        "Embedding indexes created/verified (attribute=%s, reference=%s).",
+        build_attribute,
+        build_reference,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -167,11 +186,16 @@ def load_attributes_from_db() -> pd.DataFrame:
     return df
 
 
-def load_reference_from_db(sample_size: int = REFERENCE_SAMPLE_SIZE) -> pd.DataFrame:
+def load_reference_from_db(sample_size: int) -> pd.DataFrame:
     """Load and sample SNOMED reference rows from the OMOP vocabulary DB.
 
     Args:
-        sample_size: Number of unique source concepts to include (default 10 000).
+        sample_size: Number of unique ``concept_id_1`` source concepts to include.
+
+    Notes:
+        The SQL query first pulls up to ``sample_size * 10`` rows, then applies a
+        deterministic random sample (seed 42) over unique source concept IDs when
+        more than ``sample_size`` IDs are present.
     """
     engine = create_engine(get_environment_variable("VOCAB_CONNECTION_STRING"))
     schema = get_environment_variable("VOCAB_SCHEMA")
@@ -210,25 +234,19 @@ def load_reference_from_db(sample_size: int = REFERENCE_SAMPLE_SIZE) -> pd.DataF
 # Embedding helper
 # ---------------------------------------------------------------------------
 
-def _embed_texts(texts: list[str]) -> tuple[np.ndarray, float]:
-    """Embed *texts* in batches of EMBEDDING_BATCH_SIZE.
+def _embed_texts(texts: list[str], batch_size: int) -> tuple[np.ndarray, float]:
+    """Embed *texts* in batches of *batch_size*.
 
     Returns:
         ``(embeddings, total_cost_usd)`` where *embeddings* has shape ``[N, dim]``.
     """
     all_vecs: list[np.ndarray] = []
     total_cost = 0.0
-    for i in range(0, len(texts), EMBEDDING_BATCH_SIZE):
-        batch = texts[i: i + EMBEDDING_BATCH_SIZE]
+    for i in range(0, len(texts), batch_size):
+        batch = texts[i: i + batch_size]
         result = get_embedding_vectors(batch)
         all_vecs.append(result["embeddings"])
         total_cost += result["usage"]["total_cost_usd"]
-        logger.info(
-            "  Embedded %d/%d texts ($%.4f so far)",
-            min(i + EMBEDDING_BATCH_SIZE, len(texts)),
-            len(texts),
-            total_cost,
-        )
     return np.vstack(all_vecs), total_cost
 
 
@@ -239,6 +257,7 @@ def _embed_texts(texts: list[str]) -> tuple[np.ndarray, float]:
 def upsert_attribute_index(
     conn: psycopg.Connection,
     df: pd.DataFrame,
+    embedding_batch_size: int,
     rebuild: bool = False,
 ) -> psycopg.Connection:
     """Embed attribute concept names and insert rows into ``snomed_attribute``.
@@ -246,6 +265,7 @@ def upsert_attribute_index(
     Args:
         conn: Admin psycopg connection (returned — may be replaced on retry).
         df: DataFrame from :func:`load_attributes_from_db`.
+        embedding_batch_size: Number of concept names embedded per model call.
         rebuild: When True, truncate the table first.
 
     Returns:
@@ -262,7 +282,7 @@ def upsert_attribute_index(
         logger.info("Truncated snomed_attribute.")
 
     logger.info("Embedding %d attribute concept names…", len(df))
-    embeddings, cost = _embed_texts(df["concept_name"].tolist())
+    embeddings, cost = _embed_texts(df["concept_name"].tolist(), batch_size=embedding_batch_size)
     logger.info("Attribute embeddings done.  Cost: $%.4f", cost)
 
     rows = [
@@ -304,6 +324,7 @@ def upsert_attribute_index(
 def upsert_reference_index(
     conn: psycopg.Connection,
     df: pd.DataFrame,
+    embedding_batch_size: int,
     rebuild: bool = False,
 ) -> psycopg.Connection:
     """Embed unique source-concept names and insert rows into ``snomed_reference``.
@@ -311,6 +332,7 @@ def upsert_reference_index(
     Args:
         conn: Admin psycopg connection (returned — may be replaced on retry).
         df: DataFrame from :func:`load_reference_from_db`.
+        embedding_batch_size: Number of source term names embedded per model call.
         rebuild: When True, truncate the table first.
 
     Returns:
@@ -328,7 +350,7 @@ def upsert_reference_index(
 
     unique_terms = df[["concept_id_1", "concept_name_1"]].drop_duplicates().reset_index(drop=True)
     logger.info("Embedding %d unique reference source term names…", len(unique_terms))
-    embeddings, cost = _embed_texts(unique_terms["concept_name_1"].tolist())
+    embeddings, cost = _embed_texts(unique_terms["concept_name_1"].tolist(), batch_size=embedding_batch_size)
     logger.info("Reference embeddings done.  Cost: $%.4f", cost)
 
     id_to_emb = {int(r["concept_id_1"]): embeddings[i] for i, (_, r) in enumerate(unique_terms.iterrows())}
@@ -375,29 +397,35 @@ def upsert_reference_index(
 # High-level build entry point
 # ---------------------------------------------------------------------------
 
-def build(
-    rebuild: bool = False,
+def build_attribute_reference_tables(
+    cfg: HierarchySettings,
+    if_exists: Literal["append", "skip", "rebuild"] = "append",
     attributes_only: bool = False,
     reference_only: bool = False,
-    check: bool = False,
-    reference_sample_size: int = REFERENCE_SAMPLE_SIZE,
 ) -> None:
     """Build (or rebuild) the pgvector SNOMED indexes.
 
     Args:
-        rebuild: Truncate existing data before inserting.
+        cfg: Hierarchy settings containing ``index_build`` defaults.
+        if_exists: Behavior when target tables already contain rows:
+            - ``"append"``: insert without truncating.
+            - ``"skip"``: skip populated tables.
+            - ``"rebuild"``: truncate first, then insert.
         attributes_only: Only build ``snomed_attribute``.
         reference_only: Only build ``snomed_reference``.
-        check: Skip any table that is already populated (takes precedence over
-            *rebuild* only when the table is non-empty).
-        reference_sample_size: Number of unique source concepts for the
-            reference index (default 10 000).
     """
     from dotenv import load_dotenv
     from ariadne.utils.utils import get_project_root
     load_dotenv(get_project_root() / ".env")
 
     logging.basicConfig(level=logging.INFO, format="%(asctime)s  %(message)s")
+
+    resolved_reference_sample_size = cfg.index_build.reference_sample_size
+    resolved_embedding_batch_size = cfg.index_build.embedding_batch_size
+    rebuild = if_exists == "rebuild"
+
+    if if_exists not in {"append", "skip", "rebuild"}:
+        raise ValueError(f"Unsupported if_exists mode: {if_exists}")
 
     conn = _pg_connect()
 
@@ -407,20 +435,41 @@ def build(
     logger.info("Embedding dimension: %d", dim)
 
     create_tables(conn, dim=dim)
+    built_attribute_rows = False
+    built_reference_rows = False
 
     if not reference_only:
-        if check and check_populated(conn, "snomed_attribute"):
-            logger.info("snomed_attribute already populated — skipping (--check).")
+        if if_exists == "skip" and check_populated(conn, "snomed_attribute"):
+            logger.info("snomed_attribute already populated — skipping (--if-exists skip).")
         else:
             df_attr = load_attributes_from_db()
-            conn = upsert_attribute_index(conn, df_attr, rebuild=rebuild)
+            conn = upsert_attribute_index(
+                conn,
+                df_attr,
+                embedding_batch_size=resolved_embedding_batch_size,
+                rebuild=rebuild,
+            )
+            built_attribute_rows = True
 
     if not attributes_only:
-        if check and check_populated(conn, "snomed_reference"):
-            logger.info("snomed_reference already populated — skipping (--check).")
+        if if_exists == "skip" and check_populated(conn, "snomed_reference"):
+            logger.info("snomed_reference already populated — skipping (--if-exists skip).")
         else:
-            df_ref = load_reference_from_db(sample_size=reference_sample_size)
-            conn = upsert_reference_index(conn, df_ref, rebuild=rebuild)
+            df_ref = load_reference_from_db(sample_size=resolved_reference_sample_size)
+            conn = upsert_reference_index(
+                conn,
+                df_ref,
+                embedding_batch_size=resolved_embedding_batch_size,
+                rebuild=rebuild,
+            )
+            built_reference_rows = True
+
+    if built_attribute_rows or built_reference_rows:
+        create_embedding_indexes(
+            conn,
+            build_attribute=built_attribute_rows,
+            build_reference=built_reference_rows,
+        )
 
     conn.close()
     logger.info("Index build complete.")

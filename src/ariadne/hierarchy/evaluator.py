@@ -88,7 +88,7 @@ def process_gold_standard(
     logger.info("Processing %d terms from %s", len(unique_terms), gs_path)
     logger.info(
         "Models: extraction=%s, selection=%s | workers=%d",
-        cfg_local.models.extraction, cfg_local.models.selection, max_workers,
+        cfg_local.extraction, cfg_local.selection, max_workers,
     )
 
     # --- resume from checkpoint if available ---

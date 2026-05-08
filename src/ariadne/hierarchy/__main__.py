@@ -9,13 +9,13 @@ Subcommands::
 
     # Build pgvector indexes
     PYTHONPATH=src python -m ariadne.hierarchy build-index
-    PYTHONPATH=src python -m ariadne.hierarchy build-index --check
-    PYTHONPATH=src python -m ariadne.hierarchy build-index --rebuild
+    PYTHONPATH=src python -m ariadne.hierarchy build-index --if-exists skip
+    PYTHONPATH=src python -m ariadne.hierarchy build-index --if-exists rebuild
     PYTHONPATH=src python -m ariadne.hierarchy build-index --attributes-only
     PYTHONPATH=src python -m ariadne.hierarchy build-index --reference-only
 
     # Via installed entry point (after `pip install -e .`)
-    ariadne-build-index [--check | --rebuild | --attributes-only | --reference-only]
+    ariadne-build-index [--if-exists {append,skip,rebuild} | --attributes-only | --reference-only]
 """
 
 import argparse
@@ -44,7 +44,7 @@ def _cmd_run(args: argparse.Namespace) -> None:
     cfg = cast(HierarchySettings, load_hierarchy_settings(args.config))
 
     if args.extraction_model:
-        cfg.models.extraction = args.extraction_model
+        cfg.extraction = args.extraction_model
         logger.info("Extraction model overridden to: %s", args.extraction_model)
 
     logger.info("Connecting to PostgreSQL (snomed_attribute / snomed_reference)...")
@@ -65,14 +65,27 @@ def _cmd_run(args: argparse.Namespace) -> None:
 # ---------------------------------------------------------------------------
 
 def _cmd_build_index(args: argparse.Namespace) -> None:
-    from ariadne.hierarchy.index_builder import build
+    from ariadne.hierarchy.attribute_ref_table_builder import build_attribute_reference_tables
+    from ariadne.utils.config import load_hierarchy_settings
+    from ariadne.utils.settings import HierarchySettings
+
     logging.basicConfig(level=logging.INFO, format="%(asctime)s  %(message)s")
-    build(
-        rebuild=args.rebuild,
+    cfg = cast(HierarchySettings, load_hierarchy_settings(args.config))
+
+    if_exists = args.if_exists
+    # Backward-compatible aliases for existing scripts.
+    if args.rebuild:
+        if_exists = "rebuild"
+    if args.check:
+        if if_exists == "rebuild":
+            raise ValueError("--check and --rebuild cannot be used together.")
+        if_exists = "skip"
+
+    build_attribute_reference_tables(
+        cfg=cfg,
+        if_exists=if_exists,
         attributes_only=args.attributes_only,
         reference_only=args.reference_only,
-        check=args.check,
-        reference_sample_size=args.reference_sample_size,
     )
 
 
@@ -105,17 +118,23 @@ def main(argv: list[str] | None = None) -> None:
         "build-index",
         help="Build/rebuild the snomed_attribute and snomed_reference pgvector tables.",
     )
-    bi_p.add_argument("--rebuild", action="store_true",
-                      help="Truncate existing data and rebuild from scratch.")
-    bi_p.add_argument("--check", action="store_true",
-                      help="Skip any table that already contains data (idempotent).")
+    bi_p.add_argument("--config", default="config_condition_mapping.yaml",
+                      help="Path to config_condition_mapping.yaml (reads 'hierarchy.index_build').")
+    bi_p.add_argument(
+        "--if-exists",
+        default="append",
+        choices=["append", "skip", "rebuild"],
+        help=(
+            "Behavior when target tables already contain data: "
+            "append (default), skip, or rebuild (truncate then insert)."
+        ),
+    )
+    bi_p.add_argument("--rebuild", action="store_true", help=argparse.SUPPRESS)
+    bi_p.add_argument("--check", action="store_true", help=argparse.SUPPRESS)
     bi_p.add_argument("--attributes-only", action="store_true", dest="attributes_only",
                       help="Only build snomed_attribute.")
     bi_p.add_argument("--reference-only", action="store_true", dest="reference_only",
                       help="Only build snomed_reference.")
-    bi_p.add_argument("--reference-sample-size", type=int, default=10_000,
-                      dest="reference_sample_size", metavar="N",
-                      help="Unique source concepts for the reference index (default: 10000).")
     bi_p.set_defaults(func=_cmd_build_index)
 
     args = parser.parse_args(argv)

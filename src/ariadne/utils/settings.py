@@ -202,15 +202,6 @@ class MappingPerConceptClassSettings:
 
 
 @dataclass
-class ModelsConfig:
-    """LLM / embedding model identifiers for hierarchy extraction."""
-
-    embedding: str = "text-embedding-3-large"
-    extraction: str = "o3"
-    selection: str = "o3"
-
-
-@dataclass
 class RetrievalConfig:
     """Retrieval-stage hyper-parameters for hierarchy extraction."""
 
@@ -245,10 +236,21 @@ class PromptsConfig:
 
 
 @dataclass
+class IndexBuildConfig:
+    """Batch/index build settings used by the hierarchy pgvector builder."""
+
+    reference_sample_size: int = 10_000
+    embedding_batch_size: int = 500
+
+
+@dataclass
 class HierarchySettings:
     """Settings block loaded from the optional top-level ``hierarchy`` config key."""
 
-    models: ModelsConfig = field(default_factory=ModelsConfig)
+    embedding: str = "text-embedding-3-large"
+    extraction: str = "o3"
+    selection: str = "o3"
+    index_build: IndexBuildConfig = field(default_factory=IndexBuildConfig)
     retrieval: RetrievalConfig = field(default_factory=RetrievalConfig)
     scoring: ScoringConfig = field(default_factory=ScoringConfig)
     evaluation: EvaluationConfig = field(default_factory=EvaluationConfig)

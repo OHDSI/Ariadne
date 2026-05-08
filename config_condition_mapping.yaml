@@ -142,10 +142,12 @@ llm_mapping:
 # without touching Python code.
 
 hierarchy:
-  models:
-    embedding: "text-embedding-3-large"
-    extraction: "o3"
-    selection: "o3"
+
+  index_build:
+    # Number of unique SNOMED source concepts sampled for snomed_reference
+    reference_sample_size: 10000
+    # Batch size per embedding API request during index population
+    embedding_batch_size: 500
 
   retrieval:
     # Number of similar reference terms for few-shot prompting (Step 1)

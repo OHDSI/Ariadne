@@ -20,7 +20,10 @@ from ariadne.hierarchy.classifier import (
     resolve_parent_names,
 )
 from ariadne.hierarchy.evaluator import evaluate_results, process_gold_standard
-from ariadne.hierarchy.index_builder import build as build_indexes, check_populated
+from ariadne.hierarchy.attribute_ref_table_builder import (
+    build_attribute_reference_tables as build_indexes,
+    check_populated,
+)
 from ariadne.hierarchy.pipeline import ContentFilterError, find_attributes_two_stage
 from ariadne.hierarchy.rf2_exporter import export_to_rf2
 from ariadne.hierarchy.searchers import (
@@ -43,7 +46,6 @@ from ariadne.hierarchy.types import (
 from ariadne.utils.settings import (
     EvaluationConfig,
     HierarchySettings,
-    ModelsConfig,
     PromptsConfig,
     RetrievalConfig,
     ScoringConfig,
@@ -53,7 +55,6 @@ from ariadne.utils.settings import (
 __all__ = [
     # Config
     "HierarchySettings",
-    "ModelsConfig",
     "RetrievalConfig",
     "ScoringConfig",
     "EvaluationConfig",

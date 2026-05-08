@@ -56,7 +56,7 @@ def call_llm(system_prompt: str, user_prompt: str, model: str) -> LlmResult:
     Args:
         system_prompt: System-level prompt text.
         user_prompt: User-level prompt text.
-        model: Model identifier (from ``cfg.models``).
+        model: Model identifier from hierarchy settings.
 
     Returns:
         LlmResult(content, cost).
@@ -237,7 +237,7 @@ def extract_components(
         reference_section = ""
     system_prompt = cfg.prompts.extraction.format(reference_section=reference_section)
     user_prompt = f'Determine the attributes for: "{medical_term}"'
-    response, cost = call_llm(system_prompt, user_prompt, model=cfg.models.extraction)
+    response, cost = call_llm(system_prompt, user_prompt, model=cfg.extraction)
     return ExtractionResult(parse_json_response(response), cost)
 
 
@@ -560,7 +560,7 @@ def find_attributes_two_stage(
         logger.info("Step 4: Selecting best matches...")
     candidates_text = _build_selection_prompt(candidates_df)
     user_prompt = f"Medical term: {medical_term}\n\n{reference_text}\n\nCandidates:\n{candidates_text}"
-    response, selection_cost = call_llm(cfg_local.prompts.selection, user_prompt, model=cfg_local.models.selection)
+    response, selection_cost = call_llm(cfg_local.prompts.selection, user_prompt, model=cfg_local.selection)
 
     total_cost = ref_cost + extraction_cost + embedding_cost + selection_cost
 
