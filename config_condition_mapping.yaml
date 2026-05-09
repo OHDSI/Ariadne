@@ -148,6 +148,8 @@ hierarchy:
     reference_sample_size: 10000
     # Batch size per embedding API request during index population
     embedding_batch_size: 500
+    # Folder for resumable parquet embedding caches used before DB upload
+    embedding_cache_folder: data/hierarchy_embedding_cache
 
   retrieval:
     # Number of similar reference terms for few-shot prompting (Step 1)

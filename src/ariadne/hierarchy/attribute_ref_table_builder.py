@@ -27,8 +27,10 @@ Environment variables (loaded from .env):
 from __future__ import annotations
 
 import logging
+from pathlib import Path
 from typing import Literal
 
+from dotenv import load_dotenv
 import numpy as np
 import pandas as pd
 import psycopg
@@ -39,6 +41,7 @@ from sqlalchemy import create_engine
 from ariadne.utils.settings import HierarchySettings, _DEFAULT_SNOMED_RELATIONSHIPS
 from ariadne.utils.gen_ai_api import get_embedding_vectors
 from ariadne.utils.utils import get_environment_variable
+from ariadne.utils.utils import get_project_root
 
 logger = logging.getLogger(__name__)
 
@@ -150,7 +153,11 @@ def check_populated(conn: psycopg.Connection, table: str = "snomed_attribute") -
         ``True`` if the table is non-empty.
     """
     schema = _vocab_schema()
+    table_path = f"{schema}.{table}"
     with conn.cursor() as cur:
+        cur.execute("SELECT to_regclass(%s)", (table_path,))
+        if cur.fetchone()[0] is None:
+            return False
         cur.execute(
             sql.SQL("SELECT 1 FROM {schema}.{table} LIMIT 1").format(
                 schema=sql.Identifier(schema),
@@ -250,22 +257,151 @@ def _embed_texts(texts: list[str], batch_size: int) -> tuple[np.ndarray, float]:
     return np.vstack(all_vecs), total_cost
 
 
+def _batch_file(prefix: str, batch_index: int, folder: Path) -> Path:
+    """Return deterministic parquet file path for one embedding batch."""
+    return folder / f"{prefix}_batch_{batch_index:06d}.parquet"
+
+
+def _write_parquet_atomic(df: pd.DataFrame, file_path: Path) -> None:
+    """Write parquet atomically to avoid half-written checkpoints."""
+    file_path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = file_path.with_suffix(".tmp.parquet")
+    df.to_parquet(tmp_path, index=False)
+    tmp_path.replace(file_path)
+
+
+def _embedding_dim_from_batch_files(batch_files: list[Path]) -> int | None:
+    """Infer embedding dimension from an existing parquet batch file."""
+    for file_path in batch_files:
+        if not file_path.exists():
+            continue
+        df = pd.read_parquet(file_path)
+        if df.empty:
+            continue
+        return int(len(df.iloc[0]["embedding"]))
+    return None
+
+
+def _prepare_attribute_embedding_batches(
+    df: pd.DataFrame,
+    embedding_batch_size: int,
+    embedding_cache_dir: Path,
+) -> tuple[list[Path], int | None]:
+    """Create one parquet file per embedding batch for attribute rows."""
+    unique_terms = (
+        df[["concept_id", "concept_name"]]
+        .drop_duplicates()
+        .sort_values("concept_id")
+        .reset_index(drop=True)
+    )
+    total = len(unique_terms)
+    total_batches = (total + embedding_batch_size - 1) // embedding_batch_size
+    batch_files = [_batch_file("snomed_attribute", i, embedding_cache_dir) for i in range(total_batches)]
+
+    total_cost = 0.0
+    dim: int | None = None
+    for batch_index in range(total_batches):
+        file_path = batch_files[batch_index]
+        if file_path.exists():
+            continue
+
+        start = batch_index * embedding_batch_size
+        stop = start + embedding_batch_size
+        unique_batch = unique_terms.iloc[start:stop].copy()
+        result = get_embedding_vectors(unique_batch["concept_name"].astype(str).tolist())
+        vectors = np.asarray(result["embeddings"], dtype=np.float32)
+        total_cost += result["usage"]["total_cost_usd"]
+        dim = int(vectors.shape[1])
+
+        emb_by_id = {
+            int(unique_batch.iloc[i]["concept_id"]): vectors[i].tolist()
+            for i in range(len(unique_batch))
+        }
+        rows = df[df["concept_id"].astype(int).isin(emb_by_id.keys())].copy()
+        rows["embedding"] = rows["concept_id"].astype(int).map(lambda concept_id: emb_by_id[int(concept_id)])
+        rows = rows[["concept_id", "concept_code", "concept_name", "attribute_category", "embedding"]]
+        _write_parquet_atomic(rows, file_path)
+        logger.info("Cached attribute batch %d/%d: %s", batch_index + 1, total_batches, file_path.name)
+
+    if dim is None:
+        dim = _embedding_dim_from_batch_files(batch_files)
+    logger.info("Attribute embedding batches ready (%d files). Cost: $%.4f", len(batch_files), total_cost)
+    return batch_files, dim
+
+
+def _prepare_reference_embedding_batches(
+    df: pd.DataFrame,
+    embedding_batch_size: int,
+    embedding_cache_dir: Path,
+) -> tuple[list[Path], int | None]:
+    """Create one parquet file per embedding batch for reference rows."""
+    unique_terms = (
+        df[["concept_id_1", "concept_name_1"]]
+        .drop_duplicates()
+        .sort_values("concept_id_1")
+        .reset_index(drop=True)
+    )
+    total = len(unique_terms)
+    total_batches = (total + embedding_batch_size - 1) // embedding_batch_size
+    batch_files = [_batch_file("snomed_reference", i, embedding_cache_dir) for i in range(total_batches)]
+
+    total_cost = 0.0
+    dim: int | None = None
+    for batch_index in range(total_batches):
+        file_path = batch_files[batch_index]
+        if file_path.exists():
+            continue
+
+        start = batch_index * embedding_batch_size
+        stop = start + embedding_batch_size
+        unique_batch = unique_terms.iloc[start:stop].copy()
+        result = get_embedding_vectors(unique_batch["concept_name_1"].astype(str).tolist())
+        vectors = np.asarray(result["embeddings"], dtype=np.float32)
+        total_cost += result["usage"]["total_cost_usd"]
+        dim = int(vectors.shape[1])
+
+        emb_by_id = {
+            int(unique_batch.iloc[i]["concept_id_1"]): vectors[i].tolist()
+            for i in range(len(unique_batch))
+        }
+        rows = df[df["concept_id_1"].astype(int).isin(emb_by_id.keys())].copy()
+        rows["embedding"] = rows["concept_id_1"].astype(int).map(lambda concept_id: emb_by_id[int(concept_id)])
+        rows = rows[
+            [
+                "concept_id_1",
+                "concept_name_1",
+                "concept_id_2",
+                "concept_code_2",
+                "concept_name_2",
+                "attribute_category",
+                "embedding",
+            ]
+        ]
+        _write_parquet_atomic(rows, file_path)
+        logger.info("Cached reference batch %d/%d: %s", batch_index + 1, total_batches, file_path.name)
+
+    if dim is None:
+        dim = _embedding_dim_from_batch_files(batch_files)
+    logger.info("Reference embedding batches ready (%d files). Cost: $%.4f", len(batch_files), total_cost)
+    return batch_files, dim
+
+
 # ---------------------------------------------------------------------------
 # Upsert functions
 # ---------------------------------------------------------------------------
 
 def upsert_attribute_index(
     conn: psycopg.Connection,
-    df: pd.DataFrame,
-    embedding_batch_size: int,
+    batch_files: list[Path],
+    upload_batch_size: int,
     rebuild: bool = False,
 ) -> psycopg.Connection:
-    """Embed attribute concept names and insert rows into ``snomed_attribute``.
+    """Insert pre-embedded parquet batches into ``snomed_attribute``.
 
     Args:
         conn: Admin psycopg connection (returned — may be replaced on retry).
-        df: DataFrame from :func:`load_attributes_from_db`.
-        embedding_batch_size: Number of concept names embedded per model call.
+        batch_files: Parquet files containing pre-embedded attribute rows.
+        upload_batch_size: Number of rows per INSERT chunk.
         rebuild: When True, truncate the table first.
 
     Returns:
@@ -281,58 +417,69 @@ def upsert_attribute_index(
         conn.commit()
         logger.info("Truncated snomed_attribute.")
 
-    logger.info("Embedding %d attribute concept names…", len(df))
-    embeddings, cost = _embed_texts(df["concept_name"].tolist(), batch_size=embedding_batch_size)
-    logger.info("Attribute embeddings done.  Cost: $%.4f", cost)
-
-    rows = [
-        (int(r["concept_id"]), str(r["concept_code"]), str(r["concept_name"]),
-         str(r["attribute_category"]), embeddings[i].tolist())
-        for i, (_, r) in enumerate(df.iterrows())
-    ]
-    _insert_sql_tpl = (
+    total_rows = 0
+    insert_sql = sql.SQL(
         "INSERT INTO {schema}.snomed_attribute "
         "(concept_id, concept_code, concept_name, attribute_category, embedding) "
         "VALUES (%s, %s, %s, %s, %s)"
-    )
-    insert_sql = sql.SQL(_insert_sql_tpl).format(schema=sql.Identifier(schema))
+    ).format(schema=sql.Identifier(schema))
 
-    chunk_size = 200
-    for i in range(0, len(rows), chunk_size):
-        chunk = rows[i: i + chunk_size]
-        for attempt in range(3):
-            try:
-                with conn.cursor() as cur:
-                    cur.executemany(insert_sql, chunk)
-                conn.commit()
-                break
-            except Exception as exc:
-                logger.warning("Chunk %d attempt %d failed (%s), reconnecting…",
-                               i // chunk_size + 1, attempt + 1, exc)
+    for file_index, batch_file in enumerate(batch_files, start=1):
+        df_batch = pd.read_parquet(batch_file)
+        rows = [
+            (int(r["concept_id"]), str(r["concept_code"]), str(r["concept_name"]),
+             str(r["attribute_category"]), list(r["embedding"]))
+            for _, r in df_batch.iterrows()
+        ]
+        total_rows += len(rows)
+
+        for i in range(0, len(rows), upload_batch_size):
+            chunk = rows[i: i + upload_batch_size]
+            for attempt in range(3):
                 try:
-                    conn.close()
-                except Exception:
-                    pass
-                conn = _pg_connect()
-                insert_sql = sql.SQL(_insert_sql_tpl).format(schema=sql.Identifier(schema))
-        logger.info("  Inserted rows %d–%d / %d", i + 1, min(i + chunk_size, len(rows)), len(rows))
+                    with conn.cursor() as cur:
+                        for row in chunk:
+                            cur.execute(insert_sql, row)
+                    conn.commit()
+                    break
+                except Exception as exc:
+                    logger.warning(
+                        "File %d/%d chunk %d attempt %d failed (%s), reconnecting...",
+                        file_index,
+                        len(batch_files),
+                        i // upload_batch_size + 1,
+                        attempt + 1,
+                        exc,
+                    )
+                    try:
+                        conn.close()
+                    except Exception:
+                        pass
+                    conn = _pg_connect()
+                    insert_sql = sql.SQL(
+                        "INSERT INTO {schema}.snomed_attribute "
+                        "(concept_id, concept_code, concept_name, attribute_category, embedding) "
+                        "VALUES (%s, %s, %s, %s, %s)"
+                    ).format(schema=sql.Identifier(schema))
 
-    logger.info("Inserted %d rows into %s.snomed_attribute.", len(rows), schema)
+        logger.info("Loaded attribute file %d/%d: %s", file_index, len(batch_files), batch_file.name)
+
+    logger.info("Inserted %d rows into %s.snomed_attribute.", total_rows, schema)
     return conn
 
 
 def upsert_reference_index(
     conn: psycopg.Connection,
-    df: pd.DataFrame,
-    embedding_batch_size: int,
+    batch_files: list[Path],
+    upload_batch_size: int,
     rebuild: bool = False,
 ) -> psycopg.Connection:
-    """Embed unique source-concept names and insert rows into ``snomed_reference``.
+    """Insert pre-embedded parquet batches into ``snomed_reference``.
 
     Args:
         conn: Admin psycopg connection (returned — may be replaced on retry).
-        df: DataFrame from :func:`load_reference_from_db`.
-        embedding_batch_size: Number of source term names embedded per model call.
+        batch_files: Parquet files containing pre-embedded reference rows.
+        upload_batch_size: Number of rows per INSERT chunk.
         rebuild: When True, truncate the table first.
 
     Returns:
@@ -348,48 +495,57 @@ def upsert_reference_index(
         conn.commit()
         logger.info("Truncated snomed_reference.")
 
-    unique_terms = df[["concept_id_1", "concept_name_1"]].drop_duplicates().reset_index(drop=True)
-    logger.info("Embedding %d unique reference source term names…", len(unique_terms))
-    embeddings, cost = _embed_texts(unique_terms["concept_name_1"].tolist(), batch_size=embedding_batch_size)
-    logger.info("Reference embeddings done.  Cost: $%.4f", cost)
-
-    id_to_emb = {int(r["concept_id_1"]): embeddings[i] for i, (_, r) in enumerate(unique_terms.iterrows())}
-
-    rows = [
-        (int(r["concept_id_1"]), str(r["concept_name_1"]),
-         int(r["concept_id_2"]), str(r["concept_code_2"]), str(r["concept_name_2"]),
-         str(r["attribute_category"]), id_to_emb[int(r["concept_id_1"])].tolist())
-        for _, r in df.iterrows()
-    ]
-    _insert_sql_tpl = (
+    total_rows = 0
+    insert_sql = sql.SQL(
         "INSERT INTO {schema}.snomed_reference "
         "(concept_id_1, concept_name_1, concept_id_2, concept_code_2, "
         " concept_name_2, attribute_category, embedding) "
         "VALUES (%s, %s, %s, %s, %s, %s, %s)"
-    )
-    insert_sql = sql.SQL(_insert_sql_tpl).format(schema=sql.Identifier(schema))
+    ).format(schema=sql.Identifier(schema))
 
-    chunk_size = 200
-    for i in range(0, len(rows), chunk_size):
-        chunk = rows[i: i + chunk_size]
-        for attempt in range(3):
-            try:
-                with conn.cursor() as cur:
-                    cur.executemany(insert_sql, chunk)
-                conn.commit()
-                break
-            except Exception as exc:
-                logger.warning("Chunk %d attempt %d failed (%s), reconnecting…",
-                               i // chunk_size + 1, attempt + 1, exc)
+    for file_index, batch_file in enumerate(batch_files, start=1):
+        df_batch = pd.read_parquet(batch_file)
+        rows = [
+            (int(r["concept_id_1"]), str(r["concept_name_1"]),
+             int(r["concept_id_2"]), str(r["concept_code_2"]), str(r["concept_name_2"]),
+             str(r["attribute_category"]), list(r["embedding"]))
+            for _, r in df_batch.iterrows()
+        ]
+        total_rows += len(rows)
+
+        for i in range(0, len(rows), upload_batch_size):
+            chunk = rows[i: i + upload_batch_size]
+            for attempt in range(3):
                 try:
-                    conn.close()
-                except Exception:
-                    pass
-                conn = _pg_connect()
-                insert_sql = sql.SQL(_insert_sql_tpl).format(schema=sql.Identifier(schema))
-        logger.info("  Inserted rows %d–%d / %d", i + 1, min(i + chunk_size, len(rows)), len(rows))
+                    with conn.cursor() as cur:
+                        for row in chunk:
+                            cur.execute(insert_sql, row)
+                    conn.commit()
+                    break
+                except Exception as exc:
+                    logger.warning(
+                        "File %d/%d chunk %d attempt %d failed (%s), reconnecting...",
+                        file_index,
+                        len(batch_files),
+                        i // upload_batch_size + 1,
+                        attempt + 1,
+                        exc,
+                    )
+                    try:
+                        conn.close()
+                    except Exception:
+                        pass
+                    conn = _pg_connect()
+                    insert_sql = sql.SQL(
+                        "INSERT INTO {schema}.snomed_reference "
+                        "(concept_id_1, concept_name_1, concept_id_2, concept_code_2, "
+                        " concept_name_2, attribute_category, embedding) "
+                        "VALUES (%s, %s, %s, %s, %s, %s, %s)"
+                    ).format(schema=sql.Identifier(schema))
 
-    logger.info("Inserted %d rows into %s.snomed_reference.", len(rows), schema)
+        logger.info("Loaded reference file %d/%d: %s", file_index, len(batch_files), batch_file.name)
+
+    logger.info("Inserted %d rows into %s.snomed_reference.", total_rows, schema)
     return conn
 
 
@@ -414,62 +570,96 @@ def build_attribute_reference_tables(
         attributes_only: Only build ``snomed_attribute``.
         reference_only: Only build ``snomed_reference``.
     """
-    from dotenv import load_dotenv
-    from ariadne.utils.utils import get_project_root
+
     load_dotenv(get_project_root() / ".env")
 
     logging.basicConfig(level=logging.INFO, format="%(asctime)s  %(message)s")
 
     resolved_reference_sample_size = cfg.index_build.reference_sample_size
     resolved_embedding_batch_size = cfg.index_build.embedding_batch_size
+    embedding_cache_dir = Path(cfg.index_build.embedding_cache_folder)
     rebuild = if_exists == "rebuild"
 
     if if_exists not in {"append", "skip", "rebuild"}:
         raise ValueError(f"Unsupported if_exists mode: {if_exists}")
 
-    conn = _pg_connect()
+    embedding_cache_dir.mkdir(parents=True, exist_ok=True)
 
-    # Determine embedding dimension from a probe call
-    probe = get_embedding_vectors(["probe"])
-    dim = probe["embeddings"].shape[1]
+    build_attribute = not reference_only
+    build_reference = not attributes_only
+
+    if if_exists == "skip":
+        conn = _pg_connect()
+        try:
+            if build_attribute and check_populated(conn, "snomed_attribute"):
+                logger.info("snomed_attribute already populated — skipping (--if-exists skip).")
+                build_attribute = False
+            if build_reference and check_populated(conn, "snomed_reference"):
+                logger.info("snomed_reference already populated — skipping (--if-exists skip).")
+                build_reference = False
+        finally:
+            conn.close()
+
+    attr_batch_files: list[Path] = []
+    ref_batch_files: list[Path] = []
+    dim: int | None = None
+
+    # Build embeddings first (with parquet checkpoints), then create/upload tables.
+    if build_attribute:
+        df_attr = load_attributes_from_db()
+        attr_batch_files, attr_dim = _prepare_attribute_embedding_batches(
+            df_attr,
+            embedding_batch_size=resolved_embedding_batch_size,
+            embedding_cache_dir=embedding_cache_dir,
+        )
+        dim = attr_dim if dim is None else dim
+
+    if build_reference:
+        df_ref = load_reference_from_db(sample_size=resolved_reference_sample_size)
+        ref_batch_files, ref_dim = _prepare_reference_embedding_batches(
+            df_ref,
+            embedding_batch_size=resolved_embedding_batch_size,
+            embedding_cache_dir=embedding_cache_dir,
+        )
+        if dim is None:
+            dim = ref_dim
+
+    if not build_attribute and not build_reference:
+        logger.info("Nothing to build (all requested tables already populated).")
+        return
+
+    if dim is None:
+        probe = get_embedding_vectors(["probe"])
+        dim = int(probe["embeddings"].shape[1])
+    assert dim is not None
     logger.info("Embedding dimension: %d", dim)
 
-    create_tables(conn, dim=dim)
-    built_attribute_rows = False
-    built_reference_rows = False
+    conn = _pg_connect()
+    try:
+        create_tables(conn, dim=dim)
 
-    if not reference_only:
-        if if_exists == "skip" and check_populated(conn, "snomed_attribute"):
-            logger.info("snomed_attribute already populated — skipping (--if-exists skip).")
-        else:
-            df_attr = load_attributes_from_db()
+        if build_attribute:
             conn = upsert_attribute_index(
                 conn,
-                df_attr,
-                embedding_batch_size=resolved_embedding_batch_size,
+                attr_batch_files,
+                upload_batch_size=resolved_embedding_batch_size,
                 rebuild=rebuild,
             )
-            built_attribute_rows = True
 
-    if not attributes_only:
-        if if_exists == "skip" and check_populated(conn, "snomed_reference"):
-            logger.info("snomed_reference already populated — skipping (--if-exists skip).")
-        else:
-            df_ref = load_reference_from_db(sample_size=resolved_reference_sample_size)
+        if build_reference:
             conn = upsert_reference_index(
                 conn,
-                df_ref,
-                embedding_batch_size=resolved_embedding_batch_size,
+                ref_batch_files,
+                upload_batch_size=resolved_embedding_batch_size,
                 rebuild=rebuild,
             )
-            built_reference_rows = True
 
-    if built_attribute_rows or built_reference_rows:
         create_embedding_indexes(
             conn,
-            build_attribute=built_attribute_rows,
-            build_reference=built_reference_rows,
+            build_attribute=build_attribute,
+            build_reference=build_reference,
         )
+    finally:
+        conn.close()
 
-    conn.close()
     logger.info("Index build complete.")

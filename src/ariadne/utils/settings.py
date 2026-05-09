@@ -241,6 +241,10 @@ class IndexBuildConfig:
 
     reference_sample_size: int = 10_000
     embedding_batch_size: int = 500
+    embedding_cache_folder: str = "data/hierarchy_embedding_cache"
+
+    def __post_init__(self) -> None:
+        self.embedding_cache_folder = resolve_path(self.embedding_cache_folder)
 
 
 @dataclass
