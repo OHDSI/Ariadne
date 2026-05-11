@@ -7,7 +7,8 @@ Public API re-exports for convenient imports::
         SnomedAttributeSearcher,
         SnomedReferenceSearcher,
         find_attributes_two_stage,
-        process_gold_standard,
+        process_hierarchy,
+        build_prediction_rows,
         evaluate_results,
     )
 """
@@ -19,13 +20,14 @@ from ariadne.hierarchy.classifier import (
     pre_classification_checks,
     resolve_parent_names,
 )
-from ariadne.hierarchy.evaluator import evaluate_results, process_gold_standard
+from ariadne.hierarchy.evaluator import build_prediction_rows, evaluate_results
 from ariadne.hierarchy.attribute_ref_table_builder import (
     build_attribute_reference_tables as build_indexes,
     check_populated,
 )
 from ariadne.hierarchy.pipeline import ContentFilterError, find_attributes_two_stage
 from ariadne.hierarchy.rf2_exporter import export_to_rf2
+from ariadne.hierarchy.runner import process_hierarchy
 from ariadne.hierarchy.searchers import (
     ATTR_KEY_TO_GS_CATEGORY,
     ATTR_KEY_TO_SNOMED_CATEGORY,
@@ -79,7 +81,8 @@ __all__ = [
     "ContentFilterError",
     "find_attributes_two_stage",
     # Evaluation
-    "process_gold_standard",
+    "process_hierarchy",
+    "build_prediction_rows",
     "evaluate_results",
     # Index builder
     "build_indexes",

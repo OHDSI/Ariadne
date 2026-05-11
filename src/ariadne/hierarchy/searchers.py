@@ -296,7 +296,7 @@ class SnomedReferenceSearcher(AbstractSnomedSearcher):
         super().__init__(cfg)
         self._exclude_concept_ids: list[int] = sorted(exclude_concept_ids) if exclude_concept_ids else []
         if self._exclude_concept_ids:
-            logger.info(
+            logger.debug(
                 "SnomedReferenceSearcher: excluding %d concept IDs from results.",
                 len(self._exclude_concept_ids),
             )

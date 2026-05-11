@@ -35,7 +35,8 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 
 def _cmd_run(args: argparse.Namespace) -> None:
-    from ariadne.hierarchy.evaluator import evaluate_results, process_gold_standard
+    from ariadne.hierarchy.evaluator import evaluate_results
+    from ariadne.hierarchy.runner import process_hierarchy
     from ariadne.hierarchy.searchers import SnomedAttributeSearcher, SnomedReferenceSearcher
     from ariadne.utils.config import load_hierarchy_settings
     from ariadne.utils.settings import HierarchySettings
@@ -48,13 +49,15 @@ def _cmd_run(args: argparse.Namespace) -> None:
         logger.info("Extraction model overridden to: %s", args.extraction_model)
 
     logger.info("Connecting to PostgreSQL (snomed_attribute / snomed_reference)...")
-    attribute_index = SnomedAttributeSearcher(cfg=cfg)
-    reference_index = SnomedReferenceSearcher(cfg=cfg)
+    attribute_searcher = SnomedAttributeSearcher(cfg=cfg)
+    reference_searcher = SnomedReferenceSearcher(cfg=cfg)
 
-    with attribute_index, reference_index:
-        results = process_gold_standard(
-            cfg.evaluation.attribute_gold_standard_path, attribute_index,
-            reference_index=reference_index, cfg=cfg,
+    with attribute_searcher, reference_searcher:
+        results = process_hierarchy(
+            cfg.evaluation.attribute_gold_standard_path,
+            attribute_searcher,
+            reference_searcher=reference_searcher,
+            cfg=cfg,
             max_workers=args.workers,
         )
         evaluate_results(results, cfg.evaluation.attribute_gold_standard_path, cfg=cfg)

@@ -1,7 +1,7 @@
 """Four-step SNOMED CT attribute extraction pipeline.
 
 Public API:
-    find_attributes_two_stage(medical_term, attribute_index, ...) → dict
+    find_attributes_two_stage(medical_term, attribute_searcher, ...) → dict
 
 Helpers (prefixed with ``_``) handle individual steps:
     _retrieve_reference_examples  — Step 1
@@ -12,6 +12,7 @@ Helpers (prefixed with ``_``) handle individual steps:
 
 import json
 import logging
+from typing import cast
 
 import pandas as pd
 
@@ -38,8 +39,20 @@ from ariadne.utils.settings import HierarchySettings
 logger = logging.getLogger(__name__)
 
 # Type aliases
-AttributeIndex = AbstractSnomedSearcher
-ReferenceIndex = AbstractSnomedSearcher
+AttributeSearcher = AbstractSnomedSearcher
+ReferenceSearcher = AbstractSnomedSearcher
+
+# Normalize non-canonical keys the LLM may emit back to pipeline keys.
+EXTRACTION_KEY_ALIASES: dict[str, str] = {
+    "has_occurrence": "occurrence",
+    "during": "occurrence",  # life-stage values (Congenital, Fetal period ...)
+    "has_finding_context": "finding_context",
+    "has_relat_context": "subject_relationship_context",
+    "has_related_context": "subject_relationship_context",
+    "has_related": "subject_relationship_context",
+    "associated_with": "finding_asso_with",
+    "finding_associated_with": "finding_asso_with",
+}
 
 
 class ContentFilterError(Exception):
@@ -108,7 +121,7 @@ def parse_json_response(response: str) -> dict:
 
 def find_similar_reference_terms(
     query: str,
-    reference_index: ReferenceIndex,
+    reference_searcher: ReferenceSearcher,
     top_k: int,
     precomputed_embedding=None,
 ) -> ReferenceSearchResult:
@@ -116,7 +129,7 @@ def find_similar_reference_terms(
 
     Args:
         query: Medical term to search for.
-        reference_index: Reference searcher (pgvector or legacy wrapper).
+        reference_searcher: Reference searcher (pgvector or legacy wrapper).
         top_k: Number of reference examples (from ``cfg.retrieval.num_reference_examples``).
         precomputed_embedding: Optional ``np.ndarray`` (shape ``[dim]``).  When
             supplied, passed straight through to
@@ -127,8 +140,8 @@ def find_similar_reference_terms(
         ReferenceSearchResult(examples, cost).
     """
     if precomputed_embedding is not None:
-        return reference_index.search(query, top_k=top_k, embedding=precomputed_embedding)
-    return reference_index.search(query, top_k=top_k)
+        return reference_searcher.search(query, top_k=top_k, embedding=precomputed_embedding)
+    return reference_searcher.search(query, top_k=top_k)
 
 
 def format_reference_examples(similar_terms: list[dict]) -> str:
@@ -173,7 +186,7 @@ def _collect_reference_values(similar_terms: list[dict]) -> dict[str, list[dict]
 
 def _retrieve_reference_examples(
     medical_term: str,
-    reference_index: ReferenceIndex | None,
+    reference_searcher: ReferenceSearcher | None,
     cfg: HierarchySettings,
     verbose: bool,
     precomputed_embedding=None,
@@ -182,7 +195,7 @@ def _retrieve_reference_examples(
 
     Args:
         medical_term: The medical term to find references for.
-        reference_index: Reference searcher (or None to skip).
+        reference_searcher: Reference searcher (or None to skip).
         cfg: Pipeline configuration.
         verbose: Whether to log progress.
         precomputed_embedding: Optional ``np.ndarray`` — when supplied the
@@ -193,20 +206,20 @@ def _retrieve_reference_examples(
     Returns:
         ReferenceRetrievalResult(examples, prompt_text, cost).
     """
-    if reference_index is None:
+    if reference_searcher is None:
         return ReferenceRetrievalResult([], "", 0.0)
 
     if verbose:
-        logger.info("Step 1: Retrieving reference examples...")
-    similar_terms, cost = find_similar_reference_terms(
-        medical_term, reference_index, top_k=cfg.retrieval.num_reference_examples,
+        logger.debug("Step 1: Retrieving reference examples...")
+    reference_examples, cost = find_similar_reference_terms(
+        medical_term, reference_searcher, top_k=cfg.retrieval.num_reference_examples,
         precomputed_embedding=precomputed_embedding,
     )
-    reference_text = format_reference_examples(similar_terms)
+    reference_text = format_reference_examples(reference_examples)
     if verbose:
-        for t in similar_terms:
-            logger.info("  Reference: %s (similarity: %.3f)", t['concept_name'], t['similarity'])
-    return ReferenceRetrievalResult(similar_terms, reference_text, cost)
+        for term in reference_examples:
+            logger.debug("  Reference: %s (similarity: %.3f)", term["concept_name"], term["similarity"])
+    return ReferenceRetrievalResult(reference_examples, reference_text, cost)
 
 
 # ---------------------------------------------------------------------------
@@ -245,7 +258,26 @@ def extract_components(
 # Step 3: Candidate retrieval
 # ---------------------------------------------------------------------------
 
-def _unpack_mentions(components: dict) -> list[tuple[str, str, str]]:
+CANDIDATE_COLUMNS = [
+    "concept_id",
+    "concept_code",
+    "concept_name",
+    "attribute_category",
+    "similarity",
+    "extracted_mention",
+    "attribute_key",
+]
+
+
+def _ensure_candidate_columns(candidates: pd.DataFrame) -> pd.DataFrame:
+    """Return a copy with all expected candidate columns present."""
+    candidates = candidates.copy()
+    for col in CANDIDATE_COLUMNS:
+        if col not in candidates.columns:
+            candidates[col] = None
+    return candidates
+
+def _unpack_mentions(components: dict[str, object]) -> list[tuple[str, str, str]]:
     """Unpack extraction output into ``(attr_key, mention, snomed_category)`` triples.
 
     Handles regular attributes, list-of-strings, and paired
@@ -257,25 +289,12 @@ def _unpack_mentions(components: dict) -> list[tuple[str, str, str]]:
     Returns:
         List of (attr_key, mention_text, snomed_category) tuples.
     """
-    # Normalise non-canonical key names the LLM sometimes emits back to the
-    # canonical pipeline keys so they are not silently dropped.
-    _ALIASES: dict[str, str] = {
-        "has_occurrence": "occurrence",
-        "during": "occurrence",          # life-stage values (Congenital, Fetal period …)
-        "has_finding_context": "finding_context",
-        "has_relat_context": "subject_relationship_context",
-        "has_related_context": "subject_relationship_context",
-        "has_related": "subject_relationship_context",
-        "associated_with": "finding_asso_with",
-        "finding_associated_with": "finding_asso_with",
-    }
-
     mentions: list[tuple[str, str, str]] = []
     for raw_key, mention in components.items():
         if mention is None:
             continue
 
-        attr_key = _ALIASES.get(raw_key, raw_key)
+        attr_key = cast(str, EXTRACTION_KEY_ALIASES.get(raw_key, raw_key))
 
         # Handle paired interprets_interpretation tuples
         if attr_key == "interprets_interpretation":
@@ -303,7 +322,7 @@ def _enrich_candidates(
     candidates: pd.DataFrame,
     attr_key: str,
     reference_values_by_attr: dict[str, list[dict]],
-    attribute_index: AttributeIndex,
+    attribute_searcher: AttributeSearcher,
     cfg: HierarchySettings,
     verbose: bool,
 ) -> pd.DataFrame:
@@ -313,7 +332,7 @@ def _enrich_candidates(
         candidates: Initial candidates DataFrame for this attribute.
         attr_key: Attribute key (e.g. ``associated_morphology``).
         reference_values_by_attr: Reference values keyed by attr_key.
-        attribute_index: Attribute searcher for hierarchy expansion.
+        attribute_searcher: Attribute searcher for hierarchy expansion.
         cfg: Pipeline configuration.
         verbose: Whether to log progress.
 
@@ -337,12 +356,12 @@ def _enrich_candidates(
         if new_rows:
             candidates = pd.concat([candidates, pd.DataFrame(new_rows)], ignore_index=True)
             if verbose:
-                logger.info("  %s: added %d values from reference examples", attr_key, len(new_rows))
+                logger.debug("  %s: added %d values from reference examples", attr_key, len(new_rows))
 
     # Enrich with 1-hop hierarchy neighbors (parents + children)
     if snomed_category:
         existing_ids = set(candidates["concept_id"].tolist())
-        hierarchy_df = attribute_index.expand_via_hierarchy(
+        hierarchy_df = attribute_searcher.expand_via_hierarchy(
             list(existing_ids), snomed_category
         )
         new_hier = hierarchy_df[~hierarchy_df["concept_id"].isin(existing_ids)]
@@ -353,40 +372,40 @@ def _enrich_candidates(
             new_hier["attribute_key"] = attr_key
             candidates = pd.concat([candidates, new_hier], ignore_index=True)
             if verbose:
-                logger.info("  %s: added %d hierarchy neighbors", attr_key, len(new_hier))
+                logger.debug("  %s: added %d hierarchy neighbors", attr_key, len(new_hier))
 
     return candidates
 
 
 def _retrieve_candidates(
-    components: dict,
-    attribute_index: AttributeIndex,
-    similar_terms: list,
+    extracted_components: dict,
+    attribute_searcher: AttributeSearcher,
+    reference_examples: list,
     verbose: bool,
     cfg: HierarchySettings,
 ) -> SearchResult:
     """Step 3: Embed each inferred attribute value and retrieve SNOMED candidates.
 
     Args:
-        components: Parsed extraction output ``{attr_key: [free-text values]}``.
-        attribute_index: Attribute searcher (pgvector or legacy dict).
-        similar_terms: Reference examples (for enrichment).
+        extracted_components: Parsed extraction output ``{attr_key: [free-text values]}``.
+        attribute_searcher: Attribute searcher (pgvector or legacy dict).
+        reference_examples: Reference examples (for enrichment).
         verbose: Whether to log progress.
         cfg: Pipeline configuration.
 
     Returns:
         SearchResult(candidates_df, total_embedding_cost).
     """
-    reference_values_by_attr = _collect_reference_values(similar_terms)
-    mentions = _unpack_mentions(components)
+    reference_values_by_attr = _collect_reference_values(reference_examples)
+    mentions = _unpack_mentions(extracted_components)
 
     if not mentions:
-        return SearchResult(pd.DataFrame(), 0.0)
+        return SearchResult(pd.DataFrame(columns=CANDIDATE_COLUMNS), 0.0)
 
     # Batch embed all mentions and search per-category
     indexed_mentions = [(f"{attr_key}_{i}", text, snomed_cat)
                         for i, (attr_key, text, snomed_cat) in enumerate(mentions)]
-    results_by_idx, embedding_cost = attribute_index.search_batch(
+    results_by_idx, embedding_cost = attribute_searcher.search_batch(
         indexed_mentions, top_k=cfg.retrieval.top_k_per_category
     )
 
@@ -395,11 +414,11 @@ def _retrieve_candidates(
     for idx_key, (attr_key, mention, snomed_category) in zip(
         [m[0] for m in indexed_mentions], mentions
     ):
-        candidates = results_by_idx.get(idx_key, pd.DataFrame())
+        candidates = results_by_idx.get(idx_key, pd.DataFrame(columns=CANDIDATE_COLUMNS))
         if len(candidates) == 0:
             continue
 
-        candidates = candidates.copy()
+        candidates = _ensure_candidate_columns(candidates)
         candidates["extracted_mention"] = mention
         candidates["attribute_key"] = attr_key
 
@@ -414,15 +433,19 @@ def _retrieve_candidates(
     for attr_key, candidates in candidates_by_attr.items():
         candidates = _enrich_candidates(
             candidates, attr_key, reference_values_by_attr,
-            attribute_index, cfg, verbose,
+            attribute_searcher, cfg, verbose,
         )
         all_candidates.append(candidates)
         if verbose:
             top = candidates.iloc[0]
-            logger.info("  %s: top match = %s (score: %s)", attr_key, top["concept_name"],
+            logger.debug("  %s: top match = %s (score: %s)", attr_key, top["concept_name"],
                         top.get("similarity", "N/A"))
 
-    candidates_df = pd.concat(all_candidates, ignore_index=True) if all_candidates else pd.DataFrame()
+    candidates_df = (
+        _ensure_candidate_columns(pd.concat(all_candidates, ignore_index=True))
+        if all_candidates
+        else pd.DataFrame(columns=CANDIDATE_COLUMNS)
+    )
     return SearchResult(candidates_df, embedding_cost)
 
 
@@ -440,15 +463,39 @@ def _build_selection_prompt(candidates_df: pd.DataFrame) -> str:
     Returns:
         Formatted prompt text listing candidates per attribute.
     """
+    if candidates_df is None or len(candidates_df) == 0:
+        return ""
+
+    candidates_df = candidates_df.copy()
+    if "attribute_key" not in candidates_df.columns:
+        if "attribute_category" not in candidates_df.columns:
+            return ""
+        # Backward-compatible fallback for callers that only provide SNOMED categories.
+        candidates_df["attribute_key"] = (
+            candidates_df["attribute_category"]
+            .map(SNOMED_CATEGORY_TO_ATTR_KEY)
+            .fillna(candidates_df["attribute_category"])
+        )
+
+    if "concept_id" not in candidates_df.columns or "concept_name" not in candidates_df.columns:
+        return ""
+
+    if "extracted_mention" not in candidates_df.columns:
+        candidates_df["extracted_mention"] = ""
+    if "similarity" not in candidates_df.columns:
+        candidates_df["similarity"] = None
+
     parts: list[str] = []
     paired_parts: dict[str, list[str]] = {}
 
-    for attr_key, group in candidates_df.groupby("attribute_key", sort=False):
-        mentions = group["extracted_mention"].unique().tolist()
+    for group_key, group in candidates_df.groupby("attribute_key", sort=False):
+        attr_key = cast(str, str(group_key))
+        mentions = [str(m) for m in group["extracted_mention"].unique().tolist()]
         mention_str = "', '".join(mentions)
         lines = []
         for row in group.itertuples(index=False):
-            sim_str = f", similarity: {row.similarity:.3f}" if row.similarity is not None else ""
+            similarity = getattr(row, "similarity", None)
+            sim_str = f", similarity: {similarity:.3f}" if pd.notna(similarity) else ""
             lines.append(f"  - {row.concept_name} (concept_id: {row.concept_id}{sim_str})")
 
         if attr_key in INTERPRETS_PAIRED_KEYS:
@@ -500,10 +547,72 @@ def _enforce_interprets_pairing(attrs: dict, *, verbose: bool = False) -> None:
     attrs.pop("interpretation", None)
 
 
+def _inject_selected_concept_codes(result: dict, candidates_df: pd.DataFrame) -> None:
+    """Inject ``concept_code`` into selected attribute dicts in-place when missing."""
+    if len(candidates_df) == 0 or "concept_code" not in candidates_df.columns:
+        return
+
+    code_lookup: dict[int, str] = (
+        candidates_df.dropna(subset=["concept_code"])
+        .drop_duplicates(subset=["concept_id"])
+        .set_index("concept_id")["concept_code"]
+        .to_dict()
+    )
+
+    def _inject_code(obj):
+        if isinstance(obj, dict) and "concept_id" in obj:
+            concept_id = obj.get("concept_id")
+            if concept_id is not None and "concept_code" not in obj:
+                obj["concept_code"] = code_lookup.get(int(concept_id))
+
+    if "attributes" not in result or not isinstance(result["attributes"], dict):
+        return
+
+    for attr_key, attr_val in result["attributes"].items():
+        if attr_val is None:
+            continue
+        if attr_key == "interprets_interpretation" and isinstance(attr_val, list):
+            for pair in attr_val:
+                if isinstance(pair, dict):
+                    for value in pair.values():
+                        _inject_code(value)
+        elif isinstance(attr_val, list):
+            for item in attr_val:
+                _inject_code(item)
+        else:
+            _inject_code(attr_val)
+
+
+def _attach_pipeline_metadata(
+    result: dict,
+    *,
+    extracted_components: dict,
+    candidates_df: pd.DataFrame,
+    reference_examples: list[dict],
+    extraction_cost: float,
+    embedding_cost: float,
+    selection_cost: float,
+    total_cost: float,
+) -> None:
+    """Attach diagnostics and cost metadata to the pipeline result in-place."""
+    result["extracted_components"] = extracted_components
+    result["retrieved_candidates"] = (
+        candidates_df.to_dict("records") if len(candidates_df) > 0 else []
+    )
+    if reference_examples:
+        result["reference_examples"] = reference_examples
+    result["cost"] = {
+        "extraction_cost": extraction_cost,
+        "embedding_cost": embedding_cost,
+        "selection_cost": selection_cost,
+        "total_cost": total_cost,
+    }
+
+
 def find_attributes_two_stage(
     medical_term: str,
-    attribute_index: AttributeIndex,
-    reference_index: ReferenceIndex | None = None,
+    attribute_searcher: AttributeSearcher,
+    reference_searcher: ReferenceSearcher | None = None,
     cfg: HierarchySettings | None = None,
     verbose: bool = True,
     precomputed_embedding=None,
@@ -518,8 +627,8 @@ def find_attributes_two_stage(
 
     Args:
         medical_term: The clinical term to decompose.
-        attribute_index: Attribute searcher (pgvector or legacy dict).
-        reference_index: Reference searcher (pgvector, legacy dict, or None).
+        attribute_searcher: Attribute searcher (pgvector or legacy dict).
+        reference_searcher: Reference searcher (pgvector, legacy dict, or None).
         cfg: Pipeline configuration.
         verbose: Whether to log progress.
         precomputed_embedding: Optional ``np.ndarray`` (shape ``[dim]``) — the
@@ -534,80 +643,59 @@ def find_attributes_two_stage(
     cfg_local: HierarchySettings = cfg if cfg is not None else load_hierarchy_settings()
 
     # Step 1
-    similar_terms, reference_text, ref_cost = _retrieve_reference_examples(
-        medical_term, reference_index, cfg_local, verbose,
+    reference_examples, reference_text, ref_cost = _retrieve_reference_examples(
+        medical_term, reference_searcher, cfg_local, verbose,
         precomputed_embedding=precomputed_embedding,
     )
 
     # Step 2
     if verbose:
-        logger.info("Step 2: Inferring attributes...")
+        logger.debug("Step 2: Inferring attributes...")
     components, extraction_cost = extract_components(medical_term, reference_text=reference_text,
                                                      cfg=cfg_local)
     if verbose:
-        logger.info("  Inferred: %s", json.dumps({k: v for k, v in components.items() if v}, indent=2))
+        logger.debug("  Inferred: %s", json.dumps({k: v for k, v in components.items() if v}, indent=2))
 
     # Step 3
     if verbose:
-        logger.info("Step 3: Retrieving candidates...")
+        logger.debug("Step 3: Retrieving candidates...")
     candidates_df, embedding_cost = _retrieve_candidates(
-        components, attribute_index, similar_terms,
+        components, attribute_searcher, reference_examples,
         verbose, cfg=cfg_local
     )
 
     # Step 4
     if verbose:
-        logger.info("Step 4: Selecting best matches...")
+        logger.debug("Step 4: Selecting best matches...")
     candidates_text = _build_selection_prompt(candidates_df)
-    user_prompt = f"Medical term: {medical_term}\n\n{reference_text}\n\nCandidates:\n{candidates_text}"
-    response, selection_cost = call_llm(cfg_local.prompts.selection, user_prompt, model=cfg_local.selection)
+    selection_cost = 0.0
+    if candidates_text.strip():
+        user_prompt = f"Medical term: {medical_term}\n\n{reference_text}\n\nCandidates:\n{candidates_text}"
+        response, selection_cost = call_llm(cfg_local.prompts.selection, user_prompt, model=cfg_local.selection)
+        result = parse_json_response(response)
+    else:
+        if verbose:
+            logger.debug("Step 4 skipped: no candidates available for selection.")
+        result = {"attributes": {}}
 
     total_cost = ref_cost + extraction_cost + embedding_cost + selection_cost
 
-    result = parse_json_response(response)
 
     # --- Enforce interprets ↔ interpretation pairing ---
     if "attributes" in result:
         _enforce_interprets_pairing(result["attributes"], verbose=verbose)
 
-    # Inject concept_code into each selected attribute concept dict
-    if len(candidates_df) > 0 and "concept_code" in candidates_df.columns:
-        code_lookup: dict[int, str] = (
-            candidates_df.dropna(subset=["concept_code"])
-            .drop_duplicates(subset=["concept_id"])
-            .set_index("concept_id")["concept_code"]
-            .to_dict()
-        )
-        def _inject_code(obj):
-            if isinstance(obj, dict) and "concept_id" in obj:
-                cid = obj.get("concept_id")
-                if cid is not None and "concept_code" not in obj:
-                    obj["concept_code"] = code_lookup.get(int(cid))
-        if "attributes" in result and isinstance(result["attributes"], dict):
-            for attr_key, attr_val in result["attributes"].items():
-                if attr_val is None:
-                    continue
-                if attr_key == "interprets_interpretation" and isinstance(attr_val, list):
-                    for pair in attr_val:
-                        if isinstance(pair, dict):
-                            for v in pair.values():
-                                _inject_code(v)
-                elif isinstance(attr_val, list):
-                    for item in attr_val:
-                        _inject_code(item)
-                else:
-                    _inject_code(attr_val)
-
-    result['extracted_components'] = components
-    result['retrieved_candidates'] = candidates_df.to_dict('records') if len(candidates_df) > 0 else []
-    if similar_terms:
-        result['reference_examples'] = similar_terms
-    result['cost'] = {
-        'extraction_cost': extraction_cost,
-        'embedding_cost': embedding_cost,
-        'selection_cost': selection_cost,
-        'total_cost': total_cost,
-    }
+    _inject_selected_concept_codes(result, candidates_df)
+    _attach_pipeline_metadata(
+        result,
+        extracted_components=components,
+        candidates_df=candidates_df,
+        reference_examples=reference_examples,
+        extraction_cost=extraction_cost,
+        embedding_cost=embedding_cost,
+        selection_cost=selection_cost,
+        total_cost=total_cost,
+    )
     if verbose:
-        logger.info("Total cost: $%.4f", total_cost)
+        logger.debug("Total cost: $%.4f", total_cost)
     return result

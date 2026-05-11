@@ -1,21 +1,15 @@
-"""Batch processing and evaluation for the SNOMED CT attribute extraction pipeline.
+"""Evaluation utilities for the SNOMED CT attribute extraction pipeline.
 
 Public API:
-    process_gold_standard — run the pipeline over a gold-standard CSV.
+    build_prediction_rows — flatten pipeline output into row-wise predictions.
     evaluate_results      — full outer join evaluation producing P/R/F1.
 """
 
 import logging
 import os
-import pickle
-import threading
-from concurrent.futures import ThreadPoolExecutor, as_completed
-from pathlib import Path
 
 import pandas as pd
-import psycopg
 
-from ariadne.hierarchy.pipeline import AttributeIndex, ContentFilterError, ReferenceIndex, find_attributes_two_stage
 from ariadne.hierarchy.searchers import ATTR_KEY_TO_GS_CATEGORY
 from ariadne.hierarchy.types import split_interprets_pairs
 from ariadne.utils.config import load_hierarchy_settings
@@ -23,207 +17,14 @@ from ariadne.utils.settings import HierarchySettings
 
 logger = logging.getLogger(__name__)
 
-
-def _has_db_connection(index) -> bool:
-    """Return True if the index holds a live psycopg connection (not thread-safe)."""
-    return hasattr(index, "connection")
-
-
-def _process_term(
-    concept_id: int,
-    concept_name: str,
-    attribute_index: AttributeIndex,
-    reference_index: ReferenceIndex | None,
-    cfg: HierarchySettings,
-) -> dict:
-    """Process a single term — used by both sequential and parallel paths."""
-    try:
-        result = find_attributes_two_stage(
-            concept_name, attribute_index, reference_index=reference_index, cfg=cfg
-        )
-        result["source_concept_id"] = concept_id
-        result["source_concept_name"] = concept_name
-        return result
-    except (ValueError, KeyError, ContentFilterError, psycopg.Error) as e:
-        logger.exception("  Error processing term %s: %s", concept_name, e)
-        return {
-            "source_concept_id": concept_id,
-            "source_concept_name": concept_name,
-            "error": str(e),
-        }
-
-
-def process_gold_standard(
-    gs_path: str,
-    attribute_index: AttributeIndex,
-    reference_index: ReferenceIndex | None = None,
-    cfg: HierarchySettings | None = None,
-    checkpoint_every: int = 5,
-    max_workers: int = 1,
-) -> list[dict]:
-    """Run the pipeline over every unique term in a gold-standard CSV.
-
-    Supports checkpointing and optional parallel execution.
-
-    When *max_workers* > 1, each worker thread creates its own database
-    connections (psycopg is not thread-safe).
-
-    Args:
-        gs_path: Path to the gold-standard CSV (must have ``concept_id_1``,
-            ``concept_name_1`` columns).
-        attribute_index: Attribute searcher.
-        reference_index: Reference searcher (or None).
-        cfg: Pipeline configuration.
-        checkpoint_every: Save a checkpoint every N terms (default 5).
-        max_workers: Number of parallel worker threads (default 1 = sequential).
-
-    Returns:
-        List of result dicts (one per term).
-    """
-    cfg_local: HierarchySettings = cfg if cfg is not None else load_hierarchy_settings()
-    checkpoint_file = Path(cfg_local.evaluation.output_dir) / "hierarchy_checkpoint.pkl"
-
-    gs_df = pd.read_csv(gs_path)
-    unique_terms = gs_df[["concept_id_1", "concept_name_1"]].drop_duplicates()
-    logger.info("Processing %d terms from %s", len(unique_terms), gs_path)
-    logger.info(
-        "Models: extraction=%s, selection=%s | workers=%d",
-        cfg_local.extraction, cfg_local.selection, max_workers,
-    )
-
-    # --- resume from checkpoint if available ---
-    if checkpoint_file.exists():
-        try:
-            with open(checkpoint_file, "rb") as f:
-                checkpoint = pickle.load(f)
-            all_results: list[dict] = checkpoint["results"]
-            processed_ids: set = checkpoint["processed_ids"]
-            logger.info("Resuming from checkpoint: %d terms already done", len(all_results))
-        except (pickle.UnpicklingError, EOFError, KeyError) as exc:
-            logger.warning("Corrupted checkpoint %s — starting fresh: %s", checkpoint_file, exc)
-            checkpoint_file.unlink(missing_ok=True)
-            all_results = []
-            processed_ids = set()
-    else:
-        all_results = []
-        processed_ids = set()
-
-    pending = [
-        row for row in unique_terms.itertuples(index=False)
-        if row.concept_id_1 not in processed_ids
-    ]
-
-    if not pending:
-        logger.info("All terms already processed.")
-        return all_results
-
-    if max_workers <= 1:
-        # ── Sequential path ────────────────────────────────────────────────
-        total_cost = sum(r.get("cost", {}).get("total_cost", 0.0) for r in all_results)
-        for row in pending:
-            logger.info(
-                "\n%s\n[%d/%d] %s",
-                "=" * 60, len(all_results) + 1, len(unique_terms), row.concept_name_1,
-            )
-            result = _process_term(
-                row.concept_id_1, row.concept_name_1,
-                attribute_index, reference_index, cfg_local,
-            )
-            all_results.append(result)
-            processed_ids.add(row.concept_id_1)
-            if "cost" in result:
-                total_cost += result["cost"]["total_cost"]
-                logger.info("  cost: $%.4f | running total: $%.4f",
-                            result["cost"]["total_cost"], total_cost)
-
-            if len(all_results) % checkpoint_every == 0:
-                _save_checkpoint(checkpoint_file, all_results, processed_ids, cfg_local)
-
-    else:
-        # ── Parallel path ──────────────────────────────────────────────────
-        # psycopg connections are not thread-safe — each worker creates its
-        # own searcher instances. In-memory (legacy) indexes are read-only
-        # and can be shared directly.
-        attr_needs_conn = _has_db_connection(attribute_index)
-        ref_needs_conn = reference_index is not None and _has_db_connection(reference_index)
-        attr_cls = type(attribute_index)
-        ref_cls = type(reference_index) if reference_index is not None else None
-
-        lock = threading.Lock()
-        done_count = [len(all_results)]  # mutable counter shared across threads
-
-        def _worker(concept_id: int, concept_name: str) -> dict:
-            # Create thread-local DB connections if needed
-            local_attr = attr_cls(cfg=cfg_local) if attr_needs_conn else attribute_index
-            local_ref = None
-            if reference_index is not None:
-                local_ref = ref_cls(cfg=cfg_local) if ref_needs_conn else reference_index
-            try:
-                return _process_term(concept_id, concept_name, local_attr, local_ref, cfg_local)
-            finally:
-                if attr_needs_conn:
-                    local_attr.close()
-                if ref_needs_conn and local_ref is not None:
-                    local_ref.close()
-
-        total_cost = sum(r.get("cost", {}).get("total_cost", 0.0) for r in all_results)
-        with ThreadPoolExecutor(max_workers=max_workers) as executor:
-            futures = {
-                executor.submit(_worker, row.concept_id_1, row.concept_name_1): row
-                for row in pending
-            }
-            for future in as_completed(futures):
-                row = futures[future]
-                result = future.result()
-                with lock:
-                    all_results.append(result)
-                    processed_ids.add(row.concept_id_1)
-                    done_count[0] += 1
-                    n_done = done_count[0]
-                    if "cost" in result:
-                        total_cost += result["cost"]["total_cost"]
-                    logger.info(
-                        "[%d/%d] %s — cost: $%.4f | total: $%.4f",
-                        n_done, len(unique_terms), row.concept_name_1,
-                        result.get("cost", {}).get("total_cost", 0.0),
-                        total_cost,
-                    )
-                    if n_done % checkpoint_every == 0:
-                        _save_checkpoint(checkpoint_file, all_results, processed_ids, cfg_local)
-
-    logger.info(
-        "\n%s\nCompleted: %d terms, Total cost: $%.4f",
-        "=" * 60, len(all_results), total_cost,
-    )
-
-    # --- clean up checkpoint on success ---
-    if checkpoint_file.exists():
-        checkpoint_file.unlink()
-        logger.info("Checkpoint file cleaned up")
-
-    return all_results
-
-
-def _save_checkpoint(
-    checkpoint_file: Path,
-    results: list[dict],
-    processed_ids: set,
-    cfg: HierarchySettings,
-) -> None:
-    os.makedirs(cfg.evaluation.output_dir, exist_ok=True)
-    with open(checkpoint_file, "wb") as f:
-        pickle.dump({"results": results, "processed_ids": processed_ids}, f)
-    logger.info("Checkpoint saved (%d terms)", len(results))
-
-
-def _build_prediction_rows(results: list[dict]) -> list[dict]:
+def build_prediction_rows(results: list[dict]) -> list[dict]:
     """Extract prediction rows from pipeline results for evaluation.
 
     Handles regular attributes (single dict, list of dicts) and paired
     ``interprets_interpretation`` structures via :func:`split_interprets_pairs`.
 
     Args:
-        results: Pipeline result dicts from ``process_gold_standard``.
+        results: Pipeline result dicts from ``process_hierarchy``.
 
     Returns:
         List of flat dicts ready for ``pd.DataFrame``.
@@ -296,7 +97,7 @@ def evaluate_results(
     Summary statistics are printed and the combined table is saved to CSV.
 
     Args:
-        results: List of pipeline result dicts from ``process_gold_standard``.
+        results: List of pipeline result dicts from ``process_hierarchy``.
         gs_path: Path to the gold-standard CSV.
         cfg: Pipeline configuration (reads ``cfg.evaluation.output_dir``).
 
@@ -306,7 +107,7 @@ def evaluate_results(
     cfg_local: HierarchySettings = cfg if cfg is not None else load_hierarchy_settings()
     output_dir = cfg_local.evaluation.output_dir
     # --- build predicted rows ---
-    pred_rows = _build_prediction_rows(results)
+    pred_rows = build_prediction_rows(results)
     pred_df = pd.DataFrame(pred_rows)
 
     # --- load gold standard ---
