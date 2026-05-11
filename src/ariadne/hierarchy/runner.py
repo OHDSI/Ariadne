@@ -78,12 +78,6 @@ def process_hierarchy(
     gs_df = pd.read_csv(gs_path)
     unique_terms = gs_df[["concept_id_1", "concept_name_1"]].drop_duplicates()
     logger.debug("Processing %d terms from %s", len(unique_terms), gs_path)
-    logger.debug(
-        "Models: extraction=%s, selection=%s | workers=%d",
-        cfg_local.extraction,
-        cfg_local.selection,
-        max_workers,
-    )
 
     if checkpoint_file.exists():
         try:

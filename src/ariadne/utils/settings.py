@@ -251,9 +251,6 @@ class IndexBuildConfig:
 class HierarchySettings:
     """Settings block loaded from the optional top-level ``hierarchy`` config key."""
 
-    embedding: str = "text-embedding-3-large"
-    extraction: str = "o3"
-    selection: str = "o3"
     index_build: IndexBuildConfig = field(default_factory=IndexBuildConfig)
     retrieval: RetrievalConfig = field(default_factory=RetrievalConfig)
     scoring: ScoringConfig = field(default_factory=ScoringConfig)

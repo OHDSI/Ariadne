@@ -63,13 +63,12 @@ class ContentFilterError(Exception):
 # LLM helpers
 # ---------------------------------------------------------------------------
 
-def call_llm(system_prompt: str, user_prompt: str, model: str) -> LlmResult:
+def call_llm(system_prompt: str, user_prompt: str) -> LlmResult:
     """Call the LLM and return ``LlmResult(content, cost_usd)``.
 
     Args:
         system_prompt: System-level prompt text.
         user_prompt: User-level prompt text.
-        model: Model identifier from hierarchy settings.
 
     Returns:
         LlmResult(content, cost).
@@ -167,11 +166,17 @@ def format_reference_examples(similar_terms: list[dict]) -> str:
 def _collect_reference_values(similar_terms: list[dict]) -> dict[str, list[dict]]:
     """Collect attribute values from reference examples, keyed by attr_key."""
     values_by_attr: dict[str, list[dict]] = {}
+    seen_by_attr: dict[str, set[str]] = {}
     for term in similar_terms:
         for attr in term.get('attributes', []):
             attr_key = SNOMED_CATEGORY_TO_ATTR_KEY.get(attr['attribute_category'])
             if attr_key is None:
                 continue
+            concept_id_key = str(attr['concept_id_2'])
+            seen_ids = seen_by_attr.setdefault(attr_key, set())
+            if concept_id_key in seen_ids:
+                continue
+            seen_ids.add(concept_id_key)
             values_by_attr.setdefault(attr_key, []).append({
                 'concept_id': attr['concept_id_2'],
                 'concept_code': attr.get('concept_code_2'),
@@ -250,7 +255,7 @@ def extract_components(
         reference_section = ""
     system_prompt = cfg.prompts.extraction.format(reference_section=reference_section)
     user_prompt = f'Determine the attributes for: "{medical_term}"'
-    response, cost = call_llm(system_prompt, user_prompt, model=cfg.extraction)
+    response, cost = call_llm(system_prompt, user_prompt)
     return ExtractionResult(parse_json_response(response), cost)
 
 
@@ -276,6 +281,16 @@ def _ensure_candidate_columns(candidates: pd.DataFrame) -> pd.DataFrame:
         if col not in candidates.columns:
             candidates[col] = None
     return candidates
+
+
+def _normalize_and_dedupe_candidates(candidates: pd.DataFrame) -> pd.DataFrame:
+    """Normalize candidate IDs and remove duplicates while preserving first rank."""
+    if len(candidates) == 0:
+        return candidates
+
+    candidates = _ensure_candidate_columns(candidates)
+    candidates["concept_id"] = candidates["concept_id"].astype(str)
+    return candidates.drop_duplicates(subset=["concept_id"], keep="first")
 
 def _unpack_mentions(components: dict[str, object]) -> list[tuple[str, str, str]]:
     """Unpack extraction output into ``(attr_key, mention, snomed_category)`` triples.
@@ -339,6 +354,7 @@ def _enrich_candidates(
     Returns:
         Enriched candidates DataFrame.
     """
+    candidates = _normalize_and_dedupe_candidates(candidates)
     snomed_category = ATTR_KEY_TO_SNOMED_CATEGORY.get(attr_key)
 
     # Enrich with values from reference examples not already in candidates
@@ -346,12 +362,12 @@ def _enrich_candidates(
         existing_ids = set(candidates["concept_id"].tolist())
         mention = candidates["extracted_mention"].iloc[0]
         new_rows = [
-            {"concept_id": rv["concept_id"], "concept_code": rv.get("concept_code"),
+            {"concept_id": str(rv["concept_id"]), "concept_code": rv.get("concept_code"),
              "concept_name": rv["concept_name"],
              "attribute_category": snomed_category, "similarity": cfg.scoring.reference_similarity,
              "extracted_mention": mention, "attribute_key": attr_key}
             for rv in reference_values_by_attr[attr_key]
-            if rv["concept_id"] not in existing_ids
+            if str(rv["concept_id"]) not in existing_ids
         ]
         if new_rows:
             candidates = pd.concat([candidates, pd.DataFrame(new_rows)], ignore_index=True)
@@ -364,6 +380,8 @@ def _enrich_candidates(
         hierarchy_df = attribute_searcher.expand_via_hierarchy(
             list(existing_ids), snomed_category
         )
+        hierarchy_df = _ensure_candidate_columns(hierarchy_df)
+        hierarchy_df["concept_id"] = hierarchy_df["concept_id"].astype(str)
         new_hier = hierarchy_df[~hierarchy_df["concept_id"].isin(existing_ids)]
         if len(new_hier) > 0:
             mention = candidates["extracted_mention"].iloc[0]
@@ -374,7 +392,7 @@ def _enrich_candidates(
             if verbose:
                 logger.debug("  %s: added %d hierarchy neighbors", attr_key, len(new_hier))
 
-    return candidates
+    return _normalize_and_dedupe_candidates(candidates)
 
 
 def _retrieve_candidates(
@@ -418,7 +436,7 @@ def _retrieve_candidates(
         if len(candidates) == 0:
             continue
 
-        candidates = _ensure_candidate_columns(candidates)
+        candidates = _normalize_and_dedupe_candidates(candidates)
         candidates["extracted_mention"] = mention
         candidates["attribute_key"] = attr_key
 
@@ -446,6 +464,11 @@ def _retrieve_candidates(
         if all_candidates
         else pd.DataFrame(columns=CANDIDATE_COLUMNS)
     )
+    if len(candidates_df) > 0:
+        candidates_df["concept_id"] = candidates_df["concept_id"].astype(str)
+        candidates_df = candidates_df.drop_duplicates(
+            subset=["attribute_key", "concept_id"], keep="first"
+        )
     return SearchResult(candidates_df, embedding_cost)
 
 
@@ -671,7 +694,7 @@ def find_attributes_two_stage(
     selection_cost = 0.0
     if candidates_text.strip():
         user_prompt = f"Medical term: {medical_term}\n\n{reference_text}\n\nCandidates:\n{candidates_text}"
-        response, selection_cost = call_llm(cfg_local.prompts.selection, user_prompt, model=cfg_local.selection)
+        response, selection_cost = call_llm(cfg_local.prompts.selection, user_prompt)
         result = parse_json_response(response)
     else:
         if verbose:
