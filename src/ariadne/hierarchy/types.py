@@ -26,13 +26,6 @@ class LlmResult(NamedTuple):
     cost: float
 
 
-class ExtractionResult(NamedTuple):
-    """Return type for :func:`~ariadne.hierarchy.pipeline.extract_components`."""
-
-    components: dict
-    cost: float
-
-
 class SearchResult(NamedTuple):
     """Return type for attribute ``search`` and ``_retrieve_candidates``."""
 
@@ -51,14 +44,6 @@ class ReferenceSearchResult(NamedTuple):
     """Return type for reference ``search`` and ``find_similar_reference_terms``."""
 
     examples: list
-    cost: float
-
-
-class ReferenceRetrievalResult(NamedTuple):
-    """Return type for ``_retrieve_reference_examples``."""
-
-    examples: list
-    prompt_text: str
     cost: float
 
 

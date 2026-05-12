@@ -62,10 +62,6 @@ def _pg_connect() -> psycopg.Connection:
     return conn
 
 
-def _vocab_schema() -> str:
-    return get_environment_variable("VOCAB_SCHEMA")
-
-
 # ---------------------------------------------------------------------------
 # Table creation
 # ---------------------------------------------------------------------------
@@ -79,7 +75,7 @@ def create_tables(conn: psycopg.Connection, dim: int = 3072) -> None:
         conn: Admin psycopg connection.
         dim: Embedding dimension (default 3072 for text-embedding-3-large).
     """
-    schema = _vocab_schema()
+    schema = get_environment_variable("VOCAB_SCHEMA")
     with conn.cursor() as cur:
         cur.execute(sql.SQL("""
             CREATE TABLE IF NOT EXISTS {schema}.snomed_attribute (
@@ -114,7 +110,7 @@ def create_embedding_indexes(
     build_reference: bool = True,
 ) -> None:
     """Create HNSW embedding indexes for populated target tables when requested."""
-    schema = _vocab_schema()
+    schema = get_environment_variable("VOCAB_SCHEMA")
     with conn.cursor() as cur:
         if build_attribute:
             cur.execute(sql.SQL("""
@@ -152,7 +148,7 @@ def check_populated(conn: psycopg.Connection, table: str = "snomed_attribute") -
     Returns:
         ``True`` if the table is non-empty.
     """
-    schema = _vocab_schema()
+    schema = get_environment_variable("VOCAB_SCHEMA")
     table_path = f"{schema}.{table}"
     with conn.cursor() as cur:
         cur.execute("SELECT to_regclass(%s)", (table_path,))
@@ -177,17 +173,18 @@ def load_attributes_from_db() -> pd.DataFrame:
     schema = get_environment_variable("VOCAB_SCHEMA")
     rel_list = ", ".join(f"'{r}'" for r in SNOMED_RELATIONSHIPS)
     df = pd.read_sql(f"""
-        SELECT c2.concept_id, c2.concept_code, c2.concept_name,
-               relationship_name AS attribute_category
+        SELECT DISTINCT c2.concept_id, 
+            c2.concept_code, 
+            c2.concept_name,
+            relationship_id AS attribute_category
         FROM {schema}.concept c
-        JOIN {schema}.concept_relationship cr
+        INNER JOIN {schema}.concept_relationship cr
             ON  c.concept_id   = cr.concept_id_1
-            AND c.vocabulary_id = 'SNOMED'
+        INNER JOIN {schema}.concept c2 ON c2.concept_id = cr.concept_id_2
+        WHERE c.vocabulary_id = 'SNOMED'
             AND c.standard_concept = 'S'
             AND cr.relationship_id IN ({rel_list})
-            AND cr.invalid_reason IS NULL
-        JOIN {schema}.concept c2 ON c2.concept_id = cr.concept_id_2
-        JOIN {schema}.relationship r ON cr.relationship_id = r.relationship_id
+            AND cr.invalid_reason IS NULL;
     """, engine)
     logger.info("Loaded %d attribute rows from DB.", len(df))
     return df
@@ -208,11 +205,13 @@ def load_reference_from_db(sample_size: int) -> pd.DataFrame:
     schema = get_environment_variable("VOCAB_SCHEMA")
     rel_list = ", ".join(f"'{r}'" for r in SNOMED_RELATIONSHIPS)
     df = pd.read_sql(f"""
-        SELECT c.concept_id  AS concept_id_1,  c.concept_code  AS concept_code_1,
-               c.concept_name AS concept_name_1,
-               c2.concept_id  AS concept_id_2,  c2.concept_code AS concept_code_2,
-               c2.concept_name AS concept_name_2,
-               relationship_name AS attribute_category
+        SELECT c.concept_id  AS concept_id_1,  
+            c.concept_code  AS concept_code_1,
+            c.concept_name AS concept_name_1,
+            c2.concept_id  AS concept_id_2,  
+            c2.concept_code AS concept_code_2,
+            c2.concept_name AS concept_name_2,
+            relationship_name AS attribute_category
         FROM {schema}.concept c
         JOIN {schema}.concept_relationship cr
             ON  c.concept_id    = cr.concept_id_1
@@ -235,26 +234,6 @@ def load_reference_from_db(sample_size: int) -> pd.DataFrame:
         df["concept_id_1"].nunique(),
     )
     return df
-
-
-# ---------------------------------------------------------------------------
-# Embedding helper
-# ---------------------------------------------------------------------------
-
-def _embed_texts(texts: list[str], batch_size: int) -> tuple[np.ndarray, float]:
-    """Embed *texts* in batches of *batch_size*.
-
-    Returns:
-        ``(embeddings, total_cost_usd)`` where *embeddings* has shape ``[N, dim]``.
-    """
-    all_vecs: list[np.ndarray] = []
-    total_cost = 0.0
-    for i in range(0, len(texts), batch_size):
-        batch = texts[i: i + batch_size]
-        result = get_embedding_vectors(batch)
-        all_vecs.append(result["embeddings"])
-        total_cost += result["usage"]["total_cost_usd"]
-    return np.vstack(all_vecs), total_cost
 
 
 def _batch_file(prefix: str, batch_index: int, folder: Path) -> Path:
@@ -407,7 +386,7 @@ def upsert_attribute_index(
     Returns:
         The (possibly reconnected) psycopg connection.
     """
-    schema = _vocab_schema()
+    schema = get_environment_variable("VOCAB_SCHEMA")
     if rebuild:
         with conn.cursor() as cur:
             cur.execute(
@@ -485,7 +464,7 @@ def upsert_reference_index(
     Returns:
         The (possibly reconnected) psycopg connection.
     """
-    schema = _vocab_schema()
+    schema = get_environment_variable("VOCAB_SCHEMA")
     if rebuild:
         with conn.cursor() as cur:
             cur.execute(
@@ -554,51 +533,48 @@ def upsert_reference_index(
 # ---------------------------------------------------------------------------
 
 def build_attribute_reference_tables(
-    cfg: HierarchySettings,
+    hierarchy_settings: HierarchySettings,
     if_exists: Literal["append", "skip", "rebuild"] = "append",
-    attributes_only: bool = False,
-    reference_only: bool = False,
+    build_attribute: bool = True,
+    build_reference: bool = True,
 ) -> None:
     """Build (or rebuild) the pgvector SNOMED indexes.
 
     Args:
-        cfg: Hierarchy settings containing ``index_build`` defaults.
+        hierarchy_settings: Hierarchy settings containing ``index_build`` defaults.
         if_exists: Behavior when target tables already contain rows:
             - ``"append"``: insert without truncating.
             - ``"skip"``: skip populated tables.
             - ``"rebuild"``: truncate first, then insert.
-        attributes_only: Only build ``snomed_attribute``.
-        reference_only: Only build ``snomed_reference``.
+        build_attribute: Build ``snomed_attribute``?
+        build_reference: Build ``snomed_reference``?
     """
-
-    load_dotenv(get_project_root() / ".env")
-
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s  %(message)s")
-
-    resolved_reference_sample_size = cfg.index_build.reference_sample_size
-    resolved_embedding_batch_size = cfg.index_build.embedding_batch_size
-    embedding_cache_dir = Path(cfg.index_build.embedding_cache_folder)
-    rebuild = if_exists == "rebuild"
-
     if if_exists not in {"append", "skip", "rebuild"}:
         raise ValueError(f"Unsupported if_exists mode: {if_exists}")
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s  %(message)s")
+
+    load_dotenv()
+
+    embedding_cache_dir = Path(hierarchy_settings.index_build.embedding_cache_folder)
+    rebuild = if_exists == "rebuild"
 
     embedding_cache_dir.mkdir(parents=True, exist_ok=True)
-
-    build_attribute = not reference_only
-    build_reference = not attributes_only
 
     if if_exists == "skip":
         conn = _pg_connect()
         try:
             if build_attribute and check_populated(conn, "snomed_attribute"):
-                logger.info("snomed_attribute already populated — skipping (--if-exists skip).")
+                logger.info("snomed_attribute already populated — skipping.")
                 build_attribute = False
             if build_reference and check_populated(conn, "snomed_reference"):
-                logger.info("snomed_reference already populated — skipping (--if-exists skip).")
+                logger.info("snomed_reference already populated — skipping.")
                 build_reference = False
         finally:
             conn.close()
+
+    if not build_attribute and not build_reference:
+        logger.info("Nothing to build.")
+        return
 
     attr_batch_files: list[Path] = []
     ref_batch_files: list[Path] = []
@@ -609,24 +585,20 @@ def build_attribute_reference_tables(
         df_attr = load_attributes_from_db()
         attr_batch_files, attr_dim = _prepare_attribute_embedding_batches(
             df_attr,
-            embedding_batch_size=resolved_embedding_batch_size,
+            embedding_batch_size=hierarchy_settings.index_build.embedding_batch_size,
             embedding_cache_dir=embedding_cache_dir,
         )
         dim = attr_dim if dim is None else dim
 
     if build_reference:
-        df_ref = load_reference_from_db(sample_size=resolved_reference_sample_size)
+        df_ref = load_reference_from_db(sample_size=hierarchy_settings.index_build.reference_sample_size)
         ref_batch_files, ref_dim = _prepare_reference_embedding_batches(
             df_ref,
-            embedding_batch_size=resolved_embedding_batch_size,
+            embedding_batch_size=hierarchy_settings.index_build.embedding_batch_size,
             embedding_cache_dir=embedding_cache_dir,
         )
         if dim is None:
             dim = ref_dim
-
-    if not build_attribute and not build_reference:
-        logger.info("Nothing to build (all requested tables already populated).")
-        return
 
     if dim is None:
         probe = get_embedding_vectors(["probe"])
@@ -642,7 +614,7 @@ def build_attribute_reference_tables(
             conn = upsert_attribute_index(
                 conn,
                 attr_batch_files,
-                upload_batch_size=resolved_embedding_batch_size,
+                upload_batch_size=hierarchy_settings.index_build.embedding_batch_size,
                 rebuild=rebuild,
             )
 
@@ -650,7 +622,7 @@ def build_attribute_reference_tables(
             conn = upsert_reference_index(
                 conn,
                 ref_batch_files,
-                upload_batch_size=resolved_embedding_batch_size,
+                upload_batch_size=hierarchy_settings.index_build.embedding_batch_size,
                 rebuild=rebuild,
             )
 

@@ -82,27 +82,6 @@ class Config:
         return result
 
 
-def load_hierarchy_settings(filename: str = "config_condition_mapping.yaml") -> HierarchySettings:
-    """Load hierarchy settings from the top-level config file.
-
-    Args:
-        filename: Path to YAML config (CWD first, then project root).
-    """
-    hierarchy = Config(filename).hierarchy
-    if hierarchy is None:
-        raise ValueError(
-            "Config is missing the optional 'hierarchy' section. "
-            "Add a 'hierarchy' block to run hierarchy workflows."
-        )
-
-    if not hierarchy.prompts.extraction or not hierarchy.prompts.extraction.strip():
-        raise ValueError("hierarchy.prompts.extraction is empty in config.")
-    if not hierarchy.prompts.selection or not hierarchy.prompts.selection.strip():
-        raise ValueError("hierarchy.prompts.selection is empty in config.")
-
-    return cast(HierarchySettings, hierarchy)
-
-
 if __name__ == "__main__":
     config = Config()
     print(config.to_dict())

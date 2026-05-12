@@ -12,7 +12,7 @@ Helpers (prefixed with ``_``) handle individual steps:
 
 import json
 import logging
-from typing import cast
+from typing import cast, Tuple, List, Dict
 
 import pandas as pd
 
@@ -23,16 +23,12 @@ from ariadne.hierarchy.searchers import (
 )
 from ariadne.hierarchy.types import (
     INTERPRETS_PAIRED_KEYS,
-    ExtractionResult,
     LlmResult,
-    ReferenceRetrievalResult,
-    ReferenceSearchResult,
     SearchResult,
     merge_interprets_keys,
     split_interprets_pairs,
     validate_interprets_pairs,
 )
-from ariadne.utils.config import load_hierarchy_settings
 from ariadne.utils.gen_ai_api import get_llm_response
 from ariadne.utils.settings import HierarchySettings
 
@@ -54,6 +50,23 @@ EXTRACTION_KEY_ALIASES: dict[str, str] = {
     "finding_associated_with": "finding_asso_with",
 }
 
+OHDSI_TO_PROMPT_MAP = {
+    "Has asso morph": "associated_morphology",
+    "Has finding site": "finding_site",
+    "Has causative agent": "causative_agent",
+    "Has clinical course": "clinical_course",
+    "Has finding context": "finding_context",
+    "Has interpretation": "interpretation",       # Used inside the interprets_interpretation list
+    "Has interprets": "interprets",               # Used inside the interprets_interpretation list
+    "Has occurrence": "occurrence",
+    "Has pathology": "pathological_process",      # Mapped to the standard prompt key
+    "Has relat context": "subject_relationship_context", # Mapped to the standard prompt key
+    "Has severity": "severity",
+    "Has temporal context": "temporal_context",
+    "Finding asso with": "finding_asso_with",
+    "During": "during"
+}
+PROMPT_TO_OHDSI_MAP = {value: key for key, value in OHDSI_TO_PROMPT_MAP.items()}
 
 class ContentFilterError(Exception):
     """Raised when the LLM content filter blocks a response."""
@@ -118,32 +131,8 @@ def parse_json_response(response: str) -> dict:
 # Retrieval helpers (used by both pgvector and legacy paths)
 # ---------------------------------------------------------------------------
 
-def find_similar_reference_terms(
-    query: str,
-    reference_searcher: ReferenceSearcher,
-    top_k: int,
-    precomputed_embedding=None,
-) -> ReferenceSearchResult:
-    """Find similar reference terms for few-shot examples.
 
-    Args:
-        query: Medical term to search for.
-        reference_searcher: Reference searcher (pgvector or legacy wrapper).
-        top_k: Number of reference examples (from ``cfg.retrieval.num_reference_examples``).
-        precomputed_embedding: Optional ``np.ndarray`` (shape ``[dim]``).  When
-            supplied, passed straight through to
-            ``SnomedReferenceSearcher.search`` so the embedding API call is
-            skipped entirely.
-
-    Returns:
-        ReferenceSearchResult(examples, cost).
-    """
-    if precomputed_embedding is not None:
-        return reference_searcher.search(query, top_k=top_k, embedding=precomputed_embedding)
-    return reference_searcher.search(query, top_k=top_k)
-
-
-def format_reference_examples(similar_terms: list[dict]) -> str:
+def format_reference_examples(similar_terms: list[dict], include_concept_ids=False) -> str:
     """Format reference examples into a human-readable block for the prompt.
 
     Args:
@@ -156,11 +145,23 @@ def format_reference_examples(similar_terms: list[dict]) -> str:
         return ""
     examples = []
     for term in similar_terms:
-        attrs_text = [f"  - {a['attribute_category']}: {a['concept_name_2']} ({a['concept_id_2']})"
+        if include_concept_ids:
+            attrs_text = [f"  - {OHDSI_TO_PROMPT_MAP[a['attribute_category']]}: {a['concept_name_2']} ({a['concept_id_2']})"
                       for a in term['attributes']]
+        else:
+            attrs_text = [
+                f"  - {OHDSI_TO_PROMPT_MAP[a['attribute_category']]}: {a['concept_name_2']}"
+                for a in term["attributes"]
+            ]
         attrs_str = "\n".join(attrs_text) if attrs_text else "  (no attributes)"
-        examples.append(f"Term: {term['concept_name']} ({term['concept_id']})\nAttributes:\n{attrs_str}")
-    return "Similar SNOMED terms for reference:\n\n" + "\n\n".join(examples)
+        if include_concept_ids:
+            examples.append(f"Term: {term['concept_name']} ({term['concept_id']})\nAttributes:\n{attrs_str}")
+        else:
+            examples.append(f"Term: {term['concept_name']}\nAttributes:\n{attrs_str}")
+    if not examples:
+        return ""
+    else:
+        return "=== SIMILAR EXAMPLES ===\n" + "\n\n".join(examples)
 
 
 def _collect_reference_values(similar_terms: list[dict]) -> dict[str, list[dict]]:
@@ -189,74 +190,31 @@ def _collect_reference_values(similar_terms: list[dict]) -> dict[str, list[dict]
 # Step 1: Reference retrieval
 # ---------------------------------------------------------------------------
 
-def _retrieve_reference_examples(
-    medical_term: str,
-    reference_searcher: ReferenceSearcher | None,
-    cfg: HierarchySettings,
-    verbose: bool,
-    precomputed_embedding=None,
-) -> ReferenceRetrievalResult:
-    """Step 1: Retrieve similar reference SNOMED terms for few-shot prompting.
-
-    Args:
-        medical_term: The medical term to find references for.
-        reference_searcher: Reference searcher (or None to skip).
-        cfg: Pipeline configuration.
-        verbose: Whether to log progress.
-        precomputed_embedding: Optional ``np.ndarray`` — when supplied the
-            ``SnomedReferenceSearcher`` skips recomputing the embedding (saves
-            one API call per term when the orchestrator passes the Step 1 vector
-            through).
-
-    Returns:
-        ReferenceRetrievalResult(examples, prompt_text, cost).
-    """
-    if reference_searcher is None:
-        return ReferenceRetrievalResult([], "", 0.0)
-
-    if verbose:
-        logger.debug("Step 1: Retrieving reference examples...")
-    reference_examples, cost = find_similar_reference_terms(
-        medical_term, reference_searcher, top_k=cfg.retrieval.num_reference_examples,
-        precomputed_embedding=precomputed_embedding,
-    )
-    reference_text = format_reference_examples(reference_examples)
-    if verbose:
-        for term in reference_examples:
-            logger.debug("  Reference: %s (similarity: %.3f)", term["concept_name"], term["similarity"])
-    return ReferenceRetrievalResult(reference_examples, reference_text, cost)
-
 
 # ---------------------------------------------------------------------------
 # Step 2: Attribute extraction
 # ---------------------------------------------------------------------------
 
-def extract_components(
+def infer_attributes(
     medical_term: str,
-    reference_text: str,
-    cfg: HierarchySettings,
-) -> ExtractionResult:
+    reference_examples: List,
+    hierarchy_settings: HierarchySettings,
+) -> Tuple[Dict, float]:
     """Step 2: Use the LLM to infer applicable SNOMED attributes.
 
     Args:
         medical_term: Term to decompose.
-        reference_text: Formatted reference examples block.
-        cfg: Pipeline configuration.
+        reference_examples: Reference examples.
+        hierarchy_settings: Pipeline configuration.
 
     Returns:
         ExtractionResult(components, cost).
     """
-    if reference_text:
-        reference_section = (
-            "=== REFERENCE EXAMPLES ===\nStudy these carefully. "
-            "They show how SNOMED assigns attributes to similar terms:\n\n" + reference_text
-        )
-    else:
-        reference_section = ""
-    system_prompt = cfg.prompts.extraction.format(reference_section=reference_section)
+    reference_text = format_reference_examples(reference_examples, include_concept_ids=False)
+    system_prompt = hierarchy_settings.prompts.extraction.replace("{reference_section}", reference_text)
     user_prompt = f'Determine the attributes for: "{medical_term}"'
     response, cost = call_llm(system_prompt, user_prompt)
-    return ExtractionResult(parse_json_response(response), cost)
+    return parse_json_response(response), cost
 
 
 # ---------------------------------------------------------------------------
@@ -320,16 +278,16 @@ def _unpack_mentions(components: dict[str, object]) -> list[tuple[str, str, str]
                         mentions.append((sub_key, str(val), sc))
             continue
 
-        snomed_category = ATTR_KEY_TO_SNOMED_CATEGORY.get(attr_key)
-        if snomed_category is None:
+        relationship_id = PROMPT_TO_OHDSI_MAP.get(attr_key)
+        if relationship_id is None:
             continue
         # Support both single-string (legacy) and list-of-strings (new) extraction output
         if isinstance(mention, list):
             for item in mention:
                 if item:
-                    mentions.append((attr_key, str(item), snomed_category))
+                    mentions.append((attr_key, str(item), relationship_id))
         else:
-            mentions.append((attr_key, str(mention), snomed_category))
+            mentions.append((attr_key, str(mention), relationship_id))
     return mentions
 
 
@@ -338,8 +296,7 @@ def _enrich_candidates(
     attr_key: str,
     reference_values_by_attr: dict[str, list[dict]],
     attribute_searcher: AttributeSearcher,
-    cfg: HierarchySettings,
-    verbose: bool,
+    hierarchy_settings: HierarchySettings
 ) -> pd.DataFrame:
     """Enrich candidates for a single attribute with reference values and hierarchy.
 
@@ -348,8 +305,7 @@ def _enrich_candidates(
         attr_key: Attribute key (e.g. ``associated_morphology``).
         reference_values_by_attr: Reference values keyed by attr_key.
         attribute_searcher: Attribute searcher for hierarchy expansion.
-        cfg: Pipeline configuration.
-        verbose: Whether to log progress.
+        hierarchy_settings: Pipeline configuration.
 
     Returns:
         Enriched candidates DataFrame.
@@ -364,15 +320,14 @@ def _enrich_candidates(
         new_rows = [
             {"concept_id": str(rv["concept_id"]), "concept_code": rv.get("concept_code"),
              "concept_name": rv["concept_name"],
-             "attribute_category": snomed_category, "similarity": cfg.scoring.reference_similarity,
+             "attribute_category": snomed_category, "similarity": hierarchy_settings.scoring.reference_similarity,
              "extracted_mention": mention, "attribute_key": attr_key}
             for rv in reference_values_by_attr[attr_key]
             if str(rv["concept_id"]) not in existing_ids
         ]
         if new_rows:
             candidates = pd.concat([candidates, pd.DataFrame(new_rows)], ignore_index=True)
-            if verbose:
-                logger.debug("  %s: added %d values from reference examples", attr_key, len(new_rows))
+            logger.debug("  %s: added %d values from reference examples", attr_key, len(new_rows))
 
     # Enrich with 1-hop hierarchy neighbors (parents + children)
     if snomed_category:
@@ -389,8 +344,7 @@ def _enrich_candidates(
             new_hier["extracted_mention"] = mention
             new_hier["attribute_key"] = attr_key
             candidates = pd.concat([candidates, new_hier], ignore_index=True)
-            if verbose:
-                logger.debug("  %s: added %d hierarchy neighbors", attr_key, len(new_hier))
+            logger.debug("  %s: added %d hierarchy neighbors", attr_key, len(new_hier))
 
     return _normalize_and_dedupe_candidates(candidates)
 
@@ -399,8 +353,7 @@ def _retrieve_candidates(
     extracted_components: dict,
     attribute_searcher: AttributeSearcher,
     reference_examples: list,
-    verbose: bool,
-    cfg: HierarchySettings,
+    hierarchy_settings: HierarchySettings
 ) -> SearchResult:
     """Step 3: Embed each inferred attribute value and retrieve SNOMED candidates.
 
@@ -408,8 +361,7 @@ def _retrieve_candidates(
         extracted_components: Parsed extraction output ``{attr_key: [free-text values]}``.
         attribute_searcher: Attribute searcher (pgvector or legacy dict).
         reference_examples: Reference examples (for enrichment).
-        verbose: Whether to log progress.
-        cfg: Pipeline configuration.
+        hierarchy_settings: Pipeline configuration.
 
     Returns:
         SearchResult(candidates_df, total_embedding_cost).
@@ -424,7 +376,7 @@ def _retrieve_candidates(
     indexed_mentions = [(f"{attr_key}_{i}", text, snomed_cat)
                         for i, (attr_key, text, snomed_cat) in enumerate(mentions)]
     results_by_idx, embedding_cost = attribute_searcher.search_batch(
-        indexed_mentions, top_k=cfg.retrieval.top_k_per_category
+        indexed_mentions, top_k=hierarchy_settings.retrieval.top_k_per_category
     )
 
     # Group and deduplicate candidates per attr_key across multiple mentions
@@ -449,15 +401,11 @@ def _retrieve_candidates(
 
     all_candidates = []
     for attr_key, candidates in candidates_by_attr.items():
-        candidates = _enrich_candidates(
-            candidates, attr_key, reference_values_by_attr,
-            attribute_searcher, cfg, verbose,
-        )
+        # candidates = _enrich_candidates(
+        #     candidates, attr_key, reference_values_by_attr,
+        #     attribute_searcher, hierarchy_settings
+        # )
         all_candidates.append(candidates)
-        if verbose:
-            top = candidates.iloc[0]
-            logger.debug("  %s: top match = %s (score: %s)", attr_key, top["concept_name"],
-                        top.get("similarity", "N/A"))
 
     candidates_df = (
         _ensure_candidate_columns(pd.concat(all_candidates, ignore_index=True))
@@ -517,9 +465,7 @@ def _build_selection_prompt(candidates_df: pd.DataFrame) -> str:
         mention_str = "', '".join(mentions)
         lines = []
         for row in group.itertuples(index=False):
-            similarity = getattr(row, "similarity", None)
-            sim_str = f", similarity: {similarity:.3f}" if pd.notna(similarity) else ""
-            lines.append(f"  - {row.concept_name} (concept_id: {row.concept_id}{sim_str})")
+            lines.append(f"  - {row.concept_name} (concept_id: {row.concept_id})")
 
         if attr_key in INTERPRETS_PAIRED_KEYS:
             header = f"\n  {attr_key} candidates (inferred: '{mention_str}'):"
@@ -543,7 +489,7 @@ def _build_selection_prompt(candidates_df: pd.DataFrame) -> str:
 # Main pipeline entry point
 # ---------------------------------------------------------------------------
 
-def _enforce_interprets_pairing(attrs: dict, *, verbose: bool = False) -> None:
+def _enforce_interprets_pairing(attrs: dict) -> None:
     """Normalise interprets/interpretation keys into paired ``interprets_interpretation``.
 
     Operates **in-place** on *attrs*.  Handles:
@@ -554,15 +500,14 @@ def _enforce_interprets_pairing(attrs: dict, *, verbose: bool = False) -> None:
     if ("interprets" in attrs or "interpretation" in attrs) and "interprets_interpretation" not in attrs:
         merged = merge_interprets_keys(
             attrs.pop("interprets", None),
-            attrs.pop("interpretation", None),
-            verbose=verbose,
+            attrs.pop("interpretation", None)
         )
         if merged:
             attrs["interprets_interpretation"] = merged
 
     if "interprets_interpretation" in attrs and attrs["interprets_interpretation"]:
         attrs["interprets_interpretation"] = validate_interprets_pairs(
-            attrs["interprets_interpretation"], verbose=verbose,
+            attrs["interprets_interpretation"]
         )
 
     # Clean up any leftover separate keys
@@ -636,9 +581,7 @@ def find_attributes_two_stage(
     medical_term: str,
     attribute_searcher: AttributeSearcher,
     reference_searcher: ReferenceSearcher | None = None,
-    cfg: HierarchySettings | None = None,
-    verbose: bool = True,
-    precomputed_embedding=None,
+    hierarchy_settings: HierarchySettings | None = None
 ) -> dict:
     """Run the 4-step SNOMED CT attribute extraction pipeline.
 
@@ -652,61 +595,50 @@ def find_attributes_two_stage(
         medical_term: The clinical term to decompose.
         attribute_searcher: Attribute searcher (pgvector or legacy dict).
         reference_searcher: Reference searcher (pgvector, legacy dict, or None).
-        cfg: Pipeline configuration.
-        verbose: Whether to log progress.
-        precomputed_embedding: Optional ``np.ndarray`` (shape ``[dim]``) — the
-            embedding of *medical_term* computed upstream (e.g. by
-            ``PgvectorConceptSearcher.search_terms``).  When supplied, Step 1's
-            reference-retrieval embedding API call is skipped, saving cost.
+        hierarchy_settings: Pipeline configuration.
 
     Returns:
         Dict with keys ``attributes``, ``extracted_components``,
         ``retrieved_candidates``, ``reference_examples``, ``cost``.
     """
-    cfg_local: HierarchySettings = cfg if cfg is not None else load_hierarchy_settings()
 
     # Step 1
-    reference_examples, reference_text, ref_cost = _retrieve_reference_examples(
-        medical_term, reference_searcher, cfg_local, verbose,
-        precomputed_embedding=precomputed_embedding,
-    )
+    logger.debug("Step 1: Finding reference examples")
+    reference_examples, ref_cost = reference_searcher.search(medical_term,
+                                                             top_k=hierarchy_settings.retrieval.num_reference_examples)
 
     # Step 2
-    if verbose:
-        logger.debug("Step 2: Inferring attributes...")
-    components, extraction_cost = extract_components(medical_term, reference_text=reference_text,
-                                                     cfg=cfg_local)
-    if verbose:
-        logger.debug("  Inferred: %s", json.dumps({k: v for k, v in components.items() if v}, indent=2))
+    logger.debug("Step 2: Inferring attributes")
+    components, extraction_cost = infer_attributes(medical_term,
+                                                   reference_examples=reference_examples,
+                                                   hierarchy_settings=hierarchy_settings)
 
     # Step 3
-    if verbose:
-        logger.debug("Step 3: Retrieving candidates...")
+    logger.debug("Step 3: Retrieving candidates...")
     candidates_df, embedding_cost = _retrieve_candidates(
         components, attribute_searcher, reference_examples,
-        verbose, cfg=cfg_local
+        hierarchy_settings=hierarchy_settings
     )
 
     # Step 4
-    if verbose:
-        logger.debug("Step 4: Selecting best matches...")
+    logger.debug("Step 4: Selecting best matches")
     candidates_text = _build_selection_prompt(candidates_df)
     selection_cost = 0.0
     if candidates_text.strip():
-        user_prompt = f"Medical term: {medical_term}\n\n{reference_text}\n\nCandidates:\n{candidates_text}"
-        response, selection_cost = call_llm(cfg_local.prompts.selection, user_prompt)
+        reference_text = format_reference_examples(reference_examples, include_concept_ids=True)
+        system_prompt = hierarchy_settings.prompts.selection.replace("{reference_section}", reference_text)
+        user_prompt = f"Medical term: {medical_term}\n\nCandidate concepts:\n{candidates_text}"
+        response, selection_cost = call_llm(system_prompt, user_prompt)
         result = parse_json_response(response)
     else:
-        if verbose:
-            logger.debug("Step 4 skipped: no candidates available for selection.")
+        logger.debug("Step 4 skipped: no candidates available for selection.")
         result = {"attributes": {}}
 
     total_cost = ref_cost + extraction_cost + embedding_cost + selection_cost
 
-
     # --- Enforce interprets ↔ interpretation pairing ---
     if "attributes" in result:
-        _enforce_interprets_pairing(result["attributes"], verbose=verbose)
+        _enforce_interprets_pairing(result["attributes"])
 
     _inject_selected_concept_codes(result, candidates_df)
     _attach_pipeline_metadata(
@@ -719,6 +651,5 @@ def find_attributes_two_stage(
         selection_cost=selection_cost,
         total_cost=total_cost,
     )
-    if verbose:
-        logger.debug("Total cost: $%.4f", total_cost)
+    logger.debug("Total cost: $%.4f", total_cost)
     return result

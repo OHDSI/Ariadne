@@ -7,13 +7,12 @@ Public API:
 
 import logging
 import os
+from pathlib import Path
 
 import pandas as pd
 
 from ariadne.hierarchy.searchers import ATTR_KEY_TO_GS_CATEGORY
 from ariadne.hierarchy.types import split_interprets_pairs
-from ariadne.utils.config import load_hierarchy_settings
-from ariadne.utils.settings import HierarchySettings
 
 logger = logging.getLogger(__name__)
 
@@ -84,7 +83,7 @@ def build_prediction_rows(results: list[dict]) -> list[dict]:
 def evaluate_results(
     results: list[dict],
     gs_path: str,
-    cfg: HierarchySettings | None = None,
+    output_dir: Path,
 ) -> pd.DataFrame:
     """Produce a combined evaluation table (full outer join of GS and predictions).
 
@@ -99,13 +98,11 @@ def evaluate_results(
     Args:
         results: List of pipeline result dicts from ``process_hierarchy``.
         gs_path: Path to the gold-standard CSV.
-        cfg: Pipeline configuration (reads ``cfg.evaluation.output_dir``).
+        output_dir: Path wherhe the output CSV should be saved.
 
     Returns:
         Combined evaluation DataFrame.
     """
-    cfg_local: HierarchySettings = cfg if cfg is not None else load_hierarchy_settings()
-    output_dir = cfg_local.evaluation.output_dir
     # --- build predicted rows ---
     pred_rows = build_prediction_rows(results)
     pred_df = pd.DataFrame(pred_rows)
@@ -115,8 +112,10 @@ def evaluate_results(
     gs_df = gs_df.rename(columns={'concept_id_2': 'gs_concept_id_2', 'concept_code_2': 'gs_concept_code_2', 'concept_name_2': 'gs_concept_name_2'})
 
     # --- full outer join on the matching key ---
-    gs_df['_join_id2'] = gs_df['gs_concept_id_2']
-    pred_df['_join_id2'] = pred_df['predicted_concept_id_2']
+    gs_df['concept_id_1'] = pd.to_numeric(gs_df['concept_id_1'], errors='coerce').astype('Int64')
+    pred_df['concept_id_1'] = pd.to_numeric(pred_df['concept_id_1'], errors='coerce').astype('Int64')
+    gs_df['_join_id2'] = pd.to_numeric(gs_df['gs_concept_id_2'], errors='coerce').astype('Int64')
+    pred_df['_join_id2'] = pd.to_numeric(pred_df['predicted_concept_id_2'], errors='coerce').astype('Int64')
 
     combined = gs_df.merge(
         pred_df,

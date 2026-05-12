@@ -79,7 +79,7 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
     def close(self):
         self.connection.close()
 
-    def _search_pgvector(self, source_vector: np.ndarray, limit: int) -> List:
+    def _search_pgvector(self, source_vector: np.ndarray, limit: int, vocabulary_id: Optional[str] = None) -> List:
         if self.concept_classes_to_ignore is None:
             ignore_string_class = "'dummy'"
         else:
@@ -89,6 +89,11 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
             term_type_clause = ""
         else:
             term_type_clause = "AND vectors.term_type = 'Name'"
+
+        if vocabulary_id:
+            vocabulary_clause = f"AND concept.vocabulary_id = '{vocabulary_id}'"
+        else:
+            vocabulary_clause = ""
 
         vocabulary_schema = get_environment_variable("VOCAB_SCHEMA")
         vector_table = get_environment_variable("VOCAB_VECTOR_TABLE")
@@ -119,6 +124,7 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
                                 AND source_concept.vocabulary_id NOT IN ({ignore_string_vocab})
                                 AND concept.concept_class_id NOT IN ({ignore_string_class})
                                 {term_type_clause}
+                                {vocabulary_clause}
                             ORDER BY embedding_vector <=> %s
                             LIMIT {limit * 4} -- May have duplicates due to synonyms
                         )
@@ -135,6 +141,7 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
                             WHERE standard_concept = 'S'
                                 AND concept.concept_class_id NOT IN ({ignore_string_class})
                                 {term_type_clause}
+                                {vocabulary_clause}
                             ORDER BY embedding_vector <=> %s
                             LIMIT {limit * 4} -- May have duplicates due to synonyms
                         )
@@ -187,13 +194,14 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
 
         return results
 
-    def search_term(self, term: str, limit: int = 25) -> Optional[pd.DataFrame]:
+    def search_term(self, term: str, limit: int = 25, vocabulary_id: Optional[str] = None) -> Optional[pd.DataFrame]:
         """
         Searches for concepts matching the given term.
 
         Args:
             term: The clinical term to search for.
             limit: The maximum number of results to return.
+            vocabulary_id: Optional vocabulary restriction (e.g., ``"SNOMED"``).
 
         Returns:
             A DataFrame containing the matching concepts, or None if no matches are found.
@@ -201,7 +209,7 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
         vectors_with_usage = get_embedding_vectors([term])
         self.cost = self.cost + vectors_with_usage["usage"]["total_cost_usd"]
         vector = vectors_with_usage["embeddings"][0]
-        results = self._search_pgvector(vector, limit)
+        results = self._search_pgvector(vector, limit, vocabulary_id)
         if not results:
             return None
         df = pd.DataFrame(

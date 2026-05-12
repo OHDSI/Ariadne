@@ -44,6 +44,7 @@ _DEFAULT_SNOMED_RELATIONSHIPS: list[str] = [
     "Has severity",
     "Has temporal context",
     "Finding asso with",
+    "During"
 ]
 
 
