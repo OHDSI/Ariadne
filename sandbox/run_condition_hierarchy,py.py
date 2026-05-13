@@ -6,18 +6,20 @@ import pandas as pd
 from dotenv import load_dotenv
 import logging
 
-from ariadne.utils.config import load_hierarchy_settings
 from ariadne.hierarchy.attribute_ref_table_builder import build_attribute_reference_tables
 from ariadne.hierarchy.runner import process_hierarchy
 from ariadne.hierarchy.evaluator import build_prediction_rows
 from ariadne.hierarchy.searchers import SnomedAttributeSearcher, SnomedReferenceConceptVectorSearcher
 from ariadne.hierarchy.evaluator import evaluate_results
+from ariadne.utils.config import Config
 
 load_dotenv()
 
 def main():
     project_root = Path.cwd().parent
-    hierarchy_settings = load_hierarchy_settings(project_root / "config_condition_mapping.yaml")
+    os.chdir(project_root)
+    config = Config()
+    hierarchy_settings = config.hierarchy
 
     # Build attribute table if it doesn't exist
     build_attribute_reference_tables(hierarchy_settings, if_exists="skip")
@@ -27,6 +29,7 @@ def main():
     attribute_gs = pd.read_csv(attribute_gs_path)
 
     # Define attributes
+    # raw_results_file = project_root / "data" / "notebook_results" / "hierarchy_results_raw_debug.json" # For debugging
     raw_results_file = project_root / "data" / "notebook_results" / "hierarchy_results_raw.json"
 
     if raw_results_file.exists():
@@ -36,13 +39,15 @@ def main():
     else:
         # Exclude gold standard terms from reference examples to prevent data leakage
         gs_concept_ids = set(attribute_gs["concept_id_1"].unique())
-        attr_searcher = SnomedAttributeSearcher(cfg=hierarchy_settings)
-        ref_searcher = SnomedReferenceConceptVectorSearcher(cfg=hierarchy_settings, exclude_concept_ids=gs_concept_ids)
+        attr_searcher = SnomedAttributeSearcher(hierarchy_settings=hierarchy_settings)
+        ref_searcher = SnomedReferenceConceptVectorSearcher(hierarchy_settings=hierarchy_settings, exclude_concept_ids=gs_concept_ids)
         terms = (
             attribute_gs[["concept_id_1", "concept_name_1"]]
             .drop_duplicates()
             .rename(columns={"concept_id_1": "concept_id", "concept_name_1": "concept_name"})
         )
+        # terms = terms[terms['concept_name'] == 'Neonatal hypoglycemia'].head(1) # For debugging
+
         results = process_hierarchy(
             terms,
             attr_searcher,
@@ -61,11 +66,10 @@ def main():
     results_df = pd.DataFrame(build_prediction_rows(results))
     results_df.to_csv(project_root / "data" / "notebook_results" / "attribute_results.csv", index=False)
 
-
     # Set output directory relative to project root
-    hierarchy_settings.evaluation.output_dir = str(project_root / "data" / "notebook_results")
+    output_dir = project_root / "data" / "notebook_results"
 
-    eval_df = evaluate_results(results, str(attribute_gs_path), hierarchy_settings=hierarchy_settings)
+    eval_df = evaluate_results(results, str(attribute_gs_path), output_dir)
     eval_df.head(20)
 
 

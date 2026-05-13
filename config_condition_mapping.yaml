@@ -166,9 +166,7 @@ hierarchy:
     hierarchy_similarity: 0.85
 
   evaluation:
-    attribute_gold_standard_path: "./data/gold_standards/hierarchy_attributes_snomed_gs.csv"
-    parent_gold_standard_path: "./data/gold_standards/hierarchy_snomed_gs.csv"
-    output_dir: "./data/notebook_results"
+    output_dir: "data/notebook_results"
 
   snomed_relationships:
     - "Has asso morph"
@@ -202,10 +200,11 @@ hierarchy:
       - during: Phase-of-care timing ONLY (e.g., postoperative, intrapartum, postpartum, antenatal, peripartum). Do NOT use for life-stage.
       
       2. CONTEXT ATTRIBUTES (Situation with Explicit Context)
-      Scan every term for implied context. Provide these when a term refers to history, family history, or another person.
-      - finding_context: The clinical certainty. Values: Known present, Suspected, Probable, Known absent, Rule out.
-      - temporal_context: Values: Current or specified time, Past. (Use "Past" for terms containing "History of").
-      - subject_relationship_context: The relationship of the subject. Values: Subject of record, Person in family of subject, Maternal, Fetal, Donor.
+      Scan every term for implied context. Provide these ONLY when a term explicitly overrides the default assumption of a current, confirmed diagnosis in the patient (e.g., history, family history, suspected, ruled out).
+      - finding_context: The clinical certainty. Values: Known present, Suspected, Probable, Known absent, Rule out. 
+        * CRITICAL RULE: SNOMED CT implicitly assumes standard clinical findings are "Known present". Do NOT apply "Known present" to standard findings or diseases. ONLY use it when building a complex "Situation" (like a Family History).
+      - temporal_context: Values: Current or specified time, Past. (Use "Past" for terms containing "History of"). Do NOT output for standard current findings.
+      - subject_relationship_context: The relationship of the subject. Values: Subject of record, Person in family of subject, Maternal, Fetal, Donor. Do NOT output for standard findings in the patient.
         * NOTE: "Family history of [Disease]" is modeled as: finding_context = Known present; temporal_context = Past; subject_relationship_context = Person in family of subject.
       
       3. COMPLEX / CONDITIONAL ATTRIBUTES
@@ -313,9 +312,9 @@ hierarchy:
           "interprets_interpretation": [
               {{"interprets": "gastric acid secretion", "interpretation": "increased"}}
           ],
-          "finding_context": ["Known present"],
-          "temporal_context": ["Current or specified time"],
-          "subject_relationship_context": ["Subject of record"]
+          "finding_context": null,
+          "temporal_context": null,
+          "subject_relationship_context": null
       }}
 
     selection: |

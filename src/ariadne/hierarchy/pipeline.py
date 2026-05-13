@@ -273,7 +273,7 @@ def _unpack_mentions(components: dict[str, object]) -> list[tuple[str, str, str]
         if attr_key == "interprets_interpretation":
             if isinstance(mention, list):
                 for sub_key, val in split_interprets_pairs(mention):
-                    sc = ATTR_KEY_TO_SNOMED_CATEGORY.get(sub_key)
+                    sc = PROMPT_TO_OHDSI_MAP.get(sub_key)
                     if sc:
                         mentions.append((sub_key, str(val), sc))
             continue

@@ -221,11 +221,9 @@ class ScoringConfig:
 
 @dataclass
 class EvaluationConfig:
-    """Output and gold-standard paths for hierarchy evaluation."""
+    """Output  for hierarchy evaluation."""
 
-    attribute_gold_standard_path: str = "./data/gold_standards/hierarchy_attributes_snomed_gs.csv"
-    parent_gold_standard_path: str = "./data/gold_standards/hierarchy_snomed_gs.csv"
-    output_dir: str = "./data/notebook_results"
+    output_dir: str = "data/notebook_results"
 
 
 @dataclass
