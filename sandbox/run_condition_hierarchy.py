@@ -1,16 +1,16 @@
 import json
+import logging
 import os
 from pathlib import Path
 
 import pandas as pd
 from dotenv import load_dotenv
-import logging
 
-from ariadne.hierarchy.attribute_ref_table_builder import build_attribute_reference_tables
-from ariadne.hierarchy.runner import process_hierarchy
-from ariadne.hierarchy.evaluator import build_prediction_rows
+from ariadne.hierarchy.attribute_table_builder import build_attribute_table
+from ariadne.hierarchy.llm_attribute_runner import process_hierarchy
+from ariadne.evaluation.hierarchy_attribute_evaluator import build_prediction_rows
 from ariadne.hierarchy.searchers import SnomedAttributeSearcher, SnomedReferenceConceptVectorSearcher
-from ariadne.hierarchy.evaluator import evaluate_results
+from ariadne.evaluation.hierarchy_attribute_evaluator import evaluate_results
 from ariadne.utils.config import Config
 
 load_dotenv()
@@ -18,15 +18,18 @@ load_dotenv()
 def main():
     project_root = Path.cwd().parent
     os.chdir(project_root)
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s  %(message)s")
+
     config = Config()
     hierarchy_settings = config.hierarchy
 
     # Build attribute table if it doesn't exist
-    build_attribute_reference_tables(hierarchy_settings, if_exists="skip")
+    # build_attribute_table(hierarchy_settings, if_exists="skip")
 
     # Load gold standard
     attribute_gs_path = project_root / "data" / "gold_standards" / "hierarchy_attributes_snomed_gs.csv"
     attribute_gs = pd.read_csv(attribute_gs_path)
+    unique_terms = attribute_gs[["concept_id_1", "concept_name_1"]].drop_duplicates()
 
     # Define attributes
     # raw_results_file = project_root / "data" / "notebook_results" / "hierarchy_results_raw_debug.json" # For debugging
@@ -41,18 +44,15 @@ def main():
         gs_concept_ids = set(attribute_gs["concept_id_1"].unique())
         attr_searcher = SnomedAttributeSearcher(hierarchy_settings=hierarchy_settings)
         ref_searcher = SnomedReferenceConceptVectorSearcher(hierarchy_settings=hierarchy_settings, exclude_concept_ids=gs_concept_ids)
-        terms = (
-            attribute_gs[["concept_id_1", "concept_name_1"]]
-            .drop_duplicates()
-            .rename(columns={"concept_id_1": "concept_id", "concept_name_1": "concept_name"})
-        )
-        # terms = terms[terms['concept_name'] == 'Neonatal hypoglycemia'].head(1) # For debugging
+        # terms = terms[terms['concept_name_1'] == 'Neonatal hypoglycemia'].head(1) # For debugging
 
         results = process_hierarchy(
-            terms,
+            unique_terms,
             attr_searcher,
             reference_searcher=ref_searcher,
             hierarchy_settings=hierarchy_settings,
+            source_code_column="concept_id_1",
+            source_term_column="concept_name_1"
         )
         # Save raw results for debugging
         with open(raw_results_file, "w") as f:

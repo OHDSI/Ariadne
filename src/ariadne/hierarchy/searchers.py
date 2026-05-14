@@ -31,54 +31,6 @@ from ariadne.vector_search.pgvector_concept_searcher import PgvectorConceptSearc
 logger = logging.getLogger(__name__)
 
 
-# ---------------------------------------------------------------------------
-# Attribute mappings (SNOMED category ↔ pipeline key)
-# ---------------------------------------------------------------------------
-
-ATTR_KEY_TO_SNOMED_CATEGORY: dict[str, str] = {
-    "associated_morphology": "Has associated morphology (SNOMED)",
-    "finding_site": "Has finding site (SNOMED)",
-    "causative_agent": "Has causative agent (SNOMED)",
-    "clinical_course": "Has clinical course (SNOMED)",
-    "finding_context": "Has finding context (SNOMED)",
-    "interpretation": "Has interpretation (SNOMED)",
-    "interprets": "Has interprets (SNOMED)",
-    "occurrence": "Has occurrence (SNOMED)",
-    "pathological_process": "Has pathological process (SNOMED)",
-    "severity": "Has severity (SNOMED)",
-    "subject_relationship_context": "Has subject relationship context (SNOMED)",
-    "temporal_context": "Has temporal context (SNOMED)",
-    "finding_asso_with": "Finding asso with (SNOMED)",
-    "associated_with": "Finding asso with (SNOMED)",
-    "finding_associated_with": "Finding asso with (SNOMED)",
-}
-
-ATTR_KEY_TO_GS_CATEGORY: dict[str, str] = {
-    "associated_morphology": "Has asso morph",
-    "finding_site": "Has finding site",
-    "causative_agent": "Has causative agent",
-    "clinical_course": "Has clinical course",
-    "finding_context": "Has finding context",
-    "interpretation": "Has interpretation",
-    "interprets": "Has interprets",
-    "occurrence": "Has occurrence",
-    "pathological_process": "Has pathology",
-    "severity": "Has severity",
-    "subject_relationship_context": "Has relat context",
-    "temporal_context": "Has temporal context",
-    "finding_asso_with": "Finding asso with",
-    "associated_with": "Finding asso with",
-    "finding_associated_with": "Finding asso with",
-}
-
-
-SNOMED_CATEGORY_TO_ATTR_KEY: dict[str, str] = {v: k for k, v in ATTR_KEY_TO_SNOMED_CATEGORY.items()}
-
-
-# ---------------------------------------------------------------------------
-# Abstract base searcher
-# ---------------------------------------------------------------------------
-
 class AbstractSnomedSearcher(ABC):
     """ABC for pgvector-backed SNOMED searchers.
 
@@ -126,10 +78,6 @@ class AbstractSnomedSearcher(ABC):
     def __exit__(self, *exc):
         self.close()
 
-
-# ---------------------------------------------------------------------------
-# Attribute searcher
-# ---------------------------------------------------------------------------
 
 class SnomedAttributeSearcher(AbstractSnomedSearcher):
 
@@ -288,138 +236,6 @@ class SnomedAttributeSearcher(AbstractSnomedSearcher):
         return df
 
 
-# ---------------------------------------------------------------------------
-# Reference searcher
-# ---------------------------------------------------------------------------
-
-class SnomedReferenceSearcher(AbstractSnomedSearcher):
-
-    def __init__(self, hierarchy_settings: HierarchySettings | None = None,
-                 exclude_concept_ids: set[int] | None = None):
-        super().__init__(hierarchy_settings)
-        self._exclude_concept_ids: list[int] = sorted(exclude_concept_ids) if exclude_concept_ids else []
-        if self._exclude_concept_ids:
-            logger.debug(
-                "SnomedReferenceSearcher: excluding %d concept IDs from results.",
-                len(self._exclude_concept_ids),
-            )
-
-    def search(
-        self,
-        text: str,
-        top_k: int | None = None,
-        embedding: "np.ndarray | None" = None,
-    ) -> ReferenceSearchResult:
-        """Embed *text* and return similar reference terms with their attributes.
-
-        Args:
-            text: Free-text term to embed (ignored when *embedding* is supplied).
-            top_k: Maximum number of reference concepts to return
-                (defaults to ``hierarchy_settings.retrieval.num_reference_examples``).
-            embedding: Optional precomputed embedding vector (shape ``[dim]``).
-                When provided the API call is skipped and cost is recorded as
-                zero.  Pass the vector produced by
-                ``PgvectorConceptSearcher.search_terms(..., return_embeddings=True)``
-                to avoid re-embedding the same term in Step 2.
-
-        Returns:
-            ReferenceSearchResult(examples, cost).
-        """
-        top_k = top_k if top_k is not None else self.hierarchy_settings.retrieval.num_reference_examples
-        if embedding is not None:
-            import numpy as np  # local import — only needed here
-            vector = np.asarray(embedding, dtype=float)
-            cost = 0.0
-        else:
-            result = get_embedding_vectors([text])
-            vector = result["embeddings"][0]
-            cost = result["usage"]["total_cost_usd"]
-            self._cost += cost
-
-        inner_limit = top_k * 10
-        if self._exclude_concept_ids:
-            query = sql.SQL("""
-                WITH q AS (SELECT %s::vector AS vec),
-                     ranked AS (
-                    SELECT concept_id_1, concept_name_1,
-                           1 - (embedding <=> q.vec) AS similarity,
-                           ROW_NUMBER() OVER (
-                               PARTITION BY concept_id_1
-                               ORDER BY embedding <=> q.vec
-                           ) AS rn
-                    FROM {schema}.{table}, q
-                    WHERE concept_id_1 != ALL(%s)
-                    ORDER BY embedding <=> q.vec
-                    LIMIT %s
-                )
-                SELECT concept_id_1, concept_name_1, similarity
-                FROM ranked
-                WHERE rn = 1
-                ORDER BY similarity DESC
-                LIMIT %s
-            """).format(schema=sql.Identifier(self.schema), table=sql.Identifier("snomed_reference"))
-            with self.connection.cursor() as cur:
-                cur.execute(query, (vector.tolist(), self._exclude_concept_ids, inner_limit, top_k))
-                top_terms = cur.fetchall()
-        else:
-            query = sql.SQL("""
-                WITH q AS (SELECT %s::vector AS vec),
-                     ranked AS (
-                    SELECT concept_id_1, concept_name_1,
-                           1 - (embedding <=> q.vec) AS similarity,
-                           ROW_NUMBER() OVER (
-                               PARTITION BY concept_id_1
-                               ORDER BY embedding <=> q.vec
-                           ) AS rn
-                    FROM {schema}.{table}, q
-                    ORDER BY embedding <=> q.vec
-                    LIMIT %s
-                )
-                SELECT concept_id_1, concept_name_1, similarity
-                FROM ranked
-                WHERE rn = 1
-                ORDER BY similarity DESC
-                LIMIT %s
-            """).format(schema=sql.Identifier(self.schema), table=sql.Identifier("snomed_reference"))
-            with self.connection.cursor() as cur:
-                cur.execute(query, (vector.tolist(), inner_limit, top_k))
-                top_terms = cur.fetchall()
-
-        if not top_terms:
-            return ReferenceSearchResult([], cost)
-
-        # Fetch all attribute rows for those concept_id_1 values
-        ids = [r[0] for r in top_terms]
-        attr_query = sql.SQL("""
-            SELECT concept_id_1, concept_id_2, concept_code_2, concept_name_2, attribute_category
-            FROM {schema}.{table}
-            WHERE concept_id_1 = ANY(%s)
-        """).format(schema=sql.Identifier(self.schema), table=sql.Identifier("snomed_reference"))
-        with self.connection.cursor() as cur:
-            cur.execute(attr_query, (ids,))
-            attr_rows = cur.fetchall()
-
-        # Group attributes by concept_id_1
-        attrs_by_id: dict[int, list] = {}
-        for concept_id_1, concept_id_2, concept_code_2, concept_name_2, attribute_category in attr_rows:
-            attrs_by_id.setdefault(concept_id_1, []).append({
-                "concept_id_2": concept_id_2,
-                "concept_code_2": concept_code_2,
-                "concept_name_2": concept_name_2,
-                "attribute_category": attribute_category,
-            })
-
-        return ReferenceSearchResult([
-            {
-                "concept_id": concept_id_1,
-                "concept_name": concept_name_1,
-                "similarity": similarity,
-                "attributes": attrs_by_id.get(concept_id_1, []),
-            }
-            for concept_id_1, concept_name_1, similarity in top_terms
-        ], cost)
-
-
 class SnomedReferenceConceptVectorSearcher(AbstractSnomedSearcher):
     """Reference searcher that queries live OMOP vocab tables plus concept vectors.
 
@@ -526,6 +342,3 @@ class SnomedReferenceConceptVectorSearcher(AbstractSnomedSearcher):
     def close(self):
         self._concept_searcher.close()
         super().close()
-
-
-

@@ -11,10 +11,27 @@ from pathlib import Path
 
 import pandas as pd
 
-from ariadne.hierarchy.searchers import ATTR_KEY_TO_GS_CATEGORY
 from ariadne.hierarchy.types import split_interprets_pairs
 
 logger = logging.getLogger(__name__)
+
+ATTR_KEY_TO_GS_CATEGORY: dict[str, str] = {
+    "associated_morphology": "Has asso morph",
+    "finding_site": "Has finding site",
+    "causative_agent": "Has causative agent",
+    "clinical_course": "Has clinical course",
+    "finding_context": "Has finding context",
+    "interpretation": "Has interpretation",
+    "interprets": "Has interprets",
+    "occurrence": "Has occurrence",
+    "pathological_process": "Has pathology",
+    "severity": "Has severity",
+    "subject_relationship_context": "Has relat context",
+    "temporal_context": "Has temporal context",
+    "finding_asso_with": "Finding asso with",
+    "associated_with": "Finding asso with",
+    "finding_associated_with": "Finding asso with",
+}
 
 def build_prediction_rows(results: list[dict]) -> list[dict]:
     """Extract prediction rows from pipeline results for evaluation.
@@ -30,8 +47,8 @@ def build_prediction_rows(results: list[dict]) -> list[dict]:
     """
     pred_rows: list[dict] = []
     for result in results:
-        concept_id_1 = result.get("source_concept_id")
-        concept_name_1 = result.get("source_concept_name") or result.get("medical_term")
+        concept_id_1 = result.get("source_code")
+        concept_name_1 = result.get("source_term") or result.get("medical_term")
         if "attributes" not in result:
             continue
         for attr_key, attr_value in result["attributes"].items():

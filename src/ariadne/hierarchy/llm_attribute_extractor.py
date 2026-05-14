@@ -17,9 +17,7 @@ from typing import cast, Tuple, List, Dict
 import pandas as pd
 
 from ariadne.hierarchy.searchers import (
-    ATTR_KEY_TO_SNOMED_CATEGORY,
-    AbstractSnomedSearcher,
-    SNOMED_CATEGORY_TO_ATTR_KEY,
+    AbstractSnomedSearcher
 )
 from ariadne.hierarchy.types import (
     INTERPRETS_PAIRED_KEYS,
@@ -67,6 +65,17 @@ OHDSI_TO_PROMPT_MAP = {
     "During": "during"
 }
 PROMPT_TO_OHDSI_MAP = {value: key for key, value in OHDSI_TO_PROMPT_MAP.items()}
+
+CANDIDATE_COLUMNS = [
+    "concept_id",
+    "concept_code",
+    "concept_name",
+    "attribute_category",
+    "similarity",
+    "extracted_mention",
+    "attribute_key",
+]
+
 
 class ContentFilterError(Exception):
     """Raised when the LLM content filter blocks a response."""
@@ -127,11 +136,6 @@ def parse_json_response(response: str) -> dict:
         ) from exc
 
 
-# ---------------------------------------------------------------------------
-# Retrieval helpers (used by both pgvector and legacy paths)
-# ---------------------------------------------------------------------------
-
-
 def format_reference_examples(similar_terms: list[dict], include_concept_ids=False) -> str:
     """Format reference examples into a human-readable block for the prompt.
 
@@ -164,37 +168,6 @@ def format_reference_examples(similar_terms: list[dict], include_concept_ids=Fal
         return "=== SIMILAR EXAMPLES ===\n" + "\n\n".join(examples)
 
 
-def _collect_reference_values(similar_terms: list[dict]) -> dict[str, list[dict]]:
-    """Collect attribute values from reference examples, keyed by attr_key."""
-    values_by_attr: dict[str, list[dict]] = {}
-    seen_by_attr: dict[str, set[str]] = {}
-    for term in similar_terms:
-        for attr in term.get('attributes', []):
-            attr_key = SNOMED_CATEGORY_TO_ATTR_KEY.get(attr['attribute_category'])
-            if attr_key is None:
-                continue
-            concept_id_key = str(attr['concept_id_2'])
-            seen_ids = seen_by_attr.setdefault(attr_key, set())
-            if concept_id_key in seen_ids:
-                continue
-            seen_ids.add(concept_id_key)
-            values_by_attr.setdefault(attr_key, []).append({
-                'concept_id': attr['concept_id_2'],
-                'concept_code': attr.get('concept_code_2'),
-                'concept_name': attr['concept_name_2'],
-            })
-    return values_by_attr
-
-
-# ---------------------------------------------------------------------------
-# Step 1: Reference retrieval
-# ---------------------------------------------------------------------------
-
-
-# ---------------------------------------------------------------------------
-# Step 2: Attribute extraction
-# ---------------------------------------------------------------------------
-
 def infer_attributes(
     medical_term: str,
     reference_examples: List,
@@ -217,38 +190,7 @@ def infer_attributes(
     return parse_json_response(response), cost
 
 
-# ---------------------------------------------------------------------------
-# Step 3: Candidate retrieval
-# ---------------------------------------------------------------------------
 
-CANDIDATE_COLUMNS = [
-    "concept_id",
-    "concept_code",
-    "concept_name",
-    "attribute_category",
-    "similarity",
-    "extracted_mention",
-    "attribute_key",
-]
-
-
-def _ensure_candidate_columns(candidates: pd.DataFrame) -> pd.DataFrame:
-    """Return a copy with all expected candidate columns present."""
-    candidates = candidates.copy()
-    for col in CANDIDATE_COLUMNS:
-        if col not in candidates.columns:
-            candidates[col] = None
-    return candidates
-
-
-def _normalize_and_dedupe_candidates(candidates: pd.DataFrame) -> pd.DataFrame:
-    """Normalize candidate IDs and remove duplicates while preserving first rank."""
-    if len(candidates) == 0:
-        return candidates
-
-    candidates = _ensure_candidate_columns(candidates)
-    candidates["concept_id"] = candidates["concept_id"].astype(str)
-    return candidates.drop_duplicates(subset=["concept_id"], keep="first")
 
 def _unpack_mentions(components: dict[str, object]) -> list[tuple[str, str, str]]:
     """Unpack extraction output into ``(attr_key, mention, snomed_category)`` triples.
@@ -291,68 +233,9 @@ def _unpack_mentions(components: dict[str, object]) -> list[tuple[str, str, str]
     return mentions
 
 
-def _enrich_candidates(
-    candidates: pd.DataFrame,
-    attr_key: str,
-    reference_values_by_attr: dict[str, list[dict]],
-    attribute_searcher: AttributeSearcher,
-    hierarchy_settings: HierarchySettings
-) -> pd.DataFrame:
-    """Enrich candidates for a single attribute with reference values and hierarchy.
-
-    Args:
-        candidates: Initial candidates DataFrame for this attribute.
-        attr_key: Attribute key (e.g. ``associated_morphology``).
-        reference_values_by_attr: Reference values keyed by attr_key.
-        attribute_searcher: Attribute searcher for hierarchy expansion.
-        hierarchy_settings: Pipeline configuration.
-
-    Returns:
-        Enriched candidates DataFrame.
-    """
-    candidates = _normalize_and_dedupe_candidates(candidates)
-    snomed_category = ATTR_KEY_TO_SNOMED_CATEGORY.get(attr_key)
-
-    # Enrich with values from reference examples not already in candidates
-    if attr_key in reference_values_by_attr:
-        existing_ids = set(candidates["concept_id"].tolist())
-        mention = candidates["extracted_mention"].iloc[0]
-        new_rows = [
-            {"concept_id": str(rv["concept_id"]), "concept_code": rv.get("concept_code"),
-             "concept_name": rv["concept_name"],
-             "attribute_category": snomed_category, "similarity": hierarchy_settings.scoring.reference_similarity,
-             "extracted_mention": mention, "attribute_key": attr_key}
-            for rv in reference_values_by_attr[attr_key]
-            if str(rv["concept_id"]) not in existing_ids
-        ]
-        if new_rows:
-            candidates = pd.concat([candidates, pd.DataFrame(new_rows)], ignore_index=True)
-            logger.debug("  %s: added %d values from reference examples", attr_key, len(new_rows))
-
-    # Enrich with 1-hop hierarchy neighbors (parents + children)
-    if snomed_category:
-        existing_ids = set(candidates["concept_id"].tolist())
-        hierarchy_df = attribute_searcher.expand_via_hierarchy(
-            list(existing_ids), snomed_category
-        )
-        hierarchy_df = _ensure_candidate_columns(hierarchy_df)
-        hierarchy_df["concept_id"] = hierarchy_df["concept_id"].astype(str)
-        new_hier = hierarchy_df[~hierarchy_df["concept_id"].isin(existing_ids)]
-        if len(new_hier) > 0:
-            mention = candidates["extracted_mention"].iloc[0]
-            new_hier = new_hier.copy()
-            new_hier["extracted_mention"] = mention
-            new_hier["attribute_key"] = attr_key
-            candidates = pd.concat([candidates, new_hier], ignore_index=True)
-            logger.debug("  %s: added %d hierarchy neighbors", attr_key, len(new_hier))
-
-    return _normalize_and_dedupe_candidates(candidates)
-
-
 def _retrieve_candidates(
     extracted_components: dict,
     attribute_searcher: AttributeSearcher,
-    reference_examples: list,
     hierarchy_settings: HierarchySettings
 ) -> SearchResult:
     """Step 3: Embed each inferred attribute value and retrieve SNOMED candidates.
@@ -360,13 +243,11 @@ def _retrieve_candidates(
     Args:
         extracted_components: Parsed extraction output ``{attr_key: [free-text values]}``.
         attribute_searcher: Attribute searcher (pgvector or legacy dict).
-        reference_examples: Reference examples (for enrichment).
         hierarchy_settings: Pipeline configuration.
 
     Returns:
         SearchResult(candidates_df, total_embedding_cost).
     """
-    reference_values_by_attr = _collect_reference_values(reference_examples)
     mentions = _unpack_mentions(extracted_components)
 
     if not mentions:
@@ -388,7 +269,6 @@ def _retrieve_candidates(
         if len(candidates) == 0:
             continue
 
-        candidates = _normalize_and_dedupe_candidates(candidates)
         candidates["extracted_mention"] = mention
         candidates["attribute_key"] = attr_key
 
@@ -408,7 +288,7 @@ def _retrieve_candidates(
         all_candidates.append(candidates)
 
     candidates_df = (
-        _ensure_candidate_columns(pd.concat(all_candidates, ignore_index=True))
+        pd.concat(all_candidates, ignore_index=True)
         if all_candidates
         else pd.DataFrame(columns=CANDIDATE_COLUMNS)
     )
@@ -438,23 +318,6 @@ def _build_selection_prompt(candidates_df: pd.DataFrame) -> str:
         return ""
 
     candidates_df = candidates_df.copy()
-    if "attribute_key" not in candidates_df.columns:
-        if "attribute_category" not in candidates_df.columns:
-            return ""
-        # Backward-compatible fallback for callers that only provide SNOMED categories.
-        candidates_df["attribute_key"] = (
-            candidates_df["attribute_category"]
-            .map(SNOMED_CATEGORY_TO_ATTR_KEY)
-            .fillna(candidates_df["attribute_category"])
-        )
-
-    if "concept_id" not in candidates_df.columns or "concept_name" not in candidates_df.columns:
-        return ""
-
-    if "extracted_mention" not in candidates_df.columns:
-        candidates_df["extracted_mention"] = ""
-    if "similarity" not in candidates_df.columns:
-        candidates_df["similarity"] = None
 
     parts: list[str] = []
     paired_parts: dict[str, list[str]] = {}
@@ -484,10 +347,6 @@ def _build_selection_prompt(candidates_df: pd.DataFrame) -> str:
 
     return "\n".join(parts)
 
-
-# ---------------------------------------------------------------------------
-# Main pipeline entry point
-# ---------------------------------------------------------------------------
 
 def _enforce_interprets_pairing(attrs: dict) -> None:
     """Normalise interprets/interpretation keys into paired ``interprets_interpretation``.
@@ -577,7 +436,7 @@ def _attach_pipeline_metadata(
     }
 
 
-def find_attributes_two_stage(
+def extract_attributes(
     medical_term: str,
     attribute_searcher: AttributeSearcher,
     reference_searcher: ReferenceSearcher | None = None,
@@ -616,7 +475,7 @@ def find_attributes_two_stage(
     # Step 3
     logger.debug("Step 3: Retrieving candidates...")
     candidates_df, embedding_cost = _retrieve_candidates(
-        components, attribute_searcher, reference_examples,
+        components, attribute_searcher,
         hierarchy_settings=hierarchy_settings
     )
 

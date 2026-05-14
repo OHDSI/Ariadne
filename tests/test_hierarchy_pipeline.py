@@ -5,7 +5,7 @@ import pytest
 
 import pandas as pd
 
-import ariadne.hierarchy.pipeline as pipeline
+import ariadne.hierarchy.llm_attribute_extractor as pipeline
 from ariadne.utils.settings import HierarchySettings
 
 
@@ -63,7 +63,7 @@ def test_find_attributes_two_stage_skips_selection_when_no_candidates(monkeypatc
 
     monkeypatch.setattr(pipeline, "call_llm", _raise_if_called)
 
-    result = pipeline.find_attributes_two_stage(
+    result = pipeline.extract_attributes(
         "Late effect of rickets",
         attribute_searcher=cast(pipeline.AttributeSearcher, object()),
         reference_searcher=None,

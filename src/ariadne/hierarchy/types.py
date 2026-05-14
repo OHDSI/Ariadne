@@ -4,7 +4,7 @@ NamedTuple result types provide self-documenting returns while remaining
 backward-compatible with existing ``a, b = func()`` unpacking.
 
 interprets ↔ interpretation helpers centralise the paired-attribute logic
-that was previously duplicated across pipeline.py and evaluator.py.
+that was previously duplicated across llm_attribute_extractor.py and hierarchy_attribute_evaluator.py.
 """
 
 from __future__ import annotations
