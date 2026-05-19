@@ -15,6 +15,7 @@ INPUT_CSV = Path(r"E:\git\Ariadne\data\sample_data\drug_codes_2_sample.csv")
 INPUT_DICT_MD = Path(r"E:\git\Ariadne\data\sample_data\drug_codes_2_dictionary.md")
 DRUG_RESULTS_FOLDER = Path(r"E:\git\Ariadne\sandbox\drug_results")
 DRUG_CODE_COLUMN = "APPID"
+FULL_DRUG_NAME_COLUMN = "NM_AMPP"
 
 
 def main() -> None:
@@ -36,32 +37,49 @@ def main() -> None:
     DRUG_RESULTS_FOLDER.mkdir(parents=True, exist_ok=True)
     classify_path = DRUG_RESULTS_FOLDER / "classification.csv"
     ingredient_path = DRUG_RESULTS_FOLDER / "ingredients.csv"
+    ingredient_debug_path = DRUG_RESULTS_FOLDER / "ingredients_with_full_drug_name.csv"
     drug_path = DRUG_RESULTS_FOLDER / "drugs.csv"
     device_path = DRUG_RESULTS_FOLDER / "devices.csv"
     result.classification_df.to_csv(classify_path, index=False)
     result.ingredient_df.to_csv(ingredient_path, index=False)
-    result.drug_df.to_csv(drug_path, index=False)
-    result.device_df.to_csv(device_path, index=False)
 
-    # Stage 2: Normalize drug attributes and save to files
-    normalized_result = normalize_structured_drugs(result)
+    # Debug export: keep ingredient rows but add NM_AMPP when available from source input.
+    ingredient_debug_df = result.ingredient_df.copy()
+    if FULL_DRUG_NAME_COLUMN not in ingredient_debug_df.columns and FULL_DRUG_NAME_COLUMN in source_df.columns:
+        merge_columns = [DRUG_CODE_COLUMN, FULL_DRUG_NAME_COLUMN]
+        ingredient_debug_df = ingredient_debug_df.merge(
+            source_df[merge_columns].drop_duplicates(subset=[DRUG_CODE_COLUMN]),
+            left_on="drug_code",
+            right_on=DRUG_CODE_COLUMN,
+            how="left",
+        )
 
-    drug_concept_stage_path = DRUG_RESULTS_FOLDER / "drug_concept_stage.csv"
-    internal_relationship_stage_path = DRUG_RESULTS_FOLDER / "internal_relationship_stage.csv"
-    ds_stage_path = DRUG_RESULTS_FOLDER / "ds_stage.csv"
-    normalized_result.drug_concept_stage.to_csv(drug_concept_stage_path, index=False)
-    normalized_result.internal_relationship_stage.to_csv(internal_relationship_stage_path, index=False)
-    normalized_result.ds_stage.to_csv(ds_stage_path, index=False)
+    ingredient_debug_df.to_csv(ingredient_debug_path, index=False)
 
-    # Stage 3: Map to standard concepts
-    drug_mapper = DrugMapper(configDrugMapping)
-    mapped_drugs = drug_mapper.map_drug_concepts(normalized_result.drug_concept_stage)
-    mapped_drugs_path = DRUG_RESULTS_FOLDER / "relationship_to_concept.csv"
-    mapped_drugs.to_csv(mapped_drugs_path, index=False)
+    # result.drug_df.to_csv(drug_path, index=False)
+    # result.device_df.to_csv(device_path, index=False)
+    #
+    # # Stage 2: Normalize drug attributes and save to files
+    # normalized_result = normalize_structured_drugs(result)
+    #
+    # drug_concept_stage_path = DRUG_RESULTS_FOLDER / "drug_concept_stage.csv"
+    # internal_relationship_stage_path = DRUG_RESULTS_FOLDER / "internal_relationship_stage.csv"
+    # ds_stage_path = DRUG_RESULTS_FOLDER / "ds_stage.csv"
+    # normalized_result.drug_concept_stage.to_csv(drug_concept_stage_path, index=False)
+    # normalized_result.internal_relationship_stage.to_csv(internal_relationship_stage_path, index=False)
+    # normalized_result.ds_stage.to_csv(ds_stage_path, index=False)
+    #
+    # # Stage 3: Map to standard concepts
+    # drug_mapper = DrugMapper(configDrugMapping)
+    # mapped_drugs = drug_mapper.map_drug_concepts(normalized_result.drug_concept_stage)
+    # mapped_drugs_path = DRUG_RESULTS_FOLDER / "relationship_to_concept.csv"
+    # mapped_drugs.to_csv(mapped_drugs_path, index=False)
 
 
 if __name__ == "__main__":
     main()
+
+
 
 
 

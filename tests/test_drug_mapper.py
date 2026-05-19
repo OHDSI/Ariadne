@@ -159,6 +159,7 @@ def test_drug_mapper_runs_class_specific_pipeline(monkeypatch, tmp_path):
         "source_name",
         "mapped_concept_id",
         "mapped_concept_name",
+        "drug_class_id",
     }
 
     result = {
@@ -172,6 +173,17 @@ def test_drug_mapper_runs_class_specific_pipeline(monkeypatch, tmp_path):
     assert result["UNIT_1"] == 200
     assert result["DEV_1"] == 500
     assert "DRUG_1" not in result
+
+    class_result = {
+        row["concept_code"]: row["drug_class_id"]
+        for row in relationship_to_concept.to_dict("records")
+    }
+    assert class_result["ING_1"] == "Ingredient"
+    assert class_result["BR_1"] == "Brand Name"
+    assert class_result["DF_1"] == "Dose Form"
+    assert class_result["SUP_1"] == "Supplier"
+    assert class_result["UNIT_1"] == "Unit"
+    assert class_result["DEV_1"] == "Device"
 
 
 def test_drug_mapper_requires_exact_class_config(tmp_path):

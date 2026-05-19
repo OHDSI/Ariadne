@@ -146,7 +146,7 @@ class DrugMapper:
 
         relevant_rows = drug_concept_stage[drug_concept_stage["concept_class_id"].isin(_SUPPORTED_CONCEPT_CLASSES)].copy()
         if relevant_rows.empty:
-            return pd.DataFrame(columns=["concept_code_1", "concept_id"])
+            return pd.DataFrame(columns=["concept_code", "source_name", "mapped_concept_id", "mapped_concept_name", "drug_class_id"])
 
         mapped_batches = []
         for concept_class_id in _SUPPORTED_CONCEPT_CLASSES:
@@ -167,10 +167,11 @@ class DrugMapper:
 
             cc = self.config.mapping_per_concept_class[config_key]
             class_mapped = self._map_class_rows(class_rows, cc)
+            class_mapped["drug_class_id"] = concept_class_id
             mapped_batches.append(class_mapped)
 
         if not mapped_batches:
-            return pd.DataFrame(columns=["concept_code", "source_name", "mapped_concept_id", "mapped_concept_name"])
+            return pd.DataFrame(columns=["concept_code", "source_name", "mapped_concept_id", "mapped_concept_name", "drug_class_id"])
 
         relationship_to_concept = pd.concat(mapped_batches, ignore_index=True)
         relationship_to_concept = relationship_to_concept.rename(columns={
