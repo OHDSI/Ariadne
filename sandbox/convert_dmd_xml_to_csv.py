@@ -262,18 +262,18 @@ def denormalize(output_dir: Path) -> None:
 
     # --- B. Routes of Administration ---
     vmp_route_df = pd.read_csv(output_dir / "f_vmp2_3290525__DRUG_ROUTE.csv")
-    vmp_route_df = vmp_route_df.merge(route_lookup_df[["CD", "CDDT"]], left_on="ROUTECD", right_on="CD", how="left")
+    vmp_route_df = vmp_route_df.merge(route_lookup_df[["CD", "DESC"]], left_on="ROUTECD", right_on="CD", how="left")
 
     # Aggregate multiple routes into one string per VMP
-    vmp_routes_agg = vmp_route_df.groupby("VPID")["CDDT"].apply(
+    vmp_routes_agg = vmp_route_df.groupby("VPID")["DESC"].apply(
         lambda x: " | ".join(x.dropna().astype(str))
     ).reset_index(name="AGGREGATED_ROUTES")
 
     # --- C. Dose Forms ---
     vmp_form_df = pd.read_csv(output_dir / "f_vmp2_3290525__DRUG_FORM.csv")
-    vmp_form_df = vmp_form_df.merge(form_lookup_df[["CD", "CDDT"]], left_on="FORMCD", right_on="CD", how="left")
+    vmp_form_df = vmp_form_df.merge(form_lookup_df[["CD", "DESC"]], left_on="FORMCD", right_on="CD", how="left")
     # Typically 1 dose form per VMP, but grouping ensures no duplicates
-    vmp_forms_agg = vmp_form_df.groupby("VPID")["CDDT"].first().reset_index(name="DOSE_FORM")
+    vmp_forms_agg = vmp_form_df.groupby("VPID")["DESC"].first().reset_index(name="DOSE_FORM")
 
     # ==========================================
     # 4. BUILD THE FLATTENED MASTER TABLE
