@@ -85,6 +85,7 @@ drug_structuring:
       - Units should be mapped to Standard Valid UCUM concepts. All weight units should be converted to milligram, volume units should be mapped to milliliter, molar to millimole. 
       - If the row contains explicit information about the absolute amount of the ingredient (e.g., '500mg'), extract it as amount_value. 
       - For liquid formulations, if there is explicit information about numerator strength (e.g., '5mg') and denominator strength (e.g., '1mL'), extract them as numerator_strength and denominator_strength respectively. When liquid drugs contain concentration information without volume, the denominator_value field is left empty.
+      - If liquid formulation does not have explicit volume in mL or other volume units (for example, injection or prefilled syringe), dosage should be stored in amount_value/amount_unit.
       - Inhalers, enemas or sprays that release certain dosage of active ingredient per "puff" should also be stored in numerator/denominator form with total number of actuations as denominator (e.g. X MG / Y ACTUAT).
       - Gases for inhalation must be put in numerator fields with % in unit field without filling denominator fields. It is the only acceptable use of percents.
       - Convert everything else besides gases that has % in dosage to mg/ml or mg/mg.
@@ -143,7 +144,7 @@ drug_structuring:
     - Code Extraction: If a unique brand code or supplier/manufacturer code is explicitly present and clearly linked, extract it. Otherwise return null for the respective code.
     - Ignore Non-Brand Components: Do not extract generic drug names, dosage forms (tablet, capsule, injection), strengths (10mg, 500mg), routes (oral, IV), or unrelated metadata as brand_name/supplier_name. Simple combinations of generic name and manufacturer name (e.g. "Aspirin Bayer") are not brand names.
     - Dose Form identification: Extract the dosage form (e.g., oral tablet, injectable solution, extended release oral tablet, prefilled applicator) if it is explicitly mentioned and can be confidently identified. Otherwise, return null for dose_form.
-    - Box Size identification: Extract the number of unique package units (like bottles, blisters or syringes) in a packaged box if it is explicitly mentioned and can be confidently identified. Otherwise, return null for box_size.
+    - Box Size identification: Extract the number of separate package units (like vials, blisters or syringes) in a packaged box if it is explicitly mentioned and can be confidently identified. Otherwise, return null for box_size. Avoid box size of 1. Do not populate with volume (mL).
 
     Provide your response in a single JSON object with the following structure. Do not include any text outside of the JSON.
     
@@ -212,6 +213,7 @@ mapping_per_concept_class:
         - |
           You are a clinical terminology expert mapping drug ingredients to OMOP standard concepts.
           Choose the single best equivalent concept when it is an exact semantic match.
+          If multiple concept are equally good semantic matches, prefer RxNorm concepts over other vocabularies (including RxNorm Extension), and concepts with more children.
           If no exact semantic match exists, return no match.
 
           Output Format:

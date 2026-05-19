@@ -1,4 +1,5 @@
 import pandas as pd
+import pytest
 
 from ariadne.llm_mapping.llm_drug_structurer import (
     DrugStructureResult,
@@ -297,3 +298,49 @@ def test_normalize_structured_drugs_builds_all_stages_with_fallback_codes():
         "denominator_unit": None,
         "box_size": 20,
     } in ds_records
+
+
+def test_structurer_init_fails_when_dictionary_file_missing(tmp_path):
+    missing_file = tmp_path / "missing_dictionary.md"
+    with pytest.raises(ValueError, match="dictionary_markdown_file"):
+        LlmDrugStructurer(settings=_make_settings(str(tmp_path)), dictionary_markdown_file=str(missing_file))
+
+
+def test_dictionary_context_is_added_only_for_target_stages_and_affects_cache_key(tmp_path, monkeypatch):
+    dictionary_file = tmp_path / "dictionary.md"
+    dictionary_file.write_text("- FIELD_X: meaning", encoding="utf-8")
+
+    structurer = LlmDrugStructurer(
+        settings=_make_settings(str(tmp_path)),
+        dictionary_markdown_file=str(dictionary_file),
+    )
+
+    seen_system_prompts = []
+
+    def fake_get_llm_response(prompt, system_prompt, json_schema, json_schema_name):
+        seen_system_prompts.append(system_prompt)
+        return {
+            "content": '{"results": []}',
+            "parsed_json": {"results": []},
+            "usage": {"total_cost_usd": 0.0},
+        }
+
+    monkeypatch.setattr("ariadne.llm_mapping.llm_drug_structurer.get_llm_response", fake_get_llm_response)
+
+    records = [{"row_number": 0, "name": "sample"}]
+    schema = {"type": "object", "properties": {"results": {"type": "array"}}, "required": ["results"]}
+
+    structurer._call_llm_batch("classify", records, "classify base", schema)
+    structurer._call_llm_batch("ingredient", records, "ingredient base", schema)
+
+    assert "Additional source dictionary context" not in seen_system_prompts[0]
+    assert "Additional source dictionary context" in seen_system_prompts[1]
+    assert "FIELD_X: meaning" in seen_system_prompts[1]
+
+    ingredient_prompt_with_dictionary = structurer._effective_system_prompt("ingredient", "ingredient base")
+    ingredient_prompt_without_dictionary = "ingredient base"
+    key_with_dictionary = structurer._cache_key("ingredient", records, ingredient_prompt_with_dictionary)
+    key_without_dictionary = structurer._cache_key("ingredient", records, ingredient_prompt_without_dictionary)
+    assert key_with_dictionary != key_without_dictionary
+
+

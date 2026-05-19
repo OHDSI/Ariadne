@@ -10,7 +10,8 @@ from ariadne.llm_mapping.llm_drug_structurer import (
 from ariadne.utils.config_drug_mapping import ConfigDrugMapping
 
 
-INPUT_CSV = Path(r"E:\git\Ariadne\data\sample_data\drug_codes_sample.csv")
+INPUT_CSV = Path(r"E:\git\Ariadne\data\sample_data\drug_codes_2_sample.csv")
+INPUT_DICT_MD = Path(r"E:\git\Ariadne\data\sample_data\drug_codes_2_dictionary.md")
 DRUG_RESULTS_FOLDER = Path(r"E:\git\Ariadne\sandbox\drug_results")
 DRUG_CODE_COLUMN = "code"
 
@@ -22,7 +23,10 @@ def main() -> None:
     source_df = pd.read_csv(INPUT_CSV, dtype=str)
 
     # Stage 1: Structure drug data and save to files
-    structurer = LlmDrugStructurer(settings=configDrugMapping.drug_structuring)
+    structurer = LlmDrugStructurer(
+        settings=configDrugMapping.drug_structuring,
+        dictionary_markdown_file=INPUT_DICT_MD,
+    )
     result = structurer.structure_drugs(source_df, drug_code_column=DRUG_CODE_COLUMN)
 
     DRUG_RESULTS_FOLDER.mkdir(parents=True, exist_ok=True)

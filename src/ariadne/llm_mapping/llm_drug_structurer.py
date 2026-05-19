@@ -9,9 +9,11 @@ import pandas as pd
 
 from ariadne.utils.settings import DrugStructuringSettings
 from ariadne.utils.gen_ai_api import get_llm_response
+from ariadne.utils.utils import resolve_path
 
 
 _BATCH_SIZE = 25
+_DICTIONARY_CONTEXT_STAGES = {"ingredient", "drug", "device"}
 
 _CLASSIFICATION_SCHEMA = {
     "type": "object",
@@ -367,11 +369,41 @@ def normalize_structured_drugs(structured: DrugStructureResult) -> NormalizedDru
 
 
 class LlmDrugStructurer:
-    def __init__(self, settings: DrugStructuringSettings):
+    def __init__(
+        self,
+        settings: DrugStructuringSettings,
+        dictionary_markdown_file: str | os.PathLike[str] | None = None,
+    ):
         self.responses_folder = settings.llm_mapper_responses_folder
         os.makedirs(self.responses_folder, exist_ok=True)
         self._cost = 0.0
         self.drug_structuring_prompts = settings
+        self._dictionary_context_markdown = self._load_dictionary_context(dictionary_markdown_file)
+
+    @staticmethod
+    def _load_dictionary_context(dictionary_markdown_file: str | os.PathLike[str] | None) -> str | None:
+        if not dictionary_markdown_file:
+            return None
+        resolved_dictionary_path = resolve_path(os.fspath(dictionary_markdown_file))
+        try:
+            with open(resolved_dictionary_path, "r", encoding="utf-8") as file_handle:
+                return file_handle.read().strip()
+        except OSError as exc:
+            raise ValueError(
+                f"Could not read dictionary_markdown_file '{resolved_dictionary_path}': {exc}"
+            ) from exc
+
+    def _effective_system_prompt(self, stage: str, system_prompt: str) -> str:
+        if stage not in _DICTIONARY_CONTEXT_STAGES or not self._dictionary_context_markdown:
+            return system_prompt
+
+        return (
+            f"{system_prompt.rstrip()}\n\n"
+            "# Additional source dictionary context\n"
+            "Use this dictionary only as source field semantics/context. "
+            "Do not copy text blindly when extracting values.\n\n"
+            f"{self._dictionary_context_markdown}"
+        )
 
     @staticmethod
     def _extract_json_dict(response_text: str) -> dict[str, Any] | None:
@@ -427,8 +459,12 @@ class LlmDrugStructurer:
 
         return None
 
-    def _cache_key(self, stage: str, records: list[dict[str, Any]]) -> str:
-        payload = json.dumps({"stage": stage, "rows": records}, ensure_ascii=False, sort_keys=True)
+    def _cache_key(self, stage: str, records: list[dict[str, Any]], system_prompt: str) -> str:
+        payload = json.dumps(
+            {"stage": stage, "rows": records, "system_prompt": system_prompt},
+            ensure_ascii=False,
+            sort_keys=True,
+        )
         return hashlib.sha256(payload.encode("utf-8")).hexdigest()[:24]
 
     def _call_llm_batch(
@@ -438,7 +474,8 @@ class LlmDrugStructurer:
         system_prompt: str,
         schema: dict[str, Any],
     ) -> dict[str, Any] | None:
-        cache_key = self._cache_key(stage, records)
+        effective_system_prompt = self._effective_system_prompt(stage, system_prompt)
+        cache_key = self._cache_key(stage, records, effective_system_prompt)
         response_file = os.path.join(self.responses_folder, f"drug_structurer_{stage}_{cache_key}.txt")
 
         if os.path.exists(response_file):
@@ -459,7 +496,7 @@ class LlmDrugStructurer:
 
         response_with_usage = get_llm_response(
             prompt=prompt,
-            system_prompt=system_prompt,
+            system_prompt=effective_system_prompt,
             json_schema=schema,
             json_schema_name=f"drug_structurer_{stage}",
         )
