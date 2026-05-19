@@ -152,7 +152,7 @@ def test_drug_mapper_runs_class_specific_pipeline(monkeypatch, tmp_path):
 
     relationship_to_concept = mapper.map_drug_concepts(drug_concept_stage)
 
-    assert len(download_calls) == 6
+    assert len(download_calls) == 7
     assert hecate_limits and all(limit == 17 for limit in hecate_limits)
     assert set(relationship_to_concept.columns) == {
         "concept_code",
@@ -190,3 +190,62 @@ def test_drug_mapper_requires_exact_class_config(tmp_path):
         raise AssertionError("Expected ValueError for missing class config")
     except ValueError as err:
         assert "brand_name" in str(err)
+
+
+def test_brand_name_rows_matching_ingredient_terms_are_removed(monkeypatch, tmp_path):
+    config = _build_test_config(tmp_path)
+    mapper = DrugMapper(config=config)
+
+    class FakeVerbatimMapper:
+        def __init__(self, settings):
+            self.settings = settings
+
+        def map_terms(self, source_terms, term_column, mapped_concept_id_column, mapped_concept_name_column):
+            mapped = source_terms.copy()
+            mapped[mapped_concept_id_column] = -1
+            mapped[mapped_concept_name_column] = ""
+            index_name = Path(self.settings.verbatim_mapping_index_file).name
+            if "ingredient" in index_name:
+                mapped.loc[mapped[term_column] == "Aspirin", mapped_concept_id_column] = 100
+                mapped.loc[mapped[term_column] == "Aspirin", mapped_concept_name_column] = "Aspirin"
+                return mapped
+            mapped.loc[mapped[term_column] == "Tylenol", mapped_concept_id_column] = 300
+            mapped.loc[mapped[term_column] == "Tylenol", mapped_concept_name_column] = "Tylenol"
+            return mapped
+
+    def fake_download_terms(settings):
+        return None
+
+    monkeypatch.setattr("ariadne.llm_mapping.drug_mapper.download_terms", fake_download_terms)
+    monkeypatch.setattr("ariadne.llm_mapping.drug_mapper.VocabVerbatimTermMapper", FakeVerbatimMapper)
+
+    df = pd.DataFrame(
+        [
+            {"concept_name": "Aspirin", "concept_class_id": "Brand Name", "concept_code": "BR_ASP"},
+            {"concept_name": "Tylenol", "concept_class_id": "Brand Name", "concept_code": "BR_TYL"},
+        ]
+    )
+
+    mapped = mapper.map_drug_concepts(df)
+
+    assert set(mapped["concept_code"]) == {"BR_TYL"}
+    assert mapped.iloc[0]["mapped_concept_id"] == 300
+
+
+def test_brand_name_mapping_requires_ingredient_config_for_prefilter(tmp_path):
+    config = _build_test_config(tmp_path)
+    del config.mapping_per_concept_class["ingredient"]
+    mapper = DrugMapper(config=config)
+
+    df = pd.DataFrame(
+        [
+            {"concept_name": "Tylenol", "concept_class_id": "Brand Name", "concept_code": "BR_1"},
+        ]
+    )
+
+    try:
+        mapper.map_drug_concepts(df)
+        raise AssertionError("Expected ValueError when ingredient config is missing for brand pre-filter")
+    except ValueError as err:
+        assert "ingredient" in str(err)
+

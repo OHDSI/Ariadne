@@ -6,7 +6,7 @@ from ariadne.llm_mapping.llm_mapper import LlmMapper
 from ariadne.utils.settings import LlmMapperSettings, ConceptContextSettings
 
 
-def _make_settings(responses_folder, re_insert_target_details=False):
+def _make_settings(responses_folder, re_insert_target_details=False, include_child_count=False):
     return LlmMapperSettings(
         llm_mapper_responses_folder=responses_folder,
         context=ConceptContextSettings(
@@ -16,6 +16,7 @@ def _make_settings(responses_folder, re_insert_target_details=False):
             include_target_domain=False,
             include_target_class=False,
             include_target_vocabulary=False,
+            include_target_clinical_drug_form_child_count=include_child_count,
             re_insert_source_target_details=re_insert_target_details,
         ),
         system_prompts=["step1", "step2"],
@@ -344,3 +345,56 @@ def test_map_terms_groups_by_term_when_source_id_column_is_none(tmp_path, monkey
     assert {call["source_term"] for call in calls} == {"acute mi", "heart attack"}
     assert all(call["candidate_count"] == 1 for call in calls)
     assert len(mapped) == 2
+
+
+def test_map_term_includes_clinical_drug_form_child_count_when_enabled(tmp_path, monkeypatch):
+    mapper = LlmMapper(settings=_make_settings(str(tmp_path), include_child_count=True))
+    calls = []
+    target_concepts = pd.DataFrame(
+        {
+            "matched_concept_id": [111, 222],
+            "matched_concept_name": ["Wrong concept", "Exact concept"],
+            "matched_clinical_drug_form_child_count": [3, 14],
+        }
+    )
+
+    def fake_get_llm_response(prompt, system_prompt, show_reasoning=False, json_schema=None, **kwargs):
+        calls.append({"prompt": prompt, "json_schema": json_schema})
+        if json_schema is None:
+            return {
+                "content": "intermediate response",
+                "parsed_json": None,
+                "usage": {"total_cost_usd": 0.2},
+            }
+        return {
+            "content": json.dumps(
+                {
+                    "source_term": "Acute myocardial infarction",
+                    "match_found": True,
+                    "concept_id": 222,
+                    "justification": "Exact concept match",
+                }
+            ),
+            "parsed_json": {
+                "source_term": "Acute myocardial infarction",
+                "match_found": True,
+                "concept_id": 222,
+                "justification": "Exact concept match",
+            },
+            "usage": {"total_cost_usd": 0.3},
+        }
+
+    monkeypatch.setattr("ariadne.llm_mapping.llm_mapper.get_llm_response", fake_get_llm_response)
+
+    mapped_id, mapped_name, rationale = mapper.map_term(
+        "Acute myocardial infarction",
+        source_id="45",
+        target_concepts=target_concepts,
+    )
+
+    assert mapped_id == 222
+    assert mapped_name == "Exact concept"
+    assert rationale == "Exact concept match"
+    assert '"concept_clinical_drug_form_child_count":3' in calls[0]["prompt"]
+    assert '"concept_clinical_drug_form_child_count":14' in calls[0]["prompt"]
+

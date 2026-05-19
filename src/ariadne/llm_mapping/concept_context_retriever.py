@@ -20,6 +20,8 @@ def _create_query(
     children_column: str,
     add_synonyms: bool,
     synonyms_column: str,
+    add_clinical_drug_form_child_count: bool,
+    clinical_drug_form_child_count_column: str,
     engine: Engine,
 ):
     vocabulary_schema = get_environment_variable("VOCAB_SCHEMA")
@@ -84,6 +86,29 @@ def _create_query(
         )
         synonym_names = synonyms_sq.columns
 
+    if add_clinical_drug_form_child_count:
+        clinical_drug_form = concept.alias("clinical_drug_form")
+        clinical_drug_form_counts_sq = (
+            select(
+                concept_ancestor.c.ancestor_concept_id.label("concept_id"),
+                func.count(func.distinct(clinical_drug_form.c.concept_id)).label("clinical_drug_form_child_count"),
+            )
+            .select_from(concept_ancestor)
+            .join(clinical_drug_form, concept_ancestor.c.descendant_concept_id == clinical_drug_form.c.concept_id)
+            .where(
+                and_(
+                    concept_ancestor.c.min_levels_of_separation >= 1,
+                    clinical_drug_form.c.concept_class_id == "Clinical Drug Form",
+                    clinical_drug_form.c.standard_concept == "S",
+                    clinical_drug_form.c.domain_id == "Drug",
+                    clinical_drug_form.c.vocabulary_id.in_(["RxNorm", "RxNorm Extension"]),
+                )
+            )
+            .group_by(concept_ancestor.c.ancestor_concept_id)
+            .alias("clinical_drug_form_child_counts")
+        )
+        clinical_drug_form_child_counts = clinical_drug_form_counts_sq.columns
+
     select_columns = [
         concept.c.concept_id,
         concept.c.concept_class_id.label(concept_class_id_column),
@@ -96,6 +121,12 @@ def _create_query(
         select_columns.append(func.coalesce(child_names.child_names, literal_column("")).label(children_column))
     if add_synonyms:
         select_columns.append(func.coalesce(synonym_names.synonym_names, literal_column("")).label(synonyms_column))
+    if add_clinical_drug_form_child_count:
+        select_columns.append(
+            func.coalesce(clinical_drug_form_child_counts.clinical_drug_form_child_count, literal(0)).label(
+                clinical_drug_form_child_count_column
+            )
+        )
 
     query = select(*select_columns).select_from(concept).where(concept.c.concept_id.in_(concept_ids))
 
@@ -105,6 +136,11 @@ def _create_query(
         query = query.outerjoin(children_Sq, concept.c.concept_id == child_names.concept_id)
     if add_synonyms:
         query = query.outerjoin(synonyms_sq, concept.c.concept_id == synonym_names.concept_id)
+    if add_clinical_drug_form_child_count:
+        query = query.outerjoin(
+            clinical_drug_form_counts_sq,
+            concept.c.concept_id == clinical_drug_form_child_counts.concept_id,
+        )
 
     return query
 
@@ -121,6 +157,8 @@ def add_concept_context(
     children_column: str = "matched_children",
     add_synonyms: bool = True,
     synonyms_column: str = "matched_synonyms",
+    add_clinical_drug_form_child_count: bool = False,
+    clinical_drug_form_child_count_column: str = "matched_clinical_drug_form_child_count",
 ) -> pd.DataFrame:
     """
     Adds concept context (domain, concept class, vocabulary, parents, children, synonyms) to the given concept table.
@@ -139,6 +177,8 @@ def add_concept_context(
         children_column: Name of the column for child concept names.
         add_synonyms: Whether to add concept synonyms.
         synonyms_column: Name of the column for concept synonyms.
+        add_clinical_drug_form_child_count: Whether to add count of descendant Clinical Drug Form concepts.
+        clinical_drug_form_child_count_column: Name of the column for Clinical Drug Form descendant count.
 
     Returns:
         DataFrame enriched with concept context columns.
@@ -158,6 +198,8 @@ def add_concept_context(
         children_column=children_column,
         add_synonyms=add_synonyms,
         synonyms_column=synonyms_column,
+        add_clinical_drug_form_child_count=add_clinical_drug_form_child_count,
+        clinical_drug_form_child_count_column=clinical_drug_form_child_count_column,
         engine=engine,
     )
 

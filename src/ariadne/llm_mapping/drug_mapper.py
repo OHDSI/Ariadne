@@ -1,3 +1,5 @@
+import logging
+
 import pandas as pd
 
 from ariadne.llm_mapping.concept_context_retriever import add_concept_context
@@ -27,6 +29,8 @@ _CONCEPT_CLASS_TO_CONFIG_KEY = {
     "Device": "device",
 }
 
+_LOGGER = logging.getLogger(__name__)
+
 
 class DrugMapper:
     def __init__(self, config: ConfigDrugMapping = ConfigDrugMapping()):
@@ -48,6 +52,34 @@ class DrugMapper:
             concept_class_ids=scf.concept_class_ids,
             vocabulary_ids=scf.vocabularies,
         )
+
+    def _filter_brand_rows_matching_ingredients(self, brand_rows: pd.DataFrame) -> pd.DataFrame:
+        if brand_rows.empty:
+            return brand_rows
+        if "ingredient" not in self.config.mapping_per_concept_class:
+            raise ValueError(
+                "Brand Name mapping requires 'ingredient' config to pre-filter ingredient-like brand names."
+            )
+
+        ingredient_vm_settings = self.config.mapping_per_concept_class["ingredient"].verbatim_mapping
+        download_terms(settings=ingredient_vm_settings)
+        ingredient_verbatim_mapper = VocabVerbatimTermMapper(settings=ingredient_vm_settings)
+
+        brand_probe = brand_rows[["concept_code", "concept_name"]].copy()
+        brand_probe = ingredient_verbatim_mapper.map_terms(
+            source_terms=brand_probe,
+            term_column="concept_name",
+            mapped_concept_id_column="mapped_concept_id",
+            mapped_concept_name_column="mapped_concept_name",
+        )
+        to_remove_codes = set(brand_probe.loc[brand_probe["mapped_concept_id"] != -1, "concept_code"])
+        if to_remove_codes:
+            _LOGGER.info(
+                "Removed %d Brand Name rows that matched ingredient verbatim index.",
+                len(to_remove_codes),
+            )
+            return brand_rows[~brand_rows["concept_code"].isin(to_remove_codes)].copy()
+        return brand_rows
 
     def _map_class_rows(self, class_rows: pd.DataFrame, cc: MappingPerConceptClassSettings) -> pd.DataFrame:
         vm_settings = cc.verbatim_mapping
@@ -86,6 +118,9 @@ class DrugMapper:
                     add_parents=True,
                     add_children=False,
                     add_synonyms=True,
+                    add_clinical_drug_form_child_count=(
+                        context_cfg.include_target_clinical_drug_form_child_count
+                    ),
                 )
                 llm_settings.context.include_target_children = False
                 mapper = LlmMapper(settings=llm_settings)
@@ -125,17 +160,20 @@ class DrugMapper:
                     f"Missing mapping_per_concept_class config for '{config_key}' ({concept_class_id})"
                 )
 
+            if concept_class_id == "Brand Name":
+                class_rows = self._filter_brand_rows_matching_ingredients(class_rows)
+                if class_rows.empty:
+                    continue
+
             cc = self.config.mapping_per_concept_class[config_key]
             class_mapped = self._map_class_rows(class_rows, cc)
             mapped_batches.append(class_mapped)
 
         if not mapped_batches:
-            return pd.DataFrame(columns=["concept_code", "source_name", "concept_id", "concept_name"])
+            return pd.DataFrame(columns=["concept_code", "source_name", "mapped_concept_id", "mapped_concept_name"])
 
         relationship_to_concept = pd.concat(mapped_batches, ignore_index=True)
         relationship_to_concept = relationship_to_concept.rename(columns={
             "concept_name": "source_name",
-            "mappend_concept_id": "concept_id",
-            "mappend_concept_name": "concept_name",
         })
         return relationship_to_concept

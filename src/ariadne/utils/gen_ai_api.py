@@ -22,6 +22,11 @@ _PRICING_TABLE = {
 
 _TEMPERATURE_OK_MODELS = {"gpt-4o", "gpt-4", "gpt-35-turbo", "gpt-4o-mini", "gpt-4-turbo", "gpt-3.5-turbo"}
 
+logging.getLogger("httpcore").setLevel(logging.WARNING)
+logging.getLogger("httpcore.connection").setLevel(logging.WARNING)
+logging.getLogger("httpcore.http11").setLevel(logging.WARNING)
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("openai").setLevel(logging.WARNING)
 
 class _AIClientFactory:
 

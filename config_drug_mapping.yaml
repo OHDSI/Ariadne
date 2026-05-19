@@ -213,7 +213,8 @@ mapping_per_concept_class:
         - |
           You are a clinical terminology expert mapping drug ingredients to OMOP standard concepts.
           Choose the single best equivalent concept when it is an exact semantic match.
-          If multiple concept are equally good semantic matches, prefer RxNorm concepts over other vocabularies (including RxNorm Extension), and concepts with more children.
+          If multiple concept are equally good semantic matches, prefer RxNorm concepts over other vocabularies (including RxNorm Extension).
+          If still tied, prefer candidates with higher concept_clinical_drug_form_child_count.
           If no exact semantic match exists, return no match.
 
           Output Format:
@@ -226,6 +227,8 @@ mapping_per_concept_class:
             "justification": "string"
           }
           Return only these four keys and no additional keys.
+      context:
+        include_target_clinical_drug_form_child_count: true
 
   brand_name:
     verbatim_mapping:
