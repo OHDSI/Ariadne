@@ -1,7 +1,9 @@
 import hashlib
 import json
+import logging
 import os
 import re
+import time
 from dataclasses import dataclass
 from typing import Any
 
@@ -14,6 +16,8 @@ from ariadne.utils.utils import resolve_path
 
 _BATCH_SIZE = 25
 _DICTIONARY_CONTEXT_STAGES = {"ingredient", "drug", "device"}
+
+logger = logging.getLogger(__name__)
 
 _CLASSIFICATION_SCHEMA = {
     "type": "object",
@@ -379,6 +383,12 @@ class LlmDrugStructurer:
         self._cost = 0.0
         self.drug_structuring_prompts = settings
         self._dictionary_context_markdown = self._load_dictionary_context(dictionary_markdown_file)
+        self._run_metrics: dict[str, Any] | None = None
+
+    def _increment_run_metric(self, metric_name: str, amount: int | float = 1) -> None:
+        if self._run_metrics is None:
+            return
+        self._run_metrics[metric_name] = self._run_metrics.get(metric_name, 0) + amount
 
     @staticmethod
     def _load_dictionary_context(dictionary_markdown_file: str | os.PathLike[str] | None) -> str | None:
@@ -479,9 +489,13 @@ class LlmDrugStructurer:
         response_file = os.path.join(self.responses_folder, f"drug_structurer_{stage}_{cache_key}.txt")
 
         if os.path.exists(response_file):
+            self._increment_run_metric("cache_hits")
+            logger.debug("Using cached LLM response for stage=%s rows=%d", stage, len(records))
             with open(response_file, "r", encoding="utf-8") as f:
                 response = f.read()
             if response == "*Content filter triggered*":
+                self._increment_run_metric("content_filter_events")
+                logger.warning("Content filter triggered for cached stage=%s rows=%d cache_key=%s", stage, len(records), cache_key)
                 return None
             parsed_cached = self._extract_json_dict(response)
             if parsed_cached is None:
@@ -500,13 +514,25 @@ class LlmDrugStructurer:
             json_schema=schema,
             json_schema_name=f"drug_structurer_{stage}",
         )
+        self._increment_run_metric("api_calls")
         response = response_with_usage["content"]
         if not response:
+            self._increment_run_metric("content_filter_events")
+            logger.warning("Content filter triggered for stage=%s rows=%d cache_key=%s", stage, len(records), cache_key)
             with open(response_file, "w", encoding="utf-8") as f:
                 f.write("*Content filter triggered*")
             return None
 
-        self._cost = self._cost + response_with_usage["usage"]["total_cost_usd"]
+        batch_cost = response_with_usage["usage"]["total_cost_usd"]
+        self._cost = self._cost + batch_cost
+        self._increment_run_metric("live_cost_usd", batch_cost)
+        logger.debug(
+            "Completed LLM API call for stage=%s rows=%d batch_cost_usd=%.6f total_cost_usd=%.6f",
+            stage,
+            len(records),
+            batch_cost,
+            self._cost,
+        )
 
         with open(response_file, "w", encoding="utf-8") as f:
             f.write(response)
@@ -541,123 +567,164 @@ class LlmDrugStructurer:
         if sort_column is not None:
             sorted_df = sorted_df.sort_values(by=sort_column, kind="mergesort")
         sorted_df = sorted_df.reset_index(drop=True)
+        rows_total = len(sorted_df)
+        rows_processed = 0
+        start_time = time.perf_counter()
+        self._run_metrics = {
+            "live_cost_usd": 0.0,
+            "api_calls": 0,
+            "cache_hits": 0,
+            "content_filter_events": 0,
+        }
+
+        logger.info("Starting drug structuring for rows_total=%d batch_size=%d", rows_total, _BATCH_SIZE)
 
         classification_rows: list[dict[str, Any]] = []
         ingredient_rows: list[dict[str, Any]] = []
         drug_rows: list[dict[str, Any]] = []
         device_rows: list[dict[str, Any]] = []
 
-        for start in range(0, len(sorted_df), _BATCH_SIZE):
-            batch_df = sorted_df.iloc[start : start + _BATCH_SIZE].copy().reset_index(drop=True)
-            if batch_df.empty:
-                continue
-
-            batch_records = self._batch_records(batch_df, drug_code_column)
-
-            classified = self._call_llm_batch(
-                stage="classify",
-                records=batch_records,
-                system_prompt=self.drug_structuring_prompts.drug_device_system_prompt,
-                schema=_CLASSIFICATION_SCHEMA,
-            )
-            if classified is None:
-                continue
-
-            category_by_row: dict[int, str] = {}
-            for item in classified.get("results", []):
-                if not isinstance(item, dict):
+        try:
+            for start in range(0, len(sorted_df), _BATCH_SIZE):
+                batch_df = sorted_df.iloc[start : start + _BATCH_SIZE].copy().reset_index(drop=True)
+                if batch_df.empty:
                     continue
-                row_number = item.get("row_number")
-                if isinstance(row_number, int):
-                    category = self._normalize_category(item.get("category"))
-                    category_by_row[row_number] = category
-                    if 0 <= row_number < len(batch_df):
-                        classification_rows.append(
-                            {
-                                "drug_code": batch_df.iloc[row_number][drug_code_column],
-                                "category": category,
-                            }
-                        )
 
-            drug_row_numbers = [idx for idx in range(len(batch_df)) if category_by_row.get(idx) == "drug"]
-            if drug_row_numbers:
-                drug_records = [batch_records[idx] for idx in drug_row_numbers]
+                batch_records = self._batch_records(batch_df, drug_code_column)
 
-                ingredients = self._call_llm_batch(
-                    stage="ingredient",
-                    records=drug_records,
-                    system_prompt=self.drug_structuring_prompts.ingredient_system_prompt,
-                    schema=_INGREDIENT_SCHEMA,
+                classified = self._call_llm_batch(
+                    stage="classify",
+                    records=batch_records,
+                    system_prompt=self.drug_structuring_prompts.drug_device_system_prompt,
+                    schema=_CLASSIFICATION_SCHEMA,
                 )
-                if ingredients is not None:
-                    for item in ingredients.get("results", []):
-                        if not isinstance(item, dict):
-                            continue
-                        row_number = item.get("row_number")
-                        if not isinstance(row_number, int) or not (0 <= row_number < len(batch_df)):
-                            continue
-                        ingredient_rows.append(
-                            {
-                                "drug_code": batch_df.iloc[row_number][drug_code_column],
-                                "ingredient_name": item.get("ingredient_name"),
-                                "ingredient_code": self._normalize_optional_code(item.get("ingredient_code")),
-                                "amount_value": item.get("amount_value"),
-                                "amount_unit": item.get("amount_unit"),
-                                "numerator_value": item.get("numerator_value"),
-                                "numerator_unit": item.get("numerator_unit"),
-                                "denominator_value": item.get("denominator_value"),
-                                "denominator_unit": item.get("denominator_unit"),
-                            }
+                if classified is None:
+                    rows_processed = rows_processed + len(batch_df)
+                    if rows_processed % _BATCH_SIZE == 0 or rows_processed == rows_total:
+                        logger.info(
+                            "Drug structuring progress rows_processed=%d/%d live_cost_usd=%.6f cache_hits=%d api_calls=%d",
+                            rows_processed,
+                            rows_total,
+                            self._run_metrics["live_cost_usd"],
+                            self._run_metrics["cache_hits"],
+                            self._run_metrics["api_calls"],
                         )
+                    continue
 
-                drugs = self._call_llm_batch(
-                    stage="drug",
-                    records=drug_records,
-                    system_prompt=self.drug_structuring_prompts.drug_system_prompt,
-                    schema=_DRUG_SCHEMA,
-                )
-                if drugs is not None:
-                    for item in drugs.get("results", []):
-                        if not isinstance(item, dict):
-                            continue
-                        row_number = item.get("row_number")
-                        if not isinstance(row_number, int) or not (0 <= row_number < len(batch_df)):
-                            continue
-                        drug_rows.append(
-                            {
-                                "drug_code": batch_df.iloc[row_number][drug_code_column],
-                                "full_product_name": item.get("full_product_name"),
-                                "brand_name": item.get("brand_name"),
-                                "brand_code": self._normalize_optional_code(item.get("brand_code")),
-                                "supplier_name": item.get("supplier_name"),
-                                "supplier_code": self._normalize_optional_code(item.get("supplier_code")),
-                                "dose_form": item.get("dose_form"),
-                                "box_size": item.get("box_size"),
-                            }
-                        )
+                category_by_row: dict[int, str] = {}
+                for item in classified.get("results", []):
+                    if not isinstance(item, dict):
+                        continue
+                    row_number = item.get("row_number")
+                    if isinstance(row_number, int):
+                        category = self._normalize_category(item.get("category"))
+                        category_by_row[row_number] = category
+                        if 0 <= row_number < len(batch_df):
+                            classification_rows.append(
+                                {
+                                    "drug_code": batch_df.iloc[row_number][drug_code_column],
+                                    "category": category,
+                                }
+                            )
 
-            device_row_numbers = [idx for idx in range(len(batch_df)) if category_by_row.get(idx) == "device"]
-            if device_row_numbers:
-                device_records = [batch_records[idx] for idx in device_row_numbers]
-                devices = self._call_llm_batch(
-                    stage="device",
-                    records=device_records,
-                    system_prompt=self.drug_structuring_prompts.device_system_prompt,
-                    schema=_DEVICE_SCHEMA,
-                )
-                if devices is not None:
-                    for item in devices.get("results", []):
-                        if not isinstance(item, dict):
-                            continue
-                        row_number = item.get("row_number")
-                        if not isinstance(row_number, int) or not (0 <= row_number < len(batch_df)):
-                            continue
-                        device_rows.append(
-                            {
-                                "drug_code": batch_df.iloc[row_number][drug_code_column],
-                                "full_device_name": item.get("full_device_name"),
-                            }
-                        )
+                drug_row_numbers = [idx for idx in range(len(batch_df)) if category_by_row.get(idx) == "drug"]
+                if drug_row_numbers:
+                    drug_records = [batch_records[idx] for idx in drug_row_numbers]
+
+                    ingredients = self._call_llm_batch(
+                        stage="ingredient",
+                        records=drug_records,
+                        system_prompt=self.drug_structuring_prompts.ingredient_system_prompt,
+                        schema=_INGREDIENT_SCHEMA,
+                    )
+                    if ingredients is not None:
+                        for item in ingredients.get("results", []):
+                            if not isinstance(item, dict):
+                                continue
+                            row_number = item.get("row_number")
+                            if not isinstance(row_number, int) or not (0 <= row_number < len(batch_df)):
+                                continue
+                            ingredient_rows.append(
+                                {
+                                    "drug_code": batch_df.iloc[row_number][drug_code_column],
+                                    "ingredient_name": item.get("ingredient_name"),
+                                    "ingredient_code": self._normalize_optional_code(item.get("ingredient_code")),
+                                    "amount_value": item.get("amount_value"),
+                                    "amount_unit": item.get("amount_unit"),
+                                    "numerator_value": item.get("numerator_value"),
+                                    "numerator_unit": item.get("numerator_unit"),
+                                    "denominator_value": item.get("denominator_value"),
+                                    "denominator_unit": item.get("denominator_unit"),
+                                }
+                            )
+
+                    drugs = self._call_llm_batch(
+                        stage="drug",
+                        records=drug_records,
+                        system_prompt=self.drug_structuring_prompts.drug_system_prompt,
+                        schema=_DRUG_SCHEMA,
+                    )
+                    if drugs is not None:
+                        for item in drugs.get("results", []):
+                            if not isinstance(item, dict):
+                                continue
+                            row_number = item.get("row_number")
+                            if not isinstance(row_number, int) or not (0 <= row_number < len(batch_df)):
+                                continue
+                            drug_rows.append(
+                                {
+                                    "drug_code": batch_df.iloc[row_number][drug_code_column],
+                                    "full_product_name": item.get("full_product_name"),
+                                    "brand_name": item.get("brand_name"),
+                                    "brand_code": self._normalize_optional_code(item.get("brand_code")),
+                                    "supplier_name": item.get("supplier_name"),
+                                    "supplier_code": self._normalize_optional_code(item.get("supplier_code")),
+                                    "dose_form": item.get("dose_form"),
+                                    "box_size": item.get("box_size"),
+                                }
+                            )
+
+                device_row_numbers = [idx for idx in range(len(batch_df)) if category_by_row.get(idx) == "device"]
+                if device_row_numbers:
+                    device_records = [batch_records[idx] for idx in device_row_numbers]
+                    devices = self._call_llm_batch(
+                        stage="device",
+                        records=device_records,
+                        system_prompt=self.drug_structuring_prompts.device_system_prompt,
+                        schema=_DEVICE_SCHEMA,
+                    )
+                    if devices is not None:
+                        for item in devices.get("results", []):
+                            if not isinstance(item, dict):
+                                continue
+                            row_number = item.get("row_number")
+                            if not isinstance(row_number, int) or not (0 <= row_number < len(batch_df)):
+                                continue
+                            device_rows.append(
+                                {
+                                    "drug_code": batch_df.iloc[row_number][drug_code_column],
+                                    "full_device_name": item.get("full_device_name"),
+                                }
+                            )
+
+                rows_processed = rows_processed + len(batch_df)
+                if rows_processed % _BATCH_SIZE == 0 or rows_processed == rows_total:
+                    logger.info(
+                        "Drug structuring progress rows_processed=%d/%d live_cost_usd=%.6f cache_hits=%d api_calls=%d",
+                        rows_processed,
+                        rows_total,
+                        self._run_metrics["live_cost_usd"],
+                        self._run_metrics["cache_hits"],
+                        self._run_metrics["api_calls"],
+                    )
+        finally:
+            run_metrics = self._run_metrics or {
+                "live_cost_usd": 0.0,
+                "api_calls": 0,
+                "cache_hits": 0,
+                "content_filter_events": 0,
+            }
+            self._run_metrics = None
 
         classification_df = pd.DataFrame(classification_rows, columns=["drug_code", "category"])
         ingredient_df = pd.DataFrame(
@@ -697,6 +764,22 @@ class LlmDrugStructurer:
             drug_df = drug_df.drop_duplicates().reset_index(drop=True)
         if not device_df.empty:
             device_df = device_df.drop_duplicates().reset_index(drop=True)
+
+        elapsed_seconds = time.perf_counter() - start_time
+        logger.info(
+            "Drug structuring complete rows_processed=%d rows_total=%d live_cost_usd=%.6f cache_hits=%d api_calls=%d content_filter_events=%d elapsed_seconds=%.2f output_rows_classification=%d output_rows_ingredient=%d output_rows_drug=%d output_rows_device=%d",
+            rows_processed,
+            rows_total,
+            run_metrics["live_cost_usd"],
+            run_metrics["cache_hits"],
+            run_metrics["api_calls"],
+            run_metrics["content_filter_events"],
+            elapsed_seconds,
+            len(classification_df),
+            len(ingredient_df),
+            len(drug_df),
+            len(device_df),
+        )
 
         return DrugStructureResult(
             classification_df=classification_df,

@@ -1,3 +1,4 @@
+import logging
 from pathlib import Path
 
 import pandas as pd
@@ -13,11 +14,14 @@ from ariadne.utils.config_drug_mapping import ConfigDrugMapping
 INPUT_CSV = Path(r"E:\git\Ariadne\data\sample_data\drug_codes_2_sample.csv")
 INPUT_DICT_MD = Path(r"E:\git\Ariadne\data\sample_data\drug_codes_2_dictionary.md")
 DRUG_RESULTS_FOLDER = Path(r"E:\git\Ariadne\sandbox\drug_results")
-DRUG_CODE_COLUMN = "code"
+DRUG_CODE_COLUMN = "APPID"
 
 
 def main() -> None:
+    logging.basicConfig(level=logging.INFO, format="%(asctime)s  %(message)s")
+
     configDrugMapping = ConfigDrugMapping()
+
 
     # Read inpput
     source_df = pd.read_csv(INPUT_CSV, dtype=str)
