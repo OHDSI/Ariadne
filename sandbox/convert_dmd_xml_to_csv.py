@@ -311,10 +311,10 @@ def denormalize(output_dir: Path) -> None:
     print(f"Denormalization complete. Successfully exported {len(flat_df)} rows for OHDSI mapping.")
 
 
-def sample_denormalized(output_dir: Path, sample_size: int = 100, random_state: int = 42) -> Path:
+def sample_denormalized(output_dir: Path, sample_size: int = 250, random_state: int = 42) -> Path:
     """Create a random sample CSV from dmd_ohdsi_denormalized.csv in the same folder."""
     source_path = output_dir / "dmd_ohdsi_denormalized.csv"
-    sample_path = output_dir / "dmd_ohdsi_denormalized_sample_100.csv"
+    sample_path = output_dir / "dmd_ohdsi_denormalized_sample_250.csv"
 
     denormalized_df = pd.read_csv(source_path)
     if denormalized_df.empty:
