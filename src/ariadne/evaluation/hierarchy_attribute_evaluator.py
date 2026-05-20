@@ -31,6 +31,9 @@ ATTR_KEY_TO_GS_CATEGORY: dict[str, str] = {
     "finding_asso_with": "Finding asso with",
     "associated_with": "Finding asso with",
     "finding_associated_with": "Finding asso with",
+    "due_to": "Has due to",
+    "during": "During",
+    "occurs_after": "Occurs after",
 }
 
 def build_prediction_rows(results: list[dict]) -> list[dict]:

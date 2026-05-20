@@ -183,6 +183,8 @@ hierarchy:
     - "Has temporal context"
     - "Finding asso with"
     - "During"
+    - "Occurs after"
+    - "Has due to"
 
   prompts:
     extraction: |
@@ -194,11 +196,13 @@ hierarchy:
       - associated_morphology: The pathological change. Infer common patterns: "-itis" → Inflammation; "-oma/carcinoma" → Neoplasm; "stenosis" → Obstruction. Words like "absence", "agenesis", "deformity" imply Congenital anomaly morphologies. Hematologic changes (e.g., spherocytosis) imply morphologic abnormalities of blood cells.
       - finding_site: The anatomical location. Derive the site from disease names (e.g., "esophag-" → esophageal structure). Always use the most specific BODY STRUCTURE concept that fully covers the description.
       - causative_agent: The organism, substance, or drug directly causing the condition.
+      - due_to: Another condition or event directly causing the condition. Especially relevant for trauma
       - clinical_course: E.g., acute, chronic, subacute, episodic.
       - severity: E.g., mild, moderate, severe.
       - occurrence: The life stage or developmental period at onset (e.g., congenital, neonatal, infancy, fetal period). Key cues: "congenital", "hereditary", "neonatal", "fetal", "infantile". Do NOT use for phase-of-care timing.
-      - during: Phase-of-care timing ONLY (e.g., postoperative, intrapartum, postpartum, antenatal, peripartum). Do NOT use for life-stage.
-      
+      - during: Phase-of-care timing only (e.g., during delivery, postpartum period, during surgery). DO NOT use for life-stage — use occurrence instead.
+      - occurs_after: Event preceding the condtion (e.g., "postoperative", "posttraumatic"). For direct cause use due_to
+
       2. CONTEXT ATTRIBUTES (Situation with Explicit Context)
       Scan every term for implied context. Provide these ONLY when a term explicitly overrides the default assumption of a current, confirmed diagnosis in the patient (e.g., history, family history, suspected, ruled out).
       - finding_context: The clinical certainty. Values: Known present, Suspected, Probable, Known absent, Rule out. 
@@ -219,7 +223,7 @@ hierarchy:
         (3) Infectious process: ONLY for diseases named after a specific pathogen (tuberculosis, candidiasis). Do NOT apply to generic acute infections (e.g., acute tonsillitis, cellulitis).
         (4) Abnormal immune process: Primary immunodeficiency syndromes.
         (5) Non-immunoglobulin E-mediated allergic process.
-      - finding_asso_with: The primary associated condition when the term is explicitly "X in [Disease Y]" or "X complicating Y", and Y is a named disease that is neither the morphology, causative agent, nor finding site.
+      - finding_asso_with: The primary associated condition when the term is explicitly "X in [Disease Y]" or "X complicating Y", and Y is a named disease that is neither the morphology, causative agent or disease, nor finding site.
       
       {reference_section}
       
@@ -277,11 +281,13 @@ hierarchy:
       Term: Postoperative hemorrhage
       Attributes:  
         - during: Postoperative period
+        - occurs_after: Surgical procedure
         - associated_morphology: Hemorrhage
       
-      Term: Neonatal jaundice
+      Term: Neonatal jaundice due to infection
       Attributes:  
         - occurrence: Neonatal period
+        - due_to: Neonatal infectious disorder
        
       Term: Trachoma
       Attributes:  
@@ -384,6 +390,8 @@ hierarchy:
               "subject_relationship_context": [{"concept_id": "123456", "concept_name": "name"}],
               "temporal_context": [{"concept_id": "123456", "concept_name": "name"}],
               "during": null,
+              "occurs_after": null,
+              "due_to": null,
               "finding_asso_with": null
           },
           "reasoning": "Brief explanation of candidate selection, noting any rejected candidates and why."

@@ -39,13 +39,13 @@ ReferenceSearcher = AbstractSnomedSearcher
 # Normalize non-canonical keys the LLM may emit back to pipeline keys.
 EXTRACTION_KEY_ALIASES: dict[str, str] = {
     "has_occurrence": "occurrence",
-    "during": "occurrence",  # life-stage values (Congenital, Fetal period ...)
     "has_finding_context": "finding_context",
     "has_relat_context": "subject_relationship_context",
     "has_related_context": "subject_relationship_context",
     "has_related": "subject_relationship_context",
     "associated_with": "finding_asso_with",
     "finding_associated_with": "finding_asso_with",
+    "after": "occurs_after",
 }
 
 OHDSI_TO_PROMPT_MAP = {
@@ -62,7 +62,9 @@ OHDSI_TO_PROMPT_MAP = {
     "Has severity": "severity",
     "Has temporal context": "temporal_context",
     "Finding asso with": "finding_asso_with",
-    "During": "during"
+    "During": "during",
+    "Occurs after": "occurs_after",
+    "Has due to": "due_to"
 }
 PROMPT_TO_OHDSI_MAP = {value: key for key, value in OHDSI_TO_PROMPT_MAP.items()}
 
