@@ -79,7 +79,7 @@ Virtual Therapeutic Moiety (VTM) Level
 
 Aggregated Features
 
-- AGGREGATED_INGREDIENTS: A human-readable string combining all active ingredient names, strengths, and units associated with the VMP, separated by " | ".
+- AGGREGATED_INGREDIENTS: A human-readable string combining all active ingredient names (with their SNOMED CT ingredient identifier in parentheses), strengths, and units associated with the VMP, separated by " | ". Example: "Paracetamol (12345678) 500 mg".
 - AGGREGATED_ROUTES: A human-readable string combining all decoded routes of administration associated with the VMP.
 - DOSE_FORM: The decoded, textual name of the physical administration form.
 - SUPPLIER_NAME: The decoded, textual name of the supplier associated with the AMP.

@@ -248,9 +248,10 @@ def denormalize(output_dir: Path) -> None:
     vmp_ing_df = vmp_ing_df.merge(uom_df[["CD", "CDDT"]], left_on="STRNT_DNMTR_UOMCD", right_on="CD", how="left")
     vmp_ing_df.rename(columns={"CDDT": "NUMERATOR_UOM"}, inplace=True)
 
-    # Combine ingredient name and strength into a readable string (e.g., "Paracetamol 500 mg")
+    # Combine ingredient name and strength into a readable string (e.g., "Paracetamol (12345678) 500 mg")
     vmp_ing_df["ING_STRENGTH_STR"] = (
-            vmp_ing_df["INGREDIENT_NAME"].astype(str) + " " +
+            vmp_ing_df["INGREDIENT_NAME"].astype(str) + " (" +
+            vmp_ing_df["ISID"].astype(str) + ") " +
             vmp_ing_df["STRNT_NMRTR_VAL"].astype(str) + " " +
             vmp_ing_df["NUMERATOR_UOM"].astype(str)
     )
