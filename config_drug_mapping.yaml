@@ -23,7 +23,7 @@ drug_structuring:
     
     - Diagnostic radiopharmaceuticals
     - Imaging contrast agents (e.g., barium sulfate, gadolinium)
-    - Nutritional products and supplements, including infant feeding (Note: Solutions of salts for hydration or ionic balance are Drugs, but adding nutrients (e.g., glucose, vitamins) makes them Devices)
+    - Nutritional products and supplements, including infant feeding (Note: Solutions of salts for hydration or ionic balance are Drugs, but adding multi-component nutrients (e.g., glucose, vitamins) makes them Devices. Single ingredient vitamins or glucose are Drugs.)
     - Parenteral nutrition (amino acid and/or lipid mixtures)
     - Dialysis solutions or catheter maintenance solutions
     - Products directly derived from blood (erythrocytes, plasma, serum, thrombocytes). Exception: Immune globulins, albumin preparations, monoclonal antibodies, coagulation factors, and homeopathic products derived from blood are Drugs
@@ -84,15 +84,16 @@ drug_structuring:
     - Strength Extraction: 
       - Units should be mapped to Standard Valid UCUM concepts. All weight units should be converted to milligram, volume units should be mapped to milliliter, molar to millimole. 
       - If the row contains explicit information about the absolute amount of the ingredient (e.g., '500mg'), extract it as amount_value. 
-      - For liquid formulations, if there is explicit information about numerator strength (e.g., '5mg') and denominator strength (e.g., '1mL'), extract them as numerator_strength and denominator_strength respectively. When liquid drugs contain concentration information without volume, the denominator_value field is left empty.
-      - If liquid formulation does not have explicit volume in mL or other volume units (for example, injection or prefilled syringe), dosage should be stored in amount_value/amount_unit.
+      - For liquid formulations, if there is explicit information about numerator strength (e.g., '5mg') and denominator strength (e.g., '10mL'), extract them as numerator_strength and denominator_strength respectively. 
+        Store numerator and denominator strengths in numerator_value/numerator_unit and denominator_value/denominator_unit respectively.
+        If liquid formulation does not have explicit volume in mL or other volume units (for example, injection or prefilled syringe), dosage should be stored in amount_value/amount_unit.
+        If liquid formulation specifies volume unit (such as mL) but does not specify how many mL are in the dose, dosage should be stored in numerator/denominator form with denominator_value = NULL and corresponding denominator_unit.
+        For oral liquids (oral solution, oral suspension, oral syrup), denominator value of 5 ML should be kept only when we are certain that the dosage is not given "per tbsp."; if 5 ML is not an actual fixed administered dose (e.g., a sachet or vial), it should be treated as concentration (denominator_value = NULL).
       - Inhalers, enemas or sprays that release certain dosage of active ingredient per "puff" should also be stored in numerator/denominator form with total number of actuations as denominator (e.g. X MG / Y ACTUAT).
       - Gases for inhalation must be put in numerator fields with % in unit field without filling denominator fields. It is the only acceptable use of percents.
-      - Convert everything else besides gases that has % in dosage to mg/ml or mg/mg.
+        Convert everything else besides gases that has % in dosage to mg/ml or mg/mg.
       - Patches, drug implants and other forms that release molecules over a period of time (even extended release tablets or capsules) may also be stored in numerator/denominator form (e.g. X MG / Y HOUR).
-      - For drugs that are administered in a form of oral liquid (solution, suspension, syrup), denominator value of 5 ML should be kept only when we are certain that the dosage is not given "per tbsp."; if 5 ML is not an actual fixed administered dose (e.g., a sachet or vial), it should be treated as concentration (denominator_value = NULL).
-      - Similarly, if you do not have information about actual volume (vial or bottle), do not put 1 ml in denominator. Instead, set denominator_value = NULL and denominator_unit = 'mL'. All drugs that have denominator_value will end up being Quantified Clinical/Branded Drug.
-      - Drugs cannot have differing information for denominators among different ingredients, skip dosage for some ingredients or have same ingredient with different dosages
+      - Drugs cannot have differing information for denominators among different ingredients. If different volumes are not present, skip dosage altogether
       - Strength information must be explicitly linked to the extracted ingredient. If there are multiple ingredients and multiple strength values, only extract strength values that can be confidently associated with the specific ingredient based on proximity or clear labeling in the string. If no strength information can be confidently linked to the extracted ingredient, return null for these fields.
     
     Provide your response in a single JSON object with the following structure. Do not include any text outside of the JSON.
@@ -125,25 +126,34 @@ drug_structuring:
     
     Your task is to identify and extract, for each row:
     - full product name (including brand name and modifiers)
-    - brand (proprietary/trade) name
-    - supplier/manufacturer name
-    - brand code (if present)
-    - supplier code (if present)
     - dose form
+    - dose code (if present)
+    - brand (proprietary/trade) name
+    - brand code (if present)
+    - supplier/manufacturer name
+    - supplier code (if present)
     - box size
     
     # Extraction Rules
-    - One entry per row: Each row should yield exactly one set of extracted information, even if multiple ingredients or brands are present. Focus on the primary product being described in the string.
+    - One entry per row: Each row should yield exactly one set of extracted information, even if multiple ingredients are present. Focus on the primary product being described in the string.
     - Full Product Name: Extract the full product name as it appears in the string, including any brand name and modifiers (e.g., 'Ciclosporin Capsules 50mg (PFIZER)', 'amlodipine 10 MG / hydrochlorothiazide 25 MG / valsartan 160 MG Oral Tablet'). If there is no individual string representing the full product name, construct it by combining the extracted brand name (if present) with the generic ingredient names and modifiers in a way that reflects how the product would be commonly referred to in clinical practice.
+    - Dose Form identification: Infer the dose form (e.g., oral tablet, injectable solution, extended release oral tablet, prefilled applicator) if it mentioned or can be confidently identified.
+      Dose form MUST be a combination of route and form:
+        - Route examples: oral, injectable, inhalation, topical, rectal, vaginal, ophthalmic, otic, nasal, etc.
+        - Form examples: tablet, capsule, suppository, solution, suspension, injection, patch, cream, ointment, gel, spray, etc.  
+      Acceptable dose forms without explicit route include: enema, prefilled syringe, auto-injector, pen injector, cartridge, drug implant, medicated patch, medicated shampoo
+      If route is not explicitly present but can be inferred, do so. Inference can be based on ingredient, brand name or unit.  
+      For example, if drug is inhaled, possible options include "metered dose inhaler" (actuat), "inhalant solution" (ml), "inhalant powder" (mg), "nasal spray" (ml)
+      Otherwise, return null for dose_form.
     - Brand Name Identification: Identify and extract only the brand (trade/proprietary) name from each string. Brand names are typically capitalized and refer to a manufacturer's marketed product name (e.g., 'Lipitor', 'Advil', 'Humira').
-    - Supplier Identification: Extract supplier/manufacturer name only when it is explicitly present and can be reasonably identified from the row.
-    - Generic-Only Strings: If the string contains only a generic (non-proprietary) name and no brand name, return null for brand_name.
-    - Missing Supplier: If no supplier/manufacturer is clearly present, return null for supplier_name.
-    - Combination Products: If a string references a combination product with a brand name (e.g., 'Tylenol with Codeine'), extract the full brand name including any modifiers (e.g., 'Tylenol with Codeine').
-    - Brand Extensions: Capture brand name extensions and suffixes where applicable (e.g., 'Advil PM', 'Claritin-D 24HR').
-    - Code Extraction: If a unique brand code or supplier/manufacturer code is explicitly present and clearly linked, extract it. Otherwise return null for the respective code.
-    - Ignore Non-Brand Components: Do not extract generic drug names, dosage forms (tablet, capsule, injection), strengths (10mg, 500mg), routes (oral, IV), or unrelated metadata as brand_name/supplier_name. Simple combinations of generic name and manufacturer name (e.g. "Aspirin Bayer") are not brand names.
-    - Dose Form identification: Extract the dosage form (e.g., oral tablet, injectable solution, extended release oral tablet, prefilled applicator) if it is explicitly mentioned and can be confidently identified. Otherwise, return null for dose_form.
+      Ignore Non-Brand Components: Do not extract generic drug names, dosage forms (tablet, capsule, injection), strengths (10mg, 500mg, 2/10mg), routes (oral, IV), or unrelated metadata as brand_name/supplier_name. Simple combinations of generic name and manufacturer name (e.g. "Aspirin Bayer") is not brand name, so output NULL.
+      Capture brand name extensions and suffixes where applicable (e.g., 'Advil PM')
+      If a string references a combination product with a brand name (e.g., 'Tylenol with Codeine'), extract the full brand name including any modifiers (e.g., 'Tylenol with Codeine').
+      If the string contains only a generic (non-proprietary) name and no brand name, return null for brand_name.
+    - Supplier Identification: Extract supplier/manufacturer name only when it is explicitly present and can be reasonably identified from the row. Supplier is the name of the company that produces or distributes the drug product (e.g., 'Pfizer', 'Teva'). Local pharmacies (indicated as 'special order' or similar) are not considered suppliers.
+      Do not extract parts of supplier name indicating type of business ('Ltd', 'GmbH', 'Distribution', etc.) or country ('UK', 'France', etc.) 
+      If no supplier/manufacturer is clearly present, return null for supplier_name.
+    - Code Extraction: If a unique dose, brand code or supplier/manufacturer code is explicitly present and clearly linked, extract it. Otherwise return null for the respective code.
     - Box Size identification: Extract the number of separate package units (like vials, blisters or syringes) in a packaged box if it is explicitly mentioned and can be confidently identified. Otherwise, return null for box_size. Avoid box size of 1. Do not populate with volume (mL).
 
     Provide your response in a single JSON object with the following structure. Do not include any text outside of the JSON.
@@ -153,11 +163,13 @@ drug_structuring:
         {
           "row_number": integer,
           "full_product_name": "string or null",
+          "dose_form": "string or null",
+          "dose_code": "string or null",
           "brand_name": "string or null",
           "brand_code": "string or null",
           "supplier_name": "string or null",
           "supplier_code": "string or null",
-          "dose_form": "string or null",
+
           "box_size": "integer or null"
         },
         ...
@@ -211,7 +223,7 @@ mapping_per_concept_class:
       llm_mapper_responses_folder: data/llm_drug_mapper_responses/ingredient
       system_prompts:
         - |
-          You are a clinical terminology expert mapping drug ingredients to OMOP standard concepts.
+          You are a clinical terminology expert mapping drug ingredients to RxNorm/RxNorm Extension standard concepts.
           Choose the single best equivalent concept when it is an exact semantic match.
           If multiple concept are equally good semantic matches, prefer RxNorm concepts over other vocabularies (including RxNorm Extension).
           If still tied, prefer candidates with higher concept_clinical_drug_form_child_count.
@@ -249,7 +261,7 @@ mapping_per_concept_class:
       llm_mapper_responses_folder: data/llm_drug_mapper_responses/brand_name
       system_prompts:
         - |
-          You are a clinical terminology expert mapping branded drug names to OMOP standard concepts.
+          You are a clinical terminology expert mapping branded drug names to RxNorm/RxNorm Extension valid concepts.
           Choose the single best equivalent concept when it is an exact semantic match.
           If no exact semantic match exists, return no match.
           
@@ -283,8 +295,9 @@ mapping_per_concept_class:
       llm_mapper_responses_folder: data/llm_drug_mapper_responses/dose_form
       system_prompts:
         - |
-          You are a clinical terminology expert mapping drug dose forms to OMOP standard concepts.
+          You are a clinical terminology expert mapping drug dose forms to RxNorm/RxNorm Extension valid concepts with class 'Dose Form'.
           Choose the single best equivalent concept when it is an exact semantic match.
+          Prefer candidates with higher concept_clinical_drug_form_child_count.
           If no exact semantic match exists, return no match.
           
           Output Format:
@@ -317,8 +330,8 @@ mapping_per_concept_class:
       llm_mapper_responses_folder: data/llm_drug_mapper_responses/supplier
       system_prompts:
         - |
-          You are a clinical terminology expert mapping drug suppliers to OMOP standard concepts.
-          Choose the single best equivalent concept when it is an exact semantic match.
+          You are a clinical terminology expert mapping drug suppliers to RxNorm Extension valid concepts.
+          Choose the single best equivalent concept in RxNorm Extension when it is an exact semantic match.
           If no exact semantic match exists, return no match.
           
           Output Format:
@@ -348,7 +361,7 @@ mapping_per_concept_class:
       llm_mapper_responses_folder: data/llm_drug_mapper_responses/unit
       system_prompts:
         - |
-          You are a clinical terminology expert mapping drug strength units to OMOP standard concepts.
+          You are a clinical terminology expert mapping drug strength units to UCUM standard concepts.
           Choose the single best equivalent concept when it is an exact semantic match.
           If no exact semantic match exists, return no match.
           
