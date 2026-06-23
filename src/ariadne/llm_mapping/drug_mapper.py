@@ -81,10 +81,10 @@ class DrugMapper:
             return brand_rows[~brand_rows["concept_code"].isin(to_remove_codes)].copy()
         return brand_rows
 
-    def _map_class_rows(self, class_rows: pd.DataFrame, cc: MappingPerConceptClassSettings) -> pd.DataFrame:
-        vm_settings = cc.verbatim_mapping
-        vs_settings = cc.vector_search
-        llm_settings = cc.llm_mapping
+    def _map_class_rows(self, class_rows: pd.DataFrame, class_settings: MappingPerConceptClassSettings) -> pd.DataFrame:
+        vm_settings = class_settings.verbatim_mapping
+        vs_settings = class_settings.vector_search
+        llm_settings = class_settings.llm_mapping
 
         download_terms(settings=vm_settings)
         verbatim_mapper = VocabVerbatimTermMapper(settings=vm_settings)
@@ -165,8 +165,8 @@ class DrugMapper:
                 if class_rows.empty:
                     continue
 
-            cc = self.config.mapping_per_concept_class[config_key]
-            class_mapped = self._map_class_rows(class_rows, cc)
+            class_settings = self.config.mapping_per_concept_class[config_key]
+            class_mapped = self._map_class_rows(class_rows, class_settings)
             class_mapped["drug_class_id"] = concept_class_id
             mapped_batches.append(class_mapped)
 

@@ -265,19 +265,40 @@ def normalize_structured_drugs(structured: DrugStructureResult) -> NormalizedDru
         )
         ingredient_codes_by_drug.setdefault(drug_code, []).append(ingredient_code)
 
-        ds_rows.append(
-            {
-                "drug_concept_code": drug_code,
-                "ingredient_concept_code": ingredient_code,
-                "amount_value": row.get("amount_value"),
-                "amount_unit": row.get("amount_unit"),
-                "numerator_value": row.get("numerator_value"),
-                "numerator_unit": row.get("numerator_unit"),
-                "denominator_value": row.get("denominator_value"),
-                "denominator_unit": row.get("denominator_unit"),
-                "box_size": None,
-            }
+        amount_value = row.get("amount_value")
+        amount_unit = row.get("amount_unit")
+        numerator_value = row.get("numerator_value")
+        numerator_unit = row.get("numerator_unit")
+        denominator_value = row.get("denominator_value")
+        denominator_unit = row.get("denominator_unit")
+
+        has_strength_information = any(
+            [
+                not pd.isna(amount_value),
+                not pd.isna(amount_unit),
+                not pd.isna(numerator_value),
+                not pd.isna(numerator_unit),
+                not pd.isna(denominator_value),
+                not pd.isna(denominator_unit)
+            ]
         )
+
+        if has_strength_information:
+            ds_rows.append(
+                {
+                    "drug_concept_code": drug_code,
+                    "ingredient_concept_code": ingredient_code,
+                    "amount_value": amount_value,
+                    "amount_unit": amount_unit,
+                    "numerator_value": numerator_value,
+                    "numerator_unit": numerator_unit,
+                    "denominator_value": denominator_value,
+                    "denominator_unit": denominator_unit,
+                    "box_size": None,
+                }
+            )
+
+
 
     for _, row in device_df.iterrows():
         drug_code = _normalize_optional_text(row.get("drug_code"))

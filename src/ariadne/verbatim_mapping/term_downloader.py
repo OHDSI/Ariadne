@@ -64,7 +64,8 @@ def _create_query(engine: Engine, settings: VerbatimMappingSettings) -> Select:
         concept.c.concept_name.label("term"),
         concept.c.concept_name,
         concept.c.vocabulary_id,
-    )
+    ).where(concept.c.invalid_reason.is_(None))
+
     if enforce_standard_only:
         query1 = query1.where(concept.c.standard_concept.in_(standard_concepts))
     if filter_config.domain_ids:

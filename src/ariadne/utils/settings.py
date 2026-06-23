@@ -152,6 +152,7 @@ class VectorSearchSettings:
     """Everything concept searchers read from config."""
 
     max_candidates: int = 25
+    substrings_to_remove: List[str] = field(default_factory=list)
 
 
 @dataclass
@@ -259,7 +260,3 @@ class HierarchySettings:
     evaluation: EvaluationConfig = field(default_factory=EvaluationConfig)
     prompts: PromptsConfig = field(default_factory=PromptsConfig)
     snomed_relationships: List[str] = field(default_factory=lambda: list(_DEFAULT_SNOMED_RELATIONSHIPS))
-
-
-
-

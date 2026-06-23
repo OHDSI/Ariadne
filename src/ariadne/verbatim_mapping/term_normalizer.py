@@ -67,8 +67,13 @@ class TermNormalizer:
         term = re.sub(r"(\w)'s\b", r"\1", term)
 
         # 3. Remove specific non-informative substrings
+        informative_substring = term
         for sub in self.substrings_to_remove:
-            term = term.replace(sub, ' ')
+            informative_substring = informative_substring.replace(sub, ' ')
+        if informative_substring.strip() == '':
+            # If the term becomes empty after removing non-informative substrings, keep the original term
+            informative_substring = term
+        term = informative_substring
 
         # 4. Remove all punctuation (replace with a space)
         # This handles "liver-disorder" and "liver, disorder"

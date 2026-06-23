@@ -136,7 +136,7 @@ drug_structuring:
     
     # Extraction Rules
     - One entry per row: Each row should yield exactly one set of extracted information, even if multiple ingredients are present. Focus on the primary product being described in the string.
-    - Full Product Name: Extract the full product name as it appears in the string, including any brand name and modifiers (e.g., 'Ciclosporin Capsules 50mg (PFIZER)', 'amlodipine 10 MG / hydrochlorothiazide 25 MG / valsartan 160 MG Oral Tablet'). If there is no individual string representing the full product name, construct it by combining the extracted brand name (if present) with the generic ingredient names and modifiers in a way that reflects how the product would be commonly referred to in clinical practice.
+    - Full (Branded) Product Name: Extract the full product name as it appears in the string, including any brand name, pack size, modifiers (e.g., 'Acetaminophen 500 MG Oral Tablet [Tylenol] Box of 20', 'Amlodipine 10 MG / valsartan 160 MG Oral Tablet [Copalia] Box of 98'). If there is no individual string representing the full product name, construct it by combining the extracted brand name (if present) with the generic ingredient names, pack size, and modifiers in a way that reflects how the product would be commonly referred to in clinical practice.
     - Dose Form identification: Infer the dose form (e.g., oral tablet, injectable solution, extended release oral tablet, prefilled applicator) if it mentioned or can be confidently identified.
       Dose form MUST be a combination of route and form:
         - Route examples: oral, injectable, inhalation, topical, rectal, vaginal, ophthalmic, otic, nasal, etc.
@@ -209,8 +209,33 @@ mapping_per_concept_class:
       verbatim_mapping_index_file: data/verbatim_drug_mapping_index_ingredient.pkl
       substrings_to_remove:
         - hydrochloride
+        - chloride
         - sodium
+        - potassium
+        - calcium
+        - magnesium
+        - acetate
+        - maleate
+        - fumarate
+        - tartrate
+        - citrate
+        - succinate
+        - lactate
+        - gluconate
+        - phosphate
+        - sulfate
+        - mesylate
+        - besylate
+        - tosylate
+        - nitrate
+        - carbonate
+        - bicarbonate
         - hydrate
+        - monohydrate
+        - mononitrate
+        - dihydrate
+        - trihydrate
+        - anhydrous
       standard_concept_filter:
         domain_ids:
           - Drug
@@ -262,8 +287,8 @@ mapping_per_concept_class:
       system_prompts:
         - |
           You are a clinical terminology expert mapping branded drug names to RxNorm/RxNorm Extension valid concepts.
-          Choose the single best equivalent concept when it is an exact semantic match.
-          If no exact semantic match exists, return no match.
+          Choose the single best exact semantic match from the provided list.
+          If no exact semantic match exists in the provided list, return no match.
           
           Output Format:
           Provide your response in a single JSON object. Do not include any text outside of the JSON.
@@ -296,9 +321,9 @@ mapping_per_concept_class:
       system_prompts:
         - |
           You are a clinical terminology expert mapping drug dose forms to RxNorm/RxNorm Extension valid concepts with class 'Dose Form'.
-          Choose the single best equivalent concept when it is an exact semantic match.
+          Choose the single best exact semantic match from the provided list.
           Prefer candidates with higher concept_clinical_drug_form_child_count.
-          If no exact semantic match exists, return no match.
+          If no exact semantic match exists in the provided list, return no match.
           
           Output Format:
           Provide your response in a single JSON object. Do not include any text outside of the JSON.
@@ -315,6 +340,11 @@ mapping_per_concept_class:
     verbatim_mapping:
       terms_folder: data/terms_drug_supplier
       verbatim_mapping_index_file: data/verbatim_drug_mapping_index_supplier.pkl
+      substrings_to_remove:
+        - pharmaceuticals
+        - pharma
+        - healthcare
+        - ltd
       standard_concept_filter:
         domain_ids:
           - Drug
@@ -326,13 +356,18 @@ mapping_per_concept_class:
           - Supplier
     vector_search:
       max_candidates: 25
+      substrings_to_remove:
+        - pharmaceuticals
+        - pharma
+        - healthcare
+        - ltd
     llm_mapping:
       llm_mapper_responses_folder: data/llm_drug_mapper_responses/supplier
       system_prompts:
         - |
           You are a clinical terminology expert mapping drug suppliers to RxNorm Extension valid concepts.
-          Choose the single best equivalent concept in RxNorm Extension when it is an exact semantic match.
-          If no exact semantic match exists, return no match.
+          Choose the single best equivalent concept in RxNorm Extension when it is either the same legal entity, or the holding company of the same legal entity.
+          If no match exists in the provided list, return no match.
           
           Output Format:
           Provide your response in a single JSON object. Do not include any text outside of the JSON.
@@ -363,7 +398,7 @@ mapping_per_concept_class:
         - |
           You are a clinical terminology expert mapping drug strength units to UCUM standard concepts.
           Choose the single best equivalent concept when it is an exact semantic match.
-          If no exact semantic match exists, return no match.
+          If no exact semantic match exists in the provided list, return no match.
           
           Output Format:
           Provide your response in a single JSON object. Do not include any text outside of the JSON.
