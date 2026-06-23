@@ -244,6 +244,11 @@ mapping_per_concept_class:
           - Ingredient
     vector_search:
       max_candidates: 25
+      standard_concept: "S"
+      domain_ids:
+        - Drug
+      concept_class_ids:
+        - Ingredient
     llm_mapping:
       llm_mapper_responses_folder: data/llm_drug_mapper_responses/ingredient
       system_prompts:
@@ -252,6 +257,7 @@ mapping_per_concept_class:
           Choose the single best equivalent concept when it is an exact semantic match.
           If multiple concept are equally good semantic matches, prefer RxNorm concepts over other vocabularies (including RxNorm Extension).
           If still tied, prefer candidates with higher concept_clinical_drug_form_child_count.
+          The salt form of an ingredient should be considered equivalent to the base ingredient unless there is strong reason to believe the salt form has a different clinical effect.
           If no exact semantic match exists, return no match.
 
           Output Format:
@@ -282,6 +288,14 @@ mapping_per_concept_class:
           - Brand Name
     vector_search:
       max_candidates: 25
+      standard_concept: "None"
+      domain_ids:
+        - Drug
+      concept_class_ids:
+        - Brand Name
+      vocabulary_ids:
+        - RxNorm
+        - RxNorm Extension
     llm_mapping:
       llm_mapper_responses_folder: data/llm_drug_mapper_responses/brand_name
       system_prompts:
@@ -316,6 +330,14 @@ mapping_per_concept_class:
           - Dose Form
     vector_search:
       max_candidates: 25
+      standard_concept: "None"
+      domain_ids:
+        - Drug
+      concept_class_ids:
+        - Dose Form
+      vocabulary_ids:
+        - RxNorm
+        - RxNorm Extension
     llm_mapping:
       llm_mapper_responses_folder: data/llm_drug_mapper_responses/dose_form
       system_prompts:
@@ -361,12 +383,21 @@ mapping_per_concept_class:
         - pharma
         - healthcare
         - ltd
+      standard_concept: "None"
+      domain_ids:
+        - Drug
+      concept_class_ids:
+        - Supplier
+      vocabulary_ids:
+        - RxNorm
+        - RxNorm Extension
     llm_mapping:
       llm_mapper_responses_folder: data/llm_drug_mapper_responses/supplier
       system_prompts:
         - |
           You are a clinical terminology expert mapping drug suppliers to RxNorm Extension valid concepts.
           Choose the single best equivalent concept in RxNorm Extension when it is either the same legal entity, or the holding company of the same legal entity.
+          Ignore non-informative substrings such as "pharmaceuticals", "pharma", "healthcare", and "ltd" when determining equivalence.
           If no match exists in the provided list, return no match.
           
           Output Format:
@@ -392,6 +423,12 @@ mapping_per_concept_class:
           - UCUM
     vector_search:
       max_candidates: 25
+      standard_concept: "S"
+      domain_ids:
+        - Unit
+      concept_class_ids:
+      vocabulary_ids:
+        - UCUM
     llm_mapping:
       llm_mapper_responses_folder: data/llm_drug_mapper_responses/unit
       system_prompts:
@@ -424,6 +461,11 @@ mapping_per_concept_class:
           - Device
     vector_search:
       max_candidates: 25
+      standard_concept: "S"
+      domain_ids:
+        - Device
+      concept_class_ids:
+        - Device
     llm_mapping:
       llm_mapper_responses_folder: data/llm_drug_mapper_responses/device
       system_prompts:
@@ -442,4 +484,3 @@ mapping_per_concept_class:
             "justification": "string"
           }
           Return only these four keys and no additional keys.
-

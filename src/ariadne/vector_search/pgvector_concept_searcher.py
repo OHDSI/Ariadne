@@ -13,12 +13,8 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-import os
-import pickle
-import time
-from pathlib import Path
-from typing import List, Dict, Optional, Set
+import re
+from typing import List, Optional
 
 import numpy as np
 import pandas as pd
@@ -28,6 +24,7 @@ from dotenv import load_dotenv
 
 from ariadne.utils.utils import get_environment_variable
 from ariadne.utils.gen_ai_api import get_embedding_vectors
+from ariadne.utils.settings import VectorSearchSettings
 from ariadne.vector_search.abstract_concept_searcher import AbstractConceptSearcher
 
 load_dotenv()
@@ -38,36 +35,16 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
     A concept searcher that uses pgvector in a PostgreSQL database to find concepts based on embedding vectors.
     """
 
-    def __init__(self, for_evaluation: bool = False, include_synonyms: bool = True, include_mapped_terms: bool = True):
-        self.for_evaluation = for_evaluation
-        self.include_synonyms = include_synonyms
-        self.include_mapped_terms = include_mapped_terms
+    def __init__(self, settings: VectorSearchSettings):
+        self.settings = settings
+        self._sorted_substrings_to_remove = sorted(
+            self.settings.substrings_to_remove,
+            key=len,
+            reverse=True,
+        )
+        self.include_synonyms = settings.include_synonyms
+        self.include_mapped_terms = settings.include_mapped_terms
         self.cost = 0.0
-
-        if for_evaluation:
-            self.concept_classes_to_ignore = [
-                "Disposition",
-                "Morph Abnormality",
-                "Organism",
-                "Qualifier Value",
-                "Substance",
-                "ICDO Condition",
-            ]
-            self.vocabularies_to_ignore = [
-                "ICD9CM",
-                "ICD10CM",
-                "ICD10",
-                "ICD10CN",
-                "ICD10GM",
-                "CIM10",
-                "ICDO3",
-                "KCD7",
-                "Read",
-            ]
-            print("ConceptSearcher initialized in evaluation mode.")
-        else:
-            self.concept_classes_to_ignore = None
-            self.vocabularies_to_ignore = None
 
         connection = psycopg.connect(get_environment_variable("VOCAB_CONNECTION_STRING").replace("+psycopg", ""))
         register_vector(connection)
@@ -79,30 +56,55 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
     def close(self):
         self.connection.close()
 
-    def _search_pgvector(self, source_vector: np.ndarray, limit: int, vocabulary_id: Optional[str] = None) -> List:
-        if self.concept_classes_to_ignore is None:
-            ignore_string_class = "'dummy'"
-        else:
-            ignore_string_class = ", ".join(f"'{y}'" for y in self.concept_classes_to_ignore)
+    def _search_pgvector(self, source_vector: np.ndarray) -> List:
+        limit = self.settings.max_candidates
+
+        concept_class_clause = ""
+        if self.settings.concept_class_ids:
+            concept_classes = ", ".join(f"'{concept_class}'" for concept_class in self.settings.concept_class_ids)
+            concept_class_clause = f"AND concept.concept_class_id IN ({concept_classes})"
+
+        concept_class_exclude_clause = ""
+        if self.settings.exclude_concept_class_ids:
+            concept_classes_to_ignore = ", ".join(
+                f"'{concept_class}'" for concept_class in self.settings.exclude_concept_class_ids
+            )
+            concept_class_exclude_clause = f"AND concept.concept_class_id NOT IN ({concept_classes_to_ignore})"
+
+        domain_clause = ""
+        if self.settings.domain_ids:
+            domains = ", ".join(f"'{domain}'" for domain in self.settings.domain_ids)
+            domain_clause = f"AND concept.domain_id IN ({domains})"
+
+        vocabulary_clause = ""
+        if self.settings.vocabulary_ids:
+            vocabularies = ", ".join(f"'{vocab}'" for vocab in self.settings.vocabulary_ids)
+            vocabulary_clause = f"AND concept.vocabulary_id IN ({vocabularies})"
+
+        exclude_vocabulary_clause = ""
+        source_exclude_vocabulary_clause = ""
+        if self.settings.exclude_vocabulary_ids:
+            excluded_vocabs = ", ".join(f"'{vocab}'" for vocab in self.settings.exclude_vocabulary_ids)
+            exclude_vocabulary_clause = f"AND concept.vocabulary_id NOT IN ({excluded_vocabs})"
+            source_exclude_vocabulary_clause = f"AND source_concept.vocabulary_id NOT IN ({excluded_vocabs})"
+
+        standard_clause = ""
+        normalized_standard = (self.settings.standard_concept or "").strip()
+        if normalized_standard:
+            if normalized_standard.lower() == "none":
+                standard_clause = "AND concept.standard_concept IS NULL"
+            else:
+                standard_clause = f"AND concept.standard_concept = '{normalized_standard}'"
 
         if self.include_synonyms:
             term_type_clause = ""
         else:
             term_type_clause = "AND vectors.term_type = 'Name'"
 
-        if vocabulary_id:
-            vocabulary_clause = f"AND concept.vocabulary_id = '{vocabulary_id}'"
-        else:
-            vocabulary_clause = ""
-
         vocabulary_schema = get_environment_variable("VOCAB_SCHEMA")
         vector_table = get_environment_variable("VOCAB_VECTOR_TABLE")
 
         if self.include_mapped_terms:
-            if self.vocabularies_to_ignore is None:
-                ignore_string_vocab = "'dummy'"
-            else:
-                ignore_string_vocab = ", ".join(f"'{x}'" for x in self.vocabularies_to_ignore)
             query = f"""
                 WITH target_concept AS (
                     SELECT concept_id,
@@ -121,10 +123,14 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
                             INNER JOIN {vocabulary_schema}.concept
                                 ON concept_relationship.concept_id_2 = concept.concept_id
                             WHERE relationship_id = 'Maps to'
-                                AND source_concept.vocabulary_id NOT IN ({ignore_string_vocab})
-                                AND concept.concept_class_id NOT IN ({ignore_string_class})
-                                {term_type_clause}
+                                {source_exclude_vocabulary_clause}
+                                {concept_class_clause}
+                                {concept_class_exclude_clause}
+                                {domain_clause}
                                 {vocabulary_clause}
+                                {exclude_vocabulary_clause}
+                                {standard_clause}
+                                {term_type_clause}
                             ORDER BY embedding_vector <=> %s
                             LIMIT {limit * 4} -- May have duplicates due to synonyms
                         )
@@ -138,10 +144,14 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
                             FROM {vocabulary_schema}.{vector_table} vectors
                             INNER JOIN {vocabulary_schema}.concept
                                 ON vectors.concept_id = concept.concept_id
-                            WHERE standard_concept = 'S'
-                                AND concept.concept_class_id NOT IN ({ignore_string_class})
-                                {term_type_clause}
+                            WHERE 1=1
+                                {standard_clause}
+                                {concept_class_clause}
+                                {concept_class_exclude_clause}
+                                {domain_clause}
                                 {vocabulary_clause}
+                                {exclude_vocabulary_clause}
+                                {term_type_clause}
                             ORDER BY embedding_vector <=> %s
                             LIMIT {limit * 4} -- May have duplicates due to synonyms
                         )
@@ -172,8 +182,13 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
                         FROM {vocabulary_schema}.{vector_table} vectors
                         INNER JOIN {vocabulary_schema}.concept
                             ON vectors.concept_id = concept.concept_id
-                        WHERE standard_concept = 'S'
-                            AND concept.concept_class_id NOT IN ({ignore_string_class})
+                        WHERE 1=1
+                            {standard_clause}
+                            {concept_class_clause}
+                            {concept_class_exclude_clause}
+                            {domain_clause}
+                            {vocabulary_clause}
+                            {exclude_vocabulary_clause}
                             {term_type_clause}
                         ORDER BY embedding_vector <=> %s
                         LIMIT {limit * 4} -- May have duplicates due to synonyms
@@ -194,22 +209,27 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
 
         return results
 
-    def search_term(self, term: str, limit: int = 25, vocabulary_id: Optional[str] = None) -> Optional[pd.DataFrame]:
+    def search_term(self, term: str) -> Optional[pd.DataFrame]:
         """
         Searches for concepts matching the given term.
 
         Args:
             term: The clinical term to search for.
-            limit: The maximum number of results to return.
-            vocabulary_id: Optional vocabulary restriction (e.g., ``"SNOMED"``).
+            The number of results and filters are controlled by settings.
 
         Returns:
             A DataFrame containing the matching concepts, or None if no matches are found.
         """
-        vectors_with_usage = get_embedding_vectors([term])
+        # Remove substrings from term
+        cleaned_term = term
+        for substring in self._sorted_substrings_to_remove:
+            cleaned_term = re.sub(re.escape(substring), "", cleaned_term, flags=re.IGNORECASE)
+        cleaned_term = cleaned_term.strip()
+
+        vectors_with_usage = get_embedding_vectors([cleaned_term])
         self.cost = self.cost + vectors_with_usage["usage"]["total_cost_usd"]
         vector = vectors_with_usage["embeddings"][0]
-        results = self._search_pgvector(vector, limit, vocabulary_id)
+        results = self._search_pgvector(vector)
         if not results:
             return None
         df = pd.DataFrame(
@@ -230,7 +250,6 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
             matched_concept_name_column: str = "matched_concept_name",
             match_score_column: str = "match_score",
             match_rank_column: str = "match_rank",
-            limit: int = 25,
             return_embeddings: bool = False,
     ):
         """
@@ -243,7 +262,6 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
             matched_concept_name_column: Name of the column to store matched concept names.
             match_score_column: Name of the column to store match scores.
             match_rank_column: Name of the column to store match ranks.
-            limit: The maximum number of results to return for each term.
             return_embeddings: When True, also return a ``dict[term -> np.ndarray]``
                 mapping each unique source term to its embedding vector.  The
                 caller can pass these vectors to
@@ -260,7 +278,15 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
         """
 
         terms = df[term_column].tolist()
-        vectors_with_usage = get_embedding_vectors(terms)
+        # Remove substrings from all terms
+        cleaned_terms = []
+        for term in terms:
+            cleaned_term = term
+            for substring in self._sorted_substrings_to_remove:
+                cleaned_term = cleaned_term.replace(substring, "")
+            cleaned_terms.append(cleaned_term.strip())
+
+        vectors_with_usage = get_embedding_vectors(cleaned_terms)
         self.cost = self.cost + vectors_with_usage["usage"]["total_cost_usd"]
         vectors = vectors_with_usage["embeddings"]
 
@@ -272,7 +298,7 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
             vector = vectors[index]
             if return_embeddings:
                 term_to_vector[term] = vector
-            results = self._search_pgvector(vector, limit=limit)
+            results = self._search_pgvector(vector)
             results = pd.DataFrame(
                 results,
                 columns=[
@@ -307,7 +333,7 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
 
 
 if __name__ == "__main__":
-    concept_searcher = PgvectorConceptSearcher()
+    concept_searcher = PgvectorConceptSearcher(settings=VectorSearchSettings())
     search_results = concept_searcher.search_term("Acute myocardial infarction")
     print(search_results)
 
@@ -320,7 +346,7 @@ if __name__ == "__main__":
             ],
         }
     )
-    results_df = concept_searcher.search_terms(df, term_column="cleaned_term", limit=10)
+    results_df = concept_searcher.search_terms(df, term_column="cleaned_term")
     print(results_df)
     print(results_df.columns)
 

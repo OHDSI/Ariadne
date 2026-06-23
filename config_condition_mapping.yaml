@@ -95,6 +95,12 @@ term_cleaning:
 
 vector_search:
   max_candidates: 25
+  standard_concept: "S"
+  domain_ids:
+    - Condition
+    - Observation
+    - Measurement
+    - Procedure
 
 llm_mapping:
   llm_mapper_responses_folder: data/llm_condition_mapper_responses
@@ -396,4 +402,3 @@ hierarchy:
           },
           "reasoning": "Brief explanation of candidate selection, noting any rejected candidates and why."
       }
-

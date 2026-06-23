@@ -206,6 +206,9 @@ class LlmMapper:
 
                 with open(response_file, "w", encoding="utf-8") as f:
                     f.write(response)
+                prompt_file = os.path.join(self.responses_folder, f"prompt_{source_id}_s{step + 1}.txt")
+                with open(prompt_file, "w", encoding="utf-8") as f:
+                    f.write(f"[System prompt]\n{system_prompt}\n\n[Prompt]\n{prompt}")
             if step < num_prompts - 1:
                 # Use the response as the prompt for the next step:
                 prompt = response

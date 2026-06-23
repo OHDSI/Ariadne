@@ -1,3 +1,4 @@
+from dataclasses import replace
 import logging
 
 import pandas as pd
@@ -5,7 +6,7 @@ import pandas as pd
 from ariadne.llm_mapping.concept_context_retriever import add_concept_context
 from ariadne.llm_mapping.llm_mapper import LlmMapper
 from ariadne.utils.config_drug_mapping import ConfigDrugMapping
-from ariadne.utils.settings import MappingPerConceptClassSettings, StandardConceptFilter
+from ariadne.utils.settings import MappingPerConceptClassSettings
 from ariadne.vector_search.hecate_concept_searcher import HecateConceptSearcher
 from ariadne.verbatim_mapping.term_downloader import download_terms
 from ariadne.verbatim_mapping.vocab_verbatim_term_mapper import VocabVerbatimTermMapper
@@ -42,16 +43,6 @@ class DrugMapper:
         missing_columns = sorted(required_columns - set(df.columns))
         if missing_columns:
             raise ValueError(f"drug_concept_stage is missing required columns: {missing_columns}")
-
-    @staticmethod
-    def _hecate_kwargs(scf: StandardConceptFilter) -> dict:
-        """Build keyword arguments for :class:`HecateConceptSearcher` from a filter."""
-        return dict(
-            standard_concept="S" if scf.standard_concept else "None",
-            domain_ids=scf.domain_ids,
-            concept_class_ids=scf.concept_class_ids,
-            vocabulary_ids=scf.vocabularies,
-        )
 
     def _filter_brand_rows_matching_ingredients(self, brand_rows: pd.DataFrame) -> pd.DataFrame:
         if brand_rows.empty:
@@ -99,16 +90,10 @@ class DrugMapper:
 
         unmatched = work_df[work_df["mapped_concept_id"] == -1].copy()
         if not unmatched.empty:
-            hecate_kwargs = self._hecate_kwargs(vm_settings.standard_concept_filter)
-            hecate = HecateConceptSearcher(**hecate_kwargs)
+            hecate = HecateConceptSearcher(settings=vs_settings)
             candidates = hecate.search_terms(
                 unmatched,
                 term_column="concept_name",
-                limit=vs_settings.max_candidates,
-                standard_concept=hecate_kwargs["standard_concept"],
-                domain_ids=hecate_kwargs["domain_ids"],
-                concept_class_ids=hecate_kwargs["concept_class_ids"],
-                vocabulary_ids=hecate_kwargs["vocabulary_ids"],
             )
 
             if not candidates.empty:
@@ -122,8 +107,11 @@ class DrugMapper:
                         context_cfg.include_target_clinical_drug_form_child_count
                     ),
                 )
-                llm_settings.context.include_target_children = False
-                mapper = LlmMapper(settings=llm_settings)
+                mapper_settings = replace(
+                    llm_settings,
+                    context=replace(llm_settings.context, include_target_children=False),
+                )
+                mapper = LlmMapper(settings=mapper_settings)
                 llm_matches = mapper.map_terms(
                     source_target_concepts=candidates,
                     source_id_column="concept_code",

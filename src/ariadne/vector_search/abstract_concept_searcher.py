@@ -23,13 +23,13 @@ class AbstractConceptSearcher(ABS):
     """Abstract base class for concept searchers."""
 
     @abstractmethod
-    def search_term(self, term: str, limit: int = 25) -> Optional[pd.DataFrame]:
+    def search_term(self, term: str) -> Optional[pd.DataFrame]:
         """
         Searches for concepts matching the given term.
 
         Args:
             term: The clinical term to search for.
-            limit: The maximum number of results to return.
+            The number of results and filter behavior are controlled by settings.
 
         Returns:
             A DataFrame containing the matching concepts, or None if no matches are found.
@@ -45,7 +45,6 @@ class AbstractConceptSearcher(ABS):
         matched_concept_name_column: str = "matched_concept_name",
         match_score_column: str = "match_score",
         match_rank_column: str = "match_rank",
-        limit: int = 25,
     ) -> pd.DataFrame:
         """
         Searches for concepts matching terms in a DataFrame column.
@@ -57,7 +56,7 @@ class AbstractConceptSearcher(ABS):
             matched_concept_name_column: Name of the column to store matched concept names.
             match_score_column: Name of the column to store match scores.
             match_rank_column: Name of the column to store match ranks.
-            limit: The maximum number of results to return for each term.
+            Result count and filters are controlled by settings.
 
         Returns:
             A DataFrame containing the same columns as the input dataframe plus the matching concepts for each term. For

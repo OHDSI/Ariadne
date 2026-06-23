@@ -24,7 +24,7 @@ from ariadne.hierarchy.types import (
     SearchResult,
 )
 from ariadne.utils.gen_ai_api import get_embedding_vectors
-from ariadne.utils.settings import HierarchySettings
+from ariadne.utils.settings import HierarchySettings, VectorSearchSettings
 from ariadne.utils.utils import get_environment_variable
 from ariadne.vector_search.pgvector_concept_searcher import PgvectorConceptSearcher
 
@@ -250,22 +250,26 @@ class SnomedReferenceConceptVectorSearcher(AbstractSnomedSearcher):
         include_synonyms: bool = False,
     ):
         super().__init__(hierarchy_settings)
+        resolved_hierarchy_settings = getattr(self, "hierarchy_settings", None) or getattr(self, "cfg", None)
+        if resolved_hierarchy_settings is None:
+            raise ValueError("Hierarchy settings are required to initialize SnomedReferenceConceptVectorSearcher.")
         self._exclude_concept_ids: list[int] = sorted(exclude_concept_ids) if exclude_concept_ids else []
-        self._relationship_ids: list[str] = list(self.hierarchy_settings.snomed_relationships)
+        self._relationship_ids: list[str] = list(resolved_hierarchy_settings.snomed_relationships)
         self.include_synonyms = include_synonyms
-        self._concept_searcher = PgvectorConceptSearcher(
-            for_evaluation=False,
+        vector_settings = VectorSearchSettings(
+            max_candidates=resolved_hierarchy_settings.retrieval.num_reference_examples * 2,
+            standard_concept="S",
+            vocabulary_ids=["SNOMED"],
             include_synonyms=include_synonyms,
             include_mapped_terms=True,
         )
+        self._concept_searcher = PgvectorConceptSearcher(settings=vector_settings)
 
     def _search_reference_terms(self, text: str, top_k: int) -> list[tuple[int, str, float]]:
         fetch_limit = top_k * 2
-        result_df = self._concept_searcher.search_term(
-            term=text,
-            limit=fetch_limit,
-            vocabulary_id="SNOMED",
-        )
+        if self._concept_searcher.settings.max_candidates < fetch_limit:
+            self._concept_searcher.settings.max_candidates = fetch_limit
+        result_df = self._concept_searcher.search_term(term=text)
         if result_df is None or result_df.empty:
             return []
 

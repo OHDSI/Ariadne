@@ -3,19 +3,26 @@ from ariadne.vector_search.hecate_concept_searcher import (
     _HECATE_SEARCH_STANDARD_URL,
     _HECATE_SEARCH_URL,
 )
+from ariadne.utils.settings import VectorSearchSettings
 
 
 def test_non_standard_uses_search_endpoint():
-    searcher = HecateConceptSearcher(standard_concept="None")
-    endpoint, params = searcher._resolve_endpoint_for_standard_concept(None)
+    searcher = HecateConceptSearcher(settings=VectorSearchSettings(standard_concept="None"))
 
-    assert endpoint == _HECATE_SEARCH_URL
-    assert params.get("standard_concept") == "None"
+    assert searcher.default_url == _HECATE_SEARCH_URL
+    assert searcher.default_params.get("standard_concept") == "None"
 
 
 def test_standard_override_uses_search_standard_endpoint():
-    searcher = HecateConceptSearcher(standard_concept="None")
-    endpoint, params = searcher._resolve_endpoint_for_standard_concept("S")
+    searcher = HecateConceptSearcher(settings=VectorSearchSettings(standard_concept="S"))
 
-    assert endpoint == _HECATE_SEARCH_STANDARD_URL
-    assert "standard_concept" not in params
+    assert searcher.default_url == _HECATE_SEARCH_STANDARD_URL
+    assert "standard_concept" not in searcher.default_params
+
+
+def test_exclude_vocabularies_are_joined_for_hecate_query_params():
+    searcher = HecateConceptSearcher(
+        settings=VectorSearchSettings(exclude_vocabulary_ids=["ICD10", "Read"])
+    )
+
+    assert searcher.default_params.get("exclude_vocabulary_id") == "ICD10,Read"

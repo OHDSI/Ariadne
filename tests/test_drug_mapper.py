@@ -64,7 +64,7 @@ def test_drug_mapper_runs_class_specific_pipeline(monkeypatch, tmp_path):
     mapper = DrugMapper(config=config)
 
     download_calls = []
-    hecate_limits = []
+    hecate_max_candidates = []
 
     def fake_download_terms(settings):
         download_calls.append(settings.terms_folder)
@@ -84,11 +84,10 @@ def test_drug_mapper_runs_class_specific_pipeline(monkeypatch, tmp_path):
             return mapped
 
     class FakeHecateConceptSearcher:
-        def __init__(self, *args, **kwargs):
-            pass
+        def __init__(self, settings):
+            hecate_max_candidates.append(settings.max_candidates)
 
-        def search_terms(self, df, term_column, **kwargs):
-            hecate_limits.append(kwargs.get("limit"))
+        def search_terms(self, df, term_column):
             rows = []
             for _, row in df.iterrows():
                 rows.append(
@@ -153,7 +152,7 @@ def test_drug_mapper_runs_class_specific_pipeline(monkeypatch, tmp_path):
     relationship_to_concept = mapper.map_drug_concepts(drug_concept_stage)
 
     assert len(download_calls) == 7
-    assert hecate_limits and all(limit == 17 for limit in hecate_limits)
+    assert hecate_max_candidates and all(value == 17 for value in hecate_max_candidates)
     assert set(relationship_to_concept.columns) == {
         "concept_code",
         "source_name",

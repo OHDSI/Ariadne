@@ -153,6 +153,14 @@ class VectorSearchSettings:
 
     max_candidates: int = 25
     substrings_to_remove: List[str] = field(default_factory=list)
+    standard_concept: Optional[str] = "S"
+    domain_ids: Optional[List[str]] = None
+    concept_class_ids: Optional[List[str]] = None
+    vocabulary_ids: Optional[List[str]] = None
+    exclude_concept_class_ids: Optional[List[str]] = None
+    exclude_vocabulary_ids: List[str] = field(default_factory=list)
+    include_synonyms: bool = True
+    include_mapped_terms: bool = True
 
 
 @dataclass

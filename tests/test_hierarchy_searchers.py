@@ -33,12 +33,13 @@ class _FakeConnection:
 
 
 class _FakeConceptSearcher:
-    def __init__(self, *args, **kwargs):
+    def __init__(self, settings):
         self.calls = []
         self.cost = 0.5
+        self.settings = settings
 
-    def search_term(self, term, limit, vocabulary_id=None):
-        self.calls.append((term, limit, vocabulary_id))
+    def search_term(self, term):
+        self.calls.append(term)
         import pandas as pd
 
         return pd.DataFrame(
@@ -86,10 +87,9 @@ def test_reference_concept_vector_searcher_uses_pgvector_concept_searcher(monkey
     assert result.examples[0]["attributes"][0]["concept_id_2"] == 2001
     assert len(executed) == 1
     assert len(searcher._concept_searcher.calls) == 1
-    term, limit, vocabulary_id = searcher._concept_searcher.calls[0]
-    assert term == "unused"
-    assert limit == 10
-    assert vocabulary_id == "SNOMED"
+    assert searcher._concept_searcher.calls[0] == "unused"
+    assert searcher._concept_searcher.settings.max_candidates == 10
+    assert searcher._concept_searcher.settings.vocabulary_ids == ["SNOMED"]
 
 
 def test_reference_concept_vector_searcher_embeds_when_needed(monkeypatch):
@@ -108,10 +108,10 @@ def test_reference_concept_vector_searcher_embeds_when_needed(monkeypatch):
 
     monkeypatch.setattr("ariadne.hierarchy.searchers.AbstractSnomedSearcher.__init__", _fake_base_init)
     class _FakeEmptyConceptSearcher:
-        def __init__(self, *args, **kwargs):
-            pass
+        def __init__(self, settings):
+            self.settings = settings
 
-        def search_term(self, term, limit, vocabulary_id=None):
+        def search_term(self, term):
             return None
 
         def get_total_cost(self):
@@ -145,8 +145,10 @@ def test_reference_concept_vector_searcher_applies_exclusions(monkeypatch):
         self._cost = 0.0
 
     class _FakeConceptSearcherWithExcludedTop:
-        def __init__(self, *args, **kwargs):
+        def __init__(self, settings):
             import pandas as pd
+
+            self.settings = settings
 
             self._df = pd.DataFrame(
                 [
@@ -157,8 +159,8 @@ def test_reference_concept_vector_searcher_applies_exclusions(monkeypatch):
                 columns=["concept_id", "concept_name", "score"],
             )
 
-        def search_term(self, term, limit, vocabulary_id=None):
-            return self._df.head(limit)
+        def search_term(self, term):
+            return self._df.head(self.settings.max_candidates)
 
         def get_total_cost(self):
             return 0.0

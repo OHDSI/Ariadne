@@ -26,7 +26,11 @@ class TermNormalizer:
     """
 
     def __init__(self, substrings_to_remove: List[str] | None = None):
-        self.substrings_to_remove = substrings_to_remove or []
+        self.substrings_to_remove = sorted(
+            (substrings_to_remove or []),
+            key=len,
+            reverse=True,
+        )
         try:
             self.nlp = spacy.load("en_core_web_sm")
             print("spaCy model 'en_core_web_sm' loaded successfully.")
