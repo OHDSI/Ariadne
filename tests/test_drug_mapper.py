@@ -7,10 +7,10 @@ from ariadne.llm_mapping.drug_mapper import DrugMapper
 from ariadne.utils.settings import (
     ConceptFilterSettings,
     ConceptContextSettings,
+    HecateSearchSettings,
     LlmMapperSettings,
     MappingPerConceptClassSettings,
     VerbatimMappingSettings,
-    VectorSearchSettings,
 )
 
 
@@ -48,7 +48,10 @@ def _build_test_config(tmp_path):
                     concept_class_ids=[label],
                 ),
             ),
-            vector_search=VectorSearchSettings(max_candidates=17),
+            hecate_search=HecateSearchSettings(
+                max_candidates=17,
+                filter=ConceptFilterSettings(standard_concept=["S"]),
+            ),
             llm_mapping=LlmMapperSettings(
                 llm_mapper_responses_folder=str(Path(tmp_path) / "responses"),
                 context=shared_context,

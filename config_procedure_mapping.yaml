@@ -134,7 +134,7 @@ term_cleaning:
       ]
     }
 
-vector_search:
+hecate_search:
   max_candidates: 25
   filter:
     standard_concept:

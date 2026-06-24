@@ -7,7 +7,10 @@ def test_config_uses_config_condition_mapping_default(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     monkeypatch.setattr("ariadne.utils.config.get_project_root", lambda: tmp_path)
 
-    (tmp_path / "config_condition_mapping.yaml").write_text("{}\n", encoding="utf-8")
+    (tmp_path / "config_condition_mapping.yaml").write_text(
+        "hecate_search:\n  filter:\n    standard_concept:\n      - S\n",
+        encoding="utf-8",
+    )
 
     config = Config()
 

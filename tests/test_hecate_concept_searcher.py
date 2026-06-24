@@ -3,12 +3,12 @@ from ariadne.vector_search.hecate_concept_searcher import (
     _HECATE_SEARCH_STANDARD_URL,
     _HECATE_SEARCH_URL,
 )
-from ariadne.utils.settings import ConceptFilterSettings, VectorSearchSettings
+from ariadne.utils.settings import ConceptFilterSettings, HecateSearchSettings
 
 
 def test_non_standard_uses_search_endpoint():
     searcher = HecateConceptSearcher(
-        settings=VectorSearchSettings(filter=ConceptFilterSettings(standard_concept=["None"]))
+        settings=HecateSearchSettings(filter=ConceptFilterSettings(standard_concept=["None"]))
     )
 
     assert searcher.default_url == _HECATE_SEARCH_URL
@@ -17,7 +17,7 @@ def test_non_standard_uses_search_endpoint():
 
 def test_standard_override_uses_search_standard_endpoint():
     searcher = HecateConceptSearcher(
-        settings=VectorSearchSettings(filter=ConceptFilterSettings(standard_concept=["S"]))
+        settings=HecateSearchSettings(filter=ConceptFilterSettings(standard_concept=["S"]))
     )
 
     assert searcher.default_url == _HECATE_SEARCH_STANDARD_URL
@@ -26,7 +26,7 @@ def test_standard_override_uses_search_standard_endpoint():
 
 def test_exclude_vocabularies_are_joined_for_hecate_query_params():
     searcher = HecateConceptSearcher(
-        settings=VectorSearchSettings(
+        settings=HecateSearchSettings(
             filter=ConceptFilterSettings(
                 standard_concept=["S"],
                 exclude_vocabulary_ids=["ICD10", "Read"],
@@ -39,7 +39,7 @@ def test_exclude_vocabularies_are_joined_for_hecate_query_params():
 
 def test_mixed_standard_values_use_search_endpoint_with_explicit_param():
     searcher = HecateConceptSearcher(
-        settings=VectorSearchSettings(
+        settings=HecateSearchSettings(
             filter=ConceptFilterSettings(standard_concept=["S", "None"])
         )
     )

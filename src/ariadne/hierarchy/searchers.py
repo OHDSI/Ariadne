@@ -24,7 +24,7 @@ from ariadne.hierarchy.types import (
     SearchResult,
 )
 from ariadne.utils.gen_ai_api import get_embedding_vectors
-from ariadne.utils.settings import ConceptFilterSettings, HierarchySettings, VectorSearchSettings
+from ariadne.utils.settings import ConceptFilterSettings, HierarchySettings, PgvectorSearchSettings
 from ariadne.utils.utils import get_environment_variable
 from ariadne.vector_search.pgvector_concept_searcher import PgvectorConceptSearcher
 
@@ -256,7 +256,7 @@ class SnomedReferenceConceptVectorSearcher(AbstractSnomedSearcher):
         self._exclude_concept_ids: list[int] = sorted(exclude_concept_ids) if exclude_concept_ids else []
         self._relationship_ids: list[str] = list(resolved_hierarchy_settings.snomed_relationships)
         self.include_synonyms = include_synonyms
-        vector_settings = VectorSearchSettings(
+        vector_settings = PgvectorSearchSettings(
             max_candidates=resolved_hierarchy_settings.retrieval.num_reference_examples * 2,
             filter=ConceptFilterSettings(
                 standard_concept=["S"],

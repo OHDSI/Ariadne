@@ -7,7 +7,10 @@ from ariadne.llm_mapping.concept_context_retriever import add_concept_context
 from ariadne.llm_mapping.llm_mapper import LlmMapper
 from ariadne.utils.config_drug_mapping import ConfigDrugMapping
 from ariadne.utils.settings import MappingPerConceptClassSettings
+from ariadne.vector_search.abstract_concept_searcher import AbstractConceptSearcher
 from ariadne.vector_search.hecate_concept_searcher import HecateConceptSearcher
+from ariadne.vector_search.pgvector_concept_searcher import PgvectorConceptSearcher
+from ariadne.vector_search.tfidf_concept_searcher import TfidfConceptSearcher
 from ariadne.verbatim_mapping.term_downloader import download_terms
 from ariadne.verbatim_mapping.vocab_verbatim_term_mapper import VocabVerbatimTermMapper
 
@@ -74,7 +77,6 @@ class DrugMapper:
 
     def _map_class_rows(self, class_rows: pd.DataFrame, class_settings: MappingPerConceptClassSettings) -> pd.DataFrame:
         vm_settings = class_settings.verbatim_mapping
-        vs_settings = class_settings.vector_search
         llm_settings = class_settings.llm_mapping
 
         download_terms(settings=vm_settings)
@@ -90,11 +92,16 @@ class DrugMapper:
 
         unmatched = work_df[work_df["mapped_concept_id"] == -1].copy()
         if not unmatched.empty:
-            hecate = HecateConceptSearcher(settings=vs_settings)
-            candidates = hecate.search_terms(
-                unmatched,
-                term_column="concept_name",
-            )
+            searcher = self._create_concept_searcher(class_settings)
+            try:
+                candidates = searcher.search_terms(
+                    unmatched,
+                    term_column="concept_name",
+                )
+            finally:
+                close_fn = getattr(searcher, "close", None)
+                if callable(close_fn):
+                    close_fn()
 
             if not candidates.empty:
                 context_cfg = llm_settings.context
@@ -128,6 +135,19 @@ class DrugMapper:
             lambda value: int(value) if pd.notna(value) and int(value) != -1 else None
         )
         return work_df
+
+    @staticmethod
+    def _create_concept_searcher(class_settings: MappingPerConceptClassSettings) -> AbstractConceptSearcher:
+        if class_settings.hecate_search is not None:
+            return HecateConceptSearcher(settings=class_settings.hecate_search)
+        if class_settings.pgvector_search is not None:
+            return PgvectorConceptSearcher(settings=class_settings.pgvector_search)
+        if class_settings.tfidf_search is not None:
+            return TfidfConceptSearcher(settings=class_settings.tfidf_search)
+        raise ValueError(
+            "Exactly one vector search block must be configured per concept class: "
+            "hecate_search, pgvector_search, or tfidf_search."
+        )
 
     def map_drug_concepts(self, drug_concept_stage: pd.DataFrame) -> pd.DataFrame:
         self._validate_input_columns(drug_concept_stage)

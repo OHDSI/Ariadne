@@ -24,7 +24,7 @@ from dotenv import load_dotenv
 
 from ariadne.utils.utils import get_environment_variable
 from ariadne.utils.gen_ai_api import get_embedding_vectors
-from ariadne.utils.settings import VectorSearchSettings
+from ariadne.utils.settings import PgvectorSearchSettings
 from ariadne.vector_search.abstract_concept_searcher import AbstractConceptSearcher
 
 load_dotenv()
@@ -35,7 +35,7 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
     A concept searcher that uses pgvector in a PostgreSQL database to find concepts based on embedding vectors.
     """
 
-    def __init__(self, settings: VectorSearchSettings):
+    def __init__(self, settings: PgvectorSearchSettings):
         self.settings = settings
         self._sorted_substrings_to_remove = sorted(
             self.settings.substrings_to_remove,
@@ -343,7 +343,7 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
 
 
 if __name__ == "__main__":
-    concept_searcher = PgvectorConceptSearcher(settings=VectorSearchSettings())
+    concept_searcher = PgvectorConceptSearcher(settings=PgvectorSearchSettings())
     search_results = concept_searcher.search_term("Acute myocardial infarction")
     print(search_results)
 

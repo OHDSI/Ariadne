@@ -94,7 +94,7 @@ term_cleaning:
     Include one result for each input row_number.
     Do not include any text outside of the JSON object.
 
-vector_search:
+hecate_search:
   max_candidates: 25
   filter:
     standard_concept:

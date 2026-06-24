@@ -243,7 +243,7 @@ mapping_per_concept_class:
           - S
         concept_class_ids:
           - Ingredient
-    vector_search:
+    hecate_search:
       max_candidates: 25
       filter:
         standard_concept:
@@ -290,7 +290,7 @@ mapping_per_concept_class:
           - RxNorm Extension
         concept_class_ids:
           - Brand Name
-    vector_search:
+    hecate_search:
       max_candidates: 25
       filter:
         standard_concept:
@@ -335,7 +335,7 @@ mapping_per_concept_class:
           - RxNorm Extension
         concept_class_ids:
           - Dose Form
-    vector_search:
+    hecate_search:
       max_candidates: 25
       filter:
         standard_concept:
@@ -386,13 +386,10 @@ mapping_per_concept_class:
           - RxNorm Extension
         concept_class_ids:
           - Supplier
-    vector_search:
+    tfidf_search:
       max_candidates: 25
-      substrings_to_remove:
-        - pharmaceuticals
-        - pharma
-        - healthcare
-        - ltd
+      terms_folder: data/terms_drug_supplier_tfidf
+      tfidf_index_file: data/tfidf_drug_supplier_index.pkl
       filter:
         standard_concept:
           - None
@@ -434,7 +431,7 @@ mapping_per_concept_class:
           - S
         vocabulary_ids:
           - UCUM
-    vector_search:
+    hecate_search:
       max_candidates: 25
       filter:
         standard_concept:
@@ -475,7 +472,7 @@ mapping_per_concept_class:
           - S
         concept_class_ids:
           - Device
-    vector_search:
+    hecate_search:
       max_candidates: 25
       filter:
         standard_concept:

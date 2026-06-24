@@ -34,7 +34,7 @@ def test_config_drug_mapping_parses_mapping_per_concept_class(tmp_path):
             "          - S\n"
             "        concept_class_ids:\n"
             "          - Ingredient\n"
-            "    vector_search:\n"
+            "    hecate_search:\n"
             "      max_candidates: 12\n"
             "    llm_mapping:\n"
             "      llm_mapper_responses_folder: data/responses/ingredient\n"
@@ -65,7 +65,10 @@ def test_config_drug_mapping_parses_mapping_per_concept_class(tmp_path):
     assert cc.verbatim_mapping.filter.concept_class_ids == ["Ingredient"]
 
     # Class-scoped vector search and LLM settings are parsed directly
-    assert cc.vector_search.max_candidates == 12
+    assert cc.hecate_search is not None
+    assert cc.hecate_search.max_candidates == 12
+    assert cc.pgvector_search is None
+    assert cc.tfidf_search is None
     assert cc.llm_mapping.system_prompts == ["ingredient prompt"]
     assert Path(cc.llm_mapping.llm_mapper_responses_folder) == get_project_root() / "data" / "responses" / "ingredient"
     assert cc.llm_mapping.context.include_target_parents is False
@@ -99,6 +102,10 @@ def test_concept_class_uses_defaults_when_fields_omitted(tmp_path):
             "          - S\n"
             "        concept_class_ids:\n"
             "          - Ingredient\n"
+            "    hecate_search:\n"
+            "      filter:\n"
+            "        standard_concept:\n"
+            "          - S\n"
         ),
         encoding="utf-8",
     )
@@ -106,8 +113,36 @@ def test_concept_class_uses_defaults_when_fields_omitted(tmp_path):
     config = ConfigDrugMapping(filename=str(config_path))
     cc = config.mapping_per_concept_class["ingredient"]
 
-    assert cc.vector_search.max_candidates == 25
+    assert cc.hecate_search is not None
+    assert cc.hecate_search.max_candidates == 25
+    assert cc.pgvector_search is None
+    assert cc.tfidf_search is None
     assert cc.llm_mapping.system_prompts == []
+
+
+def test_concept_class_requires_exactly_one_search_block(tmp_path):
+    config_path = tmp_path / "drug_config.yaml"
+    config_path.write_text(
+        (
+            "drug_structuring:\n"
+            "  llm_mapper_responses_folder: data/responses\n"
+            "mapping_per_concept_class:\n"
+            "  ingredient:\n"
+            "    verbatim_mapping:\n"
+            "      filter:\n"
+            "        standard_concept:\n"
+            "          - S\n"
+            "    hecate_search:\n"
+            "      max_candidates: 10\n"
+            "    tfidf_search:\n"
+            "      terms_folder: data/terms\n"
+            "      tfidf_index_file: data/index.pkl\n"
+        ),
+        encoding="utf-8",
+    )
+
+    with pytest.raises(ValueError, match="Exactly one vector search block"):
+        ConfigDrugMapping(filename=str(config_path))
 
 
 def test_invalid_standard_concept_value_fails_fast(tmp_path):
@@ -122,6 +157,10 @@ def test_invalid_standard_concept_value_fails_fast(tmp_path):
             "      filter:\n"
             "        standard_concept:\n"
             "          - X\n"
+            "    hecate_search:\n"
+            "      filter:\n"
+            "        standard_concept:\n"
+            "          - S\n"
         ),
         encoding="utf-8",
     )

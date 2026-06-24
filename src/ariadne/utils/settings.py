@@ -159,13 +159,43 @@ class VerbatimMappingSettings:
 
 @dataclass
 class VectorSearchSettings:
-    """Everything concept searchers read from config."""
+    """Base settings shared by all concept searchers."""
 
     max_candidates: int = 25
-    substrings_to_remove: List[str] = field(default_factory=list)
     filter: ConceptFilterSettings = field(default_factory=ConceptFilterSettings)
+
+
+@dataclass
+class HecateSearchSettings(VectorSearchSettings):
+    """Settings used by :class:`HecateConceptSearcher`."""
+
+    substrings_to_remove: List[str] = field(default_factory=list)
+
+
+@dataclass
+class PgvectorSearchSettings(VectorSearchSettings):
+    """Settings used by :class:`PgvectorConceptSearcher`."""
+
+    substrings_to_remove: List[str] = field(default_factory=list)
     include_synonyms: bool = True
     include_mapped_terms: bool = True
+
+
+@dataclass
+class TfidfSearchSettings(VectorSearchSettings):
+    """Settings used by :class:`TfidfConceptSearcher`."""
+
+    terms_folder: str = "data/terms_tfidf"
+    tfidf_index_file: str = "data/tfidf_index.pkl"
+    download_batch_size: int = 100_000
+    log_folder: str = "logs"
+    include_synonyms: bool = True
+    substrings_to_remove: List[str] = field(default_factory=list)
+
+    def __post_init__(self) -> None:
+        self.terms_folder = resolve_path(self.terms_folder)
+        self.tfidf_index_file = resolve_path(self.tfidf_index_file)
+        self.log_folder = resolve_path(self.log_folder)
 
 
 @dataclass
@@ -212,11 +242,28 @@ class DrugStructuringSettings:
 class MappingPerConceptClassSettings:
     """Per-concept-class settings used by the drug-mapping pipeline."""
 
-    verbatim_mapping: VerbatimMappingSettings = field(
-        default_factory=VerbatimMappingSettings
-    )
-    vector_search: VectorSearchSettings = field(default_factory=VectorSearchSettings)
+    verbatim_mapping: VerbatimMappingSettings = field(default_factory=VerbatimMappingSettings)
+    hecate_search: Optional[HecateSearchSettings] = None
+    pgvector_search: Optional[PgvectorSearchSettings] = None
+    tfidf_search: Optional[TfidfSearchSettings] = None
     llm_mapping: LlmMapperSettings = field(default_factory=LlmMapperSettings)
+
+    def __post_init__(self) -> None:
+        configured_searchers = [
+            name
+            for name, value in (
+                ("hecate_search", self.hecate_search),
+                ("pgvector_search", self.pgvector_search),
+                ("tfidf_search", self.tfidf_search),
+            )
+            if value is not None
+        ]
+        if len(configured_searchers) != 1:
+            raise ValueError(
+                "Exactly one vector search block must be configured per concept class: "
+                "hecate_search, pgvector_search, or tfidf_search. "
+                f"Configured: {configured_searchers or 'none'}."
+            )
 
 
 @dataclass

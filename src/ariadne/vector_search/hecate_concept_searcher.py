@@ -19,7 +19,7 @@ from typing import Optional
 import requests
 
 import pandas as pd
-from ariadne.utils.settings import VectorSearchSettings
+from ariadne.utils.settings import HecateSearchSettings
 from ariadne.vector_search.abstract_concept_searcher import AbstractConceptSearcher
 
 _HECATE_SEARCH_URL = "https://hecate.pantheon-hds.com/api/search"
@@ -34,7 +34,7 @@ class HecateConceptSearcher(AbstractConceptSearcher):
 
     def __init__(
         self,
-        settings: VectorSearchSettings,
+        settings: HecateSearchSettings,
     ):
         """
         Initializes the HecateConceptSearcher.
@@ -188,7 +188,7 @@ class HecateConceptSearcher(AbstractConceptSearcher):
 
 
 if __name__ == "__main__":
-    concept_searcher = HecateConceptSearcher(settings=VectorSearchSettings())
+    concept_searcher = HecateConceptSearcher(settings=HecateSearchSettings())
     search_results = concept_searcher.search_term("Acute myocardial infarction")
     print(search_results)
 
