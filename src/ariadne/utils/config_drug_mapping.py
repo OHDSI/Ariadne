@@ -60,9 +60,6 @@ class ConfigDrugMapping:
             name: build_dataclass(MappingPerConceptClassSettings, cc_raw)
             for name, cc_raw in (raw.get("mapping_per_concept_class") or {}).items()
         }
-        for cc in self.mapping_per_concept_class.values():
-            vm_filter = cc.verbatim_mapping.standard_concept_filter
-            vm_filter.include_classification_concepts = not vm_filter.standard_concept
 
     def to_dict(self) -> Dict[str, Any]:
         return {

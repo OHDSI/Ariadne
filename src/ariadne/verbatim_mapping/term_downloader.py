@@ -48,15 +48,10 @@ load_dotenv()
 
 def _create_query(engine: Engine, settings: VerbatimMappingSettings) -> Select:
     vocabulary_schema = get_environment_variable("VOCAB_SCHEMA")
-    filter_config = settings.standard_concept_filter
+    filter_config = settings.filter
 
     metadata = MetaData()
     concept = Table("concept", metadata, schema=vocabulary_schema, autoload_with=engine)
-
-    enforce_standard_only = getattr(filter_config, "standard_concept", True)
-    standard_concepts = ["S"]
-    if filter_config.include_classification_concepts:
-        standard_concepts.append("C")
 
     # Get concept names
     query1 = select(
@@ -66,16 +61,23 @@ def _create_query(engine: Engine, settings: VerbatimMappingSettings) -> Select:
         concept.c.vocabulary_id,
     ).where(concept.c.invalid_reason.is_(None))
 
-    if enforce_standard_only:
-        query1 = query1.where(concept.c.standard_concept.in_(standard_concepts))
+    if filter_config.standard_concept:
+        include_null_standard = "None" in filter_config.standard_concept
+        explicit_standard = [value for value in filter_config.standard_concept if value != "None"]
+        standard_filters = []
+        if explicit_standard:
+            standard_filters.append(concept.c.standard_concept.in_(explicit_standard))
+        if include_null_standard:
+            standard_filters.append(concept.c.standard_concept.is_(None))
+        query1 = query1.where(or_(*standard_filters))
     if filter_config.domain_ids:
         query1 = query1.where(concept.c.domain_id.in_(filter_config.domain_ids))
     if filter_config.concept_class_ids:
         query1 = query1.where(concept.c.concept_class_id.in_(filter_config.concept_class_ids))
-    if filter_config.vocabularies:
-        query1 = query1.where(concept.c.vocabulary_id.in_(filter_config.vocabularies))
+    if filter_config.vocabulary_ids:
+        query1 = query1.where(concept.c.vocabulary_id.in_(filter_config.vocabulary_ids))
 
-    if filter_config.include_synonyms:
+    if settings.include_synonyms:
         # Get concept synonyms.
         concept_synonym = Table(
             "concept_synonym",

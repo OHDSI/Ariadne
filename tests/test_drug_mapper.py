@@ -5,10 +5,10 @@ import pandas as pd
 
 from ariadne.llm_mapping.drug_mapper import DrugMapper
 from ariadne.utils.settings import (
+    ConceptFilterSettings,
     ConceptContextSettings,
     LlmMapperSettings,
     MappingPerConceptClassSettings,
-    StandardConceptFilter,
     VerbatimMappingSettings,
     VectorSearchSettings,
 )
@@ -42,9 +42,9 @@ def _build_test_config(tmp_path):
                 download_batch_size=1000,
                 log_folder=str(Path(tmp_path) / "logs"),
                 substrings_to_remove=[],
-                standard_concept_filter=StandardConceptFilter(
+                filter=ConceptFilterSettings(
                     domain_ids=["Drug"],
-                    standard_concept=True,
+                    standard_concept=["S"],
                     concept_class_ids=[label],
                 ),
             ),

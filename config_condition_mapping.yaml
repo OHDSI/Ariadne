@@ -15,16 +15,17 @@ verbatim_mapping:
     - "initial encounter"
     - "subsequent encounter for"
     - "subsequent encounter"
-  standard_concept_filter:
-    vocabularies:
+  include_synonyms: true
+  filter:
+    standard_concept:
+      - S
+    vocabulary_ids:
     domain_ids:
       - Condition
       - Observation
       - Measurement
       - Procedure
     concept_class_ids:
-    include_classification_concepts: false
-    include_synonyms: true
 
 term_cleaning:
   system_prompt: |
@@ -95,12 +96,14 @@ term_cleaning:
 
 vector_search:
   max_candidates: 25
-  standard_concept: "S"
-  domain_ids:
-    - Condition
-    - Observation
-    - Measurement
-    - Procedure
+  filter:
+    standard_concept:
+      - S
+    domain_ids:
+      - Condition
+      - Observation
+      - Measurement
+      - Procedure
 
 llm_mapping:
   llm_mapper_responses_folder: data/llm_condition_mapper_responses

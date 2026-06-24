@@ -105,15 +105,26 @@ def serialize_dataclass(obj: Any) -> Any:
 
 
 @dataclass
-class StandardConceptFilter:
-    """Controls which concepts are included in the verbatim-mapping vocabulary download."""
+class ConceptFilterSettings:
+    """Shared concept filters used by vocabulary download and vector search."""
 
-    vocabularies: Optional[List[str]] = None
+    standard_concept: List[str] = field(default_factory=lambda: ["S"])
     domain_ids: Optional[List[str]] = None
     concept_class_ids: Optional[List[str]] = None
-    include_classification_concepts: bool = False
-    include_synonyms: bool = True
-    standard_concept: bool = True  # True → restrict to standard_concept = 'S'
+    vocabulary_ids: Optional[List[str]] = None
+    exclude_concept_class_ids: Optional[List[str]] = None
+    exclude_vocabulary_ids: List[str] = field(default_factory=list)
+
+    def __post_init__(self) -> None:
+        allowed_values = {"S", "C", "None"}
+        if not self.standard_concept:
+            raise ValueError("filter.standard_concept must contain at least one value.")
+        invalid_values = [value for value in self.standard_concept if value not in allowed_values]
+        if invalid_values:
+            raise ValueError(
+                "Invalid filter.standard_concept values: "
+                f"{invalid_values}. Allowed values are {sorted(allowed_values)}."
+            )
 
 
 # ── per-component settings ────────────────────────────────────────────────────
@@ -136,10 +147,9 @@ class VerbatimMappingSettings:
     download_batch_size: int = 100_000
     log_folder: str = "logs"
     substrings_to_remove: List[str] = field(default_factory=list)
+    include_synonyms: bool = True
     preferred_vocabulary_ids: List[str] = field(default_factory=list)
-    standard_concept_filter: StandardConceptFilter = field(
-        default_factory=StandardConceptFilter
-    )
+    filter: ConceptFilterSettings = field(default_factory=ConceptFilterSettings)
 
     def __post_init__(self) -> None:
         self.terms_folder = resolve_path(self.terms_folder)
@@ -153,12 +163,7 @@ class VectorSearchSettings:
 
     max_candidates: int = 25
     substrings_to_remove: List[str] = field(default_factory=list)
-    standard_concept: Optional[str] = "S"
-    domain_ids: Optional[List[str]] = None
-    concept_class_ids: Optional[List[str]] = None
-    vocabulary_ids: Optional[List[str]] = None
-    exclude_concept_class_ids: Optional[List[str]] = None
-    exclude_vocabulary_ids: List[str] = field(default_factory=list)
+    filter: ConceptFilterSettings = field(default_factory=ConceptFilterSettings)
     include_synonyms: bool = True
     include_mapped_terms: bool = True
 

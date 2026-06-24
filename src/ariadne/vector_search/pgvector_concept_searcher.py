@@ -60,41 +60,51 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
         limit = self.settings.max_candidates
 
         concept_class_clause = ""
-        if self.settings.concept_class_ids:
-            concept_classes = ", ".join(f"'{concept_class}'" for concept_class in self.settings.concept_class_ids)
+        if self.settings.filter.concept_class_ids:
+            concept_classes = ", ".join(f"'{concept_class}'" for concept_class in self.settings.filter.concept_class_ids)
             concept_class_clause = f"AND concept.concept_class_id IN ({concept_classes})"
 
         concept_class_exclude_clause = ""
-        if self.settings.exclude_concept_class_ids:
+        if self.settings.filter.exclude_concept_class_ids:
             concept_classes_to_ignore = ", ".join(
-                f"'{concept_class}'" for concept_class in self.settings.exclude_concept_class_ids
+                f"'{concept_class}'" for concept_class in self.settings.filter.exclude_concept_class_ids
             )
             concept_class_exclude_clause = f"AND concept.concept_class_id NOT IN ({concept_classes_to_ignore})"
 
         domain_clause = ""
-        if self.settings.domain_ids:
-            domains = ", ".join(f"'{domain}'" for domain in self.settings.domain_ids)
+        if self.settings.filter.domain_ids:
+            domains = ", ".join(f"'{domain}'" for domain in self.settings.filter.domain_ids)
             domain_clause = f"AND concept.domain_id IN ({domains})"
 
         vocabulary_clause = ""
-        if self.settings.vocabulary_ids:
-            vocabularies = ", ".join(f"'{vocab}'" for vocab in self.settings.vocabulary_ids)
+        if self.settings.filter.vocabulary_ids:
+            vocabularies = ", ".join(f"'{vocab}'" for vocab in self.settings.filter.vocabulary_ids)
             vocabulary_clause = f"AND concept.vocabulary_id IN ({vocabularies})"
 
         exclude_vocabulary_clause = ""
         source_exclude_vocabulary_clause = ""
-        if self.settings.exclude_vocabulary_ids:
-            excluded_vocabs = ", ".join(f"'{vocab}'" for vocab in self.settings.exclude_vocabulary_ids)
+        if self.settings.filter.exclude_vocabulary_ids:
+            excluded_vocabs = ", ".join(f"'{vocab}'" for vocab in self.settings.filter.exclude_vocabulary_ids)
             exclude_vocabulary_clause = f"AND concept.vocabulary_id NOT IN ({excluded_vocabs})"
             source_exclude_vocabulary_clause = f"AND source_concept.vocabulary_id NOT IN ({excluded_vocabs})"
 
         standard_clause = ""
-        normalized_standard = (self.settings.standard_concept or "").strip()
-        if normalized_standard:
-            if normalized_standard.lower() == "none":
+        if self.settings.filter.standard_concept:
+            include_null_standard = "None" in self.settings.filter.standard_concept
+            explicit_standard = [
+                value for value in self.settings.filter.standard_concept if value != "None"
+            ]
+            if include_null_standard and explicit_standard:
+                explicit_standard_clause = ", ".join(f"'{value}'" for value in explicit_standard)
+                standard_clause = (
+                    f"AND (concept.standard_concept IN ({explicit_standard_clause}) "
+                    "OR concept.standard_concept IS NULL)"
+                )
+            elif include_null_standard:
                 standard_clause = "AND concept.standard_concept IS NULL"
             else:
-                standard_clause = f"AND concept.standard_concept = '{normalized_standard}'"
+                explicit_standard_clause = ", ".join(f"'{value}'" for value in explicit_standard)
+                standard_clause = f"AND concept.standard_concept IN ({explicit_standard_clause})"
 
         if self.include_synonyms:
             term_type_clause = ""

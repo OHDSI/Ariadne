@@ -236,19 +236,22 @@ mapping_per_concept_class:
         - dihydrate
         - trihydrate
         - anhydrous
-      standard_concept_filter:
+      filter:
         domain_ids:
           - Drug
-        standard_concept: true
+        standard_concept:
+          - S
         concept_class_ids:
           - Ingredient
     vector_search:
       max_candidates: 25
-      standard_concept: "S"
-      domain_ids:
-        - Drug
-      concept_class_ids:
-        - Ingredient
+      filter:
+        standard_concept:
+          - S
+        domain_ids:
+          - Drug
+        concept_class_ids:
+          - Ingredient
     llm_mapping:
       llm_mapper_responses_folder: data/llm_drug_mapper_responses/ingredient
       system_prompts:
@@ -277,25 +280,28 @@ mapping_per_concept_class:
     verbatim_mapping:
       terms_folder: data/terms_drug_brand_name
       verbatim_mapping_index_file: data/verbatim_drug_mapping_index_brand_name.pkl
-      standard_concept_filter:
+      filter:
         domain_ids:
           - Drug
-        standard_concept: false
-        vocabularies:
+        standard_concept:
+          - None
+        vocabulary_ids:
           - RxNorm
           - RxNorm Extension
         concept_class_ids:
           - Brand Name
     vector_search:
       max_candidates: 25
-      standard_concept: "None"
-      domain_ids:
-        - Drug
-      concept_class_ids:
-        - Brand Name
-      vocabulary_ids:
-        - RxNorm
-        - RxNorm Extension
+      filter:
+        standard_concept:
+          - None
+        domain_ids:
+          - Drug
+        concept_class_ids:
+          - Brand Name
+        vocabulary_ids:
+          - RxNorm
+          - RxNorm Extension
     llm_mapping:
       llm_mapper_responses_folder: data/llm_drug_mapper_responses/brand_name
       system_prompts:
@@ -319,25 +325,28 @@ mapping_per_concept_class:
     verbatim_mapping:
       terms_folder: data/terms_drug_dose_form
       verbatim_mapping_index_file: data/verbatim_drug_mapping_index_dose_form.pkl
-      standard_concept_filter:
+      filter:
         domain_ids:
           - Drug
-        standard_concept: false
-        vocabularies:
+        standard_concept:
+          - None
+        vocabulary_ids:
           - RxNorm
           - RxNorm Extension
         concept_class_ids:
           - Dose Form
     vector_search:
       max_candidates: 25
-      standard_concept: "None"
-      domain_ids:
-        - Drug
-      concept_class_ids:
-        - Dose Form
-      vocabulary_ids:
-        - RxNorm
-        - RxNorm Extension
+      filter:
+        standard_concept:
+          - None
+        domain_ids:
+          - Drug
+        concept_class_ids:
+          - Dose Form
+        vocabulary_ids:
+          - RxNorm
+          - RxNorm Extension
     llm_mapping:
       llm_mapper_responses_folder: data/llm_drug_mapper_responses/dose_form
       system_prompts:
@@ -367,11 +376,12 @@ mapping_per_concept_class:
         - pharma
         - healthcare
         - ltd
-      standard_concept_filter:
+      filter:
         domain_ids:
           - Drug
-        standard_concept: false
-        vocabularies:
+        standard_concept:
+          - None
+        vocabulary_ids:
           - RxNorm
           - RxNorm Extension
         concept_class_ids:
@@ -383,14 +393,16 @@ mapping_per_concept_class:
         - pharma
         - healthcare
         - ltd
-      standard_concept: "None"
-      domain_ids:
-        - Drug
-      concept_class_ids:
-        - Supplier
-      vocabulary_ids:
-        - RxNorm
-        - RxNorm Extension
+      filter:
+        standard_concept:
+          - None
+        domain_ids:
+          - Drug
+        concept_class_ids:
+          - Supplier
+        vocabulary_ids:
+          - RxNorm
+          - RxNorm Extension
     llm_mapping:
       llm_mapper_responses_folder: data/llm_drug_mapper_responses/supplier
       system_prompts:
@@ -415,20 +427,23 @@ mapping_per_concept_class:
     verbatim_mapping:
       terms_folder: data/terms_drug_unit
       verbatim_mapping_index_file: data/verbatim_drug_mapping_index_unit.pkl
-      standard_concept_filter:
+      filter:
         domain_ids:
           - Unit
-        standard_concept: true
-        vocabularies:
+        standard_concept:
+          - S
+        vocabulary_ids:
           - UCUM
     vector_search:
       max_candidates: 25
-      standard_concept: "S"
-      domain_ids:
-        - Unit
-      concept_class_ids:
-      vocabulary_ids:
-        - UCUM
+      filter:
+        standard_concept:
+          - S
+        domain_ids:
+          - Unit
+        concept_class_ids:
+        vocabulary_ids:
+          - UCUM
     llm_mapping:
       llm_mapper_responses_folder: data/llm_drug_mapper_responses/unit
       system_prompts:
@@ -453,19 +468,22 @@ mapping_per_concept_class:
       terms_folder: data/terms_drug_device_only
       verbatim_mapping_index_file: data/verbatim_drug_mapping_index_device.pkl
       substrings_to_remove:
-      standard_concept_filter:
+      filter:
         domain_ids:
           - Device
-        standard_concept: true
+        standard_concept:
+          - S
         concept_class_ids:
           - Device
     vector_search:
       max_candidates: 25
-      standard_concept: "S"
-      domain_ids:
-        - Device
-      concept_class_ids:
-        - Device
+      filter:
+        standard_concept:
+          - S
+        domain_ids:
+          - Device
+        concept_class_ids:
+          - Device
     llm_mapping:
       llm_mapper_responses_folder: data/llm_drug_mapper_responses/device
       system_prompts:

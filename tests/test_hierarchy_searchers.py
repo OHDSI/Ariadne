@@ -89,7 +89,7 @@ def test_reference_concept_vector_searcher_uses_pgvector_concept_searcher(monkey
     assert len(searcher._concept_searcher.calls) == 1
     assert searcher._concept_searcher.calls[0] == "unused"
     assert searcher._concept_searcher.settings.max_candidates == 10
-    assert searcher._concept_searcher.settings.vocabulary_ids == ["SNOMED"]
+    assert searcher._concept_searcher.settings.filter.vocabulary_ids == ["SNOMED"]
 
 
 def test_reference_concept_vector_searcher_embeds_when_needed(monkeypatch):

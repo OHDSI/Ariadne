@@ -51,22 +51,20 @@ class HecateConceptSearcher(AbstractConceptSearcher):
         )
         self.default_url = _HECATE_SEARCH_STANDARD_URL
         self.default_params = {}
-        normalized_standard = (self.settings.standard_concept or "S").strip()
-        if normalized_standard.lower() == "none":
+        standard_concepts = self.settings.filter.standard_concept
+        uses_standard_only_endpoint = len(standard_concepts) == 1 and standard_concepts[0] == "S"
+        if not uses_standard_only_endpoint:
             self.default_url = _HECATE_SEARCH_URL
-            self.default_params["standard_concept"] = "None"
-        elif normalized_standard != "S":
-            self.default_url = _HECATE_SEARCH_URL
-            self.default_params["standard_concept"] = normalized_standard
+            self.default_params["standard_concept"] = ",".join(standard_concepts)
 
-        if self.settings.domain_ids:
-            self.default_params["domain_id"] = ",".join(self.settings.domain_ids)
-        if self.settings.concept_class_ids:
-            self.default_params["concept_class_id"] = ",".join(self.settings.concept_class_ids)
-        if self.settings.vocabulary_ids:
-            self.default_params["vocabulary_id"] = ",".join(self.settings.vocabulary_ids)
-        if self.settings.exclude_vocabulary_ids:
-            self.default_params["exclude_vocabulary_id"] = ",".join(self.settings.exclude_vocabulary_ids)
+        if self.settings.filter.domain_ids:
+            self.default_params["domain_id"] = ",".join(self.settings.filter.domain_ids)
+        if self.settings.filter.concept_class_ids:
+            self.default_params["concept_class_id"] = ",".join(self.settings.filter.concept_class_ids)
+        if self.settings.filter.vocabulary_ids:
+            self.default_params["vocabulary_id"] = ",".join(self.settings.filter.vocabulary_ids)
+        if self.settings.filter.exclude_vocabulary_ids:
+            self.default_params["exclude_vocabulary_id"] = ",".join(self.settings.filter.exclude_vocabulary_ids)
 
     def search_term(
         self,
@@ -111,8 +109,8 @@ class HecateConceptSearcher(AbstractConceptSearcher):
             results_df = pd.DataFrame(concepts)
             if results_df.empty:
                 return results_df
-            if self.settings.vocabulary_ids and "vocabulary_id" in results_df.columns:
-                results_df = results_df[results_df["vocabulary_id"].isin(self.settings.vocabulary_ids)]
+            if self.settings.filter.vocabulary_ids and "vocabulary_id" in results_df.columns:
+                results_df = results_df[results_df["vocabulary_id"].isin(self.settings.filter.vocabulary_ids)]
             return results_df
 
         except requests.exceptions.HTTPError as http_err:

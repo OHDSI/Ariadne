@@ -7,7 +7,7 @@ from ariadne.llm_mapping import LlmMapper
 from ariadne.llm_mapping.concept_context_retriever import add_concept_context
 from ariadne.term_cleanup.term_cleaner import TermCleaner
 from ariadne.utils.config import Config
-from ariadne.utils.settings import VectorSearchSettings
+from ariadne.utils.settings import ConceptFilterSettings, VectorSearchSettings
 from ariadne.vector_search.hecate_concept_searcher import HecateConceptSearcher
 from ariadne.verbatim_mapping.term_downloader import download_terms
 from ariadne.verbatim_mapping.vocab_verbatim_term_mapper import VocabVerbatimTermMapper
@@ -64,11 +64,14 @@ def main() -> None:
     else:
         vector_settings = VectorSearchSettings(
             max_candidates=config.vector_search.max_candidates,
-            standard_concept="S" if config.verbatim_mapping.standard_concept_filter.standard_concept else "None",
-            concept_class_ids=config.verbatim_mapping.standard_concept_filter.concept_class_ids,
-            domain_ids=config.verbatim_mapping.standard_concept_filter.domain_ids,
-            vocabulary_ids=config.verbatim_mapping.standard_concept_filter.vocabularies,
-            exclude_vocabulary_ids=config.vector_search.exclude_vocabulary_ids,
+            filter=ConceptFilterSettings(
+                standard_concept=config.verbatim_mapping.filter.standard_concept,
+                concept_class_ids=config.verbatim_mapping.filter.concept_class_ids,
+                domain_ids=config.verbatim_mapping.filter.domain_ids,
+                vocabulary_ids=config.verbatim_mapping.filter.vocabulary_ids,
+                exclude_vocabulary_ids=config.vector_search.filter.exclude_vocabulary_ids,
+                exclude_concept_class_ids=config.vector_search.filter.exclude_concept_class_ids,
+            ),
             include_synonyms=config.vector_search.include_synonyms,
             include_mapped_terms=config.vector_search.include_mapped_terms,
         )
@@ -92,11 +95,14 @@ def main() -> None:
     else:
         vector_settings = VectorSearchSettings(
             max_candidates=config.vector_search.max_candidates,
-            standard_concept="S" if config.verbatim_mapping.standard_concept_filter.standard_concept else "None",
-            concept_class_ids=config.verbatim_mapping.standard_concept_filter.concept_class_ids,
-            domain_ids=config.verbatim_mapping.standard_concept_filter.domain_ids,
-            vocabulary_ids=config.verbatim_mapping.standard_concept_filter.vocabularies,
-            exclude_vocabulary_ids=config.vector_search.exclude_vocabulary_ids,
+            filter=ConceptFilterSettings(
+                standard_concept=config.verbatim_mapping.filter.standard_concept,
+                concept_class_ids=config.verbatim_mapping.filter.concept_class_ids,
+                domain_ids=config.verbatim_mapping.filter.domain_ids,
+                vocabulary_ids=config.verbatim_mapping.filter.vocabulary_ids,
+                exclude_vocabulary_ids=config.vector_search.filter.exclude_vocabulary_ids,
+                exclude_concept_class_ids=config.vector_search.filter.exclude_concept_class_ids,
+            ),
             include_synonyms=config.vector_search.include_synonyms,
             include_mapped_terms=config.vector_search.include_mapped_terms,
         )
