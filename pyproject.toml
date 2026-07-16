@@ -32,10 +32,7 @@ dependencies = [
     "openai>=2.9.0",
     "pgvector>=0.4.2",
     "notebook>=7.5.0",
-]
-
-[project.optional-dependencies]
-test = [
+    "click",
     "pytest",
     "pytest-cov",
 ]
