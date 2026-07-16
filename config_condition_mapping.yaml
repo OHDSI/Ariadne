@@ -15,16 +15,17 @@ verbatim_mapping:
     - "initial encounter"
     - "subsequent encounter for"
     - "subsequent encounter"
-  standard_concept_filter:
-    vocabularies:
+  include_synonyms: true
+  filter:
+    standard_concept:
+      - S
+    vocabulary_ids:
     domain_ids:
       - Condition
       - Observation
       - Measurement
       - Procedure
     concept_class_ids:
-    include_classification_concepts: false
-    include_synonyms: true
 
 term_cleaning:
   system_prompt: |
@@ -93,8 +94,16 @@ term_cleaning:
     Include one result for each input row_number.
     Do not include any text outside of the JSON object.
 
-vector_search:
+hecate_search:
   max_candidates: 25
+  filter:
+    standard_concept:
+      - S
+    domain_ids:
+      - Condition
+      - Observation
+      - Measurement
+      - Procedure
 
 llm_mapping:
   llm_mapper_responses_folder: data/llm_condition_mapper_responses
@@ -142,10 +151,14 @@ llm_mapping:
 # without touching Python code.
 
 hierarchy:
-  models:
-    embedding: "text-embedding-3-large"
-    extraction: "o3"
-    selection: "o3"
+
+  index_build:
+    # Number of unique SNOMED source concepts sampled for snomed_reference
+    reference_sample_size: 10000
+    # Batch size per embedding API request during index population
+    embedding_batch_size: 500
+    # Folder for resumable parquet embedding caches used before DB upload
+    embedding_cache_folder: data/hierarchy_embedding_cache
 
   retrieval:
     # Number of similar reference terms for few-shot prompting (Step 1)
@@ -162,9 +175,7 @@ hierarchy:
     hierarchy_similarity: 0.85
 
   evaluation:
-    attribute_gold_standard_path: "./data/gold_standards/hierarchy_attributes_snomed_gs.csv"
-    parent_gold_standard_path: "./data/gold_standards/hierarchy_snomed_gs.csv"
-    output_dir: "./data/notebook_results"
+    output_dir: "data/notebook_results"
 
   snomed_relationships:
     - "Has asso morph"
@@ -180,134 +191,135 @@ hierarchy:
     - "Has severity"
     - "Has temporal context"
     - "Finding asso with"
+    - "During"
+    - "Occurs after"
+    - "Has due to"
 
   prompts:
     extraction: |
-      You are a SNOMED CT concept model expert. Determine which defining attributes apply to a medical term based on its clinical meaning. Attributes are often IMPLICIT — use clinical knowledge, not just surface words.
+      You are a SNOMED CT concept model expert. Determine which defining attributes apply to a medical term based on its clinical meaning. Attributes are often IMPLICIT — use clinical knowledge to infer them, not just surface words.
+      
+      === ATTRIBUTE DEFINITIONS & RULES ===
+      
+      1. CORE CLINICAL ATTRIBUTES
+      - associated_morphology: The pathological change. Infer common patterns: "-itis" → Inflammation; "-oma/carcinoma" → Neoplasm; "stenosis" → Obstruction. Words like "absence", "agenesis", "deformity" imply Congenital anomaly morphologies. Hematologic changes (e.g., spherocytosis) imply morphologic abnormalities of blood cells.
+      - finding_site: The anatomical location. Derive the site from disease names (e.g., "esophag-" → esophageal structure). Always use the most specific BODY STRUCTURE concept that fully covers the description.
+      - causative_agent: The organism, substance, or drug directly causing the condition.
+      - due_to: Another condition or event directly causing the condition. Especially relevant for trauma
+      - clinical_course: E.g., acute, chronic, subacute, episodic.
+      - severity: E.g., mild, moderate, severe.
+      - occurrence: The life stage or developmental period at onset (e.g., congenital, neonatal, infancy, fetal period). Key cues: "congenital", "hereditary", "neonatal", "fetal", "infantile". Do NOT use for phase-of-care timing.
+      - during: Phase-of-care timing only (e.g., during delivery, postpartum period, during surgery). DO NOT use for life-stage — use occurrence instead.
+      - occurs_after: Event preceding the condtion (e.g., "postoperative", "posttraumatic"). For direct cause use due_to
 
-      Common morphology cues:
-        • Words ending in "-itis" or phrases like "inflammation of" → Inflammatory morphology / Inflammation
-
-      Endocrine function cues (Has interpretation & Has interprets):
-        • Prefix "hyper-" or words ending in "-hyperfunction", "-hyperactivity", etc. usually mean INCREASED quantity/function.
-          – Provide two attributes:
-             Has interpretation = Increased
-             Has interprets   = Secretion of <relevant hormone or gland function>
-        • Prefix "hypo-" or "-hypofunction", "insufficiency" imply DECREASED quantity/function.
-          – Has interpretation = Decreased
-          – Has interprets   = Secretion of <relevant hormone or gland function>
-      Example: "Hyperpituitarism" → Has interpretation = Increased; Has interprets = Secretion of pituitary hormone (observable).
-      Example: "Testicular hypofunction" → Has interpretation = Decreased; Has interprets = Secretion of testicular hormone (observable).
-        • Terms containing "cancer", "carcinoma", "sarcoma", "malignant" → Malignant neoplasm
-
-      Congenital anomaly cues:
-        • Words/phrases such as "deformity of", "reduction", "absence", "agenesis", "aplasia" usually imply:
-            Has finding site = affected body structure
-            Has associated morphology = Congenital absence or hypoplasia (choose precise morphology in selection)
-        Example: "Reduction deformity of lower limb" → Has associated morphology = Congenital reduction deformity; Has finding site = Lower limb structure.
-        • Hematologic changes ("spherocytosis", "anemia", etc.) may imply Morphology = Morphologic abnormality of blood cells
-
-      Example:
-      • "Autoimmune hemolytic anemia" → Has associated morphology = Hemolytic anemia morphology
-      • "Chronic inflammatory demyelinating polyneuropathy" → Has associated morphology = Inflammatory demyelination
-
-      EXAMPLES (attribute → value):
-      • "Family history of diabetes" → has_relat_context = Family history of
-      • "Barrett's esophagus with esophagitis" → Has finding site = Esophageal structure
-      • "Laryngeal tumor" → Has finding site = Laryngeal structure
-      • "Upper GI bleeding" → Has finding site = Upper gastrointestinal tract structure
-
-      Hints: Derive the anatomic site from disease names ("esophag-" → esophagus; "laryng-" → larynx). Use the most specific BODY STRUCTURE concept that fully covers the description.
-      • "Personal history of stroke" → has_relat_context = Personal history of
-      • "History of asthma" → has_relat_context = History of
-      • "Post-operative infection" → During = Postoperative
-      • "Delivery procedure" → During = Delivery period
-        (Any wording that implies childbirth timing such as "delivery", "intrapartum", "peripartum", "neonatal", "post-partum", "ante-partum" should trigger the During attribute.) period
-      • "Severe asthma attack" → Has severity = Severe
-      • "Barrett's esophagus with esophagitis" → Has finding site = Esophageal structure
-      • "Neonatal jaundice" → During = Neonatal period
-      • "Mild upper respiratory tract infection" → Has severity = Mild
-      • "Branchial cleft sinus and fistula" → Has finding site = Branchial cleft structure
-      (Use has_relat_context when the term refers to history, family history, personal history, or another person.)
-      • "Postoperative hemorrhage" → during = Postoperative period
-      • "Neonatal jaundice" → during = Neonatal period
-      • "Delivery procedure" → during = Intrapartum period
-      • "Post-partum hemorrhage" → during = Postpartum period
-      • "Antenatal visit" → during = Antenatal period
-      • "Prenatal counseling" → during = Prenatal period
-      (If any of the following words appear – antenatal, prenatal, intrapartum, peripartum, postpartum, post-operative, neonatal – add a During attribute.)
-      • "Suspected appendicitis" → has_finding_context = Suspected
-      • "Possible myocardial infarction" → has_finding_context = Possible
-      • "Rule-out tuberculosis" → has_finding_context = Rule out
-      • "Probable meningitis" → has_finding_context = Probable
-      (Any uncertainty word – possible, probable, suspected, rule-out – triggers has_finding_context.)
-      • "No evidence of pneumonia" → has_finding_context = Known absent
-      • "Family history of breast cancer" → has_finding_context = Family history of; has_relat_context = Relative of subject
-      • "Maternal diabetes" → has_relat_context = Maternal
-      • "Congenital heart defect" → occurrence = Congenital
-      • "Neonatal hypoglycemia" → occurrence = Neonatal
-      • "Hereditary elliptocytosis" → occurrence = Congenital
-      • "Fetal distress" → occurrence = Fetal period
-      • "Permanent neonatal diabetes mellitus" → occurrence = Infancy
-      (Use occurrence for the life-stage or developmental period at which the disorder arises: congenital, neonatal, infancy, fetal. Do NOT use occurrence for phase-of-care timing — use during for that.)
-      • "Family history of breast cancer" → has_relat_context = Family member
-      • "Maternal diabetes" → has_related_context = Maternal
-      • "Esophagitis" → associated_morphology = Inflammation; finding_site = Esophagus
-      • "Staph pneumonia" → causative_agent = Staphylococcus species; finding_site = Lung
-      (Provide both context and traditional attributes when present.)
-
-      ATTRIBUTE TYPES:
-      - associated_morphology: pathological change (inflammation, necrosis, neoplasm, dysplasia, fracture, obstruction, etc.). Infer common patterns: • "-itis" → Inflammation • "-oma/carcinoma/leukemia" → Neoplasm • "stenosis/obstruction" → Obstruction • "fistula" → Fistula • "anemia due to hemolysis" → Hemolysis
-      - finding_site: anatomical location
-      - causative_agent: organism, substance, or drug
-      - clinical_course: acute, chronic, subacute, episodic
-      - during: phase-of-care timing only (e.g., postoperative, intrapartum, postpartum, antenatal, peripartum). DO NOT use for life-stage — use occurrence instead.
-      - has_finding_context: clinical circumstances that qualifier a finding (e.g., "history of", "suspected", "ruled out", "family history of")
-      - has_related_context: subject-relationship context (e.g., "maternal", "fetal", "donor", "recipient")
-      - occurrence: life stage at onset (congenital, neonatal, infancy, fetal period). Use when the term implies the condition arises at or from birth/early life. Key cues: "congenital", "hereditary", "neonatal", "fetal", "infantile", "newborn".
-      - interprets / interpretation: PAIRED — emit ONLY when the condition is fundamentally defined by an abnormal result for a specific named, measurable SNOMED observable. Valid triggers: blood/urine analyte measurements (glucose, hemoglobin, protein, urate, cell counts), named organ-function tests (renal function, hormone production, digestive system function), or a specific size measurement SNOMED explicitly names (Size of tonsil, Range of joint movement). Do NOT emit for: generic dysfunction/disturbance/impairment of an organ (use finding_site + associated_morphology instead), paralysis or movement limitation, anatomical size deformities without a named SNOMED size observable (macrostomia, fetal growth restriction), or vague concepts like "ability to swallow", "motor function", "sinus node function", "detrusor pressure", "salivary secretion", "mouth shape", "movement". Provide as [{{"interprets": "...", "interpretation": "..."}}, ...]. Never one without the other. A concept may have multiple pairs.
-      - pathological_process: ONLY assign for one of these five tightly defined categories — and ONLY when the term's primary SNOMED-modeled process is that specific type:
-          (1) "Pathological developmental process": structural congenital anomalies — terms with "congenital anomaly of", "web", "ring", "atresia", "aplasia", "absence of [organ]", "fistula [congenital]", bilateral congenital dislocation, limb reduction/transverse deficiency, arrest of bone development. Do NOT use for hereditary blood/metabolic disorders (spherocytosis, hemolytic anemia, sickle cell, thalassemia) or hereditary channelopathies — those get occurrence=Congenital, not pathological_process.
-          (2) "Primary malignant neoplastic proliferation": ONLY for terms that literally start with "Primary malignant neoplasm of [site]". Do NOT apply to MEN syndromes, adenomatosis, plasmacytoma, or any neoplastic term that does not explicitly say "primary malignant neoplasm".
-          (3) "Infectious process": ONLY for diseases named after a specific pathogen (tuberculosis, gonorrhea, chlamydial, syphilis, candidiasis, trachoma, helminthiasis with named parasite). Do NOT apply to generic acute infections — acute tonsillitis, acute laryngitis, cellulitis, abscess — these are modeled without Has pathological process in SNOMED CT.
-          (4) "Abnormal immune process": primary immunodeficiency syndromes (severe combined immunodeficiency, Nezelof's syndrome, Bruton's agammaglobulinemia, etc.).
-          (5) "Non-immunoglobulin E-mediated allergic process": only for allergic disorders explicitly stated as non-IgE-mediated (allergic arthritis).
-          Do NOT use for: hereditary/genetic diseases (use occurrence=Congenital instead), general neoplasms, traumatic injuries, autoimmune arthropathies unless named above.
-      - severity: mild, moderate, severe
-      - finding_context: known present, known absent, suspected, etc.
-      - subject_relationship_context: family member, mother, subject of record
-      - temporal_context: current, past, current or past
-      - finding_asso_with: the primary associated condition when the term is explicitly "X in [Disease Y]", "X associated with Y", or "X complicating Y", and Y is a named disease that is neither the morphology, causative agent, nor finding site. Use when the term's meaning is defined by its occurrence in the context of a specific named disease. Example: "Arthropathy in SLE" → finding_asso_with = Systemic lupus erythematosus; "Myocarditis in COVID-19" → finding_asso_with = COVID-19; "Anemia in neoplastic disease" → finding_asso_with = Neoplastic disease. Do NOT use for causative agents (bacteria, viruses as direct causes → use causative_agent instead).
-
-      CONTEXT ATTRIBUTES — scan EVERY term for these (add even when only implied):
-      | Attribute | Meaning | Cue words | Example |
-      |-----------|---------|-----------|---------|
-      | During | temporal phase of care | delivery, labour, antenatal, intrapartum, postpartum, perinatal, neonatal, peri-operative, post-op, recovery | "Postoperative hemorrhage" → During = Postoperative period |
-      | finding_context | certainty / clinical status | history of, family history, Hx of, status post, suspected, ruled out, screening for, risk of, resolved | "Suspected appendicitis" → finding_context = Suspected |
-      | subject_relationship_context | relationship of subject | maternal, paternal, fetal, sibling, twin, donor, recipient, caregiver, neonate of | "Maternal diabetes" → relat_context = Maternal |
-
-      IMPLICIT ATTRIBUTE EXAMPLES:
-      - "Chronic kidney disease stage 5" → clinical_course: "chronic", finding_site: "kidney structure", interprets_interpretation: [{{"interprets": "Renal function", "interpretation": "below reference range"}}]
-      - "Trachoma" → finding_site: "conjunctival structure", causative_agent: "chlamydia trachomatis", associated_morphology: "inflammation", pathological_process: "Infectious process"  # named pathogen → pathological_process
-      - "Gonorrhea of pharynx" → finding_site: "pharyngeal structure", causative_agent: "Neisseria gonorrhoeae", pathological_process: "Infectious process"  # named pathogen
-      - "Acute tonsillitis" → associated_morphology: "inflammation", finding_site: "tonsillar structure", clinical_course: "acute", pathological_process: null  # generic acute infection — no named pathogen, no pathological_process
-      - "Cellulitis of leg" → associated_morphology: "cellulitis", finding_site: "leg structure", pathological_process: null  # generic infection without named pathogen
-      - "Chronic hemolytic anemia" → interprets_interpretation: [{{"interprets": "hemolysis", "interpretation": "present"}}, {{"interprets": "red blood cell count", "interpretation": "below reference range"}}]
-      - "Hereditary spherocytosis" → associated_morphology: "spherocytosis", occurrence: "congenital", pathological_process: null  # hereditary blood disorder — NOT developmental process
-      - "Congenital anomaly of pharynx" → associated_morphology: "morphologically abnormal structure", finding_site: "pharyngeal structure", occurrence: "congenital", pathological_process: "pathological developmental process"  # structural congenital anomaly → developmental process
-      - "Primary malignant neoplasm of urinary bladder" → associated_morphology: "malignant neoplasm", finding_site: "bladder structure", pathological_process: "primary malignant neoplastic proliferation"  # explicit "primary malignant neoplasm" label
-      - "Sinus node dysfunction" → associated_morphology: "dysfunction", finding_site: "sinoatrial node structure", interprets_interpretation: null  # dysfunction ≠ named lab test
-      - "Acontractile detrusor" → associated_morphology: "acontractile structure", finding_site: "detrusor muscle structure", interprets_interpretation: null  # structural/functional finding, not a lab test
-      - "Familial periodic paralysis" → associated_morphology: "paralysis", occurrence: "congenital", interprets_interpretation: null, pathological_process: null  # channelopathy — interprets not applicable; use occurrence for hereditary
-      - "Multiple endocrine neoplasia, type 1" → associated_morphology: "neoplasm", finding_site: "endocrine structure", pathological_process: null  # MEN is NOT "primary malignant neoplasm of [site]"
-      - "Nezelof's syndrome" → occurrence: "congenital", pathological_process: "abnormal immune process"  # primary immunodeficiency — NOT pathological developmental process
-
+      2. CONTEXT ATTRIBUTES (Situation with Explicit Context)
+      Scan every term for implied context. Provide these ONLY when a term explicitly overrides the default assumption of a current, confirmed diagnosis in the patient (e.g., history, family history, suspected, ruled out).
+      - finding_context: The clinical certainty. Values: Known present, Suspected, Probable, Known absent, Rule out. 
+        * CRITICAL RULE: SNOMED CT implicitly assumes standard clinical findings are "Known present". Do NOT apply "Known present" to standard findings or diseases. ONLY use it when building a complex "Situation" (like a Family History).
+      - temporal_context: Values: Current or specified time, Past. (Use "Past" for terms containing "History of"). Do NOT output for standard current findings.
+      - subject_relationship_context: The relationship of the subject. Values: Subject of record, Person in family of subject, Maternal, Fetal, Donor. Do NOT output for standard findings in the patient.
+        * NOTE: "Family history of [Disease]" is modeled as: finding_context = Known present; temporal_context = Past; subject_relationship_context = Person in family of subject.
+      
+      3. COMPLEX / CONDITIONAL ATTRIBUTES
+      - interprets_interpretation: PAIRED ATTRIBUTES. Emit ONLY when the condition is fundamentally defined by an abnormal result for a specific named, measurable SNOMED observable. 
+        * Valid triggers: blood/urine analytes, named organ-function tests, or named size measurements. 
+        * Endocrine cues: "hyper-" usually means Increased interpretation + Secretion of [gland] hormone. "hypo-" usually means Decreased interpretation.
+        * Format as a list of dictionaries: [{"interprets": "...", "interpretation": "..."}]. Never provide one without the other.
+        * Invalid triggers: Generic dysfunction, paralysis, vague anatomical deformities.
+      - pathological_process: ONLY assign for the following tightly defined categories:
+        (1) Pathological developmental process: structural congenital anomalies (atresia, aplasia, web). Do NOT use for hereditary blood/metabolic disorders.
+        (2) Primary malignant neoplastic proliferation: ONLY for terms that explicitly state "Primary malignant neoplasm of [site]".
+        (3) Infectious process: ONLY for diseases named after a specific pathogen (tuberculosis, candidiasis). Do NOT apply to generic acute infections (e.g., acute tonsillitis, cellulitis).
+        (4) Abnormal immune process: Primary immunodeficiency syndromes.
+        (5) Non-immunoglobulin E-mediated allergic process.
+      - finding_asso_with: The primary associated condition when the term is explicitly "X in [Disease Y]" or "X complicating Y", and Y is a named disease that is neither the morphology, causative agent or disease, nor finding site.
+      
       {reference_section}
-
+      
+      === GENERIC EXAMPLES ===
+      Term: Hyperpituitarism
+      Attributes:
+        - interprets_interpretation: 
+            - interprets: Hormone production
+            - interpretation: Increased
+        - finding_site: Adenohypophysis structure
+      
+      Term: Testicular hypofunction
+      Attributes:     
+        - interprets_interpretation: 
+            - interprets: Hormone production
+            - interpretation: Decreased     
+        - finding_site: Testicular endocrine structure
+         
+      Term: Reduction deformity of lower limb
+      Attributes:  
+        - associated_morphology: Abnormal shortening
+        - finding_site: Entire lower limb
+        - occurrence: Congenital
+        - pathological_process: Pathological developmental process
+      
+      Term: Autoimmune hemolytic anemia
+      Attributes:  
+        - interprets_interpretation: 
+            - interprets: Red blood cell count
+            - interpretation: Below reference range 
+        - interprets_interpretation: 
+            - interprets: Hemolysis
+            - interpretation: Present 
+        - pathological_process: Autoimmune process
+        - causative_agent: Antibody
+        - occurrence: Period of life between birth and death
+      
+      Term: Family history of diabetes mellitus type 2
+      Attributes:  
+        - finding_context: Known present
+        - temporal_context: Current or past
+        - subject_relationship_context: Person in the family of subject
+        
+      Term: Barrett's esophagus with esophagitis
+      Attributes:  
+        - finding_site: Esophageal structure
+        - associated_morphology: Inflammation
+        
+      Term: Suspected appendicitis
+      Attributes:  
+        - finding_context: Suspected
+        - finding_site: Appendix structure
+        - associated_morphology: Inflammation
+        
+      Term: Postoperative hemorrhage
+      Attributes:  
+        - during: Postoperative period
+        - occurs_after: Surgical procedure
+        - associated_morphology: Hemorrhage
+      
+      Term: Neonatal jaundice due to infection
+      Attributes:  
+        - occurrence: Neonatal period
+        - due_to: Neonatal infectious disorder
+       
+      Term: Trachoma
+      Attributes:  
+        - finding_site: Conjunctival structure
+        - causative_agent: Chlamydia trachomatis
+        - associated_morphology: Inflammation
+        - pathological_process: Infectious process
+       
+      Term: Acute tonsillitis
+      Attributes:  
+        - associated_morphology: Inflammation
+        - finding_site: Tonsillar structure
+        - clinical_course: Acute
+        
+      Term: Arthropathy in SLE
+      Attributes:  
+        - associated_morphology: Arthropathy
+        - finding_asso_with: Systemic lupus erythematosus
+      
       === YOUR TASK ===
-      For the medical term below, return JSON with attribute keys and list values (or null). Use clinical reasoning — think about what a domain expert would know, not just what words appear in the term. Multiple values per attribute are allowed.
-
-      Return JSON only. Example:
+      For the medical term below, return JSON with attribute keys (snake_case) and list values (or null). Use clinical reasoning — think about what a domain expert would know, not just what words appear in the term. Multiple values per attribute are allowed. 
+      
+      Return strictly valid JSON only. Example format:
       {{
           "associated_morphology": ["perforated ulcer"],
           "finding_site": ["duodenal structure"],
@@ -315,72 +327,81 @@ hierarchy:
           "interprets_interpretation": [
               {{"interprets": "gastric acid secretion", "interpretation": "increased"}}
           ],
-          ...
+          "finding_context": null,
+          "temporal_context": null,
+          "subject_relationship_context": null
       }}
 
     selection: |
-      You are a SNOMED CT concept model expert. Select the best SNOMED CT concept for each attribute from the provided candidates.
-
-      Rules:
-      A. DURING (Time period qualifier):
-         Cue words → Candidate concept
-         • ante-, antepartum, antenatal, prenatal → Antepartum period
-         • peri-, peripartum, intrapartum, labour/labor, delivery, childbirth → Intrapartum / Delivery period (select the concept that best matches wording; both map under Intrapartum period hierarchy)
-         • post-, postpartum, puerperium, postnatal → Postpartum period
-         • neonatal, newborn → Neonatal period
-
-      If multiple cues appear, prefer the narrowest time span (e.g., "delivery" over "peripartum").
-      B. Has interpretation & Has interprets (quantitative/functional change):
-         • "hyper-", "hyperfunction", "over-", "elevated" → Has interpretation = Increased
-         • "hypo-", "hypofunction", "insufficiency", "deficient" → Has interpretation = Decreased
-         • For pituitary and gonadal hypo-/hyperfunction disorders (testicular hypofunction, panhypopituitarism, hyperpituitarism, gigantism, acromegaly, hypopituitarism), use "Hormone production" as the interprets observable — NOT "Hormone secretion". These are distinct SNOMED concepts. "Hormone secretion" applies only to disorders of active over-secretion (e.g., testicular hyperfunction). When in doubt, prefer "Hormone production".
-         • For joint contracture/stiffness terms (Contracture of [joint], Multiple stiff joints), the interprets observable is "Range of [joint] movement" (e.g., "Elbow joint - range of movement") — NOT generic "Joint movement" or "Movement".
-         • Do NOT assign interprets/interpretation for: organ dysfunction not defined by a named lab test, paralysis, structural congenital anomalies, or impaired movement due to arthropathy.
-
-      C. Has severity: map adjectives to "Mild", "Moderate" ..., or "Severe" qualifier values; avoid choosing severity when no cue is present.
-      D. Finding asso with: select the SNOMED CLINICAL FINDING concept representing the named associated disease. Prefer the most specific concept (e.g. "Systemic lupus erythematosus" over "Connective tissue disease"). Do not confuse with causative_agent — the associated condition is a co-occurring named disease, not an infectious organism or substance.
-      C. Has associated morphology:
-         – Only choose MORPHOLOGIC ABNORMALITY concepts (e.g., "Inflammatory morphology", "Malignant neoplasm").
-         – Use inflammation cues ("-itis", "inflammatory"), neoplasm cues ("cancer", "malignant", "sarcoma", etc.), and hematologic change terms ("spherocytosis", "hemolytic").
-         – If multiple valid morphologies exist, include each as separate values.
-      0. For Has finding site:
-         – Only select BODY STRUCTURE concepts (e.g., "Esophageal structure", "Laryngeal structure").
-         – Prefer the most specific structure that completely represents the described site.
-         – If both specific and general candidates appear, pick the more specific one.UCTURE that exactly matches the term if available; otherwise pick the next closest more-specific structure rather than a broader region (e.g., choose "Esophageal structure" over "Upper gastrointestinal tract structure").
-         Example 1 (During): For "Post-operative infection", choose "Postoperative period (qualifier value)" over a generic "Post procedure period".
-      Example 2 (Finding context): For "Possible pneumonia", choose "Possible (qualifier value)" rather than "Suspected (qualifier value)".
-      Example 3 (Relat context): For "Family history of colon cancer", choose "Family history of (contextual qualifier)" over "History of (contextual qualifier)".
-      1. Always keep context attributes (During, has_finding_context, has_relat_context) if the source phrase contains a matching keyword (history, family history, suspected, possible, postpartum, etc.). Only drop them when the candidate concept is semantically wrong.
-      disproves them — deletion should be rare. For 'During', map common phrases:
-         delivery, intrapartum → Intrapartum period
-         postpartum, puerperal → Postpartum period
-         postoperative → Postoperative period
-         neonatal, newborn → Neonatal period
-         prenatal, antepartum, pregnancy, gestational → Pregnancy period
-      2. Prefer the most specific concept (e.g. "Pituitary gland" over "Endocrine gland").
-      3. For [ALL valid values shown] attributes, pick the best match — do not leave blank.
-      4. Reference examples of similar terms are strong signals — cross-validate with them.
-      5. Select ONLY from provided candidates. Do not invent concept IDs.
-      6. An attribute may have MULTIPLE correct values — return a list.
-      7. "interprets" and "interpretation" are ALWAYS paired. Return together as "interprets_interpretation" — never one without the other.
-
-      Return JSON:
+      You are a SNOMED CT concept model expert. Your task is to select the most accurate SNOMED CT concept for each extracted attribute from the provided list of candidate concepts. 
+      
+      === GENERAL RULES ===
+      1. Select ONLY from the provided candidates. Do not invent, hallucinate, or guess concept IDs or names.
+      2. Prefer the most specific concept available (e.g., choose "Esophageal structure" over "Upper gastrointestinal tract structure"; choose "Systemic lupus erythematosus" over "Connective tissue disease").
+      3. An attribute may have MULTIPLE correct values (e.g., multiple morphologies). Return them as a list.
+      4. If no provided candidate accurately represents the attribute based on the medical term, return null for that attribute.
+      
+      === ATTRIBUTE-SPECIFIC GUIDELINES ===
+      
+      A. CORE CLINICAL ATTRIBUTES
+      - finding_site: Candidate MUST belong to the BODY STRUCTURE hierarchy. Pick the structure that most precisely matches the anatomical site.
+      - associated_morphology: Candidate MUST belong to the MORPHOLOGIC ABNORMALITY hierarchy (e.g., "Inflammatory morphology", "Malignant neoplasm"). 
+      - finding_asso_with: Select the SNOMED CLINICAL FINDING concept representing the explicitly named associated disease. Do not confuse this with causative_agent (which is for infectious organisms/substances).
+      - severity: Map adjectives to "Mild", "Moderate", or "Severe" qualifier values.
+      
+      B. TIME & LIFE STAGE (During vs. Occurrence)
+      - during (Phase of care): 
+        - ante-, prenatal → "Antepartum period" or "Prenatal period"
+        - peri-, intrapartum, delivery, labor → "Intrapartum period" or "Delivery period" (prefer the narrowest match)
+        - post-, postpartum, puerperium → "Postpartum period"
+        - post-operative → "Postoperative period"
+      - occurrence (Life stage):
+        - neonatal, newborn → "Neonatal period"
+        - congenital, fetal, infantile → Select the respective developmental/life-stage concept.
+      
+      C. CONTEXT ATTRIBUTES (Strict SNOMED CT Context Model)
+      Do not drop context attributes if the source phrase contains matching cues (history, suspected, family, etc.).
+      - temporal_context: "History of" maps to "Past".
+      - finding_context: "Possible" maps to "Possible (qualifier value)"; "Suspected" maps to "Suspected (qualifier value)".
+      - subject_relationship_context: "Family history of [X]" does NOT use a single "family history" concept. It must be mapped as:
+        - finding_context = Known present
+        - temporal_context = Past
+        - subject_relationship_context = Person in family of subject
+      
+      D. INTERPRETS & INTERPRETATION (Quantitative/Functional Change)
+      - These are ALWAYS paired. Return together as "interprets_interpretation" — never one without the other.
+      - interpretation: "hyper-", "elevated" → "Increased"; "hypo-", "deficient" → "Decreased".
+      - interprets (Endocrine): For pituitary/gonadal hypo- or hyperfunction (e.g., panhypopituitarism, testicular hypofunction), use "Hormone production" as the interprets observable. "Hormone secretion" applies primarily to active over-secretion. When in doubt, prefer "Hormone production".
+      - interprets (Joints): For joint contracture/stiffness terms, the interprets observable is "Range of [joint] movement" (e.g., "Elbow joint - range of movement") — NOT generic "Movement".
+      
+      {reference_section}
+            
+      === OUTPUT FORMAT ===
+      Return strictly valid JSON only in the exact structure below:
+      
       {
           "medical_term": "the input term",
           "attributes": {
-              "associated_morphology": [{"concept_id": id, "concept_name": "name"}, ...] or null,
-              "finding_site": [...] or null,
-              "causative_agent": ...,
-              "clinical_course": ...,
+              "associated_morphology": [{"concept_id": "123456", "concept_name": "name"}],
+              "finding_site": [{"concept_id": "123456", "concept_name": "name"}],
+              "causative_agent": null,
+              "clinical_course": null,
               "interprets_interpretation": [
                   {
-                      "interprets": {"concept_id": id, "concept_name": "name"},
-                      "interpretation": {"concept_id": id, "concept_name": "name"}
-                  }, ...
-              ] or null,
-              "occurrence": ..., "pathological_process": ..., "severity": ...,
-              "finding_context": ..., "subject_relationship_context": ..., "temporal_context": ...
+                      "interprets": {"concept_id": "123456", "concept_name": "name"},
+                      "interpretation": {"concept_id": "123456", "concept_name": "name"}
+                  }
+              ],
+              "occurrence": [{"concept_id": "123456", "concept_name": "name"}],
+              "pathological_process": null,
+              "severity": null,
+              "finding_context": [{"concept_id": "123456", "concept_name": "name"}],
+              "subject_relationship_context": [{"concept_id": "123456", "concept_name": "name"}],
+              "temporal_context": [{"concept_id": "123456", "concept_name": "name"}],
+              "during": null,
+              "occurs_after": null,
+              "due_to": null,
+              "finding_asso_with": null
           },
-          "reasoning": "Brief explanation"
+          "reasoning": "Brief explanation of candidate selection, noting any rejected candidates and why."
       }
-

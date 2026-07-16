@@ -227,6 +227,9 @@ class TermCleaner:
             cleaned_batch = self._clean_terms_batch(batch_terms)
             df.loc[batch_indices, output_column] = cleaned_batch
 
+        # Remove rows where LLM returned an empty cleaned term (sign of bad input like 'number of goats', 'declined' or 'primary')
+        df = df[df[output_column].notna() & (df[output_column].str.strip() != "")].reset_index(drop=True)
+
         return df
 
     def get_total_cost(self) -> float:

@@ -7,6 +7,7 @@ from ariadne.llm_mapping import LlmMapper
 from ariadne.llm_mapping.concept_context_retriever import add_concept_context
 from ariadne.term_cleanup.term_cleaner import TermCleaner
 from ariadne.utils.config import Config
+from ariadne.utils.settings import ConceptFilterSettings, HecateSearchSettings
 from ariadne.vector_search.hecate_concept_searcher import HecateConceptSearcher
 from ariadne.verbatim_mapping.term_downloader import download_terms
 from ariadne.verbatim_mapping.vocab_verbatim_term_mapper import VocabVerbatimTermMapper
@@ -61,10 +62,22 @@ def main() -> None:
         vector_search_results = pd.read_csv(vector_search_results_file)
         print("Loaded vector search results from file.")
     else:
+        if config.hecate_search is None:
+            raise ValueError("config_procedure_mapping.yaml must define hecate_search for this script.")
+        vector_settings = HecateSearchSettings(
+            max_candidates=config.hecate_search.max_candidates,
+            filter=ConceptFilterSettings(
+                standard_concept=config.verbatim_mapping.filter.standard_concept,
+                concept_class_ids=config.verbatim_mapping.filter.concept_class_ids,
+                domain_ids=config.verbatim_mapping.filter.domain_ids,
+                vocabulary_ids=config.verbatim_mapping.filter.vocabulary_ids,
+                exclude_vocabulary_ids=config.hecate_search.filter.exclude_vocabulary_ids,
+                exclude_concept_class_ids=config.hecate_search.filter.exclude_concept_class_ids,
+            ),
+            substrings_to_remove=config.hecate_search.substrings_to_remove,
+        )
         concept_searcher = HecateConceptSearcher(
-            standard_concept="S",
-            concept_class_ids=config.verbatim_mapping.standard_concept_filter.concept_class_ids,
-            domain_ids=config.verbatim_mapping.standard_concept_filter.domain_ids
+            settings=vector_settings,
         )
         unmatched_terms = cleaned_terms.copy()
         unmatched_terms = unmatched_terms[
@@ -81,10 +94,22 @@ def main() -> None:
         vector_search_ot_results = pd.read_csv(vector_search_ot_results_file)
         print("Loaded vector search results for the original term from file.")
     else:
+        if config.hecate_search is None:
+            raise ValueError("config_procedure_mapping.yaml must define hecate_search for this script.")
+        vector_settings = HecateSearchSettings(
+            max_candidates=config.hecate_search.max_candidates,
+            filter=ConceptFilterSettings(
+                standard_concept=config.verbatim_mapping.filter.standard_concept,
+                concept_class_ids=config.verbatim_mapping.filter.concept_class_ids,
+                domain_ids=config.verbatim_mapping.filter.domain_ids,
+                vocabulary_ids=config.verbatim_mapping.filter.vocabulary_ids,
+                exclude_vocabulary_ids=config.hecate_search.filter.exclude_vocabulary_ids,
+                exclude_concept_class_ids=config.hecate_search.filter.exclude_concept_class_ids,
+            ),
+            substrings_to_remove=config.hecate_search.substrings_to_remove,
+        )
         concept_searcher = HecateConceptSearcher(
-            standard_concept="S",
-            concept_class_ids=config.verbatim_mapping.standard_concept_filter.concept_class_ids,
-            domain_ids=config.verbatim_mapping.standard_concept_filter.domain_ids
+            settings=vector_settings,
         )
         unmatched_terms = cleaned_terms.copy()
         unmatched_terms = unmatched_terms[

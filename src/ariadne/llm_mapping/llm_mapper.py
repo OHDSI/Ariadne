@@ -74,6 +74,7 @@ class LlmMapper:
         parents_column: Optional[str] = "matched_parents",
         children_column: Optional[str] = "matched_children",
         synonyms_column: Optional[str] = "matched_synonyms",
+        clinical_drug_form_child_count_column: Optional[str] = "matched_clinical_drug_form_child_count",
         allow_multiple_targets: bool = False,
     ) -> Tuple[int | List[int] | None, str | List[str] | None, str | None]:
         """
@@ -135,6 +136,9 @@ class LlmMapper:
         if self.context_settings.include_target_synonyms:
             input_columns.append(synonyms_column)
             context_columns.append("concept_synonyms")
+        if self.context_settings.include_target_clinical_drug_form_child_count:
+            input_columns.append(clinical_drug_form_child_count_column)
+            context_columns.append("concept_clinical_drug_form_child_count")
         context = target_concepts[input_columns]
         context.columns = context_columns
 
@@ -181,7 +185,7 @@ class LlmMapper:
                     try:
                         data = self._extract_json_dict(response)
                         if data:
-                            new_source_data = data.get("source_term", source_term)
+                            new_source_data = {"source_term": data.get("source_term", source_term)}
                             new_source_data.update(source_context_payload)
 
                             target_definitions = pd.DataFrame(data["target_concepts"])
@@ -193,7 +197,7 @@ class LlmMapper:
                             new_target_data = merged.to_dict(orient="records")
 
                             new_data: dict[str, Any] = {
-                                "source_term": new_source_data,
+                                "source_details": new_source_data,
                                 "target_concepts": new_target_data
                             }
                             response = json.dumps(new_data, indent=2)
@@ -202,6 +206,9 @@ class LlmMapper:
 
                 with open(response_file, "w", encoding="utf-8") as f:
                     f.write(response)
+                prompt_file = os.path.join(self.responses_folder, f"prompt_{source_id}_s{step + 1}.txt")
+                with open(prompt_file, "w", encoding="utf-8") as f:
+                    f.write(f"[System prompt]\n{system_prompt}\n\n[Prompt]\n{prompt}")
             if step < num_prompts - 1:
                 # Use the response as the prompt for the next step:
                 prompt = response
@@ -316,6 +323,7 @@ class LlmMapper:
         parents_column: Optional[str] = "matched_parents",
         children_column: Optional[str] = "matched_children",
         synonyms_column: Optional[str] = "matched_synonyms",
+        clinical_drug_form_child_count_column: Optional[str] = "matched_clinical_drug_form_child_count",
         mapped_concept_id_column: str = "mapped_concept_id",
         mapped_concept_name_column: str = "mapped_concept_name",
         mapped_rationale_column: str = "mapped_rationale",
@@ -401,6 +409,7 @@ class LlmMapper:
                 parents_column=parents_column,
                 children_column=children_column,
                 synonyms_column=synonyms_column,
+                clinical_drug_form_child_count_column=clinical_drug_form_child_count_column,
                 allow_multiple_targets=allow_multiple_targets,
             )
             if matched_concept_id is None:

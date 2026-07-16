@@ -1,5 +1,6 @@
 import json
 import numpy as np
+import logging
 from ariadne.utils.utils import get_environment_variable
 from openai import OpenAI
 from typing import List, Optional, Dict, Any, Tuple
@@ -21,6 +22,11 @@ _PRICING_TABLE = {
 
 _TEMPERATURE_OK_MODELS = {"gpt-4o", "gpt-4", "gpt-35-turbo", "gpt-4o-mini", "gpt-4-turbo", "gpt-3.5-turbo"}
 
+logging.getLogger("httpcore").setLevel(logging.WARNING)
+logging.getLogger("httpcore.connection").setLevel(logging.WARNING)
+logging.getLogger("httpcore.http11").setLevel(logging.WARNING)
+logging.getLogger("httpx").setLevel(logging.WARNING)
+logging.getLogger("openai").setLevel(logging.WARNING)
 
 class _AIClientFactory:
 
@@ -52,6 +58,15 @@ class _AIClientFactory:
                 endpoint = get_environment_variable("AZURE_EMBEDDING_ENDPOINT")
             else:
                 endpoint = get_environment_variable("AZURE_LLM_ENDPOINT")
+
+            # Suppress HTTPX debug logs
+            logging.getLogger("httpx").setLevel(logging.WARNING)
+
+            # Suppress urllib3 debug logs (if used internally)
+            logging.getLogger("urllib3").setLevel(logging.WARNING)
+
+            # Optional: suppress OpenAI client debug logs
+            logging.getLogger("openai").setLevel(logging.WARNING)
 
             # Seems a bug, but must provide api key in both headers and api-key argument or we get an error:
             client = OpenAI(
@@ -87,7 +102,7 @@ def _calculate_cost(model_name: str, input_tok: int, output_tok: int, provider_t
     )
 
 
-def get_embedding_vectors(texts: List[str]) -> Dict[str, Any]:
+def get_embedding_vectors(texts: List[str], verbose=False) -> Dict[str, Any]:
     """
     Generates embedding vectors for a list of texts using the embedding-specific config.
 
@@ -103,7 +118,6 @@ def get_embedding_vectors(texts: List[str]) -> Dict[str, Any]:
     client, model, provider = _AIClientFactory.get_client(task_type="embedding")
 
     batch_size = 100
-    verbose = len(texts) > batch_size
     batch_results = []
     total_tokens = 0
     for i in range(0, len(texts), batch_size):

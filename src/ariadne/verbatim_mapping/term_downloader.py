@@ -17,7 +17,7 @@
 
 import logging
 import os
-from typing import List
+from typing import List, Protocol
 
 from dotenv import load_dotenv
 from sqlalchemy import (
@@ -40,23 +40,26 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 
 from ariadne.utils.logger import open_log
-from ariadne.utils.settings import VerbatimMappingSettings
+from ariadne.utils.settings import TfidfSearchSettings, VerbatimMappingSettings
 from ariadne.utils.utils import get_environment_variable
 
 load_dotenv()
 
 
-def _create_query(engine: Engine, settings: VerbatimMappingSettings) -> Select:
+class _DownloadableTermsSettings(Protocol):
+    terms_folder: str
+    download_batch_size: int
+    log_folder: str
+    include_synonyms: bool
+    filter: object
+
+
+def _create_query(engine: Engine, settings: _DownloadableTermsSettings) -> Select:
     vocabulary_schema = get_environment_variable("VOCAB_SCHEMA")
-    filter_config = settings.standard_concept_filter
+    filter_config = settings.filter
 
     metadata = MetaData()
     concept = Table("concept", metadata, schema=vocabulary_schema, autoload_with=engine)
-
-    enforce_standard_only = getattr(filter_config, "standard_concept", True)
-    standard_concepts = ["S"]
-    if filter_config.include_classification_concepts:
-        standard_concepts.append("C")
 
     # Get concept names
     query1 = select(
@@ -64,17 +67,25 @@ def _create_query(engine: Engine, settings: VerbatimMappingSettings) -> Select:
         concept.c.concept_name.label("term"),
         concept.c.concept_name,
         concept.c.vocabulary_id,
-    )
-    if enforce_standard_only:
-        query1 = query1.where(concept.c.standard_concept.in_(standard_concepts))
+    ).where(concept.c.invalid_reason.is_(None))
+
+    if filter_config.standard_concept:
+        include_null_standard = "None" in filter_config.standard_concept
+        explicit_standard = [value for value in filter_config.standard_concept if value != "None"]
+        standard_filters = []
+        if explicit_standard:
+            standard_filters.append(concept.c.standard_concept.in_(explicit_standard))
+        if include_null_standard:
+            standard_filters.append(concept.c.standard_concept.is_(None))
+        query1 = query1.where(or_(*standard_filters))
     if filter_config.domain_ids:
         query1 = query1.where(concept.c.domain_id.in_(filter_config.domain_ids))
     if filter_config.concept_class_ids:
         query1 = query1.where(concept.c.concept_class_id.in_(filter_config.concept_class_ids))
-    if filter_config.vocabularies:
-        query1 = query1.where(concept.c.vocabulary_id.in_(filter_config.vocabularies))
+    if filter_config.vocabulary_ids:
+        query1 = query1.where(concept.c.vocabulary_id.in_(filter_config.vocabulary_ids))
 
-    if filter_config.include_synonyms:
+    if settings.include_synonyms:
         # Get concept synonyms.
         concept_synonym = Table(
             "concept_synonym",
@@ -133,7 +144,7 @@ def _store_in_parquet(
     pq.write_table(table, file_name)
 
 
-def download_terms(settings: VerbatimMappingSettings) -> None:
+def _download_terms_shared(settings: _DownloadableTermsSettings) -> None:
     """
     Download terms from vocabulary database and store them in parquet files for use in verbatim mapping.
 
@@ -182,6 +193,16 @@ def download_terms(settings: VerbatimMappingSettings) -> None:
             total_inserted += len(chunk)
             logging.info(f"Downloaded {len(chunk)} rows, total downloaded: {total_inserted}")
     logging.info("Finished downloading terms")
+
+
+def download_terms(settings: VerbatimMappingSettings) -> None:
+    """Download terms for verbatim mapping settings."""
+    _download_terms_shared(settings)
+
+
+def download_terms_for_tfidf(settings: TfidfSearchSettings) -> None:
+    """Download terms for TF-IDF search settings using shared logic."""
+    _download_terms_shared(settings)
 
 
 if __name__ == "__main__":

@@ -20,10 +20,12 @@ from typing import Any, Dict, cast
 import yaml
 
 from ariadne.utils.settings import (
+    HecateSearchSettings,
     HierarchySettings,
     LlmMapperSettings,
+    PgvectorSearchSettings,
     TermCleanerSettings,
-    VectorSearchSettings,
+    TfidfSearchSettings,
     VerbatimMappingSettings,
     build_dataclass,
     serialize_dataclass,
@@ -42,7 +44,9 @@ class Config:
 
     verbatim_mapping: VerbatimMappingSettings
     term_cleaning: TermCleanerSettings
-    vector_search: VectorSearchSettings
+    hecate_search: HecateSearchSettings | None
+    pgvector_search: PgvectorSearchSettings | None
+    tfidf_search: TfidfSearchSettings | None
     llm_mapping: LlmMapperSettings
     hierarchy: HierarchySettings | None
 
@@ -65,42 +69,47 @@ class Config:
 
         self.verbatim_mapping = build_dataclass(VerbatimMappingSettings, raw.get("verbatim_mapping", {}))
         self.term_cleaning = build_dataclass(TermCleanerSettings, raw.get("term_cleaning", {}))
-        self.vector_search = build_dataclass(VectorSearchSettings, raw.get("vector_search", {}))
+        hecate_raw = raw.get("hecate_search")
+        pgvector_raw = raw.get("pgvector_search")
+        tfidf_raw = raw.get("tfidf_search")
+        self.hecate_search = build_dataclass(HecateSearchSettings, hecate_raw) if hecate_raw is not None else None
+        self.pgvector_search = build_dataclass(PgvectorSearchSettings, pgvector_raw) if pgvector_raw is not None else None
+        self.tfidf_search = build_dataclass(TfidfSearchSettings, tfidf_raw) if tfidf_raw is not None else None
         self.llm_mapping = build_dataclass(LlmMapperSettings, raw.get("llm_mapping", {}))
         hierarchy_raw = raw.get("hierarchy")
         self.hierarchy = build_dataclass(HierarchySettings, hierarchy_raw) if hierarchy_raw is not None else None
+
+        configured_searchers = [
+            name
+            for name, value in (
+                ("hecate_search", self.hecate_search),
+                ("pgvector_search", self.pgvector_search),
+                ("tfidf_search", self.tfidf_search),
+            )
+            if value is not None
+        ]
+        if len(configured_searchers) != 1:
+            raise ValueError(
+                "Exactly one top-level vector search block must be configured: "
+                "hecate_search, pgvector_search, or tfidf_search. "
+                f"Configured: {configured_searchers or 'none'}."
+            )
 
     def to_dict(self) -> Dict[str, Any]:
         result: Dict[str, Any] = {
             "verbatim_mapping": serialize_dataclass(self.verbatim_mapping),
             "term_cleaning": serialize_dataclass(self.term_cleaning),
-            "vector_search": serialize_dataclass(self.vector_search),
             "llm_mapping": serialize_dataclass(self.llm_mapping),
         }
+        if self.hecate_search is not None:
+            result["hecate_search"] = serialize_dataclass(self.hecate_search)
+        if self.pgvector_search is not None:
+            result["pgvector_search"] = serialize_dataclass(self.pgvector_search)
+        if self.tfidf_search is not None:
+            result["tfidf_search"] = serialize_dataclass(self.tfidf_search)
         if self.hierarchy is not None:
             result["hierarchy"] = serialize_dataclass(self.hierarchy)
         return result
-
-
-def load_hierarchy_settings(filename: str = "config_condition_mapping.yaml") -> HierarchySettings:
-    """Load hierarchy settings from the top-level config file.
-
-    Args:
-        filename: Path to YAML config (CWD first, then project root).
-    """
-    hierarchy = Config(filename).hierarchy
-    if hierarchy is None:
-        raise ValueError(
-            "Config is missing the optional 'hierarchy' section. "
-            "Add a 'hierarchy' block to run hierarchy workflows."
-        )
-
-    if not hierarchy.prompts.extraction or not hierarchy.prompts.extraction.strip():
-        raise ValueError("hierarchy.prompts.extraction is empty in config.")
-    if not hierarchy.prompts.selection or not hierarchy.prompts.selection.strip():
-        raise ValueError("hierarchy.prompts.selection is empty in config.")
-
-    return cast(HierarchySettings, hierarchy)
 
 
 if __name__ == "__main__":
