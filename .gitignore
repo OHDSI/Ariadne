@@ -13,6 +13,8 @@ data/*
 !data/gold_standards/**
 !data/notebook_results/
 !data/notebook_results/**
+!data/sample_data/
+!data/sample_data/**
 *.DS_Store
 phoebe_embeddings.checkpoint.pkl
 sandbox/classify_icd10cm_and.py

@@ -1,4 +1,7 @@
+import logging
+
 import pandas as pd
+import pytest
 
 from ariadne.llm_mapping.llm_drug_structurer import (
     DrugStructureResult,
@@ -297,3 +300,139 @@ def test_normalize_structured_drugs_builds_all_stages_with_fallback_codes():
         "denominator_unit": None,
         "box_size": 20,
     } in ds_records
+
+
+def test_structurer_init_fails_when_dictionary_file_missing(tmp_path):
+    missing_file = tmp_path / "missing_dictionary.md"
+    with pytest.raises(ValueError, match="dictionary_markdown_file"):
+        LlmDrugStructurer(settings=_make_settings(str(tmp_path)), dictionary_markdown_file=str(missing_file))
+
+
+def test_dictionary_context_is_added_only_for_target_stages_and_affects_cache_key(tmp_path, monkeypatch):
+    dictionary_file = tmp_path / "dictionary.md"
+    dictionary_file.write_text("- FIELD_X: meaning", encoding="utf-8")
+
+    structurer = LlmDrugStructurer(
+        settings=_make_settings(str(tmp_path)),
+        dictionary_markdown_file=str(dictionary_file),
+    )
+
+    seen_system_prompts = []
+
+    def fake_get_llm_response(prompt, system_prompt, json_schema, json_schema_name):
+        seen_system_prompts.append(system_prompt)
+        return {
+            "content": '{"results": []}',
+            "parsed_json": {"results": []},
+            "usage": {"total_cost_usd": 0.0},
+        }
+
+    monkeypatch.setattr("ariadne.llm_mapping.llm_drug_structurer.get_llm_response", fake_get_llm_response)
+
+    records = [{"row_number": 0, "name": "sample"}]
+    schema = {"type": "object", "properties": {"results": {"type": "array"}}, "required": ["results"]}
+
+    structurer._call_llm_batch("classify", records, "classify base", schema)
+    structurer._call_llm_batch("ingredient", records, "ingredient base", schema)
+
+    assert "Additional source dictionary context" not in seen_system_prompts[0]
+    assert "Additional source dictionary context" in seen_system_prompts[1]
+    assert "FIELD_X: meaning" in seen_system_prompts[1]
+
+    ingredient_prompt_with_dictionary = structurer._effective_system_prompt("ingredient", "ingredient base")
+    ingredient_prompt_without_dictionary = "ingredient base"
+    key_with_dictionary = structurer._cache_key("ingredient", records, ingredient_prompt_with_dictionary)
+    key_without_dictionary = structurer._cache_key("ingredient", records, ingredient_prompt_without_dictionary)
+    assert key_with_dictionary != key_without_dictionary
+
+
+def test_structure_drugs_logs_interval_progress_and_summary(tmp_path, monkeypatch, caplog):
+    structurer = LlmDrugStructurer(settings=_make_settings(str(tmp_path)))
+
+    def fake_call_llm_batch(stage, records, system_prompt, schema):
+        assert stage == "classify"
+        return {"results": []}
+
+    monkeypatch.setattr(structurer, "_call_llm_batch", fake_call_llm_batch)
+
+    source_df = pd.DataFrame(
+        {
+            "drug_code": [f"D{idx}" for idx in range(50)],
+            "name": [f"term {idx}" for idx in range(50)],
+        }
+    )
+
+    with caplog.at_level(logging.INFO, logger="ariadne.llm_mapping.llm_drug_structurer"):
+        structurer.structure_drugs(source_df, "drug_code")
+
+    assert "Starting drug structuring" in caplog.text
+    assert "rows_processed=25/50" in caplog.text
+    assert "rows_processed=50/50" in caplog.text
+    assert "Drug structuring complete" in caplog.text
+    assert "rows_total=50" in caplog.text
+    assert "live_cost_usd=" in caplog.text
+    assert "cache_hits=" in caplog.text
+    assert "api_calls=" in caplog.text
+
+
+def test_call_llm_batch_tracks_live_cost_api_calls_and_cache_hits(tmp_path, monkeypatch):
+    structurer = LlmDrugStructurer(settings=_make_settings(str(tmp_path)))
+    structurer._run_metrics = {
+        "live_cost_usd": 0.0,
+        "api_calls": 0,
+        "cache_hits": 0,
+        "content_filter_events": 0,
+    }
+
+    def fake_get_llm_response(prompt, system_prompt, json_schema, json_schema_name):
+        return {
+            "content": '{"results": []}',
+            "parsed_json": {"results": []},
+            "usage": {"total_cost_usd": 0.123},
+        }
+
+    monkeypatch.setattr("ariadne.llm_mapping.llm_drug_structurer.get_llm_response", fake_get_llm_response)
+
+    records = [{"row_number": 0, "name": "sample"}]
+    schema = {"type": "object", "properties": {"results": {"type": "array"}}, "required": ["results"]}
+
+    first = structurer._call_llm_batch("classify", records, "classify base", schema)
+    second = structurer._call_llm_batch("classify", records, "classify base", schema)
+
+    assert first == {"results": []}
+    assert second == {"results": []}
+    assert structurer._run_metrics["api_calls"] == 1
+    assert structurer._run_metrics["cache_hits"] == 1
+    assert structurer._run_metrics["live_cost_usd"] == pytest.approx(0.123)
+    assert structurer.get_total_cost() == pytest.approx(0.123)
+
+
+def test_call_llm_batch_logs_warning_on_content_filter(tmp_path, monkeypatch, caplog):
+    structurer = LlmDrugStructurer(settings=_make_settings(str(tmp_path)))
+    structurer._run_metrics = {
+        "live_cost_usd": 0.0,
+        "api_calls": 0,
+        "cache_hits": 0,
+        "content_filter_events": 0,
+    }
+
+    def fake_get_llm_response(prompt, system_prompt, json_schema, json_schema_name):
+        return {
+            "content": "",
+            "parsed_json": None,
+            "usage": {"total_cost_usd": 0.0},
+        }
+
+    monkeypatch.setattr("ariadne.llm_mapping.llm_drug_structurer.get_llm_response", fake_get_llm_response)
+
+    records = [{"row_number": 0, "name": "blocked"}]
+    schema = {"type": "object", "properties": {"results": {"type": "array"}}, "required": ["results"]}
+
+    with caplog.at_level(logging.WARNING, logger="ariadne.llm_mapping.llm_drug_structurer"):
+        result = structurer._call_llm_batch("classify", records, "classify base", schema)
+
+    assert result is None
+    assert structurer._run_metrics["content_filter_events"] == 1
+    assert "Content filter triggered" in caplog.text
+
+

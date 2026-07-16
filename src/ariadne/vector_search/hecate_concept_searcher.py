@@ -13,12 +13,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+import re
+from typing import Optional
 
 import requests
-from typing import Optional, List
 
 import pandas as pd
+from ariadne.utils.settings import HecateSearchSettings
 from ariadne.vector_search.abstract_concept_searcher import AbstractConceptSearcher
 
 _HECATE_SEARCH_URL = "https://hecate.pantheon-hds.com/api/search"
@@ -33,97 +34,67 @@ class HecateConceptSearcher(AbstractConceptSearcher):
 
     def __init__(
         self,
-        for_evaluation: bool = False,
-        standard_concept: Optional[str] = None,
-        domain_ids: Optional[List[str]] = None,
-        concept_class_ids: Optional[List[str]] = None,
-        vocabulary_ids: Optional[List[str]] = None,
+        settings: HecateSearchSettings,
     ):
         """
         Initializes the HecateConceptSearcher.
 
         Args:
-            for_evaluation: If True, configures the searcher for evaluation purposes.
+            settings: Vector search settings controlling endpoint selection,
+                candidate limits, and query filters.
         """
-        self.for_evaluation = for_evaluation
+        self.settings = settings
+        self._sorted_substrings_to_remove = sorted(
+            self.settings.substrings_to_remove,
+            key=len,
+            reverse=True,
+        )
+        self.default_url = _HECATE_SEARCH_STANDARD_URL
+        self.default_params = {}
+        standard_concepts = self.settings.filter.standard_concept
+        uses_standard_only_endpoint = len(standard_concepts) == 1 and standard_concepts[0] == "S"
+        if not uses_standard_only_endpoint:
+            self.default_url = _HECATE_SEARCH_URL
+            self.default_params["standard_concept"] = ",".join(standard_concepts)
 
-        if for_evaluation:
-            print("HecateConceptSearcher initialized in evaluation mode.")
-            self.default_url = _HECATE_SEARCH_STANDARD_URL
-            self.default_params = {
-                "standard_concept": "S",
-                "domain_id": "Condition,Observation,Measurement,Procedure",
-                "concept_class_id": "3-dig billing code,3-dig nonbill code,4-dig billing code,Answer,Claims Attachment,Clinical Finding,Clinical Observation,Context-dependent,CPT4,CPT4 Modifier,Disorder,Event,Genetic Variation,HCPCS,Histopattern,ICD10PCS,ICD10PCS Hierarchy,ICDO Condition,ICDO Histology,Ingredient,Lab Test,MDC,Metastasis,MS-DRG,NAACCR Variable,Observable Entity,Procedure,Question,Social Context,Staging / Scales,Staging/Grading,Survey,Topic,Topography,Value,Variable",
-                "exclude_vocabulary_id": "ICD9CM,ICD10CM,ICD10,ICD10CN,ICD10GM,CIM10,ICDO3,KCD7,Read",
-            }
-        else:
-            print("HecateConceptSearcher initialized in standard mode.")
-            self.default_url = _HECATE_SEARCH_STANDARD_URL
-            self.default_params = {}
-            normalized_standard = (standard_concept or "S").strip()
-            if normalized_standard.lower() == "none":
-                self.default_url = _HECATE_SEARCH_URL
-                self.default_params["standard_concept"] = "None"
-            elif normalized_standard != "S":
-                self.default_url = _HECATE_SEARCH_URL
-                self.default_params["standard_concept"] = normalized_standard
-            if domain_ids:
-                self.default_params["domain_id"] = ",".join(domain_ids)
-            if concept_class_ids:
-                self.default_params["concept_class_id"] = ",".join(concept_class_ids)
-            if vocabulary_ids:
-                self.default_params["vocabulary_id"] = ",".join(vocabulary_ids)
-
-    def _resolve_endpoint_for_standard_concept(self, standard_concept: Optional[str]) -> tuple[str, dict]:
-        params = dict(self.default_params)
-        endpoint = self.default_url
-
-        if standard_concept is None:
-            return endpoint, params
-
-        normalized_standard = standard_concept.strip()
-        if normalized_standard.lower() == "none":
-            endpoint = _HECATE_SEARCH_URL
-            params["standard_concept"] = "None"
-        elif normalized_standard == "S":
-            endpoint = _HECATE_SEARCH_STANDARD_URL
-            params.pop("standard_concept", None)
-        else:
-            endpoint = _HECATE_SEARCH_URL
-            params["standard_concept"] = normalized_standard
-
-        return endpoint, params
+        if self.settings.filter.domain_ids:
+            self.default_params["domain_id"] = ",".join(self.settings.filter.domain_ids)
+        if self.settings.filter.concept_class_ids:
+            self.default_params["concept_class_id"] = ",".join(self.settings.filter.concept_class_ids)
+        if self.settings.filter.vocabulary_ids:
+            self.default_params["vocabulary_id"] = ",".join(self.settings.filter.vocabulary_ids)
+        if self.settings.filter.exclude_vocabulary_ids:
+            self.default_params["exclude_vocabulary_id"] = ",".join(self.settings.filter.exclude_vocabulary_ids)
 
     def search_term(
         self,
         query_string: str,
-        limit: int = 25,
-        standard_concept: Optional[str] = None,
-        domain_ids: Optional[List[str]] = None,
-        concept_class_ids: Optional[List[str]] = None,
-        vocabulary_ids: Optional[List[str]] = None,
-    ) -> pd.DataFrame:
+    ) -> Optional[pd.DataFrame]:
         """
         Searches for concepts matching the given query string.
 
         Args:
             query_string: The term to search for.
-            limit: The maximum number of results to return.
 
         Returns:
             A DataFrame containing the matching concepts, with the same columns as the concept table in the OMOP CDM,
             plus a 'score' column indicating the relevance score from the search.
 
         """
+        if query_string == 'Kent Pharma (UK) Ltd':
+            print("check")
 
-        endpoint, params = self._resolve_endpoint_for_standard_concept(standard_concept)
-        params.update({"q": query_string, "limit": limit})
-        if domain_ids:
-            params["domain_id"] = ",".join(domain_ids)
-        if concept_class_ids:
-            params["concept_class_id"] = ",".join(concept_class_ids)
-        if vocabulary_ids:
-            params["vocabulary_id"] = ",".join(vocabulary_ids)
+
+        # Remove substrings from query_string
+        cleaned_query = query_string
+        for substring in self._sorted_substrings_to_remove:
+            cleaned_query = re.sub(re.escape(substring), "", cleaned_query, flags=re.IGNORECASE)
+        cleaned_query = cleaned_query.strip()
+
+        endpoint = self.default_url
+        params = dict(self.default_params)
+        params.update({"q": cleaned_query, "limit": self.settings.max_candidates})
+        response = None
 
         try:
             response = requests.get(endpoint, params=params, timeout=15)
@@ -138,14 +109,15 @@ class HecateConceptSearcher(AbstractConceptSearcher):
             results_df = pd.DataFrame(concepts)
             if results_df.empty:
                 return results_df
-            if vocabulary_ids and "vocabulary_id" in results_df.columns:
-                results_df = results_df[results_df["vocabulary_id"].isin(vocabulary_ids)]
+            if self.settings.filter.vocabulary_ids and "vocabulary_id" in results_df.columns:
+                results_df = results_df[results_df["vocabulary_id"].isin(self.settings.filter.vocabulary_ids)]
             return results_df
 
         except requests.exceptions.HTTPError as http_err:
             print(f"HTTP error occurred: {http_err}")
-            print(f"Response status code: {response.status_code}")
-            print(f"Response content: {response.text}")
+            if response is not None:
+                print(f"Response status code: {response.status_code}")
+                print(f"Response content: {response.text}")
         except requests.exceptions.ConnectionError as conn_err:
             print(f"Connection error occurred: {conn_err}")
         except requests.exceptions.Timeout as timeout_err:
@@ -163,11 +135,6 @@ class HecateConceptSearcher(AbstractConceptSearcher):
         matched_concept_name_column: str = "matched_concept_name",
         match_score_column: str = "match_score",
         match_rank_column: str = "match_rank",
-        limit: int = 25,
-        standard_concept: Optional[str] = None,
-        domain_ids: Optional[List[str]] = None,
-        concept_class_ids: Optional[List[str]] = None,
-        vocabulary_ids: Optional[List[str]] = None,
     ) -> pd.DataFrame:
         """
         Searches the Hecate API for concepts matching terms in a DataFrame column.
@@ -179,8 +146,6 @@ class HecateConceptSearcher(AbstractConceptSearcher):
             matched_concept_name_column: Name of the column to store matched concept names.
             match_score_column: Name of the column to store match scores.
             match_rank_column: Name of the column to store match ranks.
-            limit: The maximum number of results to return for each term.
-
         Returns:
             A DataFrame containing the same columns as the input dataframe plus the matching concepts for each term. For
             each term in the input dataframe, multiple rows will be returned corresponding to each matching concept.
@@ -193,11 +158,6 @@ class HecateConceptSearcher(AbstractConceptSearcher):
             print(f"Processing term '{term}'")
             results = self.search_term(
                 term,
-                limit=limit,
-                standard_concept=standard_concept,
-                domain_ids=domain_ids,
-                concept_class_ids=concept_class_ids,
-                vocabulary_ids=vocabulary_ids,
             )
             if results is not None:
                 rows = []
@@ -228,7 +188,7 @@ class HecateConceptSearcher(AbstractConceptSearcher):
 
 
 if __name__ == "__main__":
-    concept_searcher = HecateConceptSearcher()
+    concept_searcher = HecateConceptSearcher(settings=HecateSearchSettings())
     search_results = concept_searcher.search_term("Acute myocardial infarction")
     print(search_results)
 
@@ -241,7 +201,7 @@ if __name__ == "__main__":
             ],
         }
     )
-    results_df = concept_searcher.search_terms(df, term_column="cleaned_term", limit=10)
+    results_df = concept_searcher.search_terms(df, term_column="cleaned_term")
     print(results_df)
     print(results_df.columns)
 

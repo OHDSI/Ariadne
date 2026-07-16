@@ -17,8 +17,11 @@ verbatim_mapping:
     - "subsequent encounter"
     - "(per side)"
     - "(per session)"
-  standard_concept_filter:
-    vocabularies:
+  include_synonyms: true
+  filter:
+    standard_concept:
+      - S
+    vocabulary_ids:
     domain_ids:
       - Procedure
       - Spec Anatomic Site
@@ -47,8 +50,6 @@ verbatim_mapping:
       - Metastasis
       - Regimen
       - Lab Test
-    include_classification_concepts: false
-    include_synonyms: true
   preferred_vocabulary_ids:
     - SNOMED
     - LOINC
@@ -133,8 +134,41 @@ term_cleaning:
       ]
     }
 
-vector_search:
+hecate_search:
   max_candidates: 25
+  filter:
+    standard_concept:
+      - S
+    domain_ids:
+      - Procedure
+      - Spec Anatomic Site
+      - Observation
+      - Drug
+      - Measurement
+      - Device
+      - Regimen
+    concept_class_ids:
+      - ICD10PCS Hierarchy
+      - ICD10PCS
+      - Procedure
+      - 4-dig billing code
+      - Body Structure
+      - 3-dig nonbill code
+      - Ingredient
+      - Qualifier Value
+      - 3-dig billing code
+      - 2-dig nonbill code
+      - Clinical Drug Form
+      - Vaccine Group
+      - CVX
+      - Physical Object
+      - Branded Drug
+      - CPT4
+      - Metastasis
+      - Regimen
+      - Lab Test
+    vocabulary_ids:
+    exclude_vocabulary_ids:
 
 llm_mapping:
   llm_mapper_responses_folder: data/llm_procedure_mapper_responses

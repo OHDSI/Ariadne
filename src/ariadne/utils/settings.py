@@ -44,6 +44,9 @@ _DEFAULT_SNOMED_RELATIONSHIPS: list[str] = [
     "Has severity",
     "Has temporal context",
     "Finding asso with",
+    "During",
+    "Occurs after",
+    "Has due to"
 ]
 
 
@@ -102,15 +105,26 @@ def serialize_dataclass(obj: Any) -> Any:
 
 
 @dataclass
-class StandardConceptFilter:
-    """Controls which concepts are included in the verbatim-mapping vocabulary download."""
+class ConceptFilterSettings:
+    """Shared concept filters used by vocabulary download and vector search."""
 
-    vocabularies: Optional[List[str]] = None
+    standard_concept: List[str] = field(default_factory=lambda: ["S"])
     domain_ids: Optional[List[str]] = None
     concept_class_ids: Optional[List[str]] = None
-    include_classification_concepts: bool = False
-    include_synonyms: bool = True
-    standard_concept: bool = True  # True → restrict to standard_concept = 'S'
+    vocabulary_ids: Optional[List[str]] = None
+    exclude_concept_class_ids: Optional[List[str]] = None
+    exclude_vocabulary_ids: List[str] = field(default_factory=list)
+
+    def __post_init__(self) -> None:
+        allowed_values = {"S", "C", "None"}
+        if not self.standard_concept:
+            raise ValueError("filter.standard_concept must contain at least one value.")
+        invalid_values = [value for value in self.standard_concept if value not in allowed_values]
+        if invalid_values:
+            raise ValueError(
+                "Invalid filter.standard_concept values: "
+                f"{invalid_values}. Allowed values are {sorted(allowed_values)}."
+            )
 
 
 # ── per-component settings ────────────────────────────────────────────────────
@@ -133,10 +147,9 @@ class VerbatimMappingSettings:
     download_batch_size: int = 100_000
     log_folder: str = "logs"
     substrings_to_remove: List[str] = field(default_factory=list)
+    include_synonyms: bool = True
     preferred_vocabulary_ids: List[str] = field(default_factory=list)
-    standard_concept_filter: StandardConceptFilter = field(
-        default_factory=StandardConceptFilter
-    )
+    filter: ConceptFilterSettings = field(default_factory=ConceptFilterSettings)
 
     def __post_init__(self) -> None:
         self.terms_folder = resolve_path(self.terms_folder)
@@ -146,9 +159,43 @@ class VerbatimMappingSettings:
 
 @dataclass
 class VectorSearchSettings:
-    """Everything concept searchers read from config."""
+    """Base settings shared by all concept searchers."""
 
     max_candidates: int = 25
+    filter: ConceptFilterSettings = field(default_factory=ConceptFilterSettings)
+
+
+@dataclass
+class HecateSearchSettings(VectorSearchSettings):
+    """Settings used by :class:`HecateConceptSearcher`."""
+
+    substrings_to_remove: List[str] = field(default_factory=list)
+
+
+@dataclass
+class PgvectorSearchSettings(VectorSearchSettings):
+    """Settings used by :class:`PgvectorConceptSearcher`."""
+
+    substrings_to_remove: List[str] = field(default_factory=list)
+    include_synonyms: bool = True
+    include_mapped_terms: bool = True
+
+
+@dataclass
+class TfidfSearchSettings(VectorSearchSettings):
+    """Settings used by :class:`TfidfConceptSearcher`."""
+
+    terms_folder: str = "data/terms_tfidf"
+    tfidf_index_file: str = "data/tfidf_index.pkl"
+    download_batch_size: int = 100_000
+    log_folder: str = "logs"
+    include_synonyms: bool = True
+    substrings_to_remove: List[str] = field(default_factory=list)
+
+    def __post_init__(self) -> None:
+        self.terms_folder = resolve_path(self.terms_folder)
+        self.tfidf_index_file = resolve_path(self.tfidf_index_file)
+        self.log_folder = resolve_path(self.log_folder)
 
 
 @dataclass
@@ -161,6 +208,7 @@ class ConceptContextSettings:
     include_target_domain: bool = True
     include_target_class: bool = True
     include_target_vocabulary: bool = True
+    include_target_clinical_drug_form_child_count: bool = False
     re_insert_source_target_details: bool = True
 
 
@@ -194,20 +242,28 @@ class DrugStructuringSettings:
 class MappingPerConceptClassSettings:
     """Per-concept-class settings used by the drug-mapping pipeline."""
 
-    verbatim_mapping: VerbatimMappingSettings = field(
-        default_factory=VerbatimMappingSettings
-    )
-    vector_search: VectorSearchSettings = field(default_factory=VectorSearchSettings)
+    verbatim_mapping: VerbatimMappingSettings = field(default_factory=VerbatimMappingSettings)
+    hecate_search: Optional[HecateSearchSettings] = None
+    pgvector_search: Optional[PgvectorSearchSettings] = None
+    tfidf_search: Optional[TfidfSearchSettings] = None
     llm_mapping: LlmMapperSettings = field(default_factory=LlmMapperSettings)
 
-
-@dataclass
-class ModelsConfig:
-    """LLM / embedding model identifiers for hierarchy extraction."""
-
-    embedding: str = "text-embedding-3-large"
-    extraction: str = "o3"
-    selection: str = "o3"
+    def __post_init__(self) -> None:
+        configured_searchers = [
+            name
+            for name, value in (
+                ("hecate_search", self.hecate_search),
+                ("pgvector_search", self.pgvector_search),
+                ("tfidf_search", self.tfidf_search),
+            )
+            if value is not None
+        ]
+        if len(configured_searchers) != 1:
+            raise ValueError(
+                "Exactly one vector search block must be configured per concept class: "
+                "hecate_search, pgvector_search, or tfidf_search. "
+                f"Configured: {configured_searchers or 'none'}."
+            )
 
 
 @dataclass
@@ -229,11 +285,9 @@ class ScoringConfig:
 
 @dataclass
 class EvaluationConfig:
-    """Output and gold-standard paths for hierarchy evaluation."""
+    """Output  for hierarchy evaluation."""
 
-    attribute_gold_standard_path: str = "./data/gold_standards/hierarchy_attributes_snomed_gs.csv"
-    parent_gold_standard_path: str = "./data/gold_standards/hierarchy_snomed_gs.csv"
-    output_dir: str = "./data/notebook_results"
+    output_dir: str = "data/notebook_results"
 
 
 @dataclass
@@ -245,16 +299,24 @@ class PromptsConfig:
 
 
 @dataclass
+class IndexBuildConfig:
+    """Batch/index build settings used by the hierarchy pgvector builder."""
+
+    reference_sample_size: int = 10_000
+    embedding_batch_size: int = 500
+    embedding_cache_folder: str = "data/hierarchy_embedding_cache"
+
+    def __post_init__(self) -> None:
+        self.embedding_cache_folder = resolve_path(self.embedding_cache_folder)
+
+
+@dataclass
 class HierarchySettings:
     """Settings block loaded from the optional top-level ``hierarchy`` config key."""
 
-    models: ModelsConfig = field(default_factory=ModelsConfig)
+    index_build: IndexBuildConfig = field(default_factory=IndexBuildConfig)
     retrieval: RetrievalConfig = field(default_factory=RetrievalConfig)
     scoring: ScoringConfig = field(default_factory=ScoringConfig)
     evaluation: EvaluationConfig = field(default_factory=EvaluationConfig)
     prompts: PromptsConfig = field(default_factory=PromptsConfig)
     snomed_relationships: List[str] = field(default_factory=lambda: list(_DEFAULT_SNOMED_RELATIONSHIPS))
-
-
-
-
