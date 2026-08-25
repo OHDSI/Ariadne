@@ -20,12 +20,32 @@ verbatim_mapping:
     standard_concept:
       - S
     vocabulary_ids:
+      - SNOMED
+      - LOINC
+      - OMOP Extension
+      - CPT4
+      - HCPCS
+      - ICD9Proc
+      - ICD10PCS
+      # Cancer ICDO3 Cancer Modifier 
     domain_ids:
       - Condition
       - Observation
       - Measurement
       - Procedure
+      # drugs: RxNorm Ingredient CVX CVX  | Cancer Episode | Meas Value, Qualifier Value - for positive, negative, etc.
     concept_class_ids:
+      - Clinical Finding
+      - Disorder
+      - Context-dependent
+      - Social Context
+      - Clinical Observation
+      - Event
+      - Observable Entity
+      - Staging / Scales
+      - Lab Test
+      - Physical Object
+      # cancer specific: ICDO Condition Node Metastasis + other classes of CA, less relevant
 
 term_cleaning:
   system_prompt: |
@@ -34,11 +54,13 @@ term_cleaning:
     # Guidelines
     **Handling Modifiers**: Remove modifiers such as 'unspecified', 'not specified', 'in diseases classified elsewhere', and 'other' unless they are explicitly part of a medical term. For example, 'unspecified wrist' should be simplified to 'wrist' (unless 'unspecified wrist' is a recognized term). 
     
-    **Absence of information**: Remove phrases indicating missing or absent information, such as 'without mention of', 'without documented severity score', 'unknown or uncertain', and any dependent information. However, do not remove negations that are clinically relevant, such as 'without bleeding'.
+    **Absence of information**: Remove phrases indicating missing or absent information, such as 'without mention of', 'without documented severity score', 'unknown', and any dependent information. However, do not remove negations that are clinically relevant, such as 'without bleeding'.
     
     **Ambiguous Information**: Remove non-standard or ambiguous terms like 'with or without', 'classified elsewhere', and any dependent information.
     
-    **Irrelevant Details**: Remove details unrelated to the clinical term, such as place of service ('initial encounter', 'subsequent encounter'), or origin of the term ('machine translation'). Do not remove information indicating disease severity or remission status.
+    **Irrelevant Details**: Remove details unrelated to the clinical term, such as place of service ('initial encounter', 'subsequent encounter'), or origin of the term ('machine translation'). 
+    
+    **Keep**: Do not remove information indicating disease severity, classes, stages, grades, remission status, negative results of laboratory test.
     
     # Examples
 
@@ -55,7 +77,10 @@ term_cleaning:
         {"row_number": 7, "source_term": "Bipolar disorder, mild"},
         {"row_number": 8, "source_term": "endosonography (machine translation)"},
         {"row_number": 9, "source_term": "Moderate persistent asthma, uncomplicated"}
-        {"row_number": 9, "source_term": "Lack of coordination, classified elsewhere"},
+        {"row_number": 10, "source_term": "Lack of coordination, classified elsewhere"},
+        {"row_number": 11, "source_term": "Tuberculosis, not confirmed histologically"},
+        {"row_number": 12, "source_term": "Newborn affected by forceps delivery"},
+
       ]
     }
 
@@ -72,7 +97,9 @@ term_cleaning:
         {"row_number": 7, "cleaned_term": "Bipolar disorder, mild"},
         {"row_number": 8, "cleaned_term": "endosonography"},
         {"row_number": 9, "cleaned_term": "Moderate persistent asthma"}
-        {"row_number": 9, "cleaned_term": "Lack of coordination"},
+        {"row_number": 10, "cleaned_term": "Lack of coordination"},
+        {"row_number": 11, "cleaned_term": "Tuberculosis, not confirmed histologically"},
+        {"row_number": 12, "cleaned_term": "Newborn affected by forceps delivery"}
       ]
     }
     
@@ -94,16 +121,35 @@ term_cleaning:
     Include one result for each input row_number.
     Do not include any text outside of the JSON object.
 
-hecate_search:
+pgvector_search:
   max_candidates: 25
   filter:
     standard_concept:
       - S
+    vocabulary_ids:
+      - SNOMED
+      - LOINC
+      - OMOP Extension
+      - CPT4
+      - HCPCS
+      - ICD9Proc
+      - ICD10PCS
     domain_ids:
       - Condition
       - Observation
       - Measurement
       - Procedure
+    concept_class_ids:
+      - Clinical Finding
+      - Disorder
+      - Context-dependent
+      - Social Context
+      - Clinical Observation
+      - Event
+      - Observable Entity
+      - Staging / Scales
+      - Lab Test
+      - Physical Object
 
 llm_mapping:
   llm_mapper_responses_folder: data/llm_condition_mapper_responses
@@ -114,7 +160,7 @@ llm_mapping:
     include_target_domain: True
     include_target_class: True
     include_target_vocabulary: True
-    re_insert_target_details: True
+    re_insert_source_target_details: True
   system_prompts:
     - |
       You are a meticulous medical terminology expert.
