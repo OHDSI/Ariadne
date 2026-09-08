@@ -51,64 +51,9 @@ _TERM_CLEANING_BATCH_SCHEMA = {
 # ---------------------------------------------------------------------------
 # ICD "and" → "and/or" rewrite logic
 # Per ICD-10-CM Section I.A: "the word 'and' should be interpreted to mean
-# either 'and' or 'or' when it appears in a title."  Exceptions are enumerated
-# below and applied before the rewrite.
+# either 'and' or 'or' when it appears in a title."  The vocabularies and
+# exceptions this applies to are supplied via AndOrRewriteSettings (config).
 # ---------------------------------------------------------------------------
-
-# Vocabularies subject to the ICD 'and = and/or' convention
-_AND_OR_VOCABULARIES: frozenset[str] = frozenset({
-    "ICD10CM", "ICD10", "ICD9CM", "CIM10", "KCD7", "EDI", "ICD10GM", "ICD10CN",
-})
-
-# Exact concept codes that are TRUE_AND (both components must co-occur)
-_AND_OR_EXCLUDED_CODES: frozenset[str] = frozenset({
-    "N70.13",   # Chronic salpingitis and oophoritis
-    "N70.93",   # Salpingitis and oophoritis, unspecified
-    "J35.03",   # Chronic tonsillitis and adenoiditis
-    "474.02",   # ICD9CM: Chronic tonsillitis and adenoiditis
-})
-
-# Concept code prefixes that are TRUE_AND (SIMILAR TO patterns from SQL)
-_AND_OR_EXCLUDED_PREFIXES: tuple[str, ...] = (
-    "N83.33",   # Acquired atrophy of ovary and fallopian tube
-    "N83.51",   # Torsion of ovary and ovarian ligament
-    "N83.53",   # Torsion of ovary, ovarian pedicle and fallopian tube
-    "L76.",     # Intraoperative/postprocedural hemorrhage and hematoma
-)
-
-# Name substring patterns that signal TRUE_AND (case-insensitive)
-_AND_OR_EXCLUDED_NAME_RE: re.Pattern = re.compile(
-    r"heart and .*(kidney|renal)"
-    r"|calculus .* gallbladder and bile"
-    r"|heatstroke and .*sunstroke",
-    flags=re.IGNORECASE,
-)
-
-
-def _should_replace_and(term: str, vocabulary_id: str, concept_code: str) -> bool:
-    """
-    Return True if every ' and ' in *term* should be rewritten to ' and/or '.
-
-    Replicates the SQL logic:
-      - vocabulary_id must be in _AND_OR_VOCABULARIES
-      - concept_code must NOT be in excluded exact codes or have an excluded prefix
-      - term must NOT contain 'both'/'combined' (unless code starts with H26.06)
-      - term must NOT match any TRUE_AND name pattern
-    """
-    if vocabulary_id not in _AND_OR_VOCABULARIES:
-        return False
-    if not re.search(r" and ", term, flags=re.IGNORECASE):
-        return False
-    if concept_code in _AND_OR_EXCLUDED_CODES:
-        return False
-    if any(concept_code.startswith(p) for p in _AND_OR_EXCLUDED_PREFIXES):
-        return False
-    if re.search(r"\b(both|combined)\b", term, flags=re.IGNORECASE):
-        if not concept_code.startswith("H26.06"):
-            return False
-    if _AND_OR_EXCLUDED_NAME_RE.search(term):
-        return False
-    return True
 
 
 class TermCleaner:
@@ -120,6 +65,42 @@ class TermCleaner:
         self.system_prompt = settings.system_prompt
         self.cost = 0.0
         self._cost_lock = threading.Lock()
+
+        and_or = settings.and_or_rewrite
+        self._and_or_vocabularies = frozenset(and_or.vocabulary_ids)
+        self._and_or_excluded_codes = frozenset(and_or.excluded_codes)
+        self._and_or_excluded_prefixes = tuple(and_or.excluded_prefixes)
+        self._and_or_both_combined_exception_prefixes = tuple(and_or.both_combined_exception_prefixes)
+        self._and_or_excluded_name_re = (
+            re.compile("|".join(and_or.excluded_name_patterns), flags=re.IGNORECASE)
+            if and_or.excluded_name_patterns
+            else None
+        )
+
+    def _should_replace_and(self, term: str, vocabulary_id: str, concept_code: str) -> bool:
+        """
+        Return True if every ' and ' in *term* should be rewritten to ' and/or '.
+
+        Rules (data supplied via AndOrRewriteSettings):
+          - vocabulary_id must be in the configured vocabularies
+          - concept_code must NOT be an excluded exact code or have an excluded prefix
+          - term must NOT contain 'both'/'combined' (unless code has a both/combined exception prefix)
+          - term must NOT match any TRUE_AND name pattern
+        """
+        if vocabulary_id not in self._and_or_vocabularies:
+            return False
+        if not re.search(r" and ", term, flags=re.IGNORECASE):
+            return False
+        if concept_code in self._and_or_excluded_codes:
+            return False
+        if any(concept_code.startswith(p) for p in self._and_or_excluded_prefixes):
+            return False
+        if re.search(r"\b(both|combined)\b", term, flags=re.IGNORECASE):
+            if not any(concept_code.startswith(p) for p in self._and_or_both_combined_exception_prefixes):
+                return False
+        if self._and_or_excluded_name_re is not None and self._and_or_excluded_name_re.search(term):
+            return False
+        return True
 
     def rewrite_and(
         self, term: str, vocabulary_id: str = "", concept_code: str = ""
@@ -136,7 +117,7 @@ class TermCleaner:
         Returns:
             The cleaned clinical term.
         """
-        if _should_replace_and(term, vocabulary_id, concept_code):
+        if self._should_replace_and(term, vocabulary_id, concept_code):
             term = re.sub(r" and ", " and/or ", term, flags=re.IGNORECASE)
         return term
 
@@ -188,44 +169,48 @@ class TermCleaner:
         df: pd.DataFrame,
         term_column: str = "source_term",
         output_column: str = "cleaned_term",
-        vocabulary_column: str = "vocabulary_id",
-        code_column: str = "concept_code",
+        vocabulary_column: str = "source_vocabulary_id",
+        code_column: str = "source_concept_code",
     ) -> pd.DataFrame:
         """
         Cleans clinical terms in a DataFrame column.
 
-        When *vocabulary_column* and *code_column* are present in *df*, they are
-        used for the and/or rewrite (pass 1).  If absent the rewrite is skipped
-        for all rows and only LLM cleanup (pass 2) runs — preserving full
-        backward compatibility with callers that don't supply those columns.
+        LLM cleanup runs first, then the and/or rewrite is applied to the cleaned
+        terms.  Running the rewrite last keeps it deterministic, since the LLM
+        cannot collapse ' and/or ' back to ' and '.
+
+        *term_column*, *vocabulary_column*, and *code_column* are all required and
+        must be present in *df*; a ValueError is raised otherwise.
 
         Args:
             df: DataFrame containing the terms to be cleaned.
             term_column: Column with source terms.
             output_column: Column to write cleaned terms to.
-            vocabulary_column: Column with vocabulary_id (optional).
-            code_column: Column with concept_code (optional).
+            vocabulary_column: Column with the source vocabulary id.
+            code_column: Column with the source concept code.
 
         Returns:
             DataFrame with cleaned terms in *output_column*.
         """
-        has_vocab = vocabulary_column in df.columns
-        has_code = code_column in df.columns
+        missing_columns = [c for c in (term_column, vocabulary_column, code_column) if c not in df.columns]
+        if missing_columns:
+            raise ValueError(f"clean_terms requires the following missing columns: {missing_columns}")
 
         terms = df[term_column].astype(str).tolist()
-        if has_vocab and has_code:
-            vocab_values = df[vocabulary_column].fillna("").astype(str).tolist()
-            code_values = df[code_column].fillna("").astype(str).tolist()
-            terms = [
-                self.rewrite_and(term, vocabulary_id, concept_code)
-                for term, vocabulary_id, concept_code in zip(terms, vocab_values, code_values)
-            ]
 
         for start in range(0, len(terms), _BATCH_SIZE):
             batch_indices = df.index[start : start + _BATCH_SIZE]
             batch_terms = terms[start : start + _BATCH_SIZE]
             cleaned_batch = self._clean_terms_batch(batch_terms)
             df.loc[batch_indices, output_column] = cleaned_batch
+
+        vocab_values = df[vocabulary_column].fillna("").astype(str).tolist()
+        code_values = df[code_column].fillna("").astype(str).tolist()
+        cleaned_values = df[output_column].astype(str).tolist()
+        df[output_column] = [
+            self.rewrite_and(cleaned_term, vocabulary_id, concept_code)
+            for cleaned_term, vocabulary_id, concept_code in zip(cleaned_values, vocab_values, code_values)
+        ]
 
         # Remove rows where LLM returned an empty cleaned term (sign of bad input like 'number of goats', 'declined' or 'primary')
         df = df[df[output_column].notna() & (df[output_column].str.strip() != "")].reset_index(drop=True)
@@ -249,13 +234,15 @@ if __name__ == "__main__":
     config = Config()
     term_cleaner = TermCleaner(settings=config.term_cleaning)
     data = {
-        "term": [
+        "source_term": [
             "Acute myocardial infarction, unspecified",
             "Chronic kidney disease without hypertension",
             "Diabetes mellitus type 2, nos",
-        ]
+        ],
+        "source_vocabulary_id": ["ICD10CM", "ICD10CM", "ICD10CM"],
+        "source_concept_code": ["I21.9", "N18.9", "E11.9"],
     }
     df = pd.DataFrame(data)
-    cleaned_df = term_cleaner.clean_terms(df, "term", "cleaned_term")
+    cleaned_df = term_cleaner.clean_terms(df)
     print(cleaned_df)
     print(f"Total LLM cost: ${term_cleaner.get_total_cost():.6f}")

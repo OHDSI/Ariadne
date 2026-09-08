@@ -60,7 +60,7 @@ term_cleaning:
     
     **Irrelevant Details**: Remove details unrelated to the clinical term, such as place of service ('initial encounter', 'subsequent encounter'), or origin of the term ('machine translation'). 
     
-    **Keep**: Do not remove information indicating disease severity, classes, stages, grades, remission status, negative results of laboratory test.
+    **Keep**: Do not remove information indicating disease subclass, such as severity, class, stage, grade, remission status and others. Keep negative or equivocal results of laboratory test.
     
     # Examples
 
@@ -80,6 +80,7 @@ term_cleaning:
         {"row_number": 10, "source_term": "Lack of coordination, classified elsewhere"},
         {"row_number": 11, "source_term": "Tuberculosis, not confirmed histologically"},
         {"row_number": 12, "source_term": "Newborn affected by forceps delivery"},
+        {"row_number": 13, "source_term": "Viral and otherwise specified intestinal infections"}
 
       ]
     }
@@ -99,7 +100,8 @@ term_cleaning:
         {"row_number": 9, "cleaned_term": "Moderate persistent asthma"}
         {"row_number": 10, "cleaned_term": "Lack of coordination"},
         {"row_number": 11, "cleaned_term": "Tuberculosis, not confirmed histologically"},
-        {"row_number": 12, "cleaned_term": "Newborn affected by forceps delivery"}
+        {"row_number": 12, "cleaned_term": "Newborn affected by forceps delivery"},
+        {"row_number": 13, "source_term": "intestinal infections"}
       ]
     }
     
@@ -120,6 +122,34 @@ term_cleaning:
     }
     Include one result for each input row_number.
     Do not include any text outside of the JSON object.
+
+  # ICD "and" → "and/or" rewrite (per ICD-10-CM Section I.A). Logic lives in TermCleaner.
+  and_or_rewrite:
+    vocabulary_ids:
+      - ICD10CM
+      - ICD10
+      - ICD9CM
+      - CIM10
+      - KCD7
+      - EDI
+      - ICD10GM
+      - ICD10CN
+    excluded_codes:
+      - N70.13   # Chronic salpingitis and oophoritis
+      - N70.93   # Salpingitis and oophoritis, unspecified
+      - J35.03   # Chronic tonsillitis and adenoiditis
+      - "474.02" # ICD9CM: Chronic tonsillitis and adenoiditis
+    excluded_prefixes:
+      - N83.33   # Acquired atrophy of ovary and fallopian tube
+      - N83.51   # Torsion of ovary and ovarian ligament
+      - N83.53   # Torsion of ovary, ovarian pedicle and fallopian tube
+      - L76.     # Intraoperative/postprocedural hemorrhage and hematoma
+    excluded_name_patterns:
+      - "heart and .*(kidney|renal)"
+      - "calculus .* gallbladder and bile"
+      - "heatstroke and .*sunstroke"
+    both_combined_exception_prefixes:
+      - H26.06
 
 pgvector_search:
   max_candidates: 25
@@ -173,11 +203,13 @@ llm_mapping:
       
       2. Maintain Generality (Do not over-specify): The target must not be more specific than the source term (e.g., a subtype or a term with added details not present in the source). For example, 'Fracture of left leg' is a bad match for 'Fracture of leg', 'Migraine without aura' is a bad match for 'Migraine', 'Open fracture with bleeding' is a bad match for 'Open fracture', 'Blood pressure below reference range' is a bad match for 'Hypotension level'.
       
-      3. Validate Context: Review the target concept's vocabulary context (its synonyms, class, domain, parents, and children). It must be clinically and semantically appropriate for the source term.
+      3. Validate Target Context: Review the target concept's vocabulary context (its synonyms, class, domain, parents, and children). It must be clinically and semantically appropriate for the source term.
+ 
+      4. Incorporate Source Context: Review the source term's context (its children, parents, description) and use it to contextualize the source term.
+
+      5. Ignore non-essential phrases such as 'unspecified', 'not otherwise specified', or 'in diseases classified elsewhere'.
       
-      4. Ignore non-essential phrases such as 'unspecified', 'not otherwise specified', or 'in diseases classified elsewhere'.
-      
-      5. If the best match is not an exact match, declare it to be no match.
+      6. If the best match is not an exact match, declare it to be no match.
       
       Output Format:
       Provide your response in a single JSON object. Do not include any text outside of the JSON.

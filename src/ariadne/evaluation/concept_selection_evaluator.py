@@ -6,7 +6,7 @@ import pandas as pd
 from ariadne.evaluation.concept_search_evaluator import _load_gold_standard
 from ariadne.utils.utils import resolve_path
 
-SOURCE_ID = "source_code"
+SOURCE_ID = "source_concept_code"
 SOURCE_TERM = "source_term"
 TARGET_CONCEPT_ID = "target_concept_id"
 TARGET_CONCEPT_NAME = "target_concept_name"
@@ -21,7 +21,7 @@ BROAD_MATCH = "broadMatch"
 def evaluate(
     selection_results: pd.DataFrame,
     gold_standard_file: [str|Path] = "data/gold_standards/exact_matching_gs.csv",
-    source_id_column: str = "source_code",
+    source_id_column: str = "source_concept_code",
     term_column: str = "cleaned_term",
     mapped_concept_id_column: str = "mapped_concept_id",
     mapped_concept_name_column: str = "mapped_concept_name",

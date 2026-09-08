@@ -23,7 +23,7 @@ import pandas as pd
 from ariadne.utils.utils import resolve_path
 
 # Gold standard column names:
-SOURCE_ID = "source_code"
+SOURCE_ID = "source_concept_code"
 SOURCE_TERM = "source_term"
 TARGET_CONCEPT_ID = "target_concept_id"
 TARGET_CONCEPT_NAME = "target_concept_name"
@@ -60,7 +60,7 @@ def evaluate_concept_search(
     search_results: pd.DataFrame,
     output_file: str | Path,
     gold_standard_file: str = "data/gold_standards/exact_matching_gs.csv",
-    source_id_column: str = "source_code",
+    source_id_column: str = "source_concept_code",
     term_column: str = "cleaned_term",
     matched_concept_id_column: str = "matched_concept_id",
     matched_concept_name_column: str = "matched_concept_name",

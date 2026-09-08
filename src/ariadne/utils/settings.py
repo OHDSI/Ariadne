@@ -131,10 +131,22 @@ class ConceptFilterSettings:
 
 
 @dataclass
+class AndOrRewriteSettings:
+    """Data driving the ICD 'and' → 'and/or' rewrite (logic lives in TermCleaner)."""
+
+    vocabulary_ids: List[str] = field(default_factory=list)
+    excluded_codes: List[str] = field(default_factory=list)
+    excluded_prefixes: List[str] = field(default_factory=list)
+    excluded_name_patterns: List[str] = field(default_factory=list)
+    both_combined_exception_prefixes: List[str] = field(default_factory=list)
+
+
+@dataclass
 class TermCleanerSettings:
     """Everything :class:`TermCleaner` needs."""
 
     system_prompt: str = ""
+    and_or_rewrite: AndOrRewriteSettings = field(default_factory=AndOrRewriteSettings)
 
 
 @dataclass
