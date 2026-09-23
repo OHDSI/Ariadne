@@ -3,7 +3,6 @@
 Classes:
     AbstractSnomedSearcher — ABC enforcing lifecycle (close / cost / context manager).
     SnomedAttributeSearcher — queries ``snomed_attribute`` for candidate values.
-    SnomedReferenceSearcher — queries ``snomed_reference`` for few-shot examples.
     SnomedReferenceConceptVectorSearcher — builds few-shot examples from
         ``concept`` + ``concept_relationship`` + ``relationship`` +
         configured vector table (e.g., ``concept_vector``) without requiring
@@ -165,82 +164,13 @@ class SnomedAttributeSearcher(AbstractSnomedSearcher):
                 )
         return SearchBatchResult(results, cost)
 
-    def expand_via_hierarchy(
-        self,
-        concept_ids: list[int],
-        attribute_category: str,
-    ) -> pd.DataFrame:
-        """Expand candidate concept IDs by 1-hop SNOMED hierarchy.
-
-        For each *concept_id*, retrieves its immediate parents (``Is a``) and
-        children (``Subsumes``) from ``concept_relationship``, then filters to
-        those that exist in ``snomed_attribute`` under the same
-        *attribute_category*.  No embedding API call is needed.
-
-        Args:
-            concept_ids: Seed concept IDs to expand.
-            attribute_category: SNOMED attribute category filter.
-
-        Returns:
-            DataFrame with columns
-            ``[concept_id, concept_name, attribute_category, similarity]``
-            where *similarity* is set to ``hierarchy_settings.scoring.hierarchy_similarity``.
-        """
-        if not concept_ids:
-            return pd.DataFrame(
-                columns=["concept_id", "concept_name", "attribute_category", "similarity"]
-            )
-
-        query = sql.SQL("""
-            WITH seeds AS (
-                SELECT unnest(%s::int[]) AS cid
-            ),
-            neighbors AS (
-                -- parents (seed "Is a" parent)
-                SELECT DISTINCT cr.concept_id_2 AS cid
-                FROM {schema}.{concept_rel} cr
-                JOIN seeds s ON cr.concept_id_1 = s.cid
-                WHERE cr.relationship_id = 'Is a'
-                  AND cr.invalid_reason IS NULL
-                UNION
-                -- children (child "Is a" seed)
-                SELECT DISTINCT cr.concept_id_1 AS cid
-                FROM {schema}.{concept_rel} cr
-                JOIN seeds s ON cr.concept_id_2 = s.cid
-                WHERE cr.relationship_id = 'Is a'
-                  AND cr.invalid_reason IS NULL
-            )
-            SELECT DISTINCT sa.concept_id, sa.concept_code, sa.concept_name, sa.attribute_category
-            FROM {schema}.{snomed_attr} sa
-            JOIN neighbors n ON sa.concept_id = n.cid
-            WHERE sa.attribute_category = %s
-              AND sa.concept_id NOT IN (SELECT cid FROM seeds)
-        """).format(
-            schema=sql.Identifier(self.schema),
-            concept_rel=sql.Identifier("concept_relationship"),
-            snomed_attr=sql.Identifier("snomed_attribute"),
-        )
-        params = [concept_ids, attribute_category]
-        with self.connection.cursor() as cur:
-            cur.execute(query, params)
-            rows = cur.fetchall()
-
-        if not rows:
-            return pd.DataFrame(
-                columns=["concept_id", "concept_code", "concept_name", "attribute_category", "similarity"]
-            )
-
-        df = pd.DataFrame(rows, columns=["concept_id", "concept_code", "concept_name", "attribute_category"])
-        df = df.drop_duplicates(subset=["concept_id"])
-        df["similarity"] = self.hierarchy_settings.scoring.hierarchy_similarity
-        return df
-
 
 class SnomedReferenceConceptVectorSearcher(AbstractSnomedSearcher):
     """Reference searcher that queries live OMOP vocab tables plus concept vectors.
 
-    This class mirrors :class:`SnomedReferenceSearcher` output semantics but
-    does not depend on the precomputed ``snomed_reference`` table.
+    Builds few-shot reference examples directly from the live OMOP vocabulary
+    tables plus a configured concept-vector table, without depending on a
+    precomputed ``snomed_reference`` table.
     """
 
     def __init__(
@@ -309,12 +239,12 @@ class SnomedReferenceConceptVectorSearcher(AbstractSnomedSearcher):
             rows = cur.fetchall()
 
         attrs_by_id: dict[int, list[dict]] = {}
-        for concept_id_1, concept_id_2, concept_code_2, concept_name_2, attribute_category in rows:
-            attrs_by_id.setdefault(concept_id_1, []).append(
+        for src_cid, tgt_id, tgt_code, tgt_name, attribute_category in rows:
+            attrs_by_id.setdefault(src_cid, []).append(
                 {
-                    "concept_id_2": concept_id_2,
-                    "concept_code_2": concept_code_2,
-                    "concept_name_2": concept_name_2,
+                    "target_concept_id": tgt_id,
+                    "target_concept_code": tgt_code,
+                    "target_concept_name": tgt_name,
                     "attribute_category": attribute_category,
                 }
             )

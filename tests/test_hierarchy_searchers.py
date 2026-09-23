@@ -84,7 +84,7 @@ def test_reference_concept_vector_searcher_uses_pgvector_concept_searcher(monkey
     assert result.cost == 0.5
     assert len(result.examples) == 2
     assert result.examples[0]["concept_id"] == 1001
-    assert result.examples[0]["attributes"][0]["concept_id_2"] == 2001
+    assert result.examples[0]["attributes"][0]["target_concept_id"] == 2001
     assert len(executed) == 1
     assert len(searcher._concept_searcher.calls) == 1
     assert searcher._concept_searcher.calls[0] == "unused"

@@ -1,13 +1,12 @@
 """Four-step SNOMED CT attribute extraction pipeline.
 
 Public API:
-    find_attributes_two_stage(medical_term, attribute_searcher, ...) → dict
+    extract_attributes(source_term, attribute_searcher, ...) → dict
 
-Helpers (prefixed with ``_``) handle individual steps:
-    _retrieve_reference_examples  — Step 1
-    extract_components            — Step 2
-    _retrieve_candidates          — Step 3
-    _build_selection_prompt       — Step 4a
+Helpers handle individual steps:
+    infer_attributes        — Step 2 (LLM infers attribute mentions)
+    _retrieve_candidates    — Step 3 (embed mentions, retrieve SNOMED candidates)
+    _build_selection_prompt — Step 4 (build LLM selection prompt)
 """
 
 import json
@@ -142,7 +141,7 @@ def format_reference_examples(similar_terms: list[dict], include_concept_ids=Fal
     """Format reference examples into a human-readable block for the prompt.
 
     Args:
-        similar_terms: List of reference dicts from ``find_similar_reference_terms``.
+        similar_terms: List of reference dicts from the reference searcher.
 
     Returns:
         Formatted string, or empty string if no terms.
@@ -152,11 +151,11 @@ def format_reference_examples(similar_terms: list[dict], include_concept_ids=Fal
     examples = []
     for term in similar_terms:
         if include_concept_ids:
-            attrs_text = [f"  - {OHDSI_TO_PROMPT_MAP[a['attribute_category']]}: {a['concept_name_2']} ({a['concept_id_2']})"
+            attrs_text = [f"  - {OHDSI_TO_PROMPT_MAP[a['attribute_category']]}: {a['target_concept_name']} ({a['target_concept_id']})"
                       for a in term['attributes']]
         else:
             attrs_text = [
-                f"  - {OHDSI_TO_PROMPT_MAP[a['attribute_category']]}: {a['concept_name_2']}"
+                f"  - {OHDSI_TO_PROMPT_MAP[a['attribute_category']]}: {a['target_concept_name']}"
                 for a in term["attributes"]
             ]
         attrs_str = "\n".join(attrs_text) if attrs_text else "  (no attributes)"
@@ -171,14 +170,14 @@ def format_reference_examples(similar_terms: list[dict], include_concept_ids=Fal
 
 
 def infer_attributes(
-    medical_term: str,
+    source_term: str,
     reference_examples: List,
     hierarchy_settings: HierarchySettings,
 ) -> Tuple[Dict, float]:
     """Step 2: Use the LLM to infer applicable SNOMED attributes.
 
     Args:
-        medical_term: Term to decompose.
+        source_term: Term to decompose.
         reference_examples: Reference examples.
         hierarchy_settings: Pipeline configuration.
 
@@ -187,7 +186,7 @@ def infer_attributes(
     """
     reference_text = format_reference_examples(reference_examples, include_concept_ids=False)
     system_prompt = hierarchy_settings.prompts.extraction.replace("{reference_section}", reference_text)
-    user_prompt = f'Determine the attributes for: "{medical_term}"'
+    user_prompt = f'Determine the attributes for: "{source_term}"'
     response, cost = call_llm(system_prompt, user_prompt)
     return parse_json_response(response), cost
 
@@ -281,13 +280,7 @@ def _retrieve_candidates(
         else:
             candidates_by_attr[attr_key] = candidates
 
-    all_candidates = []
-    for attr_key, candidates in candidates_by_attr.items():
-        # candidates = _enrich_candidates(
-        #     candidates, attr_key, reference_values_by_attr,
-        #     attribute_searcher, hierarchy_settings
-        # )
-        all_candidates.append(candidates)
+    all_candidates = list(candidates_by_attr.values())
 
     candidates_df = (
         pd.concat(all_candidates, ignore_index=True)
@@ -377,22 +370,26 @@ def _enforce_interprets_pairing(attrs: dict) -> None:
 
 
 def _inject_selected_concept_codes(result: dict, candidates_df: pd.DataFrame) -> None:
-    """Inject ``concept_code`` into selected attribute dicts in-place when missing."""
+    """Inject ``concept_code`` into selected attribute dicts in-place when missing or null."""
     if len(candidates_df) == 0 or "concept_code" not in candidates_df.columns:
         return
 
-    code_lookup: dict[int, str] = (
-        candidates_df.dropna(subset=["concept_code"])
+    # Key by string concept_id so lookups work whether the LLM/DataFrame ids are int or str.
+    code_lookup: dict[str, str] = {
+        str(cid): code
+        for cid, code in candidates_df.dropna(subset=["concept_code"])
         .drop_duplicates(subset=["concept_id"])
         .set_index("concept_id")["concept_code"]
         .to_dict()
-    )
+        .items()
+    }
 
     def _inject_code(obj):
         if isinstance(obj, dict) and "concept_id" in obj:
             concept_id = obj.get("concept_id")
-            if concept_id is not None and "concept_code" not in obj:
-                obj["concept_code"] = code_lookup.get(int(concept_id))
+            # Fill when the LLM omitted the code or emitted an explicit null.
+            if concept_id is not None and obj.get("concept_code") in (None, ""):
+                obj["concept_code"] = code_lookup.get(str(concept_id))
 
     if "attributes" not in result or not isinstance(result["attributes"], dict):
         return
@@ -439,7 +436,7 @@ def _attach_pipeline_metadata(
 
 
 def extract_attributes(
-    medical_term: str,
+    source_term: str,
     attribute_searcher: AttributeSearcher,
     reference_searcher: ReferenceSearcher | None = None,
     hierarchy_settings: HierarchySettings | None = None
@@ -453,7 +450,7 @@ def extract_attributes(
         4. LLM selects exact SNOMED concepts from candidates.
 
     Args:
-        medical_term: The clinical term to decompose.
+        source_term: The clinical term to decompose.
         attribute_searcher: Attribute searcher (pgvector or legacy dict).
         reference_searcher: Reference searcher (pgvector, legacy dict, or None).
         hierarchy_settings: Pipeline configuration.
@@ -465,12 +462,12 @@ def extract_attributes(
 
     # Step 1
     logger.debug("Step 1: Finding reference examples")
-    reference_examples, ref_cost = reference_searcher.search(medical_term,
+    reference_examples, ref_cost = reference_searcher.search(source_term,
                                                              top_k=hierarchy_settings.retrieval.num_reference_examples)
 
     # Step 2
     logger.debug("Step 2: Inferring attributes")
-    components, extraction_cost = infer_attributes(medical_term,
+    components, extraction_cost = infer_attributes(source_term,
                                                    reference_examples=reference_examples,
                                                    hierarchy_settings=hierarchy_settings)
 
@@ -488,7 +485,7 @@ def extract_attributes(
     if candidates_text.strip():
         reference_text = format_reference_examples(reference_examples, include_concept_ids=True)
         system_prompt = hierarchy_settings.prompts.selection.replace("{reference_section}", reference_text)
-        user_prompt = f"Medical term: {medical_term}\n\nCandidate concepts:\n{candidates_text}"
+        user_prompt = f"Medical term: {source_term}\n\nCandidate concepts:\n{candidates_text}"
         response, selection_cost = call_llm(system_prompt, user_prompt)
         result = parse_json_response(response)
     else:

@@ -112,7 +112,8 @@ def load_attributes_from_db() -> pd.DataFrame:
         WHERE c.vocabulary_id = 'SNOMED'
             AND c.standard_concept = 'S'
             AND cr.relationship_id IN ({rel_list})
-            AND cr.invalid_reason IS NULL;
+            AND cr.invalid_reason IS NULL
+            AND c2.invalid_reason IS NULL;
     """, engine)
     logger.info("Loaded %d attribute rows from DB.", len(df))
     return df

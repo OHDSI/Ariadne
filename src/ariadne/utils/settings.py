@@ -300,6 +300,10 @@ class EvaluationConfig:
     """Output  for hierarchy evaluation."""
 
     output_dir: str = "data/notebook_results"
+    llm_response_folder: str = "data/hierarchy_attribute_responses"
+
+    def __post_init__(self) -> None:
+        self.llm_response_folder = resolve_path(self.llm_response_folder)
 
 
 @dataclass

@@ -18,7 +18,7 @@ For each source concept:
    parent SCTIDs to a weighted vote (weight = similarity score).
 4. Filter out root/overly-generic parents (see ``_GENERIC_CONCEPT_IDS``).
 5. Optionally apply an attribute subsumption filter: skip a reference term
-   whose attribute ``concept_id_2`` set is a *strict subset* of the source's
+   whose attribute ``target_concept_id`` set is a *strict subset* of the source's
    predicted attribute set (that reference term is less specific → its parents
    would be too deep in the hierarchy).
 6. Return the top-k SCTIDs by weighted vote.  Fall back to ``Clinical finding``
@@ -133,10 +133,10 @@ def score_parent_candidates(
     Args:
         reference_examples: The ``reference_examples`` list from one raw
             result entry.  Each item has ``concept_id``, ``similarity``,
-            and ``attributes`` (list of ``{concept_id_2, ...}``).
+            and ``attributes`` (list of ``{target_concept_id, ...}``).
         reference_parents: Output of ``get_reference_parents`` — maps
             reference concept_id to its "Is a" parent SCTIDs.
-        source_attr_concept_ids: Set of ``concept_id_2`` values predicted for
+        source_attr_concept_ids: Set of ``target_concept_id`` values predicted for
             the source concept (used for the subsumption filter).
         min_similarity: Skip reference terms with similarity below this threshold.
         use_attr_filter: When True, skip reference terms whose attribute set is
@@ -164,9 +164,9 @@ def score_parent_candidates(
         # than our source concept (their attribute set ⊊ source attribute set).
         if use_attr_filter and source_attr_concept_ids:
             ref_attr_ids = {
-                a["concept_id_2"]
+                a["target_concept_id"]
                 for a in ref.get("attributes", [])
-                if "concept_id_2" in a
+                if "target_concept_id" in a
             }
             if ref_attr_ids and ref_attr_ids < source_attr_concept_ids:
                 # Reference is strictly less specific — skip
@@ -198,7 +198,8 @@ def build_stated_parents_map(
 ) -> dict[int, list[str]]:
     """Build a per-concept stated parent map from cached pipeline results.
 
-    Reads ``source_concept_id`` and ``reference_examples`` from each entry in
+    Reads ``source_concept_id`` (falling back to ``source_key`` when the OMOP
+    concept_id is absent) and ``reference_examples`` from each entry in
     *raw_results*, queries ``concept_relationship`` for reference parents in a
     single batch call, then votes to select up to *top_k* parent SCTIDs per
     source concept.
@@ -239,10 +240,10 @@ def build_stated_parents_map(
     specific_count = 0
 
     for entry in raw_results:
-        src_id = entry.get("source_concept_id")
+        sid = entry.get("source_concept_id")
+        src_id = int(sid) if sid is not None else entry.get("source_key")
         if src_id is None:
             continue
-        src_id = int(src_id)
 
         # Build source attribute id set for subsumption filter.
         # attribute values may be a list[dict] OR a bare dict (single item not wrapped).

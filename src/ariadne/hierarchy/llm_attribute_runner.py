@@ -2,13 +2,15 @@
 
 The module exposes a single public entry point, :func:`process_hierarchy`,
 which executes the term-level extraction pipeline over a tabular dataset.
-Execution is intentionally single-threaded and checkpoint-aware so long runs
-can resume after interruptions.
+Execution is intentionally single-threaded and resumable: each term's result
+is written to its own JSON file as soon as it succeeds, so an interrupted run
+resumes by reprocessing only the terms without a cached file. Failed terms are
+left uncached and retried on the next run.
 """
 
+import json
 import logging
-import os
-import pickle
+import re
 from pathlib import Path
 
 import pandas as pd
@@ -25,8 +27,13 @@ from ariadne.utils.settings import HierarchySettings
 logger = logging.getLogger(__name__)
 
 
+def _make_source_key(vocabulary_id: str, concept_code: str) -> str:
+    """Composite primary key for a source term (works without an OMOP concept_id)."""
+    return f"{vocabulary_id}:{concept_code}"
+
+
 def _process_term(
-    source_code: str,
+    source_meta: dict,
     source_term: str,
     attribute_searcher: AttributeSearcher,
     reference_searcher: ReferenceSearcher | None,
@@ -36,8 +43,10 @@ def _process_term(
 
     Parameters
     ----------
-    source_code
-        Stable source identifier for the term being processed.
+    source_meta
+        Source identity fields (``source_key``, ``source_concept_id``,
+        ``source_concept_code``, ``source_vocabulary_id``, ``source_term``)
+        attached to the result verbatim.
     source_term
         Source concept name/text to send to the attribute extractor.
     attribute_searcher
@@ -60,16 +69,11 @@ def _process_term(
             reference_searcher=reference_searcher,
             hierarchy_settings=hierarchy_settings,
         )
-        result["source_code"] = source_code
-        result["source_concept_name"] = source_term
+        result.update(source_meta)
         return result
     except (ValueError, KeyError, ContentFilterError, psycopg.Error) as exc:
         logger.exception("  Error processing term %s: %s", source_term, exc)
-        return {
-            "source_code": source_code,
-            "source_term": source_term,
-            "error": str(exc),
-        }
+        return {**source_meta, "error": str(exc)}
 
 
 def process_hierarchy(
@@ -77,8 +81,10 @@ def process_hierarchy(
     attribute_searcher: AttributeSearcher,
     reference_searcher: ReferenceSearcher,
     hierarchy_settings: HierarchySettings | None,
-    source_code_column: str = "source_code",
     source_term_column: str = "source_term",
+    source_code_column: str = "source_concept_code",
+    source_vocab_column: str = "source_vocabulary_id",
+    source_id_column: str | None = "source_concept_id",
     checkpoint_every: int = 5,
 ) -> list[dict]:
     """Execute hierarchy extraction over source terms with checkpoint resume.
@@ -92,52 +98,53 @@ def process_hierarchy(
     reference_searcher
         Searcher used for optional reference concept lookups.
     hierarchy_settings
-        Required runtime settings. ``evaluation.output_dir`` is used for
-        checkpoint persistence.
-    source_code_column
-        Name of the column containing unique source identifiers.
+        Required runtime settings. ``evaluation.llm_response_folder`` is used to
+        store one result file per source term for resume.
     source_term_column
         Name of the column containing source term text.
+    source_code_column
+        Name of the column containing the source concept code.
+    source_vocab_column
+        Name of the column containing the source vocabulary id. Combined with
+        ``source_code_column`` to form the composite primary key.
+    source_id_column
+        Optional column with the OMOP ``concept_id`` (may be absent for new
+        vocabularies). Carried through when present.
     checkpoint_every
-        Save progress every N processed terms. Set to ``0`` or a negative
-        value to disable periodic checkpoint writes.
+        Cadence (in terms) for emitting a progress log line. Results are
+        persisted immediately per term regardless of this value.
 
     Returns
     -------
     list[dict]
         One result dictionary per processed source code, including any
-        previously restored checkpoint results.
+        previously cached results loaded from disk.
 
     Raises
     ------
     ValueError
         If ``hierarchy_settings`` is missing.
-    KeyboardInterrupt
-        Re-raised after persisting an interruption checkpoint.
     """
     if not hierarchy_settings:
         raise ValueError("HierarchySettings must be provided")
 
-    checkpoint_file = Path(hierarchy_settings.evaluation.output_dir) / "hierarchy_checkpoint.pkl"
+    results_dir = Path(hierarchy_settings.evaluation.llm_response_folder)
 
-    if checkpoint_file.exists():
-        try:
-            with open(checkpoint_file, "rb") as f:
-                checkpoint = pickle.load(f)
-            all_results: list[dict] = checkpoint["results"]
-            processed_ids: set = checkpoint["processed_ids"]
-            logger.info("Resuming from checkpoint: %d terms already done", len(all_results))
-        except (pickle.UnpicklingError, EOFError, KeyError) as exc:
-            logger.warning("Corrupted checkpoint %s - starting fresh: %s", checkpoint_file, exc)
-            checkpoint_file.unlink(missing_ok=True)
-            all_results = []
-            processed_ids = set()
-    else:
-        all_results = []
-        processed_ids = set()
+    all_results, processed_ids = _load_cached_results(results_dir)
+    if all_results:
+        logger.info(
+            "Resuming: %d terms already cached in %s", len(all_results), results_dir
+        )
+
+    has_source_id = bool(source_id_column) and source_id_column in terms.columns
+
+    def _row_source_key(row) -> str:
+        return _make_source_key(
+            getattr(row, source_vocab_column), getattr(row, source_code_column)
+        )
 
     pending_terms = [
-        row for row in terms.itertuples(index=False) if getattr(row, source_code_column) not in processed_ids
+        row for row in terms.itertuples(index=False) if _row_source_key(row) not in processed_ids
     ]
 
     if not pending_terms:
@@ -146,49 +153,62 @@ def process_hierarchy(
 
     total_cost = sum(r.get("cost", {}).get("total_cost", 0.0) for r in all_results)
 
-    try:
-        for row in pending_terms:
-            source_code = str(getattr(row, source_code_column))
-            source_term = str(getattr(row, source_term_column))
-            logger.debug(
-                "\n%s\n[%d/%d] %s",
-                "=" * 60,
-                len(all_results) + 1,
-                len(terms),
-                source_term,
-            )
-            result = _process_term(
-                source_code,
-                source_term,
-                attribute_searcher,
-                reference_searcher,
-                hierarchy_settings,
+    for row in pending_terms:
+        source_concept_code = str(getattr(row, source_code_column))
+        source_vocabulary_id = str(getattr(row, source_vocab_column))
+        source_term = str(getattr(row, source_term_column))
+        source_key = _make_source_key(source_vocabulary_id, source_concept_code)
+        raw_id = getattr(row, source_id_column) if has_source_id else None
+        source_concept_id = None if raw_id is None or pd.isna(raw_id) else raw_id
+        source_meta = {
+            "source_key": source_key,
+            "source_concept_id": source_concept_id,
+            "source_concept_code": source_concept_code,
+            "source_vocabulary_id": source_vocabulary_id,
+            "source_term": source_term,
+        }
+        logger.debug(
+            "\n%s\n[%d/%d] %s",
+            "=" * 60,
+            len(all_results) + 1,
+            len(terms),
+            source_term,
+        )
+        result = _process_term(
+            source_meta,
+            source_term,
+            attribute_searcher,
+            reference_searcher,
+            hierarchy_settings,
+        )
+
+        # Do not cache failures: leaving them unpersisted means they are retried
+        # on the next run (mirrors the LlmMapper per-response file cache).
+        if "error" in result:
+            logger.warning(
+                "Term %s failed; not caching so it retries next run.", source_key
             )
             all_results.append(result)
-            processed_ids.add(source_code)
-            if "cost" in result:
-                total_cost += result["cost"]["total_cost"]
-                logger.debug(
-                    "  cost: $%.4f | running total: $%.4f",
-                    result["cost"]["total_cost"],
-                    total_cost,
-                )
+            continue
 
-            if checkpoint_every > 0 and len(all_results) % checkpoint_every == 0:
-                _save_checkpoint(checkpoint_file, all_results, processed_ids, hierarchy_settings)
-                logger.info(
-                    "Processed %d/%d codes | Total API cost: $%.4f",
-                    len(all_results),
-                    len(terms),
-                    total_cost,
-                )
-    except KeyboardInterrupt:
-        _save_checkpoint(checkpoint_file, all_results, processed_ids, hierarchy_settings)
-        logger.warning(
-            "Interrupted while running. Saved checkpoint with %d terms.",
-            len(all_results),
-        )
-        raise
+        _save_result(results_dir, result)
+        all_results.append(result)
+        processed_ids.add(source_key)
+        if "cost" in result:
+            total_cost += result["cost"]["total_cost"]
+            logger.debug(
+                "  cost: $%.4f | running total: $%.4f",
+                result["cost"]["total_cost"],
+                total_cost,
+            )
+
+        if checkpoint_every > 0 and len(processed_ids) % checkpoint_every == 0:
+            logger.info(
+                "Processed %d/%d codes | Total API cost: $%.4f",
+                len(processed_ids),
+                len(terms),
+                total_cost,
+            )
 
     logger.debug(
         "\n%s\nCompleted: %d terms, Total cost: $%.4f",
@@ -197,21 +217,41 @@ def process_hierarchy(
         total_cost,
     )
 
-    if checkpoint_file.exists():
-        checkpoint_file.unlink()
-        logger.debug("Checkpoint file cleaned up")
-
     return all_results
 
 
-def _save_checkpoint(
-    checkpoint_file: Path,
-    results: list[dict],
-    processed_ids: set,
-    hierarchy_settings: HierarchySettings,
-) -> None:
-    """Persist current batch progress to a pickle checkpoint file."""
-    os.makedirs(hierarchy_settings.evaluation.output_dir, exist_ok=True)
-    with open(checkpoint_file, "wb") as f:
-        pickle.dump({"results": results, "processed_ids": processed_ids}, f)
-    logger.debug("Checkpoint saved (%d terms)", len(results))
+def _safe_result_filename(source_key: str) -> str:
+    """Filesystem-safe filename for a source term's cached result."""
+    return re.sub(r"[^A-Za-z0-9._-]", "_", source_key) + ".json"
+
+
+def _load_cached_results(results_dir: Path) -> tuple[list[dict], set]:
+    """Load previously persisted per-term results for resume."""
+    all_results: list[dict] = []
+    processed_ids: set = set()
+    if not results_dir.exists():
+        return all_results, processed_ids
+    for path in sorted(results_dir.glob("*.json")):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                result = json.load(f)
+        except (json.JSONDecodeError, OSError) as exc:
+            logger.warning("Skipping unreadable result file %s: %s", path, exc)
+            continue
+        source_key = result.get("source_key")
+        if source_key is None:
+            logger.warning("Result file %s has no source_key; skipping.", path)
+            continue
+        all_results.append(result)
+        processed_ids.add(source_key)
+    return all_results, processed_ids
+
+
+def _save_result(results_dir: Path, result: dict) -> None:
+    """Persist a single term result atomically to its own JSON file."""
+    results_dir.mkdir(parents=True, exist_ok=True)
+    path = results_dir / _safe_result_filename(result["source_key"])
+    tmp_path = path.with_suffix(".json.tmp")
+    with open(tmp_path, "w", encoding="utf-8") as f:
+        json.dump(result, f, indent=2, default=str)
+    tmp_path.replace(path)

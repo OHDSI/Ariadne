@@ -158,16 +158,16 @@ def _build_owl_expression(
 
 def _rows_from_source(
     source: Union[str, Path, pd.DataFrame],
-) -> list[tuple[int, str, str, str]]:
-    """Return (source_omop_id, source_name, dest_sctid, attr_type) rows.
+) -> list[tuple[int | str, str, str, str]]:
+    """Return (source_id, source_name, dest_sctid, attr_type) rows.
 
     Args:
         source: Path to ``attribute_results.csv`` or a DataFrame with the same
-                columns (``concept_id_1``, ``concept_name_1``,
-                ``predicted_concept_code_2``, ``attribute_category``).
+                columns (``source_concept_id``, ``source_key``, ``source_term``,
+                ``predicted_target_concept_code``, ``attribute_category``).
 
     Returns:
-        List of tuples, skipping rows with missing ``predicted_concept_code_2``.
+        List of tuples, skipping rows with missing ``predicted_target_concept_code``.
     """
     if isinstance(source, (str, Path)):
         df = pd.read_csv(source)
@@ -175,11 +175,11 @@ def _rows_from_source(
         df = source.copy()
 
     before = len(df)
-    df = df.dropna(subset=["predicted_concept_code_2"])
+    df = df.dropna(subset=["predicted_target_concept_code"])
     dropped = before - len(df)
     if dropped:
         logger.warning(
-            "Skipped %d rows with missing predicted_concept_code_2 (no SCTID resolved).",
+            "Skipped %d rows with missing predicted_target_concept_code (no SCTID resolved).",
             dropped,
         )
 
@@ -187,11 +187,14 @@ def _rows_from_source(
     for _, row in df.iterrows():
         # Convert concept_code to int first to strip float ".0" suffix
         # (pandas reads numeric codes as float when the column has NaNs)
-        raw_code = row["predicted_concept_code_2"]
+        raw_code = row["predicted_target_concept_code"]
         code_str = str(int(float(raw_code)))
+        raw_id = row.get("source_concept_id")
+        # concept_id may be absent for new vocabularies -> fall back to composite key
+        src_id = int(raw_id) if raw_id is not None and not pd.isna(raw_id) else str(row.get("source_key", ""))
         rows.append((
-            int(row["concept_id_1"]),
-            str(row.get("concept_name_1", "")),
+            src_id,
+            str(row.get("source_term", "")),
             code_str,
             str(row["attribute_category"]),
         ))
@@ -216,14 +219,15 @@ def export_to_rf2(
 ) -> tuple[Path, pd.DataFrame]:
     """Export Step 2 attribute predictions as an RF2 delta ZIP.
 
-    Source OMOP ``concept_id_1`` values are remapped to sequential
+    Source ``source_concept_id`` values (or ``source_key`` when the OMOP
+    concept_id is absent) are remapped to sequential
     synthetic IDs starting at *concept_id_start* to avoid collisions
     with real SNOMED SCTIDs in the base release.
 
     Args:
         source: Path to ``attribute_results.csv`` **or** a DataFrame with
-            columns ``concept_id_1``, ``concept_name_1``,
-            ``predicted_concept_code_2`` (SNOMED SCTID string), and
+            columns ``source_concept_id``, ``source_key``, ``source_term``,
+            ``predicted_target_concept_code`` (SNOMED SCTID string), and
             ``attribute_category``.
         output_dir: Directory where the ``Delta/`` folder and ZIP are written.
         date: Effective date string in ``YYYYMMDD`` format.  Defaults to today.
@@ -261,8 +265,8 @@ def export_to_rf2(
 
     # ── Build OMOP → synthetic ID mapping ─────────────────────────────────
     unique_sources = dict.fromkeys(r[0] for r in rows)  # ordered dedup
-    omop_to_synth: dict[int, int] = {}
-    synth_to_omop: dict[int, int] = {}
+    omop_to_synth: dict = {}
+    synth_to_omop: dict = {}
     for i, omop_id in enumerate(unique_sources):
         synth_id = concept_id_start + i
         omop_to_synth[omop_id] = synth_id
@@ -293,7 +297,7 @@ def export_to_rf2(
     logger.info("  Concept file: %d concepts → %s", len(unique_sources), concept_path.name)
 
     # ── Group attributes by source concept ──────────────────────────────────
-    concept_attrs: dict[int, list[tuple[int, str]]] = defaultdict(list)
+    concept_attrs: dict = defaultdict(list)
     unknown_types: set[str] = set()
     for src_id, _src_name, dest_sctid, attr_type in rows:
         type_id = GS_CATEGORY_TO_TYPE_ID.get(attr_type)

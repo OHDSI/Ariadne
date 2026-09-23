@@ -275,7 +275,7 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
             return_embeddings: When True, also return a ``dict[term -> np.ndarray]``
                 mapping each unique source term to its embedding vector.  The
                 caller can pass these vectors to
-                ``find_attributes_two_stage(..., precomputed_embedding=...)`` to
+                ``extract_attributes(..., precomputed_embedding=...)`` to
                 skip the duplicate reference-retrieval embedding call in Step 2.
 
         Returns:

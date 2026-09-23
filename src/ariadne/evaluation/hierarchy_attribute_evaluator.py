@@ -50,8 +50,13 @@ def build_prediction_rows(results: list[dict]) -> list[dict]:
     """
     pred_rows: list[dict] = []
     for result in results:
-        concept_id_1 = result.get("source_code")
-        concept_name_1 = result.get("source_term") or result.get("medical_term")
+        source_meta = {
+            "source_key": result.get("source_key"),
+            "source_concept_id": result.get("source_concept_id"),
+            "source_concept_code": result.get("source_concept_code"),
+            "source_vocabulary_id": result.get("source_vocabulary_id"),
+            "source_term": result.get("source_term"),
+        }
         if "attributes" not in result:
             continue
         for attr_key, attr_value in result["attributes"].items():
@@ -65,11 +70,10 @@ def build_prediction_rows(results: list[dict]) -> list[dict]:
                 for sub_key, concept in split_interprets_pairs(attr_value):
                     if isinstance(concept, dict):
                         pred_rows.append({
-                            "concept_id_1": concept_id_1,
-                            "concept_name_1": concept_name_1,
-                            "predicted_concept_id_2": concept.get("concept_id"),
-                            "predicted_concept_name_2": concept.get("concept_name"),
-                            "predicted_concept_code_2": concept.get("concept_code"),
+                            **source_meta,
+                            "predicted_target_concept_id": concept.get("concept_id"),
+                            "predicted_target_concept_name": concept.get("concept_name"),
+                            "predicted_target_concept_code": concept.get("concept_code"),
                             "attribute_category": ATTR_KEY_TO_GS_CATEGORY.get(sub_key, f"Has {sub_key}"),
                         })
                 continue
@@ -80,21 +84,19 @@ def build_prediction_rows(results: list[dict]) -> list[dict]:
                 for item in attr_value:
                     if item and isinstance(item, dict):
                         pred_rows.append({
-                            "concept_id_1": concept_id_1,
-                            "concept_name_1": concept_name_1,
-                            "predicted_concept_id_2": item.get("concept_id"),
-                            "predicted_concept_name_2": item.get("concept_name"),
-                            "predicted_concept_code_2": item.get("concept_code"),
+                            **source_meta,
+                            "predicted_target_concept_id": item.get("concept_id"),
+                            "predicted_target_concept_name": item.get("concept_name"),
+                            "predicted_target_concept_code": item.get("concept_code"),
                             "attribute_category": attr_type,
                         })
             # Handle single concept dict (legacy format)
             elif isinstance(attr_value, dict):
                 pred_rows.append({
-                    "concept_id_1": concept_id_1,
-                    "concept_name_1": concept_name_1,
-                    "predicted_concept_id_2": attr_value.get("concept_id"),
-                    "predicted_concept_name_2": attr_value.get("concept_name"),
-                    "predicted_concept_code_2": attr_value.get("concept_code"),
+                    **source_meta,
+                    "predicted_target_concept_id": attr_value.get("concept_id"),
+                    "predicted_target_concept_name": attr_value.get("concept_name"),
+                    "predicted_target_concept_code": attr_value.get("concept_code"),
                     "attribute_category": attr_type,
                 })
     return pred_rows
@@ -108,9 +110,10 @@ def evaluate_results(
     """Produce a combined evaluation table (full outer join of GS and predictions).
 
     Columns:
-        concept_id_1, concept_name_1, attribute_category,
-        gs_concept_id_2, gs_concept_name_2,
-        predicted_concept_id_2, predicted_concept_name_2,
+        source_key, source_concept_id, source_concept_code, source_vocabulary_id,
+        source_term, attribute_category,
+        gs_target_concept_id, gs_target_concept_code, gs_target_concept_name,
+        predicted_target_concept_id, predicted_target_concept_code, predicted_target_concept_name,
         matched, status (``match`` / ``missed`` / ``extra``).
 
     Summary statistics are printed and the combined table is saved to CSV.
@@ -126,49 +129,64 @@ def evaluate_results(
     # --- build predicted rows ---
     pred_rows = build_prediction_rows(results)
     pred_df = pd.DataFrame(pred_rows)
+    source_cols = ["source_key", "source_concept_id", "source_concept_code",
+                   "source_vocabulary_id", "source_term"]
+    if pred_df.empty:
+        pred_df = pd.DataFrame(columns=source_cols + [
+            "predicted_target_concept_id", "predicted_target_concept_name",
+            "predicted_target_concept_code", "attribute_category"])
 
     # --- load gold standard ---
     gs_df = pd.read_csv(gs_path)
-    gs_df = gs_df.rename(columns={'concept_id_2': 'gs_concept_id_2', 'concept_code_2': 'gs_concept_code_2', 'concept_name_2': 'gs_concept_name_2'})
+    gs_df = gs_df.rename(columns={
+        'target_concept_id': 'gs_target_concept_id',
+        'target_concept_code': 'gs_target_concept_code',
+        'target_concept_name': 'gs_target_concept_name',
+    })
 
-    # --- full outer join on the matching key ---
-    gs_df['concept_id_1'] = pd.to_numeric(gs_df['concept_id_1'], errors='coerce').astype('Int64')
-    pred_df['concept_id_1'] = pd.to_numeric(pred_df['concept_id_1'], errors='coerce').astype('Int64')
-    gs_df['_join_id2'] = pd.to_numeric(gs_df['gs_concept_id_2'], errors='coerce').astype('Int64')
-    pred_df['_join_id2'] = pd.to_numeric(pred_df['predicted_concept_id_2'], errors='coerce').astype('Int64')
+    # --- composite source key + numeric target join key ---
+    for df in (gs_df, pred_df):
+        df['source_key'] = (
+            df['source_vocabulary_id'].astype(str) + ':' + df['source_concept_code'].astype(str)
+        )
+    gs_df['_join_target'] = pd.to_numeric(gs_df['gs_target_concept_id'], errors='coerce').astype('Int64')
+    pred_df['_join_target'] = pd.to_numeric(pred_df['predicted_target_concept_id'], errors='coerce').astype('Int64')
 
     combined = gs_df.merge(
         pred_df,
-        on=['concept_id_1', '_join_id2', 'attribute_category'],
+        on=['source_key', '_join_target', 'attribute_category'],
         how='outer',
         suffixes=('_gs', '_pred'),
     )
 
-    # Reconcile concept_name_1 from both sides
-    if 'concept_name_1_gs' in combined.columns:
-        combined['concept_name_1'] = combined['concept_name_1_gs'].fillna(combined['concept_name_1_pred'])
-        combined.drop(columns=['concept_name_1_gs', 'concept_name_1_pred'], inplace=True)
+    # Reconcile source descriptor columns from both sides (GS wins, pred fills gaps)
+    for col in ('source_concept_id', 'source_concept_code', 'source_vocabulary_id', 'source_term'):
+        gs_col, pred_col = f'{col}_gs', f'{col}_pred'
+        if gs_col in combined.columns:
+            combined[col] = combined[gs_col].fillna(combined[pred_col])
+            combined.drop(columns=[gs_col, pred_col], inplace=True)
 
-    combined.drop(columns=['_join_id2'], inplace=True)
+    combined.drop(columns=['_join_target'], inplace=True)
 
     # --- flags ---
-    has_gs = combined['gs_concept_id_2'].notna()
-    has_pred = combined['predicted_concept_id_2'].notna()
+    has_gs = combined['gs_target_concept_id'].notna()
+    has_pred = combined['predicted_target_concept_id'].notna()
     combined['matched'] = has_gs & has_pred
     combined['status'] = 'match'
     combined.loc[has_gs & ~has_pred, 'status'] = 'missed'
     combined.loc[~has_gs & has_pred, 'status'] = 'extra'
 
     # --- order columns nicely ---
-    leading = ['concept_id_1', 'concept_name_1', 'attribute_category',
-               'gs_concept_id_2', 'gs_concept_code_2', 'gs_concept_name_2',
-               'predicted_concept_id_2', 'predicted_concept_code_2', 'predicted_concept_name_2',
+    leading = ['source_key', 'source_concept_id', 'source_concept_code',
+               'source_vocabulary_id', 'source_term', 'attribute_category',
+               'gs_target_concept_id', 'gs_target_concept_code', 'gs_target_concept_name',
+               'predicted_target_concept_id', 'predicted_target_concept_code', 'predicted_target_concept_name',
                'matched', 'status']
     extra_cols = [c for c in combined.columns if c not in leading]
     combined = combined[[c for c in leading if c in combined.columns] + extra_cols]
 
     # Sort for readability
-    combined = combined.sort_values(['concept_id_1', 'attribute_category', 'status']).reset_index(drop=True)
+    combined = combined.sort_values(['source_key', 'attribute_category', 'status']).reset_index(drop=True)
 
     # --- summary stats ---
     n_gs = int(has_gs.sum())

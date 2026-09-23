@@ -60,11 +60,27 @@ def test_clean_terms_dataframe(monkeypatch):
 
     monkeypatch.setattr("ariadne.term_cleanup.term_cleaner.get_llm_response", fake_get_llm_response)
 
-    df = pd.DataFrame({"source_term": [f"unspecified term {i}" for i in range(30)]})
+    df = pd.DataFrame(
+        {
+            "source_term": [f"unspecified term {i}" for i in range(30)],
+            "source_vocabulary_id": ["SNOMED"] * 30,
+            "source_concept_code": [str(i) for i in range(30)],
+        }
+    )
     result = cleaner.clean_terms(df.copy())
 
     assert result["cleaned_term"].tolist() == [f"term {i}" for i in range(30)]
     assert call_sizes == [25, 5]
+
+
+def test_clean_terms_raises_on_missing_required_columns():
+    cleaner = TermCleaner(settings=_make_settings())
+
+    df = pd.DataFrame({"source_term": ["unspecified synovitis"]})
+
+    with pytest.raises(ValueError, match="source_vocabulary_id"):
+        cleaner.clean_terms(df)
+
 
 
 def test_clean_terms_batch_raises_on_malformed_structured_response(monkeypatch):

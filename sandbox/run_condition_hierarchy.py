@@ -29,7 +29,9 @@ def main():
     # Load gold standard
     attribute_gs_path = project_root / "data" / "gold_standards" / "hierarchy_attributes_snomed_gs.csv"
     attribute_gs = pd.read_csv(attribute_gs_path)
-    unique_terms = attribute_gs[["concept_id_1", "concept_name_1"]].drop_duplicates()
+    unique_terms = attribute_gs[
+        ["source_concept_id", "source_concept_code", "source_vocabulary_id", "source_term"]
+    ].drop_duplicates()
 
     # Define attributes
     # raw_results_file = project_root / "data" / "notebook_results" / "hierarchy_results_raw_debug.json" # For debugging
@@ -40,19 +42,22 @@ def main():
             results = json.load(f)
         print(f"Loaded {len(results)} cached results from file.")
     else:
-        # Exclude gold standard terms from reference examples to prevent data leakage
-        gs_concept_ids = set(attribute_gs["concept_id_1"].unique())
+        # Exclude gold standard terms from reference examples to prevent data leakage.
+        # concept_id may be absent for new vocabularies; only exclude rows that have one.
+        gs_concept_ids = set(attribute_gs["source_concept_id"].dropna().unique())
         attr_searcher = SnomedAttributeSearcher(hierarchy_settings=hierarchy_settings)
         ref_searcher = SnomedReferenceConceptVectorSearcher(hierarchy_settings=hierarchy_settings, exclude_concept_ids=gs_concept_ids)
-        # terms = terms[terms['concept_name_1'] == 'Neonatal hypoglycemia'].head(1) # For debugging
+        # terms = terms[terms['source_term'] == 'Neonatal hypoglycemia'].head(1) # For debugging
 
         results = process_hierarchy(
             unique_terms,
             attr_searcher,
             reference_searcher=ref_searcher,
             hierarchy_settings=hierarchy_settings,
-            source_code_column="concept_id_1",
-            source_term_column="concept_name_1"
+            source_term_column="source_term",
+            source_code_column="source_concept_code",
+            source_vocab_column="source_vocabulary_id",
+            source_id_column="source_concept_id",
         )
         # Save raw results for debugging
         with open(raw_results_file, "w") as f:

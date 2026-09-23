@@ -109,7 +109,7 @@ term_cleaning:
     
     Maintain information relevant for the clinical presentation, prognosis and treatment of the term. This includes information about severity, stage, timing, location, and body part (including lateratily).
     
-    #Output format
+    # Output format
     You will receive up to 25 source terms in one request, each with a row_number.
     Return exactly one JSON object with this structure and no additional keys:
     {
@@ -256,11 +256,14 @@ hierarchy:
     output_dir: "data/notebook_results"
 
   snomed_relationships:
+    - "During"
+    - "Finding asso with"
     - "Has asso morph"
-    - "Has finding site"
     - "Has causative agent"
     - "Has clinical course"
+    - "Has due to"    
     - "Has finding context"
+    - "Has finding site"
     - "Has interpretation"
     - "Has interprets"
     - "Has occurrence"
@@ -268,38 +271,36 @@ hierarchy:
     - "Has relat context"
     - "Has severity"
     - "Has temporal context"
-    - "Finding asso with"
-    - "During"
     - "Occurs after"
-    - "Has due to"
+  
 
   prompts:
     extraction: |
       You are a SNOMED CT concept model expert. Determine which defining attributes apply to a medical term based on its clinical meaning. Attributes are often IMPLICIT — use clinical knowledge to infer them, not just surface words.
       
-      === ATTRIBUTE DEFINITIONS & RULES ===
+      # Attribute Definitions & Rules
       
       1. CORE CLINICAL ATTRIBUTES
-      - associated_morphology: The pathological change. Infer common patterns: "-itis" → Inflammation; "-oma/carcinoma" → Neoplasm; "stenosis" → Obstruction. Words like "absence", "agenesis", "deformity" imply Congenital anomaly morphologies. Hematologic changes (e.g., spherocytosis) imply morphologic abnormalities of blood cells.
+      - associated_morphology: The pathological change. Infer common patterns: "-itis" → Inflammatory morphology or Acute inflamation or Chronic inflamation; "-oma/carcinoma" → Neoplasm; "stenosis" → Obstruction. Words like "absence", "agenesis", "deformity" may imply Congenital anomaly morphologies. Hematologic changes (e.g., spherocytosis) imply morphologic abnormalities of blood cells.
       - finding_site: The anatomical location. Derive the site from disease names (e.g., "esophag-" → esophageal structure). Always use the most specific BODY STRUCTURE concept that fully covers the description.
       - causative_agent: The organism, substance, or drug directly causing the condition.
-      - due_to: Another condition or event directly causing the condition. Especially relevant for trauma
+      - due_to: Another condition or event directly causing the condition. For any injury-related conditions (contusion, wound, sprain, burn, fracture and other injuries), ALWAYS use due_to "Traumatic event".
       - clinical_course: E.g., acute, chronic, subacute, episodic.
       - severity: E.g., mild, moderate, severe.
       - occurrence: The life stage or developmental period at onset (e.g., congenital, neonatal, infancy, fetal period). Key cues: "congenital", "hereditary", "neonatal", "fetal", "infantile". Do NOT use for phase-of-care timing.
       - during: Phase-of-care timing only (e.g., during delivery, postpartum period, during surgery). DO NOT use for life-stage — use occurrence instead.
-      - occurs_after: Event preceding the condtion (e.g., "postoperative", "posttraumatic"). For direct cause use due_to
+      - occurs_after: Event preceding the condition (e.g., "postoperative" → occurs_after 'Surgical operation'). For direct cause use due_to.
 
       2. CONTEXT ATTRIBUTES (Situation with Explicit Context)
       Scan every term for implied context. Provide these ONLY when a term explicitly overrides the default assumption of a current, confirmed diagnosis in the patient (e.g., history, family history, suspected, ruled out).
       - finding_context: The clinical certainty. Values: Known present, Suspected, Probable, Known absent, Rule out. 
-        * CRITICAL RULE: SNOMED CT implicitly assumes standard clinical findings are "Known present". Do NOT apply "Known present" to standard findings or diseases. ONLY use it when building a complex "Situation" (like a Family History).
+        Do NOT apply "Known present" to standard findings or diseases. ONLY use it when building a complex "Situation" (like a Family History).
       - temporal_context: Values: Current or specified time, Past. (Use "Past" for terms containing "History of"). Do NOT output for standard current findings.
       - subject_relationship_context: The relationship of the subject. Values: Subject of record, Person in family of subject, Maternal, Fetal, Donor. Do NOT output for standard findings in the patient.
         * NOTE: "Family history of [Disease]" is modeled as: finding_context = Known present; temporal_context = Past; subject_relationship_context = Person in family of subject.
       
       3. COMPLEX / CONDITIONAL ATTRIBUTES
-      - interprets_interpretation: PAIRED ATTRIBUTES. Emit ONLY when the condition is fundamentally defined by an abnormal result for a specific named, measurable SNOMED observable. 
+      - interprets_interpretation: PAIRED ATTRIBUTES. Use ONLY when the condition is fundamentally defined by an abnormal result for a specific named, measurable SNOMED observable. 
         * Valid triggers: blood/urine analytes, named organ-function tests, or named size measurements. 
         * Endocrine cues: "hyper-" usually means Increased interpretation + Secretion of [gland] hormone. "hypo-" usually means Decreased interpretation.
         * Format as a list of dictionaries: [{"interprets": "...", "interpretation": "..."}]. Never provide one without the other.
@@ -314,90 +315,121 @@ hierarchy:
       
       {reference_section}
       
-      === GENERIC EXAMPLES ===
+      # Examples
       Term: Hyperpituitarism
-      Attributes:
-        - interprets_interpretation: 
-            - interprets: Hormone production
-            - interpretation: Increased
-        - finding_site: Adenohypophysis structure
+      Output JSON:
+      {{
+          "interprets_interpretation": [{{"interprets": "Hormone production", "interpretation": "Increased"}}],
+          "finding_site": ["Adenohypophysis structure"]
+      }}
+
+      Term: Hypoglycemic disorder
+      Output JSON:
+      {{
+          "interprets_interpretation": [{{"interprets": "Blood glucose concentration", "interpretation": "Below reference range"}}]
+      }}
       
-      Term: Testicular hypofunction
-      Attributes:     
-        - interprets_interpretation: 
-            - interprets: Hormone production
-            - interpretation: Decreased     
-        - finding_site: Testicular endocrine structure
-         
+      Term: Hypertrophy of tonsils
+      Output JSON:
+      {{
+          "associated_morphology": ["Hypertrophy"],
+          "finding_site": ["Entire left tonsil (palatine)", "Entire right tonsil (palatine)"],
+          "interprets_interpretation": [{{"interprets": "Size of tonsil", "interpretation": "Enlarged"}}]
+      }}
+
       Term: Reduction deformity of lower limb
-      Attributes:  
-        - associated_morphology: Abnormal shortening
-        - finding_site: Entire lower limb
-        - occurrence: Congenital
-        - pathological_process: Pathological developmental process
+      Output JSON:
+      {{
+          "associated_morphology": ["Abnormal shortening"],
+          "finding_site": ["Entire lower limb"],
+          "occurrence": ["Congenital"],
+          "pathological_process": ["Pathological developmental process"]
+      }}
       
       Term: Autoimmune hemolytic anemia
-      Attributes:  
-        - interprets_interpretation: 
-            - interprets: Red blood cell count
-            - interpretation: Below reference range 
-        - interprets_interpretation: 
-            - interprets: Hemolysis
-            - interpretation: Present 
-        - pathological_process: Autoimmune process
-        - causative_agent: Antibody
-        - occurrence: Period of life between birth and death
+      Output JSON:
+      {{
+          "interprets_interpretation": [
+              {{"interprets": "Red blood cell count", "interpretation": "Below reference range"}},
+              {{"interprets": "Hemolysis", "interpretation": "Present"}}
+          ],
+          "pathological_process": ["Autoimmune process"],
+          "causative_agent": ["Antibody"],
+          "occurrence": ["Period of life between birth and death"]
+      }}
       
       Term: Family history of diabetes mellitus type 2
-      Attributes:  
-        - finding_context: Known present
-        - temporal_context: Current or past
-        - subject_relationship_context: Person in the family of subject
+      Output JSON:
+      {{
+          "finding_context": ["Known present"],
+          "temporal_context": ["Current or past"],
+          "subject_relationship_context": ["Person in the family of subject"]
+      }}
         
-      Term: Barrett's esophagus with esophagitis
-      Attributes:  
-        - finding_site: Esophageal structure
-        - associated_morphology: Inflammation
+      Term: Traumatic arthropathy of the shoulder region after operation on shoulder joint
+      Output JSON:
+      {{
+          "finding_site": ["Joint structure of shoulder region"],
+          "occurs_after": ["Operation on shoulder joint"],
+          "due_to": ["Traumatic event"]
+      }}
         
       Term: Suspected appendicitis
-      Attributes:  
-        - finding_context: Suspected
-        - finding_site: Appendix structure
-        - associated_morphology: Inflammation
+      Output JSON:
+      {{
+          "finding_context": ["Suspected"],
+          "finding_site": ["Appendix structure"],
+          "associated_morphology": ["Inflammation"]
+      }}
         
       Term: Postoperative hemorrhage
-      Attributes:  
-        - during: Postoperative period
-        - occurs_after: Surgical procedure
-        - associated_morphology: Hemorrhage
+      Output JSON:
+      {{
+          "during": ["Postoperative period"],
+          "occurs_after": ["Surgical procedure"],
+          "associated_morphology": ["Hemorrhage"]
+      }}
       
-      Term: Neonatal jaundice due to infection
-      Attributes:  
-        - occurrence: Neonatal period
-        - due_to: Neonatal infectious disorder
+      Term: Barrett's esophagus with esophagitis and bleeding ulcer
+      Output JSON:
+      {{
+          "finding_site": ["Esophageal mucous membrane structure", "Structure of lower third of esophagus", "Esophageal structure"],
+          "associated_morphology": ["Intestinal metaplasia", "Inflammatory morphology", "Bleeding ulcer"]
+      }}
        
       Term: Trachoma
-      Attributes:  
-        - finding_site: Conjunctival structure
-        - causative_agent: Chlamydia trachomatis
-        - associated_morphology: Inflammation
-        - pathological_process: Infectious process
+      Output JSON:
+      {{
+          "finding_site": ["Conjunctival structure"],
+          "causative_agent": ["Chlamydia trachomatis"],
+          "associated_morphology": ["Inflammatory morphology"],
+          "pathological_process": ["Infectious process"]
+      }}
        
       Term: Acute tonsillitis
-      Attributes:  
-        - associated_morphology: Inflammation
-        - finding_site: Tonsillar structure
-        - clinical_course: Acute
+      Output JSON:
+      {{
+          "associated_morphology": ["Acute inflammation"],
+          "finding_site": ["Tonsillar structure"],
+          "clinical_course": ["Sudden onset AND/OR short duration"]
+      }}
         
-      Term: Arthropathy in SLE
-      Attributes:  
-        - associated_morphology: Arthropathy
-        - finding_asso_with: Systemic lupus erythematosus
+      Term: Chronic tophaceous gout of elbow in SLE
+      Output JSON:
+      {{
+          "associated_morphology": ["Sodium urate tophus", "Inflammatory morphology"],
+          "finding_site": ["Elbow joint structure"],
+          "finding_asso_with": ["Systemic lupus erythematosus"],
+          "clinical_course": ["Chronic"],
+          "interprets_interpretation": [
+              {{"interprets": "blood urate measurement", "interpretation": "above reference range"}}
+          ],
+      }}
       
-      === YOUR TASK ===
-      For the medical term below, return JSON with attribute keys (snake_case) and list values (or null). Use clinical reasoning — think about what a domain expert would know, not just what words appear in the term. Multiple values per attribute are allowed. 
-      
-      Return strictly valid JSON only. Example format:
+      Output Format:
+      Provide your response in a single JSON object. Do not include any text outside of the JSON.
+      Return JSON with attribute keys (snake_case) and list values (or null). Use clinical reasoning — think about what a domain expert would know, not just what words appear in the term. Multiple values per attribute are allowed. 
+      JSON:
       {{
           "associated_morphology": ["perforated ulcer"],
           "finding_site": ["duodenal structure"],
