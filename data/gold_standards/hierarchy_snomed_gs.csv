@@ -19,7 +19,7 @@ source_concept_id,source_concept_code,source_vocabulary_id,source_term,target_co
 73075,68142008,SNOMED,Contusion of upper limb,441737,125667009,Contusion
 26459,409656006,SNOMED,Acute esophagitis,30753,16761005,Esophagitis
 25486,93843007,SNOMED,Primary malignant neoplasm of islets of Langerhans,133420,371983001,Primary malignant neoplasm of endocrine gland
-22426,40159009,SNOMED,Congenital macrostomia,43530620,1071000119107,Oral lesion
+22426,40159009,SNOMED,Congenital macrostomia,43530620,1.071E+12,Oral lesion
 25297,363746003,SNOMED,Acute pharyngitis,4132552,127321000,Acute digestive system disorder
 29056,42982001,SNOMED,Sialoadenitis,4181063,363169009,Inflammation of specific body organs
 22426,40159009,SNOMED,Congenital macrostomia,439394,398302004,Congenital anomaly of face
@@ -43,7 +43,7 @@ source_concept_id,source_concept_code,source_vocabulary_id,source_term,target_co
 30356,92293007,SNOMED,Benign neoplasm of pharynx,4242982,92461001,Benign neoplasm of upper respiratory tract
 74120,201546003,SNOMED,Arthropathy of the shoulder region associated with helminthiasis,1075361,1303835007,Arthritis of shoulder region joint
 23304,11731003,SNOMED,Neck webbing,4316083,95324001,Skin lesion
-73021,10155006,SNOMED,Bilateral congenital dislocation of hip,36687058,15729721000119100,Arthropathy of bilateral hip joints
+73021,10155006,SNOMED,Bilateral congenital dislocation of hip,36687058,1.57297E+16,Arthropathy of bilateral hip joints
 31609,80483009,SNOMED,Abscess of salivary gland,4114483,300257000,Lesion of salivary gland
 72401,270505009,SNOMED,Kashin-Bek disease,4343920,239883006,Endemic osteoarthritis
 73365,33826007,SNOMED,Epidermal burn of elbow,76570,18084001,Burn of elbow
@@ -102,7 +102,7 @@ source_concept_id,source_concept_code,source_vocabulary_id,source_term,target_co
 26069,190552005,SNOMED,Postablative testicular hypofunction,36717157,721289001,Testicular hypofunction following procedure
 73571,268029009,SNOMED,Pathological fracture,75053,125605004,Fracture of bone
 26441,57748001,SNOMED,Bleeding ulcer of esophagus,23245,15238002,Esophageal bleeding
-762000,285061000119106,SNOMED,Benign hypertensive heart disease and chronic renal disease stage 2,44784621,8501000119104,Hypertensive heart and chronic kidney disease
+762000,2.85061E+14,SNOMED,Benign hypertensive heart disease and chronic renal disease stage 2,44784621,8.501E+12,Hypertensive heart and chronic kidney disease
 24612,61808009,SNOMED,"Multiple endocrine neoplasia, type 2",44782478,699346009,Hereditary cancer-predisposing syndrome
 30515,253760004,SNOMED,Congenital stenosis of esophagus,23868,69771008,Congenital anomaly of esophagus
 73614,20121009,SNOMED,Closed fracture of seven ribs,78273,12204004,Closed fracture of multiple ribs
@@ -125,10 +125,10 @@ source_concept_id,source_concept_code,source_vocabulary_id,source_term,target_co
 73884,79546008,SNOMED,Closed fracture of three ribs,4239149,57577003,Fracture of three ribs
 73041,17633000,SNOMED,Closed fracture of five ribs,4288590,68650003,Fracture of five ribs
 22340,14223005,SNOMED,Esophageal varices without bleeding,24966,28670008,Esophageal varices
-73754,32914008,SNOMED,Restless legs,35626941,84991000119105,Sleep related movement disorder
+73754,32914008,SNOMED,Restless legs,35626941,8.4991E+13,Sleep related movement disorder
 72418,298382003,SNOMED,Scoliosis deformity of spine,73302,64217002,Curvature of spine
 72576,269485000,SNOMED,Benign neoplasm of breast,4113104,255059002,Benign neoplasm of thorax
-25780,367460001,SNOMED,Pituitary dwarfism,37016351,84991000119105,Short stature co-occurrent and due to endocrine disorder
+25780,367460001,SNOMED,Pituitary dwarfism,37016351,8.4991E+13,Short stature co-occurrent and due to endocrine disorder
 73557,201968004,SNOMED,Allergic arthritis of the pelvic region and thigh,72992,16935003,Allergic arthritis
 72460,69029002,SNOMED,Open fracture of seven ribs,78574,28081005,Open fracture of multiple ribs
 23137,232403001,SNOMED,Chlamydial pharyngitis,4193874,312129004,Bacterial infection of the digestive tract
@@ -372,7 +372,7 @@ source_concept_id,source_concept_code,source_vocabulary_id,source_term,target_co
 73842,35185008,SNOMED,Enthesopathy of elbow region,4027383,128133004,Disorder of elbow
 23034,52767006,SNOMED,Neonatal hypoglycemia,42537310,736652002,Neonatal metabolic disorder
 72995,86414002,SNOMED,Contracture of joint of hand,77635,118933004,Disorder of hand
-762000,285061000119106,SNOMED,Benign hypertensive heart disease and chronic renal disease stage 2,44782692,129181000119109,Chronic kidney disease stage 2 due to hypertension
+762000,2.85061E+14,SNOMED,Benign hypertensive heart disease and chronic renal disease stage 2,44782692,1.29181E+14,Chronic kidney disease stage 2 due to hypertension
 31602,60600009,SNOMED,Disorder of the larynx,4155904,271748007,Larynx finding
 26935,73820008,SNOMED,Disorder of endocrine testis,4132094,127345001,Disorder of endocrine gonad
 73153,188241004,SNOMED,Malignant neoplasm of lateral wall of urinary bladder,4131749,126888008,Neoplasm of lateral wall of urinary bladder
@@ -387,7 +387,7 @@ source_concept_id,source_concept_code,source_vocabulary_id,source_term,target_co
 73841,202510005,SNOMED,Multiple stiff joints,4323826,70733008,Limitation of joint movement
 25698,79369007,SNOMED,Complication of transplanted pancreas,201461,429490004,Disorder affecting transplanted structure
 72997,9051008,SNOMED,Articular cartilage disorder of upper arm,76191,128131002,Disorder of upper arm
-762000,285061000119106,SNOMED,Benign hypertensive heart disease and chronic renal disease stage 2,4263504,36221001,Benign hypertensive heart disease
+762000,2.85061E+14,SNOMED,Benign hypertensive heart disease and chronic renal disease stage 2,4263504,36221001,Benign hypertensive heart disease
 73019,34831003,SNOMED,Breast engorgement in newborn,4172315,49746001,Engorgement of breasts
 72562,53664003,SNOMED,Gonococcal spondylitis,433417,15628003,Gonorrhea
 73313,29581008,SNOMED,Longitudinal deficiency of tarsal bone,1076497,1344689004,Congenital deformity of musculoskeletal system
@@ -406,7 +406,7 @@ source_concept_id,source_concept_code,source_vocabulary_id,source_term,target_co
 73290,7890003,SNOMED,Contracture of joint,4323826,70733008,Limitation of joint movement
 29735,79740000,SNOMED,Candidiasis of mouth,4134887,128398001,Infectious disease of digestive tract
 74126,202326005,SNOMED,Protrusio acetabuli of the pelvic region and thigh,77357,59606006,Intrapelvic protrusion of acetabulum
-193782,46177005,SNOMED,End-stage renal disease,37156007,153611000112104,End stage organ failure
+193782,46177005,SNOMED,End-stage renal disease,37156007,1.53611E+14,End stage organ failure
 73362,6015002,SNOMED,Crushing injury of multiple sites of upper limb,78609,9560007,Crushing injury of upper limb
 23137,232403001,SNOMED,Chlamydial pharyngitis,4207185,312118003,Bacterial upper respiratory infection
 26942,417425009,SNOMED,Hemoglobin SS disease with crisis,4216915,417279003,Hemoglobin S sickling disorder with crisis
@@ -432,7 +432,7 @@ source_concept_id,source_concept_code,source_vocabulary_id,source_term,target_co
 72418,298382003,SNOMED,Scoliosis deformity of spine,4244662,928000,Disorder of musculoskeletal system
 72693,397949005,SNOMED,Poor fetal growth affecting management,74104,106009009,Fetal condition affecting obstetrical care of mother
 24818,90460009,SNOMED,Injury of neck,4042837,118939000,Disorder of neck
-46270436,306151000119106,SNOMED,Chronic tophaceous gout of elbow caused by drug,46270454,306621000119109,Gout of elbow caused by drug
+46270436,3.06151E+14,SNOMED,Chronic tophaceous gout of elbow caused by drug,46270454,3.06621E+14,Gout of elbow caused by drug
 74064,50603008,SNOMED,Ankylosis of temporomandibular joint,74396,41888000,Temporomandibular joint disorder
 72421,203467005,SNOMED,Solitary bone cyst,80509,203465002,Bone cyst
 72390,271372000,SNOMED,Obstetric non-purulent mastitis,4170627,274131006,Mastitis - obstetric
@@ -530,7 +530,7 @@ source_concept_id,source_concept_code,source_vocabulary_id,source_term,target_co
 24609,302866003,SNOMED,Hypoglycemia,30361,237630007,Hypoglycemic disorder
 22274,94899001,SNOMED,Neoplasm of uncertain behavior of larynx,4317831,95158003,Neoplasm of uncertain behavior of upper respiratory tract
 73925,6055000,SNOMED,Burn of upper limb,4130851,127278005,Injury of upper extremity
-72521,271331002,SNOMED,Immersion foot,46269695,103001000119108,Lesion of skin of foot
+72521,271331002,SNOMED,Immersion foot,46269695,1.03001E+14,Lesion of skin of foot
 73373,62242007,SNOMED,Epidermal burn of upper limb,4123196,288509005,Burn of skin of body region
 30284,37031009,SNOMED,Motion sickness,4167864,419026008,Effect of exposure to physical force
 30356,92293007,SNOMED,Benign neoplasm of pharynx,193431,255167007,Benign tumor of digestive organ
@@ -596,7 +596,7 @@ source_concept_id,source_concept_code,source_vocabulary_id,source_term,target_co
 22281,127040003,SNOMED,Sickle cell-hemoglobin SS disease,4213628,417357006,Sickling disorder due to hemoglobin S
 73089,68893001,SNOMED,Contusion of buttock,195977,36787001,Contusion of trunk
 72398,62918002,SNOMED,Arthropathy in Behcet's syndrome,80494,35524003,Arthropathy associated with another disorder
-24148,111328001,SNOMED,Congenital diverticulum of pharynx,37174262,71741000112102,Lesion of pharynx
+24148,111328001,SNOMED,Congenital diverticulum of pharynx,37174262,7.1741E+13,Lesion of pharynx
 72468,208748005,SNOMED,Open dislocation of jaw,4049957,210339009,Open wound of face
 28779,17709002,SNOMED,Bleeding esophageal varices,24966,28670008,Esophageal varices
 31668,72082009,SNOMED,Acquired deformity of neck,4042837,118939000,Disorder of neck
@@ -626,7 +626,7 @@ source_concept_id,source_concept_code,source_vocabulary_id,source_term,target_co
 31602,60600009,SNOMED,Disorder of the larynx,4042837,118939000,Disorder of neck
 31597,64375000,SNOMED,Acute laryngotracheitis,30133,6655004,Acute laryngitis
 72415,268005002,SNOMED,Synovial plica,74135,3519007,Disorder of synovial membrane
-46270436,306151000119106,SNOMED,Chronic tophaceous gout of elbow caused by drug,46270450,306571000119106,Chronic tophaceous gout caused by drug
+46270436,3.06151E+14,SNOMED,Chronic tophaceous gout of elbow caused by drug,46270450,3.06571E+14,Chronic tophaceous gout caused by drug
 24134,81680005,SNOMED,Neck pain,4132926,279001004,Pain finding at anatomical site
 31597,64375000,SNOMED,Acute laryngotracheitis,437903,26650005,Acute tracheitis
 28396,38911009,SNOMED,Hereditary hemolytic anemia,4013074,165397008,Hemoglobin below reference range
@@ -758,7 +758,7 @@ source_concept_id,source_concept_code,source_vocabulary_id,source_term,target_co
 25211,86842008,SNOMED,Iatrogenic pituitary disorder,444199,12456005,Iatrogenic disorder
 72712,240205003,SNOMED,Synovial cyst,4116964,300861003,Mass of musculoskeletal structure
 24076,56461008,SNOMED,Chronic peptic ulcer with hemorrhage AND obstruction,4174044,49232000,Chronic peptic ulcer with hemorrhage
-72926,89097000,SNOMED,Labyrinthine fistula,45757697,33391000119104,Ear lesion
+72926,89097000,SNOMED,Labyrinthine fistula,45757697,3.3391E+13,Ear lesion
 72992,16935003,SNOMED,Allergic arthritis,4224742,422339003,Non-IgE-mediated allergic disorder
 30274,40261006,SNOMED,Full thickness burn of neck,42538213,741071004,Full thickness burn of head and/or neck
 25780,367460001,SNOMED,Pituitary dwarfism,373087,87536007,Central nervous system complication
@@ -789,3 +789,23 @@ source_concept_id,source_concept_code,source_vocabulary_id,source_term,target_co
 73012,61960001,SNOMED,Lordosis deformity of spine,73302,64217002,Curvature of spine
 25211,86842008,SNOMED,Iatrogenic pituitary disorder,23986,399244003,Disorder of pituitary gland
 26378,10649000,SNOMED,Hyperpituitarism,23164,51742006,Disorder of anterior pituitary
+72757,14649006,SNOMED,Open wound of shoulder region with complication,4053598,125645008,Open wound of shoulder region
+74739,203284001,SNOMED,Osteopathy from poliomyelitis,4110933,194457007,Sequelae of inflammatory diseases of the central nervous system
+74739,203284001,SNOMED,Osteopathy from poliomyelitis,444205,123948009,Disorder following viral disease
+74739,203284001,SNOMED,Osteopathy from poliomyelitis,37160415,1162359007,Postinfectious osteopathy
+75070,111265002,SNOMED,Lordosis deformity of spine following surgical procedure,73012,61960001,Lordosis deformity of spine
+75070,111265002,SNOMED,Lordosis deformity of spine following surgical procedure,37119234,724614007,Disorder of musculoskeletal system following procedure
+75070,111265002,SNOMED,Lordosis deformity of spine following surgical procedure,4300243,385486001,Postoperative complication
+609115,16747741000119100,SNOMED,Proliferative retinopathy of left eye due to diabetes mellitus type 1,45763584,60971000119101,Proliferative retinopathy due to type 1 diabetes mellitus
+609115,16747741000119100,SNOMED,Proliferative retinopathy of left eye due to diabetes mellitus type 1,36674200,770766000,Proliferative retinopathy of left eye due to diabetes mellitus
+761734,15949061000119103,SNOMED,Ulcer of right ankle due to postphlebitic syndrome,44782779,25581000119105,Ulcer of lower extremity due to postphlebitic syndrome
+761734,15949061000119103,SNOMED,Ulcer of right ankle due to postphlebitic syndrome,759866,10662671000119108,Ulcer of right ankle
+762432,3620001000004104,SNOMED,Family history of hepatoma,4144262,266883004,Family history of neoplasm
+762432,3620001000004104,SNOMED,Family history of hepatoma,4144266,266902008,FH: Liver disease
+4215689,395105005,SNOMED,Heart failure confirmed,4194404,395098000,Disorder confirmed
+37164934,1237075004,SNOMED,Intraoperative subcutaneous emphysema,42538061,738778005,Intraoperative complication
+37164934,1237075004,SNOMED,Intraoperative subcutaneous emphysema,4244061,3830001,Subcutaneous emphysema
+37167589,1268535008,SNOMED,Obstructed labor due to interlocked twins,193827,199746004,Obstructed labor
+37167589,1268535008,SNOMED,Obstructed labor due to interlocked twins,444386,69777007,Interlocked twins
+37207424,18321000175101,SNOMED,Severe muscle atrophy,78236,88092000,Muscle atrophy
+37207425,18331000175103,SNOMED,Mild generalized edema,4155910,271808008,Generalized edema

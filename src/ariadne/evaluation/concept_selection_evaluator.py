@@ -3,7 +3,6 @@ from typing import Optional, List
 
 import pandas as pd
 
-from ariadne.evaluation.concept_search_evaluator import _load_gold_standard
 from ariadne.utils.utils import resolve_path
 
 SOURCE_ID = "source_concept_code"

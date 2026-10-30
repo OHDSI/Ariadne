@@ -1,0 +1,766 @@
+source_key,source_concept_id,source_concept_code,source_vocabulary_id,source_term,predicted_target_concept_id,predicted_target_concept_name,predicted_target_concept_code,attribute_category,relationship_groups
+SNOMED:10155006,73021,10155006,SNOMED,Bilateral congenital dislocation of hip,4227147,Dislocation,87642003,Has asso morph,1;2
+SNOMED:10155006,73021,10155006,SNOMED,Bilateral congenital dislocation of hip,4177897,Right hip joint structure,362908009,Has finding site,1
+SNOMED:10155006,73021,10155006,SNOMED,Bilateral congenital dislocation of hip,4176631,Left hip joint structure,362907004,Has finding site,2
+SNOMED:10155006,73021,10155006,SNOMED,Bilateral congenital dislocation of hip,4204670,Pathological developmental process,308490002,Has pathology,1;2
+SNOMED:10155006,73021,10155006,SNOMED,Bilateral congenital dislocation of hip,4116830,Congenital,255399007,Has occurrence,1;2
+SNOMED:10649000,26378,10649000,SNOMED,Hyperpituitarism,4146194,Hormone production,35188005,Has interprets,2
+SNOMED:10649000,26378,10649000,SNOMED,Hyperpituitarism,4146067,Increased,35105006,Has interpretation,2
+SNOMED:10649000,26378,10649000,SNOMED,Hyperpituitarism,4270353,Adenohypophysis structure,62818001,Has finding site,1
+SNOMED:10890000,25572,10890000,SNOMED,Disorder of salivary gland,4294042,Salivary gland structure,385294005,Has finding site,1
+SNOMED:109824000,28356,109824000,SNOMED,Overlapping malignant neoplasm of major salivary gland,37153816,Malignant neoplasm,1240414004,Has asso morph,1
+SNOMED:109824000,28356,109824000,SNOMED,Overlapping malignant neoplasm of major salivary gland,4002730,Major salivary gland structure,119282003,Has finding site,1
+SNOMED:109835005,25748,109835005,SNOMED,Overlapping malignant neoplasm of esophagus,37153816,Malignant neoplasm,1240414004,Has asso morph,1
+SNOMED:109835005,25748,109835005,SNOMED,Overlapping malignant neoplasm of esophagus,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:111253001,72410,111253001,SNOMED,Infection of bone,4154333,Bone structure,272673000,Has finding site,1
+SNOMED:111253001,72410,111253001,SNOMED,Infection of bone,40480911,Infectious process,441862004,Has pathology,1
+SNOMED:111265002,75070,111265002,SNOMED,Lordosis deformity of spine following surgical procedure,4301351,Surgical procedure,387713003,Occurs after,2
+SNOMED:111265002,75070,111265002,SNOMED,Lordosis deformity of spine following surgical procedure,4246304,Anteroposterior abnormal curvature,61051007,Has asso morph,1
+SNOMED:111265002,75070,111265002,SNOMED,Lordosis deformity of spine following surgical procedure,4128342,Musculoskeletal structure of spine,289959001,Has finding site,1
+SNOMED:111328001,24148,111328001,SNOMED,Congenital diverticulum of pharynx,4218881,Congenital diverticulum,82037003,Has asso morph,1
+SNOMED:111328001,24148,111328001,SNOMED,Congenital diverticulum of pharynx,4207370,Pharyngeal structure,54066008,Has finding site,1
+SNOMED:111328001,24148,111328001,SNOMED,Congenital diverticulum of pharynx,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:111328001,24148,111328001,SNOMED,Congenital diverticulum of pharynx,4116830,Congenital,255399007,Has occurrence,1
+SNOMED:111551000,26662,111551000,SNOMED,Testicular hypofunction,4146194,Hormone production,35188005,Has interprets,2
+SNOMED:111551000,26662,111551000,SNOMED,Testicular hypofunction,4053347,Decreased,1250004,Has interpretation,2
+SNOMED:111551000,26662,111551000,SNOMED,Testicular hypofunction,4122979,Testicular endocrine structure,304042006,Has finding site,1
+SNOMED:111637008,73609,111637008,SNOMED,Open fracture of clavicle,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:111637008,73609,111637008,SNOMED,Open fracture of clavicle,4178756,"Fracture, open",52329006,Has asso morph,1
+SNOMED:111637008,73609,111637008,SNOMED,Open fracture of clavicle,4197120,Bone structure of clavicle,51299004,Has finding site,1
+SNOMED:111712008,73361,111712008,SNOMED,Abrasion and/or friction burn of elbow with infection,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:111712008,73361,111712008,SNOMED,Abrasion and/or friction burn of elbow with infection,4290983,Abrasion and/or friction burn,400168005,Has asso morph,1
+SNOMED:111712008,73361,111712008,SNOMED,Abrasion and/or friction burn of elbow with infection,4254263,Skin structure of elbow,74757004,Has finding site,1
+SNOMED:111712008,73361,111712008,SNOMED,Abrasion and/or friction burn of elbow with infection,40480911,Infectious process,441862004,Has pathology,1
+SNOMED:111830007,72817,111830007,SNOMED,Tuberculosis of urinary organs,4269928,Granulomatous inflammation,6266001,Has asso morph,1
+SNOMED:111830007,72817,111830007,SNOMED,Tuberculosis of urinary organs,4047487,Urinary system structure,122489005,Has finding site,1
+SNOMED:111830007,72817,111830007,SNOMED,Tuberculosis of urinary organs,4035081,Mycobacterium tuberculosis complex,113858008,Has causative agent,1
+SNOMED:111830007,72817,111830007,SNOMED,Tuberculosis of urinary organs,40480911,Infectious process,441862004,Has pathology,1
+SNOMED:11223009,23865,11223009,SNOMED,Congenital anomaly of pharynx,4175951,Morphologically abnormal structure,49755003,Has asso morph,1
+SNOMED:11223009,23865,11223009,SNOMED,Congenital anomaly of pharynx,4207370,Pharyngeal structure,54066008,Has finding site,1
+SNOMED:11223009,23865,11223009,SNOMED,Congenital anomaly of pharynx,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:11223009,23865,11223009,SNOMED,Congenital anomaly of pharynx,4116830,Congenital,255399007,Has occurrence,1
+SNOMED:11731003,23304,11731003,SNOMED,Neck webbing,4295289,Congenital webbing,76640006,Has asso morph,1
+SNOMED:11731003,23304,11731003,SNOMED,Neck webbing,4260843,Neck structure,45048000,Has finding site,1
+SNOMED:11731003,23304,11731003,SNOMED,Neck webbing,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:11731003,23304,11731003,SNOMED,Neck webbing,4116830,Congenital,255399007,Has occurrence,1
+SNOMED:11920000,72745,11920000,SNOMED,Open dislocation of elbow,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:11920000,72745,11920000,SNOMED,Open dislocation of elbow,4194530,Open dislocation,7906001,Has asso morph,1
+SNOMED:11920000,72745,11920000,SNOMED,Open dislocation of elbow,4061414,Elbow joint structure,16953009,Has finding site,1
+SNOMED:1237075004,37164934,1237075004,SNOMED,Intraoperative subcutaneous emphysema,4301351,Surgical procedure,387713003,During,2
+SNOMED:1237075004,37164934,1237075004,SNOMED,Intraoperative subcutaneous emphysema,4169883,Emphysema,49158009,Has asso morph,1
+SNOMED:1237075004,37164934,1237075004,SNOMED,Intraoperative subcutaneous emphysema,4217988,Subcutaneous tissue structure,71966008,Has finding site,1
+SNOMED:12384004,24973,12384004,SNOMED,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,4236661,Chronic,90734009,Has clinical course,3
+SNOMED:12384004,24973,12384004,SNOMED,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,4233476,Chronic ulcer,405719001,Has asso morph,1
+SNOMED:12384004,24973,12384004,SNOMED,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,4093906,Obstruction,26036001,Has asso morph,2
+SNOMED:12384004,24973,12384004,SNOMED,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,4271189,Upper gastrointestinal tract structure,62834003,Has finding site,1
+SNOMED:12384004,24973,12384004,SNOMED,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,37304196,Structure of lumen of upper gastrointestinal tract,787915005,Has finding site,2
+SNOMED:1268535008,37167589,1268535008,SNOMED,Obstructed labor due to interlocked twins,4128030,Delivery procedure,236973005,During,4
+SNOMED:1268535008,37167589,1268535008,SNOMED,Obstructed labor due to interlocked twins,444386,Interlocked twins,69777007,Has due to,3
+SNOMED:1268535008,37167589,1268535008,SNOMED,Obstructed labor due to interlocked twins,4093906,Obstruction,26036001,Has asso morph,1;2
+SNOMED:1268535008,37167589,1268535008,SNOMED,Obstructed labor due to interlocked twins,4044034,Pelvic region,12921003,Has finding site,1
+SNOMED:1268535008,37167589,1268535008,SNOMED,Obstructed labor due to interlocked twins,4221840,Structure of obstetrical canal,8389004,Has finding site,2
+SNOMED:1268535008,37167589,1268535008,SNOMED,Obstructed labor due to interlocked twins,37160330,Maternal intrapartum period,1156682000,Has occurrence,1;2
+SNOMED:128137003,72986,128137003,SNOMED,Disorder of lower leg,4107527,Lower leg structure,30021000,Has finding site,1
+SNOMED:13975002,73043,13975002,SNOMED,Open dislocation of glenohumeral joint,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:13975002,73043,13975002,SNOMED,Open dislocation of glenohumeral joint,4194530,Open dislocation,7906001,Has asso morph,1
+SNOMED:13975002,73043,13975002,SNOMED,Open dislocation of glenohumeral joint,4310972,Glenohumeral joint structure,85537004,Has finding site,1
+SNOMED:140004,26711,140004,SNOMED,Chronic pharyngitis,4236661,Chronic,90734009,Has clinical course,2
+SNOMED:140004,26711,140004,SNOMED,Chronic pharyngitis,4253009,Chronic inflammatory morphology,409777003,Has asso morph,1
+SNOMED:140004,26711,140004,SNOMED,Chronic pharyngitis,4207370,Pharyngeal structure,54066008,Has finding site,1
+SNOMED:14649006,72757,14649006,SNOMED,Open wound of shoulder region with complication,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:14649006,72757,14649006,SNOMED,Open wound of shoulder region with complication,4243486,Open wound,59091005,Has asso morph,1
+SNOMED:14649006,72757,14649006,SNOMED,Open wound of shoulder region with complication,4061541,Shoulder region structure,16982005,Has finding site,1
+SNOMED:14741001,73335,14741001,SNOMED,Closed posterior dislocation of proximal end of tibia,4170745,Posterior displacement,42164003,Has asso morph,1
+SNOMED:14741001,73335,14741001,SNOMED,Closed posterior dislocation of proximal end of tibia,4176744,Posterior closed dislocation,49210009,Has asso morph,2
+SNOMED:14741001,73335,14741001,SNOMED,Closed posterior dislocation of proximal end of tibia,4044356,Structure of femorotibial joint,129159008,Has finding site,1
+SNOMED:14741001,73335,14741001,SNOMED,Closed posterior dislocation of proximal end of tibia,4069282,Bone structure of proximal tibia,20285007,Has finding site,2
+SNOMED:15238002,23245,15238002,SNOMED,Esophageal bleeding,4179955,Hemorrhage,50960005,Has asso morph,1
+SNOMED:15238002,23245,15238002,SNOMED,Esophageal bleeding,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:15284007,22820,15284007,SNOMED,Tuberculosis of esophagus,4269928,Granulomatous inflammation,6266001,Has asso morph,1
+SNOMED:15284007,22820,15284007,SNOMED,Tuberculosis of esophagus,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:15284007,22820,15284007,SNOMED,Tuberculosis of esophagus,4035081,Mycobacterium tuberculosis complex,113858008,Has causative agent,1
+SNOMED:15284007,22820,15284007,SNOMED,Tuberculosis of esophagus,40480911,Infectious process,441862004,Has pathology,1
+SNOMED:15949061000119103,761734,15949061000119103,SNOMED,Ulcer of right ankle due to postphlebitic syndrome,4070679,Postthrombotic syndrome,20427003,Has due to,2
+SNOMED:15949061000119103,761734,15949061000119103,SNOMED,Ulcer of right ankle due to postphlebitic syndrome,4206914,Ulcer,56208002,Has asso morph,1
+SNOMED:15949061000119103,761734,15949061000119103,SNOMED,Ulcer of right ankle due to postphlebitic syndrome,4283074,Structure of right ankle,6685009,Has finding site,1
+SNOMED:16747741000119100,609115,16747741000119100,SNOMED,Proliferative retinopathy of left eye due to diabetes mellitus type 1,201254,Type 1 diabetes mellitus,46635009,Has due to,2
+SNOMED:16747741000119100,609115,16747741000119100,SNOMED,Proliferative retinopathy of left eye due to diabetes mellitus type 1,4045406,Neovascularization,13018008,Has asso morph,1
+SNOMED:16747741000119100,609115,16747741000119100,SNOMED,Proliferative retinopathy of left eye due to diabetes mellitus type 1,4242269,Structure of retina of left eye,58443009,Has finding site,1
+SNOMED:16761005,30753,16761005,SNOMED,Esophagitis,4253008,Inflammatory morphology,409774005,Has asso morph,1
+SNOMED:16761005,30753,16761005,SNOMED,Esophagitis,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:16935003,72992,16935003,SNOMED,Allergic arthritis,40589905,Allergic reaction,419076005,Has due to,2
+SNOMED:16935003,72992,16935003,SNOMED,Allergic arthritis,4253008,Inflammatory morphology,409774005,Has asso morph,1
+SNOMED:16935003,72992,16935003,SNOMED,Allergic arthritis,4214466,Joint structure,39352004,Has finding site,1
+SNOMED:16935003,72992,16935003,SNOMED,Allergic arthritis,35626103,Non-immunoglobulin E-mediated allergic process,769261000,Has pathology,1
+SNOMED:17136009,73122,17136009,SNOMED,Tuberculosis of knee,4269928,Granulomatous inflammation,6266001,Has asso morph,1
+SNOMED:17136009,73122,17136009,SNOMED,Tuberculosis of knee,4169744,Knee joint structure,49076000,Has finding site,1
+SNOMED:17136009,73122,17136009,SNOMED,Tuberculosis of knee,4035081,Mycobacterium tuberculosis complex,113858008,Has causative agent,1
+SNOMED:17136009,73122,17136009,SNOMED,Tuberculosis of knee,40480911,Infectious process,441862004,Has pathology,1
+SNOMED:17633000,73041,17633000,SNOMED,Closed fracture of five ribs,36675156,Closed fracture of multiple bones,771486008,Has asso morph,1
+SNOMED:17633000,73041,17633000,SNOMED,Closed fracture of five ribs,4011851,Bone structure of rib,113197003,Has finding site,1
+SNOMED:17709002,28779,17709002,SNOMED,Bleeding esophageal varices,4237283,Bleeding varices,57052009,Has asso morph,1
+SNOMED:17709002,28779,17709002,SNOMED,Bleeding esophageal varices,4237655,Structure of esophageal vein,90895003,Has finding site,1
+SNOMED:17741008,24660,17741008,SNOMED,Acute tonsillitis,4312510,Sudden onset AND/OR short duration,424124008,Has clinical course,2
+SNOMED:17741008,24660,17741008,SNOMED,Acute tonsillitis,4163835,Acute inflammation,4532008,Has asso morph,1
+SNOMED:17741008,24660,17741008,SNOMED,Acute tonsillitis,4327174,Palatine tonsillar structure,75573002,Has finding site,1
+SNOMED:18321000175101,37207424,18321000175101,SNOMED,Severe muscle atrophy,4087703,Severe,24484000,Has severity,2
+SNOMED:18321000175101,37207424,18321000175101,SNOMED,Severe muscle atrophy,4028206,Atrophy,13331008,Has asso morph,1
+SNOMED:18321000175101,37207424,18321000175101,SNOMED,Severe muscle atrophy,4133963,Skeletal muscle structure,127954009,Has finding site,1
+SNOMED:18331000175103,37207425,18331000175103,SNOMED,Mild generalized edema,4116992,Mild,255604002,Has severity,2
+SNOMED:18331000175103,37207425,18331000175103,SNOMED,Mild generalized edema,4196943,Edema,79654002,Has asso morph,1
+SNOMED:186729003,72245,186729003,SNOMED,Chlamydial infection of lower genitourinary tract,4241088,Lower genitourinary tract structure,59183004,Has finding site,1
+SNOMED:186729003,72245,186729003,SNOMED,Chlamydial infection of lower genitourinary tract,4037323,Chlamydia,16241000,Has causative agent,1
+SNOMED:186729003,72245,186729003,SNOMED,Chlamydial infection of lower genitourinary tract,40480911,Infectious process,441862004,Has pathology,1
+SNOMED:186963008,26908,186963008,SNOMED,Vincent's angina,4218973,Ulcerative inflammation,41605001,Has asso morph,1
+SNOMED:186963008,26908,186963008,SNOMED,Vincent's angina,4327174,Palatine tonsillar structure,75573002,Has finding site,1
+SNOMED:186963008,26908,186963008,SNOMED,Vincent's angina,4139265,Fusobacterium nucleatum,32763000,Has causative agent,1
+SNOMED:186963008,26908,186963008,SNOMED,Vincent's angina,40480911,Infectious process,441862004,Has pathology,1
+SNOMED:188240003,73712,188240003,SNOMED,Malignant neoplasm of dome of urinary bladder,37153816,Malignant neoplasm,1240414004,Has asso morph,1
+SNOMED:188240003,73712,188240003,SNOMED,Malignant neoplasm of dome of urinary bladder,4282252,Structure of dome of urinary bladder,367608002,Has finding site,1
+SNOMED:188241004,73153,188241004,SNOMED,Malignant neoplasm of lateral wall of urinary bladder,37153816,Malignant neoplasm,1240414004,Has asso morph,1
+SNOMED:188241004,73153,188241004,SNOMED,Malignant neoplasm of lateral wall of urinary bladder,4078693,Structure of lateral wall of urinary bladder,19318009,Has finding site,1
+SNOMED:189362009,30061,189362009,SNOMED,Neoplasm of uncertain behavior of major salivary gland,4313421,Neoplasm of uncertain behavior,86251006,Has asso morph,1
+SNOMED:189362009,30061,189362009,SNOMED,Neoplasm of uncertain behavior of major salivary gland,4002730,Major salivary gland structure,119282003,Has finding site,1
+SNOMED:189473001,27516,189473001,SNOMED,Neoplasm of uncertain behavior of paraganglia,4313421,Neoplasm of uncertain behavior,86251006,Has asso morph,1
+SNOMED:189473001,27516,189473001,SNOMED,Neoplasm of uncertain behavior of paraganglia,4144244,Paraganglia structure,33805007,Has finding site,1
+SNOMED:190552005,26069,190552005,SNOMED,Postablative testicular hypofunction,4146194,Hormone production,35188005,Has interprets,2
+SNOMED:190552005,26069,190552005,SNOMED,Postablative testicular hypofunction,4053347,Decreased,1250004,Has interpretation,2
+SNOMED:190552005,26069,190552005,SNOMED,Postablative testicular hypofunction,4190939,Testicular ablation,373845008,Occurs after,3
+SNOMED:190552005,26069,190552005,SNOMED,Postablative testicular hypofunction,4122979,Testicular endocrine structure,304042006,Has finding site,1
+SNOMED:190641005,72857,190641005,SNOMED,Late effect of rickets,4027719,Physiologic mineralization of bone,128417009,Has interprets,3
+SNOMED:190641005,72857,190641005,SNOMED,Late effect of rickets,4126680,Deficient,260372006,Has interpretation,3
+SNOMED:190641005,72857,190641005,SNOMED,Late effect of rickets,4214470,Osteoid tissue,39365008,Has finding site,1
+SNOMED:190641005,72857,190641005,SNOMED,Late effect of rickets,46272765,Structure of epiphyseal plate,711190000,Has finding site,2
+SNOMED:191169008,22288,191169008,SNOMED,Hereditary elliptocytosis,4224294,Hemolysis,404227002,Has interprets,2
+SNOMED:191169008,22288,191169008,SNOMED,Hereditary elliptocytosis,4181412,Present,52101004,Has interpretation,2
+SNOMED:191169008,22288,191169008,SNOMED,Hereditary elliptocytosis,4030871,Red blood cell count,14089001,Has interprets,3
+SNOMED:191169008,22288,191169008,SNOMED,Hereditary elliptocytosis,4083207,Below reference range,281300000,Has interpretation,3;4
+SNOMED:191169008,22288,191169008,SNOMED,Hereditary elliptocytosis,40480067,Measurement of total hemoglobin concentration,441689006,Has interprets,4
+SNOMED:191169008,22288,191169008,SNOMED,Hereditary elliptocytosis,4083207,Below reference range,281300000,Has interpretation,3;4
+SNOMED:191169008,22288,191169008,SNOMED,Hereditary elliptocytosis,4259404,Elliptocyte,45028007,Has asso morph,1
+SNOMED:191169008,22288,191169008,SNOMED,Hereditary elliptocytosis,4218976,Erythrocyte,41898006,Has finding site,1
+SNOMED:191169008,22288,191169008,SNOMED,Hereditary elliptocytosis,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:191169008,22288,191169008,SNOMED,Hereditary elliptocytosis,4116830,Congenital,255399007,Has occurrence,1
+SNOMED:19180002,73072,19180002,SNOMED,Crushing injury of upper arm,4060415,Crushing injury (morphology),19921004,Has asso morph,1
+SNOMED:19180002,73072,19180002,SNOMED,Crushing injury of upper arm,4165266,Upper arm structure,40983000,Has finding site,1
+SNOMED:19496008,24230,19496008,SNOMED,Foreign body in larynx,4078373,Foreign body,19227008,Has asso morph,1
+SNOMED:19496008,24230,19496008,SNOMED,Foreign body in larynx,4262229,Laryngeal structure,4596009,Has finding site,1
+SNOMED:195798007,24978,195798007,SNOMED,Chronic adenotonsillitis,4236661,Chronic,90734009,Has clinical course,2
+SNOMED:195798007,24978,195798007,SNOMED,Chronic adenotonsillitis,4253009,Chronic inflammatory morphology,409777003,Has asso morph,1
+SNOMED:195798007,24978,195798007,SNOMED,Chronic adenotonsillitis,4123604,Tonsil and adenoid structure,303337002,Has finding site,1
+SNOMED:19684007,72516,19684007,SNOMED,Burn of knee,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:19684007,72516,19684007,SNOMED,Burn of knee,4168004,Burn injury,48333001,Has asso morph,1
+SNOMED:19684007,72516,19684007,SNOMED,Burn of knee,4217806,Knee region structure,72696002,Has finding site,1
+SNOMED:197130009,22666,197130009,SNOMED,Vomiting after gastrointestinal tract surgery,4025208,Digestive system function,106079008,Has interprets,2
+SNOMED:197130009,22666,197130009,SNOMED,Vomiting after gastrointestinal tract surgery,4135493,Abnormal,263654008,Has interpretation,2
+SNOMED:197130009,22666,197130009,SNOMED,Vomiting after gastrointestinal tract surgery,4299602,Operation on gastrointestinal tract,386621005,Occurs after,3
+SNOMED:197130009,22666,197130009,SNOMED,Vomiting after gastrointestinal tract surgery,4046957,Gastrointestinal tract structure,122865005,Has finding site,1
+SNOMED:197210001,73241,197210001,SNOMED,Anal and rectal polyp,4187628,Polyp,41329004,Has asso morph,1;2
+SNOMED:197210001,73241,197210001,SNOMED,Anal and rectal polyp,4202233,Anal structure,53505006,Has finding site,1
+SNOMED:197210001,73241,197210001,SNOMED,Anal and rectal polyp,4144541,Rectum structure,34402009,Has finding site,2
+SNOMED:20121009,73614,20121009,SNOMED,Closed fracture of seven ribs,36675156,Closed fracture of multiple bones,771486008,Has asso morph,1
+SNOMED:20121009,73614,20121009,SNOMED,Closed fracture of seven ribs,4011851,Bone structure of rib,113197003,Has finding site,1
+SNOMED:201497009,72984,201497009,SNOMED,Reactive arthritis of joint of shoulder region due to and following dysentery,4188221,Dysenteric diarrhea,46799006,Has due to,2
+SNOMED:201497009,72984,201497009,SNOMED,Reactive arthritis of joint of shoulder region due to and following dysentery,4253008,Inflammatory morphology,409774005,Has asso morph,1
+SNOMED:201497009,72984,201497009,SNOMED,Reactive arthritis of joint of shoulder region due to and following dysentery,4151929,Joint structure of shoulder region,31398001,Has finding site,1
+SNOMED:201540009,72989,201540009,SNOMED,"Arthropathy associated with mycoses, of the ankle and/or foot",433701,Mycosis,3218000,Finding asso with,2
+SNOMED:201540009,72989,201540009,SNOMED,"Arthropathy associated with mycoses, of the ankle and/or foot",4194884,Joint structure of ankle and/or foot,312816002,Has finding site,1
+SNOMED:201932009,72708,201932009,SNOMED,Traumatic arthropathy of the shoulder region,440921,Traumatic injury,417746004,Occurs after,3
+SNOMED:201932009,72708,201932009,SNOMED,Traumatic arthropathy of the shoulder region,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:201932009,72708,201932009,SNOMED,Traumatic arthropathy of the shoulder region,4151929,Joint structure of shoulder region,31398001,Has finding site,1
+SNOMED:201940003,72991,201940003,SNOMED,Traumatic arthropathy of multiple sites,440921,Traumatic injury,417746004,Occurs after,3
+SNOMED:201940003,72991,201940003,SNOMED,Traumatic arthropathy of multiple sites,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:201940003,72991,201940003,SNOMED,Traumatic arthropathy of multiple sites,36695780,Joint structure of multiple body sites,773190007,Has finding site,1
+SNOMED:201968004,73557,201968004,SNOMED,Allergic arthritis of the pelvic region and thigh,4253008,Inflammatory morphology,409774005,Has asso morph,1;2
+SNOMED:201968004,73557,201968004,SNOMED,Allergic arthritis of the pelvic region and thigh,44784104,Structure of joint of pelvic wall,700008004,Has finding site,1
+SNOMED:201968004,73557,201968004,SNOMED,Allergic arthritis of the pelvic region and thigh,4163691,Joint structure of lower extremity,4527007,Has finding site,2
+SNOMED:201968004,73557,201968004,SNOMED,Allergic arthritis of the pelvic region and thigh,43021170,Allergic process,472964009,Has pathology,1;2
+SNOMED:201992007,73555,201992007,SNOMED,Transient arthropathy of the pelvic region and thigh,4033243,Transitory,14803004,Has clinical course,2
+SNOMED:201992007,73555,201992007,SNOMED,Transient arthropathy of the pelvic region and thigh,4090445,Joint structure of pelvis or upper leg,280438006,Has finding site,1
+SNOMED:202148007,73561,202148007,SNOMED,Loose body in joint of shoulder region,4069416,Loose body,20456003,Has asso morph,1
+SNOMED:202148007,73561,202148007,SNOMED,Loose body in joint of shoulder region,4151929,Joint structure of shoulder region,31398001,Has finding site,1
+SNOMED:202175000,73289,202175000,SNOMED,Pathological dislocation of multiple joints,37312107,Spontaneous event,789750003,Has due to,2
+SNOMED:202175000,73289,202175000,SNOMED,Pathological dislocation of multiple joints,4145300,"Dislocation, multiple",34277002,Has asso morph,1
+SNOMED:202175000,73289,202175000,SNOMED,Pathological dislocation of multiple joints,4214466,Joint structure,39352004,Has finding site,1
+SNOMED:202298000,73845,202298000,SNOMED,Joint ankylosis of the shoulder region,4271126,Ankylosis,36504009,Has asso morph,1
+SNOMED:202298000,73845,202298000,SNOMED,Joint ankylosis of the shoulder region,4151929,Joint structure of shoulder region,31398001,Has finding site,1
+SNOMED:202457009,73568,202457009,SNOMED,Palindromic rheumatism of shoulder region,4113136,Recurrent,255227004,Has clinical course,2
+SNOMED:202457009,73568,202457009,SNOMED,Palindromic rheumatism of shoulder region,4253008,Inflammatory morphology,409774005,Has asso morph,1
+SNOMED:202457009,73568,202457009,SNOMED,Palindromic rheumatism of shoulder region,4061541,Shoulder region structure,16982005,Has finding site,1
+SNOMED:202463000,73291,202463000,SNOMED,Palindromic rheumatism of ankle and/or foot,4113136,Recurrent,255227004,Has clinical course,2
+SNOMED:202463000,73291,202463000,SNOMED,Palindromic rheumatism of ankle and/or foot,4253008,Inflammatory morphology,409774005,Has asso morph,1
+SNOMED:202463000,73291,202463000,SNOMED,Palindromic rheumatism of ankle and/or foot,4194884,Joint structure of ankle and/or foot,312816002,Has finding site,1
+SNOMED:202843000,73564,202843000,SNOMED,Full thickness rotator cuff tear,4139813,Complete rupture,263722006,Has asso morph,1
+SNOMED:202843000,73564,202843000,SNOMED,Full thickness rotator cuff tear,4193907,Structure of rotator cuff including muscles and tendons,7885001,Has finding site,1
+SNOMED:203284001,74739,203284001,SNOMED,Osteopathy from poliomyelitis,378679,Acute poliomyelitis,398102009,Occurs after,2
+SNOMED:203284001,74739,203284001,SNOMED,Osteopathy from poliomyelitis,4154333,Bone structure,272673000,Has finding site,1
+SNOMED:203467005,72421,203467005,SNOMED,Solitary bone cyst,4013214,Unicameral bone cyst,112643007,Has asso morph,1
+SNOMED:203467005,72421,203467005,SNOMED,Solitary bone cyst,4154333,Bone structure,272673000,Has finding site,1
+SNOMED:204635008,26213,204635008,SNOMED,Congenital salivary gland fistula,4043006,Fistula,118622000,Has asso morph,1
+SNOMED:204635008,26213,204635008,SNOMED,Congenital salivary gland fistula,4294042,Salivary gland structure,385294005,Has finding site,1
+SNOMED:204635008,26213,204635008,SNOMED,Congenital salivary gland fistula,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:204635008,26213,204635008,SNOMED,Congenital salivary gland fistula,4116830,Congenital,255399007,Has occurrence,1
+SNOMED:20593006,73085,20593006,SNOMED,Injury of superficial femoral artery,4111596,Superficial femoral artery,181349008,Has finding site,1
+SNOMED:20639004,28974,20639004,SNOMED,Candidiasis of the esophagus,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:20639004,28974,20639004,SNOMED,Candidiasis of the esophagus,4139129,Candida,3265006,Has causative agent,1
+SNOMED:20639004,28974,20639004,SNOMED,Candidiasis of the esophagus,40480911,Infectious process,441862004,Has pathology,1
+SNOMED:208483008,73042,208483008,SNOMED,Open fracture finger middle phalanx,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:208483008,73042,208483008,SNOMED,Open fracture finger middle phalanx,4178756,"Fracture, open",52329006,Has asso morph,1
+SNOMED:208483008,73042,208483008,SNOMED,Open fracture finger middle phalanx,4144509,Bone structure of middle phalanx of finger,306791009,Has finding site,1
+SNOMED:208748005,72468,208748005,SNOMED,Open dislocation of jaw,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:208748005,72468,208748005,SNOMED,Open dislocation of jaw,4194530,Open dislocation,7906001,Has asso morph,1
+SNOMED:208748005,72468,208748005,SNOMED,Open dislocation of jaw,4202366,Temporomandibular joint structure,53620006,Has finding site,1
+SNOMED:208981003,73336,208981003,SNOMED,Closed traumatic dislocation ankle joint,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:208981003,73336,208981003,SNOMED,Closed traumatic dislocation ankle joint,4175294,Closed dislocation,50399007,Has asso morph,1
+SNOMED:208981003,73336,208981003,SNOMED,Closed traumatic dislocation ankle joint,4289928,Ankle joint structure,70258002,Has finding site,1
+SNOMED:209557005,30234,209557005,SNOMED,Neck sprain,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:209557005,30234,209557005,SNOMED,Neck sprain,4298490,Sprain,384709000,Has asso morph,1
+SNOMED:209557005,30234,209557005,SNOMED,Neck sprain,4217193,Structure of ligament of neck,72579007,Has finding site,1
+SNOMED:211495007,73065,211495007,SNOMED,Contusion of genital organ,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:211495007,73065,211495007,SNOMED,Contusion of genital organ,4203279,Contusion - lesion,308492005,Has asso morph,1
+SNOMED:211495007,73065,211495007,SNOMED,Contusion of genital organ,44784125,Structure of genital organ,700037000,Has finding site,1
+SNOMED:21794005,73300,21794005,SNOMED,Radial styloid tenosynovitis,4253008,Inflammatory morphology,409774005,Has asso morph,1;2
+SNOMED:21794005,73300,21794005,SNOMED,Radial styloid tenosynovitis,4093218,Extensor pollicis brevis tendon sheath,280099008,Has finding site,1
+SNOMED:21794005,73300,21794005,SNOMED,Radial styloid tenosynovitis,4137723,Abductor pollicis longus tendon sheath,305042004,Has finding site,2
+SNOMED:22157005,31335,22157005,SNOMED,Acute peptic ulcer with hemorrhage but without obstruction,4312510,Sudden onset AND/OR short duration,424124008,Has clinical course,2
+SNOMED:22157005,31335,22157005,SNOMED,Acute peptic ulcer with hemorrhage but without obstruction,4164431,Acute bleeding ulcer,45771005,Has asso morph,1
+SNOMED:22157005,31335,22157005,SNOMED,Acute peptic ulcer with hemorrhage but without obstruction,4200674,Stomach and/or duodenal structures,302184004,Has finding site,1
+SNOMED:22589009,31386,22589009,SNOMED,Congenital absence of salivary gland,4166825,Aplasia,45486003,Has asso morph,1
+SNOMED:22589009,31386,22589009,SNOMED,Congenital absence of salivary gland,4294042,Salivary gland structure,385294005,Has finding site,1
+SNOMED:22589009,31386,22589009,SNOMED,Congenital absence of salivary gland,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:22589009,31386,22589009,SNOMED,Congenital absence of salivary gland,4116830,Congenital,255399007,Has occurrence,1
+SNOMED:22911007,72469,22911007,SNOMED,Closed traumatic dislocation of joint of shoulder region,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:22911007,72469,22911007,SNOMED,Closed traumatic dislocation of joint of shoulder region,4175294,Closed dislocation,50399007,Has asso morph,1
+SNOMED:22911007,72469,22911007,SNOMED,Closed traumatic dislocation of joint of shoulder region,4151929,Joint structure of shoulder region,31398001,Has finding site,1
+SNOMED:232403001,23137,232403001,SNOMED,Chlamydial pharyngitis,4253008,Inflammatory morphology,409774005,Has asso morph,1
+SNOMED:232403001,23137,232403001,SNOMED,Chlamydial pharyngitis,4207370,Pharyngeal structure,54066008,Has finding site,1
+SNOMED:232403001,23137,232403001,SNOMED,Chlamydial pharyngitis,4037323,Chlamydia,16241000,Has causative agent,1
+SNOMED:232403001,23137,232403001,SNOMED,Chlamydial pharyngitis,40480911,Infectious process,441862004,Has pathology,1
+SNOMED:23387001,22955,23387001,SNOMED,Perforation of esophagus,4263947,Perforation,36191001,Has asso morph,1
+SNOMED:23387001,22955,23387001,SNOMED,Perforation of esophagus,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:235597001,26141,235597001,SNOMED,Barrett's esophagus with esophagitis,4239525,Intestinal metaplasia,69310004,Has asso morph,1
+SNOMED:235597001,26141,235597001,SNOMED,Barrett's esophagus with esophagitis,4281852,Structure of lower third of esophagus,67173009,Has finding site,1
+SNOMED:235597001,26141,235597001,SNOMED,Barrett's esophagus with esophagitis,4218887,Esophageal mucous membrane structure,82082004,Has finding site,2
+SNOMED:235599003,27918,235599003,SNOMED,Eosinophilic esophagitis,4236661,Chronic,90734009,Has clinical course,2
+SNOMED:235599003,27918,235599003,SNOMED,Eosinophilic esophagitis,4042400,Chronic eosinophilic inflammation,16759001,Has asso morph,1
+SNOMED:235599003,27918,235599003,SNOMED,Eosinophilic esophagitis,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:235599003,27918,235599003,SNOMED,Eosinophilic esophagitis,43021170,Allergic process,472964009,Has pathology,1
+SNOMED:23680005,73008,23680005,SNOMED,Enthesopathy,4257828,Structure of enthesis,410054009,Has finding site,1
+SNOMED:237630007,30361,237630007,SNOMED,Hypoglycemic disorder,4202143,Blood glucose concentration,434912009,Has interprets,1
+SNOMED:237630007,30361,237630007,SNOMED,Hypoglycemic disorder,4083207,Below reference range,281300000,Has interpretation,1
+SNOMED:23919004,74052,23919004,SNOMED,Labyrinthitis,4253008,Inflammatory morphology,409774005,Has asso morph,1
+SNOMED:23919004,74052,23919004,SNOMED,Labyrinthitis,4121004,Labyrinth structure,302462009,Has finding site,1
+SNOMED:239734000,74127,239734000,SNOMED,Contracture of elbow joint,4185672,Elbow joint - range of movement,298878008,Has interprets,2
+SNOMED:239734000,74127,239734000,SNOMED,Contracture of elbow joint,4053347,Decreased,1250004,Has interpretation,2
+SNOMED:239734000,74127,239734000,SNOMED,Contracture of elbow joint,4237281,Contracture,57048009,Has asso morph,1
+SNOMED:239734000,74127,239734000,SNOMED,Contracture of elbow joint,4027910,Elbow region structure,127949000,Has finding site,1
+SNOMED:240266004,73673,240266004,SNOMED,Disorder of prosthetic joint,4035455,Joint prosthesis,15447007,Finding asso with,2
+SNOMED:240266004,73673,240266004,SNOMED,Disorder of prosthetic joint,4214466,Joint structure,39352004,Has finding site,1
+SNOMED:249918006,72711,249918006,SNOMED,Shoulder stiff,4185647,Shoulder joint - range of movement,298773006,Has interprets,2
+SNOMED:249918006,72711,249918006,SNOMED,Shoulder stiff,4083207,Below reference range,281300000,Has interpretation,2
+SNOMED:249918006,72711,249918006,SNOMED,Shoulder stiff,4151929,Joint structure of shoulder region,31398001,Has finding site,1
+SNOMED:25479004,22492,25479004,SNOMED,Foreign body in pharynx,4078373,Foreign body,19227008,Has asso morph,1
+SNOMED:25479004,22492,25479004,SNOMED,Foreign body in pharynx,4207370,Pharyngeal structure,54066008,Has finding site,1
+SNOMED:262791003,24198,262791003,SNOMED,Contusion of esophagus,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:262791003,24198,262791003,SNOMED,Contusion of esophagus,4203279,Contusion - lesion,308492005,Has asso morph,1
+SNOMED:262791003,24198,262791003,SNOMED,Contusion of esophagus,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:267386008,28403,267386008,SNOMED,Gigantism and acromegaly,4146194,Hormone production,35188005,Has interprets,2
+SNOMED:267386008,28403,267386008,SNOMED,Gigantism and acromegaly,4146067,Increased,35105006,Has interpretation,2;3
+SNOMED:267386008,28403,267386008,SNOMED,Gigantism and acromegaly,4154781,Height / growth measure,271603002,Has interprets,3
+SNOMED:267386008,28403,267386008,SNOMED,Gigantism and acromegaly,4146067,Increased,35105006,Has interpretation,2;3
+SNOMED:267386008,28403,267386008,SNOMED,Gigantism and acromegaly,4200975,Structure of distal part of pituitary,52618001,Has finding site,1
+SNOMED:267779003,30163,267779003,SNOMED,Cellulitis and abscess of neck,4299470,Cellulitis,385627004,Has asso morph,1
+SNOMED:267779003,30163,267779003,SNOMED,Cellulitis and abscess of neck,4195605,Abscess morphology,44132006,Has asso morph,2
+SNOMED:267779003,30163,267779003,SNOMED,Cellulitis and abscess of neck,4260843,Neck structure,45048000,Has finding site,1;2
+SNOMED:267948008,72403,267948008,SNOMED,Hemarthrosis of the ankle and/or foot,4179955,Hemorrhage,50960005,Has asso morph,1;2
+SNOMED:267948008,72403,267948008,SNOMED,Hemarthrosis of the ankle and/or foot,4289928,Ankle joint structure,70258002,Has finding site,1
+SNOMED:267948008,72403,267948008,SNOMED,Hemarthrosis of the ankle and/or foot,4131790,Structure of joint of foot,26552008,Has finding site,2
+SNOMED:268173005,25068,268173005,SNOMED,Branchial cleft sinus and fistula,37206157,Branchial sinus,785764006,Has asso morph,1
+SNOMED:268173005,25068,268173005,SNOMED,Branchial cleft sinus and fistula,37206156,Branchial fistula,785763000,Has asso morph,2
+SNOMED:268173005,25068,268173005,SNOMED,Branchial cleft sinus and fistula,4300167,Structure of head and/or neck,774007,Has finding site,1;2
+SNOMED:268173005,25068,268173005,SNOMED,Branchial cleft sinus and fistula,4204670,Pathological developmental process,308490002,Has pathology,1;2
+SNOMED:268173005,25068,268173005,SNOMED,Branchial cleft sinus and fistula,4116830,Congenital,255399007,Has occurrence,1;2
+SNOMED:26889001,73001,26889001,SNOMED,Myositis,4253008,Inflammatory morphology,409774005,Has asso morph,1
+SNOMED:26889001,73001,26889001,SNOMED,Myositis,4133963,Skeletal muscle structure,127954009,Has finding site,1
+SNOMED:269485000,72576,269485000,SNOMED,Benign neoplasm of breast,4305589,"Neoplasm, benign",3898006,Has asso morph,1
+SNOMED:269485000,72576,269485000,SNOMED,Benign neoplasm of breast,4298444,Breast structure,76752008,Has finding site,1
+SNOMED:269497004,72578,269497004,SNOMED,Neoplasm of uncertain behavior of breast,4313421,Neoplasm of uncertain behavior,86251006,Has asso morph,1
+SNOMED:269497004,72578,269497004,SNOMED,Neoplasm of uncertain behavior of breast,4298444,Breast structure,76752008,Has finding site,1
+SNOMED:271331002,72521,271331002,SNOMED,Immersion foot,600530,Exposure to extreme temperature,1004049005,Has due to,2
+SNOMED:271331002,72521,271331002,SNOMED,Immersion foot,4242243,Cold injury,38045000,Has asso morph,1
+SNOMED:271331002,72521,271331002,SNOMED,Immersion foot,4263673,Skin structure of foot,60496002,Has finding site,1
+SNOMED:271331002,72521,271331002,SNOMED,Immersion foot,4110148,Low temperature,285686007,Has causative agent,1
+SNOMED:271372000,72390,271372000,SNOMED,Obstetric non-purulent mastitis,4027360,Nonsuppurative inflammation,12794006,Has asso morph,1
+SNOMED:271372000,72390,271372000,SNOMED,Obstetric non-purulent mastitis,4298444,Breast structure,76752008,Has finding site,1
+SNOMED:271372000,72390,271372000,SNOMED,Obstetric non-purulent mastitis,37160319,Maternal perinatal period,1156671008,Has occurrence,1
+SNOMED:28670008,24966,28670008,SNOMED,Esophageal varices,4029830,Varix,12856003,Has asso morph,1
+SNOMED:28670008,24966,28670008,SNOMED,Esophageal varices,4237655,Structure of esophageal vein,90895003,Has finding site,1
+SNOMED:28826002,30441,28826002,SNOMED,Sialolithiasis,4209441,Calculus,56381008,Has asso morph,1
+SNOMED:28826002,30441,28826002,SNOMED,Sialolithiasis,4294042,Salivary gland structure,385294005,Has finding site,1
+SNOMED:29191005,72413,29191005,SNOMED,Nontraumatic rupture of muscle,4053605,Rupture,125671007,Has asso morph,1
+SNOMED:29191005,72413,29191005,SNOMED,Nontraumatic rupture of muscle,4325458,Muscle structure,71616004,Has finding site,1
+SNOMED:29581008,73313,29581008,SNOMED,Longitudinal deficiency of tarsal bone,4008722,Abnormally short growth,11182007,Has asso morph,1
+SNOMED:29581008,73313,29581008,SNOMED,Longitudinal deficiency of tarsal bone,4029044,Entire tarsal bone,108372004,Has finding site,1
+SNOMED:29581008,73313,29581008,SNOMED,Longitudinal deficiency of tarsal bone,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:29581008,73313,29581008,SNOMED,Longitudinal deficiency of tarsal bone,4116830,Congenital,255399007,Has occurrence,1
+SNOMED:298382003,72418,298382003,SNOMED,Scoliosis deformity of spine,4136505,Lateral abnormal curvature,31739005,Has asso morph,1
+SNOMED:298382003,72418,298382003,SNOMED,Scoliosis deformity of spine,4128342,Musculoskeletal structure of spine,289959001,Has finding site,1
+SNOMED:298869002,73847,298869002,SNOMED,Finding of elbow joint,4061414,Elbow joint structure,16953009,Has finding site,1
+SNOMED:29951006,24970,29951006,SNOMED,Chronic laryngitis,4236661,Chronic,90734009,Has clinical course,2
+SNOMED:29951006,24970,29951006,SNOMED,Chronic laryngitis,4253009,Chronic inflammatory morphology,409777003,Has asso morph,1
+SNOMED:29951006,24970,29951006,SNOMED,Chronic laryngitis,4262229,Laryngeal structure,4596009,Has finding site,1
+SNOMED:299567001,73575,299567001,SNOMED,Deformity of toe,4263843,Deformity,6081001,Has asso morph,1
+SNOMED:299567001,73575,299567001,SNOMED,Deformity of toe,4106395,Toe structure,29707007,Has finding site,1
+SNOMED:30044002,73383,30044002,SNOMED,Full thickness burn of foot,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:30044002,73383,30044002,SNOMED,Full thickness burn of foot,4213471,Third degree burn injury,80247002,Has asso morph,1
+SNOMED:30044002,73383,30044002,SNOMED,Full thickness burn of foot,4219316,Skin and/or subcutaneous tissue structure of foot,417460003,Has finding site,1
+SNOMED:302941001,73574,302941001,SNOMED,Nonunion of fracture,4140519,"Fracture, ununited",33080003,Has asso morph,1
+SNOMED:302941001,73574,302941001,SNOMED,Nonunion of fracture,4154333,Bone structure,272673000,Has finding site,1
+SNOMED:306151000119106,46270436,306151000119106,SNOMED,Chronic tophaceous gout of elbow caused by drug,4236661,Chronic,90734009,Has clinical course,2
+SNOMED:306151000119106,46270436,306151000119106,SNOMED,Chronic tophaceous gout of elbow caused by drug,37151899,Sodium urate tophus,1163015003,Has asso morph,1
+SNOMED:306151000119106,46270436,306151000119106,SNOMED,Chronic tophaceous gout of elbow caused by drug,4027910,Elbow region structure,127949000,Has finding site,1
+SNOMED:306151000119106,46270436,306151000119106,SNOMED,Chronic tophaceous gout of elbow caused by drug,4254051,Drug or medicament,410942007,Has causative agent,1
+SNOMED:30811009,25844,30811009,SNOMED,Ulcer of esophagus,4206914,Ulcer,56208002,Has asso morph,1
+SNOMED:30811009,25844,30811009,SNOMED,Ulcer of esophagus,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:31015008,73409,31015008,SNOMED,Primary anal syphilis,4223994,Chancre,84052006,Has asso morph,1
+SNOMED:31015008,73409,31015008,SNOMED,Primary anal syphilis,37017466,Structure of skin and/or mucosa of anus,713743000,Has finding site,1
+SNOMED:31015008,73409,31015008,SNOMED,Primary anal syphilis,4248851,Treponema pallidum,72904005,Has causative agent,1
+SNOMED:31015008,73409,31015008,SNOMED,Primary anal syphilis,40480911,Infectious process,441862004,Has pathology,1
+SNOMED:32482005,74080,32482005,SNOMED,Orthostatic proteinuria,4211845,Urine protein measurement,57378007,Has interprets,1
+SNOMED:32482005,74080,32482005,SNOMED,Orthostatic proteinuria,4084765,Above reference range,281302008,Has interpretation,1
+SNOMED:3291007,72459,3291007,SNOMED,Closed fracture of two ribs,36675156,Closed fracture of multiple bones,771486008,Has asso morph,1
+SNOMED:3291007,72459,3291007,SNOMED,Closed fracture of two ribs,4011851,Bone structure of rib,113197003,Has finding site,1
+SNOMED:33826007,73365,33826007,SNOMED,Epidermal burn of elbow,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:33826007,73365,33826007,SNOMED,Epidermal burn of elbow,4298699,First degree burn injury,77140003,Has asso morph,1
+SNOMED:33826007,73365,33826007,SNOMED,Epidermal burn of elbow,4254263,Skin structure of elbow,74757004,Has finding site,1
+SNOMED:34831003,73019,34831003,SNOMED,Breast engorgement in newborn,4298444,Breast structure,76752008,Has finding site,1
+SNOMED:34831003,73019,34831003,SNOMED,Breast engorgement in newborn,4114528,Neonatal,255407002,Has occurrence,1
+SNOMED:34921009,30439,34921009,SNOMED,Acute peptic ulcer with perforation but without obstruction,4312510,Sudden onset AND/OR short duration,424124008,Has clinical course,3
+SNOMED:34921009,30439,34921009,SNOMED,Acute peptic ulcer with perforation but without obstruction,4096339,Acute ulcer,26317001,Has asso morph,1
+SNOMED:34921009,30439,34921009,SNOMED,Acute peptic ulcer with perforation but without obstruction,4239211,Perforated ulcer,91182001,Has asso morph,2
+SNOMED:34921009,30439,34921009,SNOMED,Acute peptic ulcer with perforation but without obstruction,4271189,Upper gastrointestinal tract structure,62834003,Has finding site,1
+SNOMED:34921009,30439,34921009,SNOMED,Acute peptic ulcer with perforation but without obstruction,4200674,Stomach and/or duodenal structures,302184004,Has finding site,2
+SNOMED:34934005,73838,34934005,SNOMED,Pyogenic arthritis of multiple sites,4164958,Suppurative inflammation,41034006,Has asso morph,1
+SNOMED:34934005,73838,34934005,SNOMED,Pyogenic arthritis of multiple sites,36695780,Joint structure of multiple body sites,773190007,Has finding site,1
+SNOMED:34934005,73838,34934005,SNOMED,Pyogenic arthritis of multiple sites,4014179,Pyogenic bacterium,103424003,Has causative agent,1
+SNOMED:34934005,73838,34934005,SNOMED,Pyogenic arthritis of multiple sites,40480911,Infectious process,441862004,Has pathology,1
+SNOMED:35185008,73842,35185008,SNOMED,Enthesopathy of elbow region,37111287,Structure of enthesis of elbow region,725971002,Has finding site,1
+SNOMED:35195001,73378,35195001,SNOMED,Frostbite of foot,600530,Exposure to extreme temperature,1004049005,Has due to,2
+SNOMED:35195001,73378,35195001,SNOMED,Frostbite of foot,4242243,Cold injury,38045000,Has asso morph,1
+SNOMED:35195001,73378,35195001,SNOMED,Frostbite of foot,4211098,Foot structure,56459004,Has finding site,1
+SNOMED:35195001,73378,35195001,SNOMED,Frostbite of foot,4113804,Freezing temperature,285715007,Has causative agent,1
+SNOMED:35563005,31884,35563005,SNOMED,Acquired diverticulum of esophagus,4053916,Single diverticulum,125284007,Has asso morph,1
+SNOMED:35563005,31884,35563005,SNOMED,Acquired diverticulum of esophagus,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:35563005,31884,35563005,SNOMED,Acquired diverticulum of esophagus,35624340,Period of life between birth and death,767023003,Has occurrence,1
+SNOMED:35681000,26718,35681000,SNOMED,Acute peptic ulcer with perforation AND obstruction,4312510,Sudden onset AND/OR short duration,424124008,Has clinical course,4
+SNOMED:35681000,26718,35681000,SNOMED,Acute peptic ulcer with perforation AND obstruction,4096339,Acute ulcer,26317001,Has asso morph,1
+SNOMED:35681000,26718,35681000,SNOMED,Acute peptic ulcer with perforation AND obstruction,4239211,Perforated ulcer,91182001,Has asso morph,2
+SNOMED:35681000,26718,35681000,SNOMED,Acute peptic ulcer with perforation AND obstruction,4093906,Obstruction,26036001,Has asso morph,3
+SNOMED:35681000,26718,35681000,SNOMED,Acute peptic ulcer with perforation AND obstruction,4271189,Upper gastrointestinal tract structure,62834003,Has finding site,1;2;3
+SNOMED:35726004,73338,35726004,SNOMED,Sprain of lateral collateral ligament of knee,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:35726004,73338,35726004,SNOMED,Sprain of lateral collateral ligament of knee,4298490,Sprain,384709000,Has asso morph,1
+SNOMED:35726004,73338,35726004,SNOMED,Sprain of lateral collateral ligament of knee,4219423,Structure of lateral collateral ligament of knee joint,39959004,Has finding site,1
+SNOMED:3620001000004104,762432,3620001000004104,SNOMED,Family history of hepatoma,4253628,Known present,410515003,Has finding context,1
+SNOMED:3620001000004104,762432,3620001000004104,SNOMED,Family history of hepatoma,4123303,Person in the family,303071001,Has relat context,1
+SNOMED:3620001000004104,762432,3620001000004104,SNOMED,Family history of hepatoma,4132506,Current or past,410511007,Has temporal context,1
+SNOMED:362969004,31821,362969004,SNOMED,Disorder of endocrine system,4034504,Structure of endocrine system,113331007,Has finding site,1
+SNOMED:363380002,22557,363380002,SNOMED,Malignant tumor of submandibular gland,37153816,Malignant neoplasm,1240414004,Has asso morph,1
+SNOMED:363380002,22557,363380002,SNOMED,Malignant tumor of submandibular gland,4299196,Submandibular salivary gland structure,385296007,Has finding site,1
+SNOMED:363505006,25189,363505006,SNOMED,Malignant tumor of oral cavity,37153816,Malignant neoplasm,1240414004,Has asso morph,1
+SNOMED:363505006,25189,363505006,SNOMED,Malignant tumor of oral cavity,4253672,Oral cavity structure,74262004,Has finding site,1
+SNOMED:363746003,25297,363746003,SNOMED,Acute pharyngitis,4312510,Sudden onset AND/OR short duration,424124008,Has clinical course,2
+SNOMED:363746003,25297,363746003,SNOMED,Acute pharyngitis,4163835,Acute inflammation,4532008,Has asso morph,1
+SNOMED:363746003,25297,363746003,SNOMED,Acute pharyngitis,4207370,Pharyngeal structure,54066008,Has finding site,1
+SNOMED:36574005,73307,36574005,SNOMED,Transverse deficiency of lower limb,604359,Transverse deficiency,890175002,Has asso morph,1
+SNOMED:36574005,73307,36574005,SNOMED,Transverse deficiency of lower limb,4112039,Entire lower limb,182281004,Has finding site,1
+SNOMED:36574005,73307,36574005,SNOMED,Transverse deficiency of lower limb,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:36574005,73307,36574005,SNOMED,Transverse deficiency of lower limb,4116830,Congenital,255399007,Has occurrence,1
+SNOMED:36662003,73851,36662003,SNOMED,Effusion of joint of multiple sites,4215818,Effusion (morphologic abnormality),41699000,Has asso morph,1
+SNOMED:36662003,73851,36662003,SNOMED,Effusion of joint of multiple sites,36695780,Joint structure of multiple body sites,773190007,Has finding site,1
+SNOMED:367460001,25780,367460001,SNOMED,Pituitary dwarfism,4154781,Height / growth measure,271603002,Has interprets,2
+SNOMED:367460001,25780,367460001,SNOMED,Pituitary dwarfism,4083207,Below reference range,281300000,Has interpretation,2
+SNOMED:367460001,25780,367460001,SNOMED,Pituitary dwarfism,4266035,Growth hormone deficiency,397827003,Has due to,3
+SNOMED:367460001,25780,367460001,SNOMED,Pituitary dwarfism,4200975,Structure of distal part of pituitary,52618001,Has finding site,1
+SNOMED:367460001,25780,367460001,SNOMED,Pituitary dwarfism,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:37031009,30284,37031009,SNOMED,Motion sickness,4271189,Upper gastrointestinal tract structure,62834003,Has finding site,1
+SNOMED:37031009,30284,37031009,SNOMED,Motion sickness,4209294,Motion,56219004,Has causative agent,1
+SNOMED:371984007,26638,371984007,SNOMED,Primary malignant neoplasm of esophagus,37153816,Malignant neoplasm,1240414004,Has asso morph,1
+SNOMED:371984007,26638,371984007,SNOMED,Primary malignant neoplasm of esophagus,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:371984007,26638,371984007,SNOMED,Primary malignant neoplasm of esophagus,37157802,Primary malignant neoplastic proliferation,1234914003,Has pathology,1
+SNOMED:371995001,26052,371995001,SNOMED,Primary malignant neoplasm of larynx,37153816,Malignant neoplasm,1240414004,Has asso morph,1
+SNOMED:371995001,26052,371995001,SNOMED,Primary malignant neoplasm of larynx,4262229,Laryngeal structure,4596009,Has finding site,1
+SNOMED:371995001,26052,371995001,SNOMED,Primary malignant neoplasm of larynx,37157802,Primary malignant neoplastic proliferation,1234914003,Has pathology,1
+SNOMED:372020000,31509,372020000,SNOMED,Primary malignant neoplasm of tonsil,37153816,Malignant neoplasm,1240414004,Has asso morph,1
+SNOMED:372020000,31509,372020000,SNOMED,Primary malignant neoplasm of tonsil,4327174,Palatine tonsillar structure,75573002,Has finding site,1
+SNOMED:372020000,31509,372020000,SNOMED,Primary malignant neoplasm of tonsil,37157802,Primary malignant neoplastic proliferation,1234914003,Has pathology,1
+SNOMED:372115003,72566,372115003,SNOMED,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",37153816,Malignant neoplasm,1240414004,Has asso morph,1
+SNOMED:372115003,72566,372115003,SNOMED,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",4041251,Bone structure of pelvis,118645006,Has finding site,1
+SNOMED:372115003,72566,372115003,SNOMED,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",37157802,Primary malignant neoplastic proliferation,1234914003,Has pathology,1
+SNOMED:37657006,31610,37657006,SNOMED,Disorder of esophagus,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:395105005,4215689,395105005,SNOMED,Heart failure confirmed,4259631,Confirmed present,410605003,Has finding context,1
+SNOMED:395105005,4215689,395105005,SNOMED,Heart failure confirmed,4259630,Subject of record,410604004,Has relat context,1
+SNOMED:395105005,4215689,395105005,SNOMED,Heart failure confirmed,4259510,Current or specified,410512000,Has temporal context,1
+SNOMED:395105005,4215689,395105005,SNOMED,Heart failure confirmed,316139,Heart failure,84114007,Has asso finding,1
+SNOMED:399244003,23986,399244003,SNOMED,Disorder of pituitary gland,4209428,Pituitary structure,56329008,Has finding site,1
+SNOMED:399269003,73553,399269003,SNOMED,Arthropathy,4214466,Joint structure,39352004,Has finding site,1
+SNOMED:40052002,25056,40052002,SNOMED,Congenital anomaly of neck,4175951,Morphologically abnormal structure,49755003,Has asso morph,1
+SNOMED:40052002,25056,40052002,SNOMED,Congenital anomaly of neck,4260843,Neck structure,45048000,Has finding site,1
+SNOMED:40052002,25056,40052002,SNOMED,Congenital anomaly of neck,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:40052002,25056,40052002,SNOMED,Congenital anomaly of neck,4116830,Congenital,255399007,Has occurrence,1
+SNOMED:40261006,30274,40261006,SNOMED,Full thickness burn of neck,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:40261006,30274,40261006,SNOMED,Full thickness burn of neck,4213471,Third degree burn injury,80247002,Has asso morph,1
+SNOMED:40261006,30274,40261006,SNOMED,Full thickness burn of neck,4182739,Skin structure of neck,43081002,Has finding site,1
+SNOMED:40874009,73366,40874009,SNOMED,Crushing injury of lower leg,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:40874009,73366,40874009,SNOMED,Crushing injury of lower leg,4060415,Crushing injury (morphology),19921004,Has asso morph,1
+SNOMED:40874009,73366,40874009,SNOMED,Crushing injury of lower leg,4107527,Lower leg structure,30021000,Has finding site,1
+SNOMED:40884005,72407,40884005,SNOMED,Effusion of joint of shoulder region,4215818,Effusion,41699000,Has asso morph,1
+SNOMED:40884005,72407,40884005,SNOMED,Effusion of joint of shoulder region,4151929,Joint structure of shoulder region,31398001,Has finding site,1
+SNOMED:409656006,26459,409656006,SNOMED,Acute esophagitis,4312510,Sudden onset AND/OR short duration,424124008,Has clinical course,2
+SNOMED:409656006,26459,409656006,SNOMED,Acute esophagitis,4249823,Acute inflammatory morphology,409776007,Has asso morph,1
+SNOMED:409656006,26459,409656006,SNOMED,Acute esophagitis,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:416189003,72715,416189003,SNOMED,Exostosis,4215424,External hyperostosis,80400009,Has asso morph,1
+SNOMED:416189003,72715,416189003,SNOMED,Exostosis,4154333,Bone structure,272673000,Has finding site,1
+SNOMED:41674001,72332,41674001,SNOMED,Serous labyrinthitis,4085360,Serous inflammation,24811005,Has asso morph,1
+SNOMED:41674001,72332,41674001,SNOMED,Serous labyrinthitis,4121004,Labyrinth structure,302462009,Has finding site,1
+SNOMED:417373000,74125,417373000,SNOMED,Inflammatory polyarthropathy,4253008,Inflammatory morphology,409774005,Has asso morph,1
+SNOMED:417373000,74125,417373000,SNOMED,Inflammatory polyarthropathy,36695780,Joint structure of multiple body sites,773190007,Has finding site,1
+SNOMED:4273008,73334,4273008,SNOMED,Closed posterior dislocation of elbow,4176744,Posterior closed dislocation,49210009,Has asso morph,1
+SNOMED:4273008,73334,4273008,SNOMED,Closed posterior dislocation of elbow,4061414,Elbow joint structure,16953009,Has finding site,1
+SNOMED:428768008,73550,428768008,SNOMED,Crystal arthropathy of elbow,4014361,Deposition of crystalline material,103629003,Has asso morph,1
+SNOMED:428768008,73550,428768008,SNOMED,Crystal arthropathy of elbow,4061414,Elbow joint structure,16953009,Has finding site,1
+SNOMED:42982001,29056,42982001,SNOMED,Sialoadenitis,4253008,Inflammatory morphology,409774005,Has asso morph,1
+SNOMED:42982001,29056,42982001,SNOMED,Sialoadenitis,4294042,Salivary gland structure,385294005,Has finding site,1
+SNOMED:43406003,23237,43406003,SNOMED,Acute peptic ulcer with hemorrhage AND obstruction,4312510,Sudden onset AND/OR short duration,424124008,Has clinical course,3
+SNOMED:43406003,23237,43406003,SNOMED,Acute peptic ulcer with hemorrhage AND obstruction,4164431,Acute bleeding ulcer,45771005,Has asso morph,1
+SNOMED:43406003,23237,43406003,SNOMED,Acute peptic ulcer with hemorrhage AND obstruction,4093906,Obstruction,26036001,Has asso morph,2
+SNOMED:43406003,23237,43406003,SNOMED,Acute peptic ulcer with hemorrhage AND obstruction,4271189,Upper gastrointestinal tract structure,62834003,Has finding site,1;2
+SNOMED:43422002,72487,43422002,SNOMED,Crushing injury of foot,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:43422002,72487,43422002,SNOMED,Crushing injury of foot,4060415,Crushing injury (morphology),19921004,Has asso morph,1
+SNOMED:43422002,72487,43422002,SNOMED,Crushing injury of foot,4211098,Foot structure,56459004,Has finding site,1
+SNOMED:43878008,28060,43878008,SNOMED,Streptococcal sore throat,4253008,Inflammatory morphology,409774005,Has asso morph,1
+SNOMED:43878008,28060,43878008,SNOMED,Streptococcal sore throat,4207370,Pharyngeal structure,54066008,Has finding site,1
+SNOMED:43878008,28060,43878008,SNOMED,Streptococcal sore throat,4240344,Streptococcus,58800005,Has causative agent,1
+SNOMED:43878008,28060,43878008,SNOMED,Streptococcal sore throat,40480911,Infectious process,441862004,Has pathology,1
+SNOMED:4445009,73686,4445009,SNOMED,Tuberculosis of genitourinary system,4269928,Granulomatous inflammation,6266001,Has asso morph,1
+SNOMED:4445009,73686,4445009,SNOMED,Tuberculosis of genitourinary system,4069509,Structure of genitourinary system,21514008,Has finding site,1
+SNOMED:4445009,73686,4445009,SNOMED,Tuberculosis of genitourinary system,4035081,Mycobacterium tuberculosis complex,113858008,Has causative agent,1
+SNOMED:4445009,73686,4445009,SNOMED,Tuberculosis of genitourinary system,40480911,Infectious process,441862004,Has pathology,1
+SNOMED:44771000,72737,44771000,SNOMED,Microcalcifications of the breast,4132707,Microcalcification,12747003,Has asso morph,1
+SNOMED:44771000,72737,44771000,SNOMED,Microcalcifications of the breast,4298444,Breast structure,76752008,Has finding site,1
+SNOMED:44950000,73849,44950000,SNOMED,Acquired lordosis deformity of spine,4246304,Anteroposterior abnormal curvature,61051007,Has asso morph,1
+SNOMED:44950000,73849,44950000,SNOMED,Acquired lordosis deformity of spine,4128342,Musculoskeletal structure of spine,289959001,Has finding site,1
+SNOMED:44950000,73849,44950000,SNOMED,Acquired lordosis deformity of spine,35624340,Period of life between birth and death,767023003,Has occurrence,1
+SNOMED:45338009,28461,45338009,SNOMED,Hypertrophy of salivary gland,4210465,Hypertrophy,56246009,Has asso morph,1
+SNOMED:45338009,28461,45338009,SNOMED,Hypertrophy of salivary gland,4294042,Salivary gland structure,385294005,Has finding site,1
+SNOMED:45913009,24969,45913009,SNOMED,Laryngitis,4253008,Inflammatory morphology,409774005,Has asso morph,1
+SNOMED:45913009,24969,45913009,SNOMED,Laryngitis,4262229,Laryngeal structure,4596009,Has finding site,1
+SNOMED:45982008,27438,45982008,SNOMED,Burn of esophagus,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:45982008,27438,45982008,SNOMED,Burn of esophagus,4168004,Burn injury,48333001,Has asso morph,1
+SNOMED:45982008,27438,45982008,SNOMED,Burn of esophagus,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:46177005,193782,46177005,SNOMED,End-stage renal disease,4236661,Chronic,90734009,Has clinical course,3
+SNOMED:46177005,193782,46177005,SNOMED,End-stage renal disease,40282772,Renal function,11953005,Has interprets,2
+SNOMED:46177005,193782,46177005,SNOMED,End-stage renal disease,4125554,Impaired,260379002,Has interpretation,2
+SNOMED:46177005,193782,46177005,SNOMED,End-stage renal disease,4271678,Kidney structure,64033007,Has finding site,1
+SNOMED:46689006,28457,46689006,SNOMED,Hypertrophy of tonsils,4210465,Hypertrophy,56246009,Has asso morph,1
+SNOMED:46689006,28457,46689006,SNOMED,Hypertrophy of tonsils,4327174,Palatine tonsillar structure,75573002,Has finding site,1
+SNOMED:47609003,23653,47609003,SNOMED,Foreign body in esophagus,4078373,Foreign body,19227008,Has asso morph,1
+SNOMED:47609003,23653,47609003,SNOMED,Foreign body in esophagus,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:48128006,23806,48128006,SNOMED,Atrophy of salivary gland,4028206,Atrophy,13331008,Has asso morph,1
+SNOMED:48128006,23806,48128006,SNOMED,Atrophy of salivary gland,4294042,Salivary gland structure,385294005,Has finding site,1
+SNOMED:50001009,29979,50001009,SNOMED,Crushing injury of neck,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:50001009,29979,50001009,SNOMED,Crushing injury of neck,4060415,Crushing injury (morphology),19921004,Has asso morph,1
+SNOMED:50001009,29979,50001009,SNOMED,Crushing injury of neck,4260843,Neck structure,45048000,Has finding site,1
+SNOMED:50603008,74064,50603008,SNOMED,Ankylosis of temporomandibular joint,4271126,Ankylosis,36504009,Has asso morph,1
+SNOMED:50603008,74064,50603008,SNOMED,Ankylosis of temporomandibular joint,4202366,Temporomandibular joint structure,53620006,Has finding site,1
+SNOMED:51599000,22350,51599000,SNOMED,Edema of larynx,4196943,Edema,79654002,Has asso morph,1
+SNOMED:51599000,22350,51599000,SNOMED,Edema of larynx,4262229,Laryngeal structure,4596009,Has finding site,1
+SNOMED:51742006,23164,51742006,SNOMED,Disorder of anterior pituitary,4270353,Adenohypophysis structure,62818001,Has finding site,1
+SNOMED:52087004,73349,52087004,SNOMED,Injury of rectum without open wound into abdominal cavity,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:52087004,73349,52087004,SNOMED,Injury of rectum without open wound into abdominal cavity,4030017,Mechanical abnormality,107658001,Has asso morph,1
+SNOMED:52087004,73349,52087004,SNOMED,Injury of rectum without open wound into abdominal cavity,4144541,Rectum structure,34402009,Has finding site,1
+SNOMED:52767006,23034,52767006,SNOMED,Neonatal hypoglycemia,4202143,Blood glucose concentration,434912009,Has interprets,2
+SNOMED:52767006,23034,52767006,SNOMED,Neonatal hypoglycemia,4083207,Below reference range,281300000,Has interpretation,2
+SNOMED:52767006,23034,52767006,SNOMED,Neonatal hypoglycemia,4034504,Structure of endocrine system,113331007,Has finding site,1
+SNOMED:52767006,23034,52767006,SNOMED,Neonatal hypoglycemia,4114528,Neonatal,255407002,Has occurrence,1
+SNOMED:53256003,73616,53256003,SNOMED,Open fracture of lunate bone of wrist,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:53256003,73616,53256003,SNOMED,Open fracture of lunate bone of wrist,4178756,"Fracture, open",52329006,Has asso morph,1
+SNOMED:53256003,73616,53256003,SNOMED,Open fracture of lunate bone of wrist,4178722,Structure of lunate bone,52181001,Has finding site,1
+SNOMED:53430007,73819,53430007,SNOMED,Pain of breast,4298444,Breast structure,76752008,Has finding site,1
+SNOMED:53664003,72562,53664003,SNOMED,Gonococcal spondylitis,4253008,Inflammatory morphology,409774005,Has asso morph,1
+SNOMED:53664003,72562,53664003,SNOMED,Gonococcal spondylitis,4222390,Bone structure of vertebra,420345000,Has finding site,1
+SNOMED:53664003,72562,53664003,SNOMED,Gonococcal spondylitis,4285582,Neisseria gonorrhoeae,68704007,Has causative agent,1
+SNOMED:53664003,72562,53664003,SNOMED,Gonococcal spondylitis,40480911,Infectious process,441862004,Has pathology,1
+SNOMED:55260003,73560,55260003,SNOMED,Calcaneal spur,4230331,Osteophyte,88998003,Has asso morph,1
+SNOMED:55260003,73560,55260003,SNOMED,Calcaneal spur,4196052,Bone structure of calcaneum,80144004,Has finding site,1
+SNOMED:55355000,23798,55355000,SNOMED,Acute laryngopharyngitis,4312510,Sudden onset AND/OR short duration,424124008,Has clinical course,3
+SNOMED:55355000,23798,55355000,SNOMED,Acute laryngopharyngitis,4163835,Acute inflammation,4532008,Has asso morph,1;2
+SNOMED:55355000,23798,55355000,SNOMED,Acute laryngopharyngitis,4262229,Laryngeal structure,4596009,Has finding site,1
+SNOMED:55355000,23798,55355000,SNOMED,Acute laryngopharyngitis,4207370,Pharyngeal structure,54066008,Has finding site,2
+SNOMED:55746001,22665,55746001,SNOMED,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,4236661,Chronic,90734009,Has clinical course,3
+SNOMED:55746001,22665,55746001,SNOMED,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,4208270,Bleeding ulcer,55075001,Has asso morph,1
+SNOMED:55746001,22665,55746001,SNOMED,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,4239211,Perforated ulcer,91182001,Has asso morph,2
+SNOMED:55746001,22665,55746001,SNOMED,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,4271189,Upper gastrointestinal tract structure,62834003,Has finding site,1;2
+SNOMED:56461008,24076,56461008,SNOMED,Chronic peptic ulcer with hemorrhage AND obstruction,4236661,Chronic,90734009,Has clinical course,3
+SNOMED:56461008,24076,56461008,SNOMED,Chronic peptic ulcer with hemorrhage AND obstruction,4243483,Chronic bleeding ulcer,37904008,Has asso morph,1
+SNOMED:56461008,24076,56461008,SNOMED,Chronic peptic ulcer with hemorrhage AND obstruction,4093906,Obstruction,26036001,Has asso morph,2
+SNOMED:56461008,24076,56461008,SNOMED,Chronic peptic ulcer with hemorrhage AND obstruction,4271189,Upper gastrointestinal tract structure,62834003,Has finding site,1
+SNOMED:56461008,24076,56461008,SNOMED,Chronic peptic ulcer with hemorrhage AND obstruction,37304196,Structure of lumen of upper gastrointestinal tract,787915005,Has finding site,2
+SNOMED:57143002,73913,57143002,SNOMED,Burn of shoulder,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:57143002,73913,57143002,SNOMED,Burn of shoulder,4168004,Burn injury,48333001,Has asso morph,1
+SNOMED:57143002,73913,57143002,SNOMED,Burn of shoulder,4061541,Shoulder region structure,16982005,Has finding site,1
+SNOMED:57748001,26441,57748001,SNOMED,Bleeding ulcer of esophagus,4208270,Bleeding ulcer,55075001,Has asso morph,1
+SNOMED:57748001,26441,57748001,SNOMED,Bleeding ulcer of esophagus,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:57871005,30442,57871005,SNOMED,Chronic peptic ulcer with perforation AND obstruction,4236661,Chronic,90734009,Has clinical course,4
+SNOMED:57871005,30442,57871005,SNOMED,Chronic peptic ulcer with perforation AND obstruction,4233476,Chronic ulcer,405719001,Has asso morph,1
+SNOMED:57871005,30442,57871005,SNOMED,Chronic peptic ulcer with perforation AND obstruction,4239211,Perforated ulcer,91182001,Has asso morph,2
+SNOMED:57871005,30442,57871005,SNOMED,Chronic peptic ulcer with perforation AND obstruction,4093906,Obstruction,26036001,Has asso morph,3
+SNOMED:57871005,30442,57871005,SNOMED,Chronic peptic ulcer with perforation AND obstruction,4200674,Stomach and/or duodenal structures,302184004,Has finding site,1;2
+SNOMED:57871005,30442,57871005,SNOMED,Chronic peptic ulcer with perforation AND obstruction,37304196,Structure of lumen of upper gastrointestinal tract,787915005,Has finding site,3
+SNOMED:58188004,74124,58188004,SNOMED,Traumatic arthropathy,440921,Traumatic injury,417746004,Occurs after,3
+SNOMED:58188004,74124,58188004,SNOMED,Traumatic arthropathy,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:58188004,74124,58188004,SNOMED,Traumatic arthropathy,4214466,Joint structure,39352004,Has finding site,1
+SNOMED:59857007,23567,59857007,SNOMED,Branchial cleft cyst,37206155,Branchial cyst,785762005,Has asso morph,1
+SNOMED:59857007,23567,59857007,SNOMED,Branchial cleft cyst,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:59857007,23567,59857007,SNOMED,Branchial cleft cyst,4116830,Congenital,255399007,Has occurrence,1
+SNOMED:6015002,73362,6015002,SNOMED,Crushing injury of multiple sites of upper limb,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:6015002,73362,6015002,SNOMED,Crushing injury of multiple sites of upper limb,4060415,Crushing injury (morphology),19921004,Has asso morph,1
+SNOMED:6015002,73362,6015002,SNOMED,Crushing injury of multiple sites of upper limb,4200396,Upper limb structure,53120007,Has finding site,1
+SNOMED:60400003,23808,60400003,SNOMED,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",4236661,Chronic,90734009,Has clinical course,2
+SNOMED:60400003,23808,60400003,SNOMED,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",4233476,Chronic ulcer,405719001,Has asso morph,1
+SNOMED:60400003,23808,60400003,SNOMED,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",4271189,Upper gastrointestinal tract structure,62834003,Has finding site,1
+SNOMED:6055000,73925,6055000,SNOMED,Burn of upper limb,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:6055000,73925,6055000,SNOMED,Burn of upper limb,4168004,Burn injury,48333001,Has asso morph,1
+SNOMED:6055000,73925,6055000,SNOMED,Burn of upper limb,4200396,Upper limb structure,53120007,Has finding site,1
+SNOMED:60600009,31602,60600009,SNOMED,Disorder of the larynx,4262229,Laryngeal structure,4596009,Has finding site,1
+SNOMED:60713008,26286,60713008,SNOMED,Burn of neck,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:60713008,26286,60713008,SNOMED,Burn of neck,4168004,Burn injury,48333001,Has asso morph,1
+SNOMED:60713008,26286,60713008,SNOMED,Burn of neck,4260843,Neck structure,45048000,Has finding site,1
+SNOMED:61112000,72988,61112000,SNOMED,Pyogenic arthritis of hand,4164958,Suppurative inflammation,41034006,Has asso morph,1
+SNOMED:61112000,72988,61112000,SNOMED,Pyogenic arthritis of hand,4222144,Structure of joint of hand,40238009,Has finding site,1
+SNOMED:61112000,72988,61112000,SNOMED,Pyogenic arthritis of hand,4014179,Pyogenic bacterium,103424003,Has causative agent,1
+SNOMED:61112000,72988,61112000,SNOMED,Pyogenic arthritis of hand,40480911,Infectious process,441862004,Has pathology,1
+SNOMED:61169001,30124,61169001,SNOMED,Obstruction of larynx,4093906,Obstruction,26036001,Has asso morph,1
+SNOMED:61169001,30124,61169001,SNOMED,Obstruction of larynx,4262229,Laryngeal structure,4596009,Has finding site,1
+SNOMED:61293001,73872,61293001,SNOMED,Congenital deformity of knee joint,4263843,Deformity,6081001,Has asso morph,1
+SNOMED:61293001,73872,61293001,SNOMED,Congenital deformity of knee joint,4169744,Knee joint structure,49076000,Has finding site,1
+SNOMED:61293001,73872,61293001,SNOMED,Congenital deformity of knee joint,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:61293001,73872,61293001,SNOMED,Congenital deformity of knee joint,4116830,Congenital,255399007,Has occurrence,1
+SNOMED:62242007,73373,62242007,SNOMED,Epidermal burn of upper limb,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:62242007,73373,62242007,SNOMED,Epidermal burn of upper limb,4298699,First degree burn injury,77140003,Has asso morph,1
+SNOMED:62242007,73373,62242007,SNOMED,Epidermal burn of upper limb,4159864,Skin structure of upper limb,371311000,Has finding site,1
+SNOMED:62918002,72398,62918002,SNOMED,Arthropathy in Behcet's syndrome,436642,Behcet's syndrome,310701003,Finding asso with,2
+SNOMED:62918002,72398,62918002,SNOMED,Arthropathy in Behcet's syndrome,4253008,Inflammatory morphology,409774005,Has asso morph,1
+SNOMED:62918002,72398,62918002,SNOMED,Arthropathy in Behcet's syndrome,4214466,Joint structure,39352004,Has finding site,1
+SNOMED:63975004,73343,63975004,SNOMED,Closed posterior dislocation of hip,4176744,Posterior closed dislocation,49210009,Has asso morph,1
+SNOMED:63975004,73343,63975004,SNOMED,Closed posterior dislocation of hip,4082516,Hip joint structure,24136001,Has finding site,1
+SNOMED:64217002,73302,64217002,SNOMED,Curvature of spine,4186604,Abnormal curvature,46360000,Has asso morph,1
+SNOMED:64217002,73302,64217002,SNOMED,Curvature of spine,4128342,Musculoskeletal structure of spine,289959001,Has finding site,1
+SNOMED:64375000,31597,64375000,SNOMED,Acute laryngotracheitis,4312510,Sudden onset AND/OR short duration,424124008,Has clinical course,3
+SNOMED:64375000,31597,64375000,SNOMED,Acute laryngotracheitis,4163835,Acute inflammation,4532008,Has asso morph,1;2
+SNOMED:64375000,31597,64375000,SNOMED,Acute laryngotracheitis,4262229,Laryngeal structure,4596009,Has finding site,1
+SNOMED:64375000,31597,64375000,SNOMED,Acute laryngotracheitis,4195956,Tracheal structure,44567001,Has finding site,2
+SNOMED:64902007,73036,64902007,SNOMED,Closed fracture of olecranon process of ulna,4049776,"Fracture, closed",20946005,Has asso morph,1
+SNOMED:64902007,73036,64902007,SNOMED,Closed fracture of olecranon process of ulna,4161175,Structure of olecranon,371504003,Has finding site,1
+SNOMED:6655004,30133,6655004,SNOMED,Acute laryngitis,4312510,Sudden onset AND/OR short duration,424124008,Has clinical course,2
+SNOMED:6655004,30133,6655004,SNOMED,Acute laryngitis,4163835,Acute inflammation,4532008,Has asso morph,1
+SNOMED:6655004,30133,6655004,SNOMED,Acute laryngitis,4262229,Laryngeal structure,4596009,Has finding site,1
+SNOMED:66622006,31598,66622006,SNOMED,Hypertrophy of tonsils AND adenoids,4210465,Hypertrophy,56246009,Has asso morph,1;2
+SNOMED:66622006,31598,66622006,SNOMED,Hypertrophy of tonsils AND adenoids,4327174,Palatine tonsillar structure,75573002,Has finding site,1
+SNOMED:66622006,31598,66622006,SNOMED,Hypertrophy of tonsils AND adenoids,4184153,Adenoidal structure,55940004,Has finding site,2
+SNOMED:67315001,72405,67315001,SNOMED,Degenerative joint disease of shoulder region,1447343,Degeneration and inflammation,1343602002,Has asso morph,1
+SNOMED:67315001,72405,67315001,SNOMED,Degenerative joint disease of shoulder region,4030637,Degenerative abnormality,107669003,Has asso morph,2
+SNOMED:67315001,72405,67315001,SNOMED,Degenerative joint disease of shoulder region,4151929,Joint structure of shoulder region,31398001,Has finding site,1;2
+SNOMED:68142008,73075,68142008,SNOMED,Contusion of upper limb,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:68142008,73075,68142008,SNOMED,Contusion of upper limb,4203279,Contusion - lesion,308492005,Has asso morph,1
+SNOMED:68142008,73075,68142008,SNOMED,Contusion of upper limb,4200396,Upper limb structure,53120007,Has finding site,1
+SNOMED:68854005,73341,68854005,SNOMED,Closed fracture of head of radius,4049776,"Fracture, closed",20946005,Has asso morph,1
+SNOMED:68854005,73341,68854005,SNOMED,Closed fracture of head of radius,4178906,Structure of head of radius,50184001,Has finding site,1
+SNOMED:68893001,73089,68893001,SNOMED,Contusion of buttock,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:68893001,73089,68893001,SNOMED,Contusion of buttock,4203279,Contusion - lesion,308492005,Has asso morph,1
+SNOMED:68893001,73089,68893001,SNOMED,Contusion of buttock,4263335,Buttock structure,46862004,Has finding site,1
+SNOMED:69029002,72460,69029002,SNOMED,Open fracture of seven ribs,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:69029002,72460,69029002,SNOMED,Open fracture of seven ribs,36675157,Compound fracture of multiple bones,771487004,Has asso morph,1
+SNOMED:69029002,72460,69029002,SNOMED,Open fracture of seven ribs,4011851,Bone structure of rib,113197003,Has finding site,1
+SNOMED:69771008,23868,69771008,SNOMED,Congenital anomaly of esophagus,4175951,Morphologically abnormal structure,49755003,Has asso morph,1
+SNOMED:69771008,23868,69771008,SNOMED,Congenital anomaly of esophagus,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:69771008,23868,69771008,SNOMED,Congenital anomaly of esophagus,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:69771008,23868,69771008,SNOMED,Congenital anomaly of esophagus,4116830,Congenital,255399007,Has occurrence,1
+SNOMED:69787006,73649,69787006,SNOMED,Contusion of finger,4203279,Contusion - lesion,308492005,Has asso morph,1
+SNOMED:69787006,73649,69787006,SNOMED,Contusion of finger,4192373,Finger structure,7569003,Has finding site,1
+SNOMED:69825009,24977,69825009,SNOMED,Mucocele of salivary gland,37154186,Mucous retention cyst,1260280009,Has asso morph,1
+SNOMED:69825009,24977,69825009,SNOMED,Mucocele of salivary gland,4294042,Salivary gland structure,385294005,Has finding site,1
+SNOMED:70341005,26899,70341005,SNOMED,Tuberculous laryngitis,4269928,Granulomatous inflammation,6266001,Has asso morph,1
+SNOMED:70341005,26899,70341005,SNOMED,Tuberculous laryngitis,4262229,Laryngeal structure,4596009,Has finding site,1
+SNOMED:70341005,26899,70341005,SNOMED,Tuberculous laryngitis,4035081,Mycobacterium tuberculosis complex,113858008,Has causative agent,1
+SNOMED:70341005,26899,70341005,SNOMED,Tuberculous laryngitis,40480911,Infectious process,441862004,Has pathology,1
+SNOMED:70705008,22722,70705008,SNOMED,Accessory salivary gland,4238909,Supernumerary structure,91431006,Has asso morph,1
+SNOMED:70705008,22722,70705008,SNOMED,Accessory salivary gland,4294042,Salivary gland structure,385294005,Has finding site,1
+SNOMED:70705008,22722,70705008,SNOMED,Accessory salivary gland,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:70705008,22722,70705008,SNOMED,Accessory salivary gland,4116830,Congenital,255399007,Has occurrence,1
+SNOMED:72082009,31668,72082009,SNOMED,Acquired deformity of neck,4263843,Deformity,6081001,Has asso morph,1
+SNOMED:72082009,31668,72082009,SNOMED,Acquired deformity of neck,4260843,Neck structure,45048000,Has finding site,1
+SNOMED:72082009,31668,72082009,SNOMED,Acquired deformity of neck,35624340,Period of life between birth and death,767023003,Has occurrence,1
+SNOMED:72442006,28385,72442006,SNOMED,Disorder of posterior pituitary,4292400,Neurohypophysis structure,37512009,Has finding site,1
+SNOMED:73015009,73888,73015009,SNOMED,Open fracture of navicular bone of foot,4178756,"Fracture, open",52329006,Has asso morph,1
+SNOMED:73015009,73888,73015009,SNOMED,Open fracture of navicular bone of foot,4328070,Bone structure of navicular,75772009,Has finding site,1
+SNOMED:73820008,26935,73820008,SNOMED,Disorder of endocrine testis,4122979,Testicular endocrine structure,304042006,Has finding site,1
+SNOMED:74372003,30333,74372003,SNOMED,Gonorrhea of pharynx,4253008,Inflammatory morphology,409774005,Has asso morph,1
+SNOMED:74372003,30333,74372003,SNOMED,Gonorrhea of pharynx,4263306,Pharyngeal mucous membrane structure,46715004,Has finding site,1
+SNOMED:74372003,30333,74372003,SNOMED,Gonorrhea of pharynx,4285582,Neisseria gonorrhoeae,68704007,Has causative agent,1
+SNOMED:74372003,30333,74372003,SNOMED,Gonorrhea of pharynx,40480911,Infectious process,441862004,Has pathology,1
+SNOMED:74383007,73889,74383007,SNOMED,Sprain of distal tibiofibular ligament,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:74383007,73889,74383007,SNOMED,Sprain of distal tibiofibular ligament,4298490,Sprain,384709000,Has asso morph,1
+SNOMED:74383007,73889,74383007,SNOMED,Sprain of distal tibiofibular ligament,4314540,Structure of ligament of distal tibiofibular joint,87183004,Has finding site,1
+SNOMED:74814004,73090,74814004,SNOMED,Contusion of foot,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:74814004,73090,74814004,SNOMED,Contusion of foot,4203279,Contusion - lesion,308492005,Has asso morph,1
+SNOMED:74814004,73090,74814004,SNOMED,Contusion of foot,4211098,Foot structure,56459004,Has finding site,1
+SNOMED:75047002,72618,75047002,SNOMED,Disorder of skeletal muscle,4133963,Skeletal muscle structure,127954009,Has finding site,1
+SNOMED:75260002,28462,75260002,SNOMED,Fistula of salivary gland,4043006,Fistula,118622000,Has asso morph,1
+SNOMED:75260002,28462,75260002,SNOMED,Fistula of salivary gland,4294042,Salivary gland structure,385294005,Has finding site,1
+SNOMED:75468006,73287,75468006,SNOMED,Crystal arthropathy of ankle AND/OR foot,4014361,Deposition of crystalline material,103629003,Has asso morph,1;2
+SNOMED:75468006,73287,75468006,SNOMED,Crystal arthropathy of ankle AND/OR foot,4289928,Ankle joint structure,70258002,Has finding site,1
+SNOMED:75468006,73287,75468006,SNOMED,Crystal arthropathy of ankle AND/OR foot,4131790,Structure of joint of foot,26552008,Has finding site,2
+SNOMED:75547007,24974,75547007,SNOMED,Stenosis of larynx,4217691,Stenosis,415582006,Has asso morph,1
+SNOMED:75547007,24974,75547007,SNOMED,Stenosis of larynx,4262229,Laryngeal structure,4596009,Has finding site,1
+SNOMED:75860007,31057,75860007,SNOMED,Disorder of pharynx,4207370,Pharyngeal structure,54066008,Has finding site,1
+SNOMED:77595004,73580,77595004,SNOMED,Reduction deformity of lower limb,4260677,Abnormal shortening,45056002,Has asso morph,1
+SNOMED:77595004,73580,77595004,SNOMED,Reduction deformity of lower limb,4112039,Entire lower limb,182281004,Has finding site,1
+SNOMED:77595004,73580,77595004,SNOMED,Reduction deformity of lower limb,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:77595004,73580,77595004,SNOMED,Reduction deformity of lower limb,4116830,Congenital,255399007,Has occurrence,1
+SNOMED:77661009,24397,77661009,SNOMED,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",4236661,Chronic,90734009,Has clinical course,4
+SNOMED:77661009,24397,77661009,SNOMED,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",4239211,Perforated ulcer,91182001,Has asso morph,1
+SNOMED:77661009,24397,77661009,SNOMED,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",4243483,Chronic bleeding ulcer,37904008,Has asso morph,2
+SNOMED:77661009,24397,77661009,SNOMED,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",4093906,Obstruction,26036001,Has asso morph,3
+SNOMED:77661009,24397,77661009,SNOMED,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",4271189,Upper gastrointestinal tract structure,62834003,Has finding site,1;2;3
+SNOMED:7890003,73290,7890003,SNOMED,Contracture of joint,4264818,Range of joint movement,364564000,Has interprets,2
+SNOMED:7890003,73290,7890003,SNOMED,Contracture of joint,4053347,Decreased,1250004,Has interpretation,2
+SNOMED:7890003,73290,7890003,SNOMED,Contracture of joint,4237281,Contracture,57048009,Has asso morph,1
+SNOMED:7890003,73290,7890003,SNOMED,Contracture of joint,37219112,Structure of joint region,785818007,Has finding site,1
+SNOMED:79369007,25698,79369007,SNOMED,Complication of transplanted pancreas,4266668,Transplantation of pancreas,62438007,Occurs after,2
+SNOMED:79369007,25698,79369007,SNOMED,Complication of transplanted pancreas,36717084,Structure of transplanted pancreas,719423002,Has finding site,1
+SNOMED:79546008,73884,79546008,SNOMED,Closed fracture of three ribs,36675156,Closed fracture of multiple bones,771486008,Has asso morph,1
+SNOMED:79546008,73884,79546008,SNOMED,Closed fracture of three ribs,4011851,Bone structure of rib,113197003,Has finding site,1
+SNOMED:79740000,29735,79740000,SNOMED,Candidiasis of mouth,44782621,Structure of internal part of mouth,700016008,Has finding site,1
+SNOMED:79740000,29735,79740000,SNOMED,Candidiasis of mouth,4139129,Candida,3265006,Has causative agent,1
+SNOMED:79740000,29735,79740000,SNOMED,Candidiasis of mouth,40480911,Infectious process,441862004,Has pathology,1
+SNOMED:80116000,72717,80116000,SNOMED,Postoperative heterotopic calcification,4301351,Surgical procedure,387713003,Occurs after,2
+SNOMED:80116000,72717,80116000,SNOMED,Postoperative heterotopic calcification,4112703,Pathologic calcification,18115005,Has asso morph,1
+SNOMED:80433004,73372,80433004,SNOMED,Burn of breast,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:80433004,73372,80433004,SNOMED,Burn of breast,4168004,Burn injury,48333001,Has asso morph,1
+SNOMED:80433004,73372,80433004,SNOMED,Burn of breast,4298444,Breast structure,76752008,Has finding site,1
+SNOMED:80483009,31609,80483009,SNOMED,Abscess of salivary gland,4195605,Abscess morphology,44132006,Has asso morph,1
+SNOMED:80483009,31609,80483009,SNOMED,Abscess of salivary gland,4294042,Salivary gland structure,385294005,Has finding site,1
+SNOMED:80953005,23247,80953005,SNOMED,Chronic peptic ulcer with perforation but without obstruction,4236661,Chronic,90734009,Has clinical course,3
+SNOMED:80953005,23247,80953005,SNOMED,Chronic peptic ulcer with perforation but without obstruction,4239211,Perforated ulcer,91182001,Has asso morph,1
+SNOMED:80953005,23247,80953005,SNOMED,Chronic peptic ulcer with perforation but without obstruction,4233476,Chronic ulcer,405719001,Has asso morph,2
+SNOMED:80953005,23247,80953005,SNOMED,Chronic peptic ulcer with perforation but without obstruction,4200674,Stomach and/or duodenal structures,302184004,Has finding site,1;2
+SNOMED:81518000,30770,81518000,SNOMED,Chronic peptic ulcer with hemorrhage but without obstruction,4236661,Chronic,90734009,Has clinical course,3
+SNOMED:81518000,30770,81518000,SNOMED,Chronic peptic ulcer with hemorrhage but without obstruction,4243483,Chronic bleeding ulcer,37904008,Has asso morph,1
+SNOMED:81518000,30770,81518000,SNOMED,Chronic peptic ulcer with hemorrhage but without obstruction,4179955,Hemorrhage,50960005,Has asso morph,2
+SNOMED:81518000,30770,81518000,SNOMED,Chronic peptic ulcer with hemorrhage but without obstruction,4271189,Upper gastrointestinal tract structure,62834003,Has finding site,1
+SNOMED:81518000,30770,81518000,SNOMED,Chronic peptic ulcer with hemorrhage but without obstruction,45766657,Vascular structure of gastrointestinal tract,703867009,Has finding site,2
+SNOMED:81680005,24134,81680005,SNOMED,Neck pain,4260843,Neck structure,45048000,Has finding site,1
+SNOMED:81793007,73318,81793007,SNOMED,Polydactyly of fingers,4238909,Supernumerary structure,91431006,Has asso morph,1
+SNOMED:81793007,73318,81793007,SNOMED,Polydactyly of fingers,4192373,Finger structure,7569003,Has finding site,1
+SNOMED:81793007,73318,81793007,SNOMED,Polydactyly of fingers,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:81793007,73318,81793007,SNOMED,Polydactyly of fingers,4116830,Congenital,255399007,Has occurrence,1
+SNOMED:82062003,72434,82062003,SNOMED,Congenital hydrocele,4298084,Hydrocele,386152007,Has asso morph,1
+SNOMED:82062003,72434,82062003,SNOMED,Congenital hydrocele,4134453,Tunica vaginalis structure,12817009,Has finding site,1
+SNOMED:82062003,72434,82062003,SNOMED,Congenital hydrocele,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:82062003,72434,82062003,SNOMED,Congenital hydrocele,4116830,Congenital,255399007,Has occurrence,1
+SNOMED:82725007,73854,82725007,SNOMED,Progressive myositis ossificans,4114504,Progressive,255314001,Has clinical course,2
+SNOMED:82725007,73854,82725007,SNOMED,Progressive myositis ossificans,4243907,Osseous metaplasia,38109001,Has asso morph,1
+SNOMED:82725007,73854,82725007,SNOMED,Progressive myositis ossificans,4325458,Muscle structure,71616004,Has finding site,1
+SNOMED:83271005,26719,83271005,SNOMED,Chronic laryngotracheitis,4236661,Chronic,90734009,Has clinical course,3
+SNOMED:83271005,26719,83271005,SNOMED,Chronic laryngotracheitis,4253009,Chronic inflammatory morphology,409777003,Has asso morph,1;2
+SNOMED:83271005,26719,83271005,SNOMED,Chronic laryngotracheitis,4262229,Laryngeal structure,4596009,Has finding site,1
+SNOMED:83271005,26719,83271005,SNOMED,Chronic laryngotracheitis,4195956,Tracheal structure,44567001,Has finding site,2
+SNOMED:83546008,73866,83546008,SNOMED,Congenital anomaly of breast,4175951,Morphologically abnormal structure,49755003,Has asso morph,1
+SNOMED:83546008,73866,83546008,SNOMED,Congenital anomaly of breast,4298444,Breast structure,76752008,Has finding site,1
+SNOMED:83546008,73866,83546008,SNOMED,Congenital anomaly of breast,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:83546008,73866,83546008,SNOMED,Congenital anomaly of breast,4116830,Congenital,255399007,Has occurrence,1
+SNOMED:84208005,72486,84208005,SNOMED,Blister of elbow without infection,4144955,Blister,339008,Has asso morph,1
+SNOMED:84208005,72486,84208005,SNOMED,Blister of elbow without infection,4254263,Skin structure of elbow,74757004,Has finding site,1
+SNOMED:84445001,72404,84445001,SNOMED,Joint stiffness,4264818,Range of joint movement,364564000,Has interprets,2
+SNOMED:84445001,72404,84445001,SNOMED,Joint stiffness,4083207,Below reference range,281300000,Has interpretation,2
+SNOMED:84445001,72404,84445001,SNOMED,Joint stiffness,4214466,Joint structure,39352004,Has finding site,1
+SNOMED:85636003,73923,85636003,SNOMED,Contusion of upper arm,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:85636003,73923,85636003,SNOMED,Contusion of upper arm,4203279,Contusion - lesion,308492005,Has asso morph,1
+SNOMED:85636003,73923,85636003,SNOMED,Contusion of upper arm,4165266,Upper arm structure,40983000,Has finding site,1
+SNOMED:86414002,72995,86414002,SNOMED,Contracture of joint of hand,37206793,Hand joint range of movement,786985009,Has interprets,2
+SNOMED:86414002,72995,86414002,SNOMED,Contracture of joint of hand,4053347,Decreased,1250004,Has interpretation,2
+SNOMED:86414002,72995,86414002,SNOMED,Contracture of joint of hand,4237281,Contracture,57048009,Has asso morph,1
+SNOMED:86414002,72995,86414002,SNOMED,Contracture of joint of hand,37219133,Structure of hand joint region,786074005,Has finding site,1
+SNOMED:86842008,25211,86842008,SNOMED,Iatrogenic pituitary disorder,4209428,Pituitary structure,56329008,Has finding site,1
+SNOMED:8765009,26727,8765009,SNOMED,Hematemesis,4179955,Hemorrhage,50960005,Has asso morph,1
+SNOMED:8765009,26727,8765009,SNOMED,Hematemesis,4271189,Upper gastrointestinal tract structure,62834003,Has finding site,1
+SNOMED:87778004,73045,87778004,SNOMED,Sprain of hand,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:87778004,73045,87778004,SNOMED,Sprain of hand,4298490,Sprain,384709000,Has asso morph,1
+SNOMED:87778004,73045,87778004,SNOMED,Sprain of hand,4048233,Structure of ligament of hand,123858009,Has finding site,1
+SNOMED:89097000,72926,89097000,SNOMED,Labyrinthine fistula,4043006,Fistula,118622000,Has asso morph,1
+SNOMED:89097000,72926,89097000,SNOMED,Labyrinthine fistula,4121004,Labyrinth structure,302462009,Has finding site,1
+SNOMED:89843004,73091,89843004,SNOMED,Deep third degree burn of breast,36674407,Traumatic event,773760007,Has due to,2
+SNOMED:89843004,73091,89843004,SNOMED,Deep third degree burn of breast,4223957,Deep third degree burn injury,40477005,Has asso morph,1
+SNOMED:89843004,73091,89843004,SNOMED,Deep third degree burn of breast,620291,Structure of skin and/or subcutaneous tissue of breast,895271003,Has finding site,1
+SNOMED:90460009,24818,90460009,SNOMED,Injury of neck,4260843,Neck structure,45048000,Has finding site,1
+SNOMED:9051008,72997,9051008,SNOMED,Articular cartilage disorder of upper arm,4193455,Articular cartilage of upper limb,312558006,Has finding site,1
+SNOMED:90979004,23220,90979004,SNOMED,Chronic tonsillitis,4236661,Chronic,90734009,Has clinical course,2
+SNOMED:90979004,23220,90979004,SNOMED,Chronic tonsillitis,4253009,Chronic inflammatory morphology,409777003,Has asso morph,1
+SNOMED:90979004,23220,90979004,SNOMED,Chronic tonsillitis,4327174,Palatine tonsillar structure,75573002,Has finding site,1
+SNOMED:91943004,73231,91943004,SNOMED,Arthralgia of temporomandibular joint,4202366,Temporomandibular joint structure,53620006,Has finding site,1
+SNOMED:91979007,28716,91979007,SNOMED,Benign neoplasm of aortic body,4305589,"Neoplasm, benign",3898006,Has asso morph,1
+SNOMED:91979007,28716,91979007,SNOMED,Benign neoplasm of aortic body,4327482,Aortic body,75061007,Has finding site,1
+SNOMED:92044005,24884,92044005,SNOMED,Benign neoplasm of carotid body,4305589,"Neoplasm, benign",3898006,Has asso morph,1
+SNOMED:92044005,24884,92044005,SNOMED,Benign neoplasm of carotid body,4197418,Carotid body structure,51345006,Has finding site,1
+SNOMED:92088003,73723,92088003,SNOMED,Benign neoplasm of epididymis,4305589,"Neoplasm, benign",3898006,Has asso morph,1
+SNOMED:92088003,73723,92088003,SNOMED,Benign neoplasm of epididymis,4227148,Epididymis structure,87644002,Has finding site,1
+SNOMED:92091003,24602,92091003,SNOMED,Benign neoplasm of esophagus,4305589,"Neoplasm, benign",3898006,Has asso morph,1
+SNOMED:92091003,24602,92091003,SNOMED,Benign neoplasm of esophagus,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:92175003,23731,92175003,SNOMED,Benign neoplasm of larynx,4305589,"Neoplasm, benign",3898006,Has asso morph,1
+SNOMED:92175003,23731,92175003,SNOMED,Benign neoplasm of larynx,4262229,Laryngeal structure,4596009,Has finding site,1
+SNOMED:92205005,30679,92205005,SNOMED,Benign neoplasm of major salivary gland,4305589,"Neoplasm, benign",3898006,Has asso morph,1
+SNOMED:92205005,30679,92205005,SNOMED,Benign neoplasm of major salivary gland,4002730,Major salivary gland structure,119282003,Has finding site,1
+SNOMED:92263001,26060,92263001,SNOMED,Benign neoplasm of tonsil,4305589,"Neoplasm, benign",3898006,Has asso morph,1
+SNOMED:92263001,26060,92263001,SNOMED,Benign neoplasm of tonsil,4327174,Palatine tonsillar structure,75573002,Has finding site,1
+SNOMED:92293007,30356,92293007,SNOMED,Benign neoplasm of pharynx,4305589,"Neoplasm, benign",3898006,Has asso morph,1
+SNOMED:92293007,30356,92293007,SNOMED,Benign neoplasm of pharynx,4207370,Pharyngeal structure,54066008,Has finding site,1
+SNOMED:92294001,28115,92294001,SNOMED,Benign neoplasm of pineal gland,4305589,"Neoplasm, benign",3898006,Has asso morph,1
+SNOMED:92294001,28115,92294001,SNOMED,Benign neoplasm of pineal gland,4164136,Pineal structure,45793000,Has finding site,1
+SNOMED:92585006,28109,92585006,SNOMED,Carcinoma in situ of esophagus,37156895,Carcinoma in situ,1187138006,Has asso morph,1
+SNOMED:92585006,28109,92585006,SNOMED,Carcinoma in situ of esophagus,4140098,Esophageal structure,32849002,Has finding site,1
+SNOMED:92634009,24897,92634009,SNOMED,Carcinoma in situ of larynx,37156895,Carcinoma in situ,1187138006,Has asso morph,1
+SNOMED:92634009,24897,92634009,SNOMED,Carcinoma in situ of larynx,4262229,Laryngeal structure,4596009,Has finding site,1
+SNOMED:93677000,25757,93677000,SNOMED,Primary malignant neoplasm of aortic body,37153816,Malignant neoplasm,1240414004,Has asso morph,1
+SNOMED:93677000,25757,93677000,SNOMED,Primary malignant neoplasm of aortic body,4327482,Aortic body,75061007,Has finding site,1
+SNOMED:93677000,25757,93677000,SNOMED,Primary malignant neoplasm of aortic body,37157802,Primary malignant neoplastic proliferation,1234914003,Has pathology,1
+SNOMED:93740003,27235,93740003,SNOMED,Primary malignant neoplasm of carotid body,37153816,Malignant neoplasm,1240414004,Has asso morph,1
+SNOMED:93740003,27235,93740003,SNOMED,Primary malignant neoplasm of carotid body,4197418,Carotid body structure,51345006,Has finding site,1
+SNOMED:93740003,27235,93740003,SNOMED,Primary malignant neoplasm of carotid body,37157802,Primary malignant neoplastic proliferation,1234914003,Has pathology,1
+SNOMED:93843007,25486,93843007,SNOMED,Primary malignant neoplasm of islets of Langerhans,37153816,Malignant neoplasm,1240414004,Has asso morph,1
+SNOMED:93843007,25486,93843007,SNOMED,Primary malignant neoplasm of islets of Langerhans,4301372,Endocrine pancreatic structure,78696007,Has finding site,1
+SNOMED:93843007,25486,93843007,SNOMED,Primary malignant neoplasm of islets of Langerhans,37157802,Primary malignant neoplastic proliferation,1234914003,Has pathology,1
+SNOMED:93922007,30346,93922007,SNOMED,Primary malignant neoplasm of neck,37153816,Malignant neoplasm,1240414004,Has asso morph,1
+SNOMED:93922007,30346,93922007,SNOMED,Primary malignant neoplasm of neck,4260843,Neck structure,45048000,Has finding site,1
+SNOMED:93922007,30346,93922007,SNOMED,Primary malignant neoplasm of neck,37157802,Primary malignant neoplastic proliferation,1234914003,Has pathology,1
+SNOMED:93961004,28083,93961004,SNOMED,Primary malignant neoplasm of pharynx,37153816,Malignant neoplasm,1240414004,Has asso morph,1
+SNOMED:93961004,28083,93961004,SNOMED,Primary malignant neoplasm of pharynx,4207370,Pharyngeal structure,54066008,Has finding site,1
+SNOMED:93961004,28083,93961004,SNOMED,Primary malignant neoplasm of pharynx,37157802,Primary malignant neoplastic proliferation,1234914003,Has pathology,1
+SNOMED:93962006,26361,93962006,SNOMED,Primary malignant neoplasm of pineal gland,37153816,Malignant neoplasm,1240414004,Has asso morph,1
+SNOMED:93962006,26361,93962006,SNOMED,Primary malignant neoplasm of pineal gland,4164136,Pineal structure,45793000,Has finding site,1
+SNOMED:93962006,26361,93962006,SNOMED,Primary malignant neoplasm of pineal gland,37157802,Primary malignant neoplastic proliferation,1234914003,Has pathology,1
+SNOMED:93964007,24296,93964007,SNOMED,Primary malignant neoplasm of pituitary gland,37153816,Malignant neoplasm,1240414004,Has asso morph,1
+SNOMED:93964007,24296,93964007,SNOMED,Primary malignant neoplasm of pituitary gland,4209428,Pituitary structure,56329008,Has finding site,1
+SNOMED:93964007,24296,93964007,SNOMED,Primary malignant neoplasm of pituitary gland,37157802,Primary malignant neoplastic proliferation,1234914003,Has pathology,1
+SNOMED:94899001,22274,94899001,SNOMED,Neoplasm of uncertain behavior of larynx,4313421,Neoplasm of uncertain behavior,86251006,Has asso morph,1
+SNOMED:94899001,22274,94899001,SNOMED,Neoplasm of uncertain behavior of larynx,4262229,Laryngeal structure,4596009,Has finding site,1
+SNOMED:95002008,22871,95002008,SNOMED,Neoplasm of uncertain behavior of pineal gland,4313421,Neoplasm of uncertain behavior,86251006,Has asso morph,1
+SNOMED:95002008,22871,95002008,SNOMED,Neoplasm of uncertain behavior of pineal gland,4164136,Pineal structure,45793000,Has finding site,1
+SNOMED:95004009,27835,95004009,SNOMED,Neoplasm of uncertain behavior of pituitary gland,4313421,Neoplasm of uncertain behavior,86251006,Has asso morph,1
+SNOMED:95004009,27835,95004009,SNOMED,Neoplasm of uncertain behavior of pituitary gland,4209428,Pituitary structure,56329008,Has finding site,1
+SNOMED:95435007,25582,95435007,SNOMED,Tracheoesophageal fistula,4053885,Internal fistula,12582004,Has asso morph,1;2
+SNOMED:95435007,25582,95435007,SNOMED,Tracheoesophageal fistula,4195956,Tracheal structure,44567001,Has finding site,1
+SNOMED:95435007,25582,95435007,SNOMED,Tracheoesophageal fistula,4140098,Esophageal structure,32849002,Has finding site,2
+SNOMED:9989000,73017,9989000,SNOMED,Congenital anomaly of toe,4175951,Morphologically abnormal structure,49755003,Has asso morph,1
+SNOMED:9989000,73017,9989000,SNOMED,Congenital anomaly of toe,4106395,Toe structure,29707007,Has finding site,1
+SNOMED:9989000,73017,9989000,SNOMED,Congenital anomaly of toe,4204670,Pathological developmental process,308490002,Has pathology,1
+SNOMED:9989000,73017,9989000,SNOMED,Congenital anomaly of toe,4116830,Congenital,255399007,Has occurrence,1

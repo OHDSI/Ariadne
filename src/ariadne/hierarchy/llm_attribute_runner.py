@@ -2,10 +2,14 @@
 
 The module exposes a single public entry point, :func:`process_hierarchy`,
 which executes the term-level extraction pipeline over a tabular dataset.
-Execution is intentionally single-threaded and resumable: each term's result
-is written to its own JSON file as soon as it succeeds, so an interrupted run
-resumes by reprocessing only the terms without a cached file. Failed terms are
-left uncached and retried on the next run.
+Execution is resumable: each term's result is written to its own JSON file as
+soon as it succeeds, so an interrupted run resumes by reprocessing only the
+terms without a cached file. Failed terms are left uncached and retried on the
+next run.
+
+Terms are processed concurrently by ``max_workers`` threads (the work is
+dominated by waiting on LLM API calls). Workers only run the extraction;
+caching, cost tracking and logging happen in the calling thread.
 """
 
 import json
@@ -13,6 +17,7 @@ import logging
 import re
 from pathlib import Path
 
+import openai
 import pandas as pd
 import psycopg
 
@@ -20,8 +25,11 @@ from ariadne.hierarchy.llm_attribute_extractor import (
     AttributeSearcher,
     ContentFilterError,
     ReferenceSearcher,
+    assign_role_groups,
+    drop_non_candidate_values,
     extract_attributes,
 )
+from ariadne.utils.concurrency import run_concurrently
 from ariadne.utils.settings import HierarchySettings
 
 logger = logging.getLogger(__name__)
@@ -36,7 +44,7 @@ def _process_term(
     source_meta: dict,
     source_term: str,
     attribute_searcher: AttributeSearcher,
-    reference_searcher: ReferenceSearcher | None,
+    reference_searcher: ReferenceSearcher,
     hierarchy_settings: HierarchySettings,
 ) -> dict:
     """Run extraction for one source term and normalize failure handling.
@@ -52,7 +60,7 @@ def _process_term(
     attribute_searcher
         Search component used to retrieve candidate attributes.
     reference_searcher
-        Optional search component used for reference context retrieval.
+        Search component used for reference context retrieval.
     hierarchy_settings
         Runtime settings controlling model/provider/evaluation behavior.
 
@@ -71,7 +79,16 @@ def _process_term(
         )
         result.update(source_meta)
         return result
-    except (ValueError, KeyError, ContentFilterError, psycopg.Error) as exc:
+    except (
+        ValueError,
+        KeyError,
+        ContentFilterError,
+        psycopg.Error,
+        # Transient API failures (raised after the OpenAI client's own retries);
+        # more likely with concurrent workers, so fail the term, not the run.
+        openai.RateLimitError,
+        openai.APIConnectionError,
+    ) as exc:
         logger.exception("  Error processing term %s: %s", source_term, exc)
         return {**source_meta, "error": str(exc)}
 
@@ -86,6 +103,7 @@ def process_hierarchy(
     source_vocab_column: str = "source_vocabulary_id",
     source_id_column: str | None = "source_concept_id",
     checkpoint_every: int = 5,
+    max_workers: int | None = None,
 ) -> list[dict]:
     """Execute hierarchy extraction over source terms with checkpoint resume.
 
@@ -113,12 +131,15 @@ def process_hierarchy(
     checkpoint_every
         Cadence (in terms) for emitting a progress log line. Results are
         persisted immediately per term regardless of this value.
+    max_workers
+        Number of terms processed concurrently. Defaults to
+        ``hierarchy_settings.evaluation.max_workers``; ``1`` runs sequentially.
 
     Returns
     -------
     list[dict]
-        One result dictionary per processed source code, including any
-        previously cached results loaded from disk.
+        One result dictionary per processed source code: previously cached
+        results first, then newly processed terms in input order.
 
     Raises
     ------
@@ -130,11 +151,13 @@ def process_hierarchy(
 
     results_dir = Path(hierarchy_settings.evaluation.llm_response_folder)
 
-    all_results, processed_ids = _load_cached_results(results_dir)
+    all_results = load_hierarchy_results(results_dir)
+    processed_ids = {r["source_key"] for r in all_results}
     if all_results:
         logger.info(
             "Resuming: %d terms already cached in %s", len(all_results), results_dir
         )
+        _drop_cached_non_candidate_values(all_results, hierarchy_settings)
 
     has_source_id = bool(source_id_column) and source_id_column in terms.columns
 
@@ -152,35 +175,40 @@ def process_hierarchy(
         return all_results
 
     total_cost = sum(r.get("cost", {}).get("total_cost", 0.0) for r in all_results)
+    if max_workers is None:
+        max_workers = getattr(hierarchy_settings.evaluation, "max_workers", 1)
 
-    for row in pending_terms:
+    def _source_meta(row) -> dict:
         source_concept_code = str(getattr(row, source_code_column))
         source_vocabulary_id = str(getattr(row, source_vocab_column))
-        source_term = str(getattr(row, source_term_column))
-        source_key = _make_source_key(source_vocabulary_id, source_concept_code)
         raw_id = getattr(row, source_id_column) if has_source_id else None
-        source_concept_id = None if raw_id is None or pd.isna(raw_id) else raw_id
-        source_meta = {
-            "source_key": source_key,
-            "source_concept_id": source_concept_id,
+        return {
+            "source_key": _make_source_key(source_vocabulary_id, source_concept_code),
+            "source_concept_id": None if raw_id is None or pd.isna(raw_id) else raw_id,
             "source_concept_code": source_concept_code,
             "source_vocabulary_id": source_vocabulary_id,
-            "source_term": source_term,
+            "source_term": str(getattr(row, source_term_column)),
         }
-        logger.debug(
-            "\n%s\n[%d/%d] %s",
-            "=" * 60,
-            len(all_results) + 1,
-            len(terms),
-            source_term,
-        )
-        result = _process_term(
+
+    def _worker(source_meta: dict) -> dict:
+        logger.debug("\n%s\n%s", "=" * 60, source_meta["source_term"])
+        return _process_term(
             source_meta,
-            source_term,
+            source_meta["source_term"],
             attribute_searcher,
             reference_searcher,
             hierarchy_settings,
         )
+
+    pending_meta = [_source_meta(row) for row in pending_terms]
+    new_results: list[dict | None] = [None] * len(pending_meta)
+    logger.info(
+        "Processing %d pending terms with %d worker(s)", len(pending_meta), max(1, max_workers)
+    )
+
+    for idx, result in run_concurrently(pending_meta, _worker, max_workers):
+        new_results[idx] = result
+        source_key = result["source_key"]
 
         # Do not cache failures: leaving them unpersisted means they are retried
         # on the next run (mirrors the LlmMapper per-response file cache).
@@ -188,16 +216,15 @@ def process_hierarchy(
             logger.warning(
                 "Term %s failed; not caching so it retries next run.", source_key
             )
-            all_results.append(result)
             continue
 
         _save_result(results_dir, result)
-        all_results.append(result)
         processed_ids.add(source_key)
         if "cost" in result:
             total_cost += result["cost"]["total_cost"]
             logger.debug(
-                "  cost: $%.4f | running total: $%.4f",
+                "  %s cost: $%.4f | running total: $%.4f",
+                source_key,
                 result["cost"]["total_cost"],
                 total_cost,
             )
@@ -209,6 +236,8 @@ def process_hierarchy(
                 len(terms),
                 total_cost,
             )
+
+    all_results.extend(r for r in new_results if r is not None)
 
     logger.debug(
         "\n%s\nCompleted: %d terms, Total cost: $%.4f",
@@ -225,26 +254,51 @@ def _safe_result_filename(source_key: str) -> str:
     return re.sub(r"[^A-Za-z0-9._-]", "_", source_key) + ".json"
 
 
-def _load_cached_results(results_dir: Path) -> tuple[list[dict], set]:
-    """Load previously persisted per-term results for resume."""
-    all_results: list[dict] = []
-    processed_ids: set = set()
-    if not results_dir.exists():
-        return all_results, processed_ids
-    for path in sorted(results_dir.glob("*.json")):
-        try:
-            with open(path, "r", encoding="utf-8") as f:
-                result = json.load(f)
-        except (json.JSONDecodeError, OSError) as exc:
-            logger.warning("Skipping unreadable result file %s: %s", path, exc)
+def load_hierarchy_results(path: str | Path) -> list[dict]:
+    """Load pipeline results from a JSON list file or a folder of per-term JSON files.
+
+    Unreadable per-term files and results without a ``source_key`` are skipped with a warning.
+    """
+    path = Path(path)
+    if path.is_file():
+        with open(path, encoding="utf-8") as f:
+            data = json.load(f)
+        loaded = data if isinstance(data, list) else [data]
+    else:
+        loaded = []
+        for file in sorted(path.glob("*.json")):
+            try:
+                with open(file, encoding="utf-8") as f:
+                    loaded.append(json.load(f))
+            except (json.JSONDecodeError, OSError) as exc:
+                logger.warning("Skipping unreadable result file %s: %s", file, exc)
+    results = [r for r in loaded if isinstance(r, dict) and r.get("source_key")]
+    if len(results) < len(loaded):
+        logger.warning("Skipped %d result(s) without a source_key in %s", len(loaded) - len(results), path)
+    return results
+
+
+def _drop_cached_non_candidate_values(results: list[dict], hierarchy_settings) -> None:
+    """Apply the candidates-only rule to cached results (in place), including ones cached before it existed.
+
+    The cache files are not rewritten; the rule is re-applied on every load.
+    """
+    affected = []
+    for result in results:
+        if result.get("error") or "retrieved_candidates" not in result:
             continue
-        source_key = result.get("source_key")
-        if source_key is None:
-            logger.warning("Result file %s has no source_key; skipping.", path)
-            continue
-        all_results.append(result)
-        processed_ids.add(source_key)
-    return all_results, processed_ids
+        dropped = drop_non_candidate_values(result, result["retrieved_candidates"])
+        if dropped:
+            assign_role_groups(result, hierarchy_settings)
+            affected.append(
+                f"{result.get('source_term')}: "
+                + ", ".join(f"{d['attribute']}={d['concept_name']}" for d in dropped)
+            )
+    if affected:
+        logger.info(
+            "Dropped selected values not among the candidates in %d cached result(s): %s",
+            len(affected), "; ".join(affected),
+        )
 
 
 def _save_result(results_dir: Path, result: dict) -> None:

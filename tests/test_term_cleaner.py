@@ -1,4 +1,5 @@
 import json
+import threading
 
 import pandas as pd
 import pytest
@@ -70,7 +71,41 @@ def test_clean_terms_dataframe(monkeypatch):
     result = cleaner.clean_terms(df.copy())
 
     assert result["cleaned_term"].tolist() == [f"term {i}" for i in range(30)]
-    assert call_sizes == [25, 5]
+    assert sorted(call_sizes) == [5, 25]
+
+
+def test_clean_terms_runs_batches_concurrently_and_keeps_row_order(monkeypatch):
+    cleaner = TermCleaner(settings=TermCleanerSettings(system_prompt="test prompt", max_workers=3))
+    assert cleaner.max_workers == 3
+    # All three batches must be in flight at once to pass the barrier.
+    barrier = threading.Barrier(3, timeout=5)
+    thread_ids = set()
+
+    def fake_get_llm_response(**kwargs):
+        terms = json.loads(kwargs["prompt"].split("Input JSON:\n", 1)[1])["terms"]
+        thread_ids.add(threading.get_ident())
+        barrier.wait()
+        results = [{"row_number": r["row_number"], "cleaned_term": r["source_term"].upper()} for r in terms]
+        return {"content": "", "parsed_json": {"results": results}, "usage": {"total_cost_usd": 0.5}}
+
+    monkeypatch.setattr("ariadne.term_cleanup.term_cleaner.get_llm_response", fake_get_llm_response)
+    df = pd.DataFrame(
+        {
+            "source_term": [f"term {i}" for i in range(60)],
+            "source_vocabulary_id": ["SNOMED"] * 60,
+            "source_concept_code": [str(i) for i in range(60)],
+        },
+        index=range(100, 160),
+    )
+    result = cleaner.clean_terms(df)
+
+    assert result["cleaned_term"].tolist() == [f"TERM {i}" for i in range(60)]
+    assert len(thread_ids) == 3
+    assert cleaner.get_total_cost() == pytest.approx(1.5)
+
+
+def test_term_cleaner_default_max_workers_is_parallel():
+    assert TermCleanerSettings().max_workers > 1
 
 
 def test_clean_terms_raises_on_missing_required_columns():

@@ -11,43 +11,48 @@ from pathlib import Path
 
 import pandas as pd
 
+from ariadne.hierarchy.llm_attribute_extractor import EXTRACTION_KEY_ALIASES
+from ariadne.hierarchy.role_grouper import group_attributes
 from ariadne.hierarchy.types import split_interprets_pairs
+from ariadne.utils.settings import HierarchySettings
 
 logger = logging.getLogger(__name__)
 
-ATTR_KEY_TO_GS_CATEGORY: dict[str, str] = {
-    "associated_morphology": "Has asso morph",
-    "finding_site": "Has finding site",
-    "causative_agent": "Has causative agent",
-    "clinical_course": "Has clinical course",
-    "finding_context": "Has finding context",
-    "interpretation": "Has interpretation",
-    "interprets": "Has interprets",
-    "occurrence": "Has occurrence",
-    "pathological_process": "Has pathology",
-    "severity": "Has severity",
-    "subject_relationship_context": "Has relat context",
-    "temporal_context": "Has temporal context",
-    "finding_asso_with": "Finding asso with",
-    "associated_with": "Finding asso with",
-    "finding_associated_with": "Finding asso with",
-    "due_to": "Has due to",
-    "during": "During",
-    "occurs_after": "Occurs after",
-}
 
-def build_prediction_rows(results: list[dict]) -> list[dict]:
+def _role_group_lookup(role_groups: list[dict] | None) -> dict[tuple[str, str], str]:
+    """Map ``(attribute_key, concept_id)`` to its role group numbers, e.g. ``"1;2"``."""
+    groups: dict[tuple[str, str], set[int]] = {}
+    for group in role_groups or []:
+        for member in group.get("members", []):
+            key = (str(member.get("attribute")), str(member.get("concept_id")))
+            groups.setdefault(key, set()).add(int(group.get("group", 0)))
+    return {key: ";".join(str(g) for g in sorted(numbers)) for key, numbers in groups.items()}
+
+
+def build_prediction_rows(results: list[dict], hierarchy_settings: HierarchySettings) -> list[dict]:
     """Extract prediction rows from pipeline results for evaluation.
 
     Handles regular attributes (single dict, list of dicts) and paired
     ``interprets_interpretation`` structures via :func:`split_interprets_pairs`.
+    Each row carries ``relationship_groups``: the SNOMED role group number(s) of the
+    attribute value, ``;``-separated (a value shared by several groups appears once).
 
     Args:
         results: Pipeline result dicts from ``process_hierarchy``.
+        hierarchy_settings: Pipeline configuration. ``hierarchy.attributes`` gives each attribute
+            key's OHDSI relationship (``attribute_category``). When ``hierarchy.mrcm.grouping`` is
+            configured, results without ``role_groups`` (e.g. cached before grouping existed) are
+            grouped on the fly; otherwise their ``relationship_groups`` is ``None``.
 
     Returns:
         List of flat dicts ready for ``pd.DataFrame``.
     """
+    relationship_for = hierarchy_settings.relationship_by_attribute()
+    mrcm_settings = hierarchy_settings.mrcm
+
+    def _category(attr_key: str, default: str) -> str:
+        return relationship_for.get(EXTRACTION_KEY_ALIASES.get(attr_key, attr_key), default)
+
     pred_rows: list[dict] = []
     for result in results:
         source_meta = {
@@ -59,6 +64,15 @@ def build_prediction_rows(results: list[dict]) -> list[dict]:
         }
         if "attributes" not in result:
             continue
+        role_groups = result.get("role_groups")
+        if role_groups is None and mrcm_settings.grouping.enabled:
+            role_groups = group_attributes(
+                result["attributes"], mrcm_settings, result.get("llm_role_groups")
+            ).role_groups
+        group_lookup = _role_group_lookup(role_groups)
+
+        def _groups(key: str, concept: dict) -> str | None:
+            return group_lookup.get((key, str(concept.get("concept_id"))))
         for attr_key, attr_value in result["attributes"].items():
             if attr_value is None:
                 continue
@@ -74,11 +88,12 @@ def build_prediction_rows(results: list[dict]) -> list[dict]:
                             "predicted_target_concept_id": concept.get("concept_id"),
                             "predicted_target_concept_name": concept.get("concept_name"),
                             "predicted_target_concept_code": concept.get("concept_code"),
-                            "attribute_category": ATTR_KEY_TO_GS_CATEGORY.get(sub_key, f"Has {sub_key}"),
+                            "attribute_category": _category(sub_key, f"Has {sub_key}"),
+                            "relationship_groups": _groups(sub_key, concept),
                         })
                 continue
 
-            attr_type = ATTR_KEY_TO_GS_CATEGORY.get(attr_key, attr_key)
+            attr_type = _category(attr_key, attr_key)
             # Handle list of concept dicts (new multi-value format)
             if isinstance(attr_value, list):
                 for item in attr_value:
@@ -89,8 +104,9 @@ def build_prediction_rows(results: list[dict]) -> list[dict]:
                             "predicted_target_concept_name": item.get("concept_name"),
                             "predicted_target_concept_code": item.get("concept_code"),
                             "attribute_category": attr_type,
+                            "relationship_groups": _groups(attr_key, item),
                         })
-            # Handle single concept dict (legacy format)
+            # Handle single concept dict
             elif isinstance(attr_value, dict):
                 pred_rows.append({
                     **source_meta,
@@ -98,6 +114,7 @@ def build_prediction_rows(results: list[dict]) -> list[dict]:
                     "predicted_target_concept_name": attr_value.get("concept_name"),
                     "predicted_target_concept_code": attr_value.get("concept_code"),
                     "attribute_category": attr_type,
+                    "relationship_groups": _groups(attr_key, attr_value),
                 })
     return pred_rows
 
@@ -106,6 +123,7 @@ def evaluate_results(
     results: list[dict],
     gs_path: str,
     output_dir: Path,
+    hierarchy_settings: HierarchySettings,
 ) -> pd.DataFrame:
     """Produce a combined evaluation table (full outer join of GS and predictions).
 
@@ -122,19 +140,20 @@ def evaluate_results(
         results: List of pipeline result dicts from ``process_hierarchy``.
         gs_path: Path to the gold-standard CSV.
         output_dir: Path wherhe the output CSV should be saved.
+        hierarchy_settings: Pipeline configuration (see :func:`build_prediction_rows`).
 
     Returns:
         Combined evaluation DataFrame.
     """
     # --- build predicted rows ---
-    pred_rows = build_prediction_rows(results)
+    pred_rows = build_prediction_rows(results, hierarchy_settings)
     pred_df = pd.DataFrame(pred_rows)
     source_cols = ["source_key", "source_concept_id", "source_concept_code",
                    "source_vocabulary_id", "source_term"]
     if pred_df.empty:
         pred_df = pd.DataFrame(columns=source_cols + [
             "predicted_target_concept_id", "predicted_target_concept_name",
-            "predicted_target_concept_code", "attribute_category"])
+            "predicted_target_concept_code", "attribute_category", "relationship_groups"])
 
     # --- load gold standard ---
     gs_df = pd.read_csv(gs_path)
@@ -204,7 +223,7 @@ def evaluate_results(
     logger.info("F1:                 %.1f%%", f1)
 
     # --- save ---
-    out_path = os.path.join(output_dir, "attribute_evaluation.csv")
+    out_path = os.path.join(output_dir, "hierarchy_attribute_evaluation.csv")
     combined.to_csv(out_path, index=False)
     logger.info("Combined evaluation saved: %s (%d rows)", out_path, len(combined))
     return combined

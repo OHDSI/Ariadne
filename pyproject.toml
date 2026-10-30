@@ -51,7 +51,10 @@ ariadne-build-index = "ariadne.hierarchy.__main__:main"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 python_files = "test_*.py"
-addopts = "-ra -q"
+addopts = "-ra -q -m 'not data'"
+markers = [
+    "data: tests that need local data (MRCM files, cached hierarchy results); run with `pytest -m data`",
+]
 
 [tool.black]
 line-length = 120

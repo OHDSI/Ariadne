@@ -15,7 +15,6 @@
 # limitations under the License.
 import math
 from pathlib import Path
-from typing import Dict, Any
 
 import numpy as np
 import pandas as pd
@@ -32,28 +31,6 @@ TARGET_CONCEPT_NAME_B = "target_concept_name_b"
 PREDICATE = "predicate"
 PREDICATE_B = "predicate_b"
 BROAD_MATCH = "broadMatch"
-
-
-def _load_gold_standard(filename: str | Path) -> Dict[int, Dict[str, Any]]:
-    df = pd.read_csv(filename)
-    gold_standard = {}
-    for index, row in df.iterrows():
-        details: Dict[str, Any] = {SOURCE_TERM: str(row[SOURCE_TERM])}
-        if row[PREDICATE] == BROAD_MATCH:
-            details[TARGET_CONCEPT_ID] = None
-            details[TARGET_CONCEPT_NAME] = None
-        else:
-            details[TARGET_CONCEPT_ID] = int(row[TARGET_CONCEPT_ID])
-            details[TARGET_CONCEPT_NAME] = str(row[TARGET_CONCEPT_NAME])
-        if row[PREDICATE_B] == BROAD_MATCH or pd.isna(row[TARGET_CONCEPT_ID_B]):
-            details[TARGET_CONCEPT_ID_B] = None
-            details[TARGET_CONCEPT_NAME_B] = None
-        else:
-            details[TARGET_CONCEPT_ID_B] = int(row[TARGET_CONCEPT_ID_B])
-            details[TARGET_CONCEPT_NAME_B] = str(row[TARGET_CONCEPT_NAME_B])
-        gold_standard[int(row[SOURCE_ID])] = details
-
-    return gold_standard
 
 
 def evaluate_concept_search(
@@ -83,7 +60,6 @@ def evaluate_concept_search(
         None. Execution results are written to the specified output file.
     """
     detail_strings = []
-    # gold_standard = _load_gold_standard(resolve_path(gold_standard_file))
     gold_standard = pd.read_csv(resolve_path(gold_standard_file))
     evaluated_gs_count = 0
     mean_average_precision = 0

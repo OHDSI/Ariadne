@@ -1,3 +1,6 @@
+# ============================================
+# Mapping pipeline configuration
+# ============================================
 verbatim_mapping:
   terms_folder: data/terms_condition
   verbatim_mapping_index_file: data/verbatim_condition_index.pkl
@@ -48,6 +51,8 @@ verbatim_mapping:
       # cancer specific: ICDO Condition Node Metastasis + other classes of CA, less relevant
 
 term_cleaning:
+  # Concurrent LLM batches (25 terms each); 1 = sequential. Bounded by the rate limit.
+  max_workers: 4
   system_prompt: |
     You are a clinical terminology parser. Your task is to extract only the core clinical term from a given string, removing any information that does not directly describe the essential concept—such as a condition, procedure, substance, or anatomical site—represented by the term.
     
@@ -222,57 +227,77 @@ llm_mapping:
       }
 
 # ============================================
-# Hierarchy Pipeline Configuration
+# Hierarchy pipeline configuration
 # ============================================
-# All tunable parameters for the SNOMED CT attribute extraction pipeline.
-# Prompts are stored as multi-line YAML strings (|) to keep them editable
-# without touching Python code.
-
 hierarchy:
 
   index_build:
-    # Number of unique SNOMED source concepts sampled for snomed_reference
-    reference_sample_size: 10000
-    # Batch size per embedding API request during index population
     embedding_batch_size: 500
-    # Folder for resumable parquet embedding caches used before DB upload
     embedding_cache_folder: data/hierarchy_embedding_cache
 
   retrieval:
-    # Number of similar reference terms for few-shot prompting (Step 1)
     num_reference_examples: 5
-    # Number of SNOMED candidate values per attribute category (Step 3)
-    top_k_per_category: 20
-    # Postgres HNSW index tuning — higher = more accurate but slower
-    hnsw_ef_search: 200
+    top_k_per_category: 25
+    hnsw_ef_search: 1000
 
-  scoring:
-    # Similarity score assigned to candidates injected from reference examples
-    reference_similarity: 0.9
-    # Similarity score assigned to candidates from hierarchy expansion (1-hop)
-    hierarchy_similarity: 0.85
+  parent_selection:
+    num_neighbours: 10
+    candidate_pool_size: 50
+    min_similarity: 0.6
+    min_support: 0.5
+    max_parents: 2
+    root_concept_id: 441840
+    primitive_status_concept_id: 40642538
+    exclude_source_descendants: true
+    max_workers: 4
+    neighbour_cache_file: data/notebook_results/hierarchy_parent_selection_neighbours.json
 
   evaluation:
     output_dir: "data/notebook_results"
+    max_workers: 4
 
-  snomed_relationships:
-    - "During"
-    - "Finding asso with"
-    - "Has asso morph"
-    - "Has causative agent"
-    - "Has clinical course"
-    - "Has due to"    
-    - "Has finding context"
-    - "Has finding site"
-    - "Has interpretation"
-    - "Has interprets"
-    - "Has occurrence"
-    - "Has pathology"
-    - "Has relat context"
-    - "Has severity"
-    - "Has temporal context"
-    - "Occurs after"
-  
+  # SNOMED CT attributes used by the hierarchy pipeline:
+  # pipeline key -> SNOMED attribute concept (RF2 typeId) and OHDSI relationship_id.
+  attributes:
+    associated_morphology:        {attribute_id: 116676008, ohdsi_relationship: "Has asso morph"}
+    finding_site:                 {attribute_id: 363698007, ohdsi_relationship: "Has finding site"}
+    causative_agent:              {attribute_id: 246075003, ohdsi_relationship: "Has causative agent"}
+    pathological_process:         {attribute_id: 370135005, ohdsi_relationship: "Has pathology"}
+    occurrence:                   {attribute_id: 246454002, ohdsi_relationship: "Has occurrence"}
+    clinical_course:              {attribute_id: 263502005, ohdsi_relationship: "Has clinical course"}
+    severity:                     {attribute_id: 246112005, ohdsi_relationship: "Has severity"}
+    due_to:                       {attribute_id: 42752001,  ohdsi_relationship: "Has due to"}
+    during:                       {attribute_id: 371881003, ohdsi_relationship: "During"}
+    occurs_after:                 {attribute_id: 255234002, ohdsi_relationship: "Occurs after"}
+    finding_asso_with:            {attribute_id: 47429007,  ohdsi_relationship: "Finding asso with"}
+    interprets:                   {attribute_id: 363714003, ohdsi_relationship: "Has interprets"}
+    interpretation:               {attribute_id: 363713009, ohdsi_relationship: "Has interpretation"}
+    associated_finding:           {attribute_id: 246090004, ohdsi_relationship: "Has asso finding"}  # not extracted yet
+    finding_context:              {attribute_id: 408729009, ohdsi_relationship: "Has finding context"}
+    temporal_context:             {attribute_id: 408731000, ohdsi_relationship: "Has temporal context"}
+    subject_relationship_context: {attribute_id: 408732007, ohdsi_relationship: "Has relat context"}
+
+  # SNOMED CT Machine Readable Concept Model (MRCM) rules used to build and validate role groups
+  mrcm:
+    folder: data/mrcm
+    content_types:
+      - 723596005  # All SNOMED CT content
+      - 723594008  # All precoordinated content
+    domains:
+      clinical_finding: 404684003                # Clinical finding (finding)
+      situation_with_explicit_context: 243796009 # Situation with explicit context (situation)
+      finding_with_explicit_context: 413350009   # Finding with explicit context (situation); sub-domain of 243796009
+    default_domain: clinical_finding
+
+    grouping:
+      self_grouped: [due_to, clinical_course, severity, during, occurs_after, finding_asso_with]
+      clusters:
+        core: [finding_site, associated_morphology, pathological_process, occurrence, causative_agent]
+        interpretation: [interprets, interpretation]
+        context: [associated_finding, finding_context, temporal_context, subject_relationship_context]
+      llm_grouped_clusters: [core]
+      requires:
+        interpretation: interprets
 
   prompts:
     extraction: |
@@ -281,162 +306,118 @@ hierarchy:
       # Attribute Definitions & Rules
       
       1. CORE CLINICAL ATTRIBUTES
-      - associated_morphology: The pathological change. Infer common patterns: "-itis" → Inflammatory morphology or Acute inflamation or Chronic inflamation; "-oma/carcinoma" → Neoplasm; "stenosis" → Obstruction. Words like "absence", "agenesis", "deformity" may imply Congenital anomaly morphologies. Hematologic changes (e.g., spherocytosis) imply morphologic abnormalities of blood cells.
-      - finding_site: The anatomical location. Derive the site from disease names (e.g., "esophag-" → esophageal structure). Always use the most specific BODY STRUCTURE concept that fully covers the description.
-      - causative_agent: The organism, substance, or drug directly causing the condition.
-      - due_to: Another condition or event directly causing the condition. For any injury-related conditions (contusion, wound, sprain, burn, fracture and other injuries), ALWAYS use due_to "Traumatic event".
-      - clinical_course: E.g., acute, chronic, subacute, episodic.
+      - associated_morphology: The characteristic structural change at tissue or cellular level. Infer established entities, such as "-itis" to "Inflammatory morphology"/"Chronic inflammation"/"Acute inflammation" and stenosis to "Stenosis". Preserve explicitly stated acuity, behavior, histology, multiplicity, and composite morphology. Do not infer congenitality through morphology when it can be represented by occurrence and pathological_process.
+      - finding_site: The anatomical location. Derive the site from disease names (e.g., "esophag-" → esophageal structure). Select the most specific BODY STRUCTURE concept entailed by the term; do not infer tissue, layer, lumen, substructure, laterality, or whole-entity involvement from plausibility alone. SEP rule: use X structure for unspecified involvement of some or all of X; use Entire X only when the defining model entails the complete countable anatomical entity; use Part of X only for an unspecified proper part; use X region for a broad three-dimensional anatomical area.
+      - causative_agent: The organism, substance, product, physical object, or physical force directly responsible for the condition.
+      - due_to: Another condition or event directly causing the condition. Mandatory injury rule: If the term denotes an injury, set due_to to "Traumatic event", even when trauma is implicit and the words “trauma” or “traumatic” do not appear. This includes abrasions, wounds, contusions, sprains, burns, fractures, dislocations, and other traumatic injuries.
+      - clinical_course: The defining temporal pattern of the condition, such as acute, chronic, subacute, or recurrent. Assign only when represented as a distinct defining characteristic, not solely because similar wording occurs inside a composite morphology.
       - severity: E.g., mild, moderate, severe.
-      - occurrence: The life stage or developmental period at onset (e.g., congenital, neonatal, infancy, fetal period). Key cues: "congenital", "hereditary", "neonatal", "fetal", "infantile". Do NOT use for phase-of-care timing.
-      - during: Phase-of-care timing only (e.g., during delivery, postpartum period, during surgery). DO NOT use for life-stage — use occurrence instead.
-      - occurs_after: Event preceding the condition (e.g., "postoperative" → occurs_after 'Surgical operation'). For direct cause use due_to.
+      - occurrence: The life stage or developmental period in which the condition necessarily occurs, such as congenital, neonatal, fetal, or infantile. Do not infer congenital occurrence from "genetic", "familial", or "hereditary" alone.
+      - during: The procedure during which the finding occurs, such as "Delivery procedure" or "Surgical procedure". Use occurrence, not during, for maternal, fetal, neonatal, or other life phases.
+      - occurs_after: Use when the finding occurs after another finding, event, or procedure. It expresses temporal sequence without implying causation. When both causation and sequence are explicit, use both due_to and occurs_after. Cues include "after", "following", "postoperative", "postablative", "posttransplant", and "late effect".
 
       2. CONTEXT ATTRIBUTES (Situation with Explicit Context)
       Scan every term for implied context. Provide these ONLY when a term explicitly overrides the default assumption of a current, confirmed diagnosis in the patient (e.g., history, family history, suspected, ruled out).
-      - finding_context: The clinical certainty. Values: Known present, Suspected, Probable, Known absent, Rule out. 
-        Do NOT apply "Known present" to standard findings or diseases. ONLY use it when building a complex "Situation" (like a Family History).
+      - finding_context: Select the exact SNOMED CT finding-context value expressed by the term, such as Known present, Known absent, Possible, Suspected, or Confirmed present. Do not add context attributes to ordinary current findings.
       - temporal_context: Values: Current or specified time, Past. (Use "Past" for terms containing "History of"). Do NOT output for standard current findings.
       - subject_relationship_context: The relationship of the subject. Values: Subject of record, Person in family of subject, Maternal, Fetal, Donor. Do NOT output for standard findings in the patient.
-        * NOTE: "Family history of [Disease]" is modeled as: finding_context = Known present; temporal_context = Past; subject_relationship_context = Person in family of subject.
+        * NOTE: "Family history of [Disease]" is modeled as: finding_context = Known present; temporal_context = Current or past; subject_relationship_context = Person in family of subject.
       
       3. COMPLEX / CONDITIONAL ATTRIBUTES
       - interprets_interpretation: PAIRED ATTRIBUTES. Use ONLY when the condition is fundamentally defined by an abnormal result for a specific named, measurable SNOMED observable. 
         * Valid triggers: blood/urine analytes, named organ-function tests, or named size measurements. 
-        * Endocrine cues: "hyper-" usually means Increased interpretation + Secretion of [gland] hormone. "hypo-" usually means Decreased interpretation.
+        * For endocrine hypo-/hyperfunction, select the exact observable used in the target or analogous SNOMED CT model. Common models use "Hormone production"; use a secretion observable only when secretion is specifically represented.
         * Format as a list of dictionaries: [{"interprets": "...", "interpretation": "..."}]. Never provide one without the other.
+        * Use only when the SNOMED CT model represents the finding as an interpretation of a named observable or function. Do not infer an observable solely from general clinical knowledge.
+        * Reference rule: the observable does NOT need to be named in the term. If the closest reference examples (subtypes, parents or siblings of the same disorder) consistently model interprets/interpretation pairs, output ALL of those pairs using the reference concept names verbatim. When references disagree, follow the one matching the term's direction (hypo-/hyper-, deficiency/excess) and analyte.
+        * For combined terms ("X and Y"), output the union of the pairs modeled for each component; do not keep only the shared ones.
+        * For measurement findings, prefer Above/Below/Within/Outside reference range over generic Increased/Decreased/Normal/Abnormal when applicable.
         * Invalid triggers: Generic dysfunction, paralysis, vague anatomical deformities.
-      - pathological_process: ONLY assign for the following tightly defined categories:
-        (1) Pathological developmental process: structural congenital anomalies (atresia, aplasia, web). Do NOT use for hereditary blood/metabolic disorders.
-        (2) Primary malignant neoplastic proliferation: ONLY for terms that explicitly state "Primary malignant neoplasm of [site]".
-        (3) Infectious process: ONLY for diseases named after a specific pathogen (tuberculosis, candidiasis). Do NOT apply to generic acute infections (e.g., acute tonsillitis, cellulitis).
-        (4) Abnormal immune process: Primary immunodeficiency syndromes.
-        (5) Non-immunoglobulin E-mediated allergic process.
+      - pathological_process: Assign only when supported by the term or an analogous reference model:
+        (1) Pathological developmental process: congenital or developmental structural abnormalities when pathological development defines the disorder. Do not infer it from hereditary/genetic alone, and do not use it for congenital neoplasms.
+        (2) Primary malignant neoplastic proliferation: only for terms explicitly stating "Primary malignant neoplasm of [site]".
+        (3) Infectious process: when infection is explicit or the disease is inherently infectious. Do not infer infection from "-itis" or inflammation alone. Add causative_agent only when a specific organism or agent is specified.
+        (4) Abnormal immune process or an appropriate subtype, such as Autoimmune process or Allergic process, when the disorder is explicitly immune-mediated.
+        (5) Use a more specific allergic-process subtype, such as Non-immunoglobulin E-mediated allergic process, only when supported.
       - finding_asso_with: The primary associated condition when the term is explicitly "X in [Disease Y]" or "X complicating Y", and Y is a named disease that is neither the morphology, causative agent or disease, nor finding site.
       
+      - Return only necessarily defining attributes, not features that are merely common, clinically plausible, or variably present.
+      - Prefer an exact combined morphology when it represents the complete abnormality at one site; otherwise preserve required separate morphologies and sites.
+      - Multiple finding sites may be required. Do not collapse separately modeled sites into one combined site.
+      - Use close reference examples as evidence of released SNOMED CT modeling patterns only when the clinical meaning and attribute relationships are analogous.
+
+      {grouping_section}
       {reference_section}
       
       # Examples
-      Term: Hyperpituitarism
-      Output JSON:
-      {{
-          "interprets_interpretation": [{{"interprets": "Hormone production", "interpretation": "Increased"}}],
-          "finding_site": ["Adenohypophysis structure"]
-      }}
-
       Term: Hypoglycemic disorder
       Output JSON:
       {{
           "interprets_interpretation": [{{"interprets": "Blood glucose concentration", "interpretation": "Below reference range"}}]
       }}
-      
-      Term: Hypertrophy of tonsils
-      Output JSON:
-      {{
-          "associated_morphology": ["Hypertrophy"],
-          "finding_site": ["Entire left tonsil (palatine)", "Entire right tonsil (palatine)"],
-          "interprets_interpretation": [{{"interprets": "Size of tonsil", "interpretation": "Enlarged"}}]
-      }}
 
       Term: Reduction deformity of lower limb
       Output JSON:
       {{
-          "associated_morphology": ["Abnormal shortening"],
-          "finding_site": ["Entire lower limb"],
-          "occurrence": ["Congenital"],
-          "pathological_process": ["Pathological developmental process"]
+          "role_groups": [
+              {{"associated_morphology": "Abnormal shortening", "finding_site": "Entire lower limb", "occurrence": "Congenital", "pathological_process": "Pathological developmental process"}}
+          ]
       }}
-      
-      Term: Autoimmune hemolytic anemia
-      Output JSON:
-      {{
-          "interprets_interpretation": [
-              {{"interprets": "Red blood cell count", "interpretation": "Below reference range"}},
-              {{"interprets": "Hemolysis", "interpretation": "Present"}}
-          ],
-          "pathological_process": ["Autoimmune process"],
-          "causative_agent": ["Antibody"],
-          "occurrence": ["Period of life between birth and death"]
-      }}
-      
+
       Term: Family history of diabetes mellitus type 2
       Output JSON:
       {{
           "finding_context": ["Known present"],
           "temporal_context": ["Current or past"],
-          "subject_relationship_context": ["Person in the family of subject"]
+          "subject_relationship_context": ["Person in family of subject"]
       }}
-        
-      Term: Traumatic arthropathy of the shoulder region after operation on shoulder joint
+
+      Term: Open fracture of clavicle
       Output JSON:
       {{
-          "finding_site": ["Joint structure of shoulder region"],
-          "occurs_after": ["Operation on shoulder joint"],
+          "role_groups": [{{"associated_morphology": "Fracture, open", "finding_site": "Bone structure of clavicle"}}],
           "due_to": ["Traumatic event"]
       }}
-        
-      Term: Suspected appendicitis
+
+      Term: Acute tracheobronchitis
       Output JSON:
       {{
-          "finding_context": ["Suspected"],
-          "finding_site": ["Appendix structure"],
-          "associated_morphology": ["Inflammation"]
-      }}
-        
-      Term: Postoperative hemorrhage
-      Output JSON:
-      {{
-          "during": ["Postoperative period"],
-          "occurs_after": ["Surgical procedure"],
-          "associated_morphology": ["Hemorrhage"]
-      }}
-      
-      Term: Barrett's esophagus with esophagitis and bleeding ulcer
-      Output JSON:
-      {{
-          "finding_site": ["Esophageal mucous membrane structure", "Structure of lower third of esophagus", "Esophageal structure"],
-          "associated_morphology": ["Intestinal metaplasia", "Inflammatory morphology", "Bleeding ulcer"]
-      }}
-       
-      Term: Trachoma
-      Output JSON:
-      {{
-          "finding_site": ["Conjunctival structure"],
-          "causative_agent": ["Chlamydia trachomatis"],
-          "associated_morphology": ["Inflammatory morphology"],
-          "pathological_process": ["Infectious process"]
-      }}
-       
-      Term: Acute tonsillitis
-      Output JSON:
-      {{
-          "associated_morphology": ["Acute inflammation"],
-          "finding_site": ["Tonsillar structure"],
+          "role_groups": [
+              {{"associated_morphology": "Acute inflammation", "finding_site": "Tracheal structure"}},
+              {{"associated_morphology": "Acute inflammation", "finding_site": "Bronchial structure"}}
+          ],
           "clinical_course": ["Sudden onset AND/OR short duration"]
       }}
-        
-      Term: Chronic tophaceous gout of elbow in SLE
+
+      Term: Postoperative heterotopic calcification
       Output JSON:
       {{
-          "associated_morphology": ["Sodium urate tophus", "Inflammatory morphology"],
-          "finding_site": ["Elbow joint structure"],
-          "finding_asso_with": ["Systemic lupus erythematosus"],
-          "clinical_course": ["Chronic"],
-          "interprets_interpretation": [
-              {{"interprets": "blood urate measurement", "interpretation": "above reference range"}}
-          ],
+          "role_groups": [{{"associated_morphology": "Pathologic calcification"}}],
+          "occurs_after": ["Surgical procedure"]
       }}
-      
+
+      Term: Infection of bone
+      Output JSON:
+      {{
+          "role_groups": [{{"finding_site": "Bone structure", "pathological_process": "Infectious process"}}]
+      }}
+
       Output Format:
       Provide your response in a single JSON object. Do not include any text outside of the JSON.
-      Return JSON with attribute keys (snake_case) and list values (or null). Use clinical reasoning — think about what a domain expert would know, not just what words appear in the term. Multiple values per attribute are allowed. 
+      Return JSON with attribute keys (snake_case) and list values (or null). Use clinical reasoning — think about what a domain expert would know, not just what words appear in the term. Multiple values per attribute are allowed.
+      associated_morphology, finding_site, causative_agent, pathological_process and occurrence go ONLY inside "role_groups" (one value per attribute per group; null if none apply).
       JSON:
       {{
-          "associated_morphology": ["perforated ulcer"],
-          "finding_site": ["duodenal structure"],
-          "causative_agent": null,
-          "interprets_interpretation": [
-              {{"interprets": "gastric acid secretion", "interpretation": "increased"}}
+          "role_groups": [
+              {{"associated_morphology": null, "finding_site": null, "causative_agent": null, "pathological_process": null, "occurrence": null}}
           ],
+          "due_to": null,
+          "clinical_course": null,
+          "severity": null,
+          "during": null,
+          "occurs_after": null,
+          "interprets_interpretation": null,
+          "finding_asso_with": null,
           "finding_context": null,
           "temporal_context": null,
           "subject_relationship_context": null
@@ -447,15 +428,15 @@ hierarchy:
       
       === GENERAL RULES ===
       1. Select ONLY from the provided candidates. Do not invent, hallucinate, or guess concept IDs or names.
-      2. Prefer the most specific concept available (e.g., choose "Esophageal structure" over "Upper gastrointestinal tract structure"; choose "Systemic lupus erythematosus" over "Connective tissue disease").
+      2. Select the most specific concept entailed by the source term and reference modeling. Do not infer tissue, layer, lumen, substructure, laterality, or entire-organ involvement merely because it is clinically plausible.
       3. An attribute may have MULTIPLE correct values (e.g., multiple morphologies). Return them as a list.
-      4. If no provided candidate accurately represents the attribute based on the medical term, return null for that attribute.
+      4. If no provided candidate accurately represents the attribute based on the medical term, return null for that attribute. Applicable exact values from extraction should be present in the candidate list; prefer them over weaker embedding matches.
       
       === ATTRIBUTE-SPECIFIC GUIDELINES ===
       
       A. CORE CLINICAL ATTRIBUTES
-      - finding_site: Candidate MUST belong to the BODY STRUCTURE hierarchy. Pick the structure that most precisely matches the anatomical site.
-      - associated_morphology: Candidate MUST belong to the MORPHOLOGIC ABNORMALITY hierarchy (e.g., "Inflammatory morphology", "Malignant neoplasm"). 
+      - finding_site: Candidate MUST belong to the BODY STRUCTURE hierarchy. Pick the most specific site entailed by the term. SEP rule: use X structure for unspecified involvement of some or all of X; use Entire X only when the defining model entails the complete countable anatomical entity; use Part of X only for an unspecified proper part; use X region for a broad three-dimensional anatomical area. Multiple separately modeled sites may be required; do not replace them with one combined site.
+      - associated_morphology: Candidate MUST belong to the MORPHOLOGIC ABNORMALITY hierarchy (e.g., "Inflammatory morphology", "Malignant neoplasm"). Prefer the exact reference-modeled morphology over a clinically related subtype or more specific alternative. Prefer an exact combined morphology when it represents the complete abnormality at one site. 
       - finding_asso_with: Select the SNOMED CLINICAL FINDING concept representing the explicitly named associated disease. Do not confuse this with causative_agent (which is for infectious organisms/substances).
       - severity: Map adjectives to "Mild", "Moderate", or "Severe" qualifier values.
       
@@ -471,30 +452,50 @@ hierarchy:
       
       C. CONTEXT ATTRIBUTES (Strict SNOMED CT Context Model)
       Do not drop context attributes if the source phrase contains matching cues (history, suspected, family, etc.).
-      - temporal_context: "History of" maps to "Past".
-      - finding_context: "Possible" maps to "Possible (qualifier value)"; "Suspected" maps to "Suspected (qualifier value)".
+      - temporal_context: "History of" maps to "Past"; family history commonly maps to "Current or past" according to the target SNOMED CT definition.
+      - finding_context: Select the exact candidate expressed by the source, such as Known present, Known absent, Possible, Suspected, or Confirmed present. Do not substitute Rule out for Known absent unless the target model supports that value.
       - subject_relationship_context: "Family history of [X]" does NOT use a single "family history" concept. It must be mapped as:
         - finding_context = Known present
-        - temporal_context = Past
+        - temporal_context = Current or past
         - subject_relationship_context = Person in family of subject
       
       D. INTERPRETS & INTERPRETATION (Quantitative/Functional Change)
       - These are ALWAYS paired. Return together as "interprets_interpretation" — never one without the other.
-      - interpretation: "hyper-", "elevated" → "Increased"; "hypo-", "deficient" → "Decreased".
-      - interprets (Endocrine): For pituitary/gonadal hypo- or hyperfunction (e.g., panhypopituitarism, testicular hypofunction), use "Hormone production" as the interprets observable. "Hormone secretion" applies primarily to active over-secretion. When in doubt, prefer "Hormone production".
+      - interpretation: For measurement findings, prefer Above/Below/Within/Outside reference range. Use Increased or Decreased for non-measurement functions or when required by the target SNOMED CT model.
+      - interprets (Endocrine): Select the exact observable used in the target or analogous SNOMED CT model. Common models use "Hormone production"; use a secretion observable only when secretion is specifically represented.
       - interprets (Joints): For joint contracture/stiffness terms, the interprets observable is "Range of [joint] movement" (e.g., "Elbow joint - range of movement") — NOT generic "Movement".
+      - The observable does NOT need to be named in the term. If the closest reference examples (subtypes, parents or siblings of the same disorder) consistently model an interprets/interpretation pair and matching candidates are available, select that pair. "Not stated in the term" is not a valid reason to drop a reference-supported pair.
+      - When references disagree, trust the reference that matches the term's direction (hypo-/hyper-, deficiency/excess) and analyte. A broader or opposite-direction reference without the pair does not outweigh a direction-matched reference that has it.
+      - For combined terms ("X and Y"), keep the union of the pairs modeled for each component; do not drop a pair because only one component carries it.
       
+      === FINAL SELECTION CHECKS ===
+      - Return only necessarily defining attributes. Clinical plausibility alone is insufficient, but consistent modeling in close reference examples IS sufficient evidence.
+      - Use close reference examples as evidence only when clinically analogous. Prefer an exact reference-derived candidate over a semantically weaker embedding match.
+      - Do not add a separate generic morphology when an exact combined morphology already represents the complete abnormality.
+      - clinical_course: Select only when supported by the target SNOMED CT model or a close reference example; do not assume every lexical "acute", "chronic", "progressive", or "recurrent" is modeled with this attribute.
+      - occurs_after: Select for temporal sequence; select due_to separately only when causation is explicit or mandated by the injury rule.
+
+      === ROLE GROUPS ===
+      - Return associated_morphology, finding_site, causative_agent, pathological_process and occurrence inside "role_groups", not in "attributes".
+      - Start from the "Proposed role groups" in the user message (if given). Keep their structure unless it contradicts the term, merge groups that describe the same process, and drop groups whose values were all rejected.
+      - Example: "Acute tracheobronchitis" has two groups — {Acute inflammation, Tracheal structure} and {Acute inflammation, Bronchial structure} — and clinical_course "Sudden onset AND/OR short duration" in "attributes".
+      {grouping_section}
       {reference_section}
             
       === OUTPUT FORMAT ===
       Return strictly valid JSON only in the exact structure below:
       
       {
-          "medical_term": "the input term",
+          "role_groups": [
+              {
+                  "associated_morphology": {"concept_id": "123456", "concept_name": "name"},
+                  "finding_site": {"concept_id": "123456", "concept_name": "name"},
+                  "causative_agent": null,
+                  "pathological_process": null,
+                  "occurrence": null
+              }
+          ],
           "attributes": {
-              "associated_morphology": [{"concept_id": "123456", "concept_name": "name"}],
-              "finding_site": [{"concept_id": "123456", "concept_name": "name"}],
-              "causative_agent": null,
               "clinical_course": null,
               "interprets_interpretation": [
                   {
@@ -502,8 +503,6 @@ hierarchy:
                       "interpretation": {"concept_id": "123456", "concept_name": "name"}
                   }
               ],
-              "occurrence": [{"concept_id": "123456", "concept_name": "name"}],
-              "pathological_process": null,
               "severity": null,
               "finding_context": [{"concept_id": "123456", "concept_name": "name"}],
               "subject_relationship_context": [{"concept_id": "123456", "concept_name": "name"}],

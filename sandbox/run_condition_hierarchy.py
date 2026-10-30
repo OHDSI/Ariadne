@@ -11,6 +11,9 @@ from ariadne.hierarchy.llm_attribute_runner import process_hierarchy
 from ariadne.evaluation.hierarchy_attribute_evaluator import build_prediction_rows
 from ariadne.hierarchy.searchers import SnomedAttributeSearcher, SnomedReferenceConceptVectorSearcher
 from ariadne.evaluation.hierarchy_attribute_evaluator import evaluate_results
+from ariadne.hierarchy.mrcm import MrcmRules
+from ariadne.hierarchy.mrcm_validator import validate_role_groups
+from ariadne.hierarchy.role_grouper import regroup_results
 from ariadne.utils.config import Config
 
 load_dotenv()
@@ -67,14 +70,21 @@ def main():
     total_cost = sum(r.get("cost", {}).get("total_cost", 0.0) for r in results if "cost" in r)
     print(f"Total API cost: ${total_cost:.4f}")
 
-    # Save flat predictions CSV (one row per attribute) — input for RF2 export
-    results_df = pd.DataFrame(build_prediction_rows(results))
-    results_df.to_csv(project_root / "data" / "notebook_results" / "attribute_results.csv", index=False)
+    # Role groups: (re)group cached results deterministically (LLM groups are kept when present)
+    mrcm_rules = MrcmRules.load(hierarchy_settings.mrcm, hierarchy_settings.attributes)
+    results = regroup_results(results, hierarchy_settings.mrcm, mrcm_rules)
+    violations = validate_role_groups(results, mrcm_rules)
+    violations.to_csv(project_root / "data" / "notebook_results" / "hierarchy_mrcm_violations.csv", index=False)
+    print(f"MRCM violations: {len(violations)} rows for {violations['source_key'].nunique()} terms")
+
+    # Save flat predictions CSV (one row per attribute, with relationship_groups) — input for RF2 export
+    results_df = pd.DataFrame(build_prediction_rows(results, hierarchy_settings))
+    results_df.to_csv(project_root / "data" / "notebook_results" / "hierarchy_attribute_results.csv", index=False)
 
     # Set output directory relative to project root
     output_dir = project_root / "data" / "notebook_results"
 
-    eval_df = evaluate_results(results, str(attribute_gs_path), output_dir)
+    eval_df = evaluate_results(results, str(attribute_gs_path), output_dir, hierarchy_settings)
     eval_df.head(20)
 
 

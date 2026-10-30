@@ -30,26 +30,6 @@ from typing import Any, Dict, List, Optional, Type, get_type_hints
 from ariadne.utils.utils import resolve_path
 
 
-_DEFAULT_SNOMED_RELATIONSHIPS: list[str] = [
-    "Has asso morph",
-    "Has finding site",
-    "Has causative agent",
-    "Has clinical course",
-    "Has finding context",
-    "Has interpretation",
-    "Has interprets",
-    "Has occurrence",
-    "Has pathology",
-    "Has relat context",
-    "Has severity",
-    "Has temporal context",
-    "Finding asso with",
-    "During",
-    "Occurs after",
-    "Has due to"
-]
-
-
 # ── generic helper ────────────────────────────────────────────────────────────
 
 
@@ -147,6 +127,7 @@ class TermCleanerSettings:
 
     system_prompt: str = ""
     and_or_rewrite: AndOrRewriteSettings = field(default_factory=AndOrRewriteSettings)
+    max_workers: int = 4
 
 
 @dataclass
@@ -288,11 +269,42 @@ class RetrievalConfig:
 
 
 @dataclass
-class ScoringConfig:
-    """Similarity score overrides used by hierarchy ranking."""
+class ParentSelectionConfig:
+    """Stated-parent selection by primitive-ancestor consensus of nearest SNOMED neighbours.
 
-    reference_similarity: float = 0.9
-    hierarchy_similarity: float = 0.85
+    Candidate parents are the primitive descendants of ``root_concept_id``. The root itself is the
+    fallback parent.
+    """
+
+    # Nearest standard SNOMED concepts that vote on the parent.
+    num_neighbours: int = 10
+    # Concepts retrieved per term before exclusions; at least num_neighbours.
+    candidate_pool_size: int = 40
+    min_similarity: float = 0.6
+    # Minimum similarity-weighted share of neighbours that must sit under a candidate parent.
+    min_support: float = 0.5
+    max_parents: int = 2
+    # OMOP concept_id of the root of the allowed parent set (441840 = Clinical finding).
+    root_concept_id: int = 441840
+    # OMOP concept_id of the "Primitive" definition status (900000000000074008).
+    primitive_status_concept_id: int = 40642538
+    # Evaluation guard: drop the source concept and its descendants from neighbours and parents.
+    exclude_source_descendants: bool = True
+    # Concurrent neighbour searches (one database connection each).
+    max_workers: int = 4
+    neighbour_cache_file: str = "data/notebook_results/hierarchy_parent_selection_neighbours.json"
+
+    def __post_init__(self) -> None:
+        if self.num_neighbours < 1:
+            raise ValueError("parent_selection.num_neighbours must be >= 1.")
+        if self.candidate_pool_size < self.num_neighbours:
+            raise ValueError("parent_selection.candidate_pool_size must be >= num_neighbours.")
+        if not 0.0 < self.min_support <= 1.0:
+            raise ValueError("parent_selection.min_support must be in (0, 1].")
+        if self.max_parents < 1:
+            raise ValueError("parent_selection.max_parents must be >= 1.")
+        if self.neighbour_cache_file:
+            self.neighbour_cache_file = resolve_path(self.neighbour_cache_file)
 
 
 @dataclass
@@ -301,6 +313,7 @@ class EvaluationConfig:
 
     output_dir: str = "data/notebook_results"
     llm_response_folder: str = "data/hierarchy_attribute_responses"
+    max_workers: int = 4
 
     def __post_init__(self) -> None:
         self.llm_response_folder = resolve_path(self.llm_response_folder)
@@ -318,7 +331,6 @@ class PromptsConfig:
 class IndexBuildConfig:
     """Batch/index build settings used by the hierarchy pgvector builder."""
 
-    reference_sample_size: int = 10_000
     embedding_batch_size: int = 500
     embedding_cache_folder: str = "data/hierarchy_embedding_cache"
 
@@ -327,12 +339,104 @@ class IndexBuildConfig:
 
 
 @dataclass
+class AttributeConfig:
+    """Link between a pipeline attribute key and its SNOMED CT attribute concept."""
+
+    attribute_id: int = 0
+    ohdsi_relationship: str = ""
+
+
+@dataclass
+class RoleGroupingConfig:
+    """Role-group composition rules (SNOMED CT Editorial Guide; not encoded in the MRCM refsets).
+
+    Attributes:
+        self_grouped: Attribute keys that must be alone in their role group.
+        clusters: Named sets of attribute keys that may share a role group.
+            Attributes from different clusters never share a group.
+        llm_grouped_clusters: Clusters whose role groups the LLM proposes
+            explicitly (``role_groups`` in the extraction/selection output).
+        requires: ``{attribute: partner}`` — an attribute that is only valid
+            in a group that also contains *partner*.
+    """
+
+    self_grouped: List[str] = field(default_factory=list)
+    clusters: Dict[str, List[str]] = field(default_factory=dict)
+    llm_grouped_clusters: List[str] = field(default_factory=list)
+    requires: Dict[str, str] = field(default_factory=dict)
+
+    @property
+    def enabled(self) -> bool:
+        return bool(self.self_grouped or self.clusters)
+
+    def cluster_of(self, attribute_key: str) -> str | None:
+        for name, members in self.clusters.items():
+            if attribute_key in members:
+                return name
+        return None
+
+    def llm_grouped_keys(self) -> list[str]:
+        return [k for name in self.llm_grouped_clusters for k in self.clusters.get(name, [])]
+
+
+@dataclass
+class MrcmSettings:
+    """SNOMED CT MRCM rules used for role grouping and validation.
+
+    Rules are read from the RF2 MRCM refset snapshot files in ``folder``, limited
+    to the configured ``domains`` (and the sub-domains listed there) and
+    ``content_types`` (pre-coordinated only by default).
+    """
+
+    folder: str = "data/mrcm"
+    content_types: List[int] = field(default_factory=lambda: [723596005, 723594008])
+    domains: Dict[str, int] = field(default_factory=dict)
+    default_domain: str = ""
+    grouping: RoleGroupingConfig = field(default_factory=RoleGroupingConfig)
+
+    def __post_init__(self) -> None:
+        self.folder = resolve_path(self.folder)
+
+
+@dataclass
 class HierarchySettings:
     """Settings block loaded from the optional top-level ``hierarchy`` config key."""
 
     index_build: IndexBuildConfig = field(default_factory=IndexBuildConfig)
     retrieval: RetrievalConfig = field(default_factory=RetrievalConfig)
-    scoring: ScoringConfig = field(default_factory=ScoringConfig)
+    parent_selection: ParentSelectionConfig = field(default_factory=ParentSelectionConfig)
     evaluation: EvaluationConfig = field(default_factory=EvaluationConfig)
     prompts: PromptsConfig = field(default_factory=PromptsConfig)
-    snomed_relationships: List[str] = field(default_factory=lambda: list(_DEFAULT_SNOMED_RELATIONSHIPS))
+    # The SNOMED attributes of the pipeline, keyed by pipeline attribute key (``hierarchy.attributes``).
+    attributes: Dict[str, AttributeConfig] = field(default_factory=dict)
+    mrcm: MrcmSettings = field(default_factory=MrcmSettings)
+
+    def __post_init__(self) -> None:
+        self.attributes = {
+            key: value if isinstance(value, AttributeConfig) else AttributeConfig(**(value or {}))
+            for key, value in (self.attributes or {}).items()
+        }
+
+    @property
+    def snomed_relationships(self) -> List[str]:
+        """OHDSI ``relationship_id`` of every configured attribute.
+
+        Used to fetch reference-example attributes and to build the ``snomed_attribute`` table.
+        """
+        return list(self.relationship_by_attribute().values())
+
+    def relationship_type_ids(self) -> Dict[str, int]:
+        """OHDSI ``relationship_id`` (e.g. ``"Has finding site"``) → SNOMED attribute concept ID (RF2 ``typeId``)."""
+        return {
+            attribute.ohdsi_relationship: attribute.attribute_id
+            for attribute in self.attributes.values()
+            if attribute.ohdsi_relationship and attribute.attribute_id
+        }
+
+    def relationship_by_attribute(self) -> Dict[str, str]:
+        """Pipeline attribute key (e.g. ``"finding_site"``) → OHDSI ``relationship_id``."""
+        return {key: attribute.ohdsi_relationship for key, attribute in self.attributes.items() if attribute.ohdsi_relationship}
+
+    def attribute_by_relationship(self) -> Dict[str, str]:
+        """OHDSI ``relationship_id`` → pipeline attribute key."""
+        return {relationship: key for key, relationship in self.relationship_by_attribute().items()}

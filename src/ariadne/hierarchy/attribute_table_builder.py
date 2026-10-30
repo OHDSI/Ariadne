@@ -9,7 +9,6 @@ import logging
 from pathlib import Path
 from typing import Literal
 
-from dotenv import load_dotenv
 import numpy as np
 import pandas as pd
 import psycopg
@@ -17,11 +16,14 @@ from psycopg import sql
 from pgvector.psycopg import register_vector
 from sqlalchemy import create_engine
 
-from ariadne.utils.settings import HierarchySettings, _DEFAULT_SNOMED_RELATIONSHIPS
+from ariadne.utils.settings import HierarchySettings
 from ariadne.utils.gen_ai_api import get_embedding_vectors
 from ariadne.utils.utils import get_environment_variable
 
 logger = logging.getLogger(__name__)
+
+_MAX_INSERT_ATTEMPTS = 3
+
 
 def _pg_connect() -> psycopg.Connection:
     """Return a psycopg connection with pgvector adapters registered."""
@@ -95,11 +97,11 @@ def check_populated(conn: psycopg.Connection, table: str) -> bool:
         return cur.fetchone() is not None
 
 
-def load_attributes_from_db() -> pd.DataFrame:
-    """Load SNOMED attribute value rows from the OMOP vocabulary DB."""
+def load_attributes_from_db(snomed_relationships: list[str]) -> pd.DataFrame:
+    """Load SNOMED attribute value rows from the OHDSI Vocabularies DB."""
     engine = create_engine(get_environment_variable("VOCAB_CONNECTION_STRING"))
     schema = get_environment_variable("VOCAB_SCHEMA")
-    rel_list = ", ".join(f"'{r}'" for r in _DEFAULT_SNOMED_RELATIONSHIPS)
+    rel_list = ", ".join(f"'{r}'" for r in snomed_relationships)
     df = pd.read_sql(f"""
         SELECT DISTINCT c2.concept_id, 
             c2.concept_code, 
@@ -240,32 +242,28 @@ def insert_attributes(
 
         for i in range(0, len(rows), upload_batch_size):
             chunk = rows[i: i + upload_batch_size]
-            for attempt in range(3):
+            chunk_number = i // upload_batch_size + 1
+            for attempt in range(1, _MAX_INSERT_ATTEMPTS + 1):
                 try:
                     with conn.cursor() as cur:
-                        for row in chunk:
-                            cur.execute(insert_sql, row)
+                        cur.executemany(insert_sql, chunk)
                     conn.commit()
                     break
-                except Exception as exc:
+                except psycopg.Error as exc:
+                    conn.close()
+                    if attempt == _MAX_INSERT_ATTEMPTS:
+                        raise RuntimeError(
+                            f"File {file_index}/{len(batch_files)} chunk {chunk_number} failed after {attempt} attempts."
+                        ) from exc
                     logger.warning(
                         "File %d/%d chunk %d attempt %d failed (%s), reconnecting...",
                         file_index,
                         len(batch_files),
-                        i // upload_batch_size + 1,
-                        attempt + 1,
+                        chunk_number,
+                        attempt,
                         exc,
                     )
-                    try:
-                        conn.close()
-                    except Exception:
-                        pass
                     conn = _pg_connect()
-                    insert_sql = sql.SQL(
-                        "INSERT INTO {schema}.snomed_attribute "
-                        "(concept_id, concept_code, concept_name, attribute_category, embedding) "
-                        "VALUES (%s, %s, %s, %s, %s)"
-                    ).format(schema=sql.Identifier(schema))
 
         logger.info("Loaded attribute file %d/%d: %s", file_index, len(batch_files), batch_file.name)
 
@@ -303,22 +301,16 @@ def build_attribute_table(
         finally:
             conn.close()
 
-    attr_batch_files: list[Path] = []
-    dim: int | None = None
-
     # Build embeddings first (with parquet checkpoints), then create/upload tables.
-    df_attr = load_attributes_from_db()
-    attr_batch_files, attr_dim = _prepare_attribute_embedding_batches(
+    df_attr = load_attributes_from_db(hierarchy_settings.snomed_relationships)
+    batch_files, dim = _prepare_attribute_embedding_batches(
         df_attr,
         embedding_batch_size=hierarchy_settings.index_build.embedding_batch_size,
         embedding_cache_dir=embedding_cache_dir,
     )
-    dim = attr_dim if dim is None else dim
-
     if dim is None:
         probe = get_embedding_vectors(["probe"])
         dim = int(probe["embeddings"].shape[1])
-    assert dim is not None
     logger.info("Embedding dimension: %d", dim)
 
     conn = _pg_connect()
@@ -327,14 +319,12 @@ def build_attribute_table(
 
         conn = insert_attributes(
             conn,
-            attr_batch_files,
+            batch_files,
             upload_batch_size=hierarchy_settings.index_build.embedding_batch_size,
             rebuild=rebuild,
         )
 
-        create_embedding_index(
-            conn
-        )
+        create_embedding_index(conn)
     finally:
         conn.close()
 

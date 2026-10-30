@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+import psycopg
+import pytest
 
 import ariadne.hierarchy.attribute_table_builder as builder
 from ariadne.utils.settings import HierarchySettings, IndexBuildConfig
@@ -115,13 +117,12 @@ def test_build_attribute_table_skip_mode_returns_early_for_populated_table(tmp_p
         ),
     )
 
-    monkeypatch.setattr(builder, "load_dotenv", lambda: None)
     monkeypatch.setattr(builder, "_pg_connect", lambda: fake_conn)
     monkeypatch.setattr(builder, "check_populated", lambda _conn, _table: True)
     monkeypatch.setattr(
         builder,
         "load_attributes_from_db",
-        lambda: (_ for _ in ()).throw(AssertionError("should skip before loading attributes")),
+        lambda *_args, **_kwargs: (_ for _ in ()).throw(AssertionError("should skip before loading attributes")),
     )
 
     builder.build_attribute_table(settings, if_exists="skip")
@@ -140,8 +141,7 @@ def test_build_attribute_table_uses_probe_embedding_dim_when_batch_dim_missing(t
 
     calls = {"create_table_dim": None, "insert_called": False, "index_called": False}
 
-    monkeypatch.setattr(builder, "load_dotenv", lambda: None)
-    monkeypatch.setattr(builder, "load_attributes_from_db", lambda: pd.DataFrame())
+    monkeypatch.setattr(builder, "load_attributes_from_db", lambda *_args, **_kwargs: pd.DataFrame())
     monkeypatch.setattr(builder, "_prepare_attribute_embedding_batches", lambda *_args, **_kwargs: ([], None))
     monkeypatch.setattr(
         builder,
@@ -176,3 +176,39 @@ def test_build_attribute_table_uses_probe_embedding_dim_when_batch_dim_missing(t
     assert fake_conn.closed is True
 
 
+class _FailingInsertConnection(_FakeConnection):
+    """Acts as its own cursor; every insert fails as if the connection dropped."""
+
+    def cursor(self):
+        return self
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *exc):
+        return False
+
+    def executemany(self, query, rows):
+        raise psycopg.OperationalError("connection lost")
+
+
+def test_insert_attributes_raises_after_three_failed_attempts(tmp_path, monkeypatch):
+    batch_file = tmp_path / "snomed_attribute_batch_000000.parquet"
+    pd.DataFrame(
+        [{"concept_id": 1, "concept_code": "C1", "concept_name": "Alpha",
+          "attribute_category": "Has finding site", "embedding": [0.1, 0.2]}]
+    ).to_parquet(batch_file, index=False)
+    connections = [_FailingInsertConnection()]
+
+    def _reconnect():
+        connections.append(_FailingInsertConnection())
+        return connections[-1]
+
+    monkeypatch.setenv("VOCAB_SCHEMA", "vocab")
+    monkeypatch.setattr(builder, "_pg_connect", _reconnect)
+
+    with pytest.raises(RuntimeError, match="failed after 3 attempts"):
+        builder.insert_attributes(connections[0], [batch_file], upload_batch_size=10)
+
+    assert len(connections) == 3  # the original connection plus two reconnects
+    assert all(conn.closed for conn in connections)

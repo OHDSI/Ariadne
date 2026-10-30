@@ -1,0 +1,299 @@
+source_concept_id,source_term,parent_rank,parent_concept_id,parent_concept_code,parent_concept_name,parent_depth,support,num_neighbours,is_fallback
+73021,Bilateral congenital dislocation of hip,1,4274025,64572001,Disease,1,1.0,10,False
+26378,Hyperpituitarism,1,4274025,64572001,Disease,1,1.0,10,False
+25572,Disorder of salivary gland,1,4274025,64572001,Disease,1,0.8102,10,False
+28356,Overlapping malignant neoplasm of major salivary gland,1,4274025,64572001,Disease,1,1.0,10,False
+25748,Overlapping malignant neoplasm of esophagus,1,4274025,64572001,Disease,1,1.0,10,False
+72410,Infection of bone,1,4274025,64572001,Disease,1,1.0,10,False
+75070,Lordosis deformity of spine following surgical procedure,1,73012,61960001,Lordosis deformity of spine,3,0.8969,10,False
+24148,Congenital diverticulum of pharynx,1,4274025,64572001,Disease,1,0.7986,10,False
+26662,Testicular hypofunction,1,4274025,64572001,Disease,1,1.0,10,False
+73609,Open fracture of clavicle,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+73361,Abrasion and/or friction burn of elbow with infection,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+72817,Tuberculosis of urinary organs,1,4274025,64572001,Disease,1,0.8983,10,False
+23865,Congenital anomaly of pharynx,1,4274025,64572001,Disease,1,1.0,10,False
+23304,Neck webbing,1,441840,404684003,Clinical finding,0,0.0,2,True
+72745,Open dislocation of elbow,1,432795,417163006,Traumatic or non-traumatic injury,2,0.7045,10,False
+37164934,Intraoperative subcutaneous emphysema,1,4274025,64572001,Disease,1,0.9105,10,False
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,1,4274025,64572001,Disease,1,1.0,10,False
+37167589,Obstructed labor due to interlocked twins,1,4164128,45757002,Labor problem,4,0.871,10,False
+37167589,Obstructed labor due to interlocked twins,2,4025199,106010004,Pelvic dystocia AND/OR uterine disorder,3,0.871,10,False
+72986,Disorder of lower leg,1,4274025,64572001,Disease,1,1.0,10,False
+73043,Open dislocation of glenohumeral joint,1,432795,417163006,Traumatic or non-traumatic injury,2,0.8043,10,False
+26711,Chronic pharyngitis,1,4274025,64572001,Disease,1,0.8998,10,False
+72757,Open wound of shoulder region with complication,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+73335,Closed posterior dislocation of proximal end of tibia,1,4274025,64572001,Disease,1,1.0,10,False
+23245,Esophageal bleeding,1,4274025,64572001,Disease,1,0.9042,10,False
+22820,Tuberculosis of esophagus,1,4274025,64572001,Disease,1,0.9,10,False
+761734,Ulcer of right ankle due to postphlebitic syndrome,1,4274025,64572001,Disease,1,1.0,10,False
+609115,Proliferative retinopathy of left eye due to diabetes mellitus type 1,1,376683,390834004,Nonproliferative retinopathy due to diabetes mellitus,5,0.5917,10,False
+30753,Esophagitis,1,4274025,64572001,Disease,1,0.8038,10,False
+72992,Allergic arthritis,1,4274025,64572001,Disease,1,1.0,10,False
+73122,Tuberculosis of knee,1,4274025,64572001,Disease,1,1.0,10,False
+73041,Closed fracture of five ribs,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+28779,Bleeding esophageal varices,1,4274025,64572001,Disease,1,0.7925,10,False
+24660,Acute tonsillitis,1,4089228,248595008,Sputum finding,2,1.0,10,False
+24660,Acute tonsillitis,2,4274025,64572001,Disease,1,1.0,10,False
+37207424,Severe muscle atrophy,1,4274025,64572001,Disease,1,0.8016,10,False
+37207425,Mild generalized edema,1,441840,404684003,Clinical finding,0,0.8112,10,True
+72245,Chlamydial infection of lower genitourinary tract,1,4274025,64572001,Disease,1,1.0,10,False
+26908,Vincent's angina,1,45769041,707606004,Non-plaque induced gingival disease,4,0.6398,5,False
+26908,Vincent's angina,2,432795,417163006,Traumatic or non-traumatic injury,2,0.8065,5,False
+73712,Malignant neoplasm of dome of urinary bladder,1,4274025,64572001,Disease,1,1.0,10,False
+73153,Malignant neoplasm of lateral wall of urinary bladder,1,4274025,64572001,Disease,1,1.0,10,False
+30061,Neoplasm of uncertain behavior of major salivary gland,1,4274025,64572001,Disease,1,1.0,10,False
+27516,Neoplasm of uncertain behavior of paraganglia,1,4274025,64572001,Disease,1,1.0,10,False
+26069,Postablative testicular hypofunction,1,4167354,48130008,Hypogonadism,5,0.7056,10,False
+26069,Postablative testicular hypofunction,2,444194,127325009,Procedure related finding,1,0.7132,10,False
+72857,Late effect of rickets,1,4189941,41345002,Rickets,2,0.6126,10,False
+22288,Hereditary elliptocytosis,1,4207240,323666000,Anemia due to intrinsic red cell abnormality,4,0.6018,10,False
+22288,Hereditary elliptocytosis,2,443916,32895009,Hereditary disease,3,0.6984,10,False
+73072,Crushing injury of upper arm,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+24230,Foreign body in larynx,1,4274025,64572001,Disease,1,0.7007,10,False
+24978,Chronic adenotonsillitis,1,4089228,248595008,Sputum finding,2,0.8103,10,False
+24978,Chronic adenotonsillitis,2,4274025,64572001,Disease,1,1.0,10,False
+72516,Burn of knee,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+22666,Vomiting after gastrointestinal tract surgery,1,4274025,64572001,Disease,1,1.0,10,False
+22666,Vomiting after gastrointestinal tract surgery,2,444194,127325009,Procedure related finding,1,0.71,10,False
+73241,Anal and rectal polyp,1,4274025,64572001,Disease,1,0.7126,10,False
+73614,Closed fracture of seven ribs,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+72984,Reactive arthritis of joint of shoulder region due to and following dysentery,1,37205058,784332006,Spondyloarthritis,5,1.0,10,False
+72989,"Arthropathy associated with mycoses, of the ankle and/or foot",1,4274025,64572001,Disease,1,1.0,10,False
+72708,Traumatic arthropathy of the shoulder region,1,432795,417163006,Traumatic or non-traumatic injury,2,0.8998,10,False
+72991,Traumatic arthropathy of multiple sites,1,432795,417163006,Traumatic or non-traumatic injury,2,0.8026,10,False
+73557,Allergic arthritis of the pelvic region and thigh,1,4274025,64572001,Disease,1,0.801,10,False
+73555,Transient arthropathy of the pelvic region and thigh,1,4274025,64572001,Disease,1,0.8027,10,False
+73561,Loose body in joint of shoulder region,1,4274025,64572001,Disease,1,1.0,10,False
+73289,Pathological dislocation of multiple joints,1,77356,80406003,Pathological dislocation of joint,4,0.5887,10,False
+73845,Joint ankylosis of the shoulder region,1,4274025,64572001,Disease,1,1.0,10,False
+73568,Palindromic rheumatism of shoulder region,1,76196,50442003,Palindromic rheumatism,3,0.7931,10,False
+73291,Palindromic rheumatism of ankle and/or foot,1,76196,50442003,Palindromic rheumatism,3,0.6954,10,False
+73564,Full thickness rotator cuff tear,1,432795,417163006,Traumatic or non-traumatic injury,2,0.7988,10,False
+74739,Osteopathy from poliomyelitis,1,4069943,203662005,Neuromuscular scoliosis,4,0.5015,6,False
+72421,Solitary bone cyst,1,4274025,64572001,Disease,1,0.813,10,False
+26213,Congenital salivary gland fistula,1,4274025,64572001,Disease,1,0.7008,10,False
+73085,Injury of superficial femoral artery,1,432795,417163006,Traumatic or non-traumatic injury,2,0.9029,10,False
+28974,Candidiasis of the esophagus,1,4274025,64572001,Disease,1,1.0,10,False
+73042,Open fracture finger middle phalanx,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+72468,Open dislocation of jaw,1,432795,417163006,Traumatic or non-traumatic injury,2,0.5966,10,False
+73336,Closed traumatic dislocation ankle joint,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+30234,Neck sprain,1,432795,417163006,Traumatic or non-traumatic injury,2,0.8987,10,False
+73065,Contusion of genital organ,1,432795,417163006,Traumatic or non-traumatic injury,2,0.8989,10,False
+73300,Radial styloid tenosynovitis,1,4274025,64572001,Disease,1,0.8921,10,False
+31335,Acute peptic ulcer with hemorrhage but without obstruction,1,4274025,64572001,Disease,1,1.0,10,False
+31386,Congenital absence of salivary gland,1,4274025,64572001,Disease,1,0.8059,10,False
+72469,Closed traumatic dislocation of joint of shoulder region,1,432795,417163006,Traumatic or non-traumatic injury,2,0.7981,10,False
+23137,Chlamydial pharyngitis,1,4274025,64572001,Disease,1,1.0,10,False
+22955,Perforation of esophagus,1,432795,417163006,Traumatic or non-traumatic injury,2,0.6016,10,False
+26141,Barrett's esophagus with esophagitis,1,4274025,64572001,Disease,1,1.0,10,False
+27918,Eosinophilic esophagitis,1,4274025,64572001,Disease,1,0.8089,10,False
+73008,Enthesopathy,1,441840,404684003,Clinical finding,0,0.0,1,True
+30361,Hypoglycemic disorder,1,437515,20957000,Disorder of carbohydrate metabolism,3,0.7062,10,False
+74052,Labyrinthitis,1,4274025,64572001,Disease,1,0.8964,10,False
+74127,Contracture of elbow joint,1,4274025,64572001,Disease,1,0.8054,10,False
+72712,Synovial cyst,1,441840,404684003,Clinical finding,0,0.0,10,True
+73673,Disorder of prosthetic joint,1,443420,308635004,Disorder of prostheses and implants,2,0.5994,10,False
+72711,Shoulder stiff,1,441840,404684003,Clinical finding,0,1.0,10,True
+22492,Foreign body in pharynx,1,4274025,64572001,Disease,1,0.8989,10,False
+24198,Contusion of esophagus,1,432795,417163006,Traumatic or non-traumatic injury,2,0.8955,10,False
+28403,Gigantism and acromegaly,1,4216994,80849007,Gigantism,3,0.6091,8,False
+30163,Cellulitis and abscess of neck,1,4274025,64572001,Disease,1,1.0,10,False
+72403,Hemarthrosis of the ankle and/or foot,1,4274025,64572001,Disease,1,1.0,10,False
+73571,Pathological fracture,1,4274025,64572001,Disease,1,0.5926,10,False
+25068,Branchial cleft sinus and fistula,1,4274025,64572001,Disease,1,0.8081,10,False
+73001,Myositis,1,4274025,64572001,Disease,1,0.6134,5,False
+72576,Benign neoplasm of breast,1,4274025,64572001,Disease,1,1.0,10,False
+72578,Neoplasm of uncertain behavior of breast,1,4274025,64572001,Disease,1,0.8956,10,False
+72521,Immersion foot,1,4274025,64572001,Disease,1,0.7447,8,False
+72390,Obstetric non-purulent mastitis,1,4274025,64572001,Disease,1,0.6998,10,False
+72390,Obstetric non-purulent mastitis,2,4088927,248982007,"Pregnancy, childbirth and puerperium finding",1,0.6161,10,False
+24966,Esophageal varices,1,4274025,64572001,Disease,1,0.804,10,False
+30441,Sialolithiasis,1,4274025,64572001,Disease,1,0.8894,10,False
+72413,Nontraumatic rupture of muscle,1,432795,417163006,Traumatic or non-traumatic injury,2,0.5081,10,False
+73313,Longitudinal deficiency of tarsal bone,1,4274025,64572001,Disease,1,1.0,10,False
+72418,Scoliosis deformity of spine,1,4274025,64572001,Disease,1,0.5985,10,False
+73847,Finding of elbow joint,1,441840,404684003,Clinical finding,0,0.6029,10,True
+24970,Chronic laryngitis,1,4274025,64572001,Disease,1,0.8937,10,False
+73575,Deformity of toe,1,441840,404684003,Clinical finding,0,1.0,10,True
+73383,Full thickness burn of foot,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+73574,Nonunion of fracture,1,432795,417163006,Traumatic or non-traumatic injury,2,0.5019,10,False
+46270436,Chronic tophaceous gout of elbow caused by drug,1,4035436,239843003,Secondary gout,4,1.0,10,False
+25844,Ulcer of esophagus,1,4274025,64572001,Disease,1,0.8912,10,False
+73409,Primary anal syphilis,1,4089985,186846005,Early symptomatic syphilis,5,0.8066,10,False
+74080,Orthostatic proteinuria,1,437382,301830001,Urine finding,1,1.0,10,False
+74080,Orthostatic proteinuria,2,444194,127325009,Procedure related finding,1,1.0,10,False
+72459,Closed fracture of two ribs,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+73365,Epidermal burn of elbow,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+73019,Breast engorgement in newborn,1,4088927,248982007,"Pregnancy, childbirth and puerperium finding",1,0.5915,10,False
+30439,Acute peptic ulcer with perforation but without obstruction,1,432795,417163006,Traumatic or non-traumatic injury,2,0.9013,10,False
+73838,Pyogenic arthritis of multiple sites,1,4274025,64572001,Disease,1,1.0,10,False
+73842,Enthesopathy of elbow region,1,75627,111239001,Peripheral enthesopathy,4,0.7948,10,False
+73378,Frostbite of foot,1,432795,417163006,Traumatic or non-traumatic injury,2,0.9009,10,False
+73378,Frostbite of foot,2,4167864,419026008,Effect of exposure to physical force,1,0.9009,10,False
+31884,Acquired diverticulum of esophagus,1,4274025,64572001,Disease,1,0.905,10,False
+26718,Acute peptic ulcer with perforation AND obstruction,1,432795,417163006,Traumatic or non-traumatic injury,2,0.7026,10,False
+73338,Sprain of lateral collateral ligament of knee,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+762432,Family history of hepatoma,1,441840,404684003,Clinical finding,0,0.0,10,True
+31821,Disorder of endocrine system,1,441840,404684003,Clinical finding,0,1.0,10,True
+22557,Malignant tumor of submandibular gland,1,4274025,64572001,Disease,1,1.0,10,False
+25189,Malignant tumor of oral cavity,1,4274025,64572001,Disease,1,1.0,10,False
+25297,Acute pharyngitis,1,4089228,248595008,Sputum finding,2,0.6903,10,False
+25297,Acute pharyngitis,2,4274025,64572001,Disease,1,0.8951,10,False
+73307,Transverse deficiency of lower limb,1,4274025,64572001,Disease,1,0.898,10,False
+73851,Effusion of joint of multiple sites,1,4274025,64572001,Disease,1,0.9014,10,False
+25780,Pituitary dwarfism,1,4035137,237834000,Disorder of stature,2,0.5941,10,False
+73855,Arrest of bone development AND/OR growth,1,441840,404684003,Clinical finding,0,0.0,10,True
+30284,Motion sickness,1,4274025,64572001,Disease,1,1.0,1,False
+26638,Primary malignant neoplasm of esophagus,1,4274025,64572001,Disease,1,0.9056,10,False
+26052,Primary malignant neoplasm of larynx,1,4274025,64572001,Disease,1,0.9013,10,False
+31509,Primary malignant neoplasm of tonsil,1,4089228,248595008,Sputum finding,2,0.9029,10,False
+31509,Primary malignant neoplasm of tonsil,2,4274025,64572001,Disease,1,0.9029,10,False
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",1,4274025,64572001,Disease,1,1.0,10,False
+31610,Disorder of esophagus,1,4274025,64572001,Disease,1,1.0,10,False
+4215689,Heart failure confirmed,1,441840,404684003,Clinical finding,0,0.5033,10,True
+23986,Disorder of pituitary gland,1,4274025,64572001,Disease,1,0.5062,10,False
+73553,Arthropathy,1,4274025,64572001,Disease,1,0.7419,4,False
+25056,Congenital anomaly of neck,1,4274025,64572001,Disease,1,1.0,10,False
+30274,Full thickness burn of neck,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+73366,Crushing injury of lower leg,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+72407,Effusion of joint of shoulder region,1,4274025,64572001,Disease,1,1.0,10,False
+26459,Acute esophagitis,1,4274025,64572001,Disease,1,1.0,10,False
+72715,Exostosis,1,4274025,64572001,Disease,1,0.7884,10,False
+72332,Serous labyrinthitis,1,4274025,64572001,Disease,1,1.0,10,False
+74125,Inflammatory polyarthropathy,1,4274025,64572001,Disease,1,1.0,10,False
+73334,Closed posterior dislocation of elbow,1,4274025,64572001,Disease,1,1.0,10,False
+73550,Crystal arthropathy of elbow,1,4274025,64572001,Disease,1,1.0,10,False
+29056,Sialoadenitis,1,4274025,64572001,Disease,1,0.6866,7,False
+23237,Acute peptic ulcer with hemorrhage AND obstruction,1,4274025,64572001,Disease,1,1.0,10,False
+72487,Crushing injury of foot,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+28060,Streptococcal sore throat,1,4274025,64572001,Disease,1,0.8024,10,False
+73686,Tuberculosis of genitourinary system,1,4274025,64572001,Disease,1,0.8984,10,False
+72737,Microcalcifications of the breast,1,4274025,64572001,Disease,1,0.6014,10,False
+72737,Microcalcifications of the breast,2,444194,127325009,Procedure related finding,1,0.5003,10,False
+73849,Acquired lordosis deformity of spine,1,73012,61960001,Lordosis deformity of spine,3,0.5969,10,False
+28461,Hypertrophy of salivary gland,1,4274025,64572001,Disease,1,0.8967,10,False
+24969,Laryngitis,1,4274025,64572001,Disease,1,0.6941,10,False
+27438,Burn of esophagus,1,432795,417163006,Traumatic or non-traumatic injury,2,0.7753,10,False
+193782,End-stage renal disease,1,4274025,64572001,Disease,1,0.5059,10,False
+28457,Hypertrophy of tonsils,1,4089228,248595008,Sputum finding,2,1.0,10,False
+28457,Hypertrophy of tonsils,2,4274025,64572001,Disease,1,0.7146,10,False
+23653,Foreign body in esophagus,1,4274025,64572001,Disease,1,0.8984,10,False
+23806,Atrophy of salivary gland,1,4274025,64572001,Disease,1,1.0,10,False
+29979,Crushing injury of neck,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+74064,Ankylosis of temporomandibular joint,1,4274025,64572001,Disease,1,0.9017,10,False
+22350,Edema of larynx,1,4274025,64572001,Disease,1,0.6011,10,False
+23164,Disorder of anterior pituitary,1,4274025,64572001,Disease,1,0.6036,10,False
+73349,Injury of rectum without open wound into abdominal cavity,1,198892,64789007,Internal injury of abdominal organs without open wound into cavity,4,0.5887,10,False
+23034,Neonatal hypoglycemia,1,436670,75934005,Metabolic disease,2,0.6205,10,False
+73616,Open fracture of lunate bone of wrist,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+73819,Pain of breast,1,441840,404684003,Clinical finding,0,1.0,10,True
+72562,Gonococcal spondylitis,1,440647,8098009,Sexually transmitted infectious disease,3,0.608,10,False
+73560,Calcaneal spur,1,4274025,64572001,Disease,1,0.9048,10,False
+23798,Acute laryngopharyngitis,1,4274025,64572001,Disease,1,1.0,10,False
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,1,432795,417163006,Traumatic or non-traumatic injury,2,0.9013,10,False
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,1,4274025,64572001,Disease,1,1.0,10,False
+73913,Burn of shoulder,1,432795,417163006,Traumatic or non-traumatic injury,2,0.9015,10,False
+26441,Bleeding ulcer of esophagus,1,4274025,64572001,Disease,1,0.6069,10,False
+30442,Chronic peptic ulcer with perforation AND obstruction,1,432795,417163006,Traumatic or non-traumatic injury,2,0.7018,10,False
+74124,Traumatic arthropathy,1,4274025,64572001,Disease,1,1.0,10,False
+23567,Branchial cleft cyst,1,4274025,64572001,Disease,1,0.5987,10,False
+73362,Crushing injury of multiple sites of upper limb,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",1,4291028,37442009,Peptic ulcer without hemorrhage AND without perforation,5,0.5045,10,False
+73925,Burn of upper limb,1,432795,417163006,Traumatic or non-traumatic injury,2,0.8328,6,False
+31602,Disorder of the larynx,1,4274025,64572001,Disease,1,0.9002,10,False
+26286,Burn of neck,1,432795,417163006,Traumatic or non-traumatic injury,2,0.8976,10,False
+72988,Pyogenic arthritis of hand,1,4274025,64572001,Disease,1,1.0,10,False
+30124,Obstruction of larynx,1,4274025,64572001,Disease,1,1.0,10,False
+73872,Congenital deformity of knee joint,1,4274025,64572001,Disease,1,0.8947,10,False
+73373,Epidermal burn of upper limb,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+72398,Arthropathy in Behcet's syndrome,1,4274025,64572001,Disease,1,1.0,10,False
+73343,Closed posterior dislocation of hip,1,432795,417163006,Traumatic or non-traumatic injury,2,0.5035,10,False
+73302,Curvature of spine,1,441840,404684003,Clinical finding,0,0.5079,10,True
+31597,Acute laryngotracheitis,1,4274025,64572001,Disease,1,1.0,10,False
+73036,Closed fracture of olecranon process of ulna,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+30133,Acute laryngitis,1,4274025,64572001,Disease,1,1.0,10,False
+31598,Hypertrophy of tonsils AND adenoids,1,4089228,248595008,Sputum finding,2,1.0,10,False
+31598,Hypertrophy of tonsils AND adenoids,2,4274025,64572001,Disease,1,0.9089,10,False
+72405,Degenerative joint disease of shoulder region,1,4274025,64572001,Disease,1,1.0,10,False
+73075,Contusion of upper limb,1,432795,417163006,Traumatic or non-traumatic injury,2,0.8006,10,False
+73341,Closed fracture of head of radius,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+73089,Contusion of buttock,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+72460,Open fracture of seven ribs,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+23868,Congenital anomaly of esophagus,1,4274025,64572001,Disease,1,1.0,10,False
+73649,Contusion of finger,1,432795,417163006,Traumatic or non-traumatic injury,2,0.8971,10,False
+24977,Mucocele of salivary gland,1,4274025,64572001,Disease,1,1.0,10,False
+26899,Tuberculous laryngitis,1,4274025,64572001,Disease,1,0.9013,10,False
+22722,Accessory salivary gland,1,4274025,64572001,Disease,1,0.7249,10,False
+31668,Acquired deformity of neck,1,4274025,64572001,Disease,1,0.6936,10,False
+28385,Disorder of posterior pituitary,1,4274025,64572001,Disease,1,0.6988,10,False
+73888,Open fracture of navicular bone of foot,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+26935,Disorder of endocrine testis,1,4274025,64572001,Disease,1,0.7087,10,False
+30333,Gonorrhea of pharynx,1,4089228,248595008,Sputum finding,2,0.5107,10,False
+30333,Gonorrhea of pharynx,2,4274025,64572001,Disease,1,0.9058,10,False
+73889,Sprain of distal tibiofibular ligament,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+73090,Contusion of foot,1,432795,417163006,Traumatic or non-traumatic injury,2,0.9006,10,False
+72618,Disorder of skeletal muscle,1,4274025,64572001,Disease,1,0.8115,10,False
+28462,Fistula of salivary gland,1,441840,404684003,Clinical finding,0,0.0,10,True
+73287,Crystal arthropathy of ankle AND/OR foot,1,4274025,64572001,Disease,1,1.0,10,False
+24974,Stenosis of larynx,1,4274025,64572001,Disease,1,0.8048,10,False
+31057,Disorder of pharynx,1,4274025,64572001,Disease,1,0.708,10,False
+73580,Reduction deformity of lower limb,1,4274025,64572001,Disease,1,0.5205,10,False
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",1,432795,417163006,Traumatic or non-traumatic injury,2,0.9002,10,False
+73290,Contracture of joint,1,4274025,64572001,Disease,1,0.5516,9,False
+25698,Complication of transplanted pancreas,1,444194,127325009,Procedure related finding,1,0.7133,10,False
+25698,Complication of transplanted pancreas,2,4274025,64572001,Disease,1,0.7133,10,False
+73884,Closed fracture of three ribs,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+29735,Candidiasis of mouth,1,4274025,64572001,Disease,1,1.0,10,False
+72717,Postoperative heterotopic calcification,1,4274025,64572001,Disease,1,0.602,10,False
+73372,Burn of breast,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+31609,Abscess of salivary gland,1,4274025,64572001,Disease,1,0.894,10,False
+23247,Chronic peptic ulcer with perforation but without obstruction,1,432795,417163006,Traumatic or non-traumatic injury,2,0.9021,10,False
+30770,Chronic peptic ulcer with hemorrhage but without obstruction,1,4274025,64572001,Disease,1,1.0,10,False
+24134,Neck pain,1,441840,404684003,Clinical finding,0,1.0,10,True
+73318,Polydactyly of fingers,1,4274025,64572001,Disease,1,1.0,10,False
+72434,Congenital hydrocele,1,4274025,64572001,Disease,1,0.8996,10,False
+73854,Progressive myositis ossificans,1,4274025,64572001,Disease,1,1.0,10,False
+26719,Chronic laryngotracheitis,1,4274025,64572001,Disease,1,1.0,10,False
+73866,Congenital anomaly of breast,1,4274025,64572001,Disease,1,0.7987,10,False
+72486,Blister of elbow without infection,1,4271008,400081000,Blister without infection,4,0.595,10,False
+72404,Joint stiffness,1,441840,404684003,Clinical finding,0,0.9021,10,True
+73923,Contusion of upper arm,1,432795,417163006,Traumatic or non-traumatic injury,2,0.9013,10,False
+72995,Contracture of joint of hand,1,4274025,64572001,Disease,1,1.0,10,False
+25211,Iatrogenic pituitary disorder,1,4274025,64572001,Disease,1,1.0,10,False
+26727,Hematemesis,1,441840,404684003,Clinical finding,0,0.7066,10,True
+73045,Sprain of hand,1,432795,417163006,Traumatic or non-traumatic injury,2,1.0,10,False
+72926,Labyrinthine fistula,1,4274025,64572001,Disease,1,0.6964,10,False
+73091,Deep third degree burn of breast,1,432795,417163006,Traumatic or non-traumatic injury,2,0.906,10,False
+24818,Injury of neck,1,432795,417163006,Traumatic or non-traumatic injury,2,0.7058,10,False
+72997,Articular cartilage disorder of upper arm,1,4274025,64572001,Disease,1,1.0,10,False
+23220,Chronic tonsillitis,1,4089228,248595008,Sputum finding,2,1.0,10,False
+23220,Chronic tonsillitis,2,4274025,64572001,Disease,1,0.9065,10,False
+73231,Arthralgia of temporomandibular joint,1,4274025,64572001,Disease,1,0.8069,10,False
+28716,Benign neoplasm of aortic body,1,4274025,64572001,Disease,1,0.9063,10,False
+24884,Benign neoplasm of carotid body,1,4274025,64572001,Disease,1,0.9056,10,False
+73723,Benign neoplasm of epididymis,1,4274025,64572001,Disease,1,1.0,10,False
+24602,Benign neoplasm of esophagus,1,4274025,64572001,Disease,1,1.0,10,False
+23731,Benign neoplasm of larynx,1,4089228,248595008,Sputum finding,2,0.503,10,False
+23731,Benign neoplasm of larynx,2,4274025,64572001,Disease,1,1.0,10,False
+30679,Benign neoplasm of major salivary gland,1,4274025,64572001,Disease,1,1.0,10,False
+26060,Benign neoplasm of tonsil,1,4089228,248595008,Sputum finding,2,0.8992,10,False
+26060,Benign neoplasm of tonsil,2,4274025,64572001,Disease,1,0.8992,10,False
+30356,Benign neoplasm of pharynx,1,4274025,64572001,Disease,1,1.0,10,False
+28115,Benign neoplasm of pineal gland,1,4274025,64572001,Disease,1,1.0,10,False
+28109,Carcinoma in situ of esophagus,1,4274025,64572001,Disease,1,1.0,10,False
+24897,Carcinoma in situ of larynx,1,4089228,248595008,Sputum finding,2,0.5089,10,False
+24897,Carcinoma in situ of larynx,2,4274025,64572001,Disease,1,1.0,10,False
+25757,Primary malignant neoplasm of aortic body,1,4274025,64572001,Disease,1,0.8997,10,False
+27235,Primary malignant neoplasm of carotid body,1,4274025,64572001,Disease,1,0.8026,10,False
+25486,Primary malignant neoplasm of islets of Langerhans,1,4274025,64572001,Disease,1,0.9037,10,False
+30346,Primary malignant neoplasm of neck,1,4274025,64572001,Disease,1,1.0,10,False
+28083,Primary malignant neoplasm of pharynx,1,4089228,248595008,Sputum finding,2,0.6014,10,False
+28083,Primary malignant neoplasm of pharynx,2,4274025,64572001,Disease,1,0.8993,10,False
+26361,Primary malignant neoplasm of pineal gland,1,4274025,64572001,Disease,1,1.0,10,False
+24296,Primary malignant neoplasm of pituitary gland,1,4274025,64572001,Disease,1,1.0,10,False
+22274,Neoplasm of uncertain behavior of larynx,1,4089228,248595008,Sputum finding,2,0.6022,10,False
+22274,Neoplasm of uncertain behavior of larynx,2,4274025,64572001,Disease,1,1.0,10,False
+22871,Neoplasm of uncertain behavior of pineal gland,1,4274025,64572001,Disease,1,1.0,10,False
+27835,Neoplasm of uncertain behavior of pituitary gland,1,4274025,64572001,Disease,1,1.0,10,False
+25582,Tracheoesophageal fistula,1,4274025,64572001,Disease,1,0.7011,10,False
+73017,Congenital anomaly of toe,1,4274025,64572001,Disease,1,0.9076,10,False

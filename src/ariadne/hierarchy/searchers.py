@@ -1,7 +1,7 @@
 """pgvector-backed SNOMED searchers for attribute and reference retrieval.
 
 Classes:
-    AbstractSnomedSearcher — ABC enforcing lifecycle (close / cost / context manager).
+    AbstractSnomedSearcher — base class handling the database connection, cost and context manager.
     SnomedAttributeSearcher — queries ``snomed_attribute`` for candidate values.
     SnomedReferenceConceptVectorSearcher — builds few-shot examples from
         ``concept`` + ``concept_relationship`` + ``relationship`` +
@@ -10,7 +10,6 @@ Classes:
 """
 
 import logging
-from abc import ABC, abstractmethod
 
 import pandas as pd
 import psycopg
@@ -30,17 +29,15 @@ from ariadne.vector_search.pgvector_concept_searcher import PgvectorConceptSearc
 logger = logging.getLogger(__name__)
 
 
-class AbstractSnomedSearcher(ABC):
-    """ABC for pgvector-backed SNOMED searchers.
+class AbstractSnomedSearcher:
+    """Base class for pgvector-backed SNOMED searchers.
 
-    Enforces lifecycle management (``close`` / context-manager) and cost
-    tracking — matching the patterns used by ``PgvectorConceptSearcher`` and
-    ``LlmMapper``.
-
-    Subclasses must implement :meth:`search`.
+    Opens the database connection and provides cost tracking and lifecycle
+    management (``close`` / context manager), matching the patterns used by
+    ``PgvectorConceptSearcher`` and ``LlmMapper``.
     """
 
-    def __init__(self, hierarchy_settings: HierarchySettings | None = None):
+    def __init__(self, hierarchy_settings: HierarchySettings):
         self.hierarchy_settings = hierarchy_settings
         conn_str = get_environment_variable("VOCAB_CONNECTION_STRING")
         conn_str = conn_str.replace("+psycopg", "").replace("+psycopg2", "")
@@ -54,12 +51,6 @@ class AbstractSnomedSearcher(ABC):
             self.connection.close()
             raise
         self._cost = 0.0
-
-    # -- abstract contract --------------------------------------------------
-
-    @abstractmethod
-    def search(self, text: str, *args, **kwargs):
-        """Run a similarity search.  Signature varies by subclass."""
 
     # -- lifecycle ----------------------------------------------------------
 
@@ -166,28 +157,22 @@ class SnomedAttributeSearcher(AbstractSnomedSearcher):
 
 
 class SnomedReferenceConceptVectorSearcher(AbstractSnomedSearcher):
-    """Reference searcher that queries live OMOP vocab tables plus concept vectors.
-
-    Builds few-shot reference examples directly from the live OMOP vocabulary
-    tables plus a configured concept-vector table, without depending on a
-    precomputed ``snomed_reference`` table.
+    """Reference searcher that builds few-shot reference examples directly from the OHDSI Vocabulary
+    tables plus a configured concept-vector table restricted to S terms in SNOMED.
     """
 
     def __init__(
         self,
-        hierarchy_settings: HierarchySettings | None = None,
+        hierarchy_settings: HierarchySettings,
         exclude_concept_ids: set[int] | None = None,
         include_synonyms: bool = False,
     ):
         super().__init__(hierarchy_settings)
-        resolved_hierarchy_settings = getattr(self, "hierarchy_settings", None) or getattr(self, "cfg", None)
-        if resolved_hierarchy_settings is None:
-            raise ValueError("Hierarchy settings are required to initialize SnomedReferenceConceptVectorSearcher.")
         self._exclude_concept_ids: list[int] = sorted(exclude_concept_ids) if exclude_concept_ids else []
-        self._relationship_ids: list[str] = list(resolved_hierarchy_settings.snomed_relationships)
+        self._relationship_ids: list[str] = list(hierarchy_settings.snomed_relationships)
         self.include_synonyms = include_synonyms
         vector_settings = PgvectorSearchSettings(
-            max_candidates=resolved_hierarchy_settings.retrieval.num_reference_examples * 2,
+            max_candidates=hierarchy_settings.retrieval.num_reference_examples * 2,
             filter=ConceptFilterSettings(
                 standard_concept=["S"],
                 vocabulary_ids=["SNOMED"],
@@ -211,8 +196,9 @@ class SnomedReferenceConceptVectorSearcher(AbstractSnomedSearcher):
             return []
 
         top_df = result_df.head(top_k)
+        # PgvectorConceptSearcher returns cosine distance; convert to similarity (higher = closer).
         return [
-            (int(row.concept_id), str(row.concept_name), float(row.score))
+            (int(row.concept_id), str(row.concept_name), 1.0 - float(row.score))
             for row in top_df.itertuples(index=False)
         ]
 

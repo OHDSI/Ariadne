@@ -84,8 +84,7 @@ class LlmMapper:
         unless config.llm_mapping.context.re_insert_target_details is set to True, in which case the target concept
         details are re-inserted into the response JSON for the next step.
 
-        Finally, the response is processed to extract the matched concept ID and name, looking for a line starting with
-        "Match: <concept_id>" or "Match: no_match".
+        Finally, the JSON response is parsed for "match_found", "concept_id" (or "concept_ids") and "justification".
 
         Args:
             source_term: The source clinical term to map.

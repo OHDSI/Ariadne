@@ -12,20 +12,22 @@ Usage::
 
     from ariadne.hierarchy.rf2_exporter import export_to_rf2
 
-    # From attribute_results.csv
+    # From hierarchy_attribute_results.csv
     zip_path, id_map = export_to_rf2(
-        "data/notebook_results/attribute_results.csv",
+        "data/notebook_results/hierarchy_attribute_results.csv",
         "data/rf2_output/",
+        hierarchy_settings=config.hierarchy,
     )
 
     # From a DataFrame
-    zip_path, id_map = export_to_rf2(results_df, "data/rf2_output/")
+    zip_path, id_map = export_to_rf2(results_df, "data/rf2_output/", hierarchy_settings=config.hierarchy)
+
+Relationship type IDs come from ``hierarchy.attributes`` in the config
+(``ohdsi_relationship`` → ``attribute_id``).
 """
 from __future__ import annotations
 
-import csv
 import logging
-import os
 import uuid
 import zipfile
 from collections import defaultdict
@@ -35,27 +37,9 @@ from typing import Union
 
 import pandas as pd
 
+from ariadne.utils.settings import HierarchySettings
+
 logger = logging.getLogger(__name__)
-
-# ---------------------------------------------------------------------------
-# SNOMED attribute category → relationship type SCTID
-# ---------------------------------------------------------------------------
-
-GS_CATEGORY_TO_TYPE_ID: dict[str, int] = {
-    "Has asso morph":    116676008,
-    "Has finding site":  363698007,
-    "Has causative agent": 246075003,
-    "Has clinical course": 263502005,
-    "Has finding context": 408729009,
-    "Has interpretation":  363713009,
-    "Has interprets":      363714003,
-    "Has occurrence":      246454002,
-    "Has pathology":       370135005,
-    "Has relat context":   408732007,
-    "Has severity":        246112005,
-    "Has temporal context": 408731000,
-    "Finding asso with":    47429007,   # Associated with
-}
 
 # ---------------------------------------------------------------------------
 # RF2 constants
@@ -63,13 +47,8 @@ GS_CATEGORY_TO_TYPE_ID: dict[str, int] = {
 
 _MODULE_ID_DEFAULT   = 900000000000207008  # SNOMED CT core module
 _DEFN_STATUS_SD      = 900000000000073002  # Sufficiently defined
-_CHAR_TYPE_STATED    = 900000000000010007  # Stated
-_CHAR_TYPE_INFERRED  = 900000000000011006  # Inferred
-_MODIFIER            = 900000000000451002  # Existential
-_IS_A_TYPE_ID        = 116680003           # Is a (relationship type)
 _CLINICAL_FINDING    = 404684003           # Clinical finding (default stated parent)
 _CONCEPT_ID_START    = 1_000_000_001       # First synthetic concept ID
-_REL_ID_START        = 2_000_000_001       # First synthetic relationship ID
 _MODULE_DEP_REFSET   = 900000000000534007  # Module dependency refset
 _MODEL_COMPONENT_MOD = 900000000000012004  # SNOMED CT Model Component module
 _OWL_AXIOM_REFSET_ID = 733073007           # OWL Axiom Reference Set
@@ -99,14 +78,14 @@ _MODULE_DEP_HEADER = (
 def _build_owl_expression(
     source_sctid: int,
     parent_sctids: list[int],
-    attributes: list[tuple[int, str]],
+    attributes: list[tuple],
 ) -> str:
     """Build a complete OWL Functional Syntax axiom expression for one concept.
 
     For concepts with attributes (Sufficiently Defined semantics)::
 
         EquivalentClasses(:src ObjectIntersectionOf(:p1 :p2
-            ObjectSomeValuesFrom(:609096000 <role_group_content>)))
+            <group 0 attributes> ObjectSomeValuesFrom(:609096000 <group 1>) ...))
 
     For concepts with no attributes (fallback to primitive; first parent used)::
 
@@ -121,7 +100,9 @@ def _build_owl_expression(
         source_sctid: Synthetic SCTID of the source concept.
         parent_sctids: One or more SCTIDs for the stated "Is a" parents.
             At least one is required.
-        attributes: List of ``(type_id, destination_sctid_str)`` tuples.
+        attributes: ``(group, type_id, destination_sctid_str)`` tuples. Group 0
+            attributes are ungrouped; every other group number becomes one role
+            group.
 
     Returns:
         Full OWL Functional Syntax string.
@@ -136,38 +117,46 @@ def _build_owl_expression(
         # No attributes — can only assert subsumption (use first/only parent)
         return f"SubClassOf({src} :{parent_sctids[0]})"
 
-    attr_exprs = [f"ObjectSomeValuesFrom(:{t} :{d})" for t, d in attributes]
-    if len(attr_exprs) == 1:
-        role_group = f"ObjectSomeValuesFrom(:{_ROLE_GROUP_ID} {attr_exprs[0]})"
-    else:
-        inner = " ".join(attr_exprs)
-        role_group = (
-            f"ObjectSomeValuesFrom(:{_ROLE_GROUP_ID} ObjectIntersectionOf({inner}))"
-        )
+    grouped: dict[int, list[str]] = defaultdict(list)
+    for group, type_id, dest in attributes:
+        expr = f"ObjectSomeValuesFrom(:{type_id} :{dest})"
+        if expr not in grouped[int(group)]:
+            grouped[int(group)].append(expr)
 
-    # Build intersection: all parents + role group
-    if len(parent_sctids) == 1:
-        intersection_args = f"{par_exprs} {role_group}"
-    else:
-        intersection_args = f"{par_exprs} {role_group}"
+    parts = list(grouped.pop(0, []))
+    for group in sorted(grouped):
+        exprs = grouped[group]
+        inner = exprs[0] if len(exprs) == 1 else f"ObjectIntersectionOf({' '.join(exprs)})"
+        parts.append(f"ObjectSomeValuesFrom(:{_ROLE_GROUP_ID} {inner})")
 
+    intersection_args = f"{par_exprs} {' '.join(parts)}"
     return (
         f"EquivalentClasses({src} ObjectIntersectionOf({intersection_args}))"
     )
 
 
+def _parse_relationship_groups(value) -> list[int] | None:
+    """Parse a ``relationship_groups`` cell (``"1;2"``, ``1``, ``1.0``) into group numbers."""
+    if value is None or (not isinstance(value, str) and pd.isna(value)):
+        return None
+    groups = [int(float(part)) for part in str(value).split(";") if part.strip()]
+    return groups or None
+
+
 def _rows_from_source(
     source: Union[str, Path, pd.DataFrame],
-) -> list[tuple[int | str, str, str, str]]:
-    """Return (source_id, source_name, dest_sctid, attr_type) rows.
+) -> list[tuple[int | str, str, str, str, list[int] | None]]:
+    """Return (source_id, source_name, dest_sctid, attr_type, groups) rows.
 
     Args:
-        source: Path to ``attribute_results.csv`` or a DataFrame with the same
+        source: Path to ``hierarchy_attribute_results.csv`` or a DataFrame with the same
                 columns (``source_concept_id``, ``source_key``, ``source_term``,
-                ``predicted_target_concept_code``, ``attribute_category``).
+                ``predicted_target_concept_code``, ``attribute_category`` and
+                optional ``relationship_groups``).
 
     Returns:
         List of tuples, skipping rows with missing ``predicted_target_concept_code``.
+        ``groups`` is ``None`` when the row has no ``relationship_groups``.
     """
     if isinstance(source, (str, Path)):
         df = pd.read_csv(source)
@@ -197,6 +186,7 @@ def _rows_from_source(
             str(row.get("source_term", "")),
             code_str,
             str(row["attribute_category"]),
+            _parse_relationship_groups(row.get("relationship_groups")),
         ))
     return rows
 
@@ -209,12 +199,12 @@ def export_to_rf2(
     source: Union[str, Path, pd.DataFrame],
     output_dir: Union[str, Path],
     *,
+    hierarchy_settings: HierarchySettings,
     date: str | None = None,
     module_id: int = _MODULE_ID_DEFAULT,
     stated_parent: Union[int, dict[int, list[str]]] = _CLINICAL_FINDING,
     rel_group: int = 1,
     concept_id_start: int = _CONCEPT_ID_START,
-    rel_id_start: int = _REL_ID_START,
     zip_it: bool = True,
 ) -> tuple[Path, pd.DataFrame]:
     """Export Step 2 attribute predictions as an RF2 delta ZIP.
@@ -225,21 +215,26 @@ def export_to_rf2(
     with real SNOMED SCTIDs in the base release.
 
     Args:
-        source: Path to ``attribute_results.csv`` **or** a DataFrame with
+        source: Path to ``hierarchy_attribute_results.csv`` **or** a DataFrame with
             columns ``source_concept_id``, ``source_key``, ``source_term``,
             ``predicted_target_concept_code`` (SNOMED SCTID string), and
             ``attribute_category``.
         output_dir: Directory where the ``Delta/`` folder and ZIP are written.
+        hierarchy_settings: ``config.hierarchy``; ``hierarchy.attributes`` maps each
+            ``attribute_category`` (OHDSI relationship) to the SNOMED attribute
+            concept written as the relationship type. Rows with other categories
+            are skipped with a warning.
         date: Effective date string in ``YYYYMMDD`` format.  Defaults to today.
         module_id: SNOMED module concept ID (default: SNOMED CT core module).
         stated_parent: Either a single SCTID ``int`` applied to all concepts,
             or a ``dict[omop_concept_id, list[sctid_str]]`` for per-concept
             parents (output of ``build_stated_parents_map``).  Defaults to
             404684003 (Clinical finding).
-        rel_group: Relationship group number for all predicted attributes
-            (default: 1 — grouped).  Pass 0 for ungrouped.
+        rel_group: Relationship group used for rows without
+            ``relationship_groups`` (default: 1 — grouped). Pass 0 for ungrouped.
+            Rows with ``relationship_groups`` (e.g. ``"1;2"``) are written to
+            each listed role group.
         concept_id_start: First synthetic concept ID (default: 1 000 000 001).
-        rel_id_start: Starting integer for generated relationship IDs.
         zip_it: When True (default), produce a ``.zip`` archive in
             *output_dir*.
 
@@ -265,12 +260,7 @@ def export_to_rf2(
 
     # ── Build OMOP → synthetic ID mapping ─────────────────────────────────
     unique_sources = dict.fromkeys(r[0] for r in rows)  # ordered dedup
-    omop_to_synth: dict = {}
-    synth_to_omop: dict = {}
-    for i, omop_id in enumerate(unique_sources):
-        synth_id = concept_id_start + i
-        omop_to_synth[omop_id] = synth_id
-        synth_to_omop[synth_id] = omop_id
+    omop_to_synth = {omop_id: concept_id_start + i for i, omop_id in enumerate(unique_sources)}
 
     # Save mapping CSV
     id_map_rows = []
@@ -297,14 +287,17 @@ def export_to_rf2(
     logger.info("  Concept file: %d concepts → %s", len(unique_sources), concept_path.name)
 
     # ── Group attributes by source concept ──────────────────────────────────
+    type_ids = hierarchy_settings.relationship_type_ids()
     concept_attrs: dict = defaultdict(list)
     unknown_types: set[str] = set()
-    for src_id, _src_name, dest_sctid, attr_type in rows:
-        type_id = GS_CATEGORY_TO_TYPE_ID.get(attr_type)
+    for src_id, _src_name, dest_sctid, attr_type, groups in rows:
+        type_id = type_ids.get(attr_type)
         if type_id is None:
             unknown_types.add(attr_type)
             continue
-        concept_attrs[src_id].append((type_id, dest_sctid))
+        for group in groups or [rel_group]:
+            if (group, type_id, dest_sctid) not in concept_attrs[src_id]:
+                concept_attrs[src_id].append((group, type_id, dest_sctid))
 
     if unknown_types:
         logger.warning(

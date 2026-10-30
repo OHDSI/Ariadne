@@ -1,0 +1,276 @@
+source_concept_id,source_term,selected_parents,reference_parents,outcome
+73021,Bilateral congenital dislocation of hip,Disease,Disease,exact
+26378,Hyperpituitarism,Disease,Disease,exact
+25572,Disorder of salivary gland,Disease,Disease,exact
+28356,Overlapping malignant neoplasm of major salivary gland,Disease,Malignant neoplasm of overlapping sites of digestive system,too_general
+25748,Overlapping malignant neoplasm of esophagus,Disease,Malignant neoplasm of overlapping sites of digestive system,too_general
+72410,Infection of bone,Disease,Disease,exact
+75070,Lordosis deformity of spine following surgical procedure,Lordosis deformity of spine,Lordosis deformity of spine; Procedure related finding,partial
+24148,Congenital diverticulum of pharynx,Disease,Sputum finding; Disease,partial
+26662,Testicular hypofunction,Disease,Hypogonadism,too_general
+73609,Open fracture of clavicle,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+73361,Abrasion and/or friction burn of elbow with infection,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+72817,Tuberculosis of urinary organs,Disease,Disease,exact
+23865,Congenital anomaly of pharynx,Disease,Sputum finding; Disease,partial
+23304,Neck webbing,Clinical finding,Disease,too_general
+72745,Open dislocation of elbow,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+37164934,Intraoperative subcutaneous emphysema,Disease,Complication of procedure,too_general
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,Disease,Peptic ulcer without hemorrhage AND without perforation,too_general
+37167589,Obstructed labor due to interlocked twins,Labor problem; Pelvic dystocia AND/OR uterine disorder,Interlocked twins; Labor problem; Pelvic dystocia AND/OR uterine disorder,partial
+72986,Disorder of lower leg,Disease,Disease,exact
+73043,Open dislocation of glenohumeral joint,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+26711,Chronic pharyngitis,Disease,Sputum finding; Disease,partial
+72757,Open wound of shoulder region with complication,Traumatic or non-traumatic injury,,no_reference
+73335,Closed posterior dislocation of proximal end of tibia,Disease,Disease,exact
+23245,Esophageal bleeding,Disease,Disease,exact
+22820,Tuberculosis of esophagus,Disease,Disease,exact
+761734,Ulcer of right ankle due to postphlebitic syndrome,Disease,Disease,exact
+609115,Proliferative retinopathy of left eye due to diabetes mellitus type 1,Nonproliferative retinopathy due to diabetes mellitus,Proliferative retinopathy,wrong
+30753,Esophagitis,Disease,Disease,exact
+72992,Allergic arthritis,Disease,Allergic condition; Disease,partial
+73122,Tuberculosis of knee,Disease,Disease,exact
+73041,Closed fracture of five ribs,Traumatic or non-traumatic injury,Fracture of five ribs,too_general
+28779,Bleeding esophageal varices,Disease,Disease,exact
+24660,Acute tonsillitis,Sputum finding; Disease,Sputum finding; Disease,exact
+37207424,Severe muscle atrophy,Disease,Disease,exact
+37207425,Mild generalized edema,Clinical finding,Generalized edema,too_general
+72245,Chlamydial infection of lower genitourinary tract,Disease,Disease,exact
+26908,Vincent's angina,Non-plaque induced gingival disease; Traumatic or non-traumatic injury,Traumatic or non-traumatic injury; Sputum finding,wrong
+73712,Malignant neoplasm of dome of urinary bladder,Disease,Disease,exact
+73153,Malignant neoplasm of lateral wall of urinary bladder,Disease,Disease,exact
+30061,Neoplasm of uncertain behavior of major salivary gland,Disease,Disease,exact
+27516,Neoplasm of uncertain behavior of paraganglia,Disease,Disease,exact
+26069,Postablative testicular hypofunction,Hypogonadism; Procedure related finding,Hypogonadism; Procedure related finding,exact
+72857,Late effect of rickets,Rickets,Disease,wrong
+22288,Hereditary elliptocytosis,Anemia due to intrinsic red cell abnormality; Hereditary disease,Hereditary hemolytic anemia; Erythrocyte membrane abnormality,wrong
+73072,Crushing injury of upper arm,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+24230,Foreign body in larynx,Disease,Disease,exact
+24978,Chronic adenotonsillitis,Sputum finding; Disease,Sputum finding; Disease,exact
+72516,Burn of knee,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+22666,Vomiting after gastrointestinal tract surgery,Disease; Procedure related finding,Vomiting; Procedure related finding,partial
+73241,Anal and rectal polyp,Disease,Disease,exact
+73614,Closed fracture of seven ribs,Traumatic or non-traumatic injury,Fracture of seven ribs,too_general
+72984,Reactive arthritis of joint of shoulder region due to and following dysentery,Spondyloarthritis,Spondyloarthritis,exact
+72989,"Arthropathy associated with mycoses, of the ankle and/or foot",Disease,Disease,exact
+72708,Traumatic arthropathy of the shoulder region,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+72991,Traumatic arthropathy of multiple sites,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+73557,Allergic arthritis of the pelvic region and thigh,Disease,Allergic condition; Disease,partial
+73555,Transient arthropathy of the pelvic region and thigh,Disease,Disease,exact
+73561,Loose body in joint of shoulder region,Disease,Disease,exact
+73289,Pathological dislocation of multiple joints,Pathological dislocation of joint,Pathological dislocation of joint,exact
+73845,Joint ankylosis of the shoulder region,Disease,Disease,exact
+73568,Palindromic rheumatism of shoulder region,Palindromic rheumatism,Palindromic rheumatism,exact
+73291,Palindromic rheumatism of ankle and/or foot,Palindromic rheumatism,Palindromic rheumatism,exact
+73564,Full thickness rotator cuff tear,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+74739,Osteopathy from poliomyelitis,Neuromuscular scoliosis,Disease,wrong
+72421,Solitary bone cyst,Disease,Disease,exact
+26213,Congenital salivary gland fistula,Disease,Disease,exact
+73085,Injury of superficial femoral artery,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+28974,Candidiasis of the esophagus,Disease,Disease,exact
+73042,Open fracture finger middle phalanx,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+72468,Open dislocation of jaw,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+73336,Closed traumatic dislocation ankle joint,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+30234,Neck sprain,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+73065,Contusion of genital organ,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+73300,Radial styloid tenosynovitis,Disease,Disease,exact
+31335,Acute peptic ulcer with hemorrhage but without obstruction,Disease,Peptic ulcer with hemorrhage but without obstruction,too_general
+31386,Congenital absence of salivary gland,Disease,Disease,exact
+72469,Closed traumatic dislocation of joint of shoulder region,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+23137,Chlamydial pharyngitis,Disease,Sputum finding; Disease,partial
+22955,Perforation of esophagus,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+26141,Barrett's esophagus with esophagitis,Disease,Disease,exact
+27918,Eosinophilic esophagitis,Disease,Allergic condition; Disease,partial
+73008,Enthesopathy,Clinical finding,Disease,too_general
+30361,Hypoglycemic disorder,Disorder of carbohydrate metabolism,Disorder of glucose regulation,too_general
+74052,Labyrinthitis,Disease,Disease,exact
+74127,Contracture of elbow joint,Disease,Disease,exact
+72712,Synovial cyst,Clinical finding,Disease,too_general
+73673,Disorder of prosthetic joint,Disorder of prostheses and implants,Disorder of prostheses and implants,exact
+72711,Shoulder stiff,Clinical finding,Clinical finding,exact
+22492,Foreign body in pharynx,Disease,Sputum finding; Disease,partial
+24198,Contusion of esophagus,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+28403,Gigantism and acromegaly,Gigantism,Acromegaly; Gigantism,partial
+30163,Cellulitis and abscess of neck,Disease,Disease,exact
+72403,Hemarthrosis of the ankle and/or foot,Disease,Disease,exact
+73571,Pathological fracture,Disease,Traumatic or non-traumatic injury,too_general
+25068,Branchial cleft sinus and fistula,Disease,Disease,exact
+73001,Myositis,Disease,Disease,exact
+72576,Benign neoplasm of breast,Disease,Disease,exact
+72578,Neoplasm of uncertain behavior of breast,Disease,Disease,exact
+72521,Immersion foot,Disease,Traumatic or non-traumatic injury; Effect of exposure to physical force,too_general
+72390,Obstetric non-purulent mastitis,"Disease; Pregnancy, childbirth and puerperium finding","Complication of pregnancy, childbirth and/or puerperium",too_general
+24966,Esophageal varices,Disease,Disease,exact
+30441,Sialolithiasis,Disease,Disease,exact
+72413,Nontraumatic rupture of muscle,Traumatic or non-traumatic injury,Nontraumatic injury,too_general
+73313,Longitudinal deficiency of tarsal bone,Disease,Disease,exact
+72418,Scoliosis deformity of spine,Disease,Disease,exact
+73847,Finding of elbow joint,Clinical finding,Clinical finding,exact
+24970,Chronic laryngitis,Disease,Disease,exact
+73575,Deformity of toe,Clinical finding,Clinical finding,exact
+73383,Full thickness burn of foot,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+73574,Nonunion of fracture,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+46270436,Chronic tophaceous gout of elbow caused by drug,Secondary gout,Secondary gout,exact
+25844,Ulcer of esophagus,Disease,Disease,exact
+73409,Primary anal syphilis,Early symptomatic syphilis,Primary extragenital syphilis,too_general
+74080,Orthostatic proteinuria,Urine finding; Procedure related finding,Urine finding; Procedure related finding; Asymptomatic,partial
+72459,Closed fracture of two ribs,Traumatic or non-traumatic injury,Fracture of two ribs,too_general
+73365,Epidermal burn of elbow,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+73019,Breast engorgement in newborn,"Pregnancy, childbirth and puerperium finding",Engorgement of breasts; Disease,wrong
+30439,Acute peptic ulcer with perforation but without obstruction,Traumatic or non-traumatic injury,Peptic ulcer with perforation but without obstruction,too_general
+73838,Pyogenic arthritis of multiple sites,Disease,Disease,exact
+73842,Enthesopathy of elbow region,Peripheral enthesopathy,Peripheral enthesopathy,exact
+73378,Frostbite of foot,Traumatic or non-traumatic injury; Effect of exposure to physical force,Traumatic or non-traumatic injury; Effect of exposure to physical force,exact
+31884,Acquired diverticulum of esophagus,Disease,Disease,exact
+26718,Acute peptic ulcer with perforation AND obstruction,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+73338,Sprain of lateral collateral ligament of knee,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+762432,Family history of hepatoma,Clinical finding,,no_reference
+31821,Disorder of endocrine system,Clinical finding,Disease,too_general
+22557,Malignant tumor of submandibular gland,Disease,Disease,exact
+25189,Malignant tumor of oral cavity,Disease,Disease,exact
+25297,Acute pharyngitis,Sputum finding; Disease,Sputum finding; Disease,exact
+73307,Transverse deficiency of lower limb,Disease,Disease,exact
+73851,Effusion of joint of multiple sites,Disease,Disease,exact
+25780,Pituitary dwarfism,Disorder of stature,Short stature disorder,too_general
+73855,Arrest of bone development AND/OR growth,Clinical finding,Disease,too_general
+30284,Motion sickness,Disease,Nausea; Effect of exposure to physical force,wrong
+26638,Primary malignant neoplasm of esophagus,Disease,Disease,exact
+26052,Primary malignant neoplasm of larynx,Disease,Disease,exact
+31509,Primary malignant neoplasm of tonsil,Sputum finding; Disease,Sputum finding; Disease,exact
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Disease,Disease,exact
+31610,Disorder of esophagus,Disease,Disease,exact
+4215689,Heart failure confirmed,Clinical finding,,no_reference
+23986,Disorder of pituitary gland,Disease,Disease,exact
+73553,Arthropathy,Disease,Disease,exact
+25056,Congenital anomaly of neck,Disease,Disease,exact
+30274,Full thickness burn of neck,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+73366,Crushing injury of lower leg,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+72407,Effusion of joint of shoulder region,Disease,Disease,exact
+26459,Acute esophagitis,Disease,Disease,exact
+72715,Exostosis,Disease,Disease,exact
+72332,Serous labyrinthitis,Disease,Disease,exact
+74125,Inflammatory polyarthropathy,Disease,Disease,exact
+73334,Closed posterior dislocation of elbow,Disease,Disease,exact
+73550,Crystal arthropathy of elbow,Disease,Disease,exact
+29056,Sialoadenitis,Disease,Disease,exact
+23237,Acute peptic ulcer with hemorrhage AND obstruction,Disease,Disease,exact
+72487,Crushing injury of foot,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+28060,Streptococcal sore throat,Disease,Sputum finding; Disease,partial
+73686,Tuberculosis of genitourinary system,Disease,Disease,exact
+72737,Microcalcifications of the breast,Disease; Procedure related finding,Disease,wrong
+73849,Acquired lordosis deformity of spine,Lordosis deformity of spine,Lordosis deformity of spine,exact
+28461,Hypertrophy of salivary gland,Disease,Disease,exact
+24969,Laryngitis,Disease,Disease,exact
+27438,Burn of esophagus,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+193782,End-stage renal disease,Disease,Renal failure syndrome; End stage organ failure,too_general
+28457,Hypertrophy of tonsils,Sputum finding; Disease,Sputum finding; Disease,exact
+23653,Foreign body in esophagus,Disease,Disease,exact
+23806,Atrophy of salivary gland,Disease,Disease,exact
+29979,Crushing injury of neck,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+74064,Ankylosis of temporomandibular joint,Disease,Disease,exact
+22350,Edema of larynx,Disease,Disease,exact
+23164,Disorder of anterior pituitary,Disease,Disease,exact
+73349,Injury of rectum without open wound into abdominal cavity,Internal injury of abdominal organs without open wound into cavity,Internal injury of abdominal organs without open wound into cavity,exact
+23034,Neonatal hypoglycemia,Metabolic disease,Hypoglycemia,too_general
+73616,Open fracture of lunate bone of wrist,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+73819,Pain of breast,Clinical finding,Pain,too_general
+72562,Gonococcal spondylitis,Sexually transmitted infectious disease,Sexually transmitted infectious disease,exact
+73560,Calcaneal spur,Disease,Clinical finding,wrong
+23798,Acute laryngopharyngitis,Disease,Sputum finding; Disease,partial
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,Traumatic or non-traumatic injury,Peptic ulcer with perforation but without obstruction; Peptic ulcer with hemorrhage but without obstruction,too_general
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,Disease,Disease,exact
+73913,Burn of shoulder,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+26441,Bleeding ulcer of esophagus,Disease,Disease,exact
+30442,Chronic peptic ulcer with perforation AND obstruction,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+74124,Traumatic arthropathy,Disease,Traumatic or non-traumatic injury,too_general
+23567,Branchial cleft cyst,Disease,Disease,exact
+73362,Crushing injury of multiple sites of upper limb,Traumatic or non-traumatic injury,Crushing injury of multiple sites,too_general
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",Peptic ulcer without hemorrhage AND without perforation,"Peptic ulcer without hemorrhage, without perforation AND without obstruction",too_general
+73925,Burn of upper limb,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+31602,Disorder of the larynx,Disease,Disease,exact
+26286,Burn of neck,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+72988,Pyogenic arthritis of hand,Disease,Disease,exact
+30124,Obstruction of larynx,Disease,Disease,exact
+73872,Congenital deformity of knee joint,Disease,Disease,exact
+73373,Epidermal burn of upper limb,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+72398,Arthropathy in Behcet's syndrome,Disease,Disease,exact
+73343,Closed posterior dislocation of hip,Traumatic or non-traumatic injury,Disease,wrong
+73302,Curvature of spine,Clinical finding,Disease,too_general
+31597,Acute laryngotracheitis,Disease,Disease,exact
+73036,Closed fracture of olecranon process of ulna,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+30133,Acute laryngitis,Disease,Disease,exact
+31598,Hypertrophy of tonsils AND adenoids,Sputum finding; Disease,Sputum finding; Disease,exact
+72405,Degenerative joint disease of shoulder region,Disease,Disease,exact
+73075,Contusion of upper limb,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+73341,Closed fracture of head of radius,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+73089,Contusion of buttock,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+72460,Open fracture of seven ribs,Traumatic or non-traumatic injury,Fracture of seven ribs,too_general
+23868,Congenital anomaly of esophagus,Disease,Disease,exact
+73649,Contusion of finger,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+24977,Mucocele of salivary gland,Disease,Disease,exact
+26899,Tuberculous laryngitis,Disease,Disease,exact
+22722,Accessory salivary gland,Disease,Disease,exact
+31668,Acquired deformity of neck,Disease,Disease,exact
+28385,Disorder of posterior pituitary,Disease,Disease,exact
+73888,Open fracture of navicular bone of foot,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+26935,Disorder of endocrine testis,Disease,Disease,exact
+30333,Gonorrhea of pharynx,Sputum finding; Disease,Sexually transmitted infectious disease; Sputum finding,partial
+73889,Sprain of distal tibiofibular ligament,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+73090,Contusion of foot,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+72618,Disorder of skeletal muscle,Disease,Disease,exact
+28462,Fistula of salivary gland,Clinical finding,Disease,too_general
+73287,Crystal arthropathy of ankle AND/OR foot,Disease,Disease,exact
+24974,Stenosis of larynx,Disease,Disease,exact
+31057,Disorder of pharynx,Disease,Sputum finding; Disease,partial
+73580,Reduction deformity of lower limb,Disease,Disease,exact
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+73290,Contracture of joint,Disease,Disease,exact
+25698,Complication of transplanted pancreas,Procedure related finding; Disease,Procedure related finding; Disease,exact
+73884,Closed fracture of three ribs,Traumatic or non-traumatic injury,Fracture of three ribs,too_general
+29735,Candidiasis of mouth,Disease,Disease,exact
+72717,Postoperative heterotopic calcification,Disease,Procedure related finding; Disease,partial
+73372,Burn of breast,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+31609,Abscess of salivary gland,Disease,Disease,exact
+23247,Chronic peptic ulcer with perforation but without obstruction,Traumatic or non-traumatic injury,Peptic ulcer with perforation but without obstruction,too_general
+30770,Chronic peptic ulcer with hemorrhage but without obstruction,Disease,Peptic ulcer with hemorrhage but without obstruction,too_general
+24134,Neck pain,Clinical finding,Pain,too_general
+73318,Polydactyly of fingers,Disease,Disease,exact
+72434,Congenital hydrocele,Disease,Disease,exact
+73854,Progressive myositis ossificans,Disease,Autosomal dominant hereditary disorder,too_general
+26719,Chronic laryngotracheitis,Disease,Disease,exact
+73866,Congenital anomaly of breast,Disease,Disease,exact
+72486,Blister of elbow without infection,Blister without infection,Blister without infection,exact
+72404,Joint stiffness,Clinical finding,Clinical finding,exact
+73923,Contusion of upper arm,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+72995,Contracture of joint of hand,Disease,Disease,exact
+25211,Iatrogenic pituitary disorder,Disease,Iatrogenic disorder,too_general
+26727,Hematemesis,Clinical finding,Vomiting,too_general
+73045,Sprain of hand,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+72926,Labyrinthine fistula,Disease,Disease,exact
+73091,Deep third degree burn of breast,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+24818,Injury of neck,Traumatic or non-traumatic injury,Traumatic or non-traumatic injury,exact
+72997,Articular cartilage disorder of upper arm,Disease,Disease,exact
+23220,Chronic tonsillitis,Sputum finding; Disease,Sputum finding; Disease,exact
+73231,Arthralgia of temporomandibular joint,Disease,Pain,wrong
+28716,Benign neoplasm of aortic body,Disease,Disease,exact
+24884,Benign neoplasm of carotid body,Disease,Disease,exact
+73723,Benign neoplasm of epididymis,Disease,Disease,exact
+24602,Benign neoplasm of esophagus,Disease,Disease,exact
+23731,Benign neoplasm of larynx,Sputum finding; Disease,Disease,wrong
+30679,Benign neoplasm of major salivary gland,Disease,Disease,exact
+26060,Benign neoplasm of tonsil,Sputum finding; Disease,Sputum finding; Disease,exact
+30356,Benign neoplasm of pharynx,Disease,Sputum finding; Disease,partial
+28115,Benign neoplasm of pineal gland,Disease,Disease,exact
+28109,Carcinoma in situ of esophagus,Disease,Disease,exact
+24897,Carcinoma in situ of larynx,Sputum finding; Disease,Disease,wrong
+25757,Primary malignant neoplasm of aortic body,Disease,Disease,exact
+27235,Primary malignant neoplasm of carotid body,Disease,Disease,exact
+25486,Primary malignant neoplasm of islets of Langerhans,Disease,Disease,exact
+30346,Primary malignant neoplasm of neck,Disease,Disease,exact
+28083,Primary malignant neoplasm of pharynx,Sputum finding; Disease,Sputum finding; Disease,exact
+26361,Primary malignant neoplasm of pineal gland,Disease,Disease,exact
+24296,Primary malignant neoplasm of pituitary gland,Disease,Disease,exact
+22274,Neoplasm of uncertain behavior of larynx,Sputum finding; Disease,Disease,wrong
+22871,Neoplasm of uncertain behavior of pineal gland,Disease,Disease,exact
+27835,Neoplasm of uncertain behavior of pituitary gland,Disease,Disease,exact
+25582,Tracheoesophageal fistula,Disease,Disease,exact
+73017,Congenital anomaly of toe,Disease,Disease,exact

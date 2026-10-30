@@ -33,15 +33,10 @@ from pathlib import Path
 
 import pandas as pd
 
-from ariadne.hierarchy.rf2_exporter import GS_CATEGORY_TO_TYPE_ID
+from ariadne.hierarchy.mrcm import IS_A_TYPE_ID
+from ariadne.utils.settings import HierarchySettings
 
 logger = logging.getLogger(__name__)
-
-# Valid SNOMED relationship type IDs (for pre-classification validation)
-_VALID_TYPE_IDS: set[str] = {
-    "116680003",  # Is a
-    *(str(v) for v in GS_CATEGORY_TO_TYPE_ID.values()),
-}
 
 
 # ---------------------------------------------------------------------------
@@ -84,23 +79,25 @@ def _base_release(explicit: str | None = None) -> str:
 # Pre-classification validation
 # ---------------------------------------------------------------------------
 
-def pre_classification_checks(delta_zip: str | Path) -> list[str]:
+def pre_classification_checks(delta_zip: str | Path, hierarchy_settings: HierarchySettings) -> list[str]:
     """Run lightweight structural checks on an RF2 delta ZIP.
 
     Validates:
     - The ZIP contains the expected Terminology files
     - StatedRelationship file has correct TSV headers
     - All ``destinationId`` values look like valid SCTIDs (6+ digit integers)
-    - All ``typeId`` values are in the known set of SNOMED attribute types
+    - All ``typeId`` values are "Is a" or an attribute configured in ``hierarchy.attributes``
 
     Args:
         delta_zip: Path to the RF2 delta ZIP.
+        hierarchy_settings: ``config.hierarchy`` (source of the valid attribute type IDs).
 
     Returns:
         List of issue descriptions.  Empty list means all checks passed.
     """
     issues: list[str] = []
     delta_zip = Path(delta_zip)
+    valid_type_ids = {IS_A_TYPE_ID, *(str(v) for v in hierarchy_settings.relationship_type_ids().values())}
 
     if not delta_zip.is_file():
         issues.append(f"Delta ZIP not found: {delta_zip}")
@@ -144,10 +141,10 @@ def pre_classification_checks(delta_zip: str | Path) -> list[str]:
                             )
 
                     if "typeId" in df.columns:
-                        unknown_types = set(df["typeId"]) - _VALID_TYPE_IDS
+                        unknown_types = set(df["typeId"]) - valid_type_ids
                         if unknown_types:
                             issues.append(
-                                f"Unknown typeId values (not standard SNOMED attribute types): "
+                                f"Unknown typeId values (not 'Is a' or a configured attribute): "
                                 f"{unknown_types}"
                             )
 
@@ -368,7 +365,7 @@ def parse_classification_results(
     all_rels = pd.concat(rel_dfs, ignore_index=True)
 
     new_is_a = all_rels[
-        (all_rels["typeId"] == "116680003") & (all_rels["active"] == "1")
+        (all_rels["typeId"] == IS_A_TYPE_ID) & (all_rels["active"] == "1")
     ].copy()
 
     removed = all_rels[all_rels["active"] == "0"].copy()

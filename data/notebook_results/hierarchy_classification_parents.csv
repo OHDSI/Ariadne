@@ -1,0 +1,1692 @@
+source_concept_id,source_term,relationship_id,target_concept_code,target_concept_name
+73555,Transient arthropathy of the pelvic region and thigh,Is a,66191007,Transient arthropathy
+72404,Joint stiffness,Subsumes,202510005,Multiple stiff joints
+31057,Disorder of pharynx,Subsumes,2129002,Edema of pharynx
+27835,Neoplasm of uncertain behavior of pituitary gland,Subsumes,608817003,Pituicytoma
+30770,Chronic peptic ulcer with hemorrhage but without obstruction,Is a,49232000,Chronic peptic ulcer with hemorrhage
+30770,Chronic peptic ulcer with hemorrhage but without obstruction,Is a,128292002,Chronic disease of cardiovascular system
+30770,Chronic peptic ulcer with hemorrhage but without obstruction,Is a,1142281007,1142281007
+30770,Chronic peptic ulcer with hemorrhage but without obstruction,Is a,405539004,Hemorrhage of blood vessel
+72745,Open dislocation of elbow,Subsumes,208806005,Open traumatic subluxation of elbow
+24134,Neck pain,Subsumes,417347005,Cervical somatic dysfunction
+72997,Articular cartilage disorder of upper arm,Subsumes,1344802008,Osteochondropathy of radius
+72407,Effusion of joint of shoulder region,Subsumes,306981000119101,Effusion of joint of right shoulder region
+72989,"Arthropathy associated with mycoses, of the ankle and/or foot",Is a,201540009,"Arthropathy associated with mycoses, of the ankle and/or foot"
+26069,Postablative testicular hypofunction,Is a,190552005,Postablative testicular hypofunction
+72468,Open dislocation of jaw,Is a,208748005,Open dislocation of jaw
+72421,Solitary bone cyst,Is a,203465002,Bone cyst
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Subsumes,93842002,Primary malignant neoplasm of ischium
+73553,Arthropathy,Subsumes,715470008,Brachydactylous dwarfism Mseleni type
+72404,Joint stiffness,Subsumes,321871000119109,Stiffness of right wrist
+73553,Arthropathy,Subsumes,3723001,Arthritis
+72986,Disorder of lower leg,Subsumes,300984006,Skin ulcer of calf
+73553,Arthropathy,Subsumes,235119009,Mandibular condyle aplasia
+22557,Malignant tumor of submandibular gland,Subsumes,94077005,Primary malignant neoplasm of submaxillary gland
+30346,Primary malignant neoplasm of neck,Subsumes,94077005,Primary malignant neoplasm of submaxillary gland
+73366,Crushing injury of lower leg,Subsumes,11864641000119105,Crush injury of right lower leg
+25486,Primary malignant neoplasm of islets of Langerhans,Subsumes,93843007,Primary malignant neoplasm of islets of Langerhans
+73378,Frostbite of foot,Subsumes,1290250005,Tissue necrosis of foot due to and following frostbite
+31597,Acute laryngotracheitis,Subsumes,37948003,Acute laryngotracheitis without obstruction
+28779,Bleeding esophageal varices,Subsumes,17709002,Bleeding esophageal varices
+72398,Arthropathy in Behcet's syndrome,Subsumes,201488005,Arthropathy in Behcet's syndrome of the hand
+25056,Congenital anomaly of neck,Subsumes,253204009,"Congenital malformation of eye, ear and neck"
+30753,Esophagitis,Subsumes,266433003,Gastro-esophageal reflux disease with esophagitis
+73041,Closed fracture of five ribs,Subsumes,90863004,Closed fracture of eight OR more ribs
+73649,Contusion of finger,Subsumes,69787006,Contusion of finger
+73036,Closed fracture of olecranon process of ulna,Subsumes,64902007,Closed fracture of olecranon process of ulna
+73343,Closed posterior dislocation of hip,Is a,125610000,Joint injury
+73343,Closed posterior dislocation of hip,Is a,63975004,Closed posterior dislocation of hip
+73343,Closed posterior dislocation of hip,Is a,125600009,Injury of hip region
+24970,Chronic laryngitis,Subsumes,232434002,Chronic fungal laryngitis
+72857,Late effect of rickets,Is a,41345002,Rickets
+72986,Disorder of lower leg,Subsumes,308461000119102,Foreign body granuloma of soft tissue of right lower leg
+73291,Palindromic rheumatism of ankle and/or foot,Subsumes,202463000,Palindromic rheumatism of ankle and/or foot
+73847,Finding of elbow joint,Subsumes,299214002,Amputated through elbow
+23034,Neonatal hypoglycemia,Is a,736653007,Neonatal disorder of endocrine system
+23034,Neonatal hypoglycemia,Is a,736652002,Neonatal metabolic disorder
+73090,Contusion of foot,Subsumes,11864481000119103,Contusion of right foot
+30753,Esophagitis,Subsumes,235605005,Radiation esophagitis
+72986,Disorder of lower leg,Subsumes,700352001,Disorder of tibialis anterior tendon
+73845,Joint ankylosis of the shoulder region,Is a,302154007,Ankylosis of upper limb joint
+73845,Joint ankylosis of the shoulder region,Is a,444003007,Disorder of joint of shoulder region
+74127,Contracture of elbow joint,Is a,128133004,Disorder of elbow
+74127,Contracture of elbow joint,Is a,298747001,Deformity of upper limb
+74127,Contracture of elbow joint,Is a,304301001,Decreased range of elbow movement
+73847,Finding of elbow joint,Subsumes,298935004,Elbow joint temperature finding
+73819,Pain of breast,Subsumes,248841006,Milk leaking from breast
+73847,Finding of elbow joint,Subsumes,202600005,Clicking elbow
+72986,Disorder of lower leg,Subsumes,10666391000119103,Ulcer of left lower leg
+23247,Chronic peptic ulcer with perforation but without obstruction,Subsumes,49916007,Chronic duodenal ulcer with perforation
+73290,Contracture of joint,Subsumes,239735004,Contracture of wrist joint
+73019,Breast engorgement in newborn,Is a,248982007,"Pregnancy, childbirth and puerperium finding"
+73019,Breast engorgement in newborn,Is a,118188004,Finding of neonate
+28385,Disorder of posterior pituitary,Subsumes,72442006,Disorder of posterior pituitary
+72245,Chlamydial infection of lower genitourinary tract,Subsumes,447402003,Infection of vagina caused by Chlamydia trachomatis
+73553,Arthropathy,Subsumes,240240002,Acquired deformity of joint of lower limb
+73553,Arthropathy,Subsumes,201825001,Secondary multiple arthrosis
+30346,Primary malignant neoplasm of neck,Subsumes,681821000119109,Primary adenocarcinoma of neck
+73819,Pain of breast,Subsumes,130963002,Asynchronous involution of breast
+73819,Pain of breast,Subsumes,283091007,Scratch of breast
+26711,Chronic pharyngitis,Is a,140004,Chronic pharyngitis
+26441,Bleeding ulcer of esophagus,Is a,15238002,Esophageal bleeding
+26441,Bleeding ulcer of esophagus,Is a,64121000,Peptic ulcer with hemorrhage
+26441,Bleeding ulcer of esophagus,Is a,30811009,Ulcer of esophagus
+73560,Calcaneal spur,Is a,55260003,Calcaneal spur
+73560,Calcaneal spur,Is a,235231000119100,Osteophyte of bone
+73560,Calcaneal spur,Is a,313361002,Exostosis of foot
+31668,Acquired deformity of neck,Subsumes,301991000119105,Adolescent idiopathic scoliosis of cervical spine
+72578,Neoplasm of uncertain behavior of breast,Subsumes,1306319003,Neoplasm of uncertain behavior of ectopic site of breast
+30284,Motion sickness,Is a,119291004,Disorder of upper gastrointestinal tract
+30284,Motion sickness,Is a,419026008,Effect of exposure to physical force
+73849,Acquired lordosis deformity of spine,Subsumes,1162281004,Lordosis deformity of spine caused by radiation
+72986,Disorder of lower leg,Subsumes,126657007,Neoplasm of lower leg
+28461,Hypertrophy of salivary gland,Subsumes,45338009,Hypertrophy of salivary gland
+73819,Pain of breast,Subsumes,225604004,Lactation established
+73017,Congenital anomaly of toe,Subsumes,205351000,Perodactylia of great toe
+31602,Disorder of the larynx,Is a,60600009,Disorder of the larynx
+30274,Full thickness burn of neck,Is a,288509005,Burn of skin of body region
+30274,Full thickness burn of neck,Is a,40261006,Full thickness burn of neck
+30274,Full thickness burn of neck,Is a,399893000,Disorder of skin of neck
+27235,Primary malignant neoplasm of carotid body,Subsumes,93740003,Primary malignant neoplasm of carotid body
+30753,Esophagitis,Subsumes,36151004,Chemical esophagitis
+23304,Neck webbing,Subsumes,204529000,Congenital glottic web of larynx
+73017,Congenital anomaly of toe,Subsumes,205352007,Perodactylia of lesser toe
+27516,Neoplasm of uncertain behavior of paraganglia,Subsumes,94799008,Neoplasm of uncertain behavior of coccygeal body
+72986,Disorder of lower leg,Subsumes,78146007,Pretibial myxedema
+73575,Deformity of toe,Subsumes,271100003,Deformity of phalanx of toe
+31335,Acute peptic ulcer with hemorrhage but without obstruction,Is a,12274003,Acute peptic ulcer with hemorrhage
+31335,Acute peptic ulcer with hemorrhage but without obstruction,Is a,118948005,Disorder of abdomen
+31335,Acute peptic ulcer with hemorrhage but without obstruction,Is a,76712006,Disorder of digestive organ
+72745,Open dislocation of elbow,Subsumes,209255003,Open fracture dislocation elbow joint
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,Is a,128284006,Chronic digestive system disorder
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,Is a,55617001,Peptic ulcer with hemorrhage AND perforation
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Subsumes,93975006,Primary malignant neoplasm of pubis
+24134,Neck pain,Subsumes,276859008,Suprasternal recession
+73819,Pain of breast,Subsumes,49746001,Engorgement of breasts
+73231,Arthralgia of temporomandibular joint,Subsumes,711287000,Abnormal form of temporomandibular joint fossa
+73045,Sprain of hand,Subsumes,32128001,Sprain of metacarpophalangeal joint
+30753,Esophagitis,Subsumes,439955006,Ulcerative esophagitis
+73854,Progressive myositis ossificans,Is a,27624003,Chronic disease
+73854,Progressive myositis ossificans,Is a,44551007,Muscular ossification
+72986,Disorder of lower leg,Subsumes,1373578000,1373578000
+73008,Enthesopathy,Subsumes,298290001,Tenderness at muscle insertion
+72991,Traumatic arthropathy of multiple sites,Is a,51891008,Polyarthropathy associated with another disorder
+72991,Traumatic arthropathy of multiple sites,Is a,201940003,Traumatic arthropathy of multiple sites
+73338,Sprain of lateral collateral ligament of knee,Is a,54888009,Sprain of knee
+73338,Sprain of lateral collateral ligament of knee,Is a,444468005,Injury of lateral collateral ligament of knee
+72986,Disorder of lower leg,Subsumes,16302151000119106,Lesion of right lower leg bone
+72997,Articular cartilage disorder of upper arm,Subsumes,1345021007,Osteochondropathy of ulna
+73090,Contusion of foot,Subsumes,11864521000119103,Contusion of left foot
+72986,Disorder of lower leg,Subsumes,427781003,Contracture of gastrocnemius muscle due to traumatic injury
+72460,Open fracture of seven ribs,Is a,28081005,Open fracture of multiple ribs
+73574,Nonunion of fracture,Is a,302941001,Nonunion of fracture
+31821,Disorder of endocrine system,Subsumes,300357002,Finding of pancreas
+73872,Congenital deformity of knee joint,Subsumes,205063003,Congenital genu recurvatum
+31668,Acquired deformity of neck,Subsumes,72082009,Acquired deformity of neck
+73550,Crystal arthropathy of elbow,Is a,428768008,Crystal arthropathy of elbow
+29735,Candidiasis of mouth,Subsumes,713497004,Candidiasis of mouth co-occurrent with human immunodeficiency virus infection
+72421,Solitary bone cyst,Subsumes,203467005,Solitary bone cyst
+72413,Nontraumatic rupture of muscle,Subsumes,262966007,Rupture of muscle
+72578,Neoplasm of uncertain behavior of breast,Subsumes,1306377005,Neoplasm of uncertain behavior of lower outer quadrant of breast
+31821,Disorder of endocrine system,Subsumes,289834006,Ovary finding
+31057,Disorder of pharynx,Subsumes,74372003,Gonorrhea of pharynx
+24134,Neck pain,Subsumes,1142262004,1142262004
+193782,End-stage renal disease,Subsumes,104931000119100,Chronic kidney disease due to hypertension
+28462,Fistula of salivary gland,Subsumes,75260002,Fistula of salivary gland
+25056,Congenital anomaly of neck,Subsumes,40052002,Congenital anomaly of neck
+73553,Arthropathy,Subsumes,1145234002,1145234002
+73686,Tuberculosis of genitourinary system,Subsumes,1365900000,1365900000
+73819,Pain of breast,Subsumes,102888000,Thelarche
+73616,Open fracture of lunate bone of wrist,Is a,29014003,Open fracture of carpal bone
+73616,Open fracture of lunate bone of wrist,Is a,2012002,Fracture of lunate bone of wrist
+24969,Laryngitis,Subsumes,195709006,Pharyngolaryngitis
+73557,Allergic arthritis of the pelvic region and thigh,Is a,250131003,Lower limb joint arthritis
+73557,Allergic arthritis of the pelvic region and thigh,Is a,699207005,Arthritis of pelvis
+73557,Allergic arthritis of the pelvic region and thigh,Is a,781474001,Allergic disorder
+31609,Abscess of salivary gland,Is a,300257000,Lesion of salivary gland
+31609,Abscess of salivary gland,Is a,427779000,Mass of salivary gland
+31609,Abscess of salivary gland,Is a,735425008,Abscess of digestive system
+193782,End-stage renal disease,Subsumes,431857002,Chronic kidney disease stage 4
+25056,Congenital anomaly of neck,Subsumes,1144573006,1144573006
+72986,Disorder of lower leg,Subsumes,698846009,Tibial muscular dystrophy
+23868,Congenital anomaly of esophagus,Subsumes,204667006,Congenital diverticulum of esophagus
+73365,Epidermal burn of elbow,Is a,33826007,Epidermal burn of elbow
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Subsumes,372115003,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx"
+30061,Neoplasm of uncertain behavior of major salivary gland,Subsumes,94989005,Neoplasm of uncertain behavior of parotid gland
+25486,Primary malignant neoplasm of islets of Langerhans,Subsumes,1259799006,Primary malignant glucagonoma of pancreas
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",Subsumes,76796008,Chronic gastric ulcer without hemorrhage AND without perforation
+30441,Sialolithiasis,Subsumes,196500001,Submandibular sialolithiasis
+73017,Congenital anomaly of toe,Subsumes,1144672005,1144672005
+31386,Congenital absence of salivary gland,Subsumes,1144875009,Aplasia of parotid gland
+31610,Disorder of esophagus,Is a,37657006,Disorder of esophagus
+30679,Benign neoplasm of major salivary gland,Subsumes,92279000,Benign neoplasm of parotid gland
+73336,Closed traumatic dislocation ankle joint,Subsumes,11861121000119107,Closed traumatic dislocation of joint of left ankle
+73847,Finding of elbow joint,Subsumes,298927002,Elbow locking
+72715,Exostosis,Subsumes,235231000119100,Osteophyte of bone
+72986,Disorder of lower leg,Subsumes,399076001,Tibial neuropathy
+73819,Pain of breast,Subsumes,290053009,Breast present
+72407,Effusion of joint of shoulder region,Is a,387637008,Effusion of joint
+72407,Effusion of joint of shoulder region,Is a,444003007,Disorder of joint of shoulder region
+25486,Primary malignant neoplasm of islets of Langerhans,Is a,372003004,Primary malignant neoplasm of pancreas
+25486,Primary malignant neoplasm of islets of Langerhans,Is a,254611009,Malignant tumor of endocrine pancreas
+25486,Primary malignant neoplasm of islets of Langerhans,Is a,371983001,Primary malignant neoplasm of endocrine gland
+73290,Contracture of joint,Subsumes,785902000,Contracture of joint following injury
+29979,Crushing injury of neck,Is a,298397000,Lesion of neck
+29979,Crushing injury of neck,Is a,90460009,Injury of neck
+29979,Crushing injury of neck,Is a,125665001,Crushing injury
+23806,Atrophy of salivary gland,Is a,10890000,Disorder of salivary gland
+23806,Atrophy of salivary gland,Is a,362975008,Degenerative disorder
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",Subsumes,5492000,Chronic peptic ulcer without hemorrhage AND without perforation
+30442,Chronic peptic ulcer with perforation AND obstruction,Subsumes,60551006,Chronic duodenal ulcer with perforation AND obstruction
+72245,Chlamydial infection of lower genitourinary tract,Subsumes,447386002,Infection of vulva caused by Chlamydia trachomatis
+72986,Disorder of lower leg,Subsumes,767854000,Bone cyst of tibia
+73338,Sprain of lateral collateral ligament of knee,Subsumes,11859821000119109,Sprain of lateral collateral ligament of left knee joint
+72421,Solitary bone cyst,Subsumes,1076911000119103,Solitary bone cyst of left foot
+72986,Disorder of lower leg,Subsumes,271095000,Deformity of fibula
+73318,Polydactyly of fingers,Subsumes,782758009,"Finger hyperphalangy, toe anomalies, severe pectus excavatum syndrome"
+73017,Congenital anomaly of toe,Subsumes,782758009,"Finger hyperphalangy, toe anomalies, severe pectus excavatum syndrome"
+72986,Disorder of lower leg,Subsumes,1354838007,1354838007
+24970,Chronic laryngitis,Subsumes,133171000119105,Chronic pharyngolaryngitis
+27516,Neoplasm of uncertain behavior of paraganglia,Subsumes,253029009,Gangliocytic paraganglioma
+72997,Articular cartilage disorder of upper arm,Subsumes,202133001,Articular cartilage disorder of shoulder region
+73616,Open fracture of lunate bone of wrist,Subsumes,53256003,Open fracture of lunate bone of wrist
+72404,Joint stiffness,Subsumes,321801000119104,Stiffness of right ankle
+72715,Exostosis,Subsumes,111347003,Exostosis of jaw
+73847,Finding of elbow joint,Subsumes,298189003,Elbow joint hypermobility
+72926,Labyrinthine fistula,Is a,89097000,Labyrinthine fistula
+73847,Finding of elbow joint,Subsumes,298208004,Elbow joint laxity
+72986,Disorder of lower leg,Subsumes,1297192008,Epiphyseal arrest of lower leg
+74064,Ankylosis of temporomandibular joint,Subsumes,15980151000119102,Ankylosis of right temporomandibular joint
+23237,Acute peptic ulcer with hemorrhage AND obstruction,Is a,43406003,Acute peptic ulcer with hemorrhage AND obstruction
+73553,Arthropathy,Subsumes,128268005,Arthropathy of pelvis
+23868,Congenital anomaly of esophagus,Subsumes,53190001,Vascular compression of esophagus by aberrant artery
+73122,Tuberculosis of knee,Subsumes,17136009,Tuberculosis of knee
+25582,Tracheoesophageal fistula,Is a,235639009,Internal esophageal fistula
+25582,Tracheoesophageal fistula,Is a,233778002,Tracheal fistula
+31821,Disorder of endocrine system,Is a,404684003,Clinical finding
+73017,Congenital anomaly of toe,Subsumes,709105005,Jackson-Weiss syndrome
+73072,Crushing injury of upper arm,Is a,125595000,Injury of upper arm
+74064,Ankylosis of temporomandibular joint,Is a,111227009,Ankylosis of joint
+74064,Ankylosis of temporomandibular joint,Is a,767811005,Lesion of face
+31597,Acute laryngotracheitis,Subsumes,275495004,Acute fibrinous laryngotracheobronchitis
+72986,Disorder of lower leg,Subsumes,298241000119106,Traumatic myositis ossificans of lower leg
+23034,Neonatal hypoglycemia,Subsumes,773666007,Hypoinsulinemic hypoglycemia and body hemihypertrophy
+73575,Deformity of toe,Subsumes,299581004,Toe joint deformity
+31821,Disorder of endocrine system,Subsumes,237831008,Non-pancreatic hypersecretion of intestinal hormones
+24134,Neck pain,Subsumes,249888000,Weakness of sternomastoid
+72562,Gonococcal spondylitis,Is a,733131001,Infection of musculoskeletal system caused by Neisseria gonorrhoeae
+72562,Gonococcal spondylitis,Is a,896859007,896859007
+72562,Gonococcal spondylitis,Is a,274144001,Osteitis
+72562,Gonococcal spondylitis,Is a,721273004,Infection of vertebra
+72562,Gonococcal spondylitis,Is a,15628003,Gonorrhea
+24966,Esophageal varices,Subsumes,721160006,Downhill varices of esophagus
+24969,Laryngitis,Subsumes,17904003,Hypertrophic laryngitis
+24134,Neck pain,Subsumes,840674001,Normal neck region
+72745,Open dislocation of elbow,Subsumes,208798006,"Open traumatic dislocation elbow joint, lateral"
+73378,Frostbite of foot,Subsumes,12103671000119105,Frostbite of right foot
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Subsumes,440397000,Primary osteosarcoma of pelvis
+74064,Ankylosis of temporomandibular joint,Subsumes,50603008,Ankylosis of temporomandibular joint
+72715,Exostosis,Subsumes,16027871000119104,Exostosis of right radius
+72715,Exostosis,Subsumes,286611003,Exostosis of femur
+73925,Burn of upper limb,Subsumes,40971000087101,Burn of left upper limb
+73609,Open fracture of clavicle,Subsumes,71039006,Open fracture of shaft of clavicle
+73925,Burn of upper limb,Subsumes,762479004,Complex burn of upper limb
+23247,Chronic peptic ulcer with perforation but without obstruction,Is a,3483000,Chronic peptic ulcer with perforation
+23247,Chronic peptic ulcer with perforation but without obstruction,Is a,284005003,Abdominal cavity injury
+23247,Chronic peptic ulcer with perforation but without obstruction,Is a,76712006,Disorder of digestive organ
+72986,Disorder of lower leg,Subsumes,9787009,Closed lateral dislocation of proximal end of tibia
+28060,Streptococcal sore throat,Subsumes,76651006,Pneumococcal pharyngitis
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,Subsumes,81142005,Chronic duodenal ulcer with hemorrhage AND with perforation but without obstruction
+24969,Laryngitis,Subsumes,28709001,Cellulitis of larynx
+73290,Contracture of joint,Is a,785875003,Disorder of joint region
+73290,Contracture of joint,Is a,70733008,Limitation of joint movement
+73290,Contracture of joint,Is a,60342002,Movement disorder
+73290,Contracture of joint,Is a,417893002,Deformity
+72986,Disorder of lower leg,Subsumes,449704006,Hematoma of lower leg
+72745,Open dislocation of elbow,Subsumes,11920000,Open dislocation of elbow
+24969,Laryngitis,Subsumes,312423006,Infective laryngitis
+73866,Congenital anomaly of breast,Is a,83546008,Congenital anomaly of breast
+72986,Disorder of lower leg,Subsumes,722963007,Secondary restless legs syndrome
+29979,Crushing injury of neck,Subsumes,50001009,Crushing injury of neck
+28461,Hypertrophy of salivary gland,Subsumes,29748005,Hypertrophy of parotid gland
+30753,Esophagitis,Subsumes,1144951005,Esophagitis due to sarcoidosis
+72413,Nontraumatic rupture of muscle,Subsumes,29191005,Nontraumatic rupture of muscle
+29735,Candidiasis of mouth,Subsumes,707318002,Chronic multifocal candidiasis of mouth
+25056,Congenital anomaly of neck,Subsumes,1231170004,Congenital anomaly of third branchial cleft
+23868,Congenital anomaly of esophagus,Subsumes,253741006,Congenital tracheo-esophageal cleft
+24969,Laryngitis,Subsumes,86773000,Edematous laryngitis
+31057,Disorder of pharynx,Subsumes,1090211000119102,Pharyngeal diphtheria
+73017,Congenital anomaly of toe,Subsumes,62218008,Polydactyly of toes
+72421,Solitary bone cyst,Subsumes,320891000119100,Solitary bone cyst of left tibia
+73318,Polydactyly of fingers,Subsumes,722452004,Guttmacher syndrome
+72986,Disorder of lower leg,Subsumes,62260007,Pretibial pigmental patches due to diabetes mellitus
+28115,Benign neoplasm of pineal gland,Is a,275269004,Benign cerebral tumor
+28115,Benign neoplasm of pineal gland,Is a,92085000,Benign neoplasm of endocrine gland
+28115,Benign neoplasm of pineal gland,Is a,127026004,Neoplasm of pineal gland
+30753,Esophagitis,Subsumes,235597001,Barrett's esophagus with esophagitis
+75070,Lordosis deformity of spine following surgical procedure,Is a,724614007,Disorder of musculoskeletal system following procedure
+75070,Lordosis deformity of spine following surgical procedure,Is a,61960001,Lordosis deformity of spine
+75070,Lordosis deformity of spine following surgical procedure,Is a,385486001,Postoperative complication
+31597,Acute laryngotracheitis,Subsumes,59967003,Acute laryngotracheitis with obstruction
+72986,Disorder of lower leg,Subsumes,302937000,Enthesopathy of lower leg and ankle region
+29735,Candidiasis of mouth,Subsumes,402998007,Chronic nodular oral candidiasis
+72516,Burn of knee,Is a,19684007,Burn of knee
+73819,Pain of breast,Subsumes,366350004,Breast temperature - finding
+73287,Crystal arthropathy of ankle AND/OR foot,Is a,75468006,Crystal arthropathy of ankle AND/OR foot
+73287,Crystal arthropathy of ankle AND/OR foot,Is a,428776005,Disorder of ankle joint
+73287,Crystal arthropathy of ankle AND/OR foot,Is a,428339009,Disorder of joint of foot
+28356,Overlapping malignant neoplasm of major salivary gland,Is a,363378008,Malignant tumor of major salivary gland
+73819,Pain of breast,Subsumes,248830009,Areola finding
+72421,Solitary bone cyst,Subsumes,320851000119105,Solitary bone cyst of left hand
+28060,Streptococcal sore throat,Subsumes,1296672005,Acute streptococcal pharyngitis
+30442,Chronic peptic ulcer with perforation AND obstruction,Is a,57871005,Chronic peptic ulcer with perforation AND obstruction
+72413,Nontraumatic rupture of muscle,Is a,95847005,Injury of muscle
+30753,Esophagitis,Subsumes,235606006,Nasogastric tube esophagitis
+73609,Open fracture of clavicle,Subsumes,111638003,Open fracture of sternal end of clavicle
+72986,Disorder of lower leg,Subsumes,58309001,Phlebitis of tibial vein
+73231,Arthralgia of temporomandibular joint,Subsumes,209736004,"Open division, temporomandibular ligament"
+73819,Pain of breast,Subsumes,129714008,Mammography finding
+72407,Effusion of joint of shoulder region,Subsumes,202371002,Effusion of sternoclavicular joint
+73553,Arthropathy,Subsumes,277138006,Rubella arthralgia
+73085,Injury of superficial femoral artery,Is a,20593006,Injury of superficial femoral artery
+73553,Arthropathy,Subsumes,444003007,Disorder of joint of shoulder region
+26719,Chronic laryngotracheitis,Is a,83271005,Chronic laryngotracheitis
+31057,Disorder of pharynx,Subsumes,51960003,Secondary syphilis of pharynx
+72986,Disorder of lower leg,Subsumes,1343589002,Neuropathic ulcer of lower leg
+72986,Disorder of lower leg,Subsumes,1332015002,Osteolysis of tibia
+72984,Reactive arthritis of joint of shoulder region due to and following dysentery,Subsumes,201497009,Reactive arthritis of joint of shoulder region due to and following dysentery
+27835,Neoplasm of uncertain behavior of pituitary gland,Subsumes,95004009,Neoplasm of uncertain behavior of pituitary gland
+24966,Esophageal varices,Subsumes,28670008,Esophageal varices
+73819,Pain of breast,Subsumes,251815001,Breasts Tanner Stage 4
+30356,Benign neoplasm of pharynx,Subsumes,188800003,Benign tumor of nasopharynx
+23567,Branchial cleft cyst,Subsumes,59857007,Branchial cleft cyst
+193782,End-stage renal disease,Subsumes,1373674009,1373674009
+73366,Crushing injury of lower leg,Subsumes,211598007,"Open crush injury, lower leg"
+72421,Solitary bone cyst,Subsumes,25940001,Traumatic bone cyst of jaw
+72745,Open dislocation of elbow,Subsumes,208800004,Open traumatic dislocation superior radioulnar joint
+74064,Ankylosis of temporomandibular joint,Subsumes,763215008,Congenital ankylosis of temporomandibular joint
+73231,Arthralgia of temporomandibular joint,Subsumes,736447000,Infrequent episodic arthralgia of temporomandibular joint
+28115,Benign neoplasm of pineal gland,Subsumes,92294001,Benign neoplasm of pineal gland
+31821,Disorder of endocrine system,Subsumes,95583008,Ectopic renin secretion
+25582,Tracheoesophageal fistula,Subsumes,60983006,Congenital esophagotracheal fistula
+73847,Finding of elbow joint,Subsumes,298926006,Elbow joint stable
+31821,Disorder of endocrine system,Subsumes,237715007,Pituitary mass
+73231,Arthralgia of temporomandibular joint,Subsumes,735381003,Intermittent locking of temporomandibular joint
+73341,Closed fracture of head of radius,Is a,68854005,Closed fracture of head of radius
+73362,Crushing injury of multiple sites of upper limb,Is a,9560007,Crushing injury of upper limb
+30753,Esophagitis,Subsumes,1371024003,1371024003
+22722,Accessory salivary gland,Is a,111327006,Congenital anomaly of salivary gland
+30439,Acute peptic ulcer with perforation but without obstruction,Is a,79118000,Acute peptic ulcer with perforation
+30439,Acute peptic ulcer with perforation but without obstruction,Is a,284005003,Abdominal cavity injury
+30439,Acute peptic ulcer with perforation but without obstruction,Is a,76712006,Disorder of digestive organ
+73847,Finding of elbow joint,Subsumes,366520006,Elbow joint color - finding
+193782,End-stage renal disease,Subsumes,722467000,Chronic kidney disease due to traumatic loss of kidney
+72715,Exostosis,Subsumes,11673571000119101,Exostosis of skull
+25211,Iatrogenic pituitary disorder,Is a,399244003,Disorder of pituitary gland
+73568,Palindromic rheumatism of shoulder region,Subsumes,202457009,Palindromic rheumatism of shoulder region
+72715,Exostosis,Subsumes,416189003,Exostosis
+73383,Full thickness burn of foot,Is a,30044002,Full thickness burn of foot
+29735,Candidiasis of mouth,Subsumes,402996006,Chronic pseudomembranous oral candidiasis
+28716,Benign neoplasm of aortic body,Is a,91979007,Benign neoplasm of aortic body
+73819,Pain of breast,Subsumes,300885006,Swelling of breast
+29735,Candidiasis of mouth,Subsumes,746223006,Neonatal oral candidiasis
+23868,Congenital anomaly of esophagus,Subsumes,36376006,Congenital absence of esophagus
+26141,Barrett's esophagus with esophagitis,Subsumes,302914006,Barrett's esophagus
+73300,Radial styloid tenosynovitis,Subsumes,16004271000119100,Tenosynovitis of right radial styloid
+72407,Effusion of joint of shoulder region,Subsumes,306901000119109,Effusion of joint of left shoulder region
+72986,Disorder of lower leg,Subsumes,673541000119109,Exostosis of fibula
+72715,Exostosis,Subsumes,673541000119109,Exostosis of fibula
+73553,Arthropathy,Subsumes,428097001,Disorder of hip joint
+31821,Disorder of endocrine system,Subsumes,237661003,Ectopic GHRH secretion causing acromegaly
+73564,Full thickness rotator cuff tear,Subsumes,1076481000119100,Nontraumatic complete rupture of rotator cuff of right shoulder
+72986,Disorder of lower leg,Subsumes,113281000119109,Enostosis of fibula
+72578,Neoplasm of uncertain behavior of breast,Subsumes,95052004,Neoplasm of uncertain behavior of skin of breast
+73378,Frostbite of foot,Subsumes,35195001,Frostbite of foot
+25189,Malignant tumor of oral cavity,Is a,363505006,Malignant tumor of oral cavity
+28385,Disorder of posterior pituitary,Subsumes,788756004,Spindle cell oncocytoma of posterior pituitary gland
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,Subsumes,34021006,Chronic duodenal ulcer with hemorrhage AND obstruction
+72986,Disorder of lower leg,Subsumes,125602001,Injury of lower leg
+30234,Neck sprain,Is a,209557005,Neck sprain
+73378,Frostbite of foot,Subsumes,11993331000119102,Frostbite of left foot
+72986,Disorder of lower leg,Subsumes,301201000119105,Left lower leg repetitive motion disorder
+24134,Neck pain,Subsumes,248728000,Condition of jugular veins
+73338,Sprain of lateral collateral ligament of knee,Subsumes,11859781000119104,Sprain of lateral collateral ligament of right knee joint
+31821,Disorder of endocrine system,Subsumes,90420008,Normal hormonal activity
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Subsumes,93833009,Primary malignant neoplasm of ilium
+31057,Disorder of pharynx,Subsumes,865891008,Obstruction of pharynx caused by foreign body
+31057,Disorder of pharynx,Subsumes,71741000112102,Lesion of pharynx
+30124,Obstruction of larynx,Is a,61169001,Obstruction of larynx
+73819,Pain of breast,Subsumes,251814002,Breasts Tanner Stage 3
+28060,Streptococcal sore throat,Subsumes,186357007,Streptococcal sore throat with scarlatina
+73231,Arthralgia of temporomandibular joint,Subsumes,12241751000119104,Right temporomandibular joint disorder
+31335,Acute peptic ulcer with hemorrhage but without obstruction,Subsumes,12847006,Acute duodenal ulcer with hemorrhage
+73553,Arthropathy,Subsumes,81808003,Hemarthrosis
+72986,Disorder of lower leg,Subsumes,51879004,Closed medial dislocation of proximal end of tibia
+72407,Effusion of joint of shoulder region,Subsumes,297821000119103,Intermittent effusion of joint of shoulder region
+73553,Arthropathy,Subsumes,203598005,Flexion deformity
+24974,Stenosis of larynx,Is a,75547007,Stenosis of larynx
+31057,Disorder of pharynx,Subsumes,51499002,Disorder of tonsil AND/OR adenoid
+73373,Epidermal burn of upper limb,Is a,62242007,Epidermal burn of upper limb
+72986,Disorder of lower leg,Subsumes,726674004,Hernia of muscle through fascia of lower leg
+23868,Congenital anomaly of esophagus,Subsumes,79510004,Congenital displacement of esophagus
+24134,Neck pain,Subsumes,1284931006,Supraclavicular recession
+73041,Closed fracture of five ribs,Subsumes,17633000,Closed fracture of five ribs
+73122,Tuberculosis of knee,Is a,190710003,Tuberculous arthritis
+73122,Tuberculosis of knee,Is a,371081002,Arthritis of knee
+73649,Contusion of finger,Is a,896913006,896913006
+73649,Contusion of finger,Is a,52011008,Injury of finger
+73649,Contusion of finger,Is a,416462003,Wound
+24970,Chronic laryngitis,Is a,17097001,Chronic disease of respiratory system
+24970,Chronic laryngitis,Is a,128294001,Chronic inflammatory disorder
+25780,Pituitary dwarfism,Is a,51742006,Disorder of anterior pituitary
+25780,Pituitary dwarfism,Is a,237834000,Disorder of stature
+25780,Pituitary dwarfism,Is a,87536007,Central nervous system complication
+73290,Contracture of joint,Subsumes,239742004,Contracture of joint of foot
+23220,Chronic tonsillitis,Is a,90979004,Chronic tonsillitis
+73616,Open fracture of lunate bone of wrist,Subsumes,209279001,Open fracture dislocation lunate (volar)
+74080,Orthostatic proteinuria,Is a,29738008,Proteinuria
+73361,Abrasion and/or friction burn of elbow with infection,Is a,12250001,Superficial injury of elbow with infection
+73361,Abrasion and/or friction burn of elbow with infection,Is a,283032003,Superficial injury of elbow
+73361,Abrasion and/or friction burn of elbow with infection,Is a,609338009,"Abrasion and/or friction burn of upper limb, infected"
+72486,Blister of elbow without infection,Is a,84208005,Blister of elbow without infection
+23865,Congenital anomaly of pharynx,Is a,11223009,Congenital anomaly of pharynx
+23653,Foreign body in esophagus,Is a,47609003,Foreign body in esophagus
+24969,Laryngitis,Subsumes,57713008,Chorditis
+25056,Congenital anomaly of neck,Subsumes,719398004,Malignant hyperthermia with arthrogryposis and torticollis syndrome
+72986,Disorder of lower leg,Subsumes,9252005,Congenital bowing of tibia and/or fibula
+73366,Crushing injury of lower leg,Subsumes,40874009,Crushing injury of lower leg
+73318,Polydactyly of fingers,Subsumes,723446006,Polydactyly of index finger
+72986,Disorder of lower leg,Subsumes,203079000,Contracture of long toe flexor(s)
+28461,Hypertrophy of salivary gland,Is a,10890000,Disorder of salivary gland
+73819,Pain of breast,Subsumes,290077003,Edema of breast
+72986,Disorder of lower leg,Subsumes,700354000,Tendinopathy of peroneal tendon
+72737,Microcalcifications of the breast,Is a,44771000,Microcalcifications of the breast
+72737,Microcalcifications of the breast,Is a,127325009,Procedure related finding
+72986,Disorder of lower leg,Subsumes,308381000119103,Foreign body granuloma of soft tissue of left lower leg
+72745,Open dislocation of elbow,Subsumes,208795009,"Open traumatic dislocation elbow joint, anterior"
+31057,Disorder of pharynx,Subsumes,81624004,Pharyngeal paralysis
+30346,Primary malignant neoplasm of neck,Subsumes,371995001,Primary malignant neoplasm of larynx
+23304,Neck webbing,Subsumes,11731003,Neck webbing
+25056,Congenital anomaly of neck,Subsumes,11731003,Neck webbing
+27516,Neoplasm of uncertain behavior of paraganglia,Subsumes,94980009,Neoplasm of uncertain behavior of para-aortic body
+73553,Arthropathy,Subsumes,240229005,Acquired deformity of joint of upper limb
+37207425,Mild generalized edema,Subsumes,18331000175103,Mild generalized edema
+72986,Disorder of lower leg,Subsumes,1354860005,1354860005
+28083,Primary malignant neoplasm of pharynx,Is a,93961004,Primary malignant neoplasm of pharynx
+28083,Primary malignant neoplasm of pharynx,Is a,248595008,Sputum finding
+26459,Acute esophagitis,Is a,127321000,Acute digestive system disorder
+26459,Acute esophagitis,Is a,128482007,Acute inflammatory disease
+24296,Primary malignant neoplasm of pituitary gland,Subsumes,1259629009,Primary adenocarcinoma of pituitary gland
+73334,Closed posterior dislocation of elbow,Is a,4273008,Closed posterior dislocation of elbow
+72421,Solitary bone cyst,Subsumes,299651000119102,Solitary bone cyst of ankle joint region
+73290,Contracture of joint,Subsumes,239739005,Contracture of knee joint
+24134,Neck pain,Subsumes,1137509000,1137509000
+29735,Candidiasis of mouth,Subsumes,235071003,Oral erythematous candidiasis
+73819,Pain of breast,Subsumes,89164003,Breast lump
+72986,Disorder of lower leg,Subsumes,16302111000119105,Lesion of left lower leg bone
+73819,Pain of breast,Subsumes,1000701000112100,1000701000112100
+23304,Neck webbing,Subsumes,47070001,Congenital web of larynx
+193782,End-stage renal disease,Subsumes,90688005,Chronic renal failure
+74124,Traumatic arthropathy,Is a,35524003,Arthropathy associated with another disorder
+74124,Traumatic arthropathy,Is a,14817008,Late effect of injury
+74124,Traumatic arthropathy,Is a,58188004,Traumatic arthropathy
+28385,Disorder of posterior pituitary,Subsumes,237697007,Oxytocin deficiency
+73231,Arthralgia of temporomandibular joint,Subsumes,75630004,Derangement of temporomandibular joint
+73819,Pain of breast,Subsumes,275258002,Breast changes
+31509,Primary malignant neoplasm of tonsil,Is a,372020000,Primary malignant neoplasm of tonsil
+73819,Pain of breast,Subsumes,371096003,Infantile breast hypertrophy
+72986,Disorder of lower leg,Subsumes,6051000119109,Chronic ulcer of calf
+72988,Pyogenic arthritis of hand,Is a,61112000,Pyogenic arthritis of hand
+73872,Congenital deformity of knee joint,Subsumes,15668961000119104,Congenital deformity of left knee joint
+73336,Closed traumatic dislocation ankle joint,Subsumes,79763005,Closed traumatic dislocation of distal end of tibia
+24966,Esophageal varices,Subsumes,14223005,Esophageal varices without bleeding
+30441,Sialolithiasis,Is a,300257000,Lesion of salivary gland
+30441,Sialolithiasis,Is a,313413008,Calculus finding
+73847,Finding of elbow joint,Subsumes,298930009,Elbow joint crepitus
+28385,Disorder of posterior pituitary,Is a,399244003,Disorder of pituitary gland
+72986,Disorder of lower leg,Subsumes,205371009,Congenital overgrowth of distal lower limb
+27235,Primary malignant neoplasm of carotid body,Subsumes,1197349005,Primary malignant paraganglioma of carotid body
+26727,Hematemesis,Is a,386618008,Gastrointestinal tract finding
+26727,Hematemesis,Is a,131148009,Bleeding
+72715,Exostosis,Subsumes,449775008,Solitary exostosis
+72578,Neoplasm of uncertain behavior of breast,Subsumes,721600008,Aggressive fibromatosis of breast
+23806,Atrophy of salivary gland,Subsumes,196475005,Atrophy of submandibular gland
+28385,Disorder of posterior pituitary,Subsumes,254256008,Congenital malformation of posterior pituitary
+23868,Congenital anomaly of esophagus,Subsumes,69771008,Congenital anomaly of esophagus
+31597,Acute laryngotracheitis,Subsumes,64375000,Acute laryngotracheitis
+73021,Bilateral congenital dislocation of hip,Is a,10155006,Bilateral congenital dislocation of hip
+72986,Disorder of lower leg,Subsumes,792855003,Ulcer of calf due to atherosclerosis of artery of lower limb
+30753,Esophagitis,Subsumes,196601009,Gangrenous esophagitis
+24134,Neck pain,Subsumes,309522006,Tenderness of neck
+30346,Primary malignant neoplasm of neck,Subsumes,94079008,Primary malignant neoplasm of supraclavicular region
+23164,Disorder of anterior pituitary,Is a,51742006,Disorder of anterior pituitary
+25056,Congenital anomaly of neck,Subsumes,1145457005,Aplasia of cervical vertebral column
+72986,Disorder of lower leg,Subsumes,55083007,Periostitis of lower leg
+22871,Neoplasm of uncertain behavior of pineal gland,Is a,94789003,Neoplasm of uncertain behavior of cerebrum
+22871,Neoplasm of uncertain behavior of pineal gland,Is a,127026004,Neoplasm of pineal gland
+22871,Neoplasm of uncertain behavior of pineal gland,Is a,269496008,Neoplasm of uncertain behavior of endocrine glands and nervous system
+72715,Exostosis,Subsumes,313360001,Exostosis of elbow
+72986,Disorder of lower leg,Subsumes,72047008,Osgood Schlatter disease
+72986,Disorder of lower leg,Subsumes,425491009,Contracture of gastrocnemius muscle due to paralysis
+30346,Primary malignant neoplasm of neck,Subsumes,94098005,Primary malignant neoplasm of thyroid gland
+73553,Arthropathy,Subsumes,239718003,Mechanical joint disorder
+72715,Exostosis,Subsumes,673471000119101,Exostosis of shoulder girdle
+31057,Disorder of pharynx,Is a,116338005,Finding of pharynx
+31057,Disorder of pharynx,Is a,76712006,Disorder of digestive organ
+31057,Disorder of pharynx,Is a,201060008,Disorder of upper respiratory system
+72404,Joint stiffness,Subsumes,321951000119108,Stiffness of left wrist
+73649,Contusion of finger,Subsumes,11773891000119108,Contusion of finger of right hand
+23806,Atrophy of salivary gland,Subsumes,196476006,Atrophy of sublingual gland
+73553,Arthropathy,Subsumes,399269003,Arthropathy
+72986,Disorder of lower leg,Subsumes,234043001,Thrombosis of vein of lower leg
+24134,Neck pain,Subsumes,168720001,Plain X-ray of soft tissue of neck normal
+28462,Fistula of salivary gland,Is a,271612000,Salivary gland finding
+73851,Effusion of joint of multiple sites,Is a,36186002,Polyarthropathy
+73851,Effusion of joint of multiple sites,Is a,387637008,Effusion of joint
+31057,Disorder of pharynx,Subsumes,125591009,Injury of pharynx
+73291,Palindromic rheumatism of ankle and/or foot,Is a,250131003,Lower limb joint arthritis
+73291,Palindromic rheumatism of ankle and/or foot,Is a,442246002,Disorder of joint of ankle and/or foot
+73291,Palindromic rheumatism of ankle and/or foot,Is a,50442003,Palindromic rheumatism
+24970,Chronic laryngitis,Subsumes,54287007,Ozena laryngis
+72986,Disorder of lower leg,Subsumes,213174000,Partial failure replanted lower leg
+28060,Streptococcal sore throat,Subsumes,43878008,Streptococcal sore throat
+72986,Disorder of lower leg,Subsumes,1144338005,1144338005
+28060,Streptococcal sore throat,Subsumes,92971000087109,92971000087109
+73017,Congenital anomaly of toe,Subsumes,66345008,Congenital absence of toe
+31057,Disorder of pharynx,Subsumes,405737000,Pharyngitis
+24134,Neck pain,Subsumes,298487005,Named sign of neck
+193782,End-stage renal disease,Subsumes,722150000,Chronic kidney disease due to systemic infection
+73849,Acquired lordosis deformity of spine,Subsumes,1162290006,Lordosis deformity of spine due to and following traumatic injury
+24966,Esophageal varices,Subsumes,721206006,Solitary varix of esophagus
+24969,Laryngitis,Is a,363169009,Inflammation of specific body organs
+24969,Laryngitis,Is a,129134004,Inflammatory disorder of upper respiratory tract
+24969,Laryngitis,Is a,896928006,896928006
+73318,Polydactyly of fingers,Subsumes,205130008,Central polydactyly of fingers
+25189,Malignant tumor of oral cavity,Subsumes,722509001,Primary rhabdomyosarcoma of oral cavity
+72986,Disorder of lower leg,Subsumes,702567009,Disorder of posterior tibial muscle tendon
+73042,Open fracture finger middle phalanx,Is a,208483008,Open fracture finger middle phalanx
+28457,Hypertrophy of tonsils,Is a,23023009,Disorder of tonsil (palatine tonsil)
+28457,Hypertrophy of tonsils,Is a,248595008,Sputum finding
+72986,Disorder of lower leg,Subsumes,203345008,Paget's disease-fibula
+25698,Complication of transplanted pancreas,Is a,79369007,Complication of transplanted pancreas
+73849,Acquired lordosis deformity of spine,Is a,61960001,Lordosis deformity of spine
+73849,Acquired lordosis deformity of spine,Is a,12903001,Acquired curvature of spine
+25056,Congenital anomaly of neck,Subsumes,789228000,Congenital anomaly of anterior portion of neck
+28461,Hypertrophy of salivary gland,Subsumes,196479004,Hypertrophy of sublingual gland
+72992,Allergic arthritis,Is a,16935003,Allergic arthritis
+31386,Congenital absence of salivary gland,Is a,22589009,Congenital absence of salivary gland
+73017,Congenital anomaly of toe,Subsumes,403282000,Congenital malalignment of multiple toenails
+30439,Acute peptic ulcer with perforation but without obstruction,Subsumes,19850005,Acute gastric ulcer with perforation
+73847,Finding of elbow joint,Is a,116309007,Finding of elbow region
+73847,Finding of elbow joint,Is a,118952005,Joint finding
+72986,Disorder of lower leg,Subsumes,123562008,Congenital anomaly of fibula
+25582,Tracheoesophageal fistula,Subsumes,95435007,Tracheoesophageal fistula
+30679,Benign neoplasm of major salivary gland,Is a,126787005,Neoplasm of major salivary gland
+30679,Benign neoplasm of major salivary gland,Is a,255154009,Benign tumor of salivary gland
+73889,Sprain of distal tibiofibular ligament,Subsumes,74383007,Sprain of distal tibiofibular ligament
+73090,Contusion of foot,Is a,91603007,Contusion of lower limb
+73090,Contusion of foot,Is a,125604000,Injury of foot
+23137,Chlamydial pharyngitis,Is a,232403001,Chlamydial pharyngitis
+25056,Congenital anomaly of neck,Subsumes,460890003,Anomalous common origin of brachiocephalic artery and left common carotid artery
+73925,Burn of upper limb,Subsumes,62242007,Epidermal burn of upper limb
+22871,Neoplasm of uncertain behavior of pineal gland,Subsumes,1156473003,Pineocytoma
+73925,Burn of upper limb,Subsumes,67573002,Burn of multiple sites of upper limb
+73336,Closed traumatic dislocation ankle joint,Subsumes,208981003,Closed traumatic dislocation ankle joint
+26141,Barrett's esophagus with esophagitis,Is a,300286002,Lesion of esophagus
+26141,Barrett's esophagus with esophagitis,Is a,128068002,Disorder of gastrointestinal tract mucous membrane
+72715,Exostosis,Subsumes,673481000119103,Exostosis of humerus
+73041,Closed fracture of five ribs,Subsumes,3291007,Closed fracture of two ribs
+25056,Congenital anomaly of neck,Subsumes,65274008,Congenital anomaly of parathyroid glands
+24969,Laryngitis,Subsumes,232460001,Granulomatosis with polyangiitis of larynx
+22871,Neoplasm of uncertain behavior of pineal gland,Subsumes,359619007,Pinealoma
+72986,Disorder of lower leg,Subsumes,1237117000,Venous ulcer of lower leg
+72745,Open dislocation of elbow,Subsumes,11771411000119103,Open traumatic dislocation of joint of right elbow
+73241,Anal and rectal polyp,Is a,197210001,Anal and rectal polyp
+72986,Disorder of lower leg,Subsumes,308908006,Ulcer of shin
+26441,Bleeding ulcer of esophagus,Subsumes,57748001,Bleeding ulcer of esophagus
+30441,Sialolithiasis,Subsumes,28826002,Sialolithiasis
+73723,Benign neoplasm of epididymis,Subsumes,449052009,Adenomatoid tumor of epididymis
+30753,Esophagitis,Subsumes,430328004,Esophagitis due to chemotherapy
+73302,Curvature of spine,Subsumes,61960001,Lordosis deformity of spine
+31598,Hypertrophy of tonsils AND adenoids,Is a,2128005,Disorder of adenoid
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Subsumes,77661009,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction"
+26638,Primary malignant neoplasm of esophagus,Is a,371984007,Primary malignant neoplasm of esophagus
+72997,Articular cartilage disorder of upper arm,Subsumes,1162361003,Osteosarcoma of articular cartilage of clavicle
+73560,Calcaneal spur,Subsumes,303131000119109,Calcaneal spur of left foot
+73553,Arthropathy,Subsumes,1076031000119109,Hypertrophy of synovium of right foot
+30333,Gonorrhea of pharynx,Is a,363176004,Inflammatory disorder of head
+30333,Gonorrhea of pharynx,Is a,95880003,Soft tissue infection
+30333,Gonorrhea of pharynx,Is a,128047003,Infectious disease of mucous membrane
+30333,Gonorrhea of pharynx,Is a,312422001,Infective pharyngitis
+30333,Gonorrhea of pharynx,Is a,409790005,Disease caused by Neisseria
+30333,Gonorrhea of pharynx,Is a,95361005,Inflammatory disease of mucous membrane
+30333,Gonorrhea of pharynx,Is a,312118003,Bacterial upper respiratory infection
+30333,Gonorrhea of pharynx,Is a,280131007,Disorder of soft tissue of head
+30333,Gonorrhea of pharynx,Is a,248595008,Sputum finding
+30333,Gonorrhea of pharynx,Is a,363166002,Infective disorder of head
+24966,Esophageal varices,Is a,448157006,Abnormality of systemic vein
+24966,Esophageal varices,Is a,248742008,Trunk varices
+24966,Esophageal varices,Is a,1142281007,1142281007
+24966,Esophageal varices,Is a,373434004,Disorder of blood vessels of thorax
+23868,Congenital anomaly of esophagus,Subsumes,204652007,Congenital esophageal fistula
+24970,Chronic laryngitis,Subsumes,195813006,Chronic hyperplastic laryngitis
+193782,End-stage renal disease,Subsumes,722149000,Chronic kidney disease due to and following excision of neoplasm of kidney
+73561,Loose body in joint of shoulder region,Subsumes,202148007,Loose body in joint of shoulder region
+25297,Acute pharyngitis,Is a,363746003,Acute pharyngitis
+25297,Acute pharyngitis,Is a,248595008,Sputum finding
+72997,Articular cartilage disorder of upper arm,Subsumes,724590008,Benign osteogenic neoplasm of articular cartilage of clavicle
+27918,Eosinophilic esophagitis,Is a,235599003,Eosinophilic esophagitis
+73819,Pain of breast,Subsumes,1251502009,Retraction of skin of breast
+73561,Loose body in joint of shoulder region,Subsumes,202156005,Loose body in shoulder joint
+26935,Disorder of endocrine testis,Is a,73820008,Disorder of endocrine testis
+30346,Primary malignant neoplasm of neck,Subsumes,371978009,Primary malignant neoplasm of cervical esophagus
+31821,Disorder of endocrine system,Subsumes,362969004,Disorder of endocrine system
+72986,Disorder of lower leg,Subsumes,449712003,Acquired deformity of lower leg
+24134,Neck pain,Subsumes,301777002,Neck swelling
+73153,Malignant neoplasm of lateral wall of urinary bladder,Subsumes,188241004,Malignant neoplasm of lateral wall of urinary bladder
+73045,Sprain of hand,Subsumes,263129009,Sprain of ligament of finger
+72398,Arthropathy in Behcet's syndrome,Subsumes,201491005,Arthropathy in Behcet's syndrome of the ankle and/or foot
+73842,Enthesopathy of elbow region,Is a,35185008,Enthesopathy of elbow region
+72986,Disorder of lower leg,Subsumes,762389001,Eczema of lower leg
+29735,Candidiasis of mouth,Subsumes,95893008,Pseudomembranous thrush
+31884,Acquired diverticulum of esophagus,Is a,35563005,Acquired diverticulum of esophagus
+73045,Sprain of hand,Is a,896913006,896913006
+73045,Sprain of hand,Is a,201935006,Traumatic arthropathy of the hand
+73045,Sprain of hand,Is a,209436000,Sprain of wrist and/or hand
+73045,Sprain of hand,Is a,441886002,Injury of ligament of hand
+73045,Sprain of hand,Is a,298149009,Lesion of joint
+24969,Laryngitis,Subsumes,1282001,Perichondritis of larynx
+28060,Streptococcal sore throat,Subsumes,41582007,Streptococcal tonsillitis
+25056,Congenital anomaly of neck,Subsumes,717963001,Isolated anterior cervical hypertrichosis
+72404,Joint stiffness,Is a,84445001,Joint stiffness
+72404,Joint stiffness,Is a,70733008,Limitation of joint movement
+72404,Joint stiffness,Is a,118952005,Joint finding
+31821,Disorder of endocrine system,Subsumes,300860002,Mass of endocrine structure
+73409,Primary anal syphilis,Is a,186846005,Early symptomatic syphilis
+73409,Primary anal syphilis,Is a,301779004,Anal inflammation
+73409,Primary anal syphilis,Is a,274080003,Bacterial gastroenteritis
+73409,Primary anal syphilis,Is a,714974000,Lesion of skin and/or skin-associated mucous membrane
+73409,Primary anal syphilis,Is a,371568002,Anal infection
+28385,Disorder of posterior pituitary,Subsumes,111548007,Syndrome of diencephalo-hypophyseal origin
+74739,Osteopathy from poliomyelitis,Is a,203284001,Osteopathy from poliomyelitis
+74739,Osteopathy from poliomyelitis,Is a,203662005,Neuromuscular scoliosis
+73575,Deformity of toe,Is a,406119002,Toe finding
+73575,Deformity of toe,Is a,229844004,Deformity of foot
+24977,Mucocele of salivary gland,Subsumes,1260281008,Mucous retention cyst of salivary gland
+193782,End-stage renal disease,Subsumes,433146000,Chronic kidney disease stage 5
+22274,Neoplasm of uncertain behavior of larynx,Is a,94899001,Neoplasm of uncertain behavior of larynx
+22274,Neoplasm of uncertain behavior of larynx,Is a,248595008,Sputum finding
+24970,Chronic laryngitis,Subsumes,195811008,Chronic simple laryngitis
+72404,Joint stiffness,Subsumes,321931000119102,Stiffness of left knee
+73045,Sprain of hand,Subsumes,11818891000119109,Sprain of ligament of left hand
+72986,Disorder of lower leg,Subsumes,1264029007,Inflammation of muscle of lower leg
+23868,Congenital anomaly of esophagus,Subsumes,721155007,Congenital short esophagus
+24970,Chronic laryngitis,Subsumes,195812001,Chronic catarrhal laryngitis
+73819,Pain of breast,Subsumes,248819006,Nipple finding
+73361,Abrasion and/or friction burn of elbow with infection,Subsumes,111712008,Abrasion and/or friction burn of elbow with infection
+72986,Disorder of lower leg,Subsumes,10680831000119106,Nodule of skin of left lower leg
+31821,Disorder of endocrine system,Subsumes,74411000,Ectopic antidiuretic hormone secretion
+73609,Open fracture of clavicle,Subsumes,72435006,Open fracture of acromial end of clavicle
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Subsumes,86258000,"Chronic duodenal ulcer with hemorrhage, with perforation AND with obstruction"
+73372,Burn of breast,Subsumes,35501005,Epidermal burn of breast
+30679,Benign neoplasm of major salivary gland,Subsumes,92413008,Benign neoplasm of sublingual gland
+72986,Disorder of lower leg,Subsumes,1354827007,1354827007
+74127,Contracture of elbow joint,Subsumes,239734000,Contracture of elbow joint
+73847,Finding of elbow joint,Subsumes,298874005,Elbow joint deformity
+73553,Arthropathy,Subsumes,307499004,Cricoarytenoid joint fixation
+72715,Exostosis,Subsumes,673501000119107,Exostosis of ulna
+24296,Primary malignant neoplasm of pituitary gland,Is a,363482009,Malignant tumor of pituitary gland
+24296,Primary malignant neoplasm of pituitary gland,Is a,93749002,Primary malignant neoplasm of cerebrum
+24296,Primary malignant neoplasm of pituitary gland,Is a,371983001,Primary malignant neoplasm of endocrine gland
+73553,Arthropathy,Subsumes,109590006,Tooth sensitivity at cementoenamel junction
+72421,Solitary bone cyst,Subsumes,299701000119107,Solitary bone cyst of shoulder region
+72715,Exostosis,Subsumes,371598009,Heberden node
+73036,Closed fracture of olecranon process of ulna,Subsumes,208294009,"Closed fracture olecranon, extra-articular"
+72984,Reactive arthritis of joint of shoulder region due to and following dysentery,Is a,239821006,Secondary inflammatory arthritis
+72984,Reactive arthritis of joint of shoulder region due to and following dysentery,Is a,396233005,Arthropathy associated with infection
+72984,Reactive arthritis of joint of shoulder region due to and following dysentery,Is a,784332006,Spondyloarthritis
+72984,Reactive arthritis of joint of shoulder region due to and following dysentery,Is a,1303835007,Arthritis of shoulder region joint
+73349,Injury of rectum without open wound into abdominal cavity,Is a,125635006,Injury of rectum
+73349,Injury of rectum without open wound into abdominal cavity,Is a,64789007,Internal injury of abdominal organs without open wound into cavity
+72986,Disorder of lower leg,Subsumes,128137003,Disorder of lower leg
+31057,Disorder of pharynx,Subsumes,48916002,Hypernasality syndrome due to velopharyngeal incoordination
+73041,Closed fracture of five ribs,Subsumes,58007009,Closed multiple fractures of upper limb with ribs
+31609,Abscess of salivary gland,Subsumes,196491008,Abscess of parotid gland
+73923,Contusion of upper arm,Is a,85636003,Contusion of upper arm
+22557,Malignant tumor of submandibular gland,Subsumes,363380002,Malignant tumor of submandibular gland
+73041,Closed fracture of five ribs,Subsumes,89636007,Closed fracture of six ribs
+74124,Traumatic arthropathy,Subsumes,11806171000119103,Closed subluxation left patellofemoral joint following trauma
+72410,Infection of bone,Is a,111253001,Infection of bone
+73072,Crushing injury of upper arm,Subsumes,19180002,Crushing injury of upper arm
+73231,Arthralgia of temporomandibular joint,Subsumes,699708004,Fibrosis of capsule of temporomandibular joint
+73290,Contracture of joint,Subsumes,773626008,"Joint contracture, webbed neck, micrognathia, hypoplastic nipple syndrome"
+73553,Arthropathy,Subsumes,79362003,Ischiopubic synchondrosis of van Neck
+73553,Arthropathy,Subsumes,270505009,Kashin-Bek disease
+73609,Open fracture of clavicle,Subsumes,10819941000119106,Open fracture of left clavicle
+73847,Finding of elbow joint,Subsumes,202480001,Pain of joint of elbow
+24134,Neck pain,Subsumes,298476002,Finding of sensation of musculoskeletal structure of neck
+75070,Lordosis deformity of spine following surgical procedure,Subsumes,111265002,Lordosis deformity of spine following surgical procedure
+30346,Primary malignant neoplasm of neck,Subsumes,93751003,Primary malignant neoplasm of cervical vertebral column
+25056,Congenital anomaly of neck,Subsumes,719097002,BSG syndrome
+73017,Congenital anomaly of toe,Subsumes,896776002,896776002
+26286,Burn of neck,Is a,60713008,Burn of neck
+73553,Arthropathy,Subsumes,428724006,Arthropathy of knee joint
+73819,Pain of breast,Subsumes,366349004,Finding related to development of the breasts
+73075,Contusion of upper limb,Is a,68142008,Contusion of upper limb
+72986,Disorder of lower leg,Subsumes,703629008,Periosteal desmoid
+73819,Pain of breast,Subsumes,290085007,Breast problem
+72986,Disorder of lower leg,Subsumes,10680991000119103,Nodule of skin of right lower leg
+73302,Curvature of spine,Subsumes,298382003,Scoliosis deformity of spine
+73925,Burn of upper limb,Subsumes,14893008,Burn of hand
+72245,Chlamydial infection of lower genitourinary tract,Subsumes,237106009,Chlamydial bartholinitis
+73872,Congenital deformity of knee joint,Subsumes,61293001,Congenital deformity of knee joint
+73017,Congenital anomaly of toe,Subsumes,898262006,898262006
+25068,Branchial cleft sinus and fistula,Is a,268173005,Branchial cleft sinus and fistula
+73553,Arthropathy,Subsumes,428107009,Disorder of wrist joint
+72715,Exostosis,Subsumes,59763006,Hyperphosphatasemia tarda
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",Is a,37442009,Peptic ulcer without hemorrhage AND without perforation
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",Is a,128287004,Chronic peptic ulcer
+73153,Malignant neoplasm of lateral wall of urinary bladder,Subsumes,93863000,Primary malignant neoplasm of lateral wall of urinary bladder
+72578,Neoplasm of uncertain behavior of breast,Subsumes,351651000119100,Neoplasm of uncertain behavior of right breast
+193782,End-stage renal disease,Subsumes,1373675005,1373675005
+73553,Arthropathy,Is a,785875003,Disorder of joint region
+73553,Arthropathy,Is a,118952005,Joint finding
+73553,Arthropathy,Is a,88230002,Disorder of skeletal system
+22871,Neoplasm of uncertain behavior of pineal gland,Subsumes,95002008,Neoplasm of uncertain behavior of pineal gland
+26899,Tuberculous laryngitis,Subsumes,186199002,"Tuberculosis of larynx, trachea and bronchus, confirmed bacteriologically and histologically"
+24969,Laryngitis,Subsumes,427780002,Laryngitis due to gastroesophageal reflux
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Subsumes,91061000119100,Primary chondrosarcoma of bone of pelvis
+73090,Contusion of foot,Subsumes,74814004,Contusion of foot
+24977,Mucocele of salivary gland,Subsumes,235129002,Mucous retention cyst of minor salivary gland
+72986,Disorder of lower leg,Subsumes,267924051000119102,267924051000119102
+29735,Candidiasis of mouth,Subsumes,402997002,Chronic plaque-like oral candidiasis
+73231,Arthralgia of temporomandibular joint,Subsumes,91945006,Articular disc disorder of temporomandibular joint
+22955,Perforation of esophagus,Subsumes,23387001,Perforation of esophagus
+22666,Vomiting after gastrointestinal tract surgery,Is a,119292006,Disorder of gastrointestinal tract
+22666,Vomiting after gastrointestinal tract surgery,Is a,118228005,Functional finding
+22666,Vomiting after gastrointestinal tract surgery,Is a,385486001,Postoperative complication
+73231,Arthralgia of temporomandibular joint,Subsumes,298150009,Temporomandibular joint effusion
+29735,Candidiasis of mouth,Subsumes,3001000119103,Candidiasis of tongue
+73555,Transient arthropathy of the pelvic region and thigh,Subsumes,201992007,Transient arthropathy of the pelvic region and thigh
+30753,Esophagitis,Subsumes,721611000,Neonatal esophagitis
+22666,Vomiting after gastrointestinal tract surgery,Subsumes,1230314003,Fecal incontinence following creation of ileo-anal pouch
+31057,Disorder of pharynx,Subsumes,240704003,Pharyngeal candidiasis
+72245,Chlamydial infection of lower genitourinary tract,Subsumes,236749007,Chlamydial balanitis
+30346,Primary malignant neoplasm of neck,Is a,372087000,Primary malignant neoplasm
+30346,Primary malignant neoplasm of neck,Is a,363489000,Malignant tumor of neck
+24230,Foreign body in larynx,Is a,19496008,Foreign body in larynx
+73302,Curvature of spine,Subsumes,414564002,Kyphosis deformity of spine
+72404,Joint stiffness,Subsumes,15744041000119106,Stiffness of bilateral hip joints
+25582,Tracheoesophageal fistula,Subsumes,270908003,Acquired tracheo-esophageal fistula
+25056,Congenital anomaly of neck,Subsumes,24963004,Congenital anomaly of sternocleidomastoid muscle
+31057,Disorder of pharynx,Subsumes,11223009,Congenital anomaly of pharynx
+22722,Accessory salivary gland,Subsumes,70705008,Accessory salivary gland
+73336,Closed traumatic dislocation ankle joint,Is a,125622002,Traumatic dislocation of ankle joint
+73336,Closed traumatic dislocation ankle joint,Is a,445852002,Closed traumatic dislocation of joint
+73302,Curvature of spine,Subsumes,12903001,Acquired curvature of spine
+73819,Pain of breast,Subsumes,290078008,Finding of sensation of breast
+72421,Solitary bone cyst,Subsumes,1076901000119101,Solitary bone cyst of right foot
+72390,Obstetric non-purulent mastitis,Is a,248982007,"Pregnancy, childbirth and puerperium finding"
+72390,Obstetric non-purulent mastitis,Is a,1300209004,Maternal perinatal disorder
+72390,Obstetric non-purulent mastitis,Is a,266579006,Inflammatory disorder of breast
+73712,Malignant neoplasm of dome of urinary bladder,Subsumes,188240003,Malignant neoplasm of dome of urinary bladder
+609115,Proliferative retinopathy of left eye due to diabetes mellitus type 1,Is a,1296707006,Neovascularization of left eye
+609115,Proliferative retinopathy of left eye due to diabetes mellitus type 1,Is a,1279734000,Lesion of retina of left eye
+609115,Proliferative retinopathy of left eye due to diabetes mellitus type 1,Is a,16745211000119100,Nonproliferative retinopathy of left eye due to diabetes mellitus type 1
+73819,Pain of breast,Subsumes,79604008,Disorder of breast
+73231,Arthralgia of temporomandibular joint,Subsumes,12241711000119100,Left temporomandibular joint disorder
+73366,Crushing injury of lower leg,Subsumes,211595005,"Crush injury, knee and lower leg"
+73849,Acquired lordosis deformity of spine,Subsumes,44950000,Acquired lordosis deformity of spine
+23868,Congenital anomaly of esophagus,Subsumes,89199004,Congenital web of esophagus
+24969,Laryngitis,Subsumes,37426002,Ulcerative laryngitis
+72390,Obstetric non-purulent mastitis,Subsumes,271372000,Obstetric non-purulent mastitis
+30753,Esophagitis,Subsumes,235598006,Non-reflux esophagitis
+72578,Neoplasm of uncertain behavior of breast,Subsumes,1306376001,Neoplasm of uncertain behavior of lower inner quadrant of breast
+73723,Benign neoplasm of epididymis,Subsumes,354141000119105,Benign neoplasm of left epididymis
+24969,Laryngitis,Subsumes,45913009,Laryngitis
+24134,Neck pain,Subsumes,168721002,Plain X-ray of soft tissue of neck abnormal
+27235,Primary malignant neoplasm of carotid body,Subsumes,1259624004,Primary adenocarcinoma of carotid body
+30753,Esophagitis,Is a,363169009,Inflammation of specific body organs
+30753,Esophagitis,Is a,37657006,Disorder of esophagus
+30753,Esophagitis,Is a,128999004,Inflammatory disorder of digestive tract
+72715,Exostosis,Is a,300861003,Mass of musculoskeletal structure
+72715,Exostosis,Is a,879976004,Lesion of bone
+73290,Contracture of joint,Subsumes,239740007,Contracture of ankle joint
+26662,Testicular hypofunction,Subsumes,111551000,Testicular hypofunction
+24970,Chronic laryngitis,Subsumes,195810009,Chronic laryngitis and laryngotracheitis
+72711,Shoulder stiff,Is a,249918006,Shoulder stiff
+30753,Esophagitis,Subsumes,53771000,Regurgitant esophagitis
+73017,Congenital anomaly of toe,Subsumes,32113001,Syndactyly of toes
+74125,Inflammatory polyarthropathy,Is a,417373000,Inflammatory polyarthropathy
+72997,Articular cartilage disorder of upper arm,Subsumes,90068007,Articular cartilage disorder of hand
+73318,Polydactyly of fingers,Subsumes,15666361000119104,Polydactyly of fingers of right hand
+73553,Arthropathy,Subsumes,897416002,897416002
+24134,Neck pain,Subsumes,161882006,Stiff neck
+73838,Pyogenic arthritis of multiple sites,Is a,61126009,Infective polyarthritis
+73838,Pyogenic arthritis of multiple sites,Is a,372939007,Suppurative arthritis
+72413,Nontraumatic rupture of muscle,Subsumes,275431006,Anal sphincter tear
+72332,Serous labyrinthitis,Is a,41674001,Serous labyrinthitis
+72418,Scoliosis deformity of spine,Is a,298382003,Scoliosis deformity of spine
+72986,Disorder of lower leg,Subsumes,50127006,Tibialis tendinitis
+73553,Arthropathy,Subsumes,732926009,"Hydrocephalus, tall stature, joint laxity syndrome"
+30346,Primary malignant neoplasm of neck,Subsumes,688031000119107,Primary sarcoma of neck
+193782,End-stage renal disease,Subsumes,709044004,Chronic kidney disease
+28385,Disorder of posterior pituitary,Subsumes,788757008,Pituicytoma of posterior pituitary gland
+27235,Primary malignant neoplasm of carotid body,Is a,93941005,Primary malignant neoplasm of paraganglion
+27235,Primary malignant neoplasm of carotid body,Is a,447883002,Malignant neoplasm of carotid body
+73318,Polydactyly of fingers,Subsumes,205131007,Ulnar polydactyly of fingers
+30442,Chronic peptic ulcer with perforation AND obstruction,Subsumes,10897002,Chronic gastrojejunal ulcer with perforation AND with obstruction
+72711,Shoulder stiff,Subsumes,321861000119103,Stiffness of right shoulder
+73925,Burn of upper limb,Subsumes,6055000,Burn of upper limb
+73300,Radial styloid tenosynovitis,Subsumes,21794005,Radial styloid tenosynovitis
+73335,Closed posterior dislocation of proximal end of tibia,Is a,897153002,897153002
+73335,Closed posterior dislocation of proximal end of tibia,Is a,897433009,897433009
+73335,Closed posterior dislocation of proximal end of tibia,Is a,1296833008,Displacement of bone
+73335,Closed posterior dislocation of proximal end of tibia,Is a,428724006,Arthropathy of knee joint
+30679,Benign neoplasm of major salivary gland,Subsumes,92205005,Benign neoplasm of major salivary gland
+73553,Arthropathy,Subsumes,71322004,Familial articular hypermobility syndrome
+29735,Candidiasis of mouth,Subsumes,110277001,Hyperplastic thrush
+73041,Closed fracture of five ribs,Subsumes,20121009,Closed fracture of seven ribs
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Subsumes,1259526008,"Primary carcinoma of pelvic bones, sacrum and coccyx"
+72578,Neoplasm of uncertain behavior of breast,Subsumes,427942006,"Phyllodes tumor of breast, borderline"
+72404,Joint stiffness,Subsumes,321881000119107,Stiffness of left ankle
+28779,Bleeding esophageal varices,Is a,788951001,Hemorrhage of digestive system
+28779,Bleeding esophageal varices,Is a,239953001,Lesion of soft tissue
+28779,Bleeding esophageal varices,Is a,234076002,Venous hemorrhage
+73609,Open fracture of clavicle,Is a,210410008,Open wound of front wall of thorax
+73609,Open fracture of clavicle,Is a,58150001,Fracture of clavicle
+73609,Open fracture of clavicle,Is a,275337006,Shoulder fracture - open
+24134,Neck pain,Subsumes,449161000124101,Distention of jugular vein
+72986,Disorder of lower leg,Subsumes,1332352008,Hypertrophy of tibia
+29735,Candidiasis of mouth,Subsumes,700455003,Gingivitis caused by Candida
+29056,Sialoadenitis,Is a,42982001,Sialoadenitis
+73575,Deformity of toe,Subsumes,299570002,Varus deformity of toe
+73553,Arthropathy,Subsumes,40661001,Joint formation disorder
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,Subsumes,55746001,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction
+73575,Deformity of toe,Subsumes,42251007,Acquired deformity of toe
+30061,Neoplasm of uncertain behavior of major salivary gland,Subsumes,189365006,Neoplasm of uncertain behavior of submandibular gland
+73231,Arthralgia of temporomandibular joint,Subsumes,41888000,Temporomandibular joint disorder
+27835,Neoplasm of uncertain behavior of pituitary gland,Subsumes,94808000,Neoplasm of uncertain behavior of craniopharyngeal duct
+72986,Disorder of lower leg,Subsumes,426293000,Sural neuropathy
+74052,Labyrinthitis,Is a,23919004,Labyrinthitis
+73231,Arthralgia of temporomandibular joint,Subsumes,386207004,Temporomandibular joint-pain-dysfunction syndrome
+72745,Open dislocation of elbow,Subsumes,208796005,"Open traumatic dislocation elbow joint, posterior"
+73575,Deformity of toe,Subsumes,299567001,Deformity of toe
+73366,Crushing injury of lower leg,Is a,125602001,Injury of lower leg
+73366,Crushing injury of lower leg,Is a,39595001,Crushing injury of lower limb
+73872,Congenital deformity of knee joint,Subsumes,79168008,Congenital genu varum
+30361,Hypoglycemic disorder,Is a,20957000,Disorder of carbohydrate metabolism
+73041,Closed fracture of five ribs,Subsumes,10925561000119102,Closed fracture of multiple right ribs
+73851,Effusion of joint of multiple sites,Subsumes,36662003,Effusion of joint of multiple sites
+73568,Palindromic rheumatism of shoulder region,Is a,118944007,Disorder of shoulder
+73568,Palindromic rheumatism of shoulder region,Is a,50442003,Palindromic rheumatism
+73568,Palindromic rheumatism of shoulder region,Is a,363175000,Inflammatory disorder of extremity
+25056,Congenital anomaly of neck,Subsumes,460899002,Anomalous origin of left common carotid artery from brachiocephalic artery
+30061,Neoplasm of uncertain behavior of major salivary gland,Subsumes,95116001,Neoplasm of uncertain behavior of sublingual gland
+23245,Esophageal bleeding,Is a,15238002,Esophageal bleeding
+72413,Nontraumatic rupture of muscle,Subsumes,1869002,Rupture of sphincter of pupil
+73553,Arthropathy,Subsumes,41345002,Rickets
+23806,Atrophy of salivary gland,Subsumes,48128006,Atrophy of salivary gland
+73553,Arthropathy,Subsumes,95463009,Congenital anomaly of joint
+73575,Deformity of toe,Subsumes,299571003,Curly toe - finding
+24134,Neck pain,Subsumes,298378000,Finding of neck region
+73819,Pain of breast,Subsumes,130962007,Abnormal breast nipple shape
+72421,Solitary bone cyst,Subsumes,320941000119104,Solitary bone cyst of right pelvis
+25056,Congenital anomaly of neck,Subsumes,770408001,Congenital stenosis of cervical spinal canal
+28461,Hypertrophy of salivary gland,Subsumes,235121004,Hypertrophy of minor salivary glands
+73819,Pain of breast,Subsumes,251813008,Breasts Tanner Stage 2
+31057,Disorder of pharynx,Subsumes,232407000,Pharyngeal spasm
+26213,Congenital salivary gland fistula,Subsumes,204635008,Congenital salivary gland fistula
+25056,Congenital anomaly of neck,Subsumes,724616009,Occipitalization of atlas
+73336,Closed traumatic dislocation ankle joint,Subsumes,11861081000119105,Closed traumatic dislocation of joint of right ankle
+24660,Acute tonsillitis,Is a,17741008,Acute tonsillitis
+73045,Sprain of hand,Subsumes,11818851000119104,Sprain of ligament of right hand
+72745,Open dislocation of elbow,Subsumes,208797001,"Open traumatic dislocation elbow joint, medial"
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Is a,93953009,Primary malignant neoplasm of pelvis
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Is a,187952001,"Malignant neoplasm of pelvic bones, sacrum and coccyx"
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Is a,93725000,Primary malignant neoplasm of bone
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,Subsumes,90257004,Chronic gastrojejunal ulcer with hemorrhage and obstruction
+25056,Congenital anomaly of neck,Subsumes,253699002,Isolation of common carotid artery
+22557,Malignant tumor of submandibular gland,Subsumes,423424005,Mucoepidermoid carcinoma of submandibular gland
+73318,Polydactyly of fingers,Subsumes,81793007,Polydactyly of fingers
+72757,Open wound of shoulder region with complication,Is a,125645008,Open wound of shoulder region
+72986,Disorder of lower leg,Subsumes,399081005,Common peroneal neuropathy
+73122,Tuberculosis of knee,Subsumes,16016311000119107,Tuberculosis of left knee joint
+72715,Exostosis,Subsumes,268276007,Congenital exostosis
+73290,Contracture of joint,Subsumes,385522000,Flexion contracture
+73553,Arthropathy,Subsumes,33952002,Localized osteoarthrosis
+193782,End-stage renal disease,Subsumes,723190009,Chronic renal insufficiency
+23868,Congenital anomaly of esophagus,Is a,37657006,Disorder of esophagus
+23868,Congenital anomaly of esophagus,Is a,128332003,Congenital anomaly of digestive organ
+23868,Congenital anomaly of esophagus,Is a,275262008,Congenital malformation of upper alimentary tract
+23868,Congenital anomaly of esophagus,Is a,128347007,Congenital anomaly of gastrointestinal tract
+22557,Malignant tumor of submandibular gland,Subsumes,1237034006,Metastatic carcinoma to submandibular gland
+30356,Benign neoplasm of pharynx,Subsumes,92139000,Benign neoplasm of hypopharynx
+24198,Contusion of esophagus,Is a,125667009,Contusion
+24198,Contusion of esophagus,Is a,210087005,Closed injury of esophagus
+72986,Disorder of lower leg,Subsumes,897389001,897389001
+72398,Arthropathy in Behcet's syndrome,Subsumes,201489002,Arthropathy in Behcet's syndrome of the pelvic region and thigh
+72245,Chlamydial infection of lower genitourinary tract,Subsumes,447353001,Infection of cervix caused by Chlamydia trachomatis
+24134,Neck pain,Subsumes,118939000,Disorder of neck
+29735,Candidiasis of mouth,Is a,79740000,Candidiasis of mouth
+29735,Candidiasis of mouth,Is a,275393007,Oral infection
+30133,Acute laryngitis,Is a,6655004,Acute laryngitis
+25780,Pituitary dwarfism,Subsumes,367460001,Pituitary dwarfism
+73673,Disorder of prosthetic joint,Is a,240266004,Disorder of prosthetic joint
+31057,Disorder of pharynx,Subsumes,10850781000119103,Aspirated food in pharynx
+26899,Tuberculous laryngitis,Subsumes,55419007,Tuberculosis of glottis
+30753,Esophagitis,Subsumes,1371029008,1371029008
+25056,Congenital anomaly of neck,Subsumes,204223000,"Ear, face and neck congenital anomalies"
+73372,Burn of breast,Subsumes,36830004,Third degree burn of breast
+73008,Enthesopathy,Is a,106028002,Musculoskeletal finding
+23567,Branchial cleft cyst,Is a,276752006,Embryological remnant
+23567,Branchial cleft cyst,Is a,441457006,Cyst
+31057,Disorder of pharynx,Subsumes,229707005,Dyspraxia of velopharynx
+31609,Abscess of salivary gland,Subsumes,196493006,Abscess of sublingual gland
+73343,Closed posterior dislocation of hip,Subsumes,208894000,"Closed traumatic dislocation hip joint, posterior"
+30441,Sialolithiasis,Subsumes,196499005,Parotid sialolithiasis
+28060,Streptococcal sore throat,Is a,312118003,Bacterial upper respiratory infection
+28060,Streptococcal sore throat,Is a,85769006,Streptococcal infectious disease
+28060,Streptococcal sore throat,Is a,312422001,Infective pharyngitis
+72421,Solitary bone cyst,Subsumes,320971000119106,Solitary bone cyst of right radius
+73231,Arthralgia of temporomandibular joint,Subsumes,138011000119105,Chondromatosis of synovium of temporomandibular joint
+24134,Neck pain,Is a,404684003,Clinical finding
+25757,Primary malignant neoplasm of aortic body,Subsumes,93677000,Primary malignant neoplasm of aortic body
+73090,Contusion of foot,Subsumes,29298007,Bruised sole
+73372,Burn of breast,Subsumes,55030004,Partial thickness burn of breast
+73372,Burn of breast,Subsumes,80433004,Burn of breast
+73041,Closed fracture of five ribs,Subsumes,39335003,Closed fracture of four ribs
+73560,Calcaneal spur,Subsumes,303141000119100,Calcaneal spur of right foot
+27516,Neoplasm of uncertain behavior of paraganglia,Subsumes,94742000,Neoplasm of uncertain behavior of aortic body
+73290,Contracture of joint,Subsumes,1216940001,"Joint contractures, developmental delay, Pierre Robin syndrome"
+73041,Closed fracture of five ribs,Is a,1261007,Fracture of multiple ribs
+73041,Closed fracture of five ribs,Is a,60667009,Closed fracture of rib
+73041,Closed fracture of five ribs,Is a,51701000087103,51701000087103
+73564,Full thickness rotator cuff tear,Subsumes,1076491000119102,Nontraumatic complete rupture of rotator cuff of left shoulder
+73318,Polydactyly of fingers,Subsumes,783700001,"Syndactyly, polydactyly, ear lobe syndrome"
+30356,Benign neoplasm of pharynx,Is a,271324001,"Benign neoplasm of lip, oral cavity and pharynx"
+30356,Benign neoplasm of pharynx,Is a,126685009,Neoplasm of pharynx
+30356,Benign neoplasm of pharynx,Is a,255167007,Benign tumor of digestive organ
+30356,Benign neoplasm of pharynx,Is a,92461001,Benign neoplasm of upper respiratory tract
+72986,Disorder of lower leg,Subsumes,203291003,Poliomyelitis osteopathy of the lower leg
+72986,Disorder of lower leg,Subsumes,203078008,Contracture of tibialis posterior
+22955,Perforation of esophagus,Is a,300286002,Lesion of esophagus
+22955,Perforation of esophagus,Is a,51875005,Gastrointestinal perforation
+22955,Perforation of esophagus,Is a,320934008,Esophageal injury
+73017,Congenital anomaly of toe,Is a,253966001,Congenital anomaly of foot
+73017,Congenital anomaly of toe,Is a,128619003,Disorder of toe
+73017,Congenital anomaly of toe,Is a,403855001,Congenital anomaly of digit
+27516,Neoplasm of uncertain behavior of paraganglia,Subsumes,94854009,Neoplasm of uncertain behavior of glomus jugulare
+73889,Sprain of distal tibiofibular ligament,Is a,44465007,Sprain of ankle
+73889,Sprain of distal tibiofibular ligament,Is a,201953000,Traumatic arthropathy of tibiofibular joint
+73045,Sprain of hand,Subsumes,263130004,Sprain of thumb
+30346,Primary malignant neoplasm of neck,Subsumes,93906006,Primary malignant neoplasm of muscle of neck
+26899,Tuberculous laryngitis,Subsumes,70341005,Tuberculous laryngitis
+72986,Disorder of lower leg,Subsumes,200595007,Carbuncle of lower leg
+72578,Neoplasm of uncertain behavior of breast,Subsumes,269497004,Neoplasm of uncertain behavior of breast
+23034,Neonatal hypoglycemia,Subsumes,735496003,Transient neonatal hypoglycemia due to hyperinsulinemia
+24198,Contusion of esophagus,Subsumes,262791003,Contusion of esophagus
+73001,Myositis,Is a,26889001,Myositis
+73819,Pain of breast,Subsumes,422961004,Excess subcutaneous fat of breast
+4215689,Heart failure confirmed,Is a,404684003,Clinical finding
+72986,Disorder of lower leg,Subsumes,213186002,Total failure replanted lower leg
+30753,Esophagitis,Subsumes,1371028000,1371028000
+30753,Esophagitis,Subsumes,16761005,Esophagitis
+73553,Arthropathy,Subsumes,59252009,de Barsey syndrome
+73819,Pain of breast,Subsumes,225603005,Lactation not established
+73090,Contusion of foot,Subsumes,283138002,Contusion of dorsum of foot
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,Subsumes,196719008,Chronic gastrojejunal ulcer with obstruction
+73041,Closed fracture of five ribs,Subsumes,10925601000119102,Closed fracture of multiple left ribs
+72986,Disorder of lower leg,Subsumes,301281000119102,Right lower leg repetitive strain injury
+28385,Disorder of posterior pituitary,Subsumes,45369008,Vasopressin deficiency
+73043,Open dislocation of glenohumeral joint,Is a,13975002,Open dislocation of glenohumeral joint
+31057,Disorder of pharynx,Subsumes,75860007,Disorder of pharynx
+24969,Laryngitis,Subsumes,55130001,Laryngotracheitis
+31821,Disorder of endocrine system,Subsumes,237783006,Adrenal mass
+30753,Esophagitis,Subsumes,235600000,Infective esophagitis
+72715,Exostosis,Subsumes,673511000119105,Exostosis of hand
+73847,Finding of elbow joint,Subsumes,763656000,Elbow joint prosthesis present
+73819,Pain of breast,Subsumes,9295009,Subinvolution of breast
+72986,Disorder of lower leg,Subsumes,702605005,Disorder of Achilles tendon
+72245,Chlamydial infection of lower genitourinary tract,Is a,312099009,Genitourinary chlamydia infection
+23986,Disorder of pituitary gland,Is a,399244003,Disorder of pituitary gland
+25056,Congenital anomaly of neck,Subsumes,32454003,Congenital anomaly of the thyroid gland
+73553,Arthropathy,Subsumes,398993007,Joint derangement
+72421,Solitary bone cyst,Subsumes,320861000119107,Solitary bone cyst of left humerus
+25056,Congenital anomaly of neck,Subsumes,1145435003,1145435003
+73712,Malignant neoplasm of dome of urinary bladder,Is a,399326009,Malignant neoplasm of urinary bladder
+73712,Malignant neoplasm of dome of urinary bladder,Is a,449800007,Neoplasm of dome of urinary bladder
+22557,Malignant tumor of submandibular gland,Is a,363489000,Malignant tumor of neck
+22557,Malignant tumor of submandibular gland,Is a,363378008,Malignant tumor of major salivary gland
+22557,Malignant tumor of submandibular gland,Is a,126789008,Neoplasm of submaxillary gland
+25572,Disorder of salivary gland,Is a,10890000,Disorder of salivary gland
+73017,Congenital anomaly of toe,Subsumes,897325009,897325009
+25844,Ulcer of esophagus,Is a,30811009,Ulcer of esophagus
+73686,Tuberculosis of genitourinary system,Is a,56717001,Tuberculosis
+73686,Tuberculosis of genitourinary system,Is a,312123003,Bacterial urogenital infection
+73686,Tuberculosis of genitourinary system,Is a,373406006,Inflammatory disorder of genitourinary system
+73575,Deformity of toe,Subsumes,239743009,Contracture of joint of toe
+31821,Disorder of endocrine system,Subsumes,26017006,Normal hormone production
+73925,Burn of upper limb,Subsumes,18084001,Burn of elbow
+73819,Pain of breast,Subsumes,251812003,Breasts Tanner Stage 1
+72576,Benign neoplasm of breast,Is a,269485000,Benign neoplasm of breast
+27835,Neoplasm of uncertain behavior of pituitary gland,Subsumes,189179009,Craniopharyngioma
+73231,Arthralgia of temporomandibular joint,Subsumes,736428003,Chronic arthralgia of temporomandibular joint
+73575,Deformity of toe,Subsumes,726117003,Congenital deformity of toe
+73017,Congenital anomaly of toe,Subsumes,726117003,Congenital deformity of toe
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",Subsumes,60400003,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction"
+73338,Sprain of lateral collateral ligament of knee,Subsumes,35726004,Sprain of lateral collateral ligament of knee
+73313,Longitudinal deficiency of tarsal bone,Is a,29581008,Longitudinal deficiency of tarsal bone
+72986,Disorder of lower leg,Subsumes,123563003,Congenital anomaly of tibia
+73553,Arthropathy,Subsumes,78537008,Hypercementosis
+31057,Disorder of pharynx,Subsumes,25479004,Foreign body in pharynx
+72421,Solitary bone cyst,Subsumes,320961000119100,Solitary bone cyst of right tibia
+72487,Crushing injury of foot,Is a,43422002,Crushing injury of foot
+73553,Arthropathy,Subsumes,897155009,897155009
+31057,Disorder of pharynx,Subsumes,232415002,Palatopharyngeal incoordination
+73036,Closed fracture of olecranon process of ulna,Is a,281528007,Fracture of olecranon
+73036,Closed fracture of olecranon process of ulna,Is a,33041006,Closed fracture of proximal end of ulna
+73036,Closed fracture of olecranon process of ulna,Is a,373716002,Closed fracture involving joint
+73819,Pain of breast,Subsumes,290084006,Breast normal
+73609,Open fracture of clavicle,Subsumes,111637008,Open fracture of clavicle
+72997,Articular cartilage disorder of upper arm,Subsumes,428029006,Articular cartilage disorder of elbow
+72986,Disorder of lower leg,Subsumes,300531000119106,Tendon disorder of left lower leg
+24969,Laryngitis,Subsumes,6655004,Acute laryngitis
+31668,Acquired deformity of neck,Is a,118939000,Disorder of neck
+31668,Acquired deformity of neck,Is a,298390003,Deformity of neck
+72986,Disorder of lower leg,Subsumes,26831007,Osteitis of lower leg
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,Is a,196694009,Chronic peptic ulcer with obstruction
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,Is a,786068005,Peptic ulcer with obstruction
+73553,Arthropathy,Subsumes,733457006,Ehlers-Danlos and osteogenesis imperfecta syndrome
+25189,Malignant tumor of oral cavity,Subsumes,733343005,Primary squamous cell carcinoma of oral cavity
+72986,Disorder of lower leg,Subsumes,1237133002,Varicose vein of lower leg
+30356,Benign neoplasm of pharynx,Subsumes,92487001,Benign neoplasm of Waldeyer's ring
+27516,Neoplasm of uncertain behavior of paraganglia,Subsumes,253031000,Glomus tympanicum tumor
+22492,Foreign body in pharynx,Is a,25479004,Foreign body in pharynx
+73564,Full thickness rotator cuff tear,Subsumes,202843000,Full thickness rotator cuff tear
+72997,Articular cartilage disorder of upper arm,Is a,128605003,Disorder of limb
+72997,Articular cartilage disorder of upper arm,Is a,53417006,Articular cartilage disorder
+73089,Contusion of buttock,Is a,68893001,Contusion of buttock
+37167589,Obstructed labor due to interlocked twins,Is a,199746004,Obstructed labor
+37167589,Obstructed labor due to interlocked twins,Is a,609620004,Disorder of pelvis
+30346,Primary malignant neoplasm of neck,Subsumes,93831006,Primary malignant neoplasm of hypopharynx
+31597,Acute laryngotracheitis,Is a,26650005,Acute tracheitis
+31597,Acute laryngotracheitis,Is a,6655004,Acute laryngitis
+31597,Acute laryngotracheitis,Is a,55130001,Laryngotracheitis
+72708,Traumatic arthropathy of the shoulder region,Is a,201932009,Traumatic arthropathy of the shoulder region
+73072,Crushing injury of upper arm,Subsumes,11775091000119104,Crushing injury of right upper arm
+72245,Chlamydial infection of lower genitourinary tract,Subsumes,236672003,Chlamydial prostatitis
+72986,Disorder of lower leg,Subsumes,111315008,Longitudinal deficiency of tibia AND/OR fibula
+72986,Disorder of lower leg,Subsumes,1119440005,1119440005
+73300,Radial styloid tenosynovitis,Is a,280135003,Disorder of soft tissue of upper limb
+73300,Radial styloid tenosynovitis,Is a,67801009,Tenosynovitis
+73300,Radial styloid tenosynovitis,Is a,363175000,Inflammatory disorder of extremity
+193782,End-stage renal disease,Subsumes,433144002,Chronic kidney disease stage 3
+73300,Radial styloid tenosynovitis,Subsumes,16004351000119104,Tenosynovitis of left radial styloid
+72997,Articular cartilage disorder of upper arm,Subsumes,713038003,Overlapping primary malignant neoplasm of bone and articular cartilage of upper limb
+73925,Burn of upper limb,Subsumes,14261008,Burn of upper arm
+73553,Arthropathy,Subsumes,240266004,Disorder of prosthetic joint
+30753,Esophagitis,Subsumes,35023000,Gastroesophagitis
+73925,Burn of upper limb,Subsumes,80827001,Burn of forearm
+73553,Arthropathy,Subsumes,108367008,Dislocation of joint
+26727,Hematemesis,Subsumes,37372002,Upper gastrointestinal bleeding
+30346,Primary malignant neoplasm of neck,Subsumes,94097000,Primary malignant neoplasm of thyroglossal duct
+193782,End-stage renal disease,Is a,128290005,Chronic disease of genitourinary system
+193782,End-stage renal disease,Is a,236423003,Renal impairment
+73553,Arthropathy,Subsumes,736648002,Resorption of mandibular condyle
+72986,Disorder of lower leg,Subsumes,609375004,Abscess of lower leg
+26141,Barrett's esophagus with esophagitis,Subsumes,196609006,Barrett's ulcer of esophagus
+73041,Closed fracture of five ribs,Subsumes,79546008,Closed fracture of three ribs
+22820,Tuberculosis of esophagus,Is a,235601001,Bacterial esophagitis
+22820,Tuberculosis of esophagus,Is a,240376003,Tuberculosis of gastrointestinal tract
+73065,Contusion of genital organ,Is a,211495007,Contusion of genital organ
+193782,End-stage renal disease,Subsumes,431855005,Chronic kidney disease stage 1
+73017,Congenital anomaly of toe,Subsumes,9989000,Congenital anomaly of toe
+73553,Arthropathy,Subsumes,53417006,Articular cartilage disorder
+30346,Primary malignant neoplasm of neck,Subsumes,94058008,Primary malignant neoplasm of soft tissues of neck
+31057,Disorder of pharynx,Subsumes,78855007,Hypernasality syndrome due to velopharyngeal weakness
+72986,Disorder of lower leg,Subsumes,202885001,Fibular ankle impingement
+73553,Arthropathy,Subsumes,387637008,Effusion of joint
+73290,Contracture of joint,Subsumes,90116003,Contracture of joint of shoulder region
+28109,Carcinoma in situ of esophagus,Is a,92585006,Carcinoma in situ of esophagus
+73819,Pain of breast,Subsumes,248802009,Absence of breast
+73036,Closed fracture of olecranon process of ulna,Subsumes,10925961000119107,Closed fracture of olecranon process of left ulna
+72578,Neoplasm of uncertain behavior of breast,Subsumes,1306318006,Neoplasm of uncertain behavior of nipple
+24970,Chronic laryngitis,Subsumes,59454008,Laryngitis sicca
+24969,Laryngitis,Subsumes,262678008,Laryngitis following radiation therapy
+73289,Pathological dislocation of multiple joints,Is a,80406003,Pathological dislocation of joint
+72413,Nontraumatic rupture of muscle,Subsumes,128494003,Rupture of skeletal muscle
+73925,Burn of upper limb,Subsumes,3480002,Burn of wrist
+25056,Congenital anomaly of neck,Subsumes,1231169000,Congenital anomaly of second branchial cleft
+26213,Congenital salivary gland fistula,Is a,75260002,Fistula of salivary gland
+26213,Congenital salivary gland fistula,Is a,111327006,Congenital anomaly of salivary gland
+73372,Burn of breast,Subsumes,12113441000119103,12113441000119103
+72245,Chlamydial infection of lower genitourinary tract,Subsumes,237097008,Chlamydial vulvovaginitis
+193782,End-stage renal disease,Subsumes,431856006,Chronic kidney disease stage 2
+29979,Crushing injury of neck,Subsumes,283851005,Crush injury of head and neck
+72986,Disorder of lower leg,Subsumes,1251373004,Contact dermatitis of lower leg
+30753,Esophagitis,Subsumes,860872005,Esophagitis due to human immunodeficiency virus disease
+31335,Acute peptic ulcer with hemorrhage but without obstruction,Subsumes,89748001,Acute gastric ulcer with hemorrhage
+73361,Abrasion and/or friction burn of elbow with infection,Subsumes,211257004,Infected abrasion of skin of elbow
+73575,Deformity of toe,Subsumes,299569003,Valgus deformity of toe
+26899,Tuberculous laryngitis,Is a,700272008,Respiratory tuberculosis
+26899,Tuberculous laryngitis,Is a,312118003,Bacterial upper respiratory infection
+26899,Tuberculous laryngitis,Is a,312423006,Infective laryngitis
+73302,Curvature of spine,Is a,106028002,Musculoskeletal finding
+73302,Curvature of spine,Is a,298380006,Deformity of spine
+31821,Disorder of endocrine system,Subsumes,301363002,Pain of endocrine structure
+73290,Contracture of joint,Subsumes,202264009,Contracture of multiple joints
+24134,Neck pain,Subsumes,298390003,Deformity of neck
+73553,Arthropathy,Subsumes,35524003,Arthropathy associated with another disorder
+29979,Crushing injury of neck,Subsumes,59701000087104,59701000087104
+22288,Hereditary elliptocytosis,Subsumes,191169008,Hereditary elliptocytosis
+31597,Acute laryngotracheitis,Subsumes,301824001,Acute viral laryngotracheitis
+72737,Microcalcifications of the breast,Subsumes,27931000119107,Mammographic microcalcification of breast
+23868,Congenital anomaly of esophagus,Subsumes,66865009,Congenital duplication of esophagus
+73041,Closed fracture of five ribs,Subsumes,53441009,Closed multiple fractures of lower limb AND ribs
+72986,Disorder of lower leg,Subsumes,200618000,Boil of lower leg
+761734,Ulcer of right ankle due to postphlebitic syndrome,Is a,15949061000119103,Ulcer of right ankle due to postphlebitic syndrome
+27516,Neoplasm of uncertain behavior of paraganglia,Subsumes,189473001,Neoplasm of uncertain behavior of paraganglia
+72986,Disorder of lower leg,Subsumes,10641391000119104,Chronic ulcer of skin of lower leg
+72986,Disorder of lower leg,Subsumes,128195009,Deep peroneal neuropathy
+24897,Carcinoma in situ of larynx,Is a,92634009,Carcinoma in situ of larynx
+24897,Carcinoma in situ of larynx,Is a,248595008,Sputum finding
+30274,Full thickness burn of neck,Subsumes,211719003,Corrosion of third degree of head and neck
+31057,Disorder of pharynx,Subsumes,10998911000119105,Borderline velopharyngeal adequacy
+73366,Crushing injury of lower leg,Subsumes,211596006,"Closed crush injury, lower leg"
+73847,Finding of elbow joint,Subsumes,298928007,Tenderness of elbow joint
+73819,Pain of breast,Subsumes,248839005,Breast milk finding
+73561,Loose body in joint of shoulder region,Is a,2775001,Loose body in joint
+73561,Loose body in joint of shoulder region,Is a,444003007,Disorder of joint of shoulder region
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",Subsumes,12384004,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,Subsumes,12384004,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction
+72986,Disorder of lower leg,Subsumes,1052284009,Restless leg syndrome in pregnancy
+73017,Congenital anomaly of toe,Subsumes,1142199007,1142199007
+24977,Mucocele of salivary gland,Is a,69825009,Mucocele of salivary gland
+73686,Tuberculosis of genitourinary system,Subsumes,281623008,Genital tuberculosis
+73090,Contusion of foot,Subsumes,90244007,Contusion of heel
+22288,Hereditary elliptocytosis,Is a,363070008,Developmental hereditary disorder
+22288,Hereditary elliptocytosis,Is a,414394009,Hereditary red blood cell disorder
+22288,Hereditary elliptocytosis,Is a,323666000,Anemia due to intrinsic red cell abnormality
+22288,Hereditary elliptocytosis,Is a,42601008,Congenital hemolytic anemia
+22288,Hereditary elliptocytosis,Is a,276654001,Congenital malformation
+31057,Disorder of pharynx,Subsumes,21811000119104,Narrow pharyngeal airway
+73925,Burn of upper limb,Subsumes,57143002,Burn of shoulder
+23868,Congenital anomaly of esophagus,Subsumes,724437007,Compression of trachea and esophagus co-occurrent and due to congenital anomaly of aortic arch
+72817,Tuberculosis of urinary organs,Is a,1365900000,1365900000
+72986,Disorder of lower leg,Subsumes,60525009,Lateral plantar neuropathy
+24969,Laryngitis,Subsumes,709663002,Supraglottitis
+25056,Congenital anomaly of neck,Subsumes,771266007,"Torticollis, keloids, cryptorchidism, renal dysplasia syndrome"
+73372,Burn of breast,Subsumes,40881000087108,Burn of left breast
+23868,Congenital anomaly of esophagus,Subsumes,268201001,"Esophageal atresia, stenosis and fistula"
+72421,Solitary bone cyst,Subsumes,320921000119105,Solitary bone cyst of right hand
+24884,Benign neoplasm of carotid body,Is a,92044005,Benign neoplasm of carotid body
+25056,Congenital anomaly of neck,Subsumes,403557001,Midline cervical cleft
+73845,Joint ankylosis of the shoulder region,Subsumes,410043004,Ankylosis of glenohumeral joint
+37207425,Mild generalized edema,Is a,267038008,Edema
+30753,Esophagitis,Subsumes,47753002,Esophagitis medicamentosa
+30753,Esophagitis,Subsumes,1197684002,Autoimmune esophagitis
+73555,Transient arthropathy of the pelvic region and thigh,Subsumes,202009005,Transient arthropathy of sacroiliac joint
+73553,Arthropathy,Subsumes,394991004,Exacerbation of osteoarthritis
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Is a,61300005,Chronic peptic ulcer with hemorrhage AND perforation
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Is a,56461008,Chronic peptic ulcer with hemorrhage AND obstruction
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Is a,26221006,"Peptic ulcer with hemorrhage, with perforation AND with obstruction"
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Is a,57871005,Chronic peptic ulcer with perforation AND obstruction
+73925,Burn of upper limb,Subsumes,53080007,Partial thickness burn of upper limb
+72398,Arthropathy in Behcet's syndrome,Is a,62918002,Arthropathy in Behcet's syndrome
+72398,Arthropathy in Behcet's syndrome,Is a,3723001,Arthritis
+72711,Shoulder stiff,Subsumes,321941000119106,Stiffness of left shoulder
+72986,Disorder of lower leg,Subsumes,41359009,Closed anterior dislocation of proximal end of tibia
+73290,Contracture of joint,Subsumes,445505000,Contracture of joint of spine
+73561,Loose body in joint of shoulder region,Subsumes,313371000119106,Loose body in joint of left shoulder region
+73318,Polydactyly of fingers,Is a,367506006,Polydactyly
+73318,Polydactyly of fingers,Is a,20948006,Congenital anomaly of finger
+74127,Contracture of elbow joint,Subsumes,305521000119100,Contracture of right elbow joint
+31057,Disorder of pharynx,Subsumes,324618004,Pharyngeal hemorrhage
+30061,Neoplasm of uncertain behavior of major salivary gland,Subsumes,189362009,Neoplasm of uncertain behavior of major salivary gland
+23868,Congenital anomaly of esophagus,Subsumes,26179002,Congenital atresia of esophagus
+73302,Curvature of spine,Subsumes,249711007,Flattened lordosis
+72986,Disorder of lower leg,Subsumes,128194008,Superficial peroneal neuropathy
+73017,Congenital anomaly of toe,Subsumes,205353002,Perodactylia of multiple toes
+30441,Sialolithiasis,Subsumes,196501002,Sublingual sialolithiasis
+73336,Closed traumatic dislocation ankle joint,Subsumes,208983000,Closed traumatic subluxation ankle joint
+73913,Burn of shoulder,Is a,57143002,Burn of shoulder
+25189,Malignant tumor of oral cavity,Subsumes,1163357003,Malignant neoplasm of oral cavity and lip and salivary gland
+73819,Pain of breast,Subsumes,251816000,Breasts Tanner Stage 5
+30753,Esophagitis,Subsumes,1371023009,1371023009
+73553,Arthropathy,Subsumes,36186002,Polyarthropathy
+72578,Neoplasm of uncertain behavior of breast,Subsumes,1306375002,Neoplasm of uncertain behavior of central portion of breast
+73560,Calcaneal spur,Subsumes,1373036002,1373036002
+73819,Pain of breast,Subsumes,1260078007,Maternal breastfeeding
+73153,Malignant neoplasm of lateral wall of urinary bladder,Is a,399326009,Malignant neoplasm of urinary bladder
+73153,Malignant neoplasm of lateral wall of urinary bladder,Is a,126888008,Neoplasm of lateral wall of urinary bladder
+27438,Burn of esophagus,Is a,45982008,Burn of esophagus
+72986,Disorder of lower leg,Subsumes,410013001,Post-phlebitic dermatosis of lower leg
+31668,Acquired deformity of neck,Subsumes,719521002,Benign paroxysmal torticollis of infancy
+22350,Edema of larynx,Is a,51599000,Edema of larynx
+73036,Closed fracture of olecranon process of ulna,Subsumes,10925921000119102,Closed fracture of olecranon process of right ulna
+24134,Neck pain,Subsumes,298490004,Finding of measures of neck
+74127,Contracture of elbow joint,Subsumes,202272006,Extension contracture - elbow
+25582,Tracheoesophageal fistula,Subsumes,55448001,Tracheoesophageal fistula following tracheostomy
+73017,Congenital anomaly of toe,Subsumes,699049007,Acrosyndactyly of toe
+24076,Chronic peptic ulcer with hemorrhage AND obstruction,Is a,56461008,Chronic peptic ulcer with hemorrhage AND obstruction
+73122,Tuberculosis of knee,Subsumes,16016231000119109,Tuberculosis of right knee joint
+30346,Primary malignant neoplasm of neck,Subsumes,93922007,Primary malignant neoplasm of neck
+73847,Finding of elbow joint,Subsumes,298870001,Elbow joint swelling
+72421,Solitary bone cyst,Subsumes,1076891000119100,Solitary bone cyst of left fibula
+72986,Disorder of lower leg,Subsumes,10666031000119100,Ischemic ulcer of lower leg due to atherosclerotic disease
+73819,Pain of breast,Is a,298705000,Finding of region of thorax
+73819,Pain of breast,Subsumes,248832001,Lactiferous ducts finding
+72986,Disorder of lower leg,Subsumes,762535004,Hemosiderin pigmentation of lower limb due to varicose veins of lower limb
+31821,Disorder of endocrine system,Subsumes,301398004,Tenderness of endocrine structure
+73686,Tuberculosis of genitourinary system,Subsumes,4445009,Tuberculosis of genitourinary system
+73231,Arthralgia of temporomandibular joint,Subsumes,91866004,Adhesions of temporomandibular joint
+73819,Pain of breast,Subsumes,198116001,Breast signs and symptoms
+25056,Congenital anomaly of neck,Subsumes,74650009,Jugular lymphatic obstruction sequence
+31057,Disorder of pharynx,Subsumes,446594000,Infection of pharynx caused by Chlamydia trachomatis
+73819,Pain of breast,Subsumes,55222007,Tenderness of breast
+72986,Disorder of lower leg,Subsumes,14741001,Closed posterior dislocation of proximal end of tibia
+73712,Malignant neoplasm of dome of urinary bladder,Subsumes,449803009,Primary malignant neoplasm of dome of urinary bladder
+73925,Burn of upper limb,Subsumes,26729007,Full thickness burn of upper limb
+72578,Neoplasm of uncertain behavior of breast,Subsumes,1306374003,Neoplasm of uncertain behavior of axillary tail of breast
+73847,Finding of elbow joint,Subsumes,79254009,Flail elbow
+24134,Neck pain,Subsumes,283074008,Scratch of neck
+72398,Arthropathy in Behcet's syndrome,Subsumes,427967009,Arthropathy in Behcet's syndrome of the spine
+73819,Pain of breast,Subsumes,58219009,Lactation problem
+72521,Immersion foot,Subsumes,271331002,Immersion foot
+73017,Congenital anomaly of toe,Subsumes,719305006,Stapes ankylosis with broad thumb and toe syndrome
+25056,Congenital anomaly of neck,Subsumes,26885007,Cervical auricle
+27516,Neoplasm of uncertain behavior of paraganglia,Is a,127027008,Neoplasm of paraganglion
+27516,Neoplasm of uncertain behavior of paraganglia,Is a,118616009,Neoplastic disease of uncertain behavior
+31609,Abscess of salivary gland,Subsumes,196492001,Abscess of submandibular gland
+193782,End-stage renal disease,Subsumes,713313000,Chronic kidney disease mineral and bone disorder
+73847,Finding of elbow joint,Subsumes,298163003,Inflammation of elbow joint
+72986,Disorder of lower leg,Subsumes,897629007,897629007
+29979,Crushing injury of neck,Subsumes,283856000,Crushing injury of anterior neck
+24134,Neck pain,Subsumes,301176000,Finding of jugular venous pulse
+28974,Candidiasis of the esophagus,Is a,20639004,Candidiasis of the esophagus
+24970,Chronic laryngitis,Subsumes,29951006,Chronic laryngitis
+73307,Transverse deficiency of lower limb,Is a,36574005,Transverse deficiency of lower limb
+30361,Hypoglycemic disorder,Subsumes,237630007,Hypoglycemic disorder
+72986,Disorder of lower leg,Subsumes,1354842005,1354842005
+24148,Congenital diverticulum of pharynx,Is a,111328001,Congenital diverticulum of pharynx
+73580,Reduction deformity of lower limb,Is a,77595004,Reduction deformity of lower limb
+37164934,Intraoperative subcutaneous emphysema,Is a,1237075004,Intraoperative subcutaneous emphysema
+73847,Finding of elbow joint,Subsumes,1293199000,Mass of joint of elbow
+24134,Neck pain,Subsumes,299703001,Mass of neck
+23247,Chronic peptic ulcer with perforation but without obstruction,Subsumes,31301004,Chronic gastric ulcer with perforation
+72745,Open dislocation of elbow,Subsumes,208799003,"Open traumatic dislocation elbow joint, divergent"
+72986,Disorder of lower leg,Subsumes,1332353003,Hypertrophy of fibula
+73819,Pain of breast,Subsumes,130961000,Normal breast nipple shape
+31057,Disorder of pharynx,Subsumes,897160008,897160008
+73008,Enthesopathy,Subsumes,23680005,Enthesopathy
+72745,Open dislocation of elbow,Is a,373410009,Open traumatic dislocation of joint
+72745,Open dislocation of elbow,Is a,125617002,Traumatic dislocation of elbow joint
+72745,Open dislocation of elbow,Is a,125650002,Open wound of elbow
+30356,Benign neoplasm of pharynx,Subsumes,92293007,Benign neoplasm of pharynx
+73553,Arthropathy,Subsumes,18834007,Crystal arthropathy
+72986,Disorder of lower leg,Subsumes,10666431000119108,Ulcer of right lower leg
+23868,Congenital anomaly of esophagus,Subsumes,87047005,Congenital cyst of esophagus
+22557,Malignant tumor of submandibular gland,Subsumes,423189008,Adenoid cystic carcinoma of submandibular gland
+28385,Disorder of posterior pituitary,Subsumes,237682009,Panhypopituitarism - anterior and posterior
+72986,Disorder of lower leg,Subsumes,767001002,Congenital absence of lower leg and foot
+72407,Effusion of joint of shoulder region,Subsumes,40884005,Effusion of joint of shoulder region
+73712,Malignant neoplasm of dome of urinary bladder,Subsumes,359785002,Metastatic malignant neoplasm to dome of urinary bladder
+73045,Sprain of hand,Subsumes,87778004,Sprain of hand
+24969,Laryngitis,Subsumes,232439007,Relapsing polychondritis of larynx
+73553,Arthropathy,Subsumes,298149009,Lesion of joint
+72578,Neoplasm of uncertain behavior of breast,Subsumes,351411000119103,Neoplasm of uncertain behavior of left breast
+24134,Neck pain,Subsumes,81680005,Neck pain
+72986,Disorder of lower leg,Subsumes,203080002,Contracture of long toe extensor(s)
+31057,Disorder of pharynx,Subsumes,126663003,Disorder of hypopharynx
+23731,Benign neoplasm of larynx,Is a,92175003,Benign neoplasm of larynx
+23731,Benign neoplasm of larynx,Is a,248595008,Sputum finding
+73888,Open fracture of navicular bone of foot,Subsumes,73015009,Open fracture of navicular bone of foot
+30753,Esophagitis,Subsumes,235607002,Crohn's disease of esophagus
+73045,Sprain of hand,Subsumes,209463004,Sprain of carpometacarpal joint
+28385,Disorder of posterior pituitary,Subsumes,699331002,Granular cell tumor of neurohypophysis
+24978,Chronic adenotonsillitis,Is a,363176004,Inflammatory disorder of head
+24978,Chronic adenotonsillitis,Is a,140004,Chronic pharyngitis
+24978,Chronic adenotonsillitis,Is a,363177008,Inflammatory disorder of immune system
+24978,Chronic adenotonsillitis,Is a,16358007,Chronic disease of tonsils AND/OR adenoids
+24978,Chronic adenotonsillitis,Is a,248595008,Sputum finding
+27835,Neoplasm of uncertain behavior of pituitary gland,Is a,127024001,Neoplasm of pituitary gland
+27835,Neoplasm of uncertain behavior of pituitary gland,Is a,94789003,Neoplasm of uncertain behavior of cerebrum
+27835,Neoplasm of uncertain behavior of pituitary gland,Is a,269496008,Neoplasm of uncertain behavior of endocrine glands and nervous system
+72578,Neoplasm of uncertain behavior of breast,Is a,95151009,Neoplasm of uncertain behavior of trunk
+72578,Neoplasm of uncertain behavior of breast,Is a,126926005,Neoplasm of breast
+73553,Arthropathy,Subsumes,372109003,Disorder of joint of spine
+24296,Primary malignant neoplasm of pituitary gland,Subsumes,93768004,Primary malignant neoplasm of craniopharyngeal duct
+72421,Solitary bone cyst,Subsumes,320901000119101,Solitary bone cyst of left radius
+73372,Burn of breast,Subsumes,40981000087104,Burn of right breast
+73872,Congenital deformity of knee joint,Is a,1230024004,Congenital deformity of lower limb
+73872,Congenital deformity of knee joint,Is a,95463009,Congenital anomaly of joint
+73872,Congenital deformity of knee joint,Is a,1344689004,Congenital deformity of musculoskeletal system
+73872,Congenital deformity of knee joint,Is a,299328006,Deformity of knee joint
+73872,Congenital deformity of knee joint,Is a,428724006,Arthropathy of knee joint
+25056,Congenital anomaly of neck,Subsumes,305121000119107,Congenital kyphosis of cervicothoracic spine
+73925,Burn of upper limb,Subsumes,42041000087109,Burn of right upper limb
+31057,Disorder of pharynx,Subsumes,414581006,Laryngopharyngeal reflux
+73017,Congenital anomaly of toe,Subsumes,895640003,895640003
+72578,Neoplasm of uncertain behavior of breast,Subsumes,1306387009,Neoplasm of uncertain behavior of upper outer quadrant of breast
+72715,Exostosis,Subsumes,313361002,Exostosis of foot
+24134,Neck pain,Subsumes,724620008,Problem of neck
+24966,Esophageal varices,Subsumes,195474004,Esophageal varices associated with another disorder
+27835,Neoplasm of uncertain behavior of pituitary gland,Subsumes,788758003,Sellar ependymoma of posterior pituitary gland
+28385,Disorder of posterior pituitary,Subsumes,788758003,Sellar ependymoma of posterior pituitary gland
+31335,Acute peptic ulcer with hemorrhage but without obstruction,Subsumes,63954007,Acute gastrojejunal ulcer with hemorrhage
+73231,Arthralgia of temporomandibular joint,Subsumes,23415000,Sprain of jaw
+73819,Pain of breast,Subsumes,116339002,Breast finding
+73553,Arthropathy,Subsumes,125610000,Joint injury
+30356,Benign neoplasm of pharynx,Subsumes,92259008,Benign neoplasm of oropharynx
+22820,Tuberculosis of esophagus,Subsumes,15284007,Tuberculosis of esophagus
+26662,Testicular hypofunction,Is a,73820008,Disorder of endocrine testis
+26662,Testicular hypofunction,Is a,2149006,Decreased hormone production
+26060,Benign neoplasm of tonsil,Is a,92263001,Benign neoplasm of tonsil
+26060,Benign neoplasm of tonsil,Is a,248595008,Sputum finding
+30753,Esophagitis,Subsumes,3482005,Postoperative esophagitis
+72404,Joint stiffness,Subsumes,321831000119106,Stiffness of joint of right hand
+73553,Arthropathy,Subsumes,733038005,"Dysmorphism, pectus carinatum, joint laxity syndrome"
+73553,Arthropathy,Subsumes,363162000,Infectious disorder of joint
+31386,Congenital absence of salivary gland,Subsumes,715656004,Aplasia of lacrimal and salivary gland
+73318,Polydactyly of fingers,Subsumes,15666441000119105,Polydactyly of fingers of left hand
+24134,Neck pain,Subsumes,90658001,Venous hum
+762432,Family history of hepatoma,Is a,404684003,Clinical finding
+30753,Esophagitis,Subsumes,409657002,Chronic esophagitis
+72986,Disorder of lower leg,Subsumes,240015000,Contracture of tendon of ankle region
+26378,Hyperpituitarism,Is a,10649000,Hyperpituitarism
+73231,Arthralgia of temporomandibular joint,Subsumes,91944005,Arthritis of temporomandibular joint
+72986,Disorder of lower leg,Is a,700012005,Disorder of free lower limb
+72715,Exostosis,Subsumes,16028111000119104,Exostosis of left radius
+72745,Open dislocation of elbow,Subsumes,11771491000119107,Open traumatic dislocation of joint of left elbow
+73041,Closed fracture of five ribs,Subsumes,12204004,Closed fracture of multiple ribs
+73153,Malignant neoplasm of lateral wall of urinary bladder,Subsumes,94374009,Metastatic malignant neoplasm to lateral wall of urinary bladder
+72245,Chlamydial infection of lower genitourinary tract,Subsumes,1084821000119103,Cystitis caused by Chlamydia
+30163,Cellulitis and abscess of neck,Is a,267779003,Cellulitis and abscess of neck
+73723,Benign neoplasm of epididymis,Subsumes,92088003,Benign neoplasm of epididymis
+73553,Arthropathy,Subsumes,25616007,Acute arthropathy
+74127,Contracture of elbow joint,Subsumes,202271004,Flexion contracture - elbow
+72986,Disorder of lower leg,Subsumes,84902000,Juvenile osteochondrosis of os tibiale
+23868,Congenital anomaly of esophagus,Subsumes,3004001,Congenital dilatation of esophagus
+73561,Loose body in joint of shoulder region,Subsumes,313441000119106,Loose body in joint of right shoulder region
+73925,Burn of upper limb,Is a,125666000,Burn
+73925,Burn of upper limb,Is a,127278005,Injury of upper extremity
+25056,Congenital anomaly of neck,Subsumes,1231175009,Congenital anomaly of fourth branchial cleft
+46270436,Chronic tophaceous gout of elbow caused by drug,Is a,306151000119106,Chronic tophaceous gout of elbow caused by drug
+73231,Arthralgia of temporomandibular joint,Subsumes,2782002,Temporomandibular dysplasia
+73888,Open fracture of navicular bone of foot,Is a,263248002,Fracture of navicular
+73888,Open fracture of navicular bone of foot,Is a,416462003,Wound
+25748,Overlapping malignant neoplasm of esophagus,Is a,363402007,Malignant tumor of esophagus
+31668,Acquired deformity of neck,Subsumes,318541000119102,Cervicothoracic postural kyphosis
+30753,Esophagitis,Subsumes,413228005,Esophagitis grade IV
+72521,Immersion foot,Is a,238506004,Cold-induced dermatosis
+72521,Immersion foot,Is a,125604000,Injury of foot
+72521,Immersion foot,Is a,781645001,Injury to skin caused by trauma
+72521,Immersion foot,Is a,726523002,Cold injury
+72521,Immersion foot,Is a,103001000119108,Lesion of skin of foot
+72986,Disorder of lower leg,Subsumes,410016009,Lipodermatosclerosis
+73231,Arthralgia of temporomandibular joint,Subsumes,723849009,Primary osteosarcoma of articular cartilage of jaw
+30439,Acute peptic ulcer with perforation but without obstruction,Subsumes,61347001,Acute duodenal ulcer with perforation
+72986,Disorder of lower leg,Subsumes,1236831007,Martorell ulcer of lower leg
+26718,Acute peptic ulcer with perforation AND obstruction,Is a,35681000,Acute peptic ulcer with perforation AND obstruction
+72245,Chlamydial infection of lower genitourinary tract,Subsumes,237084006,Chlamydial cervicitis
+73041,Closed fracture of five ribs,Subsumes,311408004,Closed flail chest
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Subsumes,85787009,"Chronic gastric ulcer with hemorrhage, with perforation and with obstruction"
+24973,Chronic peptic ulcer without hemorrhage AND without perforation but with obstruction,Subsumes,196666001,Chronic duodenal ulcer with obstruction
+22955,Perforation of esophagus,Subsumes,307218005,Traumatic perforation of esophagus
+72997,Articular cartilage disorder of upper arm,Subsumes,429052003,Articular cartilage disorder of wrist
+30753,Esophagitis,Subsumes,409656006,Acute esophagitis
+73553,Arthropathy,Subsumes,703619001,Pelvic girdle pain
+72421,Solitary bone cyst,Subsumes,320931000119108,Solitary bone cyst of right humerus
+28385,Disorder of posterior pituitary,Subsumes,55004003,Syndrome of inappropriate vasopressin secretion
+73553,Arthropathy,Subsumes,66822008,Subacute arthropathy
+72986,Disorder of lower leg,Subsumes,203077003,Contracture of tibialis anterior
+31057,Disorder of pharynx,Subsumes,763829004,Oculopharyngodistal myopathy
+73072,Crushing injury of upper arm,Subsumes,11775131000119102,Crushing injury of left upper arm
+72986,Disorder of lower leg,Subsumes,271094001,Deformity of tibia
+23806,Atrophy of salivary gland,Subsumes,196474009,Atrophy of parotid gland
+193782,End-stage renal disease,Subsumes,771000119108,Chronic kidney disease due to type 2 diabetes mellitus
+23868,Congenital anomaly of esophagus,Subsumes,912005,Congenital stenosis of esophagus
+31821,Disorder of endocrine system,Subsumes,302065000,Finding of thyroid gland
+24134,Neck pain,Subsumes,302065000,Finding of thyroid gland
+28461,Hypertrophy of salivary gland,Subsumes,28401004,Hypertrophy of submaxillary gland
+30346,Primary malignant neoplasm of neck,Subsumes,93704000,Primary malignant neoplasm of blood vessel of neck
+72986,Disorder of lower leg,Subsumes,449711005,Cellulitis of lower leg
+72421,Solitary bone cyst,Subsumes,1076881000119103,Solitary bone cyst of right fibula
+193782,End-stage renal disease,Subsumes,722098007,Chronic kidney disease following donor nephrectomy
+24134,Neck pain,Subsumes,271748007,Larynx finding
+30753,Esophagitis,Subsumes,60698006,Hemorrhagic esophagitis
+24969,Laryngitis,Subsumes,72211003,Laryngeal granuloma
+28403,Gigantism and acromegaly,Is a,80849007,Gigantism
+193782,End-stage renal disease,Subsumes,236519008,Chronic drug-induced renal disease
+73553,Arthropathy,Subsumes,1076041000119100,Hypertrophy of synovium of left foot
+73553,Arthropathy,Subsumes,428360003,Arthropathy of joint of hand
+31057,Disorder of pharynx,Subsumes,126661001,Disorder of oropharynx
+31057,Disorder of pharynx,Subsumes,123952009,Disorder of nasopharynx
+72717,Postoperative heterotopic calcification,Is a,80116000,Postoperative heterotopic calcification
+72578,Neoplasm of uncertain behavior of breast,Subsumes,1306312007,Neoplasm of uncertain behavior of areola
+72469,Closed traumatic dislocation of joint of shoulder region,Is a,22911007,Closed traumatic dislocation of joint of shoulder region
+25486,Primary malignant neoplasm of islets of Langerhans,Subsumes,1259358002,Primary carcinoma of endocrine pancreas
+72403,Hemarthrosis of the ankle and/or foot,Is a,202415003,Hemarthrosis of the ankle
+72403,Hemarthrosis of the ankle and/or foot,Is a,324041000119107,Hemarthrosis of foot
+72995,Contracture of joint of hand,Is a,86414002,Contracture of joint of hand
+72405,Degenerative joint disease of shoulder region,Is a,67315001,Osteoarthritis of shoulder region
+23868,Congenital anomaly of esophagus,Subsumes,253760004,Congenital esophageal ring
+73849,Acquired lordosis deformity of spine,Subsumes,15444000,Acquired lordosis deformity of spine due to poor posture
+37207425,Mild generalized edema,Subsumes,1354552000,Mild diabetic macular edema
+25056,Congenital anomaly of neck,Subsumes,1172633003,Camptodactyly syndrome Guadalajara type 3
+72421,Solitary bone cyst,Subsumes,320871000119101,Solitary bone cyst of left pelvis
+24296,Primary malignant neoplasm of pituitary gland,Subsumes,1268352008,Primary pituitary carcinoma
+31057,Disorder of pharynx,Subsumes,229727006,Velopharyngeal dysfunction
+30753,Esophagitis,Subsumes,413226009,Esophagitis grade II
+73723,Benign neoplasm of epididymis,Is a,126902008,Neoplasm of epididymis
+73723,Benign neoplasm of epididymis,Is a,92207002,Benign neoplasm of male genital organ
+72434,Congenital hydrocele,Is a,70660007,Hydrocele of tunica vaginalis
+72434,Congenital hydrocele,Is a,363039000,Congenital connective tissue disorder
+72434,Congenital hydrocele,Is a,55631001,Congenital anomaly of testis
+73723,Benign neoplasm of epididymis,Subsumes,354181000119100,Benign neoplasm of right epididymis
+24134,Neck pain,Subsumes,116275003,Finding of cervical spine
+73290,Contracture of joint,Subsumes,1172692006,"X-linked keloid scarring, reduced joint mobility, increased optic cup-to-disc ratio syndrome"
+72986,Disorder of lower leg,Subsumes,445215005,Infection of bone of tibia and/or fibula
+72618,Disorder of skeletal muscle,Is a,75047002,Disorder of skeletal muscle
+37207424,Severe muscle atrophy,Is a,18321000175101,Severe muscle atrophy
+73845,Joint ankylosis of the shoulder region,Subsumes,202298000,Joint ankylosis of the shoulder region
+73091,Deep third degree burn of breast,Is a,89843004,Deep third degree burn of breast
+72562,Gonococcal spondylitis,Subsumes,53664003,Gonococcal spondylitis
+72407,Effusion of joint of shoulder region,Subsumes,202372009,Effusion of acromioclavicular joint
+24969,Laryngitis,Subsumes,14969004,Catarrhal laryngitis
+72986,Disorder of lower leg,Subsumes,203344007,Paget's disease-tibia
+72986,Disorder of lower leg,Subsumes,1371387001,1371387001
+72986,Disorder of lower leg,Subsumes,1290493007,Disorder of tendon of ankle region
+193782,End-stage renal disease,Subsumes,96441000119101,Chronic kidney disease due to type 1 diabetes mellitus
+73553,Arthropathy,Subsumes,442246002,Disorder of joint of ankle and/or foot
+25056,Congenital anomaly of neck,Subsumes,303138003,Thyroglossal duct anomaly
+73372,Burn of breast,Is a,62112002,Injury of breast
+73372,Burn of breast,Is a,52405000,Burn of trunk
+73372,Burn of breast,Is a,290073004,Lesion of breast
+73231,Arthralgia of temporomandibular joint,Subsumes,302964004,Dislocation of temporomandibular joint
+30346,Primary malignant neoplasm of neck,Subsumes,93943008,Primary malignant neoplasm of parathyroid gland
+31609,Abscess of salivary gland,Subsumes,80483009,Abscess of salivary gland
+72421,Solitary bone cyst,Subsumes,299731000119100,Solitary bone cyst of ulna
+25757,Primary malignant neoplasm of aortic body,Is a,93941005,Primary malignant neoplasm of paraganglion
+25757,Primary malignant neoplasm of aortic body,Is a,127029006,Neoplasm of aortic body
+73872,Congenital deformity of knee joint,Subsumes,89689008,Congenital genu valgum
+73575,Deformity of toe,Subsumes,249821009,Cock-up deformity of great toe
+73290,Contracture of joint,Subsumes,239738002,Contracture of hip joint
+73017,Congenital anomaly of toe,Subsumes,4136000,Macrodactyly of toe
+73847,Finding of elbow joint,Subsumes,298869002,Finding of elbow joint
+73045,Sprain of hand,Subsumes,209439007,Carpal joint sprain
+24818,Injury of neck,Is a,90460009,Injury of neck
+73036,Closed fracture of olecranon process of ulna,Subsumes,208298007,"Closed fracture olecranon, intra-articular"
+72986,Disorder of lower leg,Subsumes,295441000119103,Calcific tendinitis of lower leg
+73872,Congenital deformity of knee joint,Subsumes,15668841000119107,Congenital deformity of right knee joint
+73649,Contusion of finger,Subsumes,11773931000119100,Contusion of finger of left hand
+25056,Congenital anomaly of neck,Subsumes,92999004,Congenital anomaly of cervical vertebra
+27516,Neoplasm of uncertain behavior of paraganglia,Subsumes,94779002,Neoplasm of uncertain behavior of carotid body
+74127,Contracture of elbow joint,Subsumes,305441000119105,Contracture of left elbow joint
+72245,Chlamydial infection of lower genitourinary tract,Subsumes,186729003,Chlamydial infection of lower genitourinary tract
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Subsumes,1259615008,Primary Ewing sarcoma of bone of pelvis
+25056,Congenital anomaly of neck,Subsumes,57014008,Fistula colli congenita
+31057,Disorder of pharynx,Subsumes,30736009,Dysphonia of palatopharyngolaryngeal myoclonus
+72986,Disorder of lower leg,Subsumes,427103005,Congenital contracture of gastrocnemius muscle
+24134,Neck pain,Subsumes,1119515000,1119515000
+30770,Chronic peptic ulcer with hemorrhage but without obstruction,Subsumes,57246001,Chronic gastric ulcer with hemorrhage
+25056,Congenital anomaly of neck,Is a,118939000,Disorder of neck
+25056,Congenital anomaly of neck,Is a,276654001,Congenital malformation
+72986,Disorder of lower leg,Subsumes,4168008,Tibial plateau chondromalacia
+75070,Lordosis deformity of spine following surgical procedure,Subsumes,203635002,Lordosis deformity of spine following excision of lamina of vertebra
+73231,Arthralgia of temporomandibular joint,Is a,37156001,Disorder of jaw
+73231,Arthralgia of temporomandibular joint,Is a,298366004,Finding of temporomandibular joint
+73231,Arthralgia of temporomandibular joint,Is a,118930001,Disorder of face
+73378,Frostbite of foot,Is a,125604000,Injury of foot
+73378,Frostbite of foot,Is a,1366343007,1366343007
+73290,Contracture of joint,Subsumes,86414002,Contracture of joint of hand
+26361,Primary malignant neoplasm of pineal gland,Is a,93962006,Primary malignant neoplasm of pineal gland
+73847,Finding of elbow joint,Subsumes,298924009,Elbow joint unstable
+72245,Chlamydial infection of lower genitourinary tract,Subsumes,236683007,Chlamydial urethritis
+23798,Acute laryngopharyngitis,Is a,55355000,Acute laryngopharyngitis
+72398,Arthropathy in Behcet's syndrome,Subsumes,201485008,Arthropathy in Behcet's syndrome of the shoulder region
+73553,Arthropathy,Subsumes,38850007,Chronic arthropathy
+73564,Full thickness rotator cuff tear,Is a,718539004,Injury of rotator cuff
+73553,Arthropathy,Subsumes,80289005,Aplasia of cementum
+26052,Primary malignant neoplasm of larynx,Is a,371995001,Primary malignant neoplasm of larynx
+22665,Chronic peptic ulcer with hemorrhage AND with perforation but without obstruction,Subsumes,61300005,Chronic peptic ulcer with hemorrhage AND perforation
+73366,Crushing injury of lower leg,Subsumes,11864681000119100,Crush injury of left lower leg
+73553,Arthropathy,Subsumes,429554009,Arthropathy of elbow
+73847,Finding of elbow joint,Subsumes,429554009,Arthropathy of elbow
+72404,Joint stiffness,Subsumes,321851000119100,Stiffness of right knee
+26908,Vincent's angina,Is a,232417005,Vincent's tonsillitis
+26908,Vincent's angina,Is a,282754004,Gum injury
+26908,Vincent's angina,Is a,707606004,Non-plaque induced gingival disease
+26908,Vincent's angina,Is a,262664007,Injury of oropharynx
+26908,Vincent's angina,Is a,363183006,Injury of lymphatic system
+72986,Disorder of lower leg,Subsumes,300681000119106,Tendon disorder of right lower leg
+72986,Disorder of lower leg,Subsumes,298133007,Medial plantar nerve lesion
+73819,Pain of breast,Subsumes,290054003,Finding of appearance of breast
+73616,Open fracture of lunate bone of wrist,Subsumes,209297009,Open fracture subluxation lunate (volar)
+73609,Open fracture of clavicle,Subsumes,10837461000119101,Open fracture of right clavicle
+30439,Acute peptic ulcer with perforation but without obstruction,Subsumes,47064007,Acute peptic ulcer with hemorrhage AND with perforation but without obstruction
+30061,Neoplasm of uncertain behavior of major salivary gland,Is a,448908007,Neoplasm of uncertain behavior of digestive organ
+30061,Neoplasm of uncertain behavior of major salivary gland,Is a,94864000,Neoplasm of uncertain behavior of head
+30061,Neoplasm of uncertain behavior of major salivary gland,Is a,126787005,Neoplasm of major salivary gland
+72986,Disorder of lower leg,Subsumes,297145001,Exostosis of tibia
+72715,Exostosis,Subsumes,297145001,Exostosis of tibia
+30679,Benign neoplasm of major salivary gland,Subsumes,92415001,Benign neoplasm of submaxillary gland
+74124,Traumatic arthropathy,Subsumes,11806131000119101,Closed subluxation right patellofemoral joint following trauma
+72986,Disorder of lower leg,Subsumes,897634006,897634006
+25056,Congenital anomaly of neck,Subsumes,683251000119104,Congenital pigmented melanocytic nevus of skin of neck
+24969,Laryngitis,Subsumes,307500008,Cricoarytenoid joint arthritis
+24296,Primary malignant neoplasm of pituitary gland,Subsumes,93964007,Primary malignant neoplasm of pituitary gland
+30753,Esophagitis,Subsumes,413227000,Esophagitis grade III
+73819,Pain of breast,Subsumes,271941007,Discharge from breast
+73231,Arthralgia of temporomandibular joint,Subsumes,724582008,Benign osteogenic neoplasm of articular cartilage of lower jaw
+73090,Contusion of foot,Subsumes,58075000,Contusion of toe
+73819,Pain of breast,Subsumes,2933041000005104,2933041000005104
+30753,Esophagitis,Subsumes,413225008,Esophagitis grade I
+73290,Contracture of joint,Subsumes,7890003,Contracture of joint
+22557,Malignant tumor of submandibular gland,Subsumes,254465004,Carcinoma of submandibular gland
+72986,Disorder of lower leg,Subsumes,447265000,Foreign body in lower leg
+24134,Neck pain,Subsumes,271653008,Jugular venous engorgement
+72578,Neoplasm of uncertain behavior of breast,Subsumes,1306385001,Neoplasm of uncertain behavior of upper inner quadrant of breast
+24134,Neck pain,Subsumes,405947006,Nuchal rigidity
+73553,Arthropathy,Subsumes,85551004,Hypermobility syndrome
+74064,Ankylosis of temporomandibular joint,Subsumes,15980071000119105,Ankylosis of left temporomandibular joint
+24602,Benign neoplasm of esophagus,Is a,92091003,Benign neoplasm of esophagus
+73712,Malignant neoplasm of dome of urinary bladder,Maps to,188240003,Malignant neoplasm of dome of urinary bladder
+73925,Burn of upper limb,Maps to,6055000,Burn of upper limb
+27438,Burn of esophagus,Maps to,45982008,Burn of esophagus
+73851,Effusion of joint of multiple sites,Maps to,36662003,Effusion of joint of multiple sites
+72578,Neoplasm of uncertain behavior of breast,Maps to,269497004,Neoplasm of uncertain behavior of breast
+24884,Benign neoplasm of carotid body,Maps to,92044005,Benign neoplasm of carotid body
+73085,Injury of superficial femoral artery,Maps to,20593006,Injury of superficial femoral artery
+25068,Branchial cleft sinus and fistula,Maps to,268173005,Branchial cleft sinus and fistula
+761734,Ulcer of right ankle due to postphlebitic syndrome,Maps to,15949061000119103,Ulcer of right ankle due to postphlebitic syndrome
+73362,Crushing injury of multiple sites of upper limb,Maps to,9560007,Crushing injury of upper limb
+73043,Open dislocation of glenohumeral joint,Maps to,13975002,Open dislocation of glenohumeral joint
+30061,Neoplasm of uncertain behavior of major salivary gland,Maps to,189362009,Neoplasm of uncertain behavior of major salivary gland
+72487,Crushing injury of foot,Maps to,43422002,Crushing injury of foot
+73372,Burn of breast,Maps to,80433004,Burn of breast
+28461,Hypertrophy of salivary gland,Maps to,45338009,Hypertrophy of salivary gland
+23986,Disorder of pituitary gland,Maps to,25211,Iatrogenic pituitary disorder
+73091,Deep third degree burn of breast,Maps to,89843004,Deep third degree burn of breast
+22955,Perforation of esophagus,Maps to,23387001,Perforation of esophagus
+73866,Congenital anomaly of breast,Maps to,83546008,Congenital anomaly of breast
+31884,Acquired diverticulum of esophagus,Maps to,35563005,Acquired diverticulum of esophagus
+73090,Contusion of foot,Maps to,74814004,Contusion of foot
+23245,Esophageal bleeding,Maps to,15238002,Esophageal bleeding
+30356,Benign neoplasm of pharynx,Maps to,92293007,Benign neoplasm of pharynx
+24970,Chronic laryngitis,Maps to,29951006,Chronic laryngitis
+73616,Open fracture of lunate bone of wrist,Maps to,53256003,Open fracture of lunate bone of wrist
+26718,Acute peptic ulcer with perforation AND obstruction,Maps to,35681000,Acute peptic ulcer with perforation AND obstruction
+73041,Closed fracture of five ribs,Maps to,73614,Closed fracture of seven ribs
+72516,Burn of knee,Maps to,19684007,Burn of knee
+22871,Neoplasm of uncertain behavior of pineal gland,Maps to,95002008,Neoplasm of uncertain behavior of pineal gland
+31597,Acute laryngotracheitis,Maps to,64375000,Acute laryngotracheitis
+30234,Neck sprain,Maps to,209557005,Neck sprain
+22492,Foreign body in pharynx,Maps to,25479004,Foreign body in pharynx
+72469,Closed traumatic dislocation of joint of shoulder region,Maps to,22911007,Closed traumatic dislocation of joint of shoulder region
+72421,Solitary bone cyst,Maps to,203467005,Solitary bone cyst
+22350,Edema of larynx,Maps to,51599000,Edema of larynx
+73614,Closed fracture of seven ribs,Maps to,73884,Closed fracture of three ribs
+72459,Closed fracture of two ribs,Maps to,12204004,Closed fracture of multiple ribs
+24134,Neck pain,Maps to,298378000,Finding of neck region
+73365,Epidermal burn of elbow,Maps to,33826007,Epidermal burn of elbow
+72986,Disorder of lower leg,Maps to,128137003,Disorder of lower leg
+31610,Disorder of esophagus,Maps to,37657006,Disorder of esophagus
+73361,Abrasion and/or friction burn of elbow with infection,Maps to,111712008,Abrasion and/or friction burn of elbow with infection
+73553,Arthropathy,Maps to,399269003,Arthropathy
+28356,Overlapping malignant neoplasm of major salivary gland,Maps to,363378008,Malignant tumor of major salivary gland
+26638,Primary malignant neoplasm of esophagus,Maps to,371984007,Primary malignant neoplasm of esophagus
+72717,Postoperative heterotopic calcification,Maps to,80116000,Postoperative heterotopic calcification
+24966,Esophageal varices,Maps to,28670008,Esophageal varices
+28060,Streptococcal sore throat,Maps to,43878008,Streptococcal sore throat
+23806,Atrophy of salivary gland,Maps to,48128006,Atrophy of salivary gland
+72817,Tuberculosis of urinary organs,Maps to,1365900000,1365900000
+28385,Disorder of posterior pituitary,Maps to,72442006,Disorder of posterior pituitary
+73383,Full thickness burn of foot,Maps to,30044002,Full thickness burn of foot
+25844,Ulcer of esophagus,Maps to,30811009,Ulcer of esophagus
+73075,Contusion of upper limb,Maps to,68142008,Contusion of upper limb
+24818,Injury of neck,Maps to,90460009,Injury of neck
+30124,Obstruction of larynx,Maps to,61169001,Obstruction of larynx
+25757,Primary malignant neoplasm of aortic body,Maps to,93677000,Primary malignant neoplasm of aortic body
+37207424,Severe muscle atrophy,Maps to,18321000175101,Severe muscle atrophy
+25056,Congenital anomaly of neck,Maps to,40052002,Congenital anomaly of neck
+73122,Tuberculosis of knee,Maps to,17136009,Tuberculosis of knee
+25572,Disorder of salivary gland,Maps to,10890000,Disorder of salivary gland
+72468,Open dislocation of jaw,Maps to,208748005,Open dislocation of jaw
+72486,Blister of elbow without infection,Maps to,84208005,Blister of elbow without infection
+73334,Closed posterior dislocation of elbow,Maps to,4273008,Closed posterior dislocation of elbow
+73153,Malignant neoplasm of lateral wall of urinary bladder,Maps to,188241004,Malignant neoplasm of lateral wall of urinary bladder
+73609,Open fracture of clavicle,Maps to,111637008,Open fracture of clavicle
+73884,Closed fracture of three ribs,Maps to,12204004,Closed fracture of multiple ribs
+25486,Primary malignant neoplasm of islets of Langerhans,Maps to,93843007,Primary malignant neoplasm of islets of Langerhans
+72926,Labyrinthine fistula,Maps to,89097000,Labyrinthine fistula
+28109,Carcinoma in situ of esophagus,Maps to,92585006,Carcinoma in situ of esophagus
+25748,Overlapping malignant neoplasm of esophagus,Maps to,363402007,Malignant tumor of esophagus
+193782,End-stage renal disease,Maps to,709044004,Chronic kidney disease
+72407,Effusion of joint of shoulder region,Maps to,40884005,Effusion of joint of shoulder region
+22820,Tuberculosis of esophagus,Maps to,15284007,Tuberculosis of esophagus
+74052,Labyrinthitis,Maps to,23919004,Labyrinthitis
+73366,Crushing injury of lower leg,Maps to,40874009,Crushing injury of lower leg
+72618,Disorder of skeletal muscle,Maps to,75047002,Disorder of skeletal muscle
+28974,Candidiasis of the esophagus,Maps to,20639004,Candidiasis of the esophagus
+26378,Hyperpituitarism,Maps to,10649000,Hyperpituitarism
+72405,Degenerative joint disease of shoulder region,Maps to,67315001,Osteoarthritis of shoulder region
+73580,Reduction deformity of lower limb,Maps to,77595004,Reduction deformity of lower limb
+26286,Burn of neck,Maps to,60713008,Burn of neck
+30133,Acute laryngitis,Maps to,6655004,Acute laryngitis
+72745,Open dislocation of elbow,Maps to,11920000,Open dislocation of elbow
+73673,Disorder of prosthetic joint,Maps to,240266004,Disorder of prosthetic joint
+73913,Burn of shoulder,Maps to,57143002,Burn of shoulder
+24148,Congenital diverticulum of pharynx,Maps to,111328001,Congenital diverticulum of pharynx
+73300,Radial styloid tenosynovitis,Maps to,21794005,Radial styloid tenosynovitis
+30679,Benign neoplasm of major salivary gland,Maps to,92205005,Benign neoplasm of major salivary gland
+73923,Contusion of upper arm,Maps to,85636003,Contusion of upper arm
+72566,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx",Maps to,372115003,"Primary malignant neoplasm of pelvic bones, sacrum and coccyx"
+26441,Bleeding ulcer of esophagus,Maps to,57748001,Bleeding ulcer of esophagus
+24977,Mucocele of salivary gland,Maps to,1260281008,Mucous retention cyst of salivary gland
+26899,Tuberculous laryngitis,Maps to,70341005,Tuberculous laryngitis
+31057,Disorder of pharynx,Maps to,75860007,Disorder of pharynx
+24974,Stenosis of larynx,Maps to,75547007,Stenosis of larynx
+72989,"Arthropathy associated with mycoses, of the ankle and/or foot",Maps to,201540009,"Arthropathy associated with mycoses, of the ankle and/or foot"
+24397,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction",Maps to,77661009,"Chronic peptic ulcer with hemorrhage, with perforation AND with obstruction"
+46270436,Chronic tophaceous gout of elbow caused by drug,Maps to,306151000119106,Chronic tophaceous gout of elbow caused by drug
+23808,"Chronic peptic ulcer without hemorrhage, without perforation AND without obstruction",Maps to,5492000,Chronic peptic ulcer without hemorrhage AND without perforation
+73574,Nonunion of fracture,Maps to,302941001,Nonunion of fracture
+73036,Closed fracture of olecranon process of ulna,Maps to,64902007,Closed fracture of olecranon process of ulna
+26935,Disorder of endocrine testis,Maps to,73820008,Disorder of endocrine testis
+27235,Primary malignant neoplasm of carotid body,Maps to,93740003,Primary malignant neoplasm of carotid body
+72995,Contracture of joint of hand,Maps to,86414002,Contracture of joint of hand
+22722,Accessory salivary gland,Maps to,70705008,Accessory salivary gland
+23164,Disorder of anterior pituitary,Maps to,51742006,Disorder of anterior pituitary
+74125,Inflammatory polyarthropathy,Maps to,417373000,Inflammatory polyarthropathy
+73042,Open fracture finger middle phalanx,Maps to,208483008,Open fracture finger middle phalanx
+26719,Chronic laryngotracheitis,Maps to,83271005,Chronic laryngotracheitis
+24296,Primary malignant neoplasm of pituitary gland,Maps to,93964007,Primary malignant neoplasm of pituitary gland
+72459,Closed fracture of two ribs,Maps to,73884,Closed fracture of three ribs
+73041,Closed fracture of five ribs,Maps to,12204004,Closed fracture of multiple ribs
+73373,Epidermal burn of upper limb,Maps to,62242007,Epidermal burn of upper limb
+31609,Abscess of salivary gland,Maps to,80483009,Abscess of salivary gland
+37164934,Intraoperative subcutaneous emphysema,Maps to,1237075004,Intraoperative subcutaneous emphysema
+26711,Chronic pharyngitis,Maps to,140004,Chronic pharyngitis
+73231,Arthralgia of temporomandibular joint,Maps to,41888000,Temporomandibular joint disorder
+73045,Sprain of hand,Maps to,87778004,Sprain of hand
+23986,Disorder of pituitary gland,Maps to,399244003,Disorder of pituitary gland
+31668,Acquired deformity of neck,Maps to,72082009,Acquired deformity of neck
+26361,Primary malignant neoplasm of pineal gland,Maps to,93962006,Primary malignant neoplasm of pineal gland
+72410,Infection of bone,Maps to,111253001,Infection of bone
+73336,Closed traumatic dislocation ankle joint,Maps to,208981003,Closed traumatic dislocation ankle joint
+27835,Neoplasm of uncertain behavior of pituitary gland,Maps to,95004009,Neoplasm of uncertain behavior of pituitary gland
+72413,Nontraumatic rupture of muscle,Maps to,262966007,Rupture of muscle
+73845,Joint ankylosis of the shoulder region,Maps to,202298000,Joint ankylosis of the shoulder region
+24602,Benign neoplasm of esophagus,Maps to,92091003,Benign neoplasm of esophagus
+26069,Postablative testicular hypofunction,Maps to,190552005,Postablative testicular hypofunction
+22557,Malignant tumor of submandibular gland,Maps to,363380002,Malignant tumor of submandibular gland
+73089,Contusion of buttock,Maps to,68893001,Contusion of buttock
+74064,Ankylosis of temporomandibular joint,Maps to,50603008,Ankylosis of temporomandibular joint
+73819,Pain of breast,Maps to,116339002,Breast finding
+72757,Open wound of shoulder region with complication,Maps to,125645008,Open wound of shoulder region
+73849,Acquired lordosis deformity of spine,Maps to,44950000,Acquired lordosis deformity of spine
+73313,Longitudinal deficiency of tarsal bone,Maps to,29581008,Longitudinal deficiency of tarsal bone
+28716,Benign neoplasm of aortic body,Maps to,91979007,Benign neoplasm of aortic body
+28115,Benign neoplasm of pineal gland,Maps to,92294001,Benign neoplasm of pineal gland
+31602,Disorder of the larynx,Maps to,60600009,Disorder of the larynx
+23865,Congenital anomaly of pharynx,Maps to,11223009,Congenital anomaly of pharynx
+23798,Acute laryngopharyngitis,Maps to,55355000,Acute laryngopharyngitis
+72332,Serous labyrinthitis,Maps to,41674001,Serous labyrinthitis
+29056,Sialoadenitis,Maps to,42982001,Sialoadenitis
+30441,Sialolithiasis,Maps to,28826002,Sialolithiasis
+30346,Primary malignant neoplasm of neck,Maps to,93922007,Primary malignant neoplasm of neck
+72992,Allergic arthritis,Maps to,16935003,Allergic arthritis
+73001,Myositis,Maps to,26889001,Myositis
+30753,Esophagitis,Maps to,16761005,Esophagitis
+72857,Late effect of rickets,Maps to,41345002,Rickets
+25211,Iatrogenic pituitary disorder,Maps to,399244003,Disorder of pituitary gland
+75070,Lordosis deformity of spine following surgical procedure,Maps to,111265002,Lordosis deformity of spine following surgical procedure
+26052,Primary malignant neoplasm of larynx,Maps to,371995001,Primary malignant neoplasm of larynx
+72576,Benign neoplasm of breast,Maps to,269485000,Benign neoplasm of breast
+27918,Eosinophilic esophagitis,Maps to,235599003,Eosinophilic esophagitis
+73614,Closed fracture of seven ribs,Maps to,12204004,Closed fracture of multiple ribs
+73378,Frostbite of foot,Maps to,35195001,Frostbite of foot
+23137,Chlamydial pharyngitis,Maps to,232403001,Chlamydial pharyngitis
+73290,Contracture of joint,Maps to,7890003,Contracture of joint
+73723,Benign neoplasm of epididymis,Maps to,92088003,Benign neoplasm of epididymis
+73614,Closed fracture of seven ribs,Maps to,72459,Closed fracture of two ribs
+73065,Contusion of genital organ,Maps to,211495007,Contusion of genital organ
+73241,Anal and rectal polyp,Maps to,197210001,Anal and rectal polyp
+73889,Sprain of distal tibiofibular ligament,Maps to,74383007,Sprain of distal tibiofibular ligament
+30163,Cellulitis and abscess of neck,Maps to,267779003,Cellulitis and abscess of neck
+74127,Contracture of elbow joint,Maps to,239734000,Contracture of elbow joint
+29979,Crushing injury of neck,Maps to,50001009,Crushing injury of neck
+73041,Closed fracture of five ribs,Maps to,72459,Closed fracture of two ribs
+73847,Finding of elbow joint,Maps to,298869002,Finding of elbow joint
+73550,Crystal arthropathy of elbow,Maps to,428768008,Crystal arthropathy of elbow
+72245,Chlamydial infection of lower genitourinary tract,Maps to,186729003,Chlamydial infection of lower genitourinary tract
+24969,Laryngitis,Maps to,45913009,Laryngitis
+73291,Palindromic rheumatism of ankle and/or foot,Maps to,202463000,Palindromic rheumatism of ankle and/or foot
+73561,Loose body in joint of shoulder region,Maps to,202148007,Loose body in joint of shoulder region
+23868,Congenital anomaly of esophagus,Maps to,69771008,Congenital anomaly of esophagus
+26213,Congenital salivary gland fistula,Maps to,204635008,Congenital salivary gland fistula
+23237,Acute peptic ulcer with hemorrhage AND obstruction,Maps to,43406003,Acute peptic ulcer with hemorrhage AND obstruction
+25582,Tracheoesophageal fistula,Maps to,95435007,Tracheoesophageal fistula
+73555,Transient arthropathy of the pelvic region and thigh,Maps to,201992007,Transient arthropathy of the pelvic region and thigh
+73842,Enthesopathy of elbow region,Maps to,35185008,Enthesopathy of elbow region
+72460,Open fracture of seven ribs,Maps to,28081005,Open fracture of multiple ribs
+73575,Deformity of toe,Maps to,299567001,Deformity of toe
+74080,Orthostatic proteinuria,Maps to,29738008,Proteinuria
+73041,Closed fracture of five ribs,Maps to,73884,Closed fracture of three ribs
+73318,Polydactyly of fingers,Maps to,81793007,Polydactyly of fingers
+72418,Scoliosis deformity of spine,Maps to,298382003,Scoliosis deformity of spine
+73338,Sprain of lateral collateral ligament of knee,Maps to,35726004,Sprain of lateral collateral ligament of knee
+24198,Contusion of esophagus,Maps to,262791003,Contusion of esophagus
+73872,Congenital deformity of knee joint,Maps to,61293001,Congenital deformity of knee joint
+73021,Bilateral congenital dislocation of hip,Maps to,10155006,Bilateral congenital dislocation of hip
+73564,Full thickness rotator cuff tear,Maps to,202843000,Full thickness rotator cuff tear
+73017,Congenital anomaly of toe,Maps to,9989000,Congenital anomaly of toe
+23653,Foreign body in esophagus,Maps to,47609003,Foreign body in esophagus
+73341,Closed fracture of head of radius,Maps to,68854005,Closed fracture of head of radius
+72715,Exostosis,Maps to,416189003,Exostosis
+27516,Neoplasm of uncertain behavior of paraganglia,Maps to,189473001,Neoplasm of uncertain behavior of paraganglia
+73686,Tuberculosis of genitourinary system,Maps to,4445009,Tuberculosis of genitourinary system
+24230,Foreign body in larynx,Maps to,19496008,Foreign body in larynx
+25698,Complication of transplanted pancreas,Maps to,79369007,Complication of transplanted pancreas

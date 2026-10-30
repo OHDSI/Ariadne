@@ -51,6 +51,7 @@ class PgvectorConceptSearcher(AbstractConceptSearcher):
         with connection.cursor() as cur:
             cur.execute("SET hnsw.ef_search = 1000")
             cur.execute("SET hnsw.iterative_scan = relaxed_order")
+            cur.execute("SET enable_seqscan = off")
         self.connection = connection
 
     def close(self):

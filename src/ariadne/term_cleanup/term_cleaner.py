@@ -14,15 +14,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import hashlib
-import os
 import json
 import pandas as pd
 import re
 import threading
-import warnings
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
+from ariadne.utils.concurrency import run_concurrently
 from ariadne.utils.gen_ai_api import get_llm_response
 from ariadne.utils.settings import TermCleanerSettings
 
@@ -63,6 +60,7 @@ class TermCleaner:
 
     def __init__(self, settings: TermCleanerSettings):
         self.system_prompt = settings.system_prompt
+        self.max_workers = settings.max_workers
         self.cost = 0.0
         self._cost_lock = threading.Lock()
 
@@ -137,7 +135,8 @@ class TermCleaner:
             json_schema=_TERM_CLEANING_BATCH_SCHEMA,
             json_schema_name="term_cleaning_batch",
         )
-        self.cost += response["usage"]["total_cost_usd"]
+        with self._cost_lock:
+            self.cost += response["usage"]["total_cost_usd"]
         cleaned_terms = list(terms)
         parsed = response["parsed_json"]
         if not isinstance(parsed, dict):
@@ -198,11 +197,13 @@ class TermCleaner:
 
         terms = df[term_column].astype(str).tolist()
 
-        for start in range(0, len(terms), _BATCH_SIZE):
-            batch_indices = df.index[start : start + _BATCH_SIZE]
-            batch_terms = terms[start : start + _BATCH_SIZE]
-            cleaned_batch = self._clean_terms_batch(batch_terms)
-            df.loc[batch_indices, output_column] = cleaned_batch
+        # Batches are sent concurrently (settings.max_workers); results are written
+        # back to *df* here, in the calling thread, keyed by each batch's row index.
+        batch_starts = list(range(0, len(terms), _BATCH_SIZE))
+        batches = [terms[start : start + _BATCH_SIZE] for start in batch_starts]
+        for batch_number, cleaned_batch in run_concurrently(batches, self._clean_terms_batch, self.max_workers):
+            start = batch_starts[batch_number]
+            df.loc[df.index[start : start + _BATCH_SIZE], output_column] = cleaned_batch
 
         vocab_values = df[vocabulary_column].fillna("").astype(str).tolist()
         code_values = df[code_column].fillna("").astype(str).tolist()

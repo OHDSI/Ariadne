@@ -24,3 +24,14 @@ sandbox/phoebe.py
 docs/snomed_ref_description.md
 sandbox/drug_results/
 sandbox/procedure_results/
+config_condition_mapping_pre100726.yaml
+data/notebook_results/attribute_evaluation_analysis_091326.xlsx
+data/notebook_results/attribute_evaluation_analysis_100126.xlsx
+data/notebook_results/attribute_evaluation_analysis_092226.xlsx
+data/notebook_results/exact_matching_verbatim_maps_test.csv
+data/notebook_results/exact_matching_vector_search_results_test.csv
+data/notebook_results/exact_matching_vector_search_context_test.csv
+data/notebook_results/exact_matching_llm_mapped_terms_test.csv
+data/notebook_results/exact_matching_final_evaluation_test.csv
+data/notebook_results/exact_matching_cleaned_terms_test.csv
+data/gold_standards/exact_matching_gs_test.csv
