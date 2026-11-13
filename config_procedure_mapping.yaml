@@ -215,3 +215,31 @@ llm_mapping:
         "concept_id": integer,
         "justification": "string"
       }
+
+decision_model_mapping:
+  # Decision-model (TypeSafe System One, e.g. Jev) pre-step run before llm_mapping. Requires TYPESAFE_API_KEY.
+  # Target context sent to the decision model follows llm_mapping.context.
+  api_url: https://api.typesafe.ai/v1/systemone
+  model: jev-1.13.0
+  # An option (candidate or no_match) with probability above match_threshold is accepted without the LLM.
+  match_threshold: 0.9
+  # Otherwise candidates with probability below prune_threshold are not passed to the LLM.
+  prune_threshold: 0.05
+  responses_folder: data/decision_model_procedure_responses
+  timeout_seconds: 30
+  max_retries: 3
+  long_context: False
+  input_cost_per_million: 0.042
+  output_cost_per_million: 0.0
+  no_match_description: None of the candidate concepts is an exact equivalent of the source procedure (every candidate is broader, narrower, or clinically different).
+  instructions: |
+    Which candidate concept is exactly equivalent to the source procedure term, based on clinical intent and execution?
+    Choose no_match if none of the candidates is an exact equivalent.
+    Rules:
+    1. Maintain specificity: the target must not be more general than the source. It must preserve all key clinical details of the source term, including technique, approach, scope, anatomical location and laterality. For example, 'Psychotherapy' is a bad match for 'Telemedical individual psychotherapy'.
+    2. Maintain generality: the target must not be more specific than the source term. For example, 'CT SCAN (>64 SLICES) OF THE VISCEROCRANIUM' is a bad match for 'CT of face'.
+    3. The target concept's context (synonyms, class, domain, parents, children) must align with the source term.
+    4. If the source term is provided in multiple languages, treat the non-English term as the source of truth.
+    5. If multiple candidates are exact matches, prefer by vocabulary: SNOMED > LOINC > CPT4 > HCPCS > ICD10PCS > ICD9Proc > OPCS4 > OMOP Extension.
+    6. Ignore details that do not alter the core procedure: sequence of service (e.g. 'initial encounter'), disease status, billing info (e.g. 'per session'), data origin, excluded concomitant procedures (e.g. 'without tonsillectomy'), default states (e.g. 'w/o contrast'), and indicators such as 'unspecified', 'NOS', 'NEC', 'other'.
+    7. If the best candidate is not an exact match, choose no_match.

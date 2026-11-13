@@ -9,6 +9,7 @@
 - Fast exact matching path: `VocabVerbatimTermMapper` (`src/ariadne/verbatim_mapping/vocab_verbatim_term_mapper.py`) normalizes source terms and looks up a local pickle index (`verbatim_mapping.verbatim_mapping_index_file`, e.g. `data/verbatim_condition_index.pkl`).
 - Candidate generation path: `HecateConceptSearcher` (`src/ariadne/vector_search/hecate_concept_searcher.py`) queries external Hecate API and returns ranked candidates (`matched_concept_*`, `match_rank`).
 - Context enrichment: `add_concept_context(...)` in `src/ariadne/llm_mapping/concept_context_retriever.py` joins OMOP DB metadata (parents/children/synonyms) onto candidate rows.
+- Optional decision-model pre-step: `DecisionModelMapper.map_terms(...)` (`src/ariadne/llm_mapping/decision_model_mapper.py`) takes the same input as `LlmMapper`, asks a TypeSafe System One model (Jev) one `choice` question (candidate concept IDs + `no_match`), and returns `(mapped, remaining)`: options with p > `match_threshold` are final, candidates with p < `prune_threshold` are dropped from `remaining` for the LLM. Configured in `decision_model_mapping` (target context follows `llm_mapping.context`); needs `TYPESAFE_API_KEY`. Responses are cached per source ID in `responses_folder`; thresholds are applied after loading, and `sweep_decision_thresholds(...)` (`src/ariadne/evaluation/decision_model_evaluator.py`) tunes them from cached scores.
 - Final selection: `LlmMapper.map_terms(...)` (`src/ariadne/llm_mapping/llm_mapper.py`) runs multi-step prompts from `config_condition_mapping.yaml` and outputs `mapped_concept_id`, `mapped_concept_name`, `mapped_rationale`.
 - Evaluation: `evaluate(...)` and `evaluate_concept_search(...)` in `src/ariadne/evaluation/` compare outputs against `data/gold_standards/exact_matching_gs.csv`.
 
@@ -16,6 +17,7 @@
 - Required env vars are documented in `.env.example` (`VOCAB_CONNECTION_STRING`, `VOCAB_SCHEMA`, `GENAI_PROVIDER`, model/API settings).
 - OHDSI Vocabularies DB access is required for `term_downloader` and `concept_context_retriever`.
 - External services:
+  - TypeSafe System One API (`https://api.typesafe.ai/v1/systemone`) for the optional decision-model pre-step.
   - Hecate HTTP API (`https://hecate.pantheon-hds.com/api/search_standard`) for vector/candidate search.
   - OpenAI/Azure/LM Studio via `src/ariadne/utils/gen_ai_api.py` for embeddings + LLM calls.
 - spaCy model `en_core_web_sm` must be installed for term normalization (`TermNormalizer`).
@@ -36,7 +38,7 @@
 - Column naming is stable and pipeline-oriented; reuse existing names to avoid merge bugs:
   - source: `source_concept_id`, `source_term`, `cleaned_term`
   - candidates: `matched_concept_id`, `matched_concept_name`, `match_rank`, `matched_* context columns`
-  - final: `mapped_concept_id`, `mapped_concept_name`, `mapped_rationale`, optional `map_method`
+  - final: `mapped_concept_id`, `mapped_concept_name`, `mapped_rationale`, optional `map_method` (`verbatim`, `decision_model`, `llm`)
 - Paths in config are relative to project root through `resolve_path(...)` in `src/ariadne/utils/utils.py`.
 - Hierarchy role groups: `result["role_groups"] = [{"group": n, "members": [{attribute, concept_id, concept_name, concept_code}]}]` built by `group_attributes(...)` (`src/ariadne/hierarchy/role_grouper.py`); `result["attributes"]` stays flat for evaluation, and evaluator rows carry `relationship_groups` (e.g. `"1;2"`) used by the RF2 exporter. Grouping rules live in `hierarchy.mrcm.grouping`; `regroup_results(...)` regroups cached results without LLM calls; `validate_role_groups(...)` (`mrcm_validator.py`) reports violations.
 

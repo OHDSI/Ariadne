@@ -20,6 +20,7 @@ from typing import Any, Dict, cast
 import yaml
 
 from ariadne.utils.settings import (
+    DecisionModelMapperSettings,
     HecateSearchSettings,
     HierarchySettings,
     LlmMapperSettings,
@@ -48,6 +49,7 @@ class Config:
     pgvector_search: PgvectorSearchSettings | None
     tfidf_search: TfidfSearchSettings | None
     llm_mapping: LlmMapperSettings
+    decision_model_mapping: DecisionModelMapperSettings
     hierarchy: HierarchySettings | None
 
     def __init__(self, filename: str = "config_condition_mapping.yaml"):
@@ -76,6 +78,9 @@ class Config:
         self.pgvector_search = build_dataclass(PgvectorSearchSettings, pgvector_raw) if pgvector_raw is not None else None
         self.tfidf_search = build_dataclass(TfidfSearchSettings, tfidf_raw) if tfidf_raw is not None else None
         self.llm_mapping = build_dataclass(LlmMapperSettings, raw.get("llm_mapping", {}))
+        self.decision_model_mapping = build_dataclass(
+            DecisionModelMapperSettings, raw.get("decision_model_mapping", {})
+        )
         hierarchy_raw = raw.get("hierarchy")
         self.hierarchy = build_dataclass(HierarchySettings, hierarchy_raw) if hierarchy_raw is not None else None
 
@@ -100,6 +105,7 @@ class Config:
             "verbatim_mapping": serialize_dataclass(self.verbatim_mapping),
             "term_cleaning": serialize_dataclass(self.term_cleaning),
             "llm_mapping": serialize_dataclass(self.llm_mapping),
+            "decision_model_mapping": serialize_dataclass(self.decision_model_mapping),
         }
         if self.hecate_search is not None:
             result["hecate_search"] = serialize_dataclass(self.hecate_search)

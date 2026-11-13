@@ -218,6 +218,31 @@ class LlmMapperSettings:
 
 
 @dataclass
+class DecisionModelMapperSettings:
+    """Everything :class:`DecisionModelMapper` needs (target context comes from ``llm_mapping.context``)."""
+
+    api_url: str = "https://api.typesafe.ai/v1/systemone"
+    model: str = "jev-1.13.0"
+    match_threshold: float = 0.9
+    prune_threshold: float = 0.05
+    instructions: str = ""
+    no_match_description: str = "None of the candidate concepts is an exact clinical equivalent of the source term."
+    responses_folder: str = "data/decision_model_responses"
+    timeout_seconds: float = 30
+    max_retries: int = 3
+    long_context: bool = False
+    input_cost_per_million: float = 0.042
+    output_cost_per_million: float = 0.0
+
+    def __post_init__(self) -> None:
+        if not 0.0 <= self.prune_threshold < self.match_threshold <= 1.0:
+            raise ValueError(
+                "decision_model_mapping thresholds must satisfy 0 <= prune_threshold < match_threshold <= 1."
+            )
+        self.responses_folder = resolve_path(self.responses_folder)
+
+
+@dataclass
 class DrugStructuringSettings:
     """Everything :class:`LlmDrugStructurer` needs."""
 

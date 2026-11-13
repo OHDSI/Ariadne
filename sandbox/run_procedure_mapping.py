@@ -3,7 +3,7 @@ from pathlib import Path
 import pandas as pd
 
 from ariadne.evaluation.concept_selection_evaluator import evaluate
-from ariadne.llm_mapping import LlmMapper
+from ariadne.llm_mapping import DecisionModelMapper, LlmMapper
 from ariadne.llm_mapping.concept_context_retriever import add_concept_context
 from ariadne.term_cleanup.term_cleaner import TermCleaner
 from ariadne.utils.config import Config
@@ -148,8 +148,22 @@ def main() -> None:
         vector_search_results_context = add_concept_context(vector_search_combined_results)
         vector_search_results_context.to_csv(context_file_name, index=False)
 
+    # Decision model pre-step: confident mappings are final, unlikely candidates are pruned for the LLM
+    decision_mapper = DecisionModelMapper(config.decision_model_mapping, config.llm_mapping.context)
+    decision_mapped_terms, llm_candidates = decision_mapper.map_terms(
+        vector_search_results_context,
+        source_id_column=PROCEDURE_CODE_COLUMN,
+        source_term_column=PROCEDURE_TERM_COLUMN,
+        source_context_columns=[PROCEDURE_ORIGINAL_TERM_COLUMN],
+    )
+    decision_mapped_terms_file = project_root / "sandbox" / "procedure_results" / "decision_model_mapped_terms.csv"
+    decision_mapped_terms.to_csv(decision_mapped_terms_file, index=False)
+    print(f"Decision model mapped {len(decision_mapped_terms)} terms; "
+          f"{llm_candidates[PROCEDURE_CODE_COLUMN].nunique()} terms left for the LLM.")
+    print(f"Total decision model cost: ${decision_mapper.get_total_cost():.6f}")
+
     llm_mapper = LlmMapper(settings=config.llm_mapping)
-    mapped_terms = llm_mapper.map_terms(vector_search_results_context,
+    mapped_terms = llm_mapper.map_terms(llm_candidates,
                                         source_id_column=PROCEDURE_CODE_COLUMN,
                                         source_term_column=PROCEDURE_TERM_COLUMN,
                                         source_context_columns=[PROCEDURE_ORIGINAL_TERM_COLUMN])
@@ -172,20 +186,23 @@ def main() -> None:
     ].copy()
     final_mapped_terms["map_method"] = "verbatim"
 
-    # Then add the LLM matches (for the terms that were not verbatim matched)
-    llm_mapped_terms_filtered = mapped_terms[
-        [
-            PROCEDURE_CODE_COLUMN,
-            PROCEDURE_TERM_COLUMN,
-            PROCEDURE_ORIGINAL_TERM_COLUMN,
-            "cleaned_term",
-            "mapped_concept_id",
-            "mapped_concept_name",
-            "mapped_rationale",
-        ]
-    ].copy()
+    # Then add the decision model and LLM matches (for the terms that were not verbatim matched)
+    model_columns = [
+        PROCEDURE_CODE_COLUMN,
+        PROCEDURE_TERM_COLUMN,
+        PROCEDURE_ORIGINAL_TERM_COLUMN,
+        "cleaned_term",
+        "mapped_concept_id",
+        "mapped_concept_name",
+        "mapped_rationale",
+    ]
+    decision_mapped_terms_filtered = decision_mapped_terms.reindex(columns=model_columns)
+    decision_mapped_terms_filtered["map_method"] = "decision_model"
+    llm_mapped_terms_filtered = mapped_terms.reindex(columns=model_columns)
     llm_mapped_terms_filtered["map_method"] = "llm"
-    final_mapped_terms = pd.concat([final_mapped_terms, llm_mapped_terms_filtered], ignore_index=True)
+    final_mapped_terms = pd.concat(
+        [final_mapped_terms, decision_mapped_terms_filtered, llm_mapped_terms_filtered], ignore_index=True
+    )
     final_mapped_terms_file = project_root / "sandbox" / "procedure_results" / "final_mapped_terms.csv"
     final_mapped_terms.to_csv(final_mapped_terms_file, index=False)
 

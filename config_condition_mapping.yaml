@@ -226,6 +226,33 @@ llm_mapping:
         "justification": "string"
       }
 
+decision_model_mapping:
+  # Decision-model (TypeSafe System One, e.g. Jev) pre-step run before llm_mapping. Requires TYPESAFE_API_KEY.
+  # Target context sent to the decision model follows llm_mapping.context.
+  api_url: https://api.typesafe.ai/v1/systemone
+  model: jev-1.13.0
+  # An option (candidate or no_match) with probability above match_threshold is accepted without the LLM.
+  match_threshold: 0.9
+  # Otherwise candidates with probability below prune_threshold are not passed to the LLM.
+  prune_threshold: 0.05
+  responses_folder: data/decision_model_condition_responses
+  timeout_seconds: 30
+  max_retries: 3
+  long_context: False
+  input_cost_per_million: 0.042
+  output_cost_per_million: 0.0
+  no_match_description: None of the candidate concepts is an exact clinical equivalent of the source term (every candidate is broader, narrower, or clinically different).
+  instructions: |
+    Which candidate concept is the exact clinical equivalent of the source term, based on clinical presentation, prognosis and treatment?
+    Choose no_match if none of the candidates is an exact equivalent.
+    Rules:
+    1. Maintain specificity: the target must not be more general than the source. It must preserve all key clinical details of the source term, including severity, stage, timing, location, and body part. For example, 'Depression' is a bad match for 'Mild depression', 'Fracture of lower limb' is a bad match for 'Fracture of femur', 'Arthritis' is a bad match for 'Arthritis of hand'.
+    2. Maintain generality: the target must not be more specific than the source term (e.g. a subtype or a term with added details). For example, 'Fracture of left leg' is a bad match for 'Fracture of leg', 'Migraine without aura' is a bad match for 'Migraine'.
+    3. The target concept's context (synonyms, class, domain, parents, children) must be clinically and semantically appropriate for the source term.
+    4. Use the source term's context (parents, children, description), if provided, to interpret the source term.
+    5. Ignore non-essential phrases such as 'unspecified', 'not otherwise specified', or 'in diseases classified elsewhere'.
+    6. If the best candidate is not an exact match, choose no_match.
+
 # ============================================
 # Hierarchy pipeline configuration
 # ============================================

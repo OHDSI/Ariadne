@@ -19,6 +19,7 @@ The toolkit is designed to be extensible, allowing for the addition of new workf
 * **Clean-up:** normalizes source terms per mapping rules, removing non-essential information.
 * **Verbatim term mapping:** maps terms that (almost) exactly match standard concepts using normalization (lowercasing, punctuation removal, stemming).
 * **Embedding vector search:** retrieves semantically similar standard concepts as mapping candidates.
+* **Decision-model pre-selection (optional):** a fast, cheap decision model (e.g. TypeSafe's Jev) accepts confident mappings and prunes unlikely candidates before the LLM step.
 * **LLM-assisted exact mapping:** selects the best standard concept from candidates.
 * **Hierarchy matching (Conditions):** finds parent concepts for unmatched terms in the standard hierarchy.
 * **Evaluation:** compares outputs against gold-standard mappings.
