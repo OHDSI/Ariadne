@@ -1,0 +1,462 @@
+concept_name,domain_id,concept_class_id,concept_code
+g,Unit,Unit,g
+h,Unit,Unit,h
+mL,Unit,Unit,mL
+mg,Unit,Unit,mg
+patch,Unit,Unit,patch
+Latuda 18.5 mg oral tablet 28 tablets,Drug,Drug Product,37515911000001106
+oral tablet,Drug,Dose Form,oral tablet
+Latuda,Drug,Brand Name,Latuda
+CST Pharma,Drug,Supplier,24059811000001102
+Sertraline 75 mg/5 ml oral suspension 1 ml,Drug,Drug Product,35547811000001103
+oral suspension,Drug,Dose Form,oral suspension
+Letrozole 2.5 mg oral tablet 14 tablets,Drug,Drug Product,19634311000001104
+Dexcel-Pharma,Drug,Supplier,2911401000001108
+Shortec 20 mg/2 ml solution for injection ampoules 5 ampoules,Drug,Drug Product,34025911000001108
+solution for injection,Drug,Dose Form,solution for injection
+Shortec,Drug,Brand Name,Shortec
+Qdem Pharmaceuticals,Drug,Supplier,20921311000001103
+Glycopyrronium bromide 0.05% solution 600 ml,Drug,Drug Product,21381011000001107
+Testoderm 6 mg/24 hours transdermal patches 30 patches,Drug,Drug Product,4550211000001105
+transdermal patch,Drug,Dose Form,transdermal patch
+Testoderm,Drug,Brand Name,Testoderm
+Ferring Pharmaceuticals,Drug,Supplier,129801000001101
+Diamorphine 5 mg powder for solution for injection ampoules 5 ampoules,Drug,Drug Product,15422311000001104
+powder for solution for injection,Drug,Dose Form,powder for solution for injection
+Accord-UK,Drug,Supplier,18471011000001103
+Metformin 5 mg/5 ml oral solution 1 ml,Drug,Drug Product,12793111000001109
+oral solution,Drug,Dose Form,oral solution
+"Pramipexole 180 microgram oral tablets, box of 100",Drug,Drug Product,14722611000001105
+Sigma Pharmaceuticals,Drug,Supplier,2087601000001106
+"Rabeprazole 20 mg gastro-resistant oral tablets, box of 28 (2 x 14)",Drug,Drug Product,36440111000001104
+oral gastro-resistant tablet,Drug,Dose Form,oral gastro-resistant tablet
+Crescent Pharma,Drug,Supplier,18616811000001107
+Noradrenaline (base) 10 mg/10 mL intravenous solution for infusion ampoule,Drug,Drug Product,38416611000001109
+intravenous solution for infusion,Drug,Dose Form,intravenous solution for infusion
+Wezenla 45 mg/0.5 mL subcutaneous solution for injection pre-filled syringe,Drug,Drug Product,43114511000001100
+subcutaneous solution for injection,Drug,Dose Form,subcutaneous solution for injection
+Wezenla,Drug,Brand Name,Wezenla
+Amgen,Drug,Supplier,3303701000001100
+"Ferrous sulfate 200 mg oral tablets, box of 1000",Drug,Drug Product,1516711000001101
+Kent Pharma,Drug,Supplier,2073701000001100
+"Fenofibrate micronised 200 mg oral capsules, box of 28",Drug,Drug Product,37067511000001105
+oral capsule,Drug,Dose Form,oral capsule
+Mawdsley-Brooks & Company,Drug,Supplier,15125811000001100
+Hioxyl 1.5 % cutaneous cream 100 g,Drug,Drug Product,3866511000001102
+cutaneous cream,Drug,Dose Form,cutaneous cream
+Hioxyl,Drug,Brand Name,Hioxyl
+Ferndale Pharmaceuticals,Drug,Supplier,5213611000001109
+"Lithium carbonate 250 mg oral tablets, box of 100",Drug,Drug Product,30802211000001100
+Alliance Healthcare,Drug,Supplier,2089901000001107
+Prednisolone sodium phosphate 0.005% eye drops (Special Order) 1 ml,Drug,Drug Product,9399811000001107
+ophthalmic eye drops,Drug,Dose Form,ophthalmic eye drops
+Ketamine 5mg/5ml oral solution (Special Order) 1 ml,Drug,Drug Product,8555811000001101
+Memantine 20mg tablets (Teva UK Ltd) 28 tablet 2 x 14 tablets,Drug,Drug Product,22225611000001102
+Teva,Drug,Supplier,3849901000001105
+Protirelin 200micrograms/2ml solution for injection ampoules (Alliance Healthcare (Distribution) Ltd) 10 ampoule,Drug,Drug Product,4767611000001102
+intravenous solution for injection,Drug,Dose Form,intravenous solution for injection
+Ibuprofen 400mg tablets sugar coated (Kent Pharma (UK) Ltd) 48 tablet 4 x 12 tablets,Drug,Drug Product,6391911000001109
+Voltarol Retard 100mg tablets (Sigma Pharmaceuticals Plc) 30 tablet,Drug,Drug Product,14761211000001108
+oral modified-release tablet,Drug,Dose Form,oral modified-release tablet
+Voltarol Retard,Drug,Brand Name,Voltarol Retard
+Levothyroxine sodium 100micrograms/5ml oral solution sugar free (Mawdsley-Brooks & Company Ltd) 100 ml,Drug,Drug Product,37117611000001100
+Femoston 2/10mg tablets (DE Pharmaceuticals) 84 tablet,Drug,Drug Product,18649211000001107
+Femoston,Drug,Brand Name,Femoston
+DE Pharmaceuticals,Drug,Supplier,2268901000001109
+Losartan 50mg tablets (Milpharm Ltd) 28 tablet,Drug,Drug Product,35166111000001107
+Milpharm,Drug,Supplier,3313311000001100
+Ramipril 10mg capsules (Genus Pharmaceuticals Ltd) 28 capsule 2 x 14 capsules,Drug,Drug Product,5629711000001105
+Genus Pharmaceuticals,Drug,Supplier,2945601000001100
+Sildenafil 50mg tablets (Bristol Laboratories Ltd) 8 tablet 2 x 4 tablets,Drug,Drug Product,35279411000001103
+Bristol Laboratories,Drug,Supplier,15987211000001101
+Loratadine 5mg/5ml oral solution (A A H Pharmaceuticals Ltd) 120 ml,Drug,Drug Product,8934211000001106
+A A H Pharmaceuticals,Drug,Supplier,3144701000001104
+Glimepiride 1mg tablets (Dowelhurst Ltd) 30 tablet,Drug,Drug Product,5448811000001109
+Dowelhurst,Drug,Supplier,5283211000001105
+Aspirin 75mg dispersible tablets (Phoenix Healthcare Distribution Ltd) 1000 tablet,Drug,Drug Product,17786011000001103
+oral dispersible tablet,Drug,Dose Form,oral dispersible tablet
+Phoenix Healthcare,Drug,Supplier,17845311000001104
+Cardicor 1.25mg tablets (Dowelhurst Ltd) 28 tablet,Drug,Drug Product,13103011000001107
+Cardicor,Drug,Brand Name,Cardicor
+Januvia 25mg tablets (Mawdsley-Brooks & Company Ltd) 28 tablet,Drug,Drug Product,37525311000001101
+Januvia,Drug,Brand Name,Januvia
+Mawdsley-Brooks,Drug,Supplier,15125811000001100
+Gepretix 100mg capsules (Exeltis UK Ltd) 30 capsule 2 x 15 capsules,Drug,Drug Product,42287311000001107
+Gepretix,Drug,Brand Name,Gepretix
+Exeltis,Drug,Supplier,40599211000001108
+Super Betavit 15mg capsules (Health+Plus Ltd) 30 capsule,Drug,Drug Product,4260011000001100
+Super Betavit,Drug,Brand Name,Super Betavit
+Health+Plus,Drug,Supplier,4264111000001108
+Clotrimazole 500mg pessaries (RX Farma) 1 pessary,Drug,Drug Product,42869011000001109
+pessary,Drug,Dose Form,pessary
+RX Farma,Drug,Supplier,9447011000001108
+Ethambutol 400mg tablets (Sigma Pharmaceuticals Plc) 56 tablet,Drug,Drug Product,15083711000001106
+Lacosamide 10mg/ml oral solution sugar free (Flynn Pharma Ltd) 200 ml,Drug,Drug Product,43200911000001103
+Flynn Pharma,Drug,Supplier,3303501000001106
+Indapamide 2.5mg tablets (Niche Generics Ltd) 28 tablet 2 x 14 tablets,Drug,Drug Product,10437811000001101
+Niche Generics,Drug,Supplier,3863001000001104
+Paracetamol 500mg capsules (Mawdsley-Brooks & Company Ltd) 32 capsule,Drug,Drug Product,30844411000001101
+Letrozole 2.5mg tablets (Zentiva Pharma UK Ltd) 14 tablet 2 x 7 tablets,Drug,Drug Product,19534311000001109
+Oral tablet,Drug,Dose Form,Oral tablet
+Zentiva Pharma UK,Drug,Supplier,9043311000001106
+Sodium thiosulfate 5g/10ml solution for injection ampoules (Special Order) 5 ampoule,Drug,Drug Product,19998411000001106
+Solution for injection,Drug,Dose Form,Solution for injection
+Neostigmine 2.5mg/1ml solution for injection ampoules (A A H Pharmaceuticals Ltd) 10 ampoule 2 x 5 x 1ml ampoules,Drug,Drug Product,4556511000001105
+Remifentanil 1mg powder for concentrate for solution for injection vials (Teva UK Ltd) 5 vial,Drug,Drug Product,19180311000001100
+Powder for solution for injection,Drug,Dose Form,Powder for solution for injection
+Teva UK,Drug,Supplier,3849901000001105
+Coal tar solution (Alliance Healthcare (Distribution) Ltd) 500 ml,Drug,Drug Product,4319411000001107
+Alliance Healthcare (Distribution),Drug,Supplier,2089901000001107
+Lyrica 50mg capsules (DE Pharmaceuticals) 84 capsule,Drug,Drug Product,13928411000001103
+Oral capsule,Drug,Dose Form,Oral capsule
+Lyrica,Drug,Brand Name,Lyrica
+Trastuzumab (Herceptin) 63mg/250ml in Sodium chloride 0.9% infusion bags (Special Order) 1 bag,Drug,Drug Product,40131411000001109
+Intravenous infusion,Drug,Dose Form,Intravenous infusion
+Herceptin,Drug,Brand Name,Herceptin
+Abilify 15mg tablets (Mawdsley-Brooks & Company Ltd) 28 tablet,Drug,Drug Product,16253611000001104
+Abilify,Drug,Brand Name,Abilify
+Numark Muscle Rub ointment 40 gram,Drug,Drug Product,8824311000001106
+cutaneous ointment,Drug,Dose Form,cutaneous ointment
+Numark Muscle Rub,Drug,Brand Name,Numark Muscle Rub
+Numark,Drug,Supplier,3147301000001108
+Levothyroxine sodium 114 microgram / Liothyronine 27 microgram oral tablet (Special Order) 1 tablet,Drug,Drug Product,17991411000001105
+Levothyroxine sodium 200 micrograms/5 ml oral solution (Special Order) 1 ml,Drug,Drug Product,8573611000001102
+Metformin 500 mg oral tablet 84 tablets (7 x 12),Drug,Drug Product,16061611000001101
+Betamethasone valerate 0.1% cutaneous cream 30 gram,Drug,Drug Product,15053111000001104
+Temozolomide 140 mg oral capsule 5 capsules,Drug,Drug Product,28796611000001101
+Actavis UK,Drug,Supplier,3875201000001104
+Isosorbide dinitrate 25 mg/50 ml solution for infusion 10 vials (Special Order),Drug,Drug Product,28928711000001107
+solution for infusion,Drug,Dose Form,solution for infusion
+Haloperidol 10mg/5ml oral solution sugar free (Pinewood Healthcare) 100 ml,Drug,Drug Product,13622811000001102
+Pinewood Healthcare,Drug,Supplier,3147701000001107
+Valaciclovir 500mg tablets (Accord-UK Ltd) 42 tablet 2 x 21 tablets,Drug,Drug Product,42485111000001100
+Accord,Drug,Supplier,18471011000001103
+Topiramate 100mg tablets (Actavis UK Ltd) 60 tablet,Drug,Drug Product,16086011000001104
+Actavis,Drug,Supplier,3875201000001104
+Atomoxetine 80mg capsules (Zentiva Pharma UK Ltd) 28 capsule 4 x 7 capsules,Drug,Drug Product,37255311000001109
+Zentiva Pharma,Drug,Supplier,9043311000001106
+Casodex 50mg tablets (Mawdsley-Brooks & Company Ltd) 30 tablet,Drug,Drug Product,16457711000001102
+Casodex,Drug,Brand Name,Casodex
+"ChloraPrep solution 3ml applicators (Becton, Dickinson UK Ltd) 1 applicator",Drug,Drug Product,10928511000001100
+cutaneous solution,Drug,Dose Form,cutaneous solution
+ChloraPrep,Drug,Brand Name,ChloraPrep
+"Becton, Dickinson",Drug,Supplier,3145001000001102
+Perampanel 5mg/5ml oral suspension (Special Order) 1 ml,Drug,Drug Product,36582311000001100
+Trometamol 7.2% solution for infusion 5ml ampoules (Special Order) 1 ampoule,Drug,Drug Product,21412611000001102
+Ibuprofen 400mg tablets (Alliance Healthcare (Distribution) Ltd) 250 tablet,Drug,Drug Product,1461611000001106
+Melatonin 3mg capsules (A A H Pharmaceuticals Ltd) 30 capsule 3 x 10 capsules,Drug,Drug Product,39319811000001105
+Iscador M c Hg 100nanograms/1ml solution for injection ampoules (Weleda (UK) Ltd) 7 ampoule,Drug,Drug Product,19426411000001103
+Iscador M c Hg,Drug,Brand Name,Iscador M c Hg
+Weleda,Drug,Supplier,2091501000001104
+Simvastatin 20mg/5ml oral suspension sugar free (Alliance Healthcare (Distribution) Ltd) 150 ml,Drug,Drug Product,17842011000001107
+Atracurium besilate 250mg/25ml solution for injection vials (A A H Pharmaceuticals Ltd) 1 vial,Drug,Drug Product,4417311000001103
+Polytar liquid (Waymade Healthcare Plc) 250 ml,Drug,Drug Product,11136711000001103
+shampoo,Drug,Dose Form,shampoo
+Polytar,Drug,Brand Name,Polytar
+Waymade Healthcare,Drug,Supplier,2091401000001103
+Augmentin-Duo 400/57 oral suspension 70 ml,Drug,Drug Product,5281311000001103
+Augmentin-Duo,Drug,Brand Name,Augmentin-Duo
+Dowelhurst Ltd,Drug,Supplier,5283211000001105
+Pyrazinamide 450mg/5ml oral suspension 1 ml,Drug,Drug Product,13234811000001108
+Dermovate 0.05% cream 100 gram,Drug,Drug Product,37741211000001109
+Dermovate,Drug,Brand Name,Dermovate
+CST Pharma Ltd,Drug,Supplier,24059811000001102
+Didronel 200mg tablets 60 tablet,Drug,Drug Product,14314311000001100
+Didronel,Drug,Brand Name,Didronel
+Ascorb 100mg tablets 28 tablet (2 x 14),Drug,Drug Product,35479011000001106
+Ascorb,Drug,Brand Name,Ascorb
+Essential-Healthcare,Drug,Supplier,32638711000001102
+Cefradine 250mg capsules 100 capsule,Drug,Drug Product,13214011000001109
+Spasmonal 60mg capsules (Waymade Healthcare Plc) 100 capsule,Drug,Drug Product,15359811000001107
+Spasmonal,Drug,Brand Name,Spasmonal
+Hepar sulfuris 30c homeopathic tablets (Ainsworths (London) Ltd) 120 tablet,Drug,Drug Product,10346411000001108
+Homeopathic tablet,Drug,Dose Form,Homeopathic tablet
+Ainsworths (London),Drug,Supplier,10353611000001103
+Steriflex No.27 glucose 5% / lidocaine 2g/500ml (0.4%) infusion 500ml bags (Fresenius Kabi Ltd) 1 bag,Drug,Drug Product,5024311000001102
+Steriflex No.27,Drug,Brand Name,Steriflex No.27
+Fresenius Kabi,Drug,Supplier,3515701000001104
+Transiderm-Nitro 10 transdermal patches (Waymade Healthcare Plc) 30 patch,Drug,Drug Product,29738311000001102
+Transdermal patch,Drug,Dose Form,Transdermal patch
+Transiderm-Nitro,Drug,Brand Name,Transiderm-Nitro
+Phenoxybenzamine 25mg/5ml oral suspension (Special Order) 1 ml,Drug,Drug Product,8648211000001103
+Oral suspension,Drug,Dose Form,Oral suspension
+Celiprolol 200mg tablets (Dowelhurst Ltd) 60 tablet,Drug,Drug Product,5455311000001107
+Cibral 20 tablets (Sun Pharma UK Ltd) 56 tablet 4 x 14 tablets,Drug,Drug Product,1408811000001100
+Cibral,Drug,Brand Name,Cibral
+Sun Pharma UK,Drug,Supplier,2820601000001100
+Phenytoin sodium 300mg capsules (Necessity Supplies Ltd) 28 capsule,Drug,Drug Product,42868411000001108
+Necessity Supplies,Drug,Supplier,2814701000001108
+Versatis 700mg medicated plasters (Originalis B.V.) 30 plaster,Drug,Drug Product,36902611000001102
+Cutaneous medicated plaster,Drug,Dose Form,Cutaneous medicated plaster
+Versatis,Drug,Brand Name,Versatis
+Originalis,Drug,Supplier,36751511000001108
+Quinapril 5 mg oral tablet box of 28,Drug,Drug Product,5505711000001106
+Madopar 100 mg / 25 mg oral dispersible tablet box of 30,Drug,Drug Product,16541611000001106
+Madopar,Drug,Brand Name,Madopar
+Ebixa 10 mg oral tablet box of 28,Drug,Drug Product,13869011000001103
+Ebixa,Drug,Brand Name,Ebixa
+Crestor 20 mg oral tablet box of 28,Drug,Drug Product,13858411000001109
+Crestor,Drug,Brand Name,Crestor
+Desloratadine 5 mg oral tablet box of 30,Drug,Drug Product,20175311000001100
+Glimepiride 3 mg oral tablet box of 30,Drug,Drug Product,10274411000001105
+Ozalin 2 mg/ml oral solution 5 ml unit dose ampoules box of 10,Drug,Drug Product,37601411000001107
+Ozalin,Drug,Brand Name,Ozalin
+Primex Pharmaceuticals,Drug,Supplier,37564011000001107
+Lurasidone,Drug,Ingredient,776588007
+Sertraline,Drug,Ingredient,777521008
+Letrozole,Drug,Ingredient,776502006
+Oxycodone,Drug,Ingredient,777027001
+Glycopyrronium bromide,Drug,Ingredient,13298001000001104
+Testosterone,Drug,Ingredient,777722004
+Diamorphine,Drug,Ingredient,775543001
+Metformin,Drug,Ingredient,776713006
+Pramipexole,Drug,Ingredient,777294006
+Rabeprazole,Drug,Ingredient,777388000
+Noradrenaline,Drug,Ingredient,776939000
+Ustekinumab,Drug,Ingredient,777905007
+Ferrous sulfate,Drug,Ingredient,775951009
+Fenofibrate micronised,Drug,Ingredient,414246008
+Hydrogen peroxide,Drug,Ingredient,776263000
+Lithium carbonate,Drug,Ingredient,776555000
+Prednisolone sodium phosphate,Drug,Ingredient,96335004
+Ketamine hydrochloride,Drug,Ingredient,31706007
+Memantine hydrochloride,Drug,Ingredient,426610008
+Protirelin,Drug,Ingredient,412495007
+Ibuprofen,Drug,Ingredient,387207008
+Diclofenac sodium,Drug,Ingredient,62039007
+Levothyroxine sodium anhydrous,Drug,Ingredient,783637002
+Losartan potassium,Drug,Ingredient,108582002
+Ramipril,Drug,Ingredient,386872004
+sildenafil,Drug,Ingredient,108482004
+loratadine,Drug,Ingredient,386884002
+glimepiride,Drug,Ingredient,386966003
+aspirin,Drug,Ingredient,387458008
+bisoprolol fumarate,Drug,Ingredient,386869006
+sitagliptin,Drug,Ingredient,423307000
+progesterone,Drug,Ingredient,16683002
+beta-carotene,Drug,Ingredient,103068006
+clotrimazole,Drug,Ingredient,387325003
+ethambutol hydrochloride,Drug,Ingredient,26346008
+lacosamide,Drug,Ingredient,441647003
+indapamide hemihydrate,Drug,Ingredient,725661001
+paracetamol,Drug,Ingredient,387517004
+Letrozole,Drug,Ingredient,386911004
+Sodium thiosulfate,Drug,Ingredient,387209006
+Neostigmine methylsulfate,Drug,Ingredient,87151005
+Remifentanil,Drug,Ingredient,108376001
+Coal tar,Drug,Ingredient,53034005
+Pregabalin,Drug,Ingredient,415160008
+Trastuzumab,Drug,Ingredient,387003001
+Aripiprazole,Drug,Ingredient,406784005
+Cajuput oil,Drug,Ingredient,13006004
+Eucalyptus oil,Drug,Ingredient,12510000
+Menthol,Drug,Ingredient,387414008
+Methyl salicylate,Drug,Ingredient,386988003
+Sweet birch oil,Drug,Ingredient,19900411000001105
+Liothyronine sodium,Drug,Ingredient,126204001
+Metformin hydrochloride,Drug,Ingredient,109083009
+Betamethasone valerate,Drug,Ingredient,396005002
+Temozolomide,Drug,Ingredient,387009002
+Isosorbide dinitrate,Drug,Ingredient,387332007
+Haloperidol,Drug,Ingredient,776172004
+Valaciclovir,Drug,Ingredient,777906008
+Topiramate,Drug,Ingredient,777808008
+Atomoxetine,Drug,Ingredient,774690000
+Bicalutamide,Drug,Ingredient,774854005
+Chlorhexidine,Drug,Ingredient,Chlorhexidine
+Isopropyl alcohol,Drug,Ingredient,Isopropyl alcohol
+Perampanel,Drug,Ingredient,777126008
+Trometamol,Drug,Ingredient,777873000
+Ibuprofen,Drug,Ingredient,776287003
+Melatonin,Drug,Ingredient,776664000
+Apple mistletoe,Drug,Ingredient,10562111000001106
+Mercuric sulfate,Drug,Ingredient,Mercuric sulfate
+Simvastatin,Drug,Ingredient,777537002
+Atracurium,Drug,Ingredient,774694009
+Arachis oil extract of crude coal tar,Drug,Ingredient,3513311000001102
+Cade oil,Drug,Ingredient,84270004
+Coal tar solution,Drug,Ingredient,3588411000001101
+Pine tar,Drug,Ingredient,69522000
+Amoxicillin trihydrate,Drug,Ingredient,96068000
+Potassium clavulanate,Drug,Ingredient,395938000
+Pyrazinamide,Drug,Ingredient,387076005
+Clobetasol propionate,Drug,Ingredient,32197004
+Etidronate disodium,Drug,Ingredient,387581008
+Ascorbic acid,Drug,Ingredient,43706004
+Cefradine,Drug,Ingredient,387091007
+Alverine citrate,Drug,Ingredient,91023007
+Hepar sulfuris,Drug,Ingredient,9877311000001104
+Lidocaine hydrochloride,Drug,Ingredient,61773008
+Glucose anhydrous,Drug,Ingredient,768547002
+Glyceryl trinitrate,Drug,Ingredient,387404004
+Phenoxybenzamine hydrochloride,Drug,Ingredient,44293009
+Celiprolol hydrochloride,Drug,Ingredient,395874008
+Isosorbide mononitrate,Drug,Ingredient,386854005
+Phenytoin sodium,Drug,Ingredient,387416005
+Lidocaine,Drug,Ingredient,387480006
+Quinapril,Drug,Ingredient,386875002
+Benserazide,Drug,Ingredient,391822003
+Levodopa,Drug,Ingredient,387086006
+Memantine,Drug,Ingredient,426610008
+Rosuvastatin,Drug,Ingredient,406435003
+Desloratadine,Drug,Ingredient,396015008
+Glimepiride,Drug,Ingredient,386966003
+Midazolam,Drug,Ingredient,424521005
+Juzo Hostess class 2 (23-32mmHg) tights open toe lymphoedema garment standard size V Sesame 1 device,Device,Device,29643911000001103
+Sigvaris Advance 1 low compression (14-18mmHg) armsleeve lymphoedema garment normal small Black 1 device,Device,Device,19640111000001109
+Sigvaris Essential Comfortable class 2 (23-32mmHg) thigh length open toe with waist attachment lymphoedema garment long extra small left Caramel 1 device,Device,Device,24789611000001107
+Haddenham Star Cotton class 2 (23-32mmHg) thigh length closed toe with grip top lymphoedema garment extra wide regular size VII Black 2 device,Device,Device,20839911000001105
+AlgiSorb dressing 10cm x 10cm 1 dressing,Device,Device,22116811000001102
+Sigvaris Essential Thermoregulating Maxi class 3 (34-46mmHg) below knee closed toe lymphoedema garment long medium Anthracite 2 device,Device,Device,22006111000001102
+Jobst Opaque class 2 (23-32mmHg) thigh length open toe with dotted silicone band lymphoedema garment standard petite size V Natural 2 device,Device,Device,21082511000001108
+Optiray 240 solution for infusion 50ml bottles 10 bottle,Device,Device,7980311000001108
+Fortisip Compact liquid banana 125 ml,Device,Device,15890411000001108
+Juzo Soft custom fit class 2 (23-32mmHg) below knee open toe with silicone top band lymphoedema garment Sesame 1 device,Device,Device,28251511000001107
+Elastane made to measure pantie brief Fit 15c 1 device,Device,Device,9731911000001107
+Sigvaris CompreBoot (30-40mmHg) standard foot lymphoedema garment long extra large/XX large Beige 1 device,Device,Device,35730211000001100
+Glucosamine sulfate 1g capsules 90 capsule,Device,Device,17252111000001102
+Jobst UltraSheer class 1 (18-21mmHg) tights closed toe lymphoedema garment regular size III Black 1 device,Device,Device,25305111000001105
+Anatera 500mg/5ml solution for injection vials 12 vial,Device,Device,28023911000001109
+Jobst Opaque class 2 (23-32mmHg) thigh length open toe with dotted silicone band lymphoedema garment wide petite size I Navy 2 device,Device,Device,21087511000001106
+"Confidence BE soft convex colostomy bag with filter and overlap, standard XB32ST 32mm Stone 10 device",Device,Device,37312311000001101
+Haddenham Veni class 2 (23-32mmHg) tights open toe lymphoedema garment short size VI Slate 1 device,Device,Device,27106511000001104
+Dietary Specials gluten free brown multigrain loaf sliced 400 gram,Device,Device,5234011000001107
+Juzo Dynamic Cotton class 2 (23-32mmHg) thigh length closed toe with silicone top band lymphoedema garment wide standard size V Black pepper 2 device,Device,Device,27921711000001107
+Sigvaris 700 class 1 (18-21mmHg) thigh length open toe with waist attachment lymphoedema garment short large plus right Crispa 1 device,Device,Device,13527511000001107
+Juzo Dynamic class 2 (23-32mmHg) thigh length open toe with waist attachment lymphoedema garment right extra short size III Almond 1 device,Device,Device,31810611000001109
+Sigvaris Essential Thermoregulating class 1 (18-21mmHg) thigh length open toe with waist attachment lymphoedema garment short extra small right plus Black 1 device,Device,Device,30408111000001102
+Skinnies AM vest sleeveless 6-24 months Ecru 1 device,Device,Device,37195211000001109
+NovaLife TRE 1 soft convex ileostomy bag maxi 3083-30 30mm Beige 10 device,Device,Device,35422011000001100
+Juzo Soft class 1 (18-21mmHg) armsleeve with silicone border max lymphoedema garment size V Black pepper 1 device,Device,Device,34284211000001102
+Juzo Dynamic custom fit class 2 (23-32mmHg) one-legged panty closed toe lymphoedema garment Sesame 1 device,Device,Device,28186311000001103
+Ribbed cotton and viscose surgical tubular stockinette BP 1988 type A lightweight 25cm 5 m,Device,Device,1649411000001103
+WoundASSIST TNP dressing pack small/medium 1 kit,Device,Device,13728511000001105
+Juzo Dynamic Cotton class 2 (23-32mmHg) below knee open toe with silicone top band lymphoedema garment standard size III Sesame 2 device,Device,Device,27613211000001106
+Sigvaris Advance 2 medium compression (20-25mmHg) armsleeve with grip top lymphoedema garment normal medium plus size Black 1 device,Device,Device,19649211000001105
+Greenlan lancets 0.35mm/28gauge 200 lancet,Device,Device,19782111000001108
+Haddenham Veni class 1 (18-21mmHg) tights closed toe lymphoedema garment regular size VII Grey 1 device,Device,Device,25979011000001109
+SpiritCare hydrophilic catheter male 18Ch SH-CC028 30 catheter,Device,Device,39768511000001103
+Sigvaris Essential Thermoregulating class 1 (18-21mmHg) thigh length open toe with waist attachment lymphoedema garment short XX small right Nature (Sigvaris Britain Ltd) 1 device,Device,Device,30376611000001105
+Freedom Folatex latex catheter male 14Ch 41-515-26 10ml balloon (Mentor Medical Ltd) 1 catheter,Device,Device,6408111000001109
+Haddenham Veni class 3 (34-46mmHg) below knee open toe lymphoedema garment regular size I Beige (Haddenham Healthcare Ltd) 2 device,Device,Device,14383211000001108
+Sigvaris Essential Thermoregulating class 2 (23-32mmHg) thigh length closed toe with waist attachment lymphoedema garment long extra large left plus Black (Sigvaris Britain Ltd) 1 device,Device,Device,30669311000001109
+Juzo Inspiration custom fit class 1 (18-21mmHg) thigh length open toe with silicone top band lymphoedema garment Blueberry (Juzo UK Ltd) 1 device,Device,Device,28210711000001103
+Beta two piece ostomy system bag 32-294-16 (Mentor Medical Ltd) 90 device,Device,Device,5918011000001105
+Medisafe dressing 9cm x 25cm (Neomedic Ltd) 20 dressing,Device,Device,9115311000001106
+Nutrison Energy liquid (Nutricia Ltd) 500 ml 1 x 500ml pack,Device,Device,1704911000001106
+SMA Little Steps First Infant milk powder (SMA Nutrition) 800 gram,Device,Device,37043311000001102
+Haddenham Veni class 3 (34-46mmHg) below knee open toe lymphoedema garment extra wide long size V Pearl (Haddenham Healthcare Ltd) 2 device,Device,Device,26912511000001100
+Cutimed Siltec Sorbact B dressing 15cm x 15cm (Essity UK Ltd) 1 dressing,Device,Device,21739811000001105
+Juzo Inspiration class 1 (18-21mmHg) below knee closed toe with silicone top band lymphoedema garment short size IV Poppy seed (Juzo UK Ltd) 2 device,Device,Device,29067211000001104
+Juzo Hostess class 1 (18-21mmHg) thigh length closed toe lymphoedema garment short size II Nutmeg (Juzo UK Ltd) 2 device,Device,Device,24881211000001106
+Chailey male urinal with rubber bag WP100-01-P (Jade-Euro-Med) 1 device,Device,Device,7084911000001105
+Juzo Hostess class 1 (18-21mmHg) thigh length open toe lymphoedema garment extra short size VI Sesame (Juzo UK Ltd) 2 device,Device,Device,32227311000001103
+Juzo Inspiration class 1 (18-21mmHg) below knee closed toe with silicone top band lymphoedema garment extra short size III Blueberry 2 device,Device,Device,31181911000001103
+Promin low protein cheese sauce mix 225 gram,Device,Device,23435211000001108
+Haddenham Veni class 3 (34-46mmHg) thigh length open toe with grip top lymphoedema garment extra wide short size II Sahara 2 device,Device,Device,27434811000001102
+Juzo Inspiration class 2 (23-32mmHg) below knee closed toe with silicone top band lymphoedema garment extra short size II Poppy seed 2 device,Device,Device,31430811000001108
+Haddenham Veni class 2 (23-32mmHg) below knee closed toe lymphoedema garment extra wide short size III White 2 device,Device,Device,26528511000001104
+Aquacel Ag Extra dressing 20cm x 30cm rectangular 1 dressing,Device,Device,21815111000001105
+SensaCath hydrophilic catheter male Tiemann tip 16Ch PSCT16 30 catheter,Device,Device,41104411000001106
+Dipeptiven 10g/50ml concentrate for solution for infusion bottles 10 bottle,Device,Device,30836511000001107
+Altiven class 2 (23-32mmHg) thigh length open toe lymphoedema garment extra wide regular size II Soft beige 2 device,Device,Device,16858211000001101
+Aymes Shake powder 57g sachets 7 sachet,Device,Device,35171211000001101
+Juzo Soft custom fit class 1 (18-21mmHg) thigh length open toe with silicone top band lymphoedema garment Sesame 1 device,Device,Device,28027611000001106
+Juzo Dynamic class 3 (34-46mmHg) thigh length open toe with silicone top band lymphoedema garment standard size III Black pepper 2 device,Device,Device,22978411000001105
+Advasoft bandage 10cm x 3.5m (Advancis Medical) 1 bandage,Device,Device,9623111000001101
+GluNEO blood glucose monitoring system (Neon Diagnostics Ltd) 1 device,Device,Device,42666411000001102
+Cuiwear female urostomy support shortie central size 22 BS65 White (CUI International) 1 device,Device,Device,17713711000001106
+Clinitas Eye Compress (The Body Doctor Ltd) 1 device,Device,Device,32676211000001105
+Haddenham Veni class 3 (34-46mmHg) below knee open toe lymphoedema garment regular size VIII American tan (Haddenham Healthcare Ltd) 2 device,Device,Device,26665711000001103
+Juzo Dynamic class 2 (23-32mmHg) thigh length closed toe lymphoedema garment short size V Poppy seed (Juzo UK Ltd) 2 device,Device,Device,33340411000001108
+Venoflex Micro class 1 (18-21mmHg) thigh length open toe with dotted silicone band lymphoedema garment long size 5 Mode (Thuasne UK Ltd) 2 device,Device,Device,36009611000001102
+Altiven class 1 (18-21mmHg) tights open toe lymphoedema garment regular size II Soft beige (Altimed Ltd) 1 device,Device,Device,16856711000001109
+Juzo Expert Strong custom fit class 2 (23-32mmHg) foot with open toe lymphoedema garment Red (Juzo UK Ltd) 1 device,Device,Device,23866211000001103
+Soft Simplastic PVC catheter male 22Ch DT4416 30ml balloon (Rusch UK Ltd) 1 catheter,Device,Device,6641111000001106
+ActivHeal PHMB Foam Silicone Border dressing 12.5cm x 12.5cm (Advanced Medical Solutions Ltd) 1 dressing,Device,Device,40248211000001103
+Juzo Dynamic Cotton class 1 (18-21mmHg) below knee closed toe with silicone top band lymphoedema garment short size VI Black pepper (Juzo UK Ltd) 2 device,Device,Device,26282311000001108
+Sigvaris Essential Thermoregulating class 1 (18-21mmHg) panty closed toe lymphoedema garment normal XX small plus Nature (Sigvaris Britain Ltd) 1 device,Device,Device,30682711000001100
+Juzo Inspiration class 2 (23-32mmHg) thigh length open toe with silicone top band lymphoedema garment extra short size V Poppy seed (Juzo UK Ltd) 2 device,Device,Device,31624711000001107
+Haddenham Doktus class 2 (23-32mmHg) armsleeve with grip top lymphoedema garment extra wide long small Black (Haddenham Healthcare Ltd) 1 device,Device,Device,14117811000001107
+Juzo Dynamic class 2 (23-32mmHg) thigh length open toe with waist attachment lymphoedema garment left standard size V Blueberry,Device,Device,33412711000001100
+Juzo Intenso class 3 (34-46mmHg) below knee open toe with silicone top band lymphoedema garment standard size V Black pepper,Device,Device,43511911000001103
+Haddenham Veni class 2 (23-32mmHg) tights open toe lymphoedema garment regular size I Smoke,Device,Device,27127311000001104
+Juzo Soft class 2 (23-32mmHg) armsleeve with silicone border lymphoedema garment size III Nutmeg,Device,Device,34295511000001102
+OA Reaction Web knee brace right medial/left lateral size XX large,Device,Device,39766511000001104
+Juzo Soft class 2 (23-32mmHg) thigh length open toe with waist attachment lymphoedema garment right short size VI Sesame,Device,Device,25066411000001106
+Haddenham Veni class 1 (18-21mmHg) thigh length open toe with grip top lymphoedema garment regular size VII White,Device,Device,26317811000001108
+"Conform 2 two piece ostomy system FlexWear convex floating flange with adhesive border 25300 55mm flange, cut to fit 13mm-38mm",Device,Device,5834011000001104
+Biotrol Almarys Twin+ two piece ostomy system colostomy bag with filter 037260E 60mm Beige,Device,Device,5814211000001101
+K+IC sheath 103.32 32mm,Device,Device,7005011000001106
+Juzo Hostess class 1 (18-21mmHg) tights open toe lymphoedema garment standard size II Blueberry,Device,Device,29561011000001102
+Skinnies Viscose stockinette vest long sleeve small adult Black,Device,Device,34689711000001108
+Build-up nutritious soup oral powder 49g sachets chicken,Device,Device,10361111000001104
+Sigvaris Essential Comfortable class 2 (23-32mmHg) thigh length closed toe with waist attachment lymphoedema garment short medium right Skin,Device,Device,18946611000001102
+Juzo Hostess class 2 (23-32mmHg) thigh length closed toe with silicone top band lymphoedema garment wide short size VI Sesame,Device,Device,24942411000001104
+Dressfilm dressing 15cm x 20cm,Device,Device,18989611000001103
+Juzo Move class 1 (18-21mmHg) below knee closed toe with silicone balance border lymphoedema garment standard size V Black pepper,Device,Device,38284311000001106
+Cuiwear female ostomy support briefs twin size 24 CF57 Black,Device,Device,10949611000001107
+Sigvaris Essential Thermoregulating class 3 (34-46mmHg) thigh length closed toe with grip top lymphoedema garment normal medium plus Black,Device,Device,30489911000001106
+Juzo Dynamic class 3 (34-46mmHg) thigh length open toe with waist attachment lymphoedema garment left short size I Blueberry,Device,Device,33277811000001100
+Haddenham Veni class 2 (23-32mmHg) thigh length closed toe with grip top lymphoedema garment short size V Grey,Device,Device,26848911000001107
+Haddenham Venex class 2 (23-32mmHg) armsleeve with grip top and mitten lymphoedema garment extra wide regular large Beige,Device,Device,14147311000001107
+Aymes ActaSolve High Energy powder 85g sachets chocolate,Device,Device,35529911000001104
+Mediven harmony class 1 (15-21mmHg) armsleeve lymphoedema garment extra wide regular size VII Sand,Device,Device,24041211000001101
+Juzo Move class 2 (23-32mmHg) below knee open toe lymphoedema garment extra short size I Poppy seed,Device,Device,44202211000001106
+Haddenham Veni class 1 (18-21mmHg) below knee closed toe lymphoedema garment regular size I Beige,Device,Device,14283211000001102
+Cuiwear male urostomy support trunks central medium LT32 Navy,Device,Device,17725311000001104
+Parafricta boxer XX large White,Device,Device,32948711000001102
+Spring truss inguinal rat-tail single left 91cm,Device,Device,8943011000001102
+Haddenham Veni class 1 (18-21mmHg) tights open toe lymphoedema garment long size VIII White 1 device,Device,Device,26136011000001101
+KoCarbon Occlusive dressing 4cm x 6.5cm 1 dressing,Device,Device,28388411000001101
+Juzo Dynamic class 1 (18-21mmHg) combined armsleeve with silicone border lymphoedema garment size I Sesame 1 device,Device,Device,32530211000001101
+HiLINE Activ medium support hernia belt without lace front for right side stoma large Res 9ar 57mm-70mm White 1 device,Device,Device,23539211000001104
+Suspender belt Large 1 device,Device,Device,8931211000001109
+CliniMed clamp 3750 1 device,Device,Device,6877211000001103
+Antistatic Space Chamber Plus with small mask 1 device,Device,Device,34204211000001103
+Juzo Move class 3 (34-46mmHg) below knee closed toe with silicone balance border lymphoedema garment extra short size VI Sugar 2 device,Device,Device,44382111000001105
+Solidea Catherine class 1 (18-21mmHg) thigh length open toe lymphoedema garment medium Nero 2 device,Device,Device,31083711000001105
+Suportx breathable tube ostomy belt small SPX584S 20cm depth Skin 1 device,Device,Device,34394911000001101
+Gloria Med Strong class 3 (34-46mmHg) thigh length open toe with waist attachment max lymphoedema garment short large left Beige 1 device,Device,Device,33954311000001102
+Juzo Hostess class 1 (18-21mmHg) tights closed toe lymphoedema garment standard size III Blueberry 1 device,Device,Device,32141311000001105
+Juzo Classic Seamless class 2 (23-32mmHg) combined armsleeve with grip top and mitten max lymphoedema garment size 1 Black pepper 1 device,Device,Device,40435611000001109
+Sigvaris Essential Thermoregulating class 3 (34-46mmHg) thigh length closed toe with waist attachment lymphoedema garment long small left Nature 1 device,Device,Device,30510911000001107
+SOS Rehydrate oral powder sachets watermelon 8 sachet,Device,Device,42791411000001100
+Juzo Dynamic Cotton class 2 (23-32mmHg) thigh length open toe with silicone top band lymphoedema garment wide standard size III Black pepper 2 device,Device,Device,27911711000001104
+Haddenham Veni class 1 (18-21mmHg) below knee closed toe lymphoedema garment short size III Navy 2 device,Device,Device,25822511000001102
+Jobst UltraSheer class 2 (23-32mmHg) thigh length open toe with lace silicone band lymphoedema garment standard petite size I Caramel 2 device,Device,Device,25484311000001102
+Juzo Move class 2 (23-32mmHg) below knee open toe lymphoedema garment short size VI Sugar 2 device,Device,Device,44511411000001109
+Mediven Plus class 1 (18-21mmHg) thigh length closed toe with silicone top band lymphoedema garment petite size V Beige 2 device,Device,Device,41016111000001101
+LoFric Hydro-Kit catheter male non PVC 16Ch 42016253 20 catheter,Device,Device,22982411000001101
+Jobst Opaque class 2 (23-32mmHg) thigh length closed toe with dotted silicone band lymphoedema garment wide regular size I Natural 2 device,Device,Device,17764911000001109
+Uriflex SP sodium chloride 0.9% catheter maintenance solution GR026 100 ml,Device,Device,7593111000001106
+Haddenham Star Cotton class 2 (23-32mmHg) below knee open toe lymphoedema garment short size III Black 2 device,Device,Device,20780611000001104
+Haddenham Veni class 2 (23-32mmHg) below knee closed toe lymphoedema garment regular size IV Smoke 2 device,Device,Device,26605111000001100
+GA gel oral powder 24g sachets 30 sachet,Device,Device,19209811000001104
+Juzo Move class 1 (18-21mmHg) below knee closed toe lymphoedema garment short size VI Black pepper 2 device,Device,Device,38277411000001101
+Comfizz Level I waistband with silicone grip small/medium WBS/M-si Black 1 device,Device,Device,35077511000001103
+Juzo Hostess class 1 (18-21mmHg) thigh length open toe lymphoedema garment short size IV Cinnamon 2 device,Device,Device,29283711000001107
+Juzo Hostess class 2 (23-32mmHg) thigh length closed toe with silicone top band lymphoedema garment wide standard size I Blueberry 2 device,Device,Device,28861811000001106
+Juzo Dynamic class 3 (34-46mmHg) below knee closed toe lymphoedema garment short size I Black pepper 2 device,Device,Device,23177211000001104
+Juzo Hostess class 1 (18-21mmHg) thigh length open toe lymphoedema garment extra short size V Almond 2 device,Device,Device,32322111000001105
+Juzo Dynamic class 2 (23-32mmHg) armsleeve max lymphoedema garment size IV Sesame 1 device,Device,Device,32540211000001100
+Jobst UltraSheer class 2 (23-32mmHg) below knee closed toe lymphoedema garment petite size VI Black 2 device,Device,Device,25329811000001107
+VenoTrain Micro class 1 (18-21mmHg) thigh length open toe with silicone top band lymphoedema garment normal short large Black 2 device,Device,Device,17146011000001104
+Ceretec 500microgram kit for radiopharmaceutical preparation 5 vial,Device,Device,39845011000001105
+Sigvaris Active Masculine class 2 (23-32mmHg) below knee closed toe lymphoedema garment long XX small Black 2 device,Device,Device,29796511000001103
+Fluorescein 88.3mg/2ml solution for injection ampoules 10 ampoule,Device,Device,11127511000001108
+Fulcionel ostomy/hernia support tube belt medium F815W 20cm depth White 1 device,Device,Device,35683511000001107
+Juzo Hostess class 1 (18-21mmHg) tights open toe lymphoedema garment standard size II Poppy seed 1 device,Device,Device,29562011000001105
+Brava Coloplast strip paste 2655 10 device,Device,Device,6931811000001102
+Haddenham Veni class 2 (23-32mmHg) tights closed toe lymphoedema garment short size VI Black 1 device,Device,Device,14856411000001106
+Provide Xtra liquid blackcurrant 800 ml 4 x 200ml bottles,Device,Device,19944211000001107
+Absorb odour neutralising absorbent gel 3g sachets 30 sachet PFW5,Device,Device,7056011000001108
+"Easiflex Soft Seal two piece ostomy system convex baseplate 14641 35mm flange, 18mm stoma 5 device",Device,Device,8163311000001106
+Juzo Dynamic Cotton class 2 (23-32mmHg) below knee open toe with silicone top band lymphoedema garment short size VI Black pepper 2 device,Device,Device,27614811000001105
+Haddenham EasyWrap Light (20-30mmHg) foot lymphoedema garment regular medium Sand 1 device,Device,Device,34475711000001101
+Sigvaris Style Transparent (15-20mmHg) below knee closed toe lymphoedema garment long XX large Beige One 2 device,Device,Device,38398811000001104
+Haddenham Venex class 2 (23-32mmHg) armsleeve with grip top and mitten lymphoedema garment extra wide long medium Smoke 1 device,Device,Device,25717011000001103
+Sigvaris Essential Comfortable class 2 (23-32mmHg) panty closed toe lymphoedema garment normal XX small plus Savannah 1 device,Device,Device,28565111000001101
+Juzo Expert custom fit class 1 (18-21mmHg) thigh length lymphoedema garment Red 1 device,Device,Device,23800911000001105
+Nature's Best Glucosamine 500mg/5ml liquid 1000 ml,Device,Device,17073311000001103
+"Biotrol Almarys Twin two piece ostomy system convex baseplate F031362E 60mm flange, 37mm stoma 5 device",Device,Device,5794811000001103

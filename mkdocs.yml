@@ -16,6 +16,7 @@ nav:
   - Notebooks:
       - Exact mapping: notebooks/01_evaluate_exact_mapping.ipynb
       - Hierachy mapping: notebooks/02_evaluate_hierarchy.ipynb
+      - Drug mapping: notebooks/03_map_drugs.ipynb
 
 extra_css:
   - stylesheets/extra.css
