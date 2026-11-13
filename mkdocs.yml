@@ -7,6 +7,9 @@ plugins:
   - search
   - mkdocstrings:
       default_handler: python
+      handlers:
+        python:
+          paths: [src]
   - mkdocs-autoapi:
       autoapi_dir: src
   - mkdocs-jupyter
