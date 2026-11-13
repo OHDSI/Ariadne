@@ -89,7 +89,8 @@ def test_add_source_context_overwrites_preexisting_context_columns():
     assert enriched.iloc[0]["source_parents"] == "Inflammatory disease;Genital disorder"
 
 
-def test_add_source_context_raises_on_missing_candidate_keys():    retriever = SourceContextRetriever(_context_frame())
+def test_add_source_context_raises_on_missing_candidate_keys():
+    retriever = SourceContextRetriever(_context_frame())
     candidates = pd.DataFrame({"source_vocabulary_id": ["ICD10CM"]})
 
     with pytest.raises(ValueError, match="source_concept_code"):

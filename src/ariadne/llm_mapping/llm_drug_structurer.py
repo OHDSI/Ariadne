@@ -148,7 +148,7 @@ class NormalizedDrugStructureResult:
 
 
 def _normalize_optional_text(value: Any) -> str | None:
-    if value is None:
+    if value is None or pd.isna(value):
         return None
     normalized = str(value).strip()
     if not normalized:
@@ -202,7 +202,7 @@ def normalize_structured_drugs(structured: DrugStructureResult) -> NormalizedDru
             {
                 "concept_name": row.get("full_product_name"),
                 "domain_id": "Drug",
-                "concept_class_id": "Drug Product",
+                "concept_class_id": "Branded Drug" if brand_name else "Clinical Drug",
                 "concept_code": drug_code,
             }
         )
@@ -811,5 +811,3 @@ class LlmDrugStructurer:
 
     def get_total_cost(self) -> float:
         return self._cost
-
-
