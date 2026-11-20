@@ -39,6 +39,37 @@ class TermNormalizer:
             print("Please run: python -m spacy download en_core_web_sm")
             raise
 
+    def _preprocess(self, term: str) -> str:
+        """
+        Applies steps 1-4 of the normalization pipeline (everything before spaCy lemmatization).
+
+        Shared by normalize_term and normalize_terms so single and batch normalization always agree.
+
+        Args:
+            term: The clinical term string to preprocess.
+        Returns:
+            The preprocessed term string.
+        """
+        # 1. Convert to lowercase
+        term = term.lower()
+
+        # 2. Remove possessive 's at the end of a word
+        # This handles "Alzheimer's disease" -> "Alzheimer disease"
+        term = re.sub(r"(\w)'s\b", r"\1", term)
+
+        # 3. Remove specific non-informative substrings
+        informative_substring = term
+        for sub in self.substrings_to_remove:
+            informative_substring = informative_substring.replace(sub, " ")
+        if informative_substring.strip() == "":
+            # If the term becomes empty after removing non-informative substrings, keep the original term
+            informative_substring = term
+        term = informative_substring
+
+        # 4. Remove all punctuation (replace with a space)
+        # This handles "liver-disorder" and "liver, disorder"
+        return re.sub(r"[^\w\s]", " ", term)
+
     def normalize_term(self, term: str) -> str:
         """
         Normalizes a clinical term string for high-precision matching.
@@ -61,27 +92,8 @@ class TermNormalizer:
         Returns:
             The normalized term string.
         """
-        # 1. Convert to lowercase
-        term = term.lower()
-
-        # 2. Remove possessive 's at the end of a word
-        # This handles "Alzheimer's disease" -> "Alzheimer disease"
-        # It finds a word character (\w) followed by 's and a word boundary (\b),
-        # and replaces the whole thing with just the captured word character (group 1).
-        term = re.sub(r"(\w)'s\b", r"\1", term)
-
-        # 3. Remove specific non-informative substrings
-        informative_substring = term
-        for sub in self.substrings_to_remove:
-            informative_substring = informative_substring.replace(sub, ' ')
-        if informative_substring.strip() == '':
-            # If the term becomes empty after removing non-informative substrings, keep the original term
-            informative_substring = term
-        term = informative_substring
-
-        # 4. Remove all punctuation (replace with a space)
-        # This handles "liver-disorder" and "liver, disorder"
-        term = re.sub(r'[^\w\s]', ' ', term)
+        # Steps 1-4: lowercase, strip possessives, remove non-informative substrings, remove punctuation
+        term = self._preprocess(term)
 
         # 5. Tokenize and lemmatize using spaCy
         doc = self.nlp(term)
@@ -109,15 +121,8 @@ class TermNormalizer:
         Returns:
             List of normalized term strings in the same order as the input.
         """
-        # Pre-process steps 1-4 before sending to spaCy
-        preprocessed = []
-        for term in terms:
-            t = term.lower()
-            t = re.sub(r"(\w)'s\b", r"\1", t)
-            for sub in self.substrings_to_remove:
-                t = t.replace(sub, ' ')
-            t = re.sub(r'[^\w\s]', ' ', t)
-            preprocessed.append(t)
+        # Pre-process steps 1-4 before sending to spaCy (shared with normalize_term so both give identical output)
+        preprocessed = [self._preprocess(term) for term in terms]
 
         # Use spaCy's built-in batch processing; n_process>1 enables multiprocessing.
         results = []
